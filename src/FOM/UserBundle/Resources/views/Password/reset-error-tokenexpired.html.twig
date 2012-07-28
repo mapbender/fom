@@ -1,0 +1,19 @@
+{% extends "FOMManagerBundle::backend.html.twig" %}
+
+{% block title %}Password Reset{% endblock %}
+
+{% block content %}
+<div class="hero-unit">
+    <h1>{% trans %}Sorry.{% endtrans %}</h1>
+{% trans %}
+    <p>Your registration token has expired. Unfortunately, you will have to request a new token.
+{% endtrans %}
+    <form action="{{ path('fom_user_password_tokenreset', {'token': user.resettoken}) }}" method="post">
+        {{ form_widget(form) }}
+        <button class="btn btn-primary">Request new token</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

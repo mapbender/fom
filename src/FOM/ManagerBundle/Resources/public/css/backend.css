@@ -1,0 +1,12 @@
+html, body, #sidebar, #content {
+    height: 100%;
+}
+
+body {
+}
+
+#wrapper {
+    width: 50%;
+    max-width: 55em;
+    margin: 3em auto;
+}

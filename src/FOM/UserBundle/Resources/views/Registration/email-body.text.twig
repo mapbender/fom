@@ -1,0 +1,2 @@
+{{'Hallo %user_username%, You have just recently registered. To conclude your registration, please, call in your browser the link %url%.'|
+trans({'%user_username%': user.username,'%url%': url('fom_user_registration_confirm', { 'token': user.registrationtoken })})|raw }}

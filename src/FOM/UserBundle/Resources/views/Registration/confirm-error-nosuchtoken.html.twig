@@ -1,0 +1,16 @@
+{% extends "FOMManagerBundle::backend.html.twig" %}
+
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+<div class="hero-unit">
+    <h1>{% trans %}Sorry.{% endtrans %}</h1>
+{% trans with {'%site_email%': site_email} %}
+    <p>No such token can be found. If you think this is an error, please contact the
+    <a href="mailto:%site_email%">site administrator</a>.</p>
+{% endtrans %}
+</div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

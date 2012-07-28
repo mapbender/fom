@@ -1,0 +1,28 @@
+{% extends "FOMManagerBundle::backend.html.twig" %}
+
+{% block title %}{{ 'Login' | trans}}{% endblock %}
+
+{% block wrapperclass %}hero-unit{% endblock %}
+
+{% block content %}
+    <h1>{{ 'Hello, please log in' | trans}}.</h1>
+    <form action="{{ path("fom_user_login_logincheck") }}" method="post" id="login">
+        {% if error %}
+        <div class="alert alert-error">{{ error.message }}</div>
+        {% endif %}
+
+        <label for="username">{{ 'Username' | trans}}</label>
+        <input id="username" type="text" name="_username" value="{{ last_username }}" autofocus />
+
+        <label for="password">{{ 'Password' | trans}}</label>
+        <div class="input-append">
+            <input type="password" id="password" name="_password" /><input type="submit" class="btn btn-primary" value="{{ 'Login' | trans}}" />
+        </div>
+    </form>
+    {% if selfregister == true %}
+    <a href="{{ path('fom_user_registration_form') }}">{{ 'Register' | trans}}</a> |
+    {% endif %}
+    <a href="{{ path('fom_user_password_form') }}">{{ 'Forgot password' | trans}}?</a>
+</div>
+{% endblock %}
+

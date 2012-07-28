@@ -1,0 +1,21 @@
+{% extends "FOMManagerBundle::backend.html.twig" %}
+
+{% block title %}Registration{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/fomuser/login.css') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="hero-unit">
+    <h1>{% trans %}Please provide your information{% endtrans %}</h1>
+{{ form_errors(form) }}
+<form action="{{ path('fom_user_registration_register') }}" method="post" {{ form_enctype(form) }} autocomplete="off">
+    {{ form_widget(form) }}
+
+    <button class="btn btn-primary">{% trans %}Submit{% endtrans %}</button>
+</form>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

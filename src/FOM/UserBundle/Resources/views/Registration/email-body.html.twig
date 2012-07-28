@@ -1,0 +1,2 @@
+{{'<p>Hallo %user_username%,</p><p>You have just recently registered.To conclude your registration, please, click please <a href="%url%">here</a>.</p>'|
+trans({'%user_username%': user.username,'%url%': url('fom_user_registration_confirm', { 'token': user.registrationtoken })})|raw }}
