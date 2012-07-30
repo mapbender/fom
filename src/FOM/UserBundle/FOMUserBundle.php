@@ -11,5 +11,22 @@ use FOM\ManagerBundle\Component\ManagerBundle;
  */
 class FOMUserBundle extends ManagerBundle
 {
+    /**
+     * @inheritdoc
+     */
+    public function getManagerControllers()
+    {
+        return array(
+            array(
+                'title' => 'Users',
+                'weight' => 5,
+                'route' => 'fom_user_user_index',
+                'routes' => array(
+                    'fom_user_user',
+                    'fom_user_role'
+                )
+            )
+        );
+    }
 }
 

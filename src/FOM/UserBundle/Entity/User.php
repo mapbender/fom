@@ -284,7 +284,7 @@ class User implements AdvancedUserInterface {
      */
     public function getRoles() {
         $roles = $this->roles->toArray();
-        $roles[] = 'ROLE_MB3_USER';
+        $roles[] = 'ROLE_USER';
         return $roles;
     }
 
