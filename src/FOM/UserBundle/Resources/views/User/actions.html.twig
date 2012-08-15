@@ -1,0 +1,12 @@
+{% set actions = {
+    'create': {
+        'url': url('fom_user_user_new'),
+        'title': 'Create new user',
+        'attr': {
+            'class': 'btn btn-primary'
+        }
+    }
+}
+%}
+{% include "FOMManagerBundle:Manager:actions.html.twig" %}
+
