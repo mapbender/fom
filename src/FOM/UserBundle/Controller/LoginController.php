@@ -17,7 +17,6 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 
 use FOM\UserBundle\Entity\User;
-use FOM\UserBundle\Form\Type\UserType;
 
 /**
  * User controller.

@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormError;
 
 use FOM\UserBundle\Entity\User;
-use FOM\UserBundle\Form\Type\UserType;
+use FOM\UserBundle\Form\Type\UserRegistrationType;
 use FOM\UserBundle\Form\Type\UserForgotPassType;
 use FOM\UserBundle\Security\UserHelper;
 
@@ -59,7 +59,7 @@ class RegistrationController extends Controller
     public function formAction()
     {
         $user = new User();
-        $form = $this->createForm(new UserType(), $user);
+        $form = $this->createForm(new UserRegistrationType(), $user);
 
         return array(
             'user' => $user,
@@ -77,7 +77,7 @@ class RegistrationController extends Controller
     public function register()
     {
         $user = new User();
-        $form = $this->createForm(new UserType(), $user);
+        $form = $this->createForm(new UserRegistrationType(), $user);
         $form->bindRequest($this->get('request'));
 
         //@TODO: Check if username and email are unique

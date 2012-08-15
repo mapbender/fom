@@ -10,7 +10,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormError;
 
 use FOM\UserBundle\Entity\User;
-use FOM\UserBundle\Form\Type\UserType;
 use FOM\UserBundle\Form\Type\UserForgotPassType;
 use FOM\UserBundle\Form\Type\UserResetPassType;
 use FOM\UserBundle\Security\UserHelper;
