@@ -19,7 +19,7 @@ class FOMUserBundle extends ManagerBundle
         return array(
             array(
                 'title' => 'Users',
-                'weight' => 5,
+                'weight' => 100,
                 'route' => 'fom_user_user_index',
                 'routes' => array(
                     'fom_user_user',

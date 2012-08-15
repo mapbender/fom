@@ -17,6 +17,9 @@ class FOMUserExtension extends Extension {
         $container->setParameter("fom_user.max_reset_time", intval($config["max_reset_time"]));
         $container->setParameter("fom_user.mail_from_name", $config["mail_from_name"]);
         $container->setParameter("fom_user.mail_from_address", $config["mail_from_address"]);
+
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('security.xml');
     }
 
     public function getAlias() {

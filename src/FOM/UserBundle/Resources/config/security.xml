@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="fom_user.security.access.rootaccount.voter.class">FOM\UserBundle\Security\Authorization\Voter\RootAccountVoter</parameter>
+    </parameters>
+
+    <services>
+        <service id="security.access.rootaccount.voter" class="%fom_user.security.access.rootaccount.voter.class%">
+            <argument type="service" id="service_container" strict="false" />
+            <tag name="security.voter" />
+        </service>
+    </services>
+</container>
+

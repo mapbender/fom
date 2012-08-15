@@ -58,7 +58,7 @@ class ManagerController extends Controller
             if(is_subclass_of($bundle, 'FOM\ManagerBundle\Component\ManagerBundle')) {
                 $controllers = $bundle->getManagerControllers();
                 if($controllers) {
-                    $manager_controllers += $controllers;
+                    $manager_controllers = array_merge($manager_controllers, $controllers);
                 }
             }
         }

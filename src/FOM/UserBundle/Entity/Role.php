@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
  * Role entity.
  *
  * @author Christian Wygoda
- * @ORM\Entity(repositoryClass="Mapbender\CoreBundle\Entity\Repository\RoleRepository")
+ * @ORM\Entity()
  * @ORM\Table(name="fom_role")
  */
 class Role implements RoleInterface {
