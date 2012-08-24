@@ -30,3 +30,22 @@ easy to set a comment security in your security.yml.
 You're still responsible to make sure the current user only has access to function he is allowed to use! The Manager
 does not take care of that and in the standard configuration will only enforce that the user is logged in - nothing
 more!
+
+To embed your controllers in the manager sidebar menu, you'r bundle has to be subclassed of the 
+FOM\ManagerBundle\Component\ManagerBundle class. The method getManagerControllers is then used to announce all menu
+entries. Each entries has the following properties:
+
+.. code-block:: php
+
+    array(
+        'title' => 'My Manager',                // Menu entry label
+        'weight' => 124,                        // Sorting weight for menu entry order
+        'route' => 'acme_demo_manager_index',   // Route to link the menu entry to
+        'routes' => array(                      // Array of route prefixes to match the menu against
+            'acme_demo_manager',
+            'acme_demo_admin'
+        )
+    )
+
+For a good example, check the FOM\UserBundle\FOMUserBundle class.
+
