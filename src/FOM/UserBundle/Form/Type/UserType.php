@@ -5,6 +5,7 @@ namespace FOM\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class UserType extends AbstractType
 {
@@ -23,26 +24,34 @@ class UserType extends AbstractType
             ->add('password', 'repeated', array(
                 'type' => 'password',
                 'invalid_message' => 'The password fields must match.',
+                'required' => $options['requirePassword'],
                 'options' => array(
-                    'required' => $options['requirePassword'],
-                    'label' => 'Password')))
-            ->add('roleObjects', 'entity', array(
-                'class' =>  'FOMUserBundle:Role',
-                'query_builder' => function(EntityRepository $er) {
-                    $qb = $er->createQueryBuilder('r')->orderBy('r.title', 'ASC');
-                    return $qb;
-                },
-                'expanded' => true,
-                'multiple' => true,
-                'property' => 'title',
-                'label' => 'Roles'));
+                    'label' => 'Password')));
+
+        //if($options['extendedEdit']) {
+            $builder
+                ->add('roleObjects', 'entity', array(
+                    'class' =>  'FOMUserBundle:Role',
+                    'query_builder' => function(EntityRepository $er) {
+                        $qb = $er->createQueryBuilder('r')
+                            ->add('where', "r.override <> 'IS_AUTHENTICATED_FULLY'")
+                            ->add('orderBy', 'r.title ASC');
+                        return $qb;
+                    },
+                    'expanded' => true,
+                    'multiple' => true,
+                    'property' => 'title',
+                    'label' => 'Roles'));
+        //}
 
     }
 
-    // TODO: Switch to setDefaultOptions (before Symfony 2.3)
-    public function getDefaultOptions()
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array('requirePassword' => true);
+        $resolver->setDefaults(array(
+            'requirePassword' => true,
+            'extendedEdit' => false
+        ));
     }
 }
 

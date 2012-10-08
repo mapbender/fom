@@ -9,6 +9,7 @@
 namespace FOM\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -86,7 +87,7 @@ class User implements AdvancedUserInterface {
 
     /**
      * @ORM\ManyToMany(targetEntity="Role", inversedBy="users")
-     * @ORM\JoinTable(name="mb_users_roles")
+     * @ORM\JoinTable(name="fom_users_roles")
      */
     protected $roles;
 
@@ -270,9 +271,9 @@ class User implements AdvancedUserInterface {
     /**
      * Add roles
      *
-     * @param Mapbender\CoreBundle\Entity\Role $roles
+     * @param FOM\UserBundle\Entity\Role $roles
      */
-    public function addRoles(\Mapbender\CoreBundle\Entity\Role $roles) {
+    public function addRoles(Role $roles) {
         $this->roles[] = $roles;
         return $this;
     }
@@ -336,6 +337,23 @@ class User implements AdvancedUserInterface {
     public function isEnabled()
     {
         return $this->registrationToken === null;
+    }
+
+    /**
+     * Checks whether the user is an admin for the given type (or is superadmin
+     * if type is omitted)
+     *
+     * @param string $type Type of admin to check
+     */
+    public function isAdmin($type = null)
+    {
+        if($this->getId() === 1) {
+            return true;
+        }
+
+        //$role = ($type !== null ? 'ROLE_ADMIN_' .$type : 'ROLE_ADMIN');
+
+        return false;
     }
 }
 

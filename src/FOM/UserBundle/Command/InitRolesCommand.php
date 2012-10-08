@@ -43,19 +43,17 @@ EOT
             $output->writeln(array(
                 '',
                 'The IS_AUTHENTICATED_FULLY role is already in the database.',
-                'Nothing to do. Good bye.',
                 ''));
+        } else {
+            $rootRole = new Role();
+            $rootRole
+                ->setTitle('Authenticated User')
+                ->setDescription('Authenticated users')
+                ->setOverride('IS_AUTHENTICATED_FULLY');
 
-            return;
+            $em->persist($rootRole);
         }
 
-        $rootRole = new Role();
-        $rootRole
-            ->setTitle('Authenticated User')
-            ->setDescription('')
-            ->setOverride('IS_AUTHENTICATED_FULLY');
-
-        $em->persist($rootRole);
         $em->flush();
 
         $output->writeln(array(

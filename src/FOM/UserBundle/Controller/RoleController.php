@@ -2,8 +2,8 @@
 
 namespace FOM\UserBundle\Controller;
 
-//use Mapbender\CoreBundle\Entity\Role;
-//use Mapbender\ManagerBundle\Form\Type\RoleType;
+use FOM\UserBundle\Entity\Role;
+use FOM\UserBundle\Form\Type\RoleType;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -27,7 +27,7 @@ class RoleController extends Controller {
      * @Template
      */
     public function indexAction() {
-        $roles = $this->getDoctrine()->getRepository('MapbenderCoreBundle:Role')
+        $roles = $this->getDoctrine()->getRepository('FOMUserBundle:Role')
             ->findAll();
 
         return array(
@@ -69,7 +69,7 @@ class RoleController extends Controller {
                 'The role has been saved.');
 
             return $this->redirect(
-                $this->generateUrl('mapbender_manager_role_index'));
+                $this->generateUrl('fom_user_role_index'));
         }
 
         return array(
@@ -83,7 +83,7 @@ class RoleController extends Controller {
      * @Template
      */
     public function editAction($id) {
-        $role = $this->getDoctrine()->getRepository('MapbenderCoreBundle:Role')
+        $role = $this->getDoctrine()->getRepository('FOMUserBundle:Role')
             ->find($id);
         if($role === null) {
             throw new NotFoundHttpException('The role does not exist');
@@ -103,7 +103,7 @@ class RoleController extends Controller {
      * @Template("MapbenderManagerBundle:Role:edit.html.twig")
      */
     public function updateAction($id) {
-        $role = $this->getDoctrine()->getRepository('MapbenderCoreBundle:Role')
+        $role = $this->getDoctrine()->getRepository('FOMUserBundle:Role')
             ->find($id);
         if($role === null) {
             throw new NotFoundHttpException('The role does not exist');
@@ -120,7 +120,7 @@ class RoleController extends Controller {
                 'The role has been updated.');
 
             return $this->redirect(
-                $this->generateUrl('mapbender_manager_role_index'));
+                $this->generateUrl('fom_user_role_index'));
 
         }
 
@@ -132,10 +132,10 @@ class RoleController extends Controller {
     /**
      * @Route("/role/{id}/delete")
      * @Method({ "GET" })
-     * @Template("MapbenderManagerBundle:Role:delete.html.twig")
+     * @Template("FOMUserBundle:Role:delete.html.twig")
      */
     public function confirmDeleteAction($id) {
-        $role = $this->getDoctrine()->getRepository('MapbenderCoreBundle:Role')
+        $role = $this->getDoctrine()->getRepository('FOMUserBundle:Role')
             ->find($id);
         if($role === null) {
             throw new NotFoundHttpException('The role does not exist');
@@ -154,10 +154,15 @@ class RoleController extends Controller {
      * @Template
      */
     public function deleteAction($id) {
-        $role = $this->getDoctrine()->getRepository('MapbenderCoreBundle:Role')
+        $role = $this->getDoctrine()->getRepository('FOMUserBundle:Role')
             ->find($id);
+
         if($role === null) {
             throw new NotFoundHttpException('The role does not exist');
+        }
+
+        if($role->getOverride() == 'IS_AUTHENTICATED_FULLY') {
+            throw new NotFoundHttpException('The role IS_AUTHENTICATED_FULLY can not be deleted');
         }
 
         $form = $this->createDeleteForm($id);
@@ -176,7 +181,7 @@ class RoleController extends Controller {
                 'The role couldn\'t be deleted.');
         }
         return $this->redirect(
-            $this->generateUrl('mapbender_manager_role_index'));
+            $this->generateUrl('fom_user_role_index'));
     }
 
     /**

@@ -1,13 +1,10 @@
-{% extends "MapbenderManagerBundle::manager.html.twig" %}
+{% extends "FOMManagerBundle::manager.html.twig" %}
 
 {% block title %}{{ "Roles" | trans }}{% endblock %}
 
-{% block manager_js %}
-<script type="text/javascript" src="{{ asset('bundles/mapbendermanager/js/list.js') }}"></script>
-{% endblock %}
-
 {% block manager_content %}
-{% include "MapbenderManagerBundle:User:navigation.html.twig" %}
+
+{% include "FOMUserBundle:User:navigation.html.twig" %}
 
 <table class="table table-striped">
     <thead>
@@ -21,13 +18,15 @@
         {% for role in roles %}
         <tr id="app-{{ role.id }}">
             <td>
-                <a href="{{ path('mapbender_manager_role_edit', {'id': role.id}) }}" title="{{ 'Edit' | trans }}">{{ role.title }}</a>
+                <a href="{{ path('fom_user_role_edit', {'id': role.id}) }}" title="{{ 'Edit' | trans }}">{{ role.title }}</a>
             </td>
             <td>{{ role.description }}</td>
             <td>
                 <div class="entity-actions btn-group">
-                    <a class="action-edit btn" href="{{ path('mapbender_manager_role_edit',  {'id': role.id }) }}" title="{{ 'Edit' | trans }}">{{ 'Edit' | trans }}</a>
-                    <a class="action-delete btn btn-warning" href="{{ path('mapbender_manager_role_confirmdelete', { 'id': role.id }) }}">{{ 'Delete' | trans }}</a>
+                    <a class="action-edit btn" href="{{ path('fom_user_role_edit',  {'id': role.id }) }}" title="{{ 'Edit' | trans }}">{{ 'Edit' | trans }}</a>
+                    {% if role.id != 1 %}
+                    <a class="action-delete btn btn-warning" href="{{ path('fom_user_role_confirmdelete', { 'id': role.id }) }}">{{ 'Delete' | trans }}</a>
+                    {% endif %}
                 </div>
             </td>
         </tr>
@@ -35,6 +34,6 @@
     </tbody>
 </table>
 
-{% include "MapbenderManagerBundle:Role:actions.html.twig" %}
+{% include "FOMUserBundle:Role:actions.html.twig" %}
 
 {% endblock %}

@@ -134,7 +134,7 @@ class Role implements RoleInterface {
     /**
      * Get the internal role override
      */
-    public function getOverride($override) {
+    public function getOverride() {
         return $this->override;
     }
 

@@ -1,4 +1,4 @@
-{% extends "MapbenderManagerBundle::manager.html.twig" %}
+{% extends "FOMManagerBundle::manager.html.twig" %}
 
 {% set username = user.username %}
 
@@ -6,7 +6,7 @@
 
 {% block manager_content %}
 
-<form id="entity-delete" action="{{ path('mapbender_manager_user_delete', { 'id': user.id }) }}" method="post" {{ form_enctype(form)}}>
+<form id="entity-delete" action="{{ path('fom_user_user_delete', { 'id': user.id }) }}" method="post" {{ form_enctype(form)}}>
     <header>
     {% trans %}Do you really want to delete the user <em>%username%</em>?{% endtrans %}
     </header>
@@ -14,7 +14,7 @@
     <footer class="actions">
         <div class="btn-group">
             <input type="submit" value="{{ 'Delete' | trans }}" class="btn btn-danger"/>
-            <a href="{{ url('mapbender_manager_user_index') }}" class="btn">{{ 'Cancel' | trans}}</a>
+            <a href="{{ url('fom_user_user_index') }}" class="btn">{{ 'Cancel' | trans}}</a>
         </div>
     </footer>
 </form>
