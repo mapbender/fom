@@ -20,7 +20,7 @@
 <body class="{% if app.debug %}debug{% endif %}">
     <div id="wrapper">
         <header role="navigation">
-        <h1><a href="{{ path('fom_manager_manager_index') }}"><img alt="Mapbender Manager" src="{{ asset('bundles/fommanager/logo.png')}}" /></a></h1>
+        <h1><a href="{{ path('fom_manager_manager_index') }}"><img alt="Mapbender Manager" src="{{ asset(fom.server_logo)}}" /></a></h1>
 
             <form id="manager-search" action="." method="post" class="form-search">
                 <input type="hidden" name="path" value="{{ app.request.attributes.get('_route') }}" class="search-query"/>
