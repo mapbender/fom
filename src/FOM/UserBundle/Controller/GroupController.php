@@ -2,8 +2,8 @@
 
 namespace FOM\UserBundle\Controller;
 
-use FOM\UserBundle\Entity\Role;
-use FOM\UserBundle\Form\Type\RoleType;
+use FOM\UserBundle\Entity\Group;
+use FOM\UserBundle\Form\Type\GroupType;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,104 +12,110 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Role management controller
- *
- * TODO: Role Repository
+ * Group management controller
  *
  * @author Christian Wygoda
  */
-class RoleController extends Controller {
+class GroupController extends Controller {
     /**
-     * Renders role list.
+     * Renders group list.
      *
-     * @Route("/role")
+     * @Route("/group")
      * @Method({ "GET" })
      * @Template
      */
     public function indexAction() {
-        $roles = $this->getDoctrine()->getRepository('FOMUserBundle:Role')
+        $groups = $this->getDoctrine()->getRepository('FOMUserBundle:Group')
             ->findAll();
 
         return array(
-            'roles' => $roles);
+            'groups' => $groups);
     }
 
     /**
-     * @Route("/role/new")
+     * @Route("/group/new")
      * @Method({ "GET" })
      * @Template
      */
     public function newAction() {
-        $role = new Role();
-        $form = $this->createForm(new RoleType(), $role);
+        $available_roles = $this->get('fom_roles')->getAll();
+        $group = new Group();
+        $form = $this->createForm(new GroupType(), $group, array(
+            'available_roles' => $available_roles));
 
         return array(
-            'role' => $role,
+            'group' => $group,
             'form' => $form->createView(),
             'form_name' => $form->getName());
     }
 
     /**
-     * @Route("/role")
+     * @Route("/group")
      * @Method({ "POST" })
-     * @Template("MapbenderManagerBundle:Role:new.html.twig")
+     * @Template("MapbenderManagerBundle:Group:new.html.twig")
      */
     public function createAction() {
-        $role = new Role();
-        $form = $this->createForm(new RoleType(), $role);
+        $available_roles = $this->get('fom_roles')->getAll();
+        $group = new Group();
+        $form = $this->createForm(new GroupType(), $group, array(
+            'available_roles' => $available_roles));
 
         $form->bindRequest($this->get('request'));
 
         if($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
-            $em->persist($role);
+            $em->persist($group);
             $em->flush();
 
             $this->get('session')->setFlash('success',
-                'The role has been saved.');
+                'The group has been saved.');
 
             return $this->redirect(
-                $this->generateUrl('fom_user_role_index'));
+                $this->generateUrl('fom_user_group_index'));
         }
 
         return array(
-            'role' => $role,
+            'group' => $group,
             'form' => $form->createView());
     }
 
     /**
-     * @Route("/role/{id}/edit")
+     * @Route("/group/{id}/edit")
      * @Method({ "GET" })
      * @Template
      */
     public function editAction($id) {
-        $role = $this->getDoctrine()->getRepository('FOMUserBundle:Role')
+        $group = $this->getDoctrine()->getRepository('FOMUserBundle:Group')
             ->find($id);
-        if($role === null) {
-            throw new NotFoundHttpException('The role does not exist');
+        if($group === null) {
+            throw new NotFoundHttpException('The group does not exist');
         }
 
-        $form = $this->createForm(new RoleType(), $role);
+        $available_roles = $this->get('fom_roles')->getAll();
+        $form = $this->createForm(new GroupType(), $group, array(
+            'available_roles' => $available_roles));
 
         return array(
-            'role' => $role,
+            'group' => $group,
             'form' => $form->createView(),
             'form_name' => $form->getName());
     }
 
     /**
-     * @Route("/role/{id}/update")
+     * @Route("/group/{id}/update")
      * @Method({ "POST" })
-     * @Template("MapbenderManagerBundle:Role:edit.html.twig")
+     * @Template("MapbenderManagerBundle:Group:edit.html.twig")
      */
     public function updateAction($id) {
-        $role = $this->getDoctrine()->getRepository('FOMUserBundle:Role')
+        $group = $this->getDoctrine()->getRepository('FOMUserBundle:Group')
             ->find($id);
-        if($role === null) {
-            throw new NotFoundHttpException('The role does not exist');
+        if($group === null) {
+            throw new NotFoundHttpException('The group does not exist');
         }
 
-        $form = $this->createForm(new RoleType(), $role);
+        $available_roles = $this->get('fom_roles')->getAll();
+        $form = $this->createForm(new GroupType(), $group, array(
+            'available_roles' => $available_roles));
         $form->bindRequest($this->get('request'));
 
         if($form->isValid()) {
@@ -117,52 +123,48 @@ class RoleController extends Controller {
             $em->flush();
 
             $this->get('session')->setFlash('success',
-                'The role has been updated.');
+                'The group has been updated.');
 
             return $this->redirect(
-                $this->generateUrl('fom_user_role_index'));
+                $this->generateUrl('fom_user_group_index'));
 
         }
 
         return array(
-            'role' => $role,
+            'group' => $group,
             'form' => $form->createView());
     }
 
     /**
-     * @Route("/role/{id}/delete")
+     * @Route("/group/{id}/delete")
      * @Method({ "GET" })
-     * @Template("FOMUserBundle:Role:delete.html.twig")
+     * @Template("FOMUserBundle:Group:delete.html.twig")
      */
     public function confirmDeleteAction($id) {
-        $role = $this->getDoctrine()->getRepository('FOMUserBundle:Role')
+        $group = $this->getDoctrine()->getRepository('FOMUserBundle:Group')
             ->find($id);
-        if($role === null) {
-            throw new NotFoundHttpException('The role does not exist');
+        if($group === null) {
+            throw new NotFoundHttpException('The group does not exist');
         }
 
         $form = $this->createDeleteForm($id);
 
         return array(
-            'role' => $role,
+            'group' => $group,
             'form' => $form->createView());
     }
 
     /**
-     * @Route("/role/{id}/delete")
+     * @Route("/group/{id}/delete")
      * @Method({ "POST" })
      * @Template
      */
     public function deleteAction($id) {
-        $role = $this->getDoctrine()->getRepository('FOMUserBundle:Role')
+        $group = $this->getDoctrine()->getRepository('FOMUserBundle:Group')
             ->find($id);
 
-        if($role === null) {
-            throw new NotFoundHttpException('The role does not exist');
-        }
-
-        if($role->getOverride() == 'IS_AUTHENTICATED_FULLY') {
-            throw new NotFoundHttpException('The role IS_AUTHENTICATED_FULLY can not be deleted');
+        if($group === null) {
+            throw new NotFoundHttpException('The group does not exist');
         }
 
         $form = $this->createDeleteForm($id);
@@ -171,17 +173,17 @@ class RoleController extends Controller {
         $form->bindRequest($request);
         if($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
-            $em->remove($role);
+            $em->remove($group);
             $em->flush();
 
             $this->get('session')->setFlash('success',
-                'The role has been deleted.');
+                'The group has been deleted.');
         } else {
             $this->get('session')->setFlash('error',
-                'The role couldn\'t be deleted.');
+                'The group couldn\'t be deleted.');
         }
         return $this->redirect(
-            $this->generateUrl('fom_user_role_index'));
+            $this->generateUrl('fom_user_group_index'));
     }
 
     /**

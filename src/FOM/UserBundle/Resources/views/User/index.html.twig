@@ -11,7 +11,7 @@
         <tr>
             <th>{{ "Name" | trans }}</th>
             <th>{{ "E-Mail" | trans }}</th>
-            <th>{{ "Roles" | trans }}</th>
+            <th>{{ "Groups" | trans }}</th>
             <th>{{ "Actions" | trans }}</th>
         </tr>
     </thead>
@@ -24,8 +24,8 @@
             <td><a href="mailto:{{ user.email }}" title="{{ 'Contact user via e-mail' | trans }}">{{ user.email }}</a></td>
             <td>
                 <ul>
-                    {% for role in user.roleObjects %}
-                    <li><a href="{{ path('fom_user_role_edit', { 'id': role.id }) }}" title="{{ 'Edit role' | trans }}">{{ role.title }}</a></li>
+                    {% for group in user.groups %}
+                    <li><a href="{{ path('fom_user_group_edit', { 'id': group.id }) }}" title="{{ 'Edit group' | trans }}">{{ group.title }}</a></li>
                     {% endfor %}
                 </ul>
             </td>

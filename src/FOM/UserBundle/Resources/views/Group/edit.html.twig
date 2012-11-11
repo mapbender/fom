@@ -1,0 +1,33 @@
+{% extends "FOMManagerBundle::manager.html.twig" %}
+
+{% block title %}{{ "Edit Group" | trans}}{% endblock %}
+
+{% block manager_js %}
+    <script type="application/javascript" src="{{ asset('bundles/fommanager/js/form.js') }}"></script>
+{% endblock %}
+
+{% block manager_content %}
+
+<form action="{{ path('fom_user_group_update', { 'id': group.id }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} class="well">
+    {% if form_errors(form) %}
+    <div class="alert alert-error">
+        {{ form_errors(form) }}
+    </div>
+    {% endif %}
+
+    {% set user_count = '<span class="badge badge-info">' ~ group.users | length ~ '</span>' %}
+    <p>{%trans with {'%user_count%': user_count } %}There are %user_count% users registered in this group.{% endtrans %}</p>
+
+    {{ form_row(form._token) }}
+    {% include 'FOMUserBundle:Group:form.html.twig' %}
+
+    <footer>
+        <div class="btn-group">
+            <input type="submit" value="{{ 'Update' | trans }}" class="btn btn-primary"/>
+            <a href="{{ url('fom_user_group_confirmdelete', { 'id': group.id }) }}" class="btn btn-warning">{{ 'Delete' | trans }}</a>
+            <a href="{{ url('fom_user_group_index') }}" class="btn">{{ 'Cancel' | trans}}</a>
+        </div>
+    </footer>
+</form>
+
+{% endblock %}

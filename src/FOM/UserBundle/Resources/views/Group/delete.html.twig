@@ -1,0 +1,22 @@
+{% extends "FOMManagerBundle::manager.html.twig" %}
+
+{% set group_title = group.title %}
+
+{% block title %}{% trans %}Delete group %group_title%{% endtrans %}{% endblock %}
+
+{% block manager_content %}
+
+<form id="entity-delete" action="{{ path('fom_user_group_delete', { 'id': group.id }) }}" method="post" {{ form_enctype(form) }}>
+    <header>
+    {% trans %}Do you really want to delete the group with the title <em>%group_title%</em>?{% endtrans %}
+    </header>
+    {{ form_widget(form) }}
+    <footer class="actions">
+        <div class="btn-group">
+            <input type="submit" value="{{ 'Delete' | trans }}" class="btn btn-danger"/>
+            <a href="{{ url('fom_user_group_index') }}" class="btn">{{ 'Cancel' | trans}}</a>
+        </div>
+    </footer>
+</form>
+
+{% endblock %}

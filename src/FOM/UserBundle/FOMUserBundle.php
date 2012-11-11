@@ -23,10 +23,16 @@ class FOMUserBundle extends ManagerBundle
                 'route' => 'fom_user_user_index',
                 'routes' => array(
                     'fom_user_user',
-                    'fom_user_role'
+                    'fom_user_group'
                 )
             )
         );
     }
-}
 
+    public function getRoles()
+    {
+        return array(
+            'ROLE_SUPER_ADMIN' => 'Can administrate everything (super admin)',
+            'ROLE_USER_ADMIN' => 'Can administrate users & groups');
+    }
+}

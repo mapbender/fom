@@ -86,13 +86,13 @@ class User implements AdvancedUserInterface {
     protected $resetToken;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Role", inversedBy="users")
-     * @ORM\JoinTable(name="fom_users_roles")
+     * @ORM\ManyToMany(targetEntity="Group", inversedBy="users")
+     * @ORM\JoinTable(name="fom_users_groups")
      */
-    protected $roles;
+    protected $groups;
 
     public function __construct() {
-        $this->roles = new ArrayCollection();
+        $this->groups = new ArrayCollection();
     }
 
     /**
@@ -269,33 +269,36 @@ class User implements AdvancedUserInterface {
     }
 
     /**
-     * Add roles
+     * Add groups
      *
-     * @param FOM\UserBundle\Entity\Role $roles
+     * @param FOM\UserBundle\Entity\Group $groups
      */
-    public function addRoles(Role $roles) {
-        $this->roles[] = $roles;
+    public function addGroups(Group $groups) {
+        $this->groups[] = $groups;
         return $this;
     }
 
     /**
-     * Get roles
+     * Get groups
      *
-     * @return array
+     * @return Doctrine\Common\Collections\Collection
      */
-    public function getRoles() {
-        $roles = $this->roles->toArray();
-        $roles[] = 'ROLE_USER';
-        return $roles;
+    public function getGroups() {
+        return $this->groups;
     }
 
     /**
      * Get role objects
      *
-     * @return Doctrine\Common\Collections\Collection
+     * @return array
      */
-    public function getRoleObjects() {
-        return $this->roles;
+    public function getRoles() {
+        $roles = array();
+        foreach($this->groups as $group) {
+            $roles = array_merge($roles, $group->getRoles());
+        }
+        $roles[] = 'ROLE_USER';
+        return $roles;
     }
 
     /**
@@ -356,4 +359,3 @@ class User implements AdvancedUserInterface {
         return false;
     }
 }
-

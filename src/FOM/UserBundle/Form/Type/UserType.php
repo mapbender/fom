@@ -30,18 +30,17 @@ class UserType extends AbstractType
 
         //if($options['extendedEdit']) {
             $builder
-                ->add('roleObjects', 'entity', array(
-                    'class' =>  'FOMUserBundle:Role',
+                ->add('groups', 'entity', array(
+                    'class' =>  'FOMUserBundle:Group',
                     'query_builder' => function(EntityRepository $er) {
                         $qb = $er->createQueryBuilder('r')
-                            ->add('where', "r.override <> 'IS_AUTHENTICATED_FULLY'")
                             ->add('orderBy', 'r.title ASC');
                         return $qb;
                     },
                     'expanded' => true,
                     'multiple' => true,
                     'property' => 'title',
-                    'label' => 'Roles'));
+                    'label' => 'Groups'));
         //}
 
     }
