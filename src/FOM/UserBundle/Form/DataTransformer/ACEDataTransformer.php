@@ -19,7 +19,7 @@ class ACEDataTransformer implements DataTransformerInterface
      */
     public function transform($ace)
     {
-        $securityIdentity = null;
+        $sid = null;
         $mask = null;
 
         $sidPrefix = '';
@@ -27,30 +27,35 @@ class ACEDataTransformer implements DataTransformerInterface
         $permissions = array();
 
         if($ace instanceof Entry) {
-            $securityIdentity = $ace->getSecurityIdentity();
+            $sid = $ace->getSecurityIdentity();
             $mask = $ace->getMask();
+        } elseif(is_array($ace)) {
+            $sid = $ace['sid'];
+            $mask = $ace['mask'];
         }
         
-        $sid = '';
-        if($securityIdentity instanceof RoleSecurityIdentity) {
+        $sidString = '';
+        if($sid instanceof RoleSecurityIdentity) {
             $sidPrefix = 'r';
-            $sidName = $securityIdentity->getRole();
-            $sid = sprintf('%s:%s', $sidPrefix, $sidName);
-        } elseif($securityIdentity instanceof UserSecurityIdentity) {
+            $sidName = $sid->getRole();
+            $sidString = sprintf('%s:%s', $sidPrefix, $sidName);
+        } elseif($sid instanceof UserSecurityIdentity) {
             $sidPrefix = 'u';
-            $sidName = $securityIdentity->getUsername();
-            $sidClass = $securityIdentity->getClass();
-            $sid = sprintf('%s:%s:%s', $sidPrefix, $sidClass, $sidName);
+            $sidName = $sid->getUsername();
+            $sidClass = $sid->getClass();
+            $sidString = sprintf('%s:%s:%s', $sidPrefix, $sidClass, $sidName);
         }
         
-
-        for($i = 0; $i <= 30; $i++) {
-                $key = 1 << $i;
-                $permissions['mask_' . $key] = ($mask & ($key) ? true : false);
+        for($i = 1; $i <= 30; $i++) {
+                $key = 1 << ($i-1);
+                $permissions['mask_' . $i] = ($mask & ($key) ? true : false);
         }
 
+        if($mask !== null) {
+            //var_dump($permissions);die;
+        }
         return array(
-            'sid' => $sid,
+            'sid' => $sidString,
             'permissions' => $permissions);
     }
 
@@ -66,7 +71,7 @@ class ACEDataTransformer implements DataTransformerInterface
         if(strtoupper($sidParts[0]) == 'R') {
             $sid = new RoleSecurityIdentity($sidParts[1]);
         } else {
-            $sid = new UserSecurityIdentity($sidParts[1], $sidParts[2]);
+            $sid = new UserSecurityIdentity($sidParts[2], $sidParts[1]);
         }
         
         $maskBuilder = new MaskBuilder();
@@ -76,9 +81,10 @@ class ACEDataTransformer implements DataTransformerInterface
             }
 
             $permission = intval(substr($key, 5));
+            $permission = 1 << ($permission - 1);
             $maskBuilder->add($permission);
         }
-
+                
         return array(
             'sid' => $sid,
             'mask' => $maskBuilder->get());

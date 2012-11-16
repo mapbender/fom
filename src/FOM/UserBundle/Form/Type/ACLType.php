@@ -8,6 +8,9 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Exception\InvalidDomainObjectException;
 
@@ -40,18 +43,17 @@ class ACLType extends AbstractType
 
             $owner = $this->securityContext->getToken()->getUser();
             $ownerAccess = array(
-                'securityIdentity' => UserSecurityIdentity::fromAccount($owner),
+                'sid' => UserSecurityIdentity::fromAccount($owner),
                 'mask' => MaskBuilder::MASK_OWNER);
             
             $anon = new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY');
             $anonAccess = array(
-                'securityIdentity' => $anon,
+                'sid' => $anon,
                 'mask' => MaskBuilder::MASK_VIEW);
 
             $aces[] = $ownerAccess;
             $aces[] = $anonAccess;
         }
-        
         
         $builder->add('ace', 'collection', array(
             'type' => 'ace',
@@ -67,14 +69,14 @@ class ACLType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $availablePermissions = array(
-            1 << 0 => 'View',
-            1 << 1 => 'Create',
-            1 << 2 => 'Edit',
-            1 << 3 => 'Delete',
-            1 << 4 => 'Undelete',
-            1 << 5 => 'Operator',
-            1 << 6 => 'Master',
-            1 << 7 => 'Owner'
+            1 => 'View',
+            2 => 'Create',
+            3 => 'Edit',
+            4 => 'Delete',
+            5 => 'Undelete',
+            6 => 'Operator',
+            7 => 'Master',
+            8 => 'Owner'
         );
 
         $resolver->setDefaults(array(

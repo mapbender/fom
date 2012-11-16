@@ -36,12 +36,10 @@ class ACEType extends AbstractType
             'read_only' => true,
             'label' => 'Security identity'));
 
-        if(array_key_exists('data', $options)) {
-            print_r($options['data']);die;
-        }
         foreach($options['available_permissions'] as $key => $value) {
             $builder->add('mask_' . $key, 'checkbox', array(
                 'required' => false,
+                'value' => $key,
                 //'read_only' => $options['read_only'],
                 'property_path' => '[permissions][mask_' . $key .']',
                 'label' => $value));
