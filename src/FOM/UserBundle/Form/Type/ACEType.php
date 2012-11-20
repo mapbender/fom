@@ -33,17 +33,16 @@ class ACEType extends AbstractType
         $builder->prependNormTransformer($transformer);
 
         $builder->add('sid', 'text', array(
-            'read_only' => true,
-            'label' => 'Security identity'));
+            'required' => true,
+            'label' => 'Security identity',
+            'attr' => array(
+                'data-provide' => 'typeahead')));
 
-        foreach($options['available_permissions'] as $key => $value) {
-            $builder->add('mask_' . $key, 'checkbox', array(
-                'required' => false,
-                'value' => $key,
-                //'read_only' => $options['read_only'],
-                'property_path' => '[permissions][mask_' . $key .']',
-                'label' => $value));
-        }
+        $builder->add('permissions', 'choice', array(
+            'multiple' => true,
+            'expanded' => true,
+            'property_path' => '[permissions]',
+            'choices' => $options['available_permissions']));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

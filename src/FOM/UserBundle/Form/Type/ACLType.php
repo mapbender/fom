@@ -18,12 +18,14 @@ class ACLType extends AbstractType
 {
     protected $securityContext;
     protected $aclProvider;
+    protected $router;
 
     public function __construct(SecurityContext $securityContext,
-        AclProviderInterface $aclProvider)
+        AclProviderInterface $aclProvider, $router)
     {
         $this->securityContext = $securityContext;
         $this->aclProvider = $aclProvider;
+        $this->router = $router;
     }
 
     public function getName()
@@ -57,11 +59,24 @@ class ACLType extends AbstractType
         
         $builder->add('ace', 'collection', array(
             'type' => 'ace',
+            'allow_add' => true,
+            'allow_delete' => true,
+            'prototype' => true,
+            'widget_add_btn' => array(
+                'label' => '',
+                'icon' => 'plus-sign',
+                'attr' => array(
+                    'class' => 'btn btn-primary')),
             'options' => array(
-                'required' => false,
+                //'required' => false,
                 //is_master
                 //is_owner
-                'available_permissions' => $options['available_permissions']),
+                'label' => '',
+                'widget_control_group' => false,
+                'available_permissions' => $options['available_permissions'],
+                'widget_remove_btn' => array(
+                    'label' => '',
+                    'icon' => 'minus-sign')),
             'property_path' => false,
             'data' => $aces));
     }
@@ -82,6 +97,8 @@ class ACLType extends AbstractType
         $resolver->setDefaults(array(
             'available_permissions' => $availablePermissions,
             'user' => null,
+            'widget_control_group_attr' => array(
+                'data-aclsid' => $this->router->generate('fom_user_acl_aclsid')),
             'exclude' => array()));
     }
 }

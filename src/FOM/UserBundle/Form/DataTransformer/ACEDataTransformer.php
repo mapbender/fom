@@ -48,12 +48,17 @@ class ACEDataTransformer implements DataTransformerInterface
         
         for($i = 1; $i <= 30; $i++) {
                 $key = 1 << ($i-1);
-                $permissions['mask_' . $i] = ($mask & ($key) ? true : false);
+                if($mask & $key) {
+                    $permissions[] = $i;    
+                }
         }
 
         if($mask !== null) {
+            //print($sid);
+            //print($mask);
             //var_dump($permissions);die;
         }
+        
         return array(
             'sid' => $sidString,
             'permissions' => $permissions);
@@ -75,16 +80,10 @@ class ACEDataTransformer implements DataTransformerInterface
         }
         
         $maskBuilder = new MaskBuilder();
-        foreach($data['permissions'] as $key => $enabled) {
-            if(!$enabled) {
-                continue;
-            }
-
-            $permission = intval(substr($key, 5));
-            $permission = 1 << ($permission - 1);
-            $maskBuilder->add($permission);
+        foreach($data['permissions'] as $permission) {
+            $maskBuilder->add(1 << ($permission - 1));
         }
-                
+        
         return array(
             'sid' => $sid,
             'mask' => $maskBuilder->get());
