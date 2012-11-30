@@ -215,3 +215,12 @@ div.entity-actions:hover {
 i.application-state {
     cursor: pointer;
 }
+
+
+/*
+ * add &nbsp; to empty <dd>s to they don't 
+ * jump around when using bootstrap's css
+ */
+.dl-horizontal dd:after {
+   content : "\0000a0";
+}
