@@ -19,23 +19,23 @@ class ManagerBundle extends Bundle
      * The list must be an array of arrays, each giving the integer weight, name, route and array of route prefixes
      * to match against. See source for an example.
      *
+     * return array(
+     *      array(
+     *          weight => 5,
+     *          name => 'Users',
+     *          route => 'fom_user_useranager_index',
+     *          routes => array(
+     *              'fom_user_usermanager',
+     *              'fom_user_rolemanager'
+     *          )
+     *      )
+     *  );
+     *
      * @return array
      */
     public function getManagerControllers()
     {
-        /* Example below
-        return array(
-            array(
-                weight => 5,
-                name => 'Users',
-                route => 'fom_user_useranager_index',
-                routes => array(
-                    'fom_user_usermanager',
-                    'fom_user_rolemanager'
-                )
-            )
-        );
-         */
+        return array();
     }
 
     /**

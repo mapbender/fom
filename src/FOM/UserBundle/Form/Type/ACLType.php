@@ -14,6 +14,21 @@ use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Exception\InvalidDomainObjectException;
 
+/**
+ * ACL form type
+ *
+ * This type embeds a ACL configuration form which can be used to manage object
+ * and class ACEs.
+ *
+ * Two sets of standard permissions are available to show for each ACE:
+ * - "standard::object": Standard permissions for objects
+ * - "standard::class": Standard permissions for classes
+ * These can be provided using the 'permissions' parameter which can
+ * alternatively also provided an array of permissions where keys are 1-30
+ * (bitmask position) and the values the labels to show in the form.
+ *
+ * @author Christian Wygoda
+ */
 class ACLType extends AbstractType
 {
     protected $securityContext;
@@ -28,18 +43,31 @@ class ACLType extends AbstractType
         $this->router = $router;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getName()
     {
         return 'acl';
     }
 
+    /**
+     * @inheritdoc
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         try {
             $oid = ObjectIdentity::fromDomainObject($options['data']);
             $acl = $this->aclProvider->findAcl($oid);
             $aces = $acl->getObjectAces();
+
+            $isMaster = $this->securityContext->isGranted('MASTER');
+            $isOwner = $this->securityContext->isGranted('OWNER');
         } catch(InvalidDomainObjectException $e) {
+            // for unsaved entities, fake three standard permissions:
+            // - Owner access for current user
+            // - View access for anonymous users
+            // - View access for logged in users
             $oid = null;
             $aces = array();
 
@@ -47,58 +75,121 @@ class ACLType extends AbstractType
             $ownerAccess = array(
                 'sid' => UserSecurityIdentity::fromAccount($owner),
                 'mask' => MaskBuilder::MASK_OWNER);
+
+            $isMaster = true;
+            $isOwner = true;
             
             $anon = new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY');
             $anonAccess = array(
                 'sid' => $anon,
                 'mask' => MaskBuilder::MASK_VIEW);
 
+            $user = new RoleSecurityIdentity('ROLE_USER');
+            $userAccess = array(
+                'sid' => $anon,
+                'mask' => MaskBuilder::MASK_VIEW);
+
             $aces[] = $ownerAccess;
             $aces[] = $anonAccess;
         }
-        
-        $builder->add('ace', 'collection', array(
+
+        $permissions = is_string($options['permissions'])
+            ? $this->getStandardPermissions($options, $isMaster, $isOwner)
+            : $options['permissions'];
+
+        $aceOptions = array(
             'type' => 'ace',
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,
-            'widget_add_btn' => array(
+            'options' => array(
+                'widget_control_group' => false,
+                'available_permissions' => $permissions['show']),
+            'property_path' => false,
+            'data' => $aces);
+
+        if($isMaster || $isOwner) {
+            // only masters or owners can add new ACEs
+            $aceOptions['widget_add_btn'] = array(
                 'label' => '',
                 'icon' => 'plus-sign',
                 'attr' => array(
-                    'class' => 'btn btn-primary')),
-            'options' => array(
-                //'required' => false,
-                //is_master
-                //is_owner
+                    'class' => 'btn btn-primary'));
+
+            // only masters or owners can delete existing ACEs
+            $aceOptions['options']['widget_remove_btn'] = array(
                 'label' => '',
-                'widget_control_group' => false,
-                'available_permissions' => $options['available_permissions'],
-                'widget_remove_btn' => array(
-                    'label' => '',
-                    'icon' => 'minus-sign')),
-            'property_path' => false,
-            'data' => $aces));
+                'icon' => 'minus-sign');
+
+            // only masters or owners can modify existing ACEs
+            // @TODO: Disable "disabled" permissions
+        }
+
+        $builder->add('ace', 'collection', $aceOptions);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $availablePermissions = array(
-            1 => 'View',
-            2 => 'Create',
-            3 => 'Edit',
-            4 => 'Delete',
-            5 => 'Undelete',
-            6 => 'Operator',
-            7 => 'Master',
-            8 => 'Owner'
-        );
-
         $resolver->setDefaults(array(
-            'available_permissions' => $availablePermissions,
+            'permissions' => array(),
             'user' => null,
+            'force_master' => false,
+            'force_owner' => false,
             'widget_control_group_attr' => array(
-                'data-aclsid' => $this->router->generate('fom_user_acl_aclsid')),
-            'exclude' => array()));
+                'data-aclsid' => $this->router->generate('fom_user_acl_aclsid')
+            )));
+    }
+
+    /**
+     * Get standard permission sets for provided string identifier.
+     *
+     * Returns an array with an array of permissions to show (['show']) and an
+     * array with permissions which should be disabled (that means, still shown,
+     * but uneditable) (['disable']).
+     * 
+     * @param  array  $options Form options
+     * @param  [type] $master  is master permission assumed?
+     * @param  [type] $owner   is owner permission assumed?
+     * @return [type]          Array with permissions to show and disable
+     */
+    protected function getStandardPermissions(array $options, $master, $owner)
+    {
+        switch($options['permissions']) {
+            case 'standard::object':
+                $disable = array();
+                // if not owner or master, disable all permissions
+                if(!$master && !$owner) {
+                    $disable = array(1, 3, 4, 5, 6, 7, 8);
+                }
+                // if not master, disable
+                return array(
+                    'show' => array(
+                        1 => 'View',
+                        3 => 'Edit',
+                        4 => 'Delete',
+                        5 => 'Undelete',
+                        6 => 'Operator',
+                        7 => 'Master',
+                        8 => 'Owner'
+                    ),
+                    'disable' => $disable);
+                break;
+            case 'standard::class':
+                return array(
+                    'show' => array(
+                        1 => 'View',
+                        2 => 'Create',
+                        3 => 'Edit',
+                        4 => 'Delete',
+                        5 => 'Undelete',
+                        6 => 'Operator',
+                        7 => 'Master',
+                        8 => 'Owner'
+                    ));
+                break;
+            default:
+                throw new \RuntimeException('"' . $options['permissions'] .
+                    '" is not a valid standard permission set identifier');
+        }
     }
 }
