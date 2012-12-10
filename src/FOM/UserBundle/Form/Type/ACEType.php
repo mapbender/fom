@@ -34,15 +34,18 @@ class ACEType extends AbstractType
 
         $builder->add('sid', 'text', array(
             'required' => true,
-            'label' => 'Security identity',
+            'label' => 'Role or user',
             'attr' => array(
-                'data-provide' => 'typeahead')));
+                'data-provide' => 'typeahead',
+                'autocomplete' => 'off')));
 
         $builder->add('permissions', 'choice', array(
             'multiple' => true,
             'expanded' => true,
             'property_path' => '[permissions]',
-            'choices' => $options['available_permissions']));
+            'choices' => $options['available_permissions'],
+            'widget_type' => 'inline',
+            'label_render' => false));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

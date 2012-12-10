@@ -1,7 +1,7 @@
 (function($) {
     /**
      * Ajax callback for ACL security identity typeaheads.
-     * 
+     *
      * Looks for data-aclsid attribute which holds Ajax callback URL.
      */
     $(function() {

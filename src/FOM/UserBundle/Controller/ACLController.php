@@ -43,15 +43,24 @@ class ACLController extends Controller
     /**
      * Get user security identifiers for given query.
      * 
-     * @param  string $query Query string
+     * @param  string $search Query string
      * @return array         Array of user security identifiers
      */
-    protected function getUsers($query)
+    protected function getUsers($search)
     {
-        return array(
-            'u:abc',
-            'u:cdf'
-        );
+        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:User');
+        $qb = $repo->createQueryBuilder('u');
+
+        $query = $qb->where($qb->expr()->like('LOWER(u.username)', ':search'))
+            ->setParameter(':search', '%' . strtolower($search) . '%')
+            ->orderBy('u.username', 'ASC')
+            ->getQuery();
+
+        $result = array();
+        foreach($query->getResult() as $user) {
+            $result[] = 'u:' . $user->getUsername();
+        }
+        return $result;
     }
 
     /**

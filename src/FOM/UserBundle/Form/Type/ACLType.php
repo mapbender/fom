@@ -99,11 +99,13 @@ class ACLType extends AbstractType
 
         $aceOptions = array(
             'type' => 'ace',
+            'label' => 'Permissions',
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,
             'options' => array(
                 'widget_control_group' => false,
+                //'label_render' => false,
                 'available_permissions' => $permissions['show']),
             'property_path' => false,
             'data' => $aces);
@@ -112,14 +114,16 @@ class ACLType extends AbstractType
             // only masters or owners can add new ACEs
             $aceOptions['widget_add_btn'] = array(
                 'label' => '',
-                'icon' => 'plus-sign',
+                'icon' => 'plus-sign icon-white',
                 'attr' => array(
-                    'class' => 'btn btn-primary'));
+                    'class' => 'btn btn-primary btn-mini'));
 
             // only masters or owners can delete existing ACEs
             $aceOptions['options']['widget_remove_btn'] = array(
                 'label' => '',
-                'icon' => 'minus-sign');
+                'icon' => 'minus-sign',
+                'attr' => array(
+                    'class' => 'btn btn-mini'));
 
             // only masters or owners can modify existing ACEs
             // @TODO: Disable "disabled" permissions

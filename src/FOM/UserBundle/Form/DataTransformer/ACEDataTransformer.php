@@ -43,7 +43,7 @@ class ACEDataTransformer implements DataTransformerInterface
             $sidPrefix = 'u';
             $sidName = $sid->getUsername();
             $sidClass = $sid->getClass();
-            $sidString = sprintf('%s:%s:%s', $sidPrefix, $sidClass, $sidName);
+            $sidString = sprintf('%s:%s', $sidPrefix, $sidName);
         }
         
         for($i = 1; $i <= 30; $i++) {
@@ -76,7 +76,7 @@ class ACEDataTransformer implements DataTransformerInterface
         if(strtoupper($sidParts[0]) == 'R') {
             $sid = new RoleSecurityIdentity($sidParts[1]);
         } else {
-            $sid = new UserSecurityIdentity($sidParts[2], $sidParts[1]);
+            $sid = new UserSecurityIdentity($sidParts[1], 'FOM\UserBundle\Entity\User');
         }
         
         $maskBuilder = new MaskBuilder();
