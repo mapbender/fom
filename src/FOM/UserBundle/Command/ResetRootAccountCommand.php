@@ -24,7 +24,8 @@ class ResetRootAccountCommand extends ContainerAwareCommand
             ->setDefinition(array(
                 new InputOption('username', '', InputOption::VALUE_REQUIRED, 'The username to use for the root account'),
                 new InputOption('email', '', InputOption::VALUE_REQUIRED, 'The e-mail address for the root account'),
-                new InputOption('password', '', InputOption::VALUE_REQUIRED, 'The password to set for the root account')))
+                new InputOption('password', '', InputOption::VALUE_REQUIRED, 'The password to set for the root account'),
+                new InputOption('silent', '', InputOption::VALUE_NONE, 'Perform a silent reset')))
             ->setDescription('Resets the root account')
             ->setHelp(<<<EOT
 The <info>fom:user:resetroot</info> command can be used to create or update
@@ -50,7 +51,7 @@ EOT
         }
 
         $action = ($root ? 'reset' : 'creation');
-        if($input->isInteractive()) {
+        if($input->isInteractive() && !$input->getOption('silent')) {
             if(!$dialog->askConfirmation($output, $dialog->getQuestion(
                 'Do you confirm ' . $action, 'yes', '?'), true)) {
                 return 1;
@@ -92,52 +93,47 @@ EOT
     {
         $dialog = $this->getDialogHelper();
         $root = $this->getRoot();
+        $silent = $input->getOption('silent');
 
         $dialog->writeSection($output, 'Welcome to the Mapbender3 root account management command');
 
-        $output->writeln(array(
-            '',
-            'Enter the username to use for the root account.',
-            ''));
 
-        if($input->getOption('username') !== null) {
-            $username = $input->getOption('username');
-        } else {
-            $username = ($root ? $root->getUsername() : 'root');
+        if(!$silent || $input->getOption('username') === null) {
+            $output->writeln(array(
+                '',
+                'Enter the username to use for the root account.',
+                ''));
+
+            // @TODO: Validate (askAndValidate())
+            $username = ($root ? $root->getUsername() : $input->getOption('username'));
+            $username = $dialog->ask($output, $dialog->getQuestion('Username', $username), $username);
+            $input->setOption('username', $username);
         }
-        // @TODO: Validate (askAndValidate())
-        $username = $dialog->ask($output,
-            $dialog->getQuestion('Username', $username),
-            $username);
-        $input->setOption('username', $username);
 
-        $output->writeln(array(
-            '',
-            'Enter the e-mail adress to use for the root account.',
-            ''));
 
-        if($input->getOption('email') !== null) {
-            $email = $input->getOption('email');
-        } else {
+        if(!$silent || $input->getOption('email') === null) {
+            $output->writeln(array(
+                '',
+                'Enter the e-mail adress to use for the root account.',
+                ''));
 
+            // @TODO: Validate (askAndValidate())
             $email = ($root ? $root->getEmail() : '');
+            $email = $dialog->ask($output, $dialog->getQuestion('E-Mail', $email), $email);
+            $input->setOption('email', $email);
         }
-        // @TODO: Validate (askAndValidate())
-        $email = $dialog->ask($output,
-            $dialog->getQuestion('E-Mail', $email),
-            $email);
-        $input->setOption('email', $email);
 
-        $output->writeln(array(
-            '',
-            'Enter the password to use for the root account.',
-            ''));
 
-       // @TODO: Validate (askAndValidate())
-        $password = $dialog->ask($output,
-            $dialog->getQuestion('Password', ''),
-            '');
-        $input->setOption('password', $password);
+        if(!$silent || $input->getOption('password') === null) {
+            $output->writeln(array(
+                '',
+                'Enter the password to use for the root account.',
+                ''));
+
+            // @TODO: Validate (askAndValidate())
+            $password = $dialog->ask($output, $dialog->getQuestion('Password', ''), '');
+            $input->setOption('password', $password);
+        }
     }
 
     protected function getRoot()
