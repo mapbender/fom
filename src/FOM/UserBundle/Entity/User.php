@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User entity.
@@ -25,6 +26,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @author Paul Schmidt
  *
  * @ORM\Entity
+ * @UniqueEntity("username")
+ * @UniqueEntity("email")
  * @ORM\Table(name="fom_user")
  */
 class User implements AdvancedUserInterface {
