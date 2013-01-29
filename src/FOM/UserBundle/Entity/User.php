@@ -276,8 +276,8 @@ class User implements AdvancedUserInterface {
      *
      * @param FOM\UserBundle\Entity\Group $groups
      */
-    public function addGroups(Group $groups) {
-        $this->groups[] = $groups;
+    public function addGroups(Group $group) {
+        $this->groups[] = $group;
         return $this;
     }
 

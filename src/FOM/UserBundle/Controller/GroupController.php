@@ -53,6 +53,10 @@ class GroupController extends Controller {
      * @Route("/group")
      * @Method({ "POST" })
      * @Template("MapbenderManagerBundle:Group:new.html.twig")
+     *
+     * There is one weirdness when storing groups: In Doctrine Many-to-Many
+     * associations, updates are only written, when the owning side changes.
+     * For the User-Group association, the user is the owner part.
      */
     public function createAction() {
         $available_roles = $this->get('fom_roles')->getAll();
@@ -65,6 +69,12 @@ class GroupController extends Controller {
         if($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($group);
+
+            // See method documentation for Doctrine weirdness
+            foreach($group->getUsers() as $user) {
+                $user->addGroups($group);
+            }
+
             $em->flush();
 
             $this->get('session')->setFlash('success',
@@ -105,6 +115,10 @@ class GroupController extends Controller {
      * @Route("/group/{id}/update")
      * @Method({ "POST" })
      * @Template("MapbenderManagerBundle:Group:edit.html.twig")
+     *
+     * There is one weirdness when storing groups: In Doctrine Many-to-Many
+     * associations, updates are only written, when the owning side changes.
+     * For the User-Group association, the user is the owner part.
      */
     public function updateAction($id) {
         $group = $this->getDoctrine()->getRepository('FOMUserBundle:Group')
@@ -113,6 +127,9 @@ class GroupController extends Controller {
             throw new NotFoundHttpException('The group does not exist');
         }
 
+        // See method documentation for Doctrine weirdness
+        $old_users = clone $group->getUsers();
+
         $available_roles = $this->get('fom_roles')->getAll();
         $form = $this->createForm(new GroupType(), $group, array(
             'available_roles' => $available_roles));
@@ -120,6 +137,15 @@ class GroupController extends Controller {
 
         if($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
+
+            // See method documentation for Doctrine weirdness
+            foreach($old_users as $user) {
+                $user->getGroups()->removeElement($group);
+            }
+            foreach($group->getUsers() as $user) {
+                $user->addGroups($group);
+            }
+
             $em->flush();
 
             $this->get('session')->setFlash('success',

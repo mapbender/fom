@@ -107,10 +107,10 @@ class Group
      * @param FOM\UserBundle\Entity\User $users
      * @return Group
      */
-    public function addUser(\FOM\UserBundle\Entity\User $users)
+    public function addUser(\FOM\UserBundle\Entity\User $user)
     {
-        $this->users[] = $users;
-    
+        $this->users[] = $user;
+        $user->addGroup($this);
         return $this;
     }
 
@@ -119,7 +119,7 @@ class Group
      *
      * @param FOM\UserBundle\Entity\User $users
      */
-    public function removeUser(\FOM\UserBundle\Entity\User $users)
+    public function removeUser(\FOM\UserBundle\Entity\User $user)
     {
         $this->users->removeElement($users);
     }
