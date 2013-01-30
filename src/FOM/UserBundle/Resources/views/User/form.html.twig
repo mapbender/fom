@@ -7,6 +7,7 @@ Required fields are marked with dark labels, while optional fields have lighter 
 <ul class="nav nav-tabs">
     <li class="active"><a href="#user-basics" data-toggle="tab">{{ 'Base data' | trans}}</a></li>
     <li><a href="#user-groups" data-toggle="tab">{{ 'Groups' | trans}}</a></li>
+    <li><a href="#user-acl" data-toggle="tab">{{ 'Security' | trans}}</a></li>
 </ul>
 
 <div class="tab-content">
@@ -16,6 +17,10 @@ Required fields are marked with dark labels, while optional fields have lighter 
 
     <section id="user-groups" class="tab-pane">
         {% include 'FOMUserBundle:User:form-groups.html.twig' %}
+    </section>
+
+    <section id="user-acl" class="tab-pane">
+        {{ form_row(form.acl) }}
     </section>
 </div>
 

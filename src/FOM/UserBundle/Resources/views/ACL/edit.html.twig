@@ -1,6 +1,6 @@
 {% extends "FOMManagerBundle::manager.html.twig" %}
 
-{% block title %}{{ "New User" | trans}}{% endblock %}
+{% block title %}{{ "Edit Class ACL for %name%" | trans({'%name%': class_name}) }}{% endblock %}
 
 {% block manager_js %}
     <script type="application/javascript" src="{{ asset('bundles/fomuser/js/acl-form.js') }}"></script>
@@ -10,7 +10,7 @@
 
 {% block manager_content %}
 
-<form action="{{ path('fom_user_user_create') }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} class="well" autocomplete="off">
+<form action="{{ path('fom_user_acl_update', { 'class': class }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} class="well" data-aclsid="{{ form.get('widget_control_group_attr')['data-aclsid'] }}">
     {% if form_errors(form) %}
     <div class="alert alert-error">
         {{ form_errors(form) }}
@@ -19,14 +19,15 @@
 
     {{ form_row(form._token) }}
 
-    {% include 'FOMUserBundle:User:form.html.twig' %}
+    {% include 'FOMUserBundle:ACL:form.html.twig' %}
 
     <footer>
         <div class="btn-group">
-            <input type="submit" value="{{ 'Create' | trans }}" class="btn btn-primary"/>
-            <a href="{{ url('fom_user_user_index') }}" class="btn">{{ 'Cancel' | trans}}</a>
+            <input type="submit" value="{{ 'Update' | trans }}" class="btn btn-primary"/>
+            <a href="{{ url('fom_user_acl_index') }}" class="btn">{{ 'Cancel' | trans}}</a>
         </div>
     </footer>
 </form>
 
 {% endblock %}
+

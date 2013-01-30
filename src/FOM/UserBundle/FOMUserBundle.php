@@ -23,7 +23,8 @@ class FOMUserBundle extends ManagerBundle
                 'route' => 'fom_user_user_index',
                 'routes' => array(
                     'fom_user_user',
-                    'fom_user_group'
+                    'fom_user_group',
+                    'fom_user_acl'
                 )
             )
         );
@@ -34,5 +35,12 @@ class FOMUserBundle extends ManagerBundle
         return array(
             'ROLE_SUPER_ADMIN' => 'Can administrate everything (super admin)',
             'ROLE_USER_ADMIN' => 'Can administrate users & groups');
+    }
+
+    public function getACLClasses()
+    {
+        return array(
+            'FOM\UserBundle\Entity\User' => 'Users',
+            'FOM\UserBundle\Entity\Group' => 'Groups');
     }
 }

@@ -15,18 +15,27 @@
             return $.get(acl_provider, {
                 query: query
             }, function(data) {
-                console.log(data);
                 return process_callback(data);
             });
 
         };
 
-        // Create a typeahead for every SID input
-        $('[data-provide="typeahead"]', acl_container).each(function() {
-            var typeahead = $(this).typeahead({
+        var create_typehead = function(element) {
+            console.log(element);
+            $(element).typeahead({
                 source: provider,
                 minLength: 3
             });
+        };
+
+        // Create a typeahead for every SID input
+        $('[data-provide="typeahead"]', acl_container).each(function(idx, element) {
+            create_typehead(element);
         });
+
+        $('#acl_ace_control_group').bind('add.mopa-collection-item', function(event, ace) {
+            create_typehead($('[data-provide="typeahead"]', ace));
+        });
+
     });
 })(jQuery);
