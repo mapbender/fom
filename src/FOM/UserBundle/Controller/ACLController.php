@@ -150,10 +150,15 @@ class ACLController extends Controller
      * @return array         Array of role security identifiers
      */
     protected function getRoles($query) {
-        return array(
-            'r:zyx',
-            'r:123'
-        );
+        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:Group');
+        $groups = $repo->findAll();
+
+        $roles = array();
+        foreach($groups as $group) {
+            $roles[] = 'r:' . $group->getAsRole();
+        }
+
+        return $roles;
     }
 
     protected function getACLClasses()

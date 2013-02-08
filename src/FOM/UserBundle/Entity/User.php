@@ -299,6 +299,7 @@ class User implements AdvancedUserInterface {
         $roles = array();
         foreach($this->groups as $group) {
             $roles = array_merge($roles, $group->getRoles());
+            $roles[] = $group->getAsRole();
         }
         $roles[] = 'ROLE_USER';
         return $roles;
