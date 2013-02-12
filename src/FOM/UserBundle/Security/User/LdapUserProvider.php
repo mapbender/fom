@@ -6,69 +6,58 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-
+use Symfony\Bridge\Monolog\Logger;
 use Mapbender\Component\Ldap;
 
-/**
- * Description of LdapUserProvider
- *
- * @author arp
- */
 class LdapUserProvider implements UserProviderInterface
 {
-    protected $container;
-    protected $ldapConfiguration;
+    protected $params;
+    protected $logger;
 
-
-    public function __construct($ldapConfiguration)
+    public function __construct(array $fom_params, Logger $logger)
     {
-        $this->ldapConfiguration = $ldapConfiguration['ldap'];
+        $this->params = $fom_params['ldap'];
+        $this->logger = $logger;
     }
-    
-    public function loadUserByUsername($username)
+
+    public function loadUserByUsername($username, $isDn=false)
     {
-        $ldap = new Ldap($this->ldapConfiguration['host'],
-            $this->ldapConfiguration['port'],
-            $this->ldapConfiguration['version']);
-        
-        if(!$ldap) {
-            throw new \RuntimeException('LDAP configuration error: ' . $ldap->lastError());
+        // Find remote user
+        $ldap = new Ldap($this->params['host'],
+            $this->params['port'],
+            $this->params['version']);
+
+        $base = $this->params['base_dn'];
+        $filter = sprintf($this->params['filter'], $username);
+        if($isDn) {
+            $filter = sprintf($this->params['filter'], '*');
+            $base = $username;
         }
 
-        $data = $ldap->search($this->ldapConfiguration['base_dn'], 
-             sprintf($this->ldapConfiguration['filter'], $username));
+        $result = $ldap->search($base, $filter);
 
-        if(!isset($data[0]['dn'])) {
-            throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
+        $this->logger->debug(sprintf('LDAP search with base dn "%s" and filter "%s" yielded: %s',
+            $base, $filter, print_r($result, true)));
+
+        if(false === $result || 1 !== $result['count']) {
+            throw new UsernameNotFoundException(
+                sprintf('No record found for user %s', $username));
         }
-            
-        $user = new $this->ldapConfiguration['user_class']();
-        /*
-        foreach($this->ldapConfiguration['user_mapping'] as $target => $source) {
-            $method = 'get' . ucfirst($target);
-            $value = $data[0][$source];
-            $user->$method($value);
-        }
-         */
-        
-        if(method_exists($user, 'setLdapData')) {
-            $user->setLdapData($data[0]);
-        }
-        
+
+        $user_class = $this->params['user_class'];
+        $user = new $user_class();
+        $user->setLdapData($result[0]);
+
         return $user;
     }
-    
+
     public function refreshUser(UserInterface $user)
     {
-        if (!$user instanceof XXXX) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
-        }
-
-        return $this->loadUserByUsername($user->getUsername());
+        return $this->loadUserByUsername($user->getUsername(), true);
     }
 
     public function supportsClass($class)
     {
-        return $class === $this->userClass;
+        return $class === $this->params['user_class'];
     }
 }

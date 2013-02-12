@@ -3,6 +3,8 @@
 {% block title %}{{ "Edit User" | trans}}{% endblock %}
 
 {% block manager_js %}
+    <script type="application/javascript" src="{{ asset('bundles/fomuser/js/acl-form.js') }}"></script>
+    <script type="application/javascript" src="{{ asset('bundles/mopabootstrap/js/mopabootstrap-collection.js') }}"</script>
     <script type="application/javascript" src="{{ asset('bundles/fommanager/js/form.js') }}"></script>
 {% endblock %}
 
