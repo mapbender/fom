@@ -39,13 +39,9 @@ class LdapUserProvider implements UserProviderInterface
         $this->logger->debug(sprintf('LDAP search with base dn "%s" and filter "%s" yielded: %s',
             $base, $filter, print_r($result, true)));
 
-        if(false === $result) {
+        if(false === $result || 1 !== $result['count']) {
             throw new UsernameNotFoundException(
                 sprintf('No record found for user %s', $username));
-        }
-
-        if(!array_key_exists(0, $result)) {
-            print_r($result);die($filter . '  -  ' . $base);
         }
 
         $user_class = $this->params['user_class'];
