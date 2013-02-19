@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authentication\Provider\UserAuthenticationProvider;
 use Symfony\Bridge\Monolog\Logger;
 use Mapbender\Component\Ldap;
+use FOM\UserBundle\Entity\User;
 
 class LdapAuthenticationProvider extends UserAuthenticationProvider
 {
@@ -59,20 +60,27 @@ class LdapAuthenticationProvider extends UserAuthenticationProvider
                 throw new BadCredentialsException('The presented password cannot be empty.');
             }
 
-            $ldap = new Ldap($this->params['host'],
-                $this->params['port'],
-                $this->params['version']);
-            $bind = $ldap->bind($user->getUsername(), $presentedPassword);
-            $this->logger->debug(sprintf('LDAP bind with username "%s" and password "%s" yielded: %s',
-                $user->getUsername(), $presentedPassword, print_r($bind, true)));
+            if($user instanceof User) {
+                $encoder = $this->encoderFactory->getEncoder($user);
+                if(!$encoder->isPasswordValid($user->getPassword(), $presentedPassword, $user->getSalt())) {
+                    throw new BadCredentialsException('The presented password is invalid.');
+                }
+            } else {
+                $ldap = new Ldap($this->params['host'],
+                    $this->params['port'],
+                    $this->params['version']);
+                $bind = $ldap->bind($user->getUsername(), $presentedPassword);
+                $this->logger->debug(sprintf('LDAP bind with username "%s" and password "%s" yielded: %s',
+                    $user->getUsername(), $presentedPassword, print_r($bind, true)));
 
 
-            if (! $bind) {
-                throw new BadCredentialsException('The presented password is invalid.');
+                if (! $bind) {
+                    throw new BadCredentialsException('The presented password is invalid.');
+                }
+
+                // There's likely more data in the LDAP result now after a successful bind
+                $this->userProvider->refreshUser($user);
             }
-
-            // There's likely more data in the LDAP result now after a successful bind
-            $this->userProvider->refreshUser($user);
         }
     }
 
