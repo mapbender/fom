@@ -48,7 +48,7 @@ class Group
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -64,14 +64,14 @@ class Group
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -87,14 +87,14 @@ class Group
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -107,10 +107,10 @@ class Group
      * @param FOM\UserBundle\Entity\User $users
      * @return Group
      */
-    public function addUser(\FOM\UserBundle\Entity\User $users)
+    public function addUser(\FOM\UserBundle\Entity\User $user)
     {
-        $this->users[] = $users;
-    
+        $this->users[] = $user;
+        $user->addGroup($this);
         return $this;
     }
 
@@ -119,7 +119,7 @@ class Group
      *
      * @param FOM\UserBundle\Entity\User $users
      */
-    public function removeUser(\FOM\UserBundle\Entity\User $users)
+    public function removeUser(\FOM\UserBundle\Entity\User $user)
     {
         $this->users->removeElement($users);
     }
@@ -127,7 +127,7 @@ class Group
     /**
      * Get users
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getUsers()
     {
@@ -143,17 +143,22 @@ class Group
     public function setRoles($roles)
     {
         $this->roles = $roles;
-    
+
         return $this;
     }
 
     /**
      * Get roles
      *
-     * @return array 
+     * @return array
      */
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    public function getAsRole()
+    {
+        return 'ROLE_GROUP_' . strtoupper($this->getTitle());
     }
 }

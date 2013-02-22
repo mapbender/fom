@@ -19,7 +19,11 @@
         {% for user in users %}
         <tr id="app-{{ user.id }}">
             <td>
+                {% if is_granted('EDIT', user) %}
                 <a href="{{ path('fom_user_user_edit', {'id': user.id}) }}" title="{{ 'Edit' | trans }}">{{ user.username }}</a>
+                {% else %}
+                {{ user.username }}
+                {% endif %}
             </td>
             <td><a href="mailto:{{ user.email }}" title="{{ 'Contact user via e-mail' | trans }}">{{ user.email }}</a></td>
             <td>
@@ -31,8 +35,10 @@
             </td>
             <td>
                 <div class="entity-actions btn-group">
+                    {% if is_granted('EDIT', user) %}
                     <a class="action-edit btn" href="{{ path('fom_user_user_edit',  {'id': user.id }) }}" title="{{ 'Edit' | trans }}">{{ 'Edit' | trans }}</a>
-                    {% if user.id != 1 %}
+                    {% endif %}
+                    {% if user.id != 1 and is_granted('DELETE', user) %}
                     <a class="action-delete btn btn-warning" href="{{ path('fom_user_user_confirmdelete', { 'id': user.id }) }}">{{ 'Delete' | trans }}</a>
                     {% endif %}
                 </div>

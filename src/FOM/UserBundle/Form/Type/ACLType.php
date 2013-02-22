@@ -57,40 +57,49 @@ class ACLType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         try {
-            $oid = ObjectIdentity::fromDomainObject($options['data']);
-            $acl = $this->aclProvider->findAcl($oid);
-            $aces = $acl->getObjectAces();
+            if($options['class'] && class_exists($options['class'])) {
+                $oid = new ObjectIdentity('class', $options['class']);
+                $acl = $this->aclProvider->findAcl($oid);
+                $aces = $acl->getClassAces();
+            } else {
+                $oid = ObjectIdentity::fromDomainObject($options['data']);
+                $acl = $this->aclProvider->findAcl($oid);
+                $aces = $acl->getObjectAces();
+            }
 
             $isMaster = $this->securityContext->isGranted('MASTER');
             $isOwner = $this->securityContext->isGranted('OWNER');
-        } catch(InvalidDomainObjectException $e) {
-            // for unsaved entities, fake three standard permissions:
-            // - Owner access for current user
-            // - View access for anonymous users
-            // - View access for logged in users
-            $oid = null;
-            $aces = array();
-
-            $owner = $this->securityContext->getToken()->getUser();
-            $ownerAccess = array(
-                'sid' => UserSecurityIdentity::fromAccount($owner),
-                'mask' => MaskBuilder::MASK_OWNER);
-
+        } catch(\Exception $e) {
             $isMaster = true;
             $isOwner = true;
-            
-            $anon = new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY');
-            $anonAccess = array(
-                'sid' => $anon,
-                'mask' => MaskBuilder::MASK_VIEW);
+            $aces = array();
+            if(true === $options['create_standard_permissions']) {
+                // for unsaved entities, fake three standard permissions:
+                // - Owner access for current user
+                // - View access for anonymous users
+                // - View access for logged in users
+                $oid = null;
+                $aces = array();
 
-            $user = new RoleSecurityIdentity('ROLE_USER');
-            $userAccess = array(
-                'sid' => $anon,
-                'mask' => MaskBuilder::MASK_VIEW);
+                $owner = $this->securityContext->getToken()->getUser();
+                $ownerAccess = array(
+                    'sid' => UserSecurityIdentity::fromAccount($owner),
+                    'mask' => MaskBuilder::MASK_OWNER);
+                $aces[] = $ownerAccess;
 
-            $aces[] = $ownerAccess;
-            $aces[] = $anonAccess;
+                if($options['standard_anon_access']) {
+                    $anon = new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY');
+                    $anonAccess = array(
+                        'sid' => $anon,
+                        'mask' => MaskBuilder::MASK_VIEW);
+
+                    $user = new RoleSecurityIdentity('ROLE_USER');
+                    $userAccess = array(
+                        'sid' => $anon,
+                        'mask' => MaskBuilder::MASK_VIEW);
+                    $aces[] = $anonAccess;
+                }
+            }
         }
 
         $permissions = is_string($options['permissions'])
@@ -136,6 +145,9 @@ class ACLType extends AbstractType
     {
         $resolver->setDefaults(array(
             'permissions' => array(),
+            'class' => null,
+            'create_standard_permissions' => true,
+            'standard_anon_access' => true,
             'user' => null,
             'force_master' => false,
             'force_owner' => false,
@@ -150,7 +162,7 @@ class ACLType extends AbstractType
      * Returns an array with an array of permissions to show (['show']) and an
      * array with permissions which should be disabled (that means, still shown,
      * but uneditable) (['disable']).
-     * 
+     *
      * @param  array  $options Form options
      * @param  [type] $master  is master permission assumed?
      * @param  [type] $owner   is owner permission assumed?

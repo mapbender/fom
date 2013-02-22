@@ -32,7 +32,7 @@ class AclManager
      * @param string $type   ACE type to update (object or class)
      */
     public function setObjectACLFromForm($entity, $form, $type)
-    {        
+    {
         $aces = $form->get('ace')->getData();
 
         $this->setObjectACL($entity, $aces, $type);
@@ -56,7 +56,7 @@ class AclManager
                     . ' are not supported.');
         }
 
-        $acl = $this->getAcl($entity);        
+        $acl = $this->getAcl($entity);
         $oldAces = $acl->getObjectAces();
 
         // @TODO: This is a naive implementation, we should update where
@@ -79,9 +79,52 @@ class AclManager
         $this->aclProvider->updateAcl($acl);
     }
 
+    /**
+     * Update ACEs from a form of class FOM\UserBundle\Form\Type\ACLType
+     * (commonly 'acl')
+     * @param object $entity Entity to update ACL for
+     * @param object $form   ACLType form object
+     * @param string $type   ACE type to update (object or class)
+     */
+    public function setClassACLFromForm($class, $form)
+    {
+        $aces = $form->get('ace')->getData();
+        $this->setClassACL($class, $aces);
+    }
+
+    protected function setClassACL($class, $aces)
+    {
+        $acl = $this->getAcl($class);
+        $oldAces = $acl->getClassAces();
+
+        // @TODO: This is a naive implementation, we should update where
+        // possible instead of deleting all old ones and adding all new ones...
+
+        // Delete old ACEs
+        foreach(array_reverse(array_keys($oldAces)) as $idx) {
+            $acl->deleteClassAce(intval($idx));
+        }
+
+        // Add new ACEs
+        foreach(array_reverse($aces) as $idx => $ace) {
+            // If no mask is given, we might as well not insert the ACE
+            if($ace['mask'] === 0) {
+                continue;
+            }
+            $acl->insertClassAce($ace['sid'], $ace['mask']);
+        }
+
+        $this->aclProvider->updateAcl($acl);
+    }
+
     protected function getACL($entity)
     {
-        $oid = ObjectIdentity::fromDomainObject($entity);
+        if(is_string($entity) && class_exists($entity)) {
+            $oid = new ObjectIdentity('class', $entity);
+        } else {
+            $oid = ObjectIdentity::fromDomainObject($entity);
+        }
+
         try {
             $acl = $this->aclProvider->createAcl($oid);
         } catch(\Exception $e) {

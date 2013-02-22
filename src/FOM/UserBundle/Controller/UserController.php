@@ -14,6 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * User management controller
@@ -29,17 +31,24 @@ class UserController extends Controller {
      * @Template
      */
     public function indexAction() {
-        $user = $this->get('security.context')->getToken()->getUser();
+        $securityContext = $this->get('security.context');
+        $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
 
-        if($user->isAdmin('USER')) {
-            $query = $this->getDoctrine()->getEntityManager()->createQuery('SELECT r FROM FOMUserBundle:User r');
+        $query = $this->getDoctrine()->getEntityManager()->createQuery('SELECT r FROM FOMUserBundle:User r');
+        $users = $query->getResult();
+        $allowed_users = array();
+        // ACL access check
+        foreach($users as $index => $user) {
+            if($securityContext->isGranted('VIEW', $user)) {
+                $allowed_users[] = $user;
+            } else {
 
-            $users = $query->getResult();
-        } else {
-            $users = array($user);
+            }
         }
 
-        return array('users' => $users);
+        return array(
+            'users' => $allowed_users,
+            'create_permission' => $securityContext->isGranted('CREATE', $oid));
     }
 
     /**
@@ -49,6 +58,14 @@ class UserController extends Controller {
      */
     public function newAction() {
         $user = new User();
+
+        // ACL access check
+        $securityContext = $this->get('security.context');
+        $oid = new ObjectIdentity('class', get_class($user));
+        if(false === $securityContext->isGranted('CREATE', $oid)) {
+            throw new AccessDeniedException();
+        }
+
         $form = $this->createForm(new UserType(), $user);
 
         return array(
@@ -66,6 +83,13 @@ class UserController extends Controller {
         $user = new User();
         $form = $this->createForm(new UserType(), $user);
 
+        // ACL access check
+        $securityContext = $this->get('security.context');
+        $oid = new ObjectIdentity('class', get_class($user));
+        if(false === $securityContext->isGranted('CREATE', $oid)) {
+            throw new AccessDeniedException();
+        }
+
         $form->bindRequest($this->get('request'));
 
         if($form->isValid()) {
@@ -78,6 +102,11 @@ class UserController extends Controller {
 
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($user);
+
+            $aclManager = $this->get('fom.acl.manager');
+            $aclManager->setObjectACLFromForm($user, $form->get('acl'),
+                'object');
+
             $em->flush();
 
             $this->get('session')->setFlash('success',
@@ -104,6 +133,12 @@ class UserController extends Controller {
             throw new NotFoundHttpException('The user does not exist');
         }
 
+        // ACL access check
+        $securityContext = $this->get('security.context');
+        if(false === $securityContext->isGranted('EDIT', $user)) {
+            throw new AccessDeniedException();
+        }
+
         $form = $this->createForm(new UserType(), $user, array(
             'requirePassword' => false,
             'extendedEdit' => $user->isAdmin('USER')));
@@ -123,6 +158,12 @@ class UserController extends Controller {
         $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->find($id);
         if($user === null) {
             throw new NotFoundHttpException('The user does not exist');
+        }
+
+        // ACL access check
+        $securityContext = $this->get('security.context');
+        if(false === $securityContext->isGranted('EDIT', $user)) {
+            throw new AccessDeniedException();
         }
 
         // If no password is given, we'll recycle the old one
@@ -149,6 +190,11 @@ class UserController extends Controller {
             }
 
             $em = $this->getDoctrine()->getEntityManager();
+
+            $aclManager = $this->get('fom.acl.manager');
+            $aclManager->setObjectACLFromForm($user, $form->get('acl'),
+                'object');
+
             $em->flush();
 
             $this->get('session')->setFlash('success', 'The user has been updated.');
@@ -175,6 +221,12 @@ class UserController extends Controller {
             throw new NotFoundHttpException('The user does not exist');
         }
 
+        // ACL access check
+        $securityContext = $this->get('security.context');
+        if(false === $securityContext->isGranted('DELETE', $user)) {
+            throw new AccessDeniedException();
+        }
+
         $form = $this->createDeleteForm($id);
 
         return array(
@@ -186,6 +238,8 @@ class UserController extends Controller {
      * @ManagerRoute("/user/{id}/delete")
      * @Method({ "POST" })
      * @Template
+     *
+     * @todo : Delete ACEs for given user
      */
     public function deleteAction($id) {
         $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')
@@ -195,6 +249,12 @@ class UserController extends Controller {
         }
         if($user->getId() === 1) {
             throw new NotFoundHttpException('The root user can not be deleted');
+        }
+
+        // ACL access check
+        $securityContext = $this->get('security.context');
+        if(false === $securityContext->isGranted('DELETE', $user)) {
+            throw new AccessDeniedException();
         }
 
         $form = $this->createDeleteForm($id);
