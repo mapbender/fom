@@ -17,7 +17,8 @@ interface LdapUserInterface extends AdvancedUserInterface
      * Set LDAP search result data for user.
      * getUsername and other methods should return values from this data array
      *
-     * @param array $data ldap search result
+     * @param array $userData ldap user search result
+     * @param array $groupData ldap group search result
      */
-    public function setLdapData(array $data);
+    public function setLdapData(array $userData, array $groupData);
 }
