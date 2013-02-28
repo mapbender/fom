@@ -1,0 +1,16 @@
+@import "compass/layout/stretching";
+@import "compass/utilities";
+@import "compass/css3";
+
+//
+// positioning helper mixin
+// compass -> stretch do not support empty values
+//
+@mixin pos($top, $right, $bottom, $left){
+  position:absolute;
+
+  @if($top != ''){top:$top;}
+  @if($right != ''){right:$right;}
+  @if($bottom != ''){bottom:$bottom;}
+  @if($left != ''){left:$left;}
+}

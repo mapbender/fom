@@ -1,0 +1,376 @@
+@import "base";
+@import "mixins";
+@import "normalize";
+
+/*
+ * This theme contains global styles only
+ */
+
+/* -------------------------------------------------mapbender3 resets */
+*{
+  &:focus{
+    outline:none;
+    // focus visualiation is very important!
+    border:1px solid lighten($ciColor, 20%) !important;
+  }
+  @include box-sizing(border-box);
+}
+ul{list-style:none;}
+hr, h1, h2, h3, ul, ol{margin:0;padding:0px;}
+a{text-decoration:none;}
+
+
+
+
+
+/* --------------------------------------------------------------misc */
+html, body{
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0;
+  font:{
+    family: $fontFamily;
+    size: $fontSize;
+  }
+  line-height:$lineHeight;
+  color:$darkFontColor;
+  background:url("../../fomcore/images/pattern2.png");
+}
+.clear{
+  clear:both;
+  @include clearfix();
+}
+.clearContainer{
+  height:0px;
+  @extend .clear;
+}
+.right{float:right;}
+.left{float:left;}
+// dekoration seperator
+.seperator{
+  height:6px;
+  border:none;
+  outline:none;
+  border-bottom:solid 1px $firstColor;
+  background:url("../../fomcore/images/line.png");
+  @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+}
+
+
+
+
+
+/* --------------------------------------------------------------text */
+.contentTitle{
+  font:{
+    size: $fontSize + 40;
+    weight:normal;
+    style:italic;
+  }
+
+  line-height:$lineHeight - 2;
+  padding-bottom:$space/2;
+  border-bottom:dashed 1px darken(#fff, 30%);
+  @include text-shadow(#fff 1px 1px 0px);
+}
+.title{
+  font:{
+    size: $fontSize + 20;
+    weight:normal;
+  }
+  @include text-shadow(#fff 1px 1px 0px);
+}
+.subTitle{
+  font-size: $fontSize;
+  color:$ciColor;
+  @include text-shadow(#fff 1px 1px 0px);
+}
+fieldset{
+  border:solid 1px lighten($thirdColor, 20%);
+  padding:$space;
+  background-color:#fff;
+
+  legend{
+    @extend .subTitle;
+    margin:0px !important;
+  }
+}
+.label{
+  font-size: $fontSize - 20;
+  color:$secondColor;
+  display:block;
+  line-height:$lineHeight + 0.7;
+  @include text-shadow(#fff 1px 1px 0px);
+}
+.errorText{
+  font-size:$fontSize - 20;
+  color:darken($errorColor, 60%);
+}
+
+
+
+
+
+/* --------------------------------------------------------compontens */
+/* table */
+.table{    
+  border:1px solid $thirdColor;
+  width:100%;
+  @include box-shadow(1px 0px 2px rgba(0, 0, 0, 0.1));
+
+  td, th{
+    padding:5px 10px;
+    font-size:$fontSize - 20;
+  }
+
+  thead{border:1px solid lighten($thirdColor, 20%);}
+  th{
+    text-align:left;
+    color:$lightFontColor;
+    background-color:$firstColor;
+    border-right:1px solid $secondColor;
+  }
+  td{
+    background-color:$contentColor;
+    border-bottom:1px solid $thirdColor;
+    border-right:1px solid lighten($thirdColor, 20%);
+    @include box-shadow(0px -1px 0px #fff);
+
+    &:last-child{border-right:none;}
+    &.center{text-align:center;}
+  }
+}
+/* inputs */
+.input{
+  color:$secondColor;
+  border:solid 1px lighten($thirdColor, 15%);
+  font-size: $fontSize - 20;
+  line-height:$lineHeight;
+  height:28px;
+  padding-left: 5px;
+  padding-right: 5px;
+  @include box-shadow(inset 0 1px 2px lighten($thirdColor, 25%));
+  @include border-radius($radius);
+}
+/* buttons */
+@mixin buttonStyleHelper($color){
+  border:solid 1px darken($color, 12%);
+  color:darken($color, 20%);
+  background-color:$color;
+  @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2), 
+                      inset 0px 1px 0px lighten($color, 10%),
+                      inset 0px -1px 0px darken($color, 2%),
+                      inset 0px 0px 7px darken($color, 5%));
+  @include text-shadow(1px 1px 0px lighten($color, 18%));
+}
+.buttonCore{
+  font:{
+    family: $fontFamily;
+    size: $fontSize - 20;
+  }
+  @include transition(all 0.2s linear);
+
+  // this sucks -.- thank u mozilla for this awesome bug!
+  // -> line-height behaviour differs from other browsers.
+  //    font-size and the *non* font sans-serif fix it in all ff.
+  @-moz-document url-prefix(){
+    .buttonCore{font: ($fontSize - 25) sans-serif;}
+  }
+  border:none;
+  cursor:pointer;
+}
+.button{
+  @extend .buttonCore;
+
+  padding:($space/4) ($space/2) ($space/4) ($space/2);
+  margin:0px;
+  @include border-radius($radius);
+  @include buttonStyleHelper(lighten($ciColor2, 5%));
+
+  &:hover{
+    // background-color:lighten($ciColor2, 4%);
+    @include buttonStyleHelper(lighten($ciColor2, 15%));
+    // @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2), 
+    //                     inset 0px 1px 0px lighten($ciColor2, 25%),
+    //                     inset 0px -1px 0px lighten($ciColor2, 15%),
+    //                     inset 0px 0px 10px lighten($ciColor2, 35%));
+  }
+
+  &.active{
+    cursor:default;
+    @include buttonStyleHelper($ciColor);
+  }
+  &.disabled{
+    cursor:default;
+    @include buttonStyleHelper(#dddddd);
+  }
+
+  &.icon{
+    padding-left:20px;
+    background:{
+      image:url("../../fomcore/images/nav_arrow.png");
+      position:10px center;
+      repeat: no-repeat;
+    }
+  }
+  .group &{
+    border-right:0px;
+    @include border-radius(0);
+    
+    &:first-child{
+      @include border-left-radius($radius);
+    }
+    &:last-child{
+      border-right:solid 1px darken($ciColor2, 12%);
+      @include border-right-radius($radius);
+    }
+  }
+}
+.linkButton{
+  @extend .buttonCore;
+  color:$middleFontColor;
+  padding:2px 5px 1px $space/2;
+  background:url("../../fomcore/images/nav_arrow.png") left center no-repeat;
+  @include text-shadow(#fff 1px 1px 0px);
+
+  &:hover, &.activeLink, &:active{                
+    color:$darkFontColor;
+    background:url("../../fomcore/images/nav_arrow_active.png") left center no-repeat !important;
+ };
+}
+.toolbar{
+  padding:5px;
+  li{display:inline;}
+}
+
+
+
+
+
+/* ---------------------------------------------------------container */
+/* tabs */
+.tabContainer{
+  .tab{
+    $top:5px;
+    $offset:3px;
+
+    font-size:$fontSize - 20;
+    color:$middleFontColor;
+    background-color:$contentColor;
+    cursor:pointer;
+    border:{
+      left:solid 1px $thirdColor;
+      top:solid 1px $thirdColor;
+      right:solid 1px $thirdColor;
+    }
+    float:left;
+    margin-right:5px;
+    margin-bottom: -$offset;
+    padding:($top - $offset) 10px 3px 10px;
+    @include box-shadow(1px 0px 2px rgba(0, 0, 0, 0.1),
+                        inset 1px 0px 2px #fff);
+    @include transition(all 0.2s linear);
+
+    &:first-child{
+      @include border-top-left-radius($radius);
+    }
+
+    &:hover{
+      color:$ciColor2;
+      background-color:#fff;
+    }
+
+    &.active{
+      cursor:default;
+      color:$ciColor;
+      font-weight:bold;
+      padding:$top 10px 3px 10px;
+      background-color:$contentColor;
+      @include box-shadow(1px 0px 1px rgba(0, 0, 0, 0.1));
+    }
+
+    &.icon{
+      background:{
+        image:url("../../fomcore/images/nav_arrow.png");
+        position:10px center;
+        repeat: no-repeat;
+      }
+      padding-left:20px;
+    }
+  }
+  .container{
+    clear:left;
+    display:none;
+    padding:$space;
+    background-color:$contentColor;
+    *width:94%; // scary ie shit :( -> double padding bug
+    border:{
+      top:solid 3px $ciColor2;
+      left:solid 1px $thirdColor;
+      right:solid 1px $thirdColor;
+      bottom:solid 1px $thirdColor;
+    }
+    @include border-bottom-radius($radius);
+    @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.2));
+
+    &.active{
+      display:block;
+    }
+  }
+}
+/* popup */
+.popupContainer{
+  display:none;
+  position: absolute;
+  z-index:999;
+  @include stretch();
+
+  &.show{
+    display:block;
+  }
+}
+.overlay{
+  background:url($firstPatternUrl);
+  @include opacity(0.9);
+  @include stretch();
+}
+.popup{
+  position:relative;
+  z-index:9999;
+  margin:200px auto;
+  width:500px;
+  background-color:#f4f4f4;
+  background-image:url($secondPatternUrl);
+  @include border-radius($radius);
+  @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.9),
+                      inset 0px 0px 2px #fff);
+
+  .popupTitle{
+    padding:$space/2 $space $space/2 $space;
+  }
+  .subTitle{
+    font-size:$fontSize - 30;
+    margin-left:$space/4;
+  }
+
+  .popupContent{
+    *width:90%; // for the shitty ie 7 double padding + float bug
+    padding:0 $space $space $space;
+  }
+}
+/* messages */
+.messageBox{
+  padding:$space/2;
+  margin-bottom:$space;
+  @include border-radius($radius);
+
+  &.error{
+    @extend .errorText;
+    background-color: $errorColor;
+    border:solid 1px darken($errorColor, 10%);
+
+    @include box-shadow(0 0 2px rgba(0, 0, 0, 0.1),
+                        inset 0px 0px 3px #fff);
+  }
+}

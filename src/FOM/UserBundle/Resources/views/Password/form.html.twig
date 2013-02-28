@@ -1,21 +1,32 @@
 {% extends "FOMManagerBundle::backend.html.twig" %}
 
-{% block title %} {{ 'Password Reset' | trans}} {% endblock %}
+{% block title %} {{ 'Password Forgot' | trans}} {% endblock %}
 
 {% block wrapperclass %}hero-unit{% endblock %}
 
 {% block content %}
-<h1>{{ 'Forgot password' | trans}}</h1>
-<form action="{{ path('fom_user_password_request') }}" method="post" {{ form_enctype(form)}} autocomplete="off">
-    {% if form_errors(form) %}
-    <div class="alert alert-error">
-        {{ form_errors(form) }}
+  <div class="authWrapper forgot">
+    <div class="head"><hr class="seperator"></div>
+    <a class="logo" href="{{ path('mapbender_core_welcome_list') }}"><img alt="Mapbender 3" src="{{ asset(fom.server_logo)}}" /></a>
+
+    <div class="shadowBox">
+      <h2 class="contentTitle">{{ 'Forgot password' | trans}}</h2>
+      <form action="{{ path('fom_user_password_request') }}" method="post" {{ form_enctype(form)}} autocomplete="off" novalidate="novalidate">
+        {% if form_errors(form) %}
+        <div class="messageBox error">
+            {{ form_errors(form) }}
+        </div>
+        {% endif %}
+
+        <label for="{{ form.search.get('id') }}" class="left label">{{"Username or Email:" | trans}}</label>
+        {{ form_widget(form.search, { 'attr': {'class': 'input'} }) }}
+
+        {{ form_row(form._token) }}
+
+        <a class="left linkButton" href="{{ path('fom_user_login_login') }}">{{ "Login"|trans}}</a>
+        <button class="button right">{{ 'Require password' | trans}}</button>
+      </form>
+      <div class="clearContainer"></div>
     </div>
-    {% endif %}
-
-    {{ form_row(form.search) }}
-    {{ form_row(form._token) }}
-
-    <button class="btn btn-primary">{{ 'Require password' | trans}}</button>
-</form>
+  </div>
 {% endblock %}

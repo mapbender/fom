@@ -25,6 +25,18 @@ class FOMUserBundle extends ManagerBundle
                     'fom_user_user',
                     'fom_user_group',
                     'fom_user_acl'
+                ),
+                'subroutes' => array(
+                    0 => array('title'=>'New User',
+                               'route'=>'fom_user_user_new'),
+                    1 => array('title'=>'Groups', 
+                               'route'=>'fom_user_group_index',
+                               'subroute' => array(
+                                  'title'=>'New Group',
+                                  'route'=>'fom_user_group_new'
+                                )),
+                    2 => array('title'=>'ACLs',
+                               'route'=>'fom_user_acl_index')
                 )
             )
         );

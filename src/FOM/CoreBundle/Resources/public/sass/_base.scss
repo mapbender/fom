@@ -1,0 +1,31 @@
+//
+// Style global definition
+//
+
+//--------------------------------------------------------------patterns
+$firstPatternUrl:  "../../fomcore/images/pattern1.png";
+$secondPatternUrl: "../../fomcore/images/pattern3.png";
+
+//------------------------------------------------------------------font
+$fontFamily:"Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
+$fontSize:100%;
+
+//-----------------------------------------------------------------other
+$lineHeight:1.5em;
+$space: 20px;
+$radius: 3px;
+
+//----------------------------------------------------------------colors
+$firstColor:#404040; // dark gray
+$secondColor:#858585; // middle gray
+$thirdColor:#a2a2a2;  // light gray
+$contentColor:#EFEFEF;
+$errorColor:#fbe3e4; // red
+
+// the holy colors
+$ciColor:#74B63D; // green
+$ciColor2:#4899ba; // blue
+
+$darkFontColor:#3f3f3f; // darker gray
+$middleFontColor:#878787; // lighter gray
+$lightFontColor:#fff; // white

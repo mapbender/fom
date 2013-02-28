@@ -7,15 +7,46 @@
 {% endblock %}
 
 {% block content %}
-<div class="hero-unit">
-    <h1>{% trans %}Please provide your information{% endtrans %}</h1>
-{{ form_errors(form) }}
-<form action="{{ path('fom_user_registration_register') }}" method="post" {{ form_enctype(form) }} autocomplete="off">
-    {{ form_widget(form) }}
+  <div class="authWrapper register">
+    <div class="head"><hr class="seperator"></div>
+    <a class="logo" href="{{ path('mapbender_core_welcome_list') }}"><img alt="Mapbender 3" src="{{ asset(fom.server_logo)}}" /></a>
 
-    <button class="btn btn-primary">{% trans %}Submit{% endtrans %}</button>
-</form>
+    <div class="shadowBox">
+      <h2 class="contentTitle">{{ 'Registration' | trans}}</h2>
+      <form action="{{ path('fom_user_registration_register') }}" method="post" {{ form_enctype(form) }} autocomplete="off" novalidate="novalidate">
+
+          {{ form_errors(form.username) }}
+          <label class="left label" for="{{ form.username.get('id') }}">{{"Username:" | trans}}</label>
+          {{ form_widget(form.username, { 'attr': {'class': 'input'} }) }}
+          <div class="clearContainer"></div>
+
+
+          {% for pw in form.password %}
+            {{ form_errors(pw) }}
+
+            {% if pw.get('name') == 'first' %}
+              <label class="left label" for="{{ pw.get('id') }}">{{"Choose password:" | trans}}</label>
+            {% else %}
+              <label class="left label" for="{{ pw.get('id') }}">{{"Confirm password:" | trans}}</label>
+            {% endif %}
+
+            {{ form_widget(pw, { 'attr': {'class': 'input'} }) }}
+            <div class="clearContainer"></div>
+          {% endfor %}
+
+          {{ form_errors(form.email) }}
+          <label class="left label" for="{{ form.email.get('id') }}">{{"Email:" | trans}}</label>
+          {{ form_widget(form.email, { 'attr': {'class': 'input'} }) }}
+          <div class="clearContainer"></div>
+
+          {{ form_row(form._token) }}
+
+          <a class="left linkButton" href="{{ path('fom_user_login_login') }}">{{ "Login"|trans}}</a>
+          <button class="right button">{% trans %}Register{% endtrans %}</button>
+      </form>
+      <div class="clearContainer"></div>
+    </div>
+  </div>
 {% endblock %}
 
-{% block js %}
-{% endblock %}
+{% block js %}{% endblock %}

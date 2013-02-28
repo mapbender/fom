@@ -5,24 +5,37 @@
 {% block wrapperclass %}hero-unit{% endblock %}
 
 {% block content %}
-    <h1>{{ 'Hello, please log in' | trans}}.</h1>
-    <form action="{{ path("fom_user_login_logincheck") }}" method="post" id="login">
+  <div class="authWrapper login">
+    <div class="head"><hr class="seperator"></div>
+    <a class="logo" href="{{ path('mapbender_core_welcome_list') }}"><img alt="Mapbender 3" src="{{ asset(fom.server_logo)}}" /></a>
+
+    <div class="shadowBox">
+      <h2 class="contentTitle">Login</h2>
+      <form action="{{ path("fom_user_login_logincheck") }}" method="post" id="login" novalidate="novalidate">
         {% if error %}
-        <div class="alert alert-error">{{ error.message }}</div>
+          <div class="messageBox error">{{ error.message }}</div>
         {% endif %}
 
-        <label for="username">{{ 'Username' | trans}}</label>
-        <input id="username" type="text" name="_username" value="{{ last_username }}" autofocus />
+        <label class="left label" for="username">{{ 'Username' | trans}}:</label>
+        <input class="input" id="username" type="text" name="_username" value="{{ last_username }}" autofocus />
+        
+        <div class="clearContainer"></div>
+        
+        <label class="left label" for="password">{{ 'Password' | trans}}:</label>
+        <input class="input" type="password" id="password" name="_password" />
 
-        <label for="password">{{ 'Password' | trans}}</label>
-        <div class="input-append">
-            <input type="password" id="password" name="_password" /><input type="submit" class="btn btn-primary" value="{{ 'Login' | trans}}" />
+        <div class="clearContainer"></div>
+
+        <div class="left">
+          {% if selfregister == true %}
+          <a class="linkButton" href="{{ path('fom_user_registration_form') }}">{{ 'Register' | trans}}</a>
+          {% endif %}
+          <a class="linkButton" href="{{ path('fom_user_password_form') }}">{{ 'Forgot password' | trans}}?</a>
         </div>
-    </form>
-    {% if selfregister == true %}
-    <a href="{{ path('fom_user_registration_form') }}">{{ 'Register' | trans}}</a> |
-    {% endif %}
-    <a href="{{ path('fom_user_password_form') }}">{{ 'Forgot password' | trans}}?</a>
-</div>
-{% endblock %}
+        <input type="submit" class="right button" value="{{ 'Login' | trans}}" />
+        <div class="clearContainer"></div>
+      </form>
+    </div>
 
+  </div>
+{% endblock %}
