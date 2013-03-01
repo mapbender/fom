@@ -35,11 +35,6 @@ class Group
      */
     protected $users;
 
-    /**
-     * @ORM\Column(type="array")
-     */
-    protected $roles;
-
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -132,29 +127,6 @@ class Group
     public function getUsers()
     {
         return $this->users;
-    }
-
-    /**
-     * Set roles
-     *
-     * @param array $roles
-     * @return Group
-     */
-    public function setRoles($roles)
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * Get roles
-     *
-     * @return array
-     */
-    public function getRoles()
-    {
-        return $this->roles;
     }
 
     public function getAsRole()

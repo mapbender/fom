@@ -40,8 +40,7 @@ class GroupController extends Controller {
     public function newAction() {
         $available_roles = $this->get('fom_roles')->getAll();
         $group = new Group();
-        $form = $this->createForm(new GroupType(), $group, array(
-            'available_roles' => $available_roles));
+        $form = $this->createForm(new GroupType(), $group);
 
         return array(
             'group' => $group,
@@ -102,8 +101,7 @@ class GroupController extends Controller {
         }
 
         $available_roles = $this->get('fom_roles')->getAll();
-        $form = $this->createForm(new GroupType(), $group, array(
-            'available_roles' => $available_roles));
+        $form = $this->createForm(new GroupType(), $group);
 
         return array(
             'group' => $group,

@@ -25,12 +25,7 @@ class GroupType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'property' => 'username',
-                'label' => 'Users'))
-            ->add('roles', 'choice', array(
-                'expanded' => true,
-                'multiple' => true,
-                'choices' => $options['available_roles'],
-                'label' => 'Roles'));
+                'label' => 'Users'));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
