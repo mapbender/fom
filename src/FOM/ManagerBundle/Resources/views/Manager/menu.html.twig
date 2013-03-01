@@ -1,35 +1,34 @@
 <ul class="navLevel1 shadowBox">
-  <li>
-    <a class="navItem" href="{{ path('mapbender_core_welcome_list') }}">Startpage</a>
-  </li>
+  {% for k, itemLvlOne in menu %}
 
-  {% for k, navItem in menu %}
-    {% if navItem.active %}
-      <li>
-        <a class="navItem activeLink" href="{{ path(navItem.route) }}">{{ navItem.title|trans }}</a>
+    <li id="manager-{{ k }}" class="navItem {% if itemLvlOne.active is defined %} activeItem {% endif %}">
+      <a href="{{ path(itemLvlOne.route) }}">{{ itemLvlOne.title|trans }}</a>
 
-        {% if navItem.subroutes %}
-          <ul class="navLevel2">
-            {% for subNavItem in navItem.subroutes %}
+    {% if itemLvlOne.subroutes is defined %}
+      <ul class="navLevel2">
 
-              <li><a class="navItem" href="{{ path(subNavItem.route) }}">{{ subNavItem.title|trans }}</a>
+        {% for itemLvlTwo in itemLvlOne.subroutes %}
+          <li class="{% if itemLvlTwo.active is defined %} activeItem {% endif %} navItem">
+            <a href="{{ path(itemLvlTwo.route) }}">{{ itemLvlTwo.title|trans }}</a>
 
-              {% if subNavItem.subroute is defined %}
-                <ul class="navLevel3">
-                  <li><a class="navItem" href="{{ path(subNavItem.subroute.route) }}">{{ subNavItem.subroute.title|trans }}</a></li>
-                </ul>
-              {% endif %}
+            {% if itemLvlTwo.subroutes is defined %}
+              <ul class="navLevel3">
 
-              </li>
+                {% for itemLvlThree in itemLvlTwo.subroutes %}
+                  <li class="navItem {% if itemLvlThree.active is defined %} activeItem {% endif %}">
+                    <a href="{{ path(itemLvlThree.route) }}">{{ itemLvlThree.title|trans }}</a>
+                  </li>
+                {% endfor %}
 
-            {% endfor %}
-          </ul>
-        {% endif %}
-      </li>
-    {% else %}
-      <li id="manager-{{ k }}">
-        <a href="{{ path(navItem.route) }}" class="navItem">{{ navItem.title|trans }}</a>
-      </li>
+              </ul>
+            {% endif %}
+
+          </li>
+
+        {% endfor %}
+      </ul>
     {% endif %}
+
+    </li>
   {% endfor %}
 </ul>

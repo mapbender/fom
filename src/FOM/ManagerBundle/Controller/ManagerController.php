@@ -36,19 +36,40 @@ class ManagerController extends Controller
     public function menuAction($request)
     {
         $current_route = $request->attributes->get('_route');
+        $menu          = $this->getManagerControllersDefinition();
 
-        $menu = $this->getManagerControllersDefinition();
-        foreach($menu as &$item) {
-            $item['active'] = false;
-            foreach($item['routes'] as $route) {
-                if(substr($current_route, 0, strlen($route))
-                    === $route){
-                    $item['active'] = true;
-                }
+        $this->setActive($menu, $current_route);
+
+        return array('menu' => $menu);
+    }
+
+    private function setActive(&$routes, $currentRoute) {
+        if(empty($routes)) return false;
+
+        $return = false;
+
+        foreach ($routes as &$route) {
+            if($currentRoute === $route['route']) {
+                $route['active'] = true;
+                $return = true;
+            }
+
+            if(isset($route['subroutes']) && $this->setActive($route['subroutes'], $currentRoute)) {
+                $route['active'] = true;
+                $return = true;
             }
         }
 
-        return array('menu' => $menu);
+        return $return;
+    }
+
+    /**
+     * Renders the breadcrumb menu
+     *
+     * @Template
+     */
+    public function breadAction($request){
+        return $this->menuAction($request);
     }
 
     protected function getManagerControllersDefinition()

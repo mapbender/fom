@@ -490,6 +490,7 @@ html, body {
   font-size: 140%;
   font-weight: normal;
   font-style: italic;
+  margin-bottom: 20px;
   line-height: -0.5em;
   padding-bottom: 10px;
   border-bottom: dashed 1px #b3b3b3;
@@ -510,7 +511,8 @@ fieldset {
   padding: 20px;
   background-color: #fff; }
   fieldset legend {
-    margin: 0px !important; }
+    margin: 0px !important;
+    padding: 0 5px 0 5px; }
 
 .label {
   font-size: 80%;

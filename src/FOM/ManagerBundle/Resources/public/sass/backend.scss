@@ -1,0 +1,310 @@
+@import "../../../../CoreBundle/Resources/public/sass/base";
+@import "../../../../CoreBundle/Resources/public/sass/mixins";
+@import "../../../../CoreBundle/Resources/public/sass/mapbender_theme";
+
+
+$bannerHeight:170px;
+$contentPaneWidth:760px;
+$navWidth:200px;
+$pageWidth:$contentPaneWidth + $navWidth;
+
+// colors
+$backendFirstColor:#404040; // dark gray
+
+/*
+ * This css contains backend styles only
+ */
+
+/* --------------------------------------------------------------page */
+// avoid that the background pattern overlaing the paper deck effect of the contentbox
+body{z-index:-30;position:relative;}
+.page{
+  position:relative;
+  top:-$bannerHeight;
+  margin: 0 auto;
+  width:$pageWidth;
+}
+// dekoration box
+.shadowBox{
+  background-color:#f4f4f4;
+  @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
+}
+
+
+
+
+
+/* ----------------------------------------------------------page top */
+.head{
+  position: relative;
+  height:$bannerHeight;
+
+  // remove broken head background when the page is smaller than defined width
+  min-width:$pageWidth;
+  border-top:solid 5px darken($backendFirstColor, 10%);
+  background:url($firstPatternUrl);
+
+  @include box-shadow(inset lighten(#000, 20%) 0px 1px 0px);
+
+  hr{@include pos('',0,0,0);}
+}
+.crumbTitle{
+  color:$lightFontColor;
+  font:{
+    size:$fontSize - 20;
+    weight:bold;
+  }
+  @include text-shadow($darkFontColor 1px 1px 0px);
+}
+.crumbSubTitle{
+    color:$middleFontColor;
+    font:{
+      size:$fontSize - 20;
+      style:italic;
+    }
+    @include text-shadow(black 1px 1px 0px);
+}
+.accountBar{
+  padding:($space/4) ($space/2) ($space/4) ($space/2);
+  color:$middleFontColor;
+  height: 35px;
+  overflow: hidden;
+  cursor:pointer;
+  @include pos(0,0,'','');
+
+  span{font-size: $fontSize - 10;}
+  &.stretchable{
+    @include transition(all 0.2s ease-in-out);
+
+    &:hover{
+      height:80px;
+    }
+  }
+}
+
+
+
+
+
+/* ---------------------------------------------------------page left */
+.leftPane{
+  @include pos(0, '', '', 0);
+  width:$navWidth;
+
+  .logo{
+    width:$navWidth - $space*2;
+    margin:$space 0 0 $space;
+  }
+}
+
+.navLevel1{
+  border-right:1px solid lighten($backendFirstColor, 40%);
+  padding:$space/2 $space $space/2 $space;
+  background-color:$contentColor;
+  @include box-shadow(0px 0px 3px rgba(0, 0, 0, 1));
+  @include pos($bannerHeight,0,'',0);
+
+  &>.navItem {display:block;}
+  & > .activeItem{
+    .navLevel2 > .navItem{display:block;}
+  }
+}
+.navLevel2, .navLevel3{margin-left:$space/2;}
+.navLevel2{
+  & > .activeItem{
+    .navLevel3 > .navItem{display:block;}
+  }
+}
+
+.navItem{
+  display:none;
+  a {
+    font:{
+      family: $fontFamily;
+      size: $fontSize - 20;
+    }
+    padding:($space/4) ($space/2) ($space/4) ($space/2);
+    background:url("../../fomcore/images/nav_arrow.png") left center no-repeat;
+    color:$middleFontColor;
+    @include text-shadow(1px 1px 0px $lightFontColor);
+    @include transition(color 0.2s linear);
+
+    &:hover{
+      color:$darkFontColor;
+      background:url("../../fomcore/images/nav_arrow_active.png") left center no-repeat;
+    }
+  }
+  &.activeItem {
+    display: block;
+    & > a{
+      color: $ciColor !important;
+      background:url("../../fomcore/images/nav_arrow_active.png") left center no-repeat;
+    }
+  }
+}
+
+
+// .activeMenu{
+//   padding-bottom:$space/2;
+
+//   .navTitle{
+//     margin-bottom:($space/2);
+//     padding:($space/4) ($space/2) ($space/4) ($space/2);
+//     cursor:default;
+//     font-size: $fontSize - 20;
+//     border:solid 1px darken($ciColor, 12%);
+//     color:darken($ciColor, 20%);
+//     background-color:$ciColor;
+//     line-height:$lineHeight + 0.5;
+//     @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2), 
+//                         inset 0px 1px 0px lighten($ciColor, 10%),
+//                         inset 0px -1px 0px darken($ciColor, 2%),
+//                         inset 0px 0px 7px darken($ciColor, 5%));
+//     @include text-shadow(1px 1px 0px lighten($ciColor, 18%));
+//     div{background:url("../images/nav_arrow_selected.png") right center no-repeat;}
+//   }
+//   .navItem{
+//     $borderWidth:1px;
+
+//     color:$middleFontColor;
+//     font:{
+//       family: $fontFamily;
+//       size: $fontSize - 20;
+//     }
+//     @include text-shadow(#fff 1px 1px 0px);
+//     display:block;
+//     *width:80%; // for the shitty ie 7 double padding + float bug
+//     border-left:1px solid lighten($thirdColor, 25%);
+//     padding:($space/4) ($space/2) ($space/4) $space;
+//     background:none;
+
+//     &:hover, &.activeLink{
+//       $offset:1px;
+//       // jump jump :) stop it! 
+//       padding-left:$space + $offset*2;
+//       // pull the icon left for the arrow horizontal arrow align
+//       margin-left:$space/2 - $offset;
+//       border:none;
+//       color:$darkFontColor;
+//       background:url("../images/nav_arrow_active.png") left center no-repeat !important;
+//     };
+//   }
+// }
+
+
+
+
+/*----------------------------------------------------------page right */
+.rightPane{
+  width:$contentPaneWidth;
+  @include pos(0, 0, '', $navWidth);
+}
+
+
+
+
+
+/* --------------------------------------------------------page center */
+.contentPane{padding-top:$space*3;}
+.content{
+  min-height: 600px;
+  position:relative;
+  padding:$space;
+  margin:0px;
+  background-color:#f4f4f4;
+  background-image:url($secondPatternUrl);
+  @include border-radius($radius);
+
+  hr{
+    @include pos(0,0,'',0);
+  }
+
+  // uuhh baby show me your paper effect ... hrrr
+  &:before, &:after{
+    content:"";
+    background-color:#fff;
+    height:10px;
+    @extend .shadowBox;
+    @include border-radius($radius);
+  }
+  &:before{
+    z-index:-10;
+    @include pos('',5px,-3px,5px);
+  }
+  &:after{
+    content:"";
+    z-index:-20;
+    @include pos('',10px,-6px,10px);
+  }
+}
+
+
+
+
+
+
+.authWrapper{
+  position: absolute;
+  left:0;
+  right: 0;
+  top:20%;
+
+  .logo{
+    margin:0 auto;
+    position:relative;
+    top:-250px;
+    display:block;
+    width:200px;
+  }
+  .shadowBox{
+    $width:320px;
+
+    position: relative;
+    top: -230px;
+    padding:$space;
+    margin: 0 auto;
+    width:$width;
+    // thank u ms for this owesome double margin feature. > ie7
+    *width:$width - 27;
+    background-image:url($secondPatternUrl);
+  }
+  .label{display:block;}
+  .input{margin-bottom:$space/2;}
+ 
+  &.login{
+    .label{width:70px;}
+    .input{width:210px;}
+  }
+  &.forgot{
+    .label{width:120px;}
+    .input{width:160px;}
+  }
+  &.register{
+    .label{width:115px;}
+    .input{width:165px;}
+  }
+  .help-block{
+    @extend .errorText;
+    display:block;
+    margin-bottom:$space/4;
+  }
+}
+
+ 
+
+
+
+/* --------------------------------------------------------page service */
+.serviceAddBox{
+  $labelWidth:70px;
+  $inputWidth:220px;
+
+  width:$labelWidth + $inputWidth + $space*2 + 2; // + border
+  margin-right:$space;
+
+  .label{width:$labelWidth;}
+  .input{
+    margin-bottom:$space/2;
+    width: $inputWidth;
+  }
+}

@@ -490,6 +490,7 @@ html, body {
   font-size: 140%;
   font-weight: normal;
   font-style: italic;
+  margin-bottom: 20px;
   line-height: -0.5em;
   padding-bottom: 10px;
   border-bottom: dashed 1px #b3b3b3;
@@ -510,7 +511,8 @@ fieldset {
   padding: 20px;
   background-color: #fff; }
   fieldset legend {
-    margin: 0px !important; }
+    margin: 0px !important;
+    padding: 0 5px 0 5px; }
 
 .label {
   font-size: 80%;
@@ -847,13 +849,21 @@ body {
 .accountBar {
   padding: 5px 10px 5px 10px;
   color: #878787;
-  font-size: 14px;
+  height: 35px;
+  overflow: hidden;
+  cursor: pointer;
   position: absolute;
   top: 0;
   right: 0; }
-
-.logo {
-  margin: 20px 0 0 0; }
+  .accountBar span {
+    font-size: 90%; }
+  .accountBar.stretchable {
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out; }
+    .accountBar.stretchable:hover {
+      height: 80px; }
 
 /* ---------------------------------------------------------page left */
 .leftPane {
@@ -861,6 +871,9 @@ body {
   top: 0;
   left: 0;
   width: 200px; }
+  .leftPane .logo {
+    width: 160px;
+    margin: 20px 0 0 20px; }
 
 .navLevel1 {
   border-right: 1px solid #a6a6a6;
@@ -873,26 +886,38 @@ body {
   top: 170px;
   right: 0;
   left: 0; }
-  .navLevel1 .activeLink {
-    background: url("../../fomcore/images/nav_arrow_selected.png") left center no-repeat; }
+  .navLevel1 > .navItem {
+    display: block; }
+  .navLevel1 > .activeItem .navLevel2 > .navItem {
+    display: block; }
 
 .navLevel2, .navLevel3 {
-  margin-left: 20px; }
+  margin-left: 10px; }
+
+.navLevel2 > .activeItem .navLevel3 > .navItem {
+  display: block; }
 
 .navItem {
-  font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 80%;
-  color: #878787;
-  border-bottom: 1px solid #efefef;
-  padding: 5px 10px 5px 10px;
-  background: url("../../fomcore/images/nav_arrow.png") left center no-repeat;
-  -webkit-transition: color 0.2s linear;
-  -moz-transition: color 0.2s linear;
-  -o-transition: color 0.2s linear;
-  transition: color 0.2s linear; }
-  .navItem:hover {
-    color: #3f3f3f;
-    background: #ededed url("../../fomcore/images/nav_arrow_active.png") left center no-repeat; }
+  display: none; }
+  .navItem a {
+    font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
+    font-size: 80%;
+    padding: 5px 10px 5px 10px;
+    background: url("../../fomcore/images/nav_arrow.png") left center no-repeat;
+    color: #878787;
+    text-shadow: 1px 1px 0px white;
+    -webkit-transition: color 0.2s linear;
+    -moz-transition: color 0.2s linear;
+    -o-transition: color 0.2s linear;
+    transition: color 0.2s linear; }
+    .navItem a:hover {
+      color: #3f3f3f;
+      background: url("../../fomcore/images/nav_arrow_active.png") left center no-repeat; }
+  .navItem.activeItem {
+    display: block; }
+    .navItem.activeItem > a {
+      color: #74b63d !important;
+      background: url("../../fomcore/images/nav_arrow_active.png") left center no-repeat; }
 
 /*----------------------------------------------------------page right */
 .rightPane {
@@ -907,6 +932,7 @@ body {
   padding-top: 60px; }
 
 .content {
+  min-height: 600px;
   position: relative;
   padding: 20px;
   margin: 0px;
@@ -945,7 +971,6 @@ body {
     bottom: -6px;
     left: 10px; }
 
-/* --------------------------------------------------------page login */
 .authWrapper {
   position: absolute;
   left: 0;
@@ -957,8 +982,6 @@ body {
     top: -250px;
     display: block;
     width: 200px; }
-  .authWrapper .contentTitle {
-    margin-bottom: 20px; }
   .authWrapper .shadowBox, .authWrapper .content:before, .authWrapper .content:after {
     position: relative;
     top: -230px;
@@ -986,3 +1009,13 @@ body {
   .authWrapper .help-block {
     display: block;
     margin-bottom: 5px; }
+
+/* --------------------------------------------------------page service */
+.serviceAddBox {
+  width: 332px;
+  margin-right: 20px; }
+  .serviceAddBox .label {
+    width: 70px; }
+  .serviceAddBox .input {
+    margin-bottom: 10px;
+    width: 220px; }

@@ -69,6 +69,7 @@ html, body{
     style:italic;
   }
 
+  margin-bottom:$space;
   line-height:$lineHeight - 2;
   padding-bottom:$space/2;
   border-bottom:dashed 1px darken(#fff, 30%);
@@ -94,6 +95,7 @@ fieldset{
   legend{
     @extend .subTitle;
     margin:0px !important;
+    padding:0 5px 0 5px;
   }
 }
 .label{

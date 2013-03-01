@@ -18,7 +18,7 @@ class FOMUserBundle extends ManagerBundle
     {
         return array(
             array(
-                'title' => 'Users',
+                'title' => 'User Control',
                 'weight' => 100,
                 'route' => 'fom_user_user_index',
                 'routes' => array(
@@ -27,14 +27,20 @@ class FOMUserBundle extends ManagerBundle
                     'fom_user_acl'
                 ),
                 'subroutes' => array(
-                    0 => array('title'=>'New User',
-                               'route'=>'fom_user_user_new'),
+                    0 => array('title'=>'Users',
+                               'route'=>'fom_user_user_index',
+                               'subroutes' => array(
+                                    0 => array('title'=>'New User',
+                                               'route'=>'fom_user_user_new')
+                                )
+                              ),
                     1 => array('title'=>'Groups', 
                                'route'=>'fom_user_group_index',
-                               'subroute' => array(
-                                  'title'=>'New Group',
-                                  'route'=>'fom_user_group_new'
-                                )),
+                               'subroutes' => array(
+                                    0 => array('title'=>'New Group',
+                                               'route'=>'fom_user_group_new')
+                                )
+                               ),
                     2 => array('title'=>'ACLs',
                                'route'=>'fom_user_acl_index')
                 )

@@ -31,28 +31,27 @@
           {% render "FOMManagerBundle:Manager:menu" with { "request": app.request } %}
         {% endif %}
       </div>
-      {#
-      <div id="manager-user-menu">
-          <p>{{ "You're logged in as"|trans}} <em>{{ app.user.username }}</em>:</p>
-      </div> #}
 
       <div class="rightPane">
-          <div id="manager-user-menu" class="accountBar shadowBox">
+          <div id="manager-user-menu" class="accountBar shadowBox {% if app.user != "" %} stretchable {% endif %}">
           {% if app.user != "" %}
             <span>{{ "Logged in as: "|trans}} {{ app.user.username }} ▼</span>
             <ul>
-                <li id="manager-account"><a href="{{ url('fom_user_user_edit', {'id': app.user.id}) }}">{{ "Your Account"|trans }}</a></li>
-                <li id="manager-logout"><a href="{{ url('fom_user_login_logout') }}">{{ "Logout"|trans }}</a></li>
+                <li id="manager-account"><a class="linkButton" href="{{ url('fom_user_user_edit', {'id': app.user.id}) }}">{{ "Your Account"|trans }}</a></li>
+                <li id="manager-logout"><a class="linkButton" href="{{ url('fom_user_login_logout') }}">{{ "Logout"|trans }}</a></li>
             </ul>
           {% else %}
-            <a href="{{ path('fom_user_login_login') }}">{{ "Login"|trans}}</a>
+            <a class="linkButton" href="{{ path('fom_user_login_login') }}">{{ "Login"|trans}}</a>
           {% endif %}
           </div>
         <div class="contentPane">
-          <div class="breadCrumb"><span class="crumbTitle">{{ title|trans }}</span><span class="crumbSubTitle"> > New Application</span></div>
+          {% if app.user != "" %}
+            {% render "FOMManagerBundle:Manager:bread" with { "request": app.request } %}
+          {% endif %}
+
           <div class="content shadowBox">
             <h2 class="contentTitle">{{ title|trans }}</h2>
-
+{# XXXVH !! alert? #}
             {% for key, flash in app.session.flashes %}
               <div class="alert alert-{{ key }}">
                 {{ flash | trans }}
