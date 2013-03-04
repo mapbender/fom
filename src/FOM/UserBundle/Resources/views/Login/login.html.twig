@@ -10,7 +10,7 @@
     <a class="logo" href="{{ path('mapbender_core_welcome_list') }}"><img alt="Mapbender 3" src="{{ asset(fom.server_logo)}}" /></a>
 
     <div class="shadowBox">
-      <h2 class="contentTitle">Login</h2>
+      <h2 class="contentTitle">{{ 'Login' | trans}}</h2>
       <form action="{{ path("fom_user_login_logincheck") }}" method="post" id="login" novalidate="novalidate">
         {% if error %}
           <div class="messageBox error">{{ error.message }}</div>

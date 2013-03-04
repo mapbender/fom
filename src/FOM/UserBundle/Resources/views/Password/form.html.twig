@@ -18,7 +18,7 @@
         </div>
         {% endif %}
 
-        <label for="{{ form.search.get('id') }}" class="left label">{{"Username or Email:" | trans}}</label>
+        <label for="{{ form.search.get('id') }}" class="left label">{{"Username or Email" | trans}}:</label>
         {{ form_widget(form.search, { 'attr': {'class': 'input'} }) }}
 
         {{ form_row(form._token) }}
