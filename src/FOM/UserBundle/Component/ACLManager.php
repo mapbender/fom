@@ -90,7 +90,6 @@ class AclManager
     {
         $aces = $form->get('ace')->getData();
         $this->setClassACL($class, $aces);
-
     }
 
     protected function setClassACL($class, $aces)

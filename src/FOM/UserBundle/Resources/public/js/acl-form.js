@@ -15,13 +15,14 @@
             return $.get(acl_provider, {
                 query: query
             }, function(data) {
+                console.log(data);
                 return process_callback(data);
             });
 
         };
 
         var create_typehead = function(element) {
-            console.log(element);
+//            window.console && console.log(element);
             $(element).typeahead({
                 source: provider,
                 minLength: 3

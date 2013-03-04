@@ -2,6 +2,8 @@
 
 namespace FOM\UserBundle;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use FOM\UserBundle\DependencyInjection\Factory\LdapSecurityFactory;
 use FOM\ManagerBundle\Component\ManagerBundle;
 
 /**
@@ -11,6 +13,12 @@ use FOM\ManagerBundle\Component\ManagerBundle;
  */
 class FOMUserBundle extends ManagerBundle
 {
+    public function build(ContainerBuilder $container)
+    {
+        $extension = $container->getExtension('security');
+        $extension->addSecurityListenerFactory(new LdapSecurityFactory());
+    }
+
     /**
      * @inheritdoc
      */

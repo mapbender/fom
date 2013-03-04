@@ -35,11 +35,6 @@ class Group
      */
     protected $users;
 
-    /**
-     * @ORM\Column(type="array")
-     */
-    protected $roles;
-
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -48,7 +43,7 @@ class Group
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -64,14 +59,14 @@ class Group
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -87,14 +82,14 @@ class Group
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -127,33 +122,15 @@ class Group
     /**
      * Get users
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getUsers()
     {
         return $this->users;
     }
 
-    /**
-     * Set roles
-     *
-     * @param array $roles
-     * @return Group
-     */
-    public function setRoles($roles)
+    public function getAsRole()
     {
-        $this->roles = $roles;
-    
-        return $this;
-    }
-
-    /**
-     * Get roles
-     *
-     * @return array 
-     */
-    public function getRoles()
-    {
-        return $this->roles;
+        return 'ROLE_GROUP_' . strtoupper($this->getTitle());
     }
 }
