@@ -438,6 +438,8 @@ table {
   *:focus {
     outline: none;
     border: 1px solid #a9d683 !important; }
+  *:hover, *:active {
+    outline: none; }
 
 ul {
   list-style: none; }
@@ -801,7 +803,7 @@ fieldset {
 /*
  * This css contains backend styles only
  */
-/* --------------------------------------------------------------page */
+/* ------------------------------------------------------------- PAGE */
 body {
   z-index: -30;
   position: relative; }
@@ -818,7 +820,7 @@ body {
   -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9); }
 
-/* ----------------------------------------------------------page top */
+/* --------------------------------------------------------- PAGE TOP */
 .head {
   position: relative;
   height: 170px;
@@ -865,7 +867,7 @@ body {
     .accountBar.stretchable:hover {
       height: 80px; }
 
-/* ---------------------------------------------------------page left */
+/* -------------------------------------------------------- PAGE LEFT */
 .leftPane {
   position: absolute;
   top: 0;
@@ -919,7 +921,7 @@ body {
       color: #74b63d !important;
       background: url("../../fomcore/images/nav_arrow_active.png") left center no-repeat; }
 
-/*----------------------------------------------------------page right */
+/*--------------------------------------------------------- PAGE RIGHT */
 .rightPane {
   width: 760px;
   position: absolute;
@@ -927,7 +929,7 @@ body {
   right: 0;
   left: 200px; }
 
-/* --------------------------------------------------------page center */
+/* ------------------------------------------------------- PAGE CENTER */
 .contentPane {
   padding-top: 60px; }
 
@@ -971,6 +973,7 @@ body {
     bottom: -6px;
     left: 10px; }
 
+/* -------------------------------------------------------------- LOGIN */
 .authWrapper {
   position: absolute;
   left: 0;
@@ -987,30 +990,30 @@ body {
     top: -230px;
     padding: 20px;
     margin: 0 auto;
-    width: 320px;
-    *width: 293px;
+    width: 340px;
+    *width: 313px;
     background-image: url("../../fomcore/images/pattern3.png"); }
   .authWrapper .label {
     display: block; }
   .authWrapper .input {
     margin-bottom: 10px; }
   .authWrapper.login .label {
-    width: 70px; }
+    width: 80px; }
   .authWrapper.login .input {
-    width: 210px; }
+    width: 220px; }
   .authWrapper.forgot .label {
-    width: 120px; }
+    width: 135px; }
   .authWrapper.forgot .input {
-    width: 160px; }
-  .authWrapper.register .label {
-    width: 115px; }
-  .authWrapper.register .input {
     width: 165px; }
+  .authWrapper.register .label {
+    width: 125px; }
+  .authWrapper.register .input {
+    width: 175px; }
   .authWrapper .help-block {
     display: block;
     margin-bottom: 5px; }
 
-/* --------------------------------------------------------page service */
+/* ----------------------------------------------------------- SERVICES */
 .serviceAddBox {
   width: 332px;
   margin-right: 20px; }

@@ -15,7 +15,7 @@ $backendFirstColor:#404040; // dark gray
  * This css contains backend styles only
  */
 
-/* --------------------------------------------------------------page */
+/* ------------------------------------------------------------- PAGE */
 // avoid that the background pattern overlaing the paper deck effect of the contentbox
 body{z-index:-30;position:relative;}
 .page{
@@ -34,7 +34,8 @@ body{z-index:-30;position:relative;}
 
 
 
-/* ----------------------------------------------------------page top */
+
+/* --------------------------------------------------------- PAGE TOP */
 .head{
   position: relative;
   height:$bannerHeight;
@@ -86,7 +87,9 @@ body{z-index:-30;position:relative;}
 
 
 
-/* ---------------------------------------------------------page left */
+
+/* -------------------------------------------------------- PAGE LEFT */
+
 .leftPane{
   @include pos(0, '', '', 0);
   width:$navWidth;
@@ -96,7 +99,6 @@ body{z-index:-30;position:relative;}
     margin:$space 0 0 $space;
   }
 }
-
 .navLevel1{
   border-right:1px solid lighten($backendFirstColor, 40%);
   padding:$space/2 $space $space/2 $space;
@@ -194,7 +196,9 @@ body{z-index:-30;position:relative;}
 
 
 
-/*----------------------------------------------------------page right */
+
+
+/*--------------------------------------------------------- PAGE RIGHT */
 .rightPane{
   width:$contentPaneWidth;
   @include pos(0, 0, '', $navWidth);
@@ -204,7 +208,8 @@ body{z-index:-30;position:relative;}
 
 
 
-/* --------------------------------------------------------page center */
+
+/* ------------------------------------------------------- PAGE CENTER */
 .contentPane{padding-top:$space*3;}
 .content{
   min-height: 600px;
@@ -243,58 +248,15 @@ body{z-index:-30;position:relative;}
 
 
 
-.authWrapper{
-  position: absolute;
-  left:0;
-  right: 0;
-  top:20%;
-
-  .logo{
-    margin:0 auto;
-    position:relative;
-    top:-250px;
-    display:block;
-    width:200px;
-  }
-  .shadowBox{
-    $width:320px;
-
-    position: relative;
-    top: -230px;
-    padding:$space;
-    margin: 0 auto;
-    width:$width;
-    // thank u ms for this owesome double margin feature. > ie7
-    *width:$width - 27;
-    background-image:url($secondPatternUrl);
-  }
-  .label{display:block;}
-  .input{margin-bottom:$space/2;}
- 
-  &.login{
-    .label{width:70px;}
-    .input{width:210px;}
-  }
-  &.forgot{
-    .label{width:120px;}
-    .input{width:160px;}
-  }
-  &.register{
-    .label{width:115px;}
-    .input{width:165px;}
-  }
-  .help-block{
-    @extend .errorText;
-    display:block;
-    margin-bottom:$space/4;
-  }
-}
-
- 
+/* -------------------------------------------------------------- LOGIN */
+@import "../../../../UserBundle/Resources/public/sass/login";
 
 
 
-/* --------------------------------------------------------page service */
+
+
+
+/* ----------------------------------------------------------- SERVICES */
 .serviceAddBox{
   $labelWidth:70px;
   $inputWidth:220px;

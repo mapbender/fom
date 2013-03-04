@@ -438,6 +438,8 @@ table {
   *:focus {
     outline: none;
     border: 1px solid #a9d683 !important; }
+  *:hover, *:active {
+    outline: none; }
 
 ul {
   list-style: none; }

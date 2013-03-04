@@ -1,0 +1,49 @@
+.authWrapper{
+  $boxWidth:340px;
+  position: absolute;
+  left:0;
+  right: 0;
+  top:20%;
+
+  .logo{
+    margin:0 auto;
+    position:relative;
+    top:-250px;
+    display:block;
+    width:200px;
+  }
+  .shadowBox{
+    position: relative;
+    top: -230px;
+    padding:$space;
+    margin: 0 auto;
+    width:$boxWidth;
+    // thank u ms for this owesome double margin feature. > ie7
+    *width:$boxWidth - 27;
+    background-image:url($secondPatternUrl);
+  }
+  .label{display:block;}
+  .input{margin-bottom:$space/2;}
+ 
+  &.login{
+    $labelWidth: 80px;
+    .label{width:$labelWidth;}
+    .input{width:$boxWidth - $labelWidth - $space*2;}
+  }
+  &.forgot{
+    $labelWidth: 135px;
+    .label{width:$labelWidth;}
+    .input{width:$boxWidth - $labelWidth - $space*2;}
+  }
+  &.register{
+    $labelWidth: 125px;
+    .label{width:$labelWidth;}
+    .input{width:$boxWidth - $labelWidth - $space*2;}
+  }  
+
+  .help-block{
+    @extend .errorText;
+    display:block;
+    margin-bottom:$space/4;
+  }
+}
