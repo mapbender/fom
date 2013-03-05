@@ -523,6 +523,12 @@ fieldset {
   line-height: 2.2em;
   text-shadow: white 1px 1px 0px; }
 
+.labelAlt {
+  font-size: 80%;
+  color: #4899ba;
+  line-height: 2.2em;
+  text-shadow: white 1px 1px 0px; }
+
 .errorText, .messageBox.error, .authWrapper .help-block {
   font-size: 80%;
   color: #96151b; }
@@ -546,7 +552,7 @@ fieldset {
     background-color: #404040;
     border-right: 1px solid #858585; }
   .table td {
-    background-color: #efefef;
+    background-color: #f9f9f9;
     border-bottom: 1px solid #a2a2a2;
     border-right: 1px solid #d5d5d5;
     -webkit-box-shadow: 0px -1px 0px white;
@@ -573,7 +579,11 @@ fieldset {
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
-  border-radius: 3px; }
+  border-radius: 3px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
 
 /* buttons */
 .buttonCore, .button, .linkButton {
@@ -583,6 +593,10 @@ fieldset {
   -moz-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   @-moz-document url-prefix() {
     .buttonCore {
       font: 75% sans-serif; } }
@@ -669,16 +683,38 @@ fieldset {
     background: url("../../fomcore/images/nav_arrow_active.png") left center no-repeat !important; }
 
 .toolbar {
-  padding: 5px; }
+  padding: 5px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
   .toolbar li {
     display: inline; }
+
+.list li {
+  margin-left: 20px; }
+
+.itemLevel1 {
+  margin-left: 0px; }
+
+.itemLevel2 {
+  margin-left: 20px; }
+
+.itemLevel3 {
+  margin-left: 40px; }
+
+.itemLevel4 {
+  margin-left: 60px; }
+
+.itemLevel5 {
+  margin-left: 80px; }
 
 /* ---------------------------------------------------------container */
 /* tabs */
 .tabContainer .tab {
   font-size: 80%;
   color: #878787;
-  background-color: #efefef;
+  background-color: #f9f9f9;
   cursor: pointer;
   border-left: solid 1px #a2a2a2;
   border-top: solid 1px #a2a2a2;
@@ -690,10 +726,14 @@ fieldset {
   -webkit-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.1), inset 1px 0px 2px white;
   -moz-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.1), inset 1px 0px 2px white;
   box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.1), inset 1px 0px 2px white;
-  -webkit-transition: all 0.2s linear;
-  -moz-transition: all 0.2s linear;
-  -o-transition: all 0.2s linear;
-  transition: all 0.2s linear; }
+  -webkit-transition: background 0.2s ease-in-out;
+  -moz-transition: background 0.2s ease-in-out;
+  -o-transition: background 0.2s ease-in-out;
+  transition: background 0.2s ease-in-out;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
   .tabContainer .tab:first-child {
     -moz-border-radius-topleft: 3px;
     -webkit-border-top-left-radius: 3px;
@@ -704,9 +744,8 @@ fieldset {
   .tabContainer .tab.active {
     cursor: default;
     color: #74b63d;
-    font-weight: bold;
     padding: 5px 10px 3px 10px;
-    background-color: #efefef;
+    background-color: #f9f9f9;
     -webkit-box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.1);
     box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.1); }
@@ -719,7 +758,7 @@ fieldset {
   clear: left;
   display: none;
   padding: 20px;
-  background-color: #efefef;
+  background-color: #f9f9f9;
   *width: 94%;
   border-top: solid 3px #4899ba;
   border-left: solid 1px #a2a2a2;
@@ -758,7 +797,11 @@ fieldset {
   top: 0;
   bottom: 0;
   left: 0;
-  right: 0; }
+  right: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
 
 .popup {
   position: relative;
@@ -880,7 +923,7 @@ body {
 .navLevel1 {
   border-right: 1px solid #a6a6a6;
   padding: 10px 20px 10px 20px;
-  background-color: #efefef;
+  background-color: #f9f9f9;
   -webkit-box-shadow: 0px 0px 3px black;
   -moz-box-shadow: 0px 0px 3px black;
   box-shadow: 0px 0px 3px black;
@@ -1022,3 +1065,43 @@ body {
   .serviceAddBox .input {
     margin-bottom: 10px;
     width: 220px; }
+
+.serviceContainer .labelAlt {
+  float: left; }
+.serviceContainer .metaText {
+  font-size: 80%;
+  line-height: 2.2em; }
+
+.serviceMetaContainer .labelAlt {
+  width: 120px; }
+.serviceMetaContainer .metaText {
+  margin-left: 130px; }
+.serviceMetaContainer .metaUrl {
+  line-height: 1em;
+  margin-top: 0.6em;
+  word-wrap: break-word; }
+
+.serviceContactContainer .labelAlt {
+  width: 90px; }
+.serviceContactContainer .metaText {
+  margin-left: 100px; }
+
+.serviceServiceContainer .labelAlt {
+  width: 160px; }
+.serviceServiceContainer .metaText {
+  margin-left: 170px; }
+.serviceServiceContainer .metaFormats {
+  line-height: 1em;
+  margin-top: 0.6em; }
+
+.serviceLayersContainer .subTitle, .serviceLayersContainer fieldset legend, fieldset .serviceLayersContainer legend {
+  display: inline; }
+.serviceLayersContainer .list, .serviceLayersContainer li {
+  clear: both;
+  margin: 0; }
+.serviceLayersContainer .list.closed {
+  height: 20px;
+  overflow: hidden; }
+.serviceLayersContainer .labelAlt {
+  width: 85px;
+  margin-right: 10px; }

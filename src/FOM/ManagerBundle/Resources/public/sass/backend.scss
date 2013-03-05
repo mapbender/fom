@@ -156,23 +156,23 @@ body{z-index:-30;position:relative;}
 //     font-size: $fontSize - 20;
 //     border:solid 1px darken($ciColor, 12%);
 //     color:darken($ciColor, 20%);
-//     background-color:$ciColor;
-//     line-height:$lineHeight + 0.5;
+//     background-color:$ciColor; 
+//     line-height:$lineHeight + 0.5; 
 //     @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2), 
 //                         inset 0px 1px 0px lighten($ciColor, 10%),
 //                         inset 0px -1px 0px darken($ciColor, 2%),
 //                         inset 0px 0px 7px darken($ciColor, 5%));
 //     @include text-shadow(1px 1px 0px lighten($ciColor, 18%));
 //     div{background:url("../images/nav_arrow_selected.png") right center no-repeat;}
-//   }
-//   .navItem{
-//     $borderWidth:1px;
+//   }   
+//   .navItem{    
+//     $borderWidth:1px;  
 
 //     color:$middleFontColor;
 //     font:{
 //       family: $fontFamily;
 //       size: $fontSize - 20;
-//     }
+//     } 
 //     @include text-shadow(#fff 1px 1px 0px);
 //     display:block;
 //     *width:80%; // for the shitty ie 7 double padding + float bug
@@ -268,5 +268,52 @@ body{z-index:-30;position:relative;}
   .input{
     margin-bottom:$space/2;
     width: $inputWidth;
+  }
+}
+.serviceContainer{
+  .labelAlt{float:left;}
+  .metaText{
+    // font settings like 
+    font-size:$fontSize - 20;
+    line-height:$lineHeight + 0.7;
+  }
+}
+
+.serviceMetaContainer{
+  $labelWidth:120px;
+
+  .labelAlt{width:$labelWidth; }
+  .metaText{margin-left:$labelWidth + $space/2; }
+  .metaUrl{
+    line-height:1em;
+    margin-top:0.6em;
+    word-wrap: break-word;
+  }
+}
+.serviceContactContainer{
+  $labelWidth:90px;
+
+  .labelAlt{width:$labelWidth; }
+  .metaText{margin-left:$labelWidth + $space/2; }
+}
+.serviceServiceContainer{
+  $labelWidth:160px;
+
+  .labelAlt{width:$labelWidth;}
+  .metaText{margin-left:$labelWidth + $space/2; }
+  .metaFormats{line-height:1em;margin-top:0.6em;}
+}
+.serviceLayersContainer{ 
+  .subTitle{display:inline;}
+  .list, li{clear:both;margin:0;}
+  .list{
+    &.closed{
+      height:20px;
+      overflow:hidden;
+    }
+  }
+  .labelAlt{
+    width:85px;
+    margin-right:$space/2;
   }
 }

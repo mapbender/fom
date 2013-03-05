@@ -14,3 +14,9 @@
   @if($bottom != ''){bottom:$bottom;}
   @if($left != ''){left:$left;}
 }
+@mixin noUserSelect(){
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
