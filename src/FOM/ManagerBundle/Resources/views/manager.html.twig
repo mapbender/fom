@@ -14,7 +14,7 @@
   </head>
 
   <body class="{% if app.debug %}debug{% endif %}">
-    <div class="head"><hr class="seperator"></div>
+    <div class="head"><hr class="dekoSeperator"></div>
     <div id="wrapper" class="page">
 
       {# XXXVH: search?
@@ -65,7 +65,7 @@
 
     <script src="{{ asset('bundles/fomcore/js/jquery-1.9.1.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ asset('bundles/fomcore/js/backend.js')}}"></script>
+    <script src="{{ asset('bundles/fomcore/js/components.js')}}"></script>
     <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     {% block manager_js %}{% endblock %}
   </body>

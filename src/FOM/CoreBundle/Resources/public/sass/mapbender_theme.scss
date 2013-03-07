@@ -50,13 +50,17 @@ html, body{
 .right{float:right;}
 .left{float:left;}
 // dekoration seperator
-.seperator{
+.dekoSeperator{
   height:6px;
   border:none;
   outline:none;
   border-bottom:solid 1px $firstColor;
   background:url("../../fomcore/images/line.png");
   @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+}
+.seperator{
+  border:none;
+  border-bottom:dashed 1px darken(#fff, 30%);
 }
 
 
@@ -82,6 +86,7 @@ html, body{
     size: $fontSize + 20;
     weight:normal;
   }
+  color:$darkFontColor;
   @include text-shadow(#fff 1px 1px 0px);
 }
 .subTitle{
@@ -89,10 +94,9 @@ html, body{
   color:$ciColor;
   @include text-shadow(#fff 1px 1px 0px);
 }
+.invertText{color:$lightFontColor;}
 fieldset{
-  border:solid 1px lighten($thirdColor, 20%);
   padding:$space;
-  background-color:#fff;
 
   legend{
     @extend .subTitle;
@@ -116,6 +120,11 @@ fieldset{
 .errorText{
   font-size:$fontSize - 20;
   color:darken($errorColor, 60%);
+}
+.description{
+  font-size:$fontSize - 20;
+  font-style:italic;
+  color:$middleFontColor;
 }
 
 
@@ -160,9 +169,9 @@ fieldset{
   height:28px;
   padding-left: 5px;
   padding-right: 5px;
+  background-color: $contentColor;
   @include box-shadow(inset 0 1px 2px lighten($thirdColor, 25%));
   @include border-radius($radius);
-  @include noUserSelect();
 }
 /* buttons */
 @mixin buttonStyleHelper($color){
@@ -395,4 +404,8 @@ fieldset{
     @include box-shadow(0 0 2px rgba(0, 0, 0, 0.1),
                         inset 0px 0px 3px #fff);
   }
+}
+.box{
+  border:solid 1px lighten($thirdColor, 20%);
+  background-color: $contentColor;
 }

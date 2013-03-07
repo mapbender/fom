@@ -257,6 +257,44 @@ body{z-index:-30;position:relative;}
 
 
 /* ----------------------------------------------------------- SERVICES */
+/* Services */
+.filterService{
+  margin-bottom:$space;
+  margin-left:$space/2;
+  width:250px;
+}
+.listFilterContainer{
+  $col1Width: 60px;
+
+  .filterItem{
+    position:relative;
+    background-color: $contentColor;
+    margin-bottom:$space/2;
+  }
+  .col1{
+    width:$col1Width;
+    text-align:center;
+    font-size: $fontSize - 20;
+    line-height: $lineHeight - 0.2;
+    color:$lightFontColor;
+    padding:$space/4;
+    background-color:$firstColor;
+    @include pos(0,'',0,0);
+  }
+  .col2{
+    border: solid 1px $thirdColor;
+    margin-left: $col1Width;
+    padding:$space/2;
+  }
+  .titleContainer{
+    border-bottom:dashed 1px darken(#fff, 30%);
+    padding-bottom:$space/2;
+    margin-bottom:$space/2;
+  }
+  .title{font-size: $fontSize;}
+  .buttonGroup{@include pos($space/2,$space/2,'','');}
+}
+/* Add service */
 .serviceAddBox{
   $labelWidth:70px;
   $inputWidth:220px;
