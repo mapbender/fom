@@ -13,6 +13,7 @@ class FOMUserExtension extends Extension {
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter("fom_user.selfregister", $config["selfregister"]);
+        $container->setParameter("fom_user.reset_password", $config["reset_password"]);
         $container->setParameter("fom_user.max_registration_time", intval($config["max_registration_time"]));
         $container->setParameter("fom_user.max_reset_time", intval($config["max_reset_time"]));
         $container->setParameter("fom_user.mail_from_name", $config["mail_from_name"]);

@@ -2,12 +2,14 @@
 
 namespace FOM\UserBundle\Controller;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\UserForgotPassType;
@@ -44,6 +46,19 @@ use FOM\UserBundle\Security\UserHelper;
 
 class PasswordController extends Controller
 {
+    /**
+     * Check if password reset is allowed.
+     *
+     * setContainer is called after controller creation is used to deny access to controller if password reset has
+     * been disabled.
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        parent::setContainer($container);
+
+        if(!$this->container->getParameter('fom_user.reset_password'))
+            throw new AccessDeniedHttpException();
+    }
     /**
      * Password reset step 3: Show instruction page that email has been sent
      *

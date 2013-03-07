@@ -22,7 +22,9 @@
     {% if selfregister == true %}
     <a href="{{ path('fom_user_registration_form') }}">{{ 'Register' | trans}}</a> |
     {% endif %}
+    {% if reset_password == true %}
     <a href="{{ path('fom_user_password_form') }}">{{ 'Forgot password' | trans}}?</a>
+    {% endif %}
 </div>
 {% endblock %}
 
