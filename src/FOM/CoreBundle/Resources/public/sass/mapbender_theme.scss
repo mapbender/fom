@@ -68,33 +68,31 @@ html, body{
 
 
 /* --------------------------------------------------------------text */
+.smallerText{font-size:$fontSize - 4;}
+.smallText{font-size:$fontSize - 2;}
+.bigText{font-size: $fontSize + 2;}
+.biggerText{font-size: $fontSize + 8;}
 .contentTitle{
-  font:{
-    size: $fontSize + 40;
-    weight:normal;
-    style:italic;
-  }
-
+  font-weight:normal;
+  font-style:italic;
   margin-bottom:$space;
-  line-height:$lineHeight - 2;
   padding-bottom:$space/2;
   border-bottom:dashed 1px darken(#fff, 30%);
+
+  @extend .biggerText;
   @include text-shadow(#fff 1px 1px 0px);
 }
 .title{
-  font:{
-    size: $fontSize + 20;
-    weight:normal;
-  }
+  font-weight:normal;
   color:$darkFontColor;
+  @extend .bigText;
   @include text-shadow(#fff 1px 1px 0px);
 }
 .subTitle{
-  font-size: $fontSize;
+  font-size:$fontSize;
   color:$ciColor;
   @include text-shadow(#fff 1px 1px 0px);
 }
-.invertText{color:$lightFontColor;}
 fieldset{
   padding:$space;
 
@@ -104,27 +102,22 @@ fieldset{
     padding:0 5px 0 5px;
   }
 }
-.label{
-  font-size: $fontSize - 20;
-  color:$secondColor;
+.label{color:$secondColor;}
+.labelAlt{color:$ciColor2;}
+.label, .labelAlt{
   display:block;
-  line-height:$lineHeight + 0.7;
-  @include text-shadow(#fff 1px 1px 0px);
-}
-.labelAlt{
-  font-size: $fontSize - 20;
-  color:$ciColor2;
-  line-height:$lineHeight + 0.7;
+  line-height:$lineHeight + 8;
+  @extend .smallText;
   @include text-shadow(#fff 1px 1px 0px);
 }
 .errorText{
-  font-size:$fontSize - 20;
   color:darken($errorColor, 60%);
+  @extend .smallText;
 }
 .description{
-  font-size:$fontSize - 20;
-  font-style:italic;
   color:$middleFontColor;
+  font-style:italic;
+  @extend .smallText;
 }
 
 
@@ -140,7 +133,7 @@ fieldset{
 
   td, th{
     padding:5px 10px;
-    font-size:$fontSize - 20;
+    @extend .smallText;
   }
 
   thead{border:1px solid lighten($thirdColor, 20%);}
@@ -164,12 +157,12 @@ fieldset{
 .input{
   color:$secondColor;
   border:solid 1px lighten($thirdColor, 15%);
-  font-size: $fontSize - 20;
   line-height:$lineHeight;
   height:28px;
   padding-left: 5px;
   padding-right: 5px;
   background-color: $contentColor;
+  @extend .smallText;
   @include box-shadow(inset 0 1px 2px lighten($thirdColor, 25%));
   @include border-radius($radius);
 }
@@ -185,10 +178,8 @@ fieldset{
   @include text-shadow(1px 1px 0px lighten($color, 18%));
 }
 .buttonCore{
-  font:{
-    family: $fontFamily;
-    size: $fontSize - 20;
-  }
+  font-family: $fontFamily;
+  @extend .smallText;
   @include transition(all 0.2s linear);
   @include noUserSelect();
 
@@ -196,7 +187,7 @@ fieldset{
   // -> line-height behaviour differs from other browsers.
   //    font-size and the *non* font sans-serif fix it in all ff.
   @-moz-document url-prefix(){
-    .buttonCore{font: ($fontSize - 25) sans-serif;}
+    .buttonCore{font: ($fontSize - 2) sans-serif;}
   }
   border:none;
   cursor:pointer;
@@ -204,13 +195,13 @@ fieldset{
 .button{
   @extend .buttonCore;
 
-  padding:($space/4) ($space/2) ($space/4) ($space/2);
+  padding:($space/4) ($space/2);
+  line-height:$fontSize;
   margin:0px;
   @include border-radius($radius);
   @include buttonStyleHelper(lighten($ciColor2, 5%));
 
   &:hover{
-    // background-color:lighten($ciColor2, 4%);
     @include buttonStyleHelper(lighten($ciColor2, 15%));
     // @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2), 
     //                     inset 0px 1px 0px lighten($ciColor2, 25%),
@@ -280,42 +271,45 @@ fieldset{
 /* ---------------------------------------------------------container */
 /* tabs */
 .tabContainer{
-  .tab{
-    $top:5px;
-    $offset:3px;
+  $tabPopHeight:3px;
+  $tabHeight:34px;
 
-    font-size:$fontSize - 20;
+  .tab{
+    margin-right:3px;
     color:$middleFontColor;
     background-color:$contentColor;
     cursor:pointer;
+    position:relative;
+    bottom:-$tabPopHeight*2;
+    height:$tabHeight;
+    z-index:10;
     border:{
       left:solid 1px $thirdColor;
       top:solid 1px $thirdColor;
       right:solid 1px $thirdColor;
     }
     float:left;
-    margin-right:5px;
-    margin-bottom: -$offset;
-    padding:($top - $offset) 10px 3px 10px;
+    padding:3px 10px 3px 10px;
+    @extend .smallText;
     @include box-shadow(1px 0px 2px rgba(0, 0, 0, 0.1),
                         inset 1px 0px 2px #fff);
-    @include transition(background 0.2s ease-in-out);
+    @include transition(all 0.2s ease-in-out);
     @include noUserSelect();
 
-    &:first-child{
-      @include border-top-left-radius($radius);
-    }
+    &:first-child{@include border-top-left-radius($radius);}
 
     &:hover{
-      // @include transition(all 0.2s linear);
       color:$ciColor2;
       background-color:#fff;
+      bottom:-$tabPopHeight;
     }
 
     &.active{
       cursor:default;
       color:$ciColor;
-      padding:$top 10px 3px 10px;
+      bottom:-$tabPopHeight;
+      height:$tabHeight;
+      z-index: 30;
       background-color:$contentColor;
       @include box-shadow(1px 0px 1px rgba(0, 0, 0, 0.1));
     }
@@ -333,6 +327,8 @@ fieldset{
     clear:left;
     display:none;
     padding:$space;
+    z-index:20;
+    position:relative;
     background-color:$contentColor;
     *width:94%; // scary ie shit :( -> double padding bug
     border:{
@@ -342,11 +338,9 @@ fieldset{
       bottom:solid 1px $thirdColor;
     }
     @include border-bottom-radius($radius);
-    @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.2));
+    @include box-shadow(0px 0px 8px rgba(0, 0, 0, 0.2));
 
-    &.active{
-      display:block;
-    }
+    &.active{display:block;}
   }
 }
 /* popup */
@@ -356,9 +350,7 @@ fieldset{
   z-index:999;
   @include stretch();
 
-  &.show{
-    display:block;
-  }
+  &.show{display:block;}
 }
 .overlay{
   background:url($firstPatternUrl);
@@ -377,12 +369,10 @@ fieldset{
   @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.9),
                       inset 0px 0px 2px #fff);
 
-  .popupTitle{
-    padding:$space/2 $space $space/2 $space;
-  }
+  .popupTitle{padding:$space/2 $space;}
   .subTitle{
-    font-size:$fontSize - 30;
     margin-left:$space/4;
+    @extend .smallText;
   }
 
   .popupContent{

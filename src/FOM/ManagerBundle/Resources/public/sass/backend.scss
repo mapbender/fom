@@ -8,9 +8,6 @@ $contentPaneWidth:760px;
 $navWidth:200px;
 $pageWidth:$contentPaneWidth + $navWidth;
 
-// colors
-$backendFirstColor:#404040; // dark gray
-
 /*
  * This css contains backend styles only
  */
@@ -26,7 +23,7 @@ body{z-index:-30;position:relative;}
 }
 // dekoration box
 .shadowBox{
-  background-color:#f4f4f4;
+  background-color:$contentColor;
   @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
 }
 
@@ -42,7 +39,7 @@ body{z-index:-30;position:relative;}
 
   // remove broken head background when the page is smaller than defined width
   min-width:$pageWidth;
-  border-top:solid 5px darken($backendFirstColor, 10%);
+  border-top:solid 5px darken($firstColor, 10%);
   background:url($firstPatternUrl);
 
   @include box-shadow(inset lighten(#000, 20%) 0px 1px 0px);
@@ -51,29 +48,21 @@ body{z-index:-30;position:relative;}
 }
 .crumbTitle{
   color:$lightFontColor;
-  font:{
-    size:$fontSize - 20;
-    weight:bold;
-  }
+  font-weight:bold;
   @include text-shadow($darkFontColor 1px 1px 0px);
 }
 .crumbSubTitle{
     color:$middleFontColor;
-    font:{
-      size:$fontSize - 20;
-      style:italic;
-    }
     @include text-shadow(black 1px 1px 0px);
 }
 .accountBar{
   padding:($space/4) ($space/2) ($space/4) ($space/2);
   color:$middleFontColor;
-  height: 35px;
+  height: 30px;
   overflow: hidden;
   cursor:pointer;
   @include pos(0,0,'','');
 
-  span{font-size: $fontSize - 10;}
   &.stretchable{
     @include transition(all 0.2s ease-in-out);
 
@@ -89,7 +78,6 @@ body{z-index:-30;position:relative;}
 
 
 /* -------------------------------------------------------- PAGE LEFT */
-
 .leftPane{
   @include pos(0, '', '', 0);
   width:$navWidth;
@@ -100,7 +88,7 @@ body{z-index:-30;position:relative;}
   }
 }
 .navLevel1{
-  border-right:1px solid lighten($backendFirstColor, 40%);
+  border-right:1px solid lighten($firstColor, 40%);
   padding:$space/2 $space $space/2 $space;
   background-color:$contentColor;
   @include box-shadow(0px 0px 3px rgba(0, 0, 0, 1));
@@ -117,13 +105,12 @@ body{z-index:-30;position:relative;}
     .navLevel3 > .navItem{display:block;}
   }
 }
-
 .navItem{
   display:none;
   a {
     font:{
       family: $fontFamily;
-      size: $fontSize - 20;
+      size: $fontSize - 2;
     }
     padding:($space/4) ($space/2) ($space/4) ($space/2);
     background:url("../../fomcore/images/nav_arrow.png") left center no-repeat;
@@ -146,55 +133,6 @@ body{z-index:-30;position:relative;}
 }
 
 
-// .activeMenu{
-//   padding-bottom:$space/2;
-
-//   .navTitle{
-//     margin-bottom:($space/2);
-//     padding:($space/4) ($space/2) ($space/4) ($space/2);
-//     cursor:default;
-//     font-size: $fontSize - 20;
-//     border:solid 1px darken($ciColor, 12%);
-//     color:darken($ciColor, 20%);
-//     background-color:$ciColor; 
-//     line-height:$lineHeight + 0.5; 
-//     @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2), 
-//                         inset 0px 1px 0px lighten($ciColor, 10%),
-//                         inset 0px -1px 0px darken($ciColor, 2%),
-//                         inset 0px 0px 7px darken($ciColor, 5%));
-//     @include text-shadow(1px 1px 0px lighten($ciColor, 18%));
-//     div{background:url("../images/nav_arrow_selected.png") right center no-repeat;}
-//   }   
-//   .navItem{    
-//     $borderWidth:1px;  
-
-//     color:$middleFontColor;
-//     font:{
-//       family: $fontFamily;
-//       size: $fontSize - 20;
-//     } 
-//     @include text-shadow(#fff 1px 1px 0px);
-//     display:block;
-//     *width:80%; // for the shitty ie 7 double padding + float bug
-//     border-left:1px solid lighten($thirdColor, 25%);
-//     padding:($space/4) ($space/2) ($space/4) $space;
-//     background:none;
-
-//     &:hover, &.activeLink{
-//       $offset:1px;
-//       // jump jump :) stop it! 
-//       padding-left:$space + $offset*2;
-//       // pull the icon left for the arrow horizontal arrow align
-//       margin-left:$space/2 - $offset;
-//       border:none;
-//       color:$darkFontColor;
-//       background:url("../images/nav_arrow_active.png") left center no-repeat !important;
-//     };
-//   }
-// }
-
-
-
 
 
 
@@ -208,26 +146,23 @@ body{z-index:-30;position:relative;}
 
 
 
-
 /* ------------------------------------------------------- PAGE CENTER */
-.contentPane{padding-top:$space*3;}
+.contentPane{padding-top:$space*4;}
 .content{
-  min-height: 600px;
-  position:relative;
+  min-height: 600px; 
+  position:relative; 
   padding:$space;
   margin:0px;
-  background-color:#f4f4f4;
+  background-color:$contentColor;
   background-image:url($secondPatternUrl);
   @include border-radius($radius);
 
-  hr{
-    @include pos(0,0,'',0);
-  }
-
+  hr{@include pos(0,0,'',0);}
+ 
   // uuhh baby show me your paper effect ... hrrr
   &:before, &:after{
     content:"";
-    background-color:#fff;
+    background-color:$contentColor;
     height:10px;
     @extend .shadowBox;
     @include border-radius($radius);
@@ -269,16 +204,16 @@ body{z-index:-30;position:relative;}
   .filterItem{
     position:relative;
     background-color: $contentColor;
-    margin-bottom:$space/2;
-  }
+    margin-bottom:$space;
+    @include box-shadow(0px 0px 8px rgba(0, 0, 0, 0.2));
+  }     
   .col1{
     width:$col1Width;
     text-align:center;
-    font-size: $fontSize - 20;
-    line-height: $lineHeight - 0.2;
     color:$lightFontColor;
     padding:$space/4;
     background-color:$firstColor;
+    line-height:$lineHeight - 6;
     @include pos(0,'',0,0);
   }
   .col2{
@@ -286,14 +221,19 @@ body{z-index:-30;position:relative;}
     margin-left: $col1Width;
     padding:$space/2;
   }
-  .titleContainer{
-    border-bottom:dashed 1px darken(#fff, 30%);
-    padding-bottom:$space/2;
-    margin-bottom:$space/2;
-  }
-  .title{font-size: $fontSize;}
   .buttonGroup{@include pos($space/2,$space/2,'','');}
+  .description{
+    margin-top:$space/2;
+    padding-top:$space/2;
+    border-top:dashed 1px darken(#fff, 30%);
+  }
 }
+
+
+
+
+
+
 /* Add service */
 .serviceAddBox{
   $labelWidth:70px;
@@ -301,10 +241,10 @@ body{z-index:-30;position:relative;}
 
   width:$labelWidth + $inputWidth + $space*2 + 2; // + border
   margin-right:$space;
-
+ 
   .label{width:$labelWidth;}
   .input{
-    margin-bottom:$space/2;
+    margin-bottom:$space/2; 
     width: $inputWidth;
   }
 }
@@ -312,7 +252,7 @@ body{z-index:-30;position:relative;}
   .labelAlt{float:left;}
   .metaText{
     // font settings like 
-    font-size:$fontSize - 20;
+    font-size:$fontSize - 2;
     line-height:$lineHeight + 0.7;
   }
 }

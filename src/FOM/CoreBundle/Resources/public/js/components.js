@@ -10,7 +10,7 @@ $(function() {
     // init filter inputs
     $(".listFilterInput").bind("keyup", function(){
         var me    = $(this);
-        var val   = me.val().trim();
+        var val   = $.trim(me.val());
         var items = $("#" + me.attr("id").replace("input", "list")).find("li");
     
         if(val.length > 0){

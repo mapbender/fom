@@ -3,18 +3,18 @@
   {% for breadItem in menu %}
 
     {% if breadItem.active is defined %}
-      <a href="{{path(breadItem.route)}}" class="crumbTitle">{{ breadItem.title|trans }}</a>
+      <a href="{{path(breadItem.route)}}" class="crumbTitle smallText">{{ breadItem.title|trans }}</a>
         {% if breadItem.subroutes %}
 
           {% for subBreadItem in breadItem.subroutes %}
               {% if subBreadItem.active is defined %}
-                <a href="{{path(subBreadItem.route)}}" class="crumbSubTitle">> {{subBreadItem.title}}</a>
+                <a href="{{path(subBreadItem.route)}}" class="crumbSubTitle smallText">> {{subBreadItem.title}}</a>
               {% endif %}
 
               {% if subBreadItem.subroutes is defined %}
                 {% for subSubBreadItem in subBreadItem.subroutes %}
                   {% if subSubBreadItem.active is defined %}
-                    <a href="{{path(subSubBreadItem.route)}}" class="crumbSubTitle">> {{subSubBreadItem.title}}</a>
+                    <a href="{{path(subSubBreadItem.route)}}" class="crumbSubTitle smallText">> {{subSubBreadItem.title}}</a>
                   {% endif %}
                 {% endfor %}
               {% endif %}

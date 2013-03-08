@@ -458,8 +458,8 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 100%;
-  line-height: 1.5em;
+  font-size: 14px;
+  line-height: 21px;
   color: #3f3f3f;
   background: url("../../fomcore/images/pattern2.png"); }
 
@@ -492,29 +492,35 @@ html, body {
   border-bottom: dashed 1px #b3b3b3; }
 
 /* --------------------------------------------------------------text */
+.smallerText {
+  font-size: 10px; }
+
+.smallText, .label, .labelAlt, .errorText, .messageBox.error, .description, .table td, .table th, .input, .buttonCore, .button, .linkButton, .tabContainer .tab, .popup .subTitle, .popup fieldset legend, fieldset .popup legend {
+  font-size: 12px; }
+
+.bigText, .title {
+  font-size: 16px; }
+
+.biggerText, .contentTitle {
+  font-size: 22px; }
+
 .contentTitle {
-  font-size: 140%;
   font-weight: normal;
   font-style: italic;
   margin-bottom: 20px;
-  line-height: -0.5em;
   padding-bottom: 10px;
   border-bottom: dashed 1px #b3b3b3;
   text-shadow: white 1px 1px 0px; }
 
 .title {
-  font-size: 120%;
   font-weight: normal;
   color: #3f3f3f;
   text-shadow: white 1px 1px 0px; }
 
 .subTitle, fieldset legend {
-  font-size: 100%;
+  font-size: 14px;
   color: #74b63d;
   text-shadow: white 1px 1px 0px; }
-
-.invertText {
-  color: white; }
 
 fieldset {
   padding: 20px; }
@@ -523,26 +529,22 @@ fieldset {
     padding: 0 5px 0 5px; }
 
 .label {
-  font-size: 80%;
-  color: #858585;
-  display: block;
-  line-height: 2.2em;
-  text-shadow: white 1px 1px 0px; }
+  color: #858585; }
 
 .labelAlt {
-  font-size: 80%;
-  color: #4899ba;
-  line-height: 2.2em;
+  color: #4899ba; }
+
+.label, .labelAlt {
+  display: block;
+  line-height: 29px;
   text-shadow: white 1px 1px 0px; }
 
 .errorText, .messageBox.error {
-  font-size: 80%;
   color: #96151b; }
 
 .description {
-  font-size: 80%;
-  font-style: italic;
-  color: #878787; }
+  color: #878787;
+  font-style: italic; }
 
 /* --------------------------------------------------------compontens */
 /* table */
@@ -553,8 +555,7 @@ fieldset {
   -moz-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.1); }
   .table td, .table th {
-    padding: 5px 10px;
-    font-size: 80%; }
+    padding: 5px 10px; }
   .table thead {
     border: 1px solid #d5d5d5; }
   .table th {
@@ -578,8 +579,7 @@ fieldset {
 .input {
   color: #858585;
   border: solid 1px #c8c8c8;
-  font-size: 80%;
-  line-height: 1.5em;
+  line-height: 21px;
   height: 28px;
   padding-left: 5px;
   padding-right: 5px;
@@ -596,7 +596,6 @@ fieldset {
 /* buttons */
 .buttonCore, .button, .linkButton {
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 80%;
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
@@ -607,13 +606,14 @@ fieldset {
   user-select: none;
   @-moz-document url-prefix() {
     .buttonCore {
-      font: 75% sans-serif; } }
+      font: 12px sans-serif; } }
 
   border: none;
   cursor: pointer; }
 
 .button {
-  padding: 5px 10px 5px 10px;
+  padding: 5px 10px;
+  line-height: 14px;
   margin: 0px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -720,24 +720,26 @@ fieldset {
 /* ---------------------------------------------------------container */
 /* tabs */
 .tabContainer .tab {
-  font-size: 80%;
+  margin-right: 3px;
   color: #878787;
   background-color: #f9f9f9;
   cursor: pointer;
+  position: relative;
+  bottom: -6px;
+  height: 34px;
+  z-index: 10;
   border-left: solid 1px #a2a2a2;
   border-top: solid 1px #a2a2a2;
   border-right: solid 1px #a2a2a2;
   float: left;
-  margin-right: 5px;
-  margin-bottom: -3px;
-  padding: 2px 10px 3px 10px;
+  padding: 3px 10px 3px 10px;
   -webkit-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.1), inset 1px 0px 2px white;
   -moz-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.1), inset 1px 0px 2px white;
   box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.1), inset 1px 0px 2px white;
-  -webkit-transition: background 0.2s ease-in-out;
-  -moz-transition: background 0.2s ease-in-out;
-  -o-transition: background 0.2s ease-in-out;
-  transition: background 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -748,11 +750,14 @@ fieldset {
     border-top-left-radius: 3px; }
   .tabContainer .tab:hover {
     color: #4899ba;
-    background-color: #fff; }
+    background-color: #fff;
+    bottom: -3px; }
   .tabContainer .tab.active {
     cursor: default;
     color: #74b63d;
-    padding: 5px 10px 3px 10px;
+    bottom: -3px;
+    height: 34px;
+    z-index: 30;
     background-color: #f9f9f9;
     -webkit-box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.1);
@@ -766,6 +771,8 @@ fieldset {
   clear: left;
   display: none;
   padding: 20px;
+  z-index: 20;
+  position: relative;
   background-color: #f9f9f9;
   *width: 94%;
   border-top: solid 3px #4899ba;
@@ -778,9 +785,9 @@ fieldset {
   -moz-border-radius-bottomright: 3px;
   -webkit-border-bottom-right-radius: 3px;
   border-bottom-right-radius: 3px;
-  -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2); }
+  -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2); }
   .tabContainer .container.active {
     display: block; }
 
@@ -827,9 +834,8 @@ fieldset {
   -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9), inset 0px 0px 2px white;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9), inset 0px 0px 2px white; }
   .popup .popupTitle {
-    padding: 10px 20px 10px 20px; }
+    padding: 10px 20px; }
   .popup .subTitle, .popup fieldset legend, fieldset .popup legend {
-    font-size: 70%;
     margin-left: 5px; }
   .popup .popupContent {
     *width: 90%;
