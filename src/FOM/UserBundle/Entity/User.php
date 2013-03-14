@@ -39,14 +39,14 @@ class User implements AdvancedUserInterface {
     protected $id;
 
     /**
-     * @ORM\Column(type="string", nullable=false, length=512, unique=true)
+     * @ORM\Column(type="string", nullable=false, length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\MinLength(3)
      */
     protected $username;
 
     /**
-     * @ORM\Column(type="string", nullable=false, length=512, unique=true)
+     * @ORM\Column(type="string", nullable=false, length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
