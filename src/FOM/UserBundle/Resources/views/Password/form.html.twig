@@ -9,7 +9,7 @@
     <div class="head"><hr class="dekoSeperator"></div>
     <a class="logo" href="{{ path('mapbender_core_welcome_list') }}"><img alt="Mapbender 3" src="{{ asset(fom.server_logo)}}" /></a>
 
-    <div class="shadowBox">
+    <div class="loginBox">
       <h2 class="contentTitle">{{ 'Forgot password' | trans}}</h2>
       <form action="{{ path('fom_user_password_request') }}" method="post" {{ form_enctype(form)}} autocomplete="off" novalidate="novalidate">
         {% if form_errors(form) %}
@@ -18,7 +18,7 @@
         </div>
         {% endif %}
 
-        <label for="{{ form.search.get('id') }}" class="left label">{{"Username or Email" | trans}}:</label>
+        <label for="{{ form.search.get('id') }}" class="left labelInput">{{"Username or Email" | trans}}:</label>
         {{ form_widget(form.search, { 'attr': {'class': 'input'} }) }}
 
         {{ form_row(form._token) }}

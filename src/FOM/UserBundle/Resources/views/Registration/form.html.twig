@@ -11,22 +11,24 @@
     <div class="head"><hr class="dekoSeperator"></div>
     <a class="logo" href="{{ path('mapbender_core_welcome_list') }}"><img alt="Mapbender 3" src="{{ asset(fom.server_logo)}}" /></a>
 
-    <div class="shadowBox">
+    <div class="loginBox">
       <h2 class="contentTitle">{{ 'Registration' | trans}}</h2>
       <form action="{{ path('fom_user_registration_register') }}" method="post" {{ form_enctype(form) }} autocomplete="off" novalidate="novalidate">
 
-          {{ form_errors(form.username) }}
-          <label class="left label" for="{{ form.username.get('id') }}">{{"Username" | trans}}:</label>
-          {{ form_widget(form.username, { 'attr': {'class': 'input'} }) }}
+          <label class="left labelInput" for="{{ form.username.get('id') }}">{{"Username" | trans}}:</label>
+          <div class="inputWrapper">
+            {{ form_widget(form.username, { 'attr': {'class': 'input validationInput'} }) }}{{ form_errors(form.username) }}
+          </div>
+
           <div class="clearContainer"></div>
 
           {% for pw in form.password %}
             {{ form_errors(pw) }}
 
             {% if pw.get('name') == 'first' %}
-              <label class="left label" for="{{ pw.get('id') }}">{{"Choose password" | trans}}:</label>
+              <label class="left labelInput" for="{{ pw.get('id') }}">{{"Choose password" | trans}}:</label>
             {% else %}
-              <label class="left label" for="{{ pw.get('id') }}">{{"Confirm password" | trans}}:</label>
+              <label class="left labelInput" for="{{ pw.get('id') }}">{{"Confirm password" | trans}}:</label>
             {% endif %}
 
             {{ form_widget(pw, { 'attr': {'class': 'input'} }) }}
@@ -34,7 +36,7 @@
           {% endfor %}
 
           {{ form_errors(form.email) }}
-          <label class="left label" for="{{ form.email.get('id') }}">{{"Email" | trans}}:</label>
+          <label class="left labelInput" for="{{ form.email.get('id') }}">{{"Email" | trans}}:</label>
           {{ form_widget(form.email, { 'attr': {'class': 'input'} }) }}
           <div class="clearContainer"></div>
 

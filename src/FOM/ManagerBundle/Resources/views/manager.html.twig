@@ -17,14 +17,6 @@
     <div class="head"><hr class="dekoSeperator"></div>
     <div id="wrapper" class="page">
 
-      {# XXXVH: search?
-      <form id="manager-search" action="." method="post" class="form-search">
-        <input type="hidden" name="path" value="{{ app.request.attributes.get('_route') }}" class="search-query"/>
-        <div class="input-append">
-          <input type="text" name="term" disabled="disabled"/><button class="btn" title="{{ "Search"|trans }}" disabled="disabled"><i class="icon-search"></i></button>
-        </div>
-      </form> #}
-
       <div class="leftPane">
         <a href="{{ path('mapbender_core_welcome_list') }}"><img class="logo" alt="Mapbender 3 Manager" src="{{ asset(fom.server_logo)}}" /></a>
         {% if app.user != "" %}

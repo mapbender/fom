@@ -1,7 +1,9 @@
 @import "../../../../CoreBundle/Resources/public/sass/base";
 @import "../../../../CoreBundle/Resources/public/sass/mixins";
 @import "../../../../CoreBundle/Resources/public/sass/mapbender_theme";
+@import "components";
 
+@import "icons/*.png";
 
 $bannerHeight:170px;
 $contentPaneWidth:760px;
@@ -20,11 +22,6 @@ body{z-index:-30;position:relative;}
   top:-$bannerHeight;
   margin: 0 auto;
   width:$pageWidth;
-}
-// dekoration box
-.shadowBox{
-  background-color:$contentColor;
-  @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
 }
 
 
@@ -46,21 +43,14 @@ body{z-index:-30;position:relative;}
 
   hr{@include pos('',0,0,0);}
 }
-.crumbTitle{
-  color:$lightFontColor;
-  font-weight:bold;
-  @include text-shadow($darkFontColor 1px 1px 0px);
-}
-.crumbSubTitle{
-    color:$middleFontColor;
-    @include text-shadow(black 1px 1px 0px);
-}
 .accountBar{
   padding:($space/4) ($space/2) ($space/4) ($space/2);
   color:$middleFontColor;
   height: 30px;
   overflow: hidden;
   cursor:pointer;
+  background-color:$contentColor;
+  @include box-shadow(0px 0px 3px black);
   @include pos(0,0,'','');
 
   &.stretchable{
@@ -79,14 +69,19 @@ body{z-index:-30;position:relative;}
 
 /* -------------------------------------------------------- PAGE LEFT */
 .leftPane{
-  @include pos(0, '', '', 0);
   width:$navWidth;
+  @include pos(0, '', '', 0);
 
   .logo{
     width:$navWidth - $space*2;
     margin:$space 0 0 $space;
   }
-}
+
+  .navigation{
+    background-color:$contentColor;
+    @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
+  }
+} 
 .navLevel1{
   border-right:1px solid lighten($firstColor, 40%);
   padding:$space/2 $space $space/2 $space;
@@ -155,20 +150,21 @@ body{z-index:-30;position:relative;}
   margin:0px;
   background-color:$contentColor;
   background-image:url($secondPatternUrl);
+  @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
   @include border-radius($radius);
 
   hr{@include pos(0,0,'',0);}
- 
+
   // uuhh baby show me your paper effect ... hrrr
-  &:before, &:after{
+  &:before, &:after{ 
     content:"";
     background-color:$contentColor;
-    height:10px;
-    @extend .shadowBox;
+    height:10px; 
+    @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
     @include border-radius($radius);
-  }
-  &:before{
-    z-index:-10;
+  }     
+  &:before{      
+    z-index:-10; 
     @include pos('',5px,-3px,5px);
   }
   &:after{
@@ -192,106 +188,4 @@ body{z-index:-30;position:relative;}
 
 
 /* ----------------------------------------------------------- SERVICES */
-/* Services */
-.filterService{
-  margin-bottom:$space;
-  margin-left:$space/2;
-  width:250px;
-}
-.listFilterContainer{
-  $col1Width: 60px;
-
-  .filterItem{
-    position:relative;
-    background-color: $contentColor;
-    margin-bottom:$space;
-    @include box-shadow(0px 0px 8px rgba(0, 0, 0, 0.2));
-  }     
-  .col1{
-    width:$col1Width;
-    text-align:center;
-    color:$lightFontColor;
-    padding:$space/4;
-    background-color:$firstColor;
-    line-height:$lineHeight - 6;
-    @include pos(0,'',0,0);
-  }
-  .col2{
-    border: solid 1px $thirdColor;
-    margin-left: $col1Width;
-    padding:$space/2;
-  }
-  .buttonGroup{@include pos($space/2,$space/2,'','');}
-  .description{
-    margin-top:$space/2;
-    padding-top:$space/2;
-    border-top:dashed 1px darken(#fff, 30%);
-  }
-}
-
-
-
-
-
-
-/* Add service */
-.serviceAddBox{
-  $labelWidth:70px;
-  $inputWidth:220px;
-
-  width:$labelWidth + $inputWidth + $space*2 + 2; // + border
-  margin-right:$space;
- 
-  .label{width:$labelWidth;}
-  .input{
-    margin-bottom:$space/2; 
-    width: $inputWidth;
-  }
-}
-.serviceContainer{
-  .labelAlt{float:left;}
-  .metaText{
-    // font settings like 
-    font-size:$fontSize - 2;
-    line-height:$lineHeight + 0.7;
-  }
-}
-
-.serviceMetaContainer{
-  $labelWidth:120px;
-
-  .labelAlt{width:$labelWidth; }
-  .metaText{margin-left:$labelWidth + $space/2; }
-  .metaUrl{
-    line-height:1em;
-    margin-top:0.6em;
-    word-wrap: break-word;
-  }
-}
-.serviceContactContainer{
-  $labelWidth:90px;
-
-  .labelAlt{width:$labelWidth; }
-  .metaText{margin-left:$labelWidth + $space/2; }
-}
-.serviceServiceContainer{
-  $labelWidth:160px;
-
-  .labelAlt{width:$labelWidth;}
-  .metaText{margin-left:$labelWidth + $space/2; }
-  .metaFormats{line-height:1em;margin-top:0.6em;}
-}
-.serviceLayersContainer{ 
-  .subTitle{display:inline;}
-  .list, li{clear:both;margin:0;}
-  .list{
-    &.closed{
-      height:20px;
-      overflow:hidden;
-    }
-  }
-  .labelAlt{
-    width:85px;
-    margin-right:$space/2;
-  }
-}
+@import "services";

@@ -12,38 +12,31 @@
     display:block;
     width:200px;
   }
-  .shadowBox{
+  .loginBox{
     position: relative;
     top: -230px;
     padding:$space;
     margin: 0 auto;
     width:$boxWidth;
-    // thank u ms for this owesome double margin feature. > ie7
-    *width:$boxWidth - 27;
     background-image:url($secondPatternUrl);
+    @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
   }
-  .label{display:block;}
+  .labelInput{display:block;}
   .input{margin-bottom:$space/2;}
  
   &.login{
     $labelWidth: 80px;
-    .label{width:$labelWidth;}
+    .labelInput{width:$labelWidth;}
     .input{width:$boxWidth - $labelWidth - $space*2;}
   }
   &.forgot{
     $labelWidth: 135px;
-    .label{width:$labelWidth;}
+    .labelInput{width:$labelWidth;}
     .input{width:$boxWidth - $labelWidth - $space*2;}
   }
   &.register{
     $labelWidth: 125px;
-    .label{width:$labelWidth;}
+    .labelInput{width:$labelWidth;}
     .input{width:$boxWidth - $labelWidth - $space*2;}
-  }  
-
-  .help-block{
-    @extend .errorText;
-    display:block;
-    margin-bottom:$space/4;
   }
 }

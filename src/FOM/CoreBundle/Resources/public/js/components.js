@@ -25,4 +25,7 @@ $(function() {
             items.show();
         }
     });
+    $(".validationInput").one("focus", function(){
+      $(this).siblings(".help-block").addClass("hide");
+    });
 });

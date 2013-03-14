@@ -1,0 +1,26 @@
+@import "../../../../CoreBundle/Resources/public/sass/base";
+@import "../../../../CoreBundle/Resources/public/sass/mixins";
+
+
+/* ------------------------------------------------------------- TEXT */
+.crumbTitle{
+  color:$lightFontColor;
+  font-weight:bold;
+  @include text-shadow($darkFontColor 1px 1px 0px);
+}
+.crumbSubTitle{
+  color:$middleFontColor;
+  @include text-shadow(black 1px 1px 0px);
+}
+
+
+
+
+
+
+/* -------------------------------------------------------- CONTAINER */
+.box{
+  border: solid 1px $thirdColor;
+  background-color: $contentColor;
+  @include box-shadow(0px 0px 8px rgba(0, 0, 0, 0.1));
+}

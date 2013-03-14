@@ -6,7 +6,7 @@
  * This theme contains global styles only
  */
 
-/* -------------------------------------------------mapbender3 resets */
+/* ------------------------------------------------ MAPBENDER3 RESETS */
 *{
   &:focus{
     outline:none;
@@ -17,15 +17,16 @@
 
   @include box-sizing(border-box);
 }
-ul{list-style:none;}
+ul, ol{list-style:none;}
 hr, h1, h2, h3, ul, ol{margin:0;padding:0px;}
 a{text-decoration:none;}
+p{margin:0px;}
 
 
 
 
 
-/* --------------------------------------------------------------misc */
+/* ------------------------------------------------------------- MISC */
 html, body{
   width:100%;
   height:100%;
@@ -67,7 +68,7 @@ html, body{
 
 
 
-/* --------------------------------------------------------------text */
+/* ------------------------------------------------------------- TEXT */
 .smallerText{font-size:$fontSize - 4;}
 .smallText{font-size:$fontSize - 2;}
 .bigText{font-size: $fontSize + 2;}
@@ -102,18 +103,16 @@ fieldset{
     padding:0 5px 0 5px;
   }
 }
-.label{color:$secondColor;}
-.labelAlt{color:$ciColor2;}
-.label, .labelAlt{
+.labelInput, .labelText{
   display:block;
+  @extend .smallText;
+  @include text-shadow(#fff 1px 1px 0px); 
+}
+.labelInput{
+  color:$secondColor;
   line-height:$lineHeight + 8;
-  @extend .smallText;
-  @include text-shadow(#fff 1px 1px 0px);
 }
-.errorText{
-  color:darken($errorColor, 60%);
-  @extend .smallText;
-}
+.labelText{color:$ciColor;}
 .description{
   color:$middleFontColor;
   font-style:italic;
@@ -124,8 +123,8 @@ fieldset{
 
 
 
-/* --------------------------------------------------------compontens */
-/* table */
+/* ------------------------------------------------------- COMPONTENS */
+/* TABLE */
 .table{
   border:1px solid $thirdColor;
   width:100%;
@@ -153,7 +152,7 @@ fieldset{
     &.center{text-align:center;}
   }
 }
-/* inputs */
+/* INPUTS */
 .input{
   color:$secondColor;
   border:solid 1px lighten($thirdColor, 15%);
@@ -166,21 +165,10 @@ fieldset{
   @include box-shadow(inset 0 1px 2px lighten($thirdColor, 25%));
   @include border-radius($radius);
 }
-/* buttons */
-@mixin buttonStyleHelper($color){
-  border:solid 1px darken($color, 12%);
-  color:darken($color, 20%);
-  background-color:$color;
-  @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2), 
-                      inset 0px 1px 0px lighten($color, 10%),
-                      inset 0px -1px 0px darken($color, 2%),
-                      inset 0px 0px 7px darken($color, 5%));
-  @include text-shadow(1px 1px 0px lighten($color, 18%));
-}
 .buttonCore{
   font-family: $fontFamily;
   @extend .smallText;
-  @include transition(all 0.2s linear);
+  @include transition(all 0.3s ease-in-out);
   @include noUserSelect();
 
   // this sucks -.- thank u mozilla for this awesome bug!
@@ -193,29 +181,23 @@ fieldset{
   cursor:pointer;
 }
 .button{
-  @extend .buttonCore;
+  $buttonFirstColor:#6fb536;
+  $buttonSecondColor:#5fa229;
 
   padding:($space/4) ($space/2);
   line-height:$fontSize;
   margin:0px;
+  border:1px solid #5C982C;
+  color:$lightFontColor;
+  background-color:$buttonFirstColor;
+  @extend .buttonCore;
   @include border-radius($radius);
-  @include buttonStyleHelper(lighten($ciColor2, 5%));
-
+  @include box-shadow(0 0 6px rgba(0,0,0,0.1),
+                      inset 0 -10px 10px $buttonSecondColor);
   &:hover{
-    @include buttonStyleHelper(lighten($ciColor2, 15%));
-    // @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.2), 
-    //                     inset 0px 1px 0px lighten($ciColor2, 25%),
-    //                     inset 0px -1px 0px lighten($ciColor2, 15%),
-    //                     inset 0px 0px 10px lighten($ciColor2, 35%));
-  }
-
-  &.active{
-    cursor:default;
-    @include buttonStyleHelper($ciColor);
-  }
-  &.disabled{
-    cursor:default;
-    @include buttonStyleHelper(#dddddd);
+    background-color:darken($buttonFirstColor, 2%);
+    @include box-shadow(0 0 6px rgba(0,0,0,0.1),
+                        inset 0 -10px 10px darken($buttonSecondColor, 4%));
   }
 
   &.icon{
@@ -251,25 +233,13 @@ fieldset{
     background:url("../../fomcore/images/nav_arrow_active.png") left center no-repeat !important;
  };
 }
-.toolbar{
-  padding:5px;
-  li{display:inline;}
-  @include noUserSelect();
-}
-.list{
-  li{margin-left:$space;}
-}
-@for $i from 1 through 5{
-  .itemLevel#{$i}{
-    margin-left:$space * ($i - 1);
-  }
-}
 
 
 
 
-/* ---------------------------------------------------------container */
-/* tabs */
+
+/* -------------------------------------------------------- CONTAINER */
+/* TABS */
 .tabContainer{
   $tabPopHeight:3px;
   $tabHeight:34px;
@@ -299,28 +269,18 @@ fieldset{
     &:first-child{@include border-top-left-radius($radius);}
 
     &:hover{
-      color:$ciColor2;
       background-color:#fff;
       bottom:-$tabPopHeight;
     }
 
     &.active{
       cursor:default;
-      color:$ciColor;
+      color:$darkFontColor;
       bottom:-$tabPopHeight;
       height:$tabHeight;
       z-index: 30;
       background-color:$contentColor;
       @include box-shadow(1px 0px 1px rgba(0, 0, 0, 0.1));
-    }
-
-    &.icon{
-      background:{
-        image:url("../../fomcore/images/nav_arrow.png");
-        position:10px center;
-        repeat: no-repeat;
-      }
-      padding-left:20px;
     }
   }
   .container{
@@ -330,20 +290,19 @@ fieldset{
     z-index:20;
     position:relative;
     background-color:$contentColor;
-    *width:94%; // scary ie shit :( -> double padding bug
     border:{
-      top:solid 3px $ciColor2;
+      top:solid 3px $firstColor;
       left:solid 1px $thirdColor;
       right:solid 1px $thirdColor;
       bottom:solid 1px $thirdColor;
     }
     @include border-bottom-radius($radius);
-    @include box-shadow(0px 0px 8px rgba(0, 0, 0, 0.2));
+    @include box-shadow(0px 0px 8px rgba(0, 0, 0, 0.1));
 
     &.active{display:block;}
   }
 }
-/* popup */
+/* POPUP */
 .popupContainer{
   display:none;
   position: absolute;
@@ -375,27 +334,66 @@ fieldset{
     @extend .smallText;
   }
 
-  .popupContent{
-    *width:90%; // for the shitty ie 7 double padding + float bug
-    padding:0 $space $space $space;
-  }
+  .popupContent{padding:0 $space $space $space;}
 }
-/* messages */
+/* MESSAGES */
 .messageBox{
   padding:$space/2;
   margin-bottom:$space;
   @include border-radius($radius);
 
   &.error{
-    @extend .errorText;
-    background-color: $errorColor;
-    border:solid 1px darken($errorColor, 10%);
+    color:$errorColor;
+    background-color: lighten($errorColor, 60%);
+    border:solid 1px $errorColor;
 
     @include box-shadow(0 0 2px rgba(0, 0, 0, 0.1),
                         inset 0px 0px 3px #fff);
   }
 }
-.box{
-  border:solid 1px lighten($thirdColor, 20%);
-  background-color: $contentColor;
+.inputWrapper{
+  position: relative;
+
+  .help-block{
+    position: relative;
+    margin-left: -10px;
+    background: #d5afaf;
+    font-size: $fontSize;
+    border: 2px solid #910606;
+    color:$errorColor;
+    padding: 7px $space/2 7px $space/2;
+
+    @include text-shadow(1px 1px 0 #fff);
+    @include border-radius($radius);
+    @include box-shadow(0 0 6px rgba(0,0,0,0.3));
+    @include transition(all 0.8s ease-in-out);
+
+    &.hide{
+      @inlcude opacity(0);
+      margin-left: 0px;
+    }
+
+    &:after, &:before {
+      position: absolute;
+      right: 100%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+    }
+    &:after{
+      border-color: rgba(213, 175, 175, 0);
+      border-right-color: #d5afaf;
+      border-width: 6px;
+      top: 50%;
+      margin-top: -6px;
+    }
+    &:before{
+      border-color: rgba(145, 6, 6, 0);
+      border-right-color: #910606;
+      border-width: 9px;
+      top: 50%;
+      margin-top: -9px;
+    }
+  }
 }
