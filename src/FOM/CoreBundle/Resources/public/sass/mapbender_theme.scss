@@ -187,7 +187,8 @@ fieldset{
   padding:($space/4) ($space/2);
   line-height:$fontSize;
   margin:0px;
-  border:1px solid #5C982C;
+
+  border:1px solid darken($buttonSecondColor, 5%);
   color:$lightFontColor;
   background-color:$buttonFirstColor;
   @extend .buttonCore;
@@ -195,7 +196,7 @@ fieldset{
   @include box-shadow(0 0 6px rgba(0,0,0,0.1),
                       inset 0 -10px 10px $buttonSecondColor);
   &:hover{
-    background-color:darken($buttonFirstColor, 2%);
+    background-color:darken($buttonFirstColor, 5%);
     @include box-shadow(0 0 6px rgba(0,0,0,0.1),
                         inset 0 -10px 10px darken($buttonSecondColor, 4%));
   }
@@ -208,16 +209,22 @@ fieldset{
       repeat: no-repeat;
     }
   }
-  .group &{
-    border-right:0px;
-    @include border-radius(0);
-    
-    &:first-child{
-      @include border-left-radius($radius);
-    }
-    &:last-child{
-      border-right:solid 1px darken($ciColor2, 12%);
-      @include border-right-radius($radius);
+
+  &.critical{
+    $buttonCriticalFirstColor:#d36565;
+    $buttonCriticalSecondColor:#b23a3a;
+
+    border:1px solid darken($buttonCriticalSecondColor, 5%);
+    color:$lightFontColor;
+    background-color:$buttonCriticalFirstColor;
+    @extend .buttonCore;
+    @include border-radius($radius);
+    @include box-shadow(0 0 6px rgba(0,0,0,0.1),
+                        inset 0 -10px 10px $buttonCriticalSecondColor);
+    &:hover{
+      background-color:darken($buttonCriticalFirstColor, 5%);
+      @include box-shadow(0 0 6px rgba(0,0,0,0.1),
+                          inset 0 -10px 10px darken($buttonCriticalSecondColor, 4%));
     }
   }
 }
@@ -344,12 +351,18 @@ fieldset{
 
   &.error{
     color:$errorColor;
-    background-color: lighten($errorColor, 60%);
-    border:solid 1px $errorColor;
+    background-color: lighten($errorColor, 50%);
+    border:solid 1px lighten($errorColor, 40%);
 
-    @include box-shadow(0 0 2px rgba(0, 0, 0, 0.1),
-                        inset 0px 0px 3px #fff);
   }
+  &.hint{
+    color:$hintColor;
+    background-color: lighten($hintColor, 50%);
+    border:solid 1px lighten($hintColor, 40%);
+  }
+
+  @include box-shadow(0 0 3px rgba(0, 0, 0, 0.1),
+                      inset 0px 0px 3px #fff);
 }
 .inputWrapper{
   position: relative;

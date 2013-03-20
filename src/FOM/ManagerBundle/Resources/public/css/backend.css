@@ -498,7 +498,7 @@ html, body {
 .smallerText {
   font-size: 10px; }
 
-.smallText, .labelInput, .labelText, .description, .table td, .table th, .input, .buttonCore, .button, .linkButton, .tabContainer .tab, .popup .subTitle, .popup fieldset legend, fieldset .popup legend, .serviceContainer .metaText {
+.smallText, .labelInput, .newApplicationTabContainer .containerBaseData label, .labelText, .description, .table td, .table th, .input, .buttonCore, .button, .button.critical, .linkButton, .tabContainer .tab, .popup .subTitle, .popup fieldset legend, fieldset .popup legend, .serviceContainer .metaText {
   font-size: 12px; }
 
 .bigText, .title {
@@ -531,11 +531,11 @@ fieldset {
     margin: 0px !important;
     padding: 0 5px 0 5px; }
 
-.labelInput, .labelText {
+.labelInput, .newApplicationTabContainer .containerBaseData label, .labelText {
   display: block;
   text-shadow: white 1px 1px 0px; }
 
-.labelInput {
+.labelInput, .newApplicationTabContainer .containerBaseData label {
   color: #858585;
   line-height: 29px; }
 
@@ -593,7 +593,7 @@ fieldset {
   -o-border-radius: 3px;
   border-radius: 3px; }
 
-.buttonCore, .button, .linkButton {
+.buttonCore, .button, .button.critical, .linkButton {
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
@@ -614,7 +614,7 @@ fieldset {
   padding: 5px 10px;
   line-height: 14px;
   margin: 0px;
-  border: 1px solid #5c982c;
+  border: 1px solid #538e24;
   color: white;
   background-color: #6fb536;
   -webkit-border-radius: 3px;
@@ -626,7 +626,7 @@ fieldset {
   -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229; }
   .button:hover {
-    background-color: #6aad34;
+    background-color: #63a130;
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225; }
@@ -635,28 +635,23 @@ fieldset {
     background-image: url("../../fomcore/images/nav_arrow.png");
     background-position: 10px center;
     background-repeat: no-repeat; }
-  .group .button {
-    border-right: 0px;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    -o-border-radius: 0;
-    border-radius: 0; }
-    .group .button:first-child {
-      -moz-border-radius-topleft: 3px;
-      -webkit-border-top-left-radius: 3px;
-      border-top-left-radius: 3px;
-      -moz-border-radius-bottomleft: 3px;
-      -webkit-border-bottom-left-radius: 3px;
-      border-bottom-left-radius: 3px; }
-    .group .button:last-child {
-      border-right: solid 1px #36758f;
-      -moz-border-radius-topright: 3px;
-      -webkit-border-top-right-radius: 3px;
-      border-top-right-radius: 3px;
-      -moz-border-radius-bottomright: 3px;
-      -webkit-border-bottom-right-radius: 3px;
-      border-bottom-right-radius: 3px; }
+  .button.critical {
+    border: 1px solid #9f3434;
+    color: white;
+    background-color: #d36565;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a;
+    -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a; }
+    .button.critical:hover {
+      background-color: #cd5151;
+      -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535;
+      -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535; }
 
 .linkButton {
   color: #878787;
@@ -791,14 +786,18 @@ fieldset {
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
-  border-radius: 3px; }
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white; }
   .messageBox.error {
-    color: #910606;
-    background-color: #fdcccc;
-    border: solid 1px #910606;
-    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
-    -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white; }
+    color: #aa2323;
+    background-color: #f6d6d6;
+    border: solid 1px #eeabab; }
+  .messageBox.hint {
+    color: #2375a8;
+    background-color: #d4e9f6;
+    border: solid 1px #aad3ed; }
 
 .inputWrapper {
   position: relative; }
@@ -808,7 +807,7 @@ fieldset {
     background: #d5afaf;
     font-size: 14px;
     border: 2px solid #910606;
-    color: #910606;
+    color: #aa2323;
     padding: 7px 10px 7px 10px;
     text-shadow: 1px 1px 0 white;
     -webkit-border-radius: 3px;
@@ -846,6 +845,9 @@ fieldset {
       top: 50%;
       margin-top: -9px; }
 
+.icons-sprite, .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon, .addIcon, .viewIcon, .editIcon {
+  background: url('../images/icons-sce516426e6.png') no-repeat; }
+
 /* ------------------------------------------------------------- TEXT */
 .crumbTitle {
   color: white;
@@ -864,8 +866,72 @@ fieldset {
   -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1); }
 
-.icons-sprite, .serviceLayersContainer .openCloseTitle, .serviceLayersContainer .closed .openCloseTitle {
-  background: url('../images/icons-s6cf7ddc1da.png') no-repeat; }
+.listFilterInput {
+  margin-left: 10px; }
+
+.listFilterBoxes .filterItem {
+  position: relative;
+  background-color: #f9f9f9;
+  margin-bottom: 20px; }
+.listFilterBoxes .col1 {
+  text-align: center;
+  color: white;
+  padding: 5px;
+  line-height: 15px;
+  background-color: #404040;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0; }
+.listFilterBoxes .col2 {
+  padding: 10px; }
+.listFilterBoxes .buttonGroup {
+  position: absolute;
+  top: 10px;
+  right: 10px; }
+.listFilterBoxes .description {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: dashed 1px #b3b3b3; }
+
+/* ------------------------------------------------------------ ICONS */
+.closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon, .addIcon, .viewIcon, .editIcon {
+  display: inline-block;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  opacity: 0.6; }
+  .closedIcon:hover, .serviceLayersContainer .closed .openCloseTitle:hover, .openedIcon:hover, .serviceLayersContainer .openCloseTitle:hover, .deleteIcon:hover, .addIcon:hover, .viewIcon:hover, .editIcon:hover {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1; }
+
+.closedIcon, .serviceLayersContainer .closed .openCloseTitle {
+  background-position: 0 -198px; }
+
+.openedIcon, .serviceLayersContainer .openCloseTitle {
+  background-position: 0 -182px; }
+
+.deleteIcon {
+  height: 26px;
+  width: 26px;
+  background-position: 0 -104px; }
+
+.addIcon {
+  height: 26px;
+  width: 26px;
+  background-position: 0 -78px; }
+
+.viewIcon {
+  height: 26px;
+  width: 26px;
+  background-position: 0 -130px; }
+
+.editIcon {
+  height: 26px;
+  width: 26px;
+  background-position: 0 -26px; }
 
 /*
  * This css contains backend styles only
@@ -1057,62 +1123,66 @@ body {
     -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
     -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9); }
-  .authWrapper .labelInput {
+  .authWrapper .labelInput, .authWrapper .newApplicationTabContainer .containerBaseData label, .newApplicationTabContainer .containerBaseData .authWrapper label {
     display: block; }
   .authWrapper .input {
     margin-bottom: 10px; }
-  .authWrapper.login .labelInput {
+  .authWrapper.login .labelInput, .authWrapper.login .newApplicationTabContainer .containerBaseData label, .newApplicationTabContainer .containerBaseData .authWrapper.login label {
     width: 80px; }
   .authWrapper.login .input {
     width: 220px; }
-  .authWrapper.forgot .labelInput {
+  .authWrapper.forgot .labelInput, .authWrapper.forgot .newApplicationTabContainer .containerBaseData label, .newApplicationTabContainer .containerBaseData .authWrapper.forgot label {
     width: 135px; }
   .authWrapper.forgot .input {
     width: 165px; }
-  .authWrapper.register .labelInput {
+  .authWrapper.register .labelInput, .authWrapper.register .newApplicationTabContainer .containerBaseData label, .newApplicationTabContainer .containerBaseData .authWrapper.register label {
     width: 125px; }
   .authWrapper.register .input {
     width: 175px; }
 
-/* ----------------------------------------------------------- SERVICES */
-/* ----------------------------------------------------------- SERVICES */
-.filterService {
+/* ------------------------------------------------------- APPLICATIONS */
+/* ------------------------------------------------------- APPLICATIONS */
+.listFilterInput {
   margin-bottom: 20px;
-  margin-left: 10px;
   width: 250px; }
 
-.listFilterContainer .filterItem {
-  position: relative;
-  background-color: #f9f9f9;
+.listFilterApplicationBoxes .filterItem {
+  min-height: 200px; }
+.listFilterApplicationBoxes .col1 {
+  width: 200px; }
+.listFilterApplicationBoxes .col2 {
+  height: 200px;
+  margin-left: 200px; }
+
+/* ---------------------------------------------------- NEW APPLICATION */
+.newApplicationTabContainer {
   margin-bottom: 20px; }
-.listFilterContainer .col1 {
-  width: 60px;
-  text-align: center;
-  color: white;
-  padding: 5px;
-  background-color: #404040;
-  line-height: 15px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0; }
-.listFilterContainer .col2 {
-  margin-left: 60px;
-  padding: 10px; }
-.listFilterContainer .buttonGroup {
-  position: absolute;
-  top: 10px;
-  right: 10px; }
-.listFilterContainer .description {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: dashed 1px #b3b3b3; }
+  .newApplicationTabContainer .containerBaseData label {
+    width: 80px;
+    float: left;
+    display: block;
+    margin-bottom: 10px; }
+  .newApplicationTabContainer .containerBaseData textarea, .newApplicationTabContainer .containerBaseData input {
+    width: 300px; }
+  .newApplicationTabContainer .containerBaseData textarea {
+    height: 100px; }
+
+/* ----------------------------------------------------------- SERVICES */
+/* ----------------------------------------------------------- SERVICES */
+.listFilterInput {
+  margin-bottom: 20px;
+  width: 250px; }
+
+.listFilterServiceBoxes .col1 {
+  width: 60px; }
+.listFilterServiceBoxes .col2 {
+  margin-left: 60px; }
 
 /* -------------------------------------------------------- ADD SERVICE */
 .serviceAddBox {
   width: 412px;
   margin-right: 20px; }
-  .serviceAddBox .labelInput {
+  .serviceAddBox .labelInput, .serviceAddBox .newApplicationTabContainer .containerBaseData label, .newApplicationTabContainer .containerBaseData .serviceAddBox label {
     width: 70px; }
   .serviceAddBox .input {
     margin-bottom: 10px;
@@ -1173,20 +1243,9 @@ body {
   font-style: italic;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
-  text-shadow: white 1px 1px 0px;
-  background-position: 0 -182px; }
+  text-shadow: white 1px 1px 0px; }
 .serviceLayersContainer .closed .openCloseTitle {
-  background-color: #f9f9f9;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
-  opacity: 0.6;
-  background-position: 0 -198px; }
-  .serviceLayersContainer .closed .openCloseTitle:hover {
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-    opacity: 1; }
+  background-color: #f9f9f9; }
 .serviceLayersContainer .metaText {
   display: block;
   margin-left: 95px;

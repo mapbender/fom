@@ -1,6 +1,7 @@
 @import "../../../../CoreBundle/Resources/public/sass/base";
 @import "../../../../CoreBundle/Resources/public/sass/mixins";
 
+@import "icons/*.png";
 
 /* ------------------------------------------------------------- TEXT */
 .crumbTitle{
@@ -23,4 +24,63 @@
   border: solid 1px $thirdColor;
   background-color: $contentColor;
   @include box-shadow(0px 0px 8px rgba(0, 0, 0, 0.1));
+}
+.listFilterInput{margin-left:$space/2;}
+.listFilterBoxes{
+  .filterItem{
+    position:relative;
+    background-color: $contentColor;
+    margin-bottom:$space;
+  }
+  .col1{
+    text-align:center;
+    color:$lightFontColor;
+    padding:$space/4;
+    line-height:$lineHeight - 6;
+    background-color:$firstColor;
+    @include pos(0,'',0,0);
+  }
+  .col2{padding:$space/2;}    
+  .buttonGroup{@include pos($space/2,$space/2,'','');}
+  .description{
+    margin-top:$space/2;
+    padding-top:$space/2;
+    border-top:dashed 1px darken(#fff, 30%);
+  }
+}
+
+
+
+
+
+
+/* ------------------------------------------------------------ ICONS */
+.closedIcon, .openedIcon, .deleteIcon, .addIcon, .viewIcon, .editIcon{
+  display: inline-block;
+  @include transition(all 0.2s ease-in-out);
+  @include opacity(0.6);
+  &:hover{@include opacity(1);}
+}
+
+.closedIcon{@include icons-sprite(closed);}
+.openedIcon{@include icons-sprite(opened);}
+.deleteIcon{
+  height: icons-sprite-height(delete);
+  width: icons-sprite-width(delete);
+  @include icons-sprite(delete);
+}
+.addIcon{
+  height: icons-sprite-height(add);
+  width: icons-sprite-width(add);
+  @include icons-sprite(add);
+}
+.viewIcon{
+  height: icons-sprite-height(view);
+  width: icons-sprite-width(view);
+  @include icons-sprite(view);
+}
+.editIcon{
+  height: icons-sprite-height(edit);
+  width: icons-sprite-width(edit);
+  @include icons-sprite(edit);
 }

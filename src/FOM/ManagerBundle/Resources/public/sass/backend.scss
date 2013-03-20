@@ -3,8 +3,6 @@
 @import "../../../../CoreBundle/Resources/public/sass/mapbender_theme";
 @import "components";
 
-@import "icons/*.png";
-
 $bannerHeight:170px;
 $contentPaneWidth:760px;
 $navWidth:200px;
@@ -181,6 +179,14 @@ body{z-index:-30;position:relative;}
 
 /* -------------------------------------------------------------- LOGIN */
 @import "../../../../UserBundle/Resources/public/sass/login";
+
+
+
+
+
+
+/* ------------------------------------------------------- APPLICATIONS */
+@import "applications";
 
 
 
