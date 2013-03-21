@@ -435,10 +435,7 @@ table {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
-  *:focus {
-    outline: none;
-    border: 1px solid #a9d683 !important; }
-  *:hover, *:active {
+  *:focus, *:hover, *:active {
     outline: none; }
 
 ul, ol {
@@ -592,6 +589,9 @@ fieldset {
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
   border-radius: 3px; }
+  .input:focus {
+    outline: none;
+    border: 1px solid #a9d683; }
 
 .buttonCore, .button, .button.critical, .linkButton {
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
@@ -801,49 +801,49 @@ fieldset {
 
 .inputWrapper {
   position: relative; }
-  .inputWrapper .help-block {
-    position: relative;
+  .inputWrapper .validationMsgBox {
+    position: absolute;
+    min-width: 250px;
     margin-left: -10px;
-    background: #d5afaf;
-    font-size: 14px;
-    border: 2px solid #910606;
     color: #aa2323;
-    padding: 7px 10px 7px 10px;
-    text-shadow: 1px 1px 0 white;
+    padding: 3px 10px 3px 10px;
+    background-color: #f6d6d6;
+    border: solid 1px #eeabab;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
     border-radius: 3px;
-    -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
     -webkit-transition: all 0.8s ease-in-out;
     -moz-transition: all 0.8s ease-in-out;
     -o-transition: all 0.8s ease-in-out;
     transition: all 0.8s ease-in-out; }
-    .inputWrapper .help-block.hide {
-      @inlcude opacity(0);
+    .inputWrapper .validationMsgBox.hide {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+      opacity: 0;
       margin-left: 0px; }
-    .inputWrapper .help-block:after, .inputWrapper .help-block:before {
+    .inputWrapper .validationMsgBox:after, .inputWrapper .validationMsgBox:before {
       position: absolute;
       right: 100%;
       border: solid transparent;
       content: " ";
       height: 0;
       width: 0; }
-    .inputWrapper .help-block:after {
-      border-color: rgba(213, 175, 175, 0);
-      border-right-color: #d5afaf;
-      border-width: 6px;
-      top: 50%;
-      margin-top: -6px; }
-    .inputWrapper .help-block:before {
-      border-color: rgba(145, 6, 6, 0);
-      border-right-color: #910606;
-      border-width: 9px;
-      top: 50%;
-      margin-top: -9px; }
+    .inputWrapper .validationMsgBox:after {
+      border-right-color: #f6d6d6;
+      border-width: 3px;
+      top: 14px;
+      margin-top: -3px; }
+    .inputWrapper .validationMsgBox:before {
+      border-right-color: #eeabab;
+      border-width: 5px;
+      top: 14px;
+      margin-top: -5px; }
 
 .icons-sprite, .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon, .addIcon, .viewIcon, .editIcon {
   background: url('../images/icons-sce516426e6.png') no-repeat; }
@@ -897,10 +897,12 @@ fieldset {
 /* ------------------------------------------------------------ ICONS */
 .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon, .addIcon, .viewIcon, .editIcon {
   display: inline-block;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
+  position: relative;
+  z-index: 9999;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -o-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6; }
   .closedIcon:hover, .serviceLayersContainer .closed .openCloseTitle:hover, .openedIcon:hover, .serviceLayersContainer .openCloseTitle:hover, .deleteIcon:hover, .addIcon:hover, .viewIcon:hover, .editIcon:hover {
@@ -939,7 +941,8 @@ fieldset {
 /* ------------------------------------------------------------- PAGE */
 body {
   z-index: -30;
-  position: relative; }
+  position: relative;
+  overflow-y: scroll; }
 
 .page {
   position: relative;
@@ -964,25 +967,35 @@ body {
     left: 0; }
 
 .accountBar {
-  padding: 5px 10px 5px 10px;
   color: #878787;
-  height: 30px;
-  overflow: hidden;
   cursor: pointer;
+  padding: 5px 10px 5px 10px;
   background-color: #f9f9f9;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   -webkit-box-shadow: 0px 0px 3px black;
   -moz-box-shadow: 0px 0px 3px black;
   box-shadow: 0px 0px 3px black;
   position: absolute;
   top: 0;
   right: 0; }
-  .accountBar.stretchable {
-    -webkit-transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out; }
-    .accountBar.stretchable:hover {
-      height: 80px; }
+
+.accountMenu {
+  height: 20px;
+  overflow: hidden;
+  position: relative; }
+  .accountMenu.opened {
+    height: 65px; }
+  .accountMenu .accountOpen {
+    margin-right: 20px; }
+  .accountMenu .openedIcon, .accountMenu .serviceLayersContainer .openCloseTitle, .serviceLayersContainer .accountMenu .openCloseTitle {
+    position: absolute;
+    right: 0;
+    top: 3px;
+    height: 16px;
+    width: 16px; }
 
 /* -------------------------------------------------------- PAGE LEFT */
 .leftPane {
@@ -1147,12 +1160,12 @@ body {
   width: 250px; }
 
 .listFilterApplicationBoxes .filterItem {
-  min-height: 200px; }
+  min-height: 120px; }
 .listFilterApplicationBoxes .col1 {
-  width: 200px; }
+  width: 120px; }
 .listFilterApplicationBoxes .col2 {
-  height: 200px;
-  margin-left: 200px; }
+  height: 120px;
+  margin-left: 120px; }
 
 /* ---------------------------------------------------- NEW APPLICATION */
 .newApplicationTabContainer {

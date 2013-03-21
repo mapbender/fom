@@ -435,10 +435,7 @@ table {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
-  *:focus {
-    outline: none;
-    border: 1px solid #a9d683 !important; }
-  *:hover, *:active {
+  *:focus, *:hover, *:active {
     outline: none; }
 
 ul, ol {
@@ -592,6 +589,9 @@ fieldset {
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
   border-radius: 3px; }
+  .input:focus {
+    outline: none;
+    border: 1px solid #a9d683; }
 
 .buttonCore, .button, .button.critical, .linkButton {
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
@@ -801,46 +801,46 @@ fieldset {
 
 .inputWrapper {
   position: relative; }
-  .inputWrapper .help-block {
-    position: relative;
+  .inputWrapper .validationMsgBox {
+    position: absolute;
+    min-width: 250px;
     margin-left: -10px;
-    background: #d5afaf;
-    font-size: 14px;
-    border: 2px solid #910606;
     color: #aa2323;
-    padding: 7px 10px 7px 10px;
-    text-shadow: 1px 1px 0 white;
+    padding: 3px 10px 3px 10px;
+    background-color: #f6d6d6;
+    border: solid 1px #eeabab;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
     border-radius: 3px;
-    -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
     -webkit-transition: all 0.8s ease-in-out;
     -moz-transition: all 0.8s ease-in-out;
     -o-transition: all 0.8s ease-in-out;
     transition: all 0.8s ease-in-out; }
-    .inputWrapper .help-block.hide {
-      @inlcude opacity(0);
+    .inputWrapper .validationMsgBox.hide {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+      opacity: 0;
       margin-left: 0px; }
-    .inputWrapper .help-block:after, .inputWrapper .help-block:before {
+    .inputWrapper .validationMsgBox:after, .inputWrapper .validationMsgBox:before {
       position: absolute;
       right: 100%;
       border: solid transparent;
       content: " ";
       height: 0;
       width: 0; }
-    .inputWrapper .help-block:after {
-      border-color: rgba(213, 175, 175, 0);
-      border-right-color: #d5afaf;
-      border-width: 6px;
-      top: 50%;
-      margin-top: -6px; }
-    .inputWrapper .help-block:before {
-      border-color: rgba(145, 6, 6, 0);
-      border-right-color: #910606;
-      border-width: 9px;
-      top: 50%;
-      margin-top: -9px; }
+    .inputWrapper .validationMsgBox:after {
+      border-right-color: #f6d6d6;
+      border-width: 3px;
+      top: 14px;
+      margin-top: -3px; }
+    .inputWrapper .validationMsgBox:before {
+      border-right-color: #eeabab;
+      border-width: 5px;
+      top: 14px;
+      margin-top: -5px; }

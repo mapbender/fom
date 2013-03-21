@@ -25,7 +25,20 @@ $(function() {
             items.show();
         }
     });
+
+    // init validation feedback
+    $("form .button").trigger("focus");
     $(".validationInput").one("focus", function(){
-      $(this).siblings(".help-block").addClass("hide");
+      $(this).siblings(".validationMsgBox").addClass("hide");
+    });
+
+    // init user box
+    $("#accountOpen").bind("click", function(){
+        var menu = $("#accountMenu");
+        if(menu.hasClass("opened")){
+            menu.removeClass("opened");
+        }else{
+            menu.addClass("opened");
+        }
     });
 });

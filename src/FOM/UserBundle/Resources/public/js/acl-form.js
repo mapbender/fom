@@ -22,7 +22,6 @@
         };
 
         var create_typehead = function(element) {
-//            window.console && console.log(element);
             $(element).typeahead({
                 source: provider,
                 minLength: 3

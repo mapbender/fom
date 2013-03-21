@@ -1,6 +1,8 @@
 @import "../../../../CoreBundle/Resources/public/sass/base";
 @import "../../../../CoreBundle/Resources/public/sass/mixins";
 @import "../../../../CoreBundle/Resources/public/sass/mapbender_theme";
+
+// contains backend only components
 @import "components";
 
 $bannerHeight:170px;
@@ -14,7 +16,11 @@ $pageWidth:$contentPaneWidth + $navWidth;
 
 /* ------------------------------------------------------------- PAGE */
 // avoid that the background pattern overlaing the paper deck effect of the contentbox
-body{z-index:-30;position:relative;}
+body{
+  z-index:-30;
+  position:relative;
+  overflow-y:scroll;
+}
 .page{
   position:relative;
   top:-$bannerHeight;
@@ -42,21 +48,26 @@ body{z-index:-30;position:relative;}
   hr{@include pos('',0,0,0);}
 }
 .accountBar{
-  padding:($space/4) ($space/2) ($space/4) ($space/2);
   color:$middleFontColor;
-  height: 30px;
-  overflow: hidden;
   cursor:pointer;
+  padding:($space/4) ($space/2) ($space/4) ($space/2);
   background-color:$contentColor;
+  @include transition(all 0.2s ease-in-out);
   @include box-shadow(0px 0px 3px black);
   @include pos(0,0,'','');
-
-  &.stretchable{
-    @include transition(all 0.2s ease-in-out);
-
-    &:hover{
-      height:80px;
-    }
+}
+.accountMenu{
+  height:20px;
+  overflow: hidden;
+  position: relative;
+  &.opened{height:65px;}
+  .accountOpen{margin-right:$space;}
+  .openedIcon{
+    position: absolute;
+    right:0;
+    top:3px;
+    height: icons-sprite-height(opened);
+    width: icons-sprite-width(opened);
   }
 }
 
@@ -161,7 +172,7 @@ body{z-index:-30;position:relative;}
     @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
     @include border-radius($radius);
   }     
-  &:before{      
+  &:before{
     z-index:-10; 
     @include pos('',5px,-3px,5px);
   }

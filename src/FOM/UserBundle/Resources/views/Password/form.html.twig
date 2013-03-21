@@ -2,8 +2,6 @@
 
 {% block title %} {{ 'Password Forgot' | trans}} {% endblock %}
 
-{% block wrapperclass %}hero-unit{% endblock %}
-
 {% block content %}
   <div class="authWrapper forgot">
     <div class="head"><hr class="dekoSeperator"></div>
@@ -12,18 +10,12 @@
     <div class="loginBox">
       <h2 class="contentTitle">{{ 'Forgot password' | trans}}</h2>
       <form action="{{ path('fom_user_password_request') }}" method="post" {{ form_enctype(form)}} autocomplete="off" novalidate="novalidate">
-        {% if form_errors(form) %}
-        <div class="messageBox error">
-            {{ form_errors(form) }}
-        </div>
-        {% endif %}
 
         <label for="{{ form.search.get('id') }}" class="left labelInput">{{"Username or Email" | trans}}:</label>
-        {{ form_widget(form.search, { 'attr': {'class': 'input'} }) }}
-
+        {{ form_widget(form.search) }}
         {{ form_row(form._token) }}
 
-        <a class="left linkButton" href="{{ path('fom_user_login_login') }}">{{ "Login"|trans}}</a>
+        <a class="left linkButton" href="{{ path('fom_user_login_login') }}">{{ "Back to login"|trans}}</a>
         <button class="button right">{{ 'Require password' | trans}}</button>
       </form>
       <div class="clearContainer"></div>
