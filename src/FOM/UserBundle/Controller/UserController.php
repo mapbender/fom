@@ -152,7 +152,7 @@ class UserController extends Controller {
     /**
      * @ManagerRoute("/user/{id}/update")
      * @Method({ "POST" })
-     * @Template("MapbenderManagerBundle:User:edit.html.twig")
+     * @Template("FOMUserBundle:User:edit.html.twig")
      */
     public function updateAction($id) {
         $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->find($id);

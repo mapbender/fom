@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\UserRegistrationType;
