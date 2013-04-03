@@ -1,26 +1,10 @@
+{% extends "FOMManagerBundle::backend.html.twig" %}
+
 {% set title %}{% block title %}{% endblock %}{% endset %}
-<!doctype html>
-<html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{{ title|trans }}</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="Mapbender 3">
-    <meta name="viewport" content="width=device-width">
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/fommanager/css/backend.css') }}">
-    {% block manager_css %}{% endblock %}
-  </head>
 
-  <body class="{% if app.debug %}debug{% endif %}">
-    <div class="head"><hr class="dekoSeperator"></div>
+{% block backend_content %}
+  <div class="head"><hr class="dekoSeperator"></div>
     <div id="wrapper" class="page">
-
-      {# Always use mapbender 3 form theming #}
-      {% if form is defined %}
-        {% form_theme form 'FOMCoreBundle:Form:fields.html.twig' %}
-      {% endif %}
 
       <div class="leftPane">
         <a href="{{ path('mapbender_core_welcome_list') }}"><img class="logo" alt="Mapbender 3 Manager" src="{{ asset(fom.server_logo)}}" /></a>
@@ -59,11 +43,10 @@
         </div>
       </div>
     </div>
+{% endblock %}
 
-    <script src="{{ asset('bundles/fomcore/js/jquery-1.9.1.min.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ asset('bundles/fomcore/js/components.js')}}"></script>
-    <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-    {% block manager_js %}{% endblock %}
-  </body>
-</html>
+{% block js %}
+  {{parent()}}
+  <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+  <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+{% endblock %}
