@@ -803,6 +803,7 @@ fieldset {
   position: relative; }
   .inputWrapper .validationMsgBox {
     position: absolute;
+    z-index: 9999;
     min-width: 250px;
     margin-left: -10px;
     color: #aa2323;
@@ -934,6 +935,93 @@ fieldset {
   height: 26px;
   width: 26px;
   background-position: 0 -26px; }
+
+/* ----------------------------------------------------------- TABLES */
+.permissionsTable {
+  width: 100%; }
+  .permissionsTable tr {
+    height: 46px; }
+  .permissionsTable tr {
+    border-bottom: solid 1px #e0e0e0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px; }
+  .permissionsTable th {
+    font-weight: normal;
+    cursor: pointer;
+    border-bottom: solid 5px lightgrey; }
+  .permissionsTable td {
+    position: relative; }
+    .permissionsTable td .labelInput, .permissionsTable td .newApplicationTabContainer .containerBaseData label, .newApplicationTabContainer .containerBaseData .permissionsTable td label {
+      width: 200px; }
+    .permissionsTable td .input {
+      display: none; }
+  .permissionsTable .listFilterInput {
+    margin: 0px; }
+  .permissionsTable input.view, .permissionsTable input.edit, .permissionsTable input.delete, .permissionsTable input.undelete, .permissionsTable input.operator, .permissionsTable input.master, .permissionsTable input.owner {
+    cursor: pointer;
+    height: 26px;
+    width: 100%;
+    height: 26px;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    bottom: 10px;
+    left: 0; }
+  .permissionsTable .tagBox {
+    margin-left: 5px;
+    position: relative;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px; }
+    .permissionsTable .tagBox.view.multi {
+      background-color: #c1c1c1; }
+    .permissionsTable .tagBox.view.selected {
+      color: white;
+      background-color: #8DCA35; }
+    .permissionsTable .tagBox.edit.multi {
+      background-color: #c1c1c1; }
+    .permissionsTable .tagBox.edit.selected {
+      color: white;
+      background-color: #FFAB00; }
+    .permissionsTable .tagBox.delete.multi {
+      background-color: #c1c1c1; }
+    .permissionsTable .tagBox.delete.selected {
+      color: white;
+      background-color: #FFAB00; }
+    .permissionsTable .tagBox.undelete.multi {
+      background-color: #c1c1c1; }
+    .permissionsTable .tagBox.undelete.selected {
+      color: white;
+      background-color: #FFAB00; }
+    .permissionsTable .tagBox.operator.multi {
+      background-color: #c1c1c1; }
+    .permissionsTable .tagBox.operator.selected {
+      color: white;
+      background-color: #FF702A; }
+    .permissionsTable .tagBox.master.multi {
+      background-color: #c1c1c1; }
+    .permissionsTable .tagBox.master.selected {
+      color: white;
+      background-color: #FF702A; }
+    .permissionsTable .tagBox.owner.multi {
+      background-color: #c1c1c1; }
+    .permissionsTable .tagBox.owner.selected {
+      color: white;
+      background-color: #FF702A; }
 
 /*
  * This css contains backend styles only

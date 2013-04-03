@@ -86,3 +86,75 @@
   width: icons-sprite-width(edit);
   @include icons-sprite(edit);
 }
+
+
+
+
+
+
+/* ----------------------------------------------------------- TABLES */
+.permissionsTable{
+  $height:26px;
+  width: 100%;
+
+  tr{height:$height + 20;}
+  tr{
+    border-bottom: solid 1px darken($contentColor, 10%);
+    @include border-radius($radius);
+  }
+  th{
+    font-weight:normal;
+    cursor: pointer;
+    border-bottom: solid 5px darken($contentColor, 15%);
+  }
+  td{
+    position:relative;
+    .labelInput{width:200px;}
+    .input{display:none;}
+  }
+  .listFilterInput{margin:0px;}
+
+  input{
+    &.view, &.edit, &.delete, 
+    &.undelete, &.operator, &.master, &.owner{
+      cursor: pointer;
+      height:$height;
+      width: 100%;
+      height:$height;
+      @include opacity(0);
+      @include pos($space/2,0,$space/2,0);
+    }
+  }
+
+  .tagBox{
+    margin-left:5px;
+    position: relative;
+    height:$height;
+    line-height:$height;
+    text-align:center;
+    @include noUserSelect;
+    @include border-radius($radius);
+
+    @each $perm in view, edit, delete, undelete, operator, master, owner{
+      &.#{$perm}{
+        &.multi{background-color:#c1c1c1;}
+
+        &.selected{
+          color:white;
+
+          @if($perm == "view"){
+            background-color: #8DCA35;
+          }
+
+          @if(($perm == "edit") or ($perm == "delete") or ($perm == "undelete")){
+            background-color: #FFAB00;
+          }
+
+          @if(($perm == "operator") or ($perm == "master") or ($perm == "owner")){
+            background-color: #FF702A;
+          }
+        }
+      }
+    }
+  }
+}

@@ -803,6 +803,7 @@ fieldset {
   position: relative; }
   .inputWrapper .validationMsgBox {
     position: absolute;
+    z-index: 9999;
     min-width: 250px;
     margin-left: -10px;
     color: #aa2323;
