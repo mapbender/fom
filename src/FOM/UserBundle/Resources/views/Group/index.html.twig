@@ -6,7 +6,7 @@
 
 {% include "FOMUserBundle:User:navigation.html.twig" %}
 
-<table class="table table-striped">
+<table>
     <thead>
         <tr>
             <th>{{ "Title" | trans }}</th>
@@ -22,9 +22,9 @@
             </td>
             <td>{{ group.description }}</td>
             <td>
-                <div class="entity-actions btn-group">
-                    <a class="action-edit btn" href="{{ path('fom_user_group_edit',  {'id': group.id }) }}" title="{{ 'Edit' | trans }}">{{ 'Edit' | trans }}</a>
-                    <a class="action-delete btn btn-warning" href="{{ path('fom_user_group_confirmdelete', { 'id': group.id }) }}">{{ 'Delete' | trans }}</a>
+                <div>
+                    <a href="{{ path('fom_user_group_edit',  {'id': group.id }) }}" title="{{ 'Edit' | trans }}">{{ 'Edit' | trans }}</a>
+                    <a href="{{ path('fom_user_group_confirmdelete', { 'id': group.id }) }}">{{ 'Delete' | trans }}</a>
                 </div>
             </td>
         </tr>

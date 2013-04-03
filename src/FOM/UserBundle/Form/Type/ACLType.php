@@ -112,27 +112,25 @@ class ACLType extends AbstractType
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,
-            'options' => array(
-                'widget_control_group' => false,
-                //'label_render' => false,
-                'available_permissions' => $permissions['show']),
+            'options' => array('available_permissions' => $permissions['show']),
             'property_path' => false,
             'data' => $aces);
 
         if($isMaster || $isOwner) {
             // only masters or owners can add new ACEs
-            $aceOptions['widget_add_btn'] = array(
-                'label' => '',
-                'icon' => 'plus-sign icon-white',
-                'attr' => array(
-                    'class' => 'btn btn-primary btn-mini'));
+            //XXXVH: buttons selber backen
+            // $aceOptions['widget_add_btn'] = array(
+            //     'label' => '',
+            //     'icon' => 'plus-sign icon-white',
+            //     'attr' => array(
+            //         'class' => 'btn btn-primary btn-mini'));
 
-            // only masters or owners can delete existing ACEs
-            $aceOptions['options']['widget_remove_btn'] = array(
-                'label' => '',
-                'icon' => 'minus-sign',
-                'attr' => array(
-                    'class' => 'btn btn-mini'));
+            // // only masters or owners can delete existing ACEs
+            // $aceOptions['options']['widget_remove_btn'] = array(
+            //     'label' => '',
+            //     'icon' => 'minus-sign',
+            //     'attr' => array(
+            //         'class' => 'btn btn-mini'));
 
             // only masters or owners can modify existing ACEs
             // @TODO: Disable "disabled" permissions
@@ -150,10 +148,10 @@ class ACLType extends AbstractType
             'standard_anon_access' => true,
             'user' => null,
             'force_master' => false,
-            'force_owner' => false,
-            'widget_control_group_attr' => array(
-                'data-aclsid' => $this->router->generate('fom_user_acl_aclsid')
-            )));
+            'force_owner' => false
+            // 'widget_control_group_attr' => array(
+            //     'data-aclsid' => $this->router->generate('fom_user_acl_aclsid')
+            ));
     }
 
     /**

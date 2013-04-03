@@ -1,21 +1,21 @@
-<header class="form-help">
+<header>
 {% trans %}
 Required fields are marked with dark labels, while optional fields have lighter labels.
 {% endtrans %}
 </header>
 
-<ul class="nav nav-tabs">
-    <li class="active"><a href="#group-basics" data-toggle="tab">
+<ul>
+    <li><a href="#group-basics" data-toggle="tab">
         {{ 'Base data' | trans}}</a></li>
     <li><a href="#group-users" data-toggle="tab">{{ 'Users' | trans}}</a></li>
 </ul>
 
-<div class="tab-content">
-    <section id="group-basics" class="tab-pane active">
+<div>
+    <section id="group-basics">
         {% include 'FOMUserBundle:Group:form-basic.html.twig' %}
     </section>
 
-    <section id="group-users" class="tab-pane">
+    <section id="group-users">
         {% include 'FOMUserBundle:Group:form-users.html.twig' %}
     </section>
 </div>

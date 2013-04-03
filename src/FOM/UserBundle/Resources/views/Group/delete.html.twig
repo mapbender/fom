@@ -11,10 +11,10 @@
     {% trans %}Do you really want to delete the group with the title <em>%group_title%</em>?{% endtrans %}
     </header>
     {{ form_widget(form) }}
-    <footer class="actions">
-        <div class="btn-group">
-            <input type="submit" value="{{ 'Delete' | trans }}" class="btn btn-danger"/>
-            <a href="{{ url('fom_user_group_index') }}" class="btn">{{ 'Cancel' | trans}}</a>
+    <footer>
+        <div>
+            <input type="submit" value="{{ 'Delete' | trans }}"/>
+            <a href="{{ url('fom_user_group_index') }}">{{ 'Cancel' | trans}}</a>
         </div>
     </footer>
 </form>

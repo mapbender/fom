@@ -12,7 +12,7 @@
 
 <form action="{{ path('fom_user_user_create') }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} class="well" autocomplete="off">
     {% if form_errors(form) %}
-    <div class="alert alert-error">
+    <div>
         {{ form_errors(form) }}
     </div>
     {% endif %}
@@ -22,9 +22,9 @@
     {% include 'FOMUserBundle:User:form.html.twig' %}
 
     <footer>
-        <div class="btn-group">
+        <div>
             <input type="submit" value="{{ 'Create' | trans }}" class="btn btn-primary"/>
-            <a href="{{ url('fom_user_user_index') }}" class="btn">{{ 'Cancel' | trans}}</a>
+            <a href="{{ url('fom_user_user_index') }}">{{ 'Cancel' | trans}}</a>
         </div>
     </footer>
 </form>

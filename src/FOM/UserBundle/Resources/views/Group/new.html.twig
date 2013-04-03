@@ -8,9 +8,9 @@
 
 {% block manager_content %}
 
-<form action="{{ path('fom_user_group_create') }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} class="well">
+<form action="{{ path('fom_user_group_create') }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}}>
     {% if form_errors(form) %}
-    <div class="alert alert-error">
+    <div>
         {{ form_errors(form) }}
     </div>
     {% endif %}
@@ -19,9 +19,9 @@
     {% include 'FOMUserBundle:Group:form.html.twig' %}
 
     <footer>
-        <div class="btn-group">
-            <input type="submit" value="{{ 'Create' | trans }}" class="btn btn-primary"/>
-            <a href="{{ url('fom_user_group_index') }}" class="btn">{{ 'Cancel' | trans}}</a>
+        <div>
+            <input type="submit" value="{{ 'Create' | trans }}"/>
+            <a href="{{ url('fom_user_group_index') }}">{{ 'Cancel' | trans}}</a>
         </div>
     </footer>
 </form>

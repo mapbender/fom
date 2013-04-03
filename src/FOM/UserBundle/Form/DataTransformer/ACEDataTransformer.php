@@ -33,7 +33,7 @@ class ACEDataTransformer implements DataTransformerInterface
             $sid = $ace['sid'];
             $mask = $ace['mask'];
         }
-        
+
         $sidString = '';
         if($sid instanceof RoleSecurityIdentity) {
             $sidPrefix = 'r';
@@ -49,14 +49,10 @@ class ACEDataTransformer implements DataTransformerInterface
         for($i = 1; $i <= 30; $i++) {
                 $key = 1 << ($i-1);
                 if($mask & $key) {
-                    $permissions[] = $i;    
+                    $permissions[$i] = true;
+                } else {
+                    $permissions[$i] = false;
                 }
-        }
-
-        if($mask !== null) {
-            //print($sid);
-            //print($mask);
-            //var_dump($permissions);die;
         }
         
         return array(
@@ -80,8 +76,10 @@ class ACEDataTransformer implements DataTransformerInterface
         }
         
         $maskBuilder = new MaskBuilder();
-        foreach($data['permissions'] as $permission) {
-            $maskBuilder->add(1 << ($permission - 1));
+        foreach($data['permissions'] as $bit => $permission) {
+            if(true === $permission) {
+                $maskBuilder->add(1 << ($bit - 1));
+            }
         }
         
         return array(

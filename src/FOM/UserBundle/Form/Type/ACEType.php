@@ -39,13 +39,14 @@ class ACEType extends AbstractType
                 'data-provide' => 'typeahead',
                 'autocomplete' => 'off')));
 
-        $builder->add('permissions', 'choice', array(
-            'multiple' => true,
-            'expanded' => true,
-            'property_path' => '[permissions]',
-            'choices' => $options['available_permissions'],
-            'widget_type' => 'inline',
-            'label_render' => false));
+        $permissions = $options['available_permissions'];
+
+        foreach ($permissions as $bit => $perm){
+            $name = strtolower($perm);
+            $builder->add('permission_' . $bit, 'checkbox', array(
+                'property_path' => '[permissions][' . $bit . ']',
+                'attr' => array("class"=>$name)));
+        }
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
