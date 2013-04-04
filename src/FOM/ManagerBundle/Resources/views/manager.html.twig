@@ -30,7 +30,7 @@
             {% render "FOMManagerBundle:Manager:bread" with { "request": app.request } %}
           {% endif %}
           <div class="content shadowBox">
-            <h2 class="contentTitle">{{ title|trans }}</h2>
+            <h1 class="contentTitle">{{ title|trans }}</h1>
 {# XXXVH !! alert? #}
             {% for key, flash in app.session.flashes %}
               <div class="alert alert-{{ key }}">

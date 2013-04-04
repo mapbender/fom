@@ -316,38 +316,55 @@ fieldset{
   }
 }
 /* POPUP */
-.popupContainer{
-  display:none;
-  position: absolute;
-  z-index:999;
-  @include stretch();
-
-  &.show{display:block;}
-}
 .overlay{
   background:url($firstPatternUrl);
-  @include opacity(0.9);
+  @include transition(opacity 0.4s ease-in-out);
   @include stretch();
   @include noUserSelect();
+  @include opacity(0);
 }
 .popup{
   position:relative;
   z-index:9999;
-  margin:200px auto;
-  width:500px;
+  margin:-1000px auto 0 auto;
   background-color:#f4f4f4;
+  padding:$space 0 $space $space;
   background-image:url($secondPatternUrl);
+  @include transition(margin 0.4s ease-in-out);
   @include border-radius($radius);
   @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.9),
                       inset 0px 0px 2px #fff);
 
-  .popupTitle{padding:$space/2 $space;}
-  .subTitle{
-    margin-left:$space/4;
-    @extend .smallText;
+  .popupHead{
+    @extend .contentTitle;
+    padding-right:$space;
+  }
+  .popupSubTitle{@extend .title;}
+  .popupContent, .popupSubContent{
+    padding-right:$space;
+    max-height: 500px;
+    overflow-y: auto;
+  }
+}
+.popupContainer{
+  position: absolute;
+  z-index:999;
+  @include stretch();
+
+  &.hint{
+    text-align: center;
+    .popup{width:300px;}
   }
 
-  .popupContent{padding:0 $space $space $space;}
+  &.modal{
+    .popupButtons{float:right;}
+    .popup{width:500px;}
+  }
+
+  &.show{
+    .overlay{@include opacity(0.9);}
+    .popup{margin:100px auto 0 auto;}
+  }
 }
 /* MESSAGES */
 .messageBox{

@@ -108,10 +108,10 @@
     border-bottom: solid 5px darken($contentColor, 15%);
   }
   td{
-    position:relative;
     .labelInput{width:200px;}
     .input{display:none;}
   }
+  .checkWrapper{position:relative;}
   .listFilterInput{margin:0px;}
 
   input{

@@ -42,4 +42,15 @@
     textarea, input{width: 300px;}
     textarea{height:100px;}
   }
+  .containerLayout{
+  }
 }
+.popup{
+  .elementContainer{
+    position:relative;
+    margin-bottom: $space/2;
+  }
+  .description{
+    line-height: 16px;
+  }
+} 

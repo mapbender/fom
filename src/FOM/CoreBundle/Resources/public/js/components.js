@@ -74,7 +74,6 @@ $(function() {
         }else if(classNameCount == 0){
             // do nothing!
         }else{
-            console.log("a");
             me.addClass("multi");
         }
     }

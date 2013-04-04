@@ -29,8 +29,8 @@ body{
 }
 
 
-
-
+ 
+ 
 
 
 /* --------------------------------------------------------- PAGE TOP */
@@ -90,7 +90,7 @@ body{
     background-color:$contentColor;
     @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
   }
-} 
+}
 .navLevel1{
   border-right:1px solid lighten($firstColor, 40%);
   padding:$space/2 $space $space/2 $space;
@@ -151,35 +151,38 @@ body{
 
 
 /* ------------------------------------------------------- PAGE CENTER */
-.contentPane{padding-top:$space*4;}
-.content{
-  min-height: 600px; 
-  position:relative; 
-  padding:$space;
-  margin:0px;
-  background-color:$contentColor;
-  background-image:url($secondPatternUrl);
-  @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
-  @include border-radius($radius);
+.contentPane{
+  padding-top:$space*4;
 
-  hr{@include pos(0,0,'',0);}
-
-  // uuhh baby show me your paper effect ... hrrr
-  &:before, &:after{ 
-    content:"";
+  & > .content{
+    min-height: 600px; 
+    position:relative; 
+    padding:$space;
+    margin:0px;
     background-color:$contentColor;
-    height:10px; 
+    background-image:url($secondPatternUrl);
     @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
     @include border-radius($radius);
-  }     
-  &:before{
-    z-index:-10; 
-    @include pos('',5px,-3px,5px);
-  }
-  &:after{
-    content:"";
-    z-index:-20;
-    @include pos('',10px,-6px,10px);
+
+    hr{@include pos(0,0,'',0);}
+
+    // uuhh baby show me your paper effect ... hrrr
+    &:before, &:after{ 
+      content:"";
+      background-color:$contentColor;
+      height:10px; 
+      @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
+      @include border-radius($radius);
+    }     
+    &:before{
+      z-index:-10; 
+      @include pos('',5px,-3px,5px);
+    }
+    &:after{
+      content:"";
+      z-index:-20;
+      @include pos('',10px,-6px,10px);
+    }
   }
 }
 

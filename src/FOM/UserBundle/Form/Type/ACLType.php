@@ -173,15 +173,15 @@ class ACLType extends AbstractType
                 $disable = array();
                 // if not owner or master, disable all permissions
                 if(!$master && !$owner) {
-                    $disable = array(1, 3, 4, 5, 6, 7, 8);
+                    $disable = array(1, 3, 4, 6, 7, 8);
                 }
                 // if not master, disable
+                // 5 -> undelete is not used
                 return array(
                     'show' => array(
                         1 => 'View',
                         3 => 'Edit',
                         4 => 'Delete',
-                        5 => 'Undelete',
                         6 => 'Operator',
                         7 => 'Master',
                         8 => 'Owner'
@@ -195,7 +195,6 @@ class ACLType extends AbstractType
                         2 => 'Create',
                         3 => 'Edit',
                         4 => 'Delete',
-                        5 => 'Undelete',
                         6 => 'Operator',
                         7 => 'Master',
                         8 => 'Owner'

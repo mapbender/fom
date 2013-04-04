@@ -495,16 +495,16 @@ html, body {
 .smallerText {
   font-size: 10px; }
 
-.smallText, .labelInput, .labelText, .description, .table td, .table th, .input, .buttonCore, .button, .button.critical, .linkButton, .tabContainer .tab, .popup .subTitle, .popup fieldset legend, fieldset .popup legend {
+.smallText, .labelInput, .labelText, .description, .table td, .table th, .input, .buttonCore, .button, .button.critical, .linkButton, .tabContainer .tab {
   font-size: 12px; }
 
-.bigText, .title {
+.bigText, .title, .popup .popupSubTitle {
   font-size: 16px; }
 
-.biggerText, .contentTitle {
+.biggerText, .contentTitle, .popup .popupHead {
   font-size: 22px; }
 
-.contentTitle {
+.contentTitle, .popup .popupHead {
   font-weight: normal;
   font-style: italic;
   margin-bottom: 20px;
@@ -512,7 +512,7 @@ html, body {
   border-bottom: dashed 1px #b3b3b3;
   text-shadow: white 1px 1px 0px; }
 
-.title {
+.title, .popup .popupSubTitle {
   font-weight: normal;
   color: #3f3f3f;
   text-shadow: white 1px 1px 0px; }
@@ -535,6 +535,9 @@ fieldset {
 .labelInput {
   color: #858585;
   line-height: 29px; }
+  .labelInput .required {
+    color: #aa2323;
+    text-shadow: white 1px 1px 0px; }
 
 .labelText {
   color: #74b63d; }
@@ -730,22 +733,12 @@ fieldset {
     display: block; }
 
 /* POPUP */
-.popupContainer {
-  display: none;
-  position: absolute;
-  z-index: 999;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0; }
-  .popupContainer.show {
-    display: block; }
-
 .overlay {
   background: url("../../fomcore/images/pattern1.png");
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
-  opacity: 0.9;
+  -webkit-transition: opacity 0.4s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  -o-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -754,15 +747,21 @@ fieldset {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none; }
+  user-select: none;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0; }
 
 .popup {
   position: relative;
   z-index: 9999;
-  margin: 200px auto;
-  width: 500px;
+  margin: -1000px auto 0 auto;
   background-color: #f4f4f4;
+  padding: 20px 0 20px 20px;
   background-image: url("../../fomcore/images/pattern3.png");
+  -webkit-transition: margin 0.4s ease-in-out;
+  -moz-transition: margin 0.4s ease-in-out;
+  -o-transition: margin 0.4s ease-in-out;
+  transition: margin 0.4s ease-in-out;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
@@ -771,12 +770,34 @@ fieldset {
   -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9), inset 0px 0px 2px white;
   -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9), inset 0px 0px 2px white;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9), inset 0px 0px 2px white; }
-  .popup .popupTitle {
-    padding: 10px 20px; }
-  .popup .subTitle, .popup fieldset legend, fieldset .popup legend {
-    margin-left: 5px; }
-  .popup .popupContent {
-    padding: 0 20px 20px 20px; }
+  .popup .popupHead {
+    padding-right: 20px; }
+  .popup .popupContent, .popup .popupSubContent {
+    padding-right: 20px;
+    max-height: 500px;
+    overflow-y: auto; }
+
+.popupContainer {
+  position: absolute;
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; }
+  .popupContainer.hint {
+    text-align: center; }
+    .popupContainer.hint .popup {
+      width: 300px; }
+  .popupContainer.modal .popupButtons {
+    float: right; }
+  .popupContainer.modal .popup {
+    width: 500px; }
+  .popupContainer.show .overlay {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+    opacity: 0.9; }
+  .popupContainer.show .popup {
+    margin: 100px auto 0 auto; }
 
 /* MESSAGES */
 .messageBox {
