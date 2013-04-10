@@ -96,20 +96,41 @@
 
 {% block choice_widget_collapsed %}
   {% spaceless %}
-    <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
-      {% if empty_value is not none %}
-        <option value="">{{ empty_value|trans({}, translation_domain) }}</option>
-      {% endif %}
-      {% if preferred_choices|length > 0 %}
-        {% set options = preferred_choices %}
-        {{ block('choice_widget_options') }}
-        {% if choices|length > 0 and separator is not none %}
-          <option disabled="disabled">{{ separator }}</option>
+    {# XXXVH: design for multiple lists? TODO!!! #}
+    {% if multiple %}
+      <select {{ block('widget_attributes') }} multiple="multiple">
+        {% if empty_value is not none %}
+          <option value="">{{ empty_value|trans({}, translation_domain) }}</option>
         {% endif %}
-      {% endif %}
-      {% set options = choices %}
-      {{ block('choice_widget_options') }}
-    </select>
+        {% if preferred_choices|length > 0 %}
+          {% set options = preferred_choices %}
+          {{ block('choice_widget_options') }}
+          {% if choices|length > 0 and separator is not none %}
+            <option disabled="disabled">{{ separator }}</option>
+          {% endif %}
+        {% endif %}
+        {% set options = choices %}
+        {{ block('choice_widget_options') }}
+      </select>
+    {% else %}
+      <div id="dropdown" class="dropdown">
+        <a class="dropdownValue" {{ block('widget_attributes') }}></a>
+        <span class="openedIcon"></span>
+        <ul class="dropdownList">
+          {% if preferred_choices|length > 0 %}
+            {% set options = preferred_choices %}
+            {{ block('choice_widget_options') }}
+
+            {% if choices|length > 0 and separator is not none %}
+              <option disabled="disabled">{{ separator }}</option>
+            {% endif %}
+          {% endif %}
+
+          {% set options = choices %}
+          {{ block('choice_widget_options') }}
+        </ul>
+      </div>
+    {% endif %}
   {% endspaceless %}
 {% endblock choice_widget_collapsed %}
 
@@ -122,7 +143,7 @@
           {{ block('choice_widget_options') }}
         </optgroup>
       {% else %}
-        <option value="{{ choice.value }}"{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ choice.label|trans({}, translation_domain) }}</option>
+        <li data-value="{{ choice.value }}" {% if choice is selectedchoice(value) %} class="selected"{% endif %}>{{ choice.label|trans({}, translation_domain) }}</li>
       {% endif %}
     {% endfor %}
   {% endspaceless %}
@@ -130,13 +151,17 @@
 
 {% block checkbox_widget %}
   {% spaceless %}
-    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    <div class="checkWrapper left {% if checked %}checked{% endif %}">
+      <input class="checkbox" type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    </div>
   {% endspaceless %}
 {% endblock checkbox_widget %}
 
 {% block radio_widget %}
   {% spaceless %}
-    <input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    <div class="radioWrapper">
+      <input class="radiobox" type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    </div>
   {% endspaceless %}
 {% endblock radio_widget %}
 
@@ -345,7 +370,7 @@
           {% for child in form.ace.vars.prototype %}
           {% if child.vars.attr.class is defined %}
             <th>
-              <div id="{{ child.vars.attr.class }}" class="tagBox smallText {{ child.vars.attr.class }}">{{ child.vars.attr.class }}</div>
+              <div id="{{ child.vars.attr.class }}" class="tagWrapper smallText {{ child.vars.attr.class }}">{{ child.vars.attr.class }}</div>
             </th>
           {% endif %}
           {% endfor %}
@@ -361,6 +386,15 @@
   {% endspaceless %}
 {% endblock %}
 
+{% block tagbox_widget %}
+  {% spaceless %}
+    <div class="tagWrapper smallText {{ form.vars.attr.class }} {% if form.vars.checked %} checked {% endif %}">
+      {{ form.vars.attr.class }}
+      <input class="checkbox" data-perm-type="{{ form.vars.attr.class }}" type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    </div>
+  {% endspaceless %}
+{% endblock tagbox_widget %}
+
 {% block ace_widget %}
   {% spaceless %}
     <tr class="filterItem" {{ block('widget_container_attributes') }}>
@@ -370,12 +404,9 @@
             <span class="labelInput">{{ child.vars.value }}</span>
             {{ form_widget(child) }}
           {% else %}
-            <div class="checkWrapper">
               {% if child.vars.attr.class is defined %}
-                <div class="tagBox smallText {{ child.vars.attr.class }} {% if child.vars.checked %} selected {% endif %}">{{ child.vars.attr.class }}</div>
                 {{ form_widget(child) }}
               {% endif %}
-            </div>
           {% endif %}
         </td>
       {% endfor %}
