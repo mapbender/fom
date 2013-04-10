@@ -1,17 +1,11 @@
 {% extends "FOMCoreBundle::skel.html.twig" %}
 
 {% block css %}
-  <link rel="stylesheet" href="{{ asset('bundles/fommanager/css/backend.css') }}">
+  <link rel="stylesheet" href="{{ asset('bundles/fomcore/css/backend/backend.css') }}">
 {% endblock %}
 
 {% block content %}
-    {# Always use mapbender 3 form theming #}
-    {% if form is defined %}
-      {% form_theme form 'FOMCoreBundle:Form:fields.html.twig' %}
-    {% endif %}
-
     {% block backend_content %}{% endblock %}
-  </div>
 {% endblock %}
 
 {% block js %}

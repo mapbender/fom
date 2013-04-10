@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
+use FOM\ManagerBundle\Form\Type\TagboxType;
 
 use FOM\UserBundle\Form\DataTransformer\ACEDataTransformer;
 
@@ -43,7 +44,7 @@ class ACEType extends AbstractType
 
         foreach ($permissions as $bit => $perm){
             $name = strtolower($perm);
-            $builder->add('permission_' . $bit, 'checkbox', array(
+            $builder->add('permission_' . $bit, new TagboxType(), array(
                 'property_path' => '[permissions][' . $bit . ']',
                 'attr' => array("class"=>$name)));
         }

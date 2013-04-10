@@ -46,7 +46,7 @@
 
       that.options = $.extend(modalDefaults, customOptions);
       that.addButton(that.options.btnOkLabel, "button buttonOk", yesClick)
-          .addButton(that.options.btnCancelLabel, "button buttonCancel");
+          .addButton(that.options.btnCancelLabel, "button buttonCancel critical");
 
       $.ajax({
           url: url,
@@ -67,8 +67,8 @@
         modalDefaults.cssClass = "modal";
 
         options = $.extend(modalDefaults, customOptions);
-        addButton(options.btnOkLabel, null, yesClick)
-        .addButton(options.btnCancelLabel)
+        addButton(options.btnOkLabel, "button buttonYes", yesClick)
+        .addButton(options.btnCancelLabel, "button buttonCancel critical")
         ._createMarkup()
         ._show();
       }
@@ -124,7 +124,7 @@
                    '<div class="popupHead">' +
                      '<span id="popupTitle" class="popupTitle"></span>' +
                      '<span id="popupSubTitle" class="popupSubTitle"></span>' +
-                     '<span class="popupClose right">X</span>' +
+                     '<span class="popupClose right cancelIcon"></span>' +
                    '</div>' +
                    '<div id="popupContent" class="clear popupContent"></div>' +
                    '<div class="popupButtons"></div>' +
@@ -142,8 +142,8 @@
                .find(".popupTitle").text(options.title);
         popup.find(".popupContent")
                .append(options.content);
+        popup.find(".popupSubTitle").text(options.subTitle);
 
-        _removeCloseButton();
         _removeHeader();
         _removeOverlay();
         _bindCancelEvents();
@@ -160,12 +160,6 @@
     _setWidth: function(){
       if(this.options.width > 0){
         this.popup.find(".popup").css("width", this.options.width);
-      }
-    },
-
-    _removeCloseButton: function(){
-      if(!this.options.showCloseButton){
-        this.popup.find(".popupClose").remove();
       }
     },
 
@@ -192,6 +186,14 @@
 
       if(this.options.cancelOnOverlayClick){
         this.popup.find(".overlay").one("click", function(e){
+          that.close();
+        });
+      }
+
+      if(!this.options.showCloseButton){
+        this.popup.find(".popupClose").remove();
+      }else{
+        this.popup.find(".popupClose").one("click", function(){
           that.close();
         });
       }

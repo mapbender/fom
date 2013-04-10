@@ -60,51 +60,67 @@ $(function() {
 
 
     // init permissions table ----------------------------------------------------------------
-    // init permissions toggle
-    function setPermissionsToggleState(className){
-        var me             = $("#" + className);
-        var permBody       = $("#permissionsBody");
-        var rowCount       = permBody.find("tr").length;
-        var classNameCount = permBody.find(".selected." + className).length;
+    // set permission root state
+    function setPermissionsRootState(className){
+        var root         = $("#" + className);
+        var permBody     = $("#permissionsBody");
+        var rowCount     = permBody.find("tr").length;
+        var checkedCount = permBody.find(".tagWrapper." + className + ".checked").length;
 
-        me.removeClass("selected").removeClass("multi");
+        root.removeClass("checked").removeClass("multi");
 
-        if(rowCount == classNameCount){
-            me.addClass("selected");
-        }else if(classNameCount == 0){
+        if(rowCount == checkedCount){
+            root.addClass("checked");
+        }else if(checkedCount == 0){
             // do nothing!
         }else{
-            me.addClass("multi");
+            root.addClass("multi");
         }
     }
-    var togglePermission = function(){
-        var me     = $(this);
-        var tagBox = me.siblings(".tagBox");
-
-        if(me.is(":checked")){
-            tagBox.addClass("selected");
-        }else{
-            tagBox.removeClass("selected");
-        }
-
-        setPermissionsToggleState(me.attr("class"));
-    }
+    // toggle all permissions
     var toggleAllPermissions = function(){
         var me           = $(this);
         var className    = me.attr("id");
-        var permElements = $("input." + className + ":visible");
-//XXXVH? Bug here? :)
-        permElements.prop("checked", !me.hasClass("selected")).change();
+        var permElements = $(".checkbox[data-perm-type=" + className + "]:visible");
+
+        // change all tagboxes with the same permission type
+        permElements.prop("checked", !me.hasClass("checked")).change();
+        // change root permission state
+        setPermissionsRootState(className);
     }
-    $(".permissionsTable").find("input")
-                          .bind("change", togglePermission);
-    $("#permissionsHead").find(".tagBox")
-                         .bind("click", toggleAllPermissions);
-    $("#permissionsHead").one("load", function(){
-        $(this).find(".tagBox").each(function(){
-            setPermissionsToggleState($(this).attr("id"));
-        });
-    }).load();
+    // init permission root state
+    var initPermissionRoot = function(){
+        $(this).find(".tagWrapper").each(function(){
+            setPermissionsRootState($(this).attr("id"));
+            $(this).bind("click", toggleAllPermissions);
+        });    
+    }
+    $("#permissionsHead").one("load", initPermissionRoot).load();
+
+    // toggle permission Event
+    var togglePermission = function(){
+        setPermissionsRootState($(this).attr("data-perm-type"));
+    }
+    $(".permissionsTable").find(".checkbox").bind("click", togglePermission);
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $("#addPermission").bind("click", function(){
+        if(!$('body').data('mbPopup')) {
+            $("body").mbPopup();
+            $("body").mbPopup('showModal', {content:"add some content!"});
+        }
+    });
 
 
 
@@ -121,4 +137,54 @@ $(function() {
         }
     }
     $(".openCloseTitle").bind("click", toggleList);
+
+
+
+
+
+    // init checkbox toggle ------------------------------------------------------------------
+    var toggleCheckBox = function(){
+        var me     = $(this);
+        var parent = me.parent();
+
+        (me.is(":checked")) ? parent.addClass("checked") 
+                            : parent.removeClass("checked");
+    }
+    $(".checkbox").bind("change", toggleCheckBox);
+
+
+
+
+    // init dropdown list --------------------------------------------------------------------
+    var loadDropDown = function(){
+        var me            = $(this);
+        var selected      = me.find(".selected");
+        var dropDownLabel = me.find(".dropdownValue");
+
+        me.find(".dropdownList").hide();
+        dropDownLabel.text(selected.text()).attr("data-value", selected.attr("data-value"));
+    }
+    var switchValue = function(){
+        var me        = $(this);
+        var value     = me.find(".dropdownValue");
+        var valueList = me.find(".dropdownList");
+
+        if(valueList.is(":visible")){
+            valueList.hide();
+        }else{
+            valueList.show().find("li").one("click", function(event){
+                event.stopPropagation();
+                var item          = $(this);
+                var parent        = item.parent();
+                var dropDownLabel = parent.siblings(".dropdownValue");
+
+                item.siblings(".selected").removeClass("selected");
+                item.addClass("selected");
+
+                parent.find("li").unbind("click");
+                parent.parent().change();
+            });
+        }
+    }
+    $(".dropdown").bind("change", loadDropDown).change().bind("click", switchValue);
 });
