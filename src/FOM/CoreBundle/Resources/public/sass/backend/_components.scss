@@ -1,7 +1,5 @@
-@import "../../../../CoreBundle/Resources/public/sass/base";
-@import "../../../../CoreBundle/Resources/public/sass/mixins";
-
-@import "icons/*.png";
+@import "../lib/base";
+@import "../lib/mixins";
 
 /* ------------------------------------------------------------- TEXT */
 .crumbTitle{
@@ -55,12 +53,14 @@
 
 
 /* ------------------------------------------------------------ ICONS */
-.closedIcon, .openedIcon, .deleteIcon, .addIcon, .viewIcon, .editIcon{
+.closedIcon, .openedIcon, .deleteIcon, 
+.addIcon, .viewIcon, .editIcon, 
+.publishIcon, .checkedIcon, .cancelIcon{
   display: inline-block;
   position: relative;
   z-index: 9999;
   @include transition(opacity 0.2s ease-in-out);
-  @include opacity(0.6);
+  @include opacity(0.8);
   &:hover{@include opacity(1);}
 }
 
@@ -85,6 +85,22 @@
   height: icons-sprite-height(edit);
   width: icons-sprite-width(edit);
   @include icons-sprite(edit);
+}
+.publishIcon{
+  height: icons-sprite-height(visible);
+  width: icons-sprite-width(visible);
+  &.enabled{@include icons-sprite(visible);}
+  &.disabled{@include icons-sprite(hidden);}
+}
+.checkedIcon{
+  height: icons-sprite-height(check);
+  width: icons-sprite-width(check);
+  @include icons-sprite(check);
+}
+.cancelIcon{
+  height: icons-sprite-height(cancel);
+  width: icons-sprite-width(cancel);
+  @include icons-sprite(cancel);
 }
 
 
@@ -111,23 +127,15 @@
     .labelInput{width:200px;}
     .input{display:none;}
   }
-  .checkWrapper{position:relative;}
   .listFilterInput{margin:0px;}
 
-  input{
-    &.view, &.edit, &.delete, 
-    &.undelete, &.operator, &.master, &.owner{
-      cursor: pointer;
-      height:$height;
-      width: 100%;
-      height:$height;
-      @include opacity(0);
-      @include pos($space/2,0,$space/2,0);
-    }
+  .checkbox{
+    height:$height;
+    width: 100%;
+    @include pos(0,0,$space/2,0);
   }
 
-  .tagBox{
-    margin-left:5px;
+  .tagWrapper{
     position: relative;
     height:$height;
     line-height:$height;
@@ -135,18 +143,18 @@
     @include noUserSelect;
     @include border-radius($radius);
 
-    @each $perm in view, edit, delete, undelete, operator, master, owner{
+    @each $perm in view, edit, delete, operator, master, owner{
       &.#{$perm}{
         &.multi{background-color:#c1c1c1;}
 
-        &.selected{
+        &.checked{
           color:white;
 
           @if($perm == "view"){
             background-color: #8DCA35;
           }
 
-          @if(($perm == "edit") or ($perm == "delete") or ($perm == "undelete")){
+          @if(($perm == "edit") or ($perm == "delete")){
             background-color: #FFAB00;
           }
 

@@ -2,8 +2,9 @@
 @import "mixins";
 @import "normalize";
 
+@import "icons/*.png";
 /*
- * This theme contains global styles only
+ * This theme contains global styles for the backend and the frontend
  */
 
 /* ------------------------------------------------ MAPBENDER3 RESETS */
@@ -20,7 +21,6 @@ p{margin:0px;}
 
 
 
-
 /* ------------------------------------------------------------- MISC */
 html, body{
   width:100%;
@@ -33,7 +33,7 @@ html, body{
   }
   line-height:$lineHeight;
   color:$darkFontColor;
-  background:url("../../fomcore/images/pattern2.png");
+  background:url("../../images/pattern2.png");
 }
 .clear{
   clear:both;
@@ -51,7 +51,7 @@ html, body{
   border:none;
   outline:none;
   border-bottom:solid 1px $firstColor;
-  background:url("../../fomcore/images/line.png");
+  background:url("../../images/line.png");
   @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
 }
 .seperator{
@@ -98,9 +98,9 @@ fieldset{
     padding:0 5px 0 5px;
   }
 }
-.labelInput, .labelText{
-  display:block;
+.labelInput, .labelText, .labelCheck{
   @extend .smallText;
+  @include noUserSelect;
   @include text-shadow(#fff 1px 1px 0px); 
 }
 .labelInput{
@@ -111,6 +111,9 @@ fieldset{
     color:$errorColor;
     @include text-shadow(#fff 1px 1px 0px); 
   }
+}
+.labelCheck{
+  line-height: icons-sprite-height(checkbox);
 }
 .labelText{color:$ciColor;}
 .description{
@@ -152,7 +155,7 @@ fieldset{
     &.center{text-align:center;}
   }
 }
-/* INPUTS */
+/* INPUT */
 .input{
   color:$secondColor;
   border:solid 1px lighten($thirdColor, 15%);
@@ -171,6 +174,7 @@ fieldset{
   @include box-shadow(inset 0 1px 2px lighten($thirdColor, 25%));
   @include border-radius($radius);
 }
+/* BUTTON */
 .buttonCore{
   font-family: $fontFamily;
   @extend .smallText;
@@ -237,16 +241,91 @@ fieldset{
 .linkButton{
   @extend .buttonCore;
   color:$middleFontColor;
-  padding:2px 5px 1px $space/2;
-  background:url("../../fomcore/images/nav_arrow.png") left center no-repeat;
+  // padding:2px 5px 1px $space/2;
+  // @include icons-sprite(nav_arrow);
   @include text-shadow(#fff 1px 1px 0px);
 
   &:hover, &.activeLink, &:active{                
     color:$darkFontColor;
-    background:url("../../fomcore/images/nav_arrow_active.png") left center no-repeat !important;
+    // @include icons-sprite(nav_arrow_active);
  };
 }
+/* CHECKBOX AND RADIO */
+.checkWrapper{
+  $height: icons-sprite-height(checkbox);
+  $width: icons-sprite-width(checkbox);
 
+  height:$height;
+  width:$width;
+  margin-right:5px;
+  @include icons-sprite(checkbox);
+
+  &.checked{@include icons-sprite(checkbox_checked);}
+  .checkbox{
+    height:$height;
+    width:$width;
+  }
+}
+.checkRadio{
+  $height: icons-sprite-height(radio);
+  $width: icons-sprite-width(radio);
+
+  height:$height;
+  width:$width;
+  @include icons-sprite(radio);
+
+  &.checked{@include icons-sprite(radio_selected);}
+  .radio{
+    height:$height;
+    width:$width;
+  }
+}
+.checkbox, .radio{
+  cursor:pointer;
+  @include opacity(0);
+}
+/* DROPDOWN */
+.dropdown{
+  cursor:pointer;
+  display:inline-block;
+  position: relative;
+  color:$ciColor;
+  border:solid 1px lighten($thirdColor, 15%);
+  line-height:$lineHeight + 8;
+  height:28px;
+  padding-right: $space + $space/2;
+  background-color: #FFF;
+
+  .dropdownValue{padding-left: 5px;}
+  .dropdownList{
+    background-color: #FFF;
+    color:$secondColor;
+    position: absolute;
+
+    border:solid 1px lighten($thirdColor, 15%);
+
+    width: 100%;
+    @include box-shadow(0px 0px 2px rgba(0, 0, 0, 0.1),
+                      inset 0px 0px 2px #fff);
+
+    li{
+      padding-left: 5px;
+      &:hover{
+        color:$ciColor;
+        background-color:$contentColor;
+      }
+    }
+  }
+  .openedIcon{
+    @include pos(6px,5px,'','');
+    height: icons-sprite-height(opened);
+    width: icons-sprite-width(opened);
+  }
+
+  @extend .smallText;
+  @include border-radius($radius);
+  @include noUserSelect;
+}
 
 
 
@@ -328,7 +407,7 @@ fieldset{
   z-index:9999;
   margin:-1000px auto 0 auto;
   background-color:#f4f4f4;
-  padding:$space 0 $space $space;
+  padding:$space;
   background-image:url($secondPatternUrl);
   @include transition(margin 0.4s ease-in-out);
   @include border-radius($radius);
@@ -337,12 +416,12 @@ fieldset{
 
   .popupHead{
     @extend .contentTitle;
-    padding-right:$space;
   }
   .popupSubTitle{@extend .title;}
   .popupContent, .popupSubContent{
     padding-right:$space;
-    max-height: 500px;
+    margin-bottom: $space;
+    max-height: 400px;
     overflow-y: auto;
   }
 }

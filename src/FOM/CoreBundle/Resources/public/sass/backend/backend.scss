@@ -1,6 +1,6 @@
-@import "../../../../CoreBundle/Resources/public/sass/base";
-@import "../../../../CoreBundle/Resources/public/sass/mixins";
-@import "../../../../CoreBundle/Resources/public/sass/mapbender_theme";
+@import "../lib/base";
+@import "../lib/mixins";
+@import "../lib/mapbender_theme";
 
 // contains backend only components
 @import "components";
@@ -30,7 +30,7 @@ body{
 
 
  
- 
+
 
 
 /* --------------------------------------------------------- PAGE TOP */
@@ -192,7 +192,7 @@ body{
 
 
 /* -------------------------------------------------------------- LOGIN */
-@import "../../../../UserBundle/Resources/public/sass/login";
+@import "login";
 
 
 

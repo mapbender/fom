@@ -1,5 +1,5 @@
-@import "../../../../CoreBundle/Resources/public/sass/base";
-@import "../../../../CoreBundle/Resources/public/sass/mixins";
+@import "../lib/base";
+@import "../lib/mixins";
 
 
 /* ------------------------------------------------------- APPLICATIONS */
@@ -27,30 +27,40 @@
 
 
 
-/* ---------------------------------------------------- NEW APPLICATION */
-.newApplicationTabContainer{
+/* ----------------------------------------------- NEW/EDIT APPLICATION */
+.applicationTabContainer{
   margin-bottom:$space;
 
   .containerBaseData{
-    label{
+    .labelInput{
       width:80px;
       float:left;
       display: block;
       margin-bottom: $space/2;
-      @extend .labelInput;
     }
     textarea, input{width: 300px;}
     textarea{height:100px;}
+    .messageBox{
+      width:270px;
+      @include pos($space,$space,'','');
+    }
   }
   .containerLayout{
+    .dropdown{
+      width:270px;
+    }
   }
 }
 .popup{
   .elementContainer{
     position:relative;
     margin-bottom: $space/2;
+    background-color: $contentColor;
+    padding:5px $space/2 5px $space/2;
+    @include border-radius($radius);
+
+    .checkedIcon{
+      @include pos(5px,5px,'','');
+    }
   }
-  .description{
-    line-height: 16px;
-  }
-} 
+}
