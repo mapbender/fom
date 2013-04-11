@@ -34,19 +34,19 @@
       hintDefaults.cssClass        = "hint";
 
       this.options = $.extend(hintDefaults, customOptions);
-      this.addButton(this.options.btnOkLabel, "button")
+      this.addButton(this.options.btnOkLabel, "buttonYes")
           ._createMarkup()
           ._show();
     },
 
     showAjaxModal: function(customOptions, url, yesClick, beforeLoad, afterLoad){
-      var that = this;
+      var that               = this;
       var modalDefaults      = that.defaults;
       modalDefaults.cssClass = "modal";
 
       that.options = $.extend(modalDefaults, customOptions);
-      that.addButton(that.options.btnOkLabel, "button buttonOk", yesClick)
-          .addButton(that.options.btnCancelLabel, "button buttonCancel critical");
+      that.addButton(that.options.btnCancelLabel, "button buttonCancel critical")
+          .addButton(that.options.btnOkLabel, "button buttonYes", yesClick);
 
       $.ajax({
           url: url,
@@ -56,7 +56,9 @@
                that.options.content = data;
                that._createMarkup()
                    ._show();
-               afterLoad();
+               if(afterLoad != undefined){
+                 afterLoad();
+               }
           }
       });
     },
@@ -67,8 +69,8 @@
         modalDefaults.cssClass = "modal";
 
         options = $.extend(modalDefaults, customOptions);
-        addButton(options.btnOkLabel, "button buttonYes", yesClick)
-        .addButton(options.btnCancelLabel, "button buttonCancel critical")
+        addButton(options.btnCancelLabel, "button buttonCancel critical")
+        .addButton(options.btnOkLabel, "button buttonYes", yesClick)
         ._createMarkup()
         ._show();
       }
@@ -106,10 +108,10 @@
     _destroy: function(){
       with (this){
         popup.find(".popupButtons").find("*").unbind();
-        options = null;
+        options = {};
+        buttons = [];
         popup.remove();
         popup = null;
-        buttons = [];
       }
     },
 
@@ -121,7 +123,7 @@
     _getTemplate: function(){
       return $('<div id="popupContainer" class="popupContainer">' +
                  '<div id="popup" class="popup">' +
-                   '<div class="popupHead">' +
+                   '<div id="popupHead" class="popupHead">' +
                      '<span id="popupTitle" class="popupTitle"></span>' +
                      '<span id="popupSubTitle" class="popupSubTitle"></span>' +
                      '<span class="popupClose right cancelIcon"></span>' +
@@ -201,8 +203,10 @@
 
     _bindDrag: function(){
       if(this.options.draggable){
-        $("#popup").draggable();
-        $("#popup").draggable({ scroll: false });
+        //XXXVH:todo
+        var head = $("#popupHead");
+        head.draggable();
+        head.draggable({ scroll: false });
       }
     },
 

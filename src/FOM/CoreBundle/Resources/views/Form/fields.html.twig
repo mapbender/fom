@@ -360,12 +360,12 @@
 {% block acl_widget %}
   {% spaceless %}
     {% set prototype = form_widget(form.ace.vars.prototype) %}
-    <table id="listFilterPermission" class="listFilterContainer clear permissionsTable">
+    <table id="listFilterPermission" class="listFilterContainer clear permissionsTable table">
       <thead id="permissionsHead" data-prototype="{{ prototype }}">
         <tr class="doNotFilter">
           <th>
-            <label for="inputFilterPermission" class="labelInput left">{{"Filter"|trans}}:</label>
-            <input id="inputFilterPermission" type="text" class="input listFilterInput"/>
+            <label for="inputFilterPermission" class="labelInput left">{{"Filter"|trans}}</label>
+            <input id="inputFilterPermission" type="text" class="input left listFilterInput"/>
           </th>
           {% for child in form.ace.vars.prototype %}
           {% if child.vars.attr.class is defined %}

@@ -23,7 +23,10 @@
   background-color: $contentColor;
   @include box-shadow(0px 0px 8px rgba(0, 0, 0, 0.1));
 }
-.listFilterInput{margin-left:$space/2;}
+.area{
+  @include border-radius($radius);
+}
+.listFilterInput{margin-left:$space;}
 .listFilterBoxes{
   .filterItem{
     position:relative;
@@ -46,6 +49,29 @@
     border-top:dashed 1px darken(#fff, 30%);
   }
 }
+.checkContainer{
+  position:relative;
+  color:$middleFontColor;
+  display: block;
+  margin-bottom: $space/2;
+  background-color: $contentColor;
+  padding:5px $space/2 5px $space/2;
+  border:solid 1px white;
+  @include border-radius($radius);
+  @include transition(all 0.2s ease-in-out);
+
+  .checkedIcon{
+    @include opacity(0);
+    @include pos(5px,5px,'','');
+  }
+
+  &:hover{
+    background-color: white;
+    border:solid 1px darken(white, 15%);
+    .checkedIcon{@include opacity(1);}
+  }
+
+}
 
 
 
@@ -55,7 +81,9 @@
 /* ------------------------------------------------------------ ICONS */
 .closedIcon, .openedIcon, .deleteIcon, 
 .addIcon, .viewIcon, .editIcon, 
-.publishIcon, .checkedIcon, .cancelIcon{
+.publishIcon, .checkedIcon, .cancelIcon,
+.publishIconSmall, .deleteIconSmall{
+  cursor:pointer;
   display: inline-block;
   position: relative;
   z-index: 9999;
@@ -70,6 +98,11 @@
   height: icons-sprite-height(delete);
   width: icons-sprite-width(delete);
   @include icons-sprite(delete);
+}
+.deleteIconSmall{
+  height: icons-sprite-height(delete_small);
+  width: icons-sprite-width(delete_small);
+  @include icons-sprite(delete_small);
 }
 .addIcon{
   height: icons-sprite-height(add);
@@ -89,8 +122,14 @@
 .publishIcon{
   height: icons-sprite-height(visible);
   width: icons-sprite-width(visible);
-  &.enabled{@include icons-sprite(visible);}
+  @include icons-sprite(visible);
   &.disabled{@include icons-sprite(hidden);}
+}
+.publishIconSmall{
+  height: icons-sprite-height(visible_small);
+  width: icons-sprite-width(visible_small);
+  @include icons-sprite(visible_small);
+  &.disabled{@include icons-sprite(hidden_small);}
 }
 .checkedIcon{
   height: icons-sprite-height(check);
@@ -111,23 +150,20 @@
 /* ----------------------------------------------------------- TABLES */
 .permissionsTable{
   $height:26px;
-  width: 100%;
 
-  tr{height:$height + 20;}
   tr{
+    height:$height + 20;
     border-bottom: solid 1px darken($contentColor, 10%);
-    @include border-radius($radius);
   }
-  th{
-    font-weight:normal;
-    cursor: pointer;
-    border-bottom: solid 5px darken($contentColor, 15%);
-  }
+  th{cursor: pointer;}
   td{
     .labelInput{width:200px;}
     .input{display:none;}
   }
-  .listFilterInput{margin:0px;}
+  .listFilterInput{
+    margin-top:0;
+    margin-bottom:0;
+  }
 
   .checkbox{
     height:$height;

@@ -12,7 +12,7 @@ $(function() {
 
 
     // init filter inputs --------------------------------------------------------------------
-    $(".listFilterInput").bind("keyup", function(){
+    $(".listFilterInput").on("keyup", function(){
         var me    = $(this);
         var val   = $.trim(me.val());
         var items = $("#" + me.attr("id").replace("input", "list")).find("li, tr");
@@ -150,7 +150,7 @@ $(function() {
         (me.is(":checked")) ? parent.addClass("checked") 
                             : parent.removeClass("checked");
     }
-    $(".checkbox").bind("change", toggleCheckBox);
+    $(".checkbox").on("change", toggleCheckBox);
 
 
 

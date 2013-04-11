@@ -113,6 +113,7 @@ fieldset{
   }
 }
 .labelCheck{
+  color:$secondColor;
   line-height: icons-sprite-height(checkbox);
 }
 .labelText{color:$ciColor;}
@@ -129,31 +130,36 @@ fieldset{
 /* ------------------------------------------------------- COMPONTENS */
 /* TABLE */
 .table{
-  border:1px solid $thirdColor;
-  width:100%;
-  @include box-shadow(1px 0px 2px rgba(0, 0, 0, 0.1));
+  width: 100%;
 
-  td, th{
-    padding:5px 10px;
-    @extend .smallText;
-  }
+  tr{border-bottom: solid 1px darken($contentColor, 10%);}
+  th{font-weight:normal;border-bottom: solid 5px darken($contentColor, 15%);}
 
-  thead{border:1px solid lighten($thirdColor, 20%);}
-  th{
-    text-align:left;
-    color:$lightFontColor;
-    background-color:$firstColor;
-    border-right:1px solid $secondColor;
-  }
-  td{
-    background-color:$contentColor;
-    border-bottom:1px solid $thirdColor;
-    border-right:1px solid lighten($thirdColor, 20%);
-    @include box-shadow(0px -1px 0px #fff);
+  // border:1px solid $thirdColor;
+  // width:100%;
+  // @include box-shadow(1px 0px 2px rgba(0, 0, 0, 0.1));
 
-    &:last-child{border-right:none;}
-    &.center{text-align:center;}
-  }
+  // td, th{
+  //   padding:5px 10px;
+  //   @extend .smallText;
+  // }
+
+  // thead{border:1px solid lighten($thirdColor, 20%);}
+  // th{
+  //   text-align:left;
+  //   color:$lightFontColor;
+  //   background-color:$firstColor;
+  //   border-right:1px solid $secondColor;
+  // }
+  // td{
+  //   background-color:$contentColor;
+  //   border-bottom:1px solid $thirdColor;
+  //   border-right:1px solid lighten($thirdColor, 20%);
+  //   @include box-shadow(0px -1px 0px #fff);
+
+  //   &:last-child{border-right:none;}
+  //   &.center{text-align:center;}
+  // }
 }
 /* INPUT */
 .input{
@@ -407,7 +413,7 @@ fieldset{
   z-index:9999;
   margin:-1000px auto 0 auto;
   background-color:#f4f4f4;
-  padding:$space;
+  padding:$space 0 $space $space;
   background-image:url($secondPatternUrl);
   @include transition(margin 0.4s ease-in-out);
   @include border-radius($radius);
@@ -415,9 +421,14 @@ fieldset{
                       inset 0px 0px 2px #fff);
 
   .popupHead{
-    @extend .contentTitle;
+    @extend .title;
+    padding-bottom:$space/2;
+    margin-bottom:$space;
+    margin-right:$space;
+    border-bottom:dashed 1px darken(#fff, 30%);
   }
-  .popupSubTitle{@extend .title;}
+  .popupButtons{margin-right:$space;}
+  .popupSubTitle{@extend .labelInput;}
   .popupContent, .popupSubContent{
     padding-right:$space;
     margin-bottom: $space;
@@ -436,8 +447,8 @@ fieldset{
   }
 
   &.modal{
-    .popupButtons{float:right;}
-    .popup{width:500px;}
+    .popup{width:450px;}
+    .buttonCancel, .buttonYes{float:right;margin-left:3px;}
   }
 
   &.show{

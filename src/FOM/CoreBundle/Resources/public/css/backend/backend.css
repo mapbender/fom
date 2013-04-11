@@ -427,8 +427,8 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-.icons-sprite, .checkWrapper, .checkWrapper.checked, .checkRadio, .checkRadio.checked, .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon, .addIcon, .viewIcon, .editIcon, .publishIcon.enabled, .publishIcon.disabled, .checkedIcon, .cancelIcon {
-  background: url('../../images/icons-sc3466f229f.png') no-repeat; }
+.icons-sprite, .checkWrapper, .checkWrapper.checked, .checkRadio, .checkRadio.checked, .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon, .deleteIconSmall, .addIcon, .viewIcon, .editIcon, .publishIcon, .publishIcon.disabled, .publishIconSmall, .publishIconSmall.disabled, .checkedIcon, .cancelIcon {
+  background: url('../../images/icons-sd658f3c949.png') no-repeat; }
 
 /*
  * This theme contains global styles for the backend and the frontend
@@ -498,16 +498,16 @@ html, body {
 .smallerText {
   font-size: 10px; }
 
-.smallText, .labelInput, .labelText, .labelCheck, .description, .table td, .table th, .input, .buttonCore, .button, .button.critical, .linkButton, .dropdown, .tabContainer .tab, .serviceContainer .metaText {
+.smallText, .labelInput, .popup .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .button.critical, .linkButton, .dropdown, .tabContainer .tab, .serviceContainer .metaText {
   font-size: 12px; }
 
-.bigText, .title, .popup .popupSubTitle {
+.bigText, .title, .popup .popupHead {
   font-size: 16px; }
 
-.biggerText, .contentTitle, .popup .popupHead {
+.biggerText, .contentTitle {
   font-size: 22px; }
 
-.contentTitle, .popup .popupHead {
+.contentTitle {
   font-weight: normal;
   font-style: italic;
   margin-bottom: 20px;
@@ -515,7 +515,7 @@ html, body {
   border-bottom: dashed 1px #b3b3b3;
   text-shadow: white 1px 1px 0px; }
 
-.title, .popup .popupSubTitle {
+.title, .popup .popupHead {
   font-weight: normal;
   color: #3f3f3f;
   text-shadow: white 1px 1px 0px; }
@@ -531,21 +531,22 @@ fieldset {
     margin: 0px !important;
     padding: 0 5px 0 5px; }
 
-.labelInput, .labelText, .labelCheck {
+.labelInput, .popup .popupSubTitle, .labelText, .labelCheck {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   text-shadow: white 1px 1px 0px; }
 
-.labelInput {
+.labelInput, .popup .popupSubTitle {
   color: #858585;
   line-height: 29px; }
-  .labelInput .required {
+  .labelInput .required, .popup .popupSubTitle .required {
     color: #aa2323;
     text-shadow: white 1px 1px 0px; }
 
 .labelCheck {
+  color: #858585;
   line-height: 20px; }
 
 .labelText {
@@ -558,31 +559,12 @@ fieldset {
 /* ------------------------------------------------------- COMPONTENS */
 /* TABLE */
 .table {
-  border: 1px solid #a2a2a2;
-  width: 100%;
-  -webkit-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.1);
-  box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.1); }
-  .table td, .table th {
-    padding: 5px 10px; }
-  .table thead {
-    border: 1px solid #d5d5d5; }
+  width: 100%; }
+  .table tr {
+    border-bottom: solid 1px #e0e0e0; }
   .table th {
-    text-align: left;
-    color: white;
-    background-color: #404040;
-    border-right: 1px solid #858585; }
-  .table td {
-    background-color: #f9f9f9;
-    border-bottom: 1px solid #a2a2a2;
-    border-right: 1px solid #d5d5d5;
-    -webkit-box-shadow: 0px -1px 0px white;
-    -moz-box-shadow: 0px -1px 0px white;
-    box-shadow: 0px -1px 0px white; }
-    .table td:last-child {
-      border-right: none; }
-    .table td.center {
-      text-align: center; }
+    font-weight: normal;
+    border-bottom: solid 5px lightgrey; }
 
 /* INPUT */
 .input {
@@ -833,7 +815,7 @@ fieldset {
   z-index: 9999;
   margin: -1000px auto 0 auto;
   background-color: #f4f4f4;
-  padding: 20px;
+  padding: 20px 0 20px 20px;
   background-image: url("../../images/pattern3.png");
   -webkit-transition: margin 0.4s ease-in-out;
   -moz-transition: margin 0.4s ease-in-out;
@@ -847,6 +829,13 @@ fieldset {
   -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9), inset 0px 0px 2px white;
   -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9), inset 0px 0px 2px white;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9), inset 0px 0px 2px white; }
+  .popup .popupHead {
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    border-bottom: dashed 1px #b3b3b3; }
+  .popup .popupButtons {
+    margin-right: 20px; }
   .popup .popupContent, .popup .popupSubContent {
     padding-right: 20px;
     margin-bottom: 20px;
@@ -865,10 +854,11 @@ fieldset {
     text-align: center; }
     .popupContainer.hint .popup {
       width: 300px; }
-  .popupContainer.modal .popupButtons {
-    float: right; }
   .popupContainer.modal .popup {
-    width: 500px; }
+    width: 450px; }
+  .popupContainer.modal .buttonCancel, .popupContainer.modal .buttonYes {
+    float: right;
+    margin-left: 3px; }
   .popupContainer.show .overlay {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
     opacity: 0.9; }
@@ -961,8 +951,15 @@ fieldset {
   -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1); }
 
+.area {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px; }
+
 .listFilterInput {
-  margin-left: 10px; }
+  margin-left: 20px; }
 
 .listFilterBoxes .filterItem {
   position: relative;
@@ -989,10 +986,42 @@ fieldset {
   padding-top: 10px;
   border-top: dashed 1px #b3b3b3; }
 
+.checkContainer {
+  position: relative;
+  color: #878787;
+  display: block;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  padding: 5px 10px 5px 10px;
+  border: solid 1px white;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out; }
+  .checkContainer .checkedIcon {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    position: absolute;
+    top: 5px;
+    right: 5px; }
+  .checkContainer:hover {
+    background-color: white;
+    border: solid 1px #d9d9d9; }
+    .checkContainer:hover .checkedIcon {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+      opacity: 1; }
+
 /* ------------------------------------------------------------ ICONS */
 .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon,
 .addIcon, .viewIcon, .editIcon,
-.publishIcon, .checkedIcon, .cancelIcon {
+.publishIcon, .checkedIcon, .cancelIcon,
+.publishIconSmall, .deleteIconSmall {
+  cursor: pointer;
   display: inline-block;
   position: relative;
   z-index: 9999;
@@ -1004,7 +1033,8 @@ fieldset {
   opacity: 0.8; }
   .closedIcon:hover, .serviceLayersContainer .closed .openCloseTitle:hover, .openedIcon:hover, .serviceLayersContainer .openCloseTitle:hover, .deleteIcon:hover,
   .addIcon:hover, .viewIcon:hover, .editIcon:hover,
-  .publishIcon:hover, .checkedIcon:hover, .cancelIcon:hover {
+  .publishIcon:hover, .checkedIcon:hover, .cancelIcon:hover,
+  .publishIconSmall:hover, .deleteIconSmall:hover {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
     opacity: 1; }
 
@@ -1018,6 +1048,11 @@ fieldset {
   height: 26px;
   width: 26px;
   background-position: 0 -52px; }
+
+.deleteIconSmall {
+  height: 16px;
+  width: 16px;
+  background-position: 0 -254px; }
 
 .addIcon {
   height: 26px;
@@ -1036,11 +1071,17 @@ fieldset {
 
 .publishIcon {
   height: 26px;
-  width: 26px; }
-  .publishIcon.enabled {
-    background-position: 0 -104px; }
+  width: 26px;
+  background-position: 0 -104px; }
   .publishIcon.disabled {
     background-position: 0 -26px; }
+
+.publishIconSmall {
+  height: 16px;
+  width: 16px;
+  background-position: 0 -338px; }
+  .publishIconSmall.disabled {
+    background-position: 0 -270px; }
 
 .checkedIcon {
   height: 26px;
@@ -1053,79 +1094,70 @@ fieldset {
   background-position: 0 0; }
 
 /* ----------------------------------------------------------- TABLES */
-.permissionsTable {
-  width: 100%; }
-  .permissionsTable tr {
-    height: 46px; }
-  .permissionsTable tr {
-    border-bottom: solid 1px #e0e0e0;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    border-radius: 3px; }
-  .permissionsTable th {
-    font-weight: normal;
-    cursor: pointer;
-    border-bottom: solid 5px lightgrey; }
-  .permissionsTable td .labelInput {
-    width: 200px; }
-  .permissionsTable td .input {
-    display: none; }
-  .permissionsTable .listFilterInput {
-    margin: 0px; }
-  .permissionsTable .checkbox {
-    height: 26px;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 10px;
-    left: 0; }
-  .permissionsTable .tagWrapper {
-    position: relative;
-    height: 26px;
-    line-height: 26px;
-    text-align: center;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    border-radius: 3px; }
-    .permissionsTable .tagWrapper.view.multi {
-      background-color: #c1c1c1; }
-    .permissionsTable .tagWrapper.view.checked {
-      color: white;
-      background-color: #8DCA35; }
-    .permissionsTable .tagWrapper.edit.multi {
-      background-color: #c1c1c1; }
-    .permissionsTable .tagWrapper.edit.checked {
-      color: white;
-      background-color: #FFAB00; }
-    .permissionsTable .tagWrapper.delete.multi {
-      background-color: #c1c1c1; }
-    .permissionsTable .tagWrapper.delete.checked {
-      color: white;
-      background-color: #FFAB00; }
-    .permissionsTable .tagWrapper.operator.multi {
-      background-color: #c1c1c1; }
-    .permissionsTable .tagWrapper.operator.checked {
-      color: white;
-      background-color: #FF702A; }
-    .permissionsTable .tagWrapper.master.multi {
-      background-color: #c1c1c1; }
-    .permissionsTable .tagWrapper.master.checked {
-      color: white;
-      background-color: #FF702A; }
-    .permissionsTable .tagWrapper.owner.multi {
-      background-color: #c1c1c1; }
-    .permissionsTable .tagWrapper.owner.checked {
-      color: white;
-      background-color: #FF702A; }
+.permissionsTable tr {
+  height: 46px;
+  border-bottom: solid 1px #e0e0e0; }
+.permissionsTable th {
+  cursor: pointer; }
+.permissionsTable td .labelInput, .permissionsTable td .popup .popupSubTitle, .popup .permissionsTable td .popupSubTitle {
+  width: 200px; }
+.permissionsTable td .input {
+  display: none; }
+.permissionsTable .listFilterInput {
+  margin-top: 0;
+  margin-bottom: 0; }
+.permissionsTable .checkbox {
+  height: 26px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 10px;
+  left: 0; }
+.permissionsTable .tagWrapper {
+  position: relative;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px; }
+  .permissionsTable .tagWrapper.view.multi {
+    background-color: #c1c1c1; }
+  .permissionsTable .tagWrapper.view.checked {
+    color: white;
+    background-color: #8DCA35; }
+  .permissionsTable .tagWrapper.edit.multi {
+    background-color: #c1c1c1; }
+  .permissionsTable .tagWrapper.edit.checked {
+    color: white;
+    background-color: #FFAB00; }
+  .permissionsTable .tagWrapper.delete.multi {
+    background-color: #c1c1c1; }
+  .permissionsTable .tagWrapper.delete.checked {
+    color: white;
+    background-color: #FFAB00; }
+  .permissionsTable .tagWrapper.operator.multi {
+    background-color: #c1c1c1; }
+  .permissionsTable .tagWrapper.operator.checked {
+    color: white;
+    background-color: #FF702A; }
+  .permissionsTable .tagWrapper.master.multi {
+    background-color: #c1c1c1; }
+  .permissionsTable .tagWrapper.master.checked {
+    color: white;
+    background-color: #FF702A; }
+  .permissionsTable .tagWrapper.owner.multi {
+    background-color: #c1c1c1; }
+  .permissionsTable .tagWrapper.owner.checked {
+    color: white;
+    background-color: #FF702A; }
 
 /*
  * This css contains backend styles only
@@ -1327,19 +1359,19 @@ body {
     -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
     -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9); }
-  .authWrapper .labelInput {
+  .authWrapper .labelInput, .authWrapper .popup .popupSubTitle, .popup .authWrapper .popupSubTitle {
     display: block; }
   .authWrapper .input {
     margin-bottom: 10px; }
-  .authWrapper.login .labelInput {
+  .authWrapper.login .labelInput, .authWrapper.login .popup .popupSubTitle, .popup .authWrapper.login .popupSubTitle {
     width: 80px; }
   .authWrapper.login .input {
     width: 220px; }
-  .authWrapper.forgot .labelInput {
+  .authWrapper.forgot .labelInput, .authWrapper.forgot .popup .popupSubTitle, .popup .authWrapper.forgot .popupSubTitle {
     width: 135px; }
   .authWrapper.forgot .input {
     width: 165px; }
-  .authWrapper.register .labelInput {
+  .authWrapper.register .labelInput, .authWrapper.register .popup .popupSubTitle, .popup .authWrapper.register .popupSubTitle {
     width: 125px; }
   .authWrapper.register .input {
     width: 175px; }
@@ -1361,7 +1393,7 @@ body {
 /* ----------------------------------------------- NEW/EDIT APPLICATION */
 .applicationTabContainer {
   margin-bottom: 20px; }
-  .applicationTabContainer .containerBaseData .labelInput {
+  .applicationTabContainer .containerBaseData .labelInput, .applicationTabContainer .containerBaseData .popup .popupSubTitle, .popup .applicationTabContainer .containerBaseData .popupSubTitle {
     width: 80px;
     float: left;
     display: block;
@@ -1376,22 +1408,56 @@ body {
     top: 20px;
     right: 20px; }
   .applicationTabContainer .containerLayout .dropdown {
-    width: 270px; }
+    width: 270px;
+    margin-left: 20px; }
 
-.popup .elementContainer {
-  position: relative;
-  margin-bottom: 10px;
-  background-color: #f9f9f9;
-  padding: 5px 10px 5px 10px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px; }
-  .popup .elementContainer .checkedIcon {
-    position: absolute;
-    top: 5px;
-    right: 5px; }
+.popup .popupSubContent .labelInput, .popup .popupSubContent .popupSubTitle {
+  float: left;
+  margin-right: 20px; }
+.popup .popupSubContent .input {
+  float: left; }
+
+/* ELEMENT FORMS */
+.elementForm .labelInput, .elementForm .popup .popupSubTitle, .popup .elementForm .popupSubTitle {
+  margin-bottom: 10px; }
+
+.elementFormAbout .labelInput, .elementFormAbout .popup .popupSubTitle, .popup .elementFormAbout .popupSubTitle {
+  width: 40px; }
+.elementFormAbout .checkWrapper {
+  margin-left: 20px; }
+.elementFormAbout .input {
+  width: 200px; }
+
+.elementFormActivity .labelInput, .elementFormActivity .popup .popupSubTitle, .popup .elementFormActivity .popupSubTitle {
+  width: 40px; }
+.elementFormActivity .input {
+  width: 350px; }
+
+.elementFormButton .labelInput, .elementFormButton .popup .popupSubTitle, .popup .elementFormButton .popupSubTitle {
+  width: 50px; }
+.elementFormButton .checkWrapper {
+  margin-left: 20px; }
+.elementFormButton .input, .elementFormButton .dropdown {
+  width: 180px; }
+
+.elementFormCoordinates .labelInput, .elementFormCoordinates .popup .popupSubTitle, .popup .elementFormCoordinates .popupSubTitle {
+  width: 50px; }
+.elementFormCoordinates .checkWrapper {
+  margin-left: 20px; }
+.elementFormCoordinates .dropdown, .elementFormCoordinates .input {
+  width: 210px; }
+
+/* LAYER FORMS */
+.layersetForm .labelInput, .layersetForm .popup .popupSubTitle, .popup .layersetForm .popupSubTitle {
+  width: 40px;
+  float: left; }
+.layersetForm .input {
+  position: absolute;
+  right: 0px;
+  left: 50px; }
+
+.iconColumn {
+  width: 30px; }
 
 /* ----------------------------------------------------------- SERVICES */
 /* ----------------------------------------------------------- SERVICES */
@@ -1408,7 +1474,7 @@ body {
 .serviceAddBox {
   width: 412px;
   margin-right: 20px; }
-  .serviceAddBox .labelInput {
+  .serviceAddBox .labelInput, .serviceAddBox .popup .popupSubTitle, .popup .serviceAddBox .popupSubTitle {
     width: 70px; }
   .serviceAddBox .input {
     margin-bottom: 10px;

@@ -48,19 +48,52 @@
   .containerLayout{
     .dropdown{
       width:270px;
+      margin-left:$space;
     }
   }
 }
 .popup{
-  .elementContainer{
-    position:relative;
-    margin-bottom: $space/2;
-    background-color: $contentColor;
-    padding:5px $space/2 5px $space/2;
-    @include border-radius($radius);
-
-    .checkedIcon{
-      @include pos(5px,5px,'','');
+  .popupSubContent{
+    .labelInput{
+      float:left;
+      margin-right: $space;
     }
+    .input{float:left;}
   }
+}
+
+/* ELEMENT FORMS */
+.elementForm{
+  .labelInput{margin-bottom:$space/2;}
+}
+.elementFormAbout{
+  .labelInput{width:40px;}
+  .checkWrapper{margin-left:$space;}
+  .input{width:200px;}
+}
+.elementFormActivity{
+  .labelInput{width:40px;}
+  .input{width:350px;}
+}
+.elementFormButton{
+  .labelInput{width:50px;}
+  .checkWrapper{margin-left:$space;}
+  .input, .dropdown{width:180px;}
+}
+.elementFormCoordinates{
+  .labelInput{width:50px;}
+  .checkWrapper{margin-left:$space;}
+  .dropdown, .input{width:210px;}
+}
+/* LAYER FORMS */
+.layersetForm{
+  .labelInput{width:40px;float:left;}
+  .input{
+    position: absolute;
+    right:0px;
+    left:40px + $space/2;
+  }
+}
+.iconColumn{
+  width:30px;
 }
