@@ -2,36 +2,48 @@
 
 {% block title %}{{ "Groups" | trans }}{% endblock %}
 
+{% block js %}
+  {{parent()}}
+  <script type="application/javascript" src="{{ asset('bundles/mapbendermanager/js/user-control.js') }}"></script>
+{% endblock %}
+
 {% block manager_content %}
 
-{% include "FOMUserBundle:User:navigation.html.twig" %}
+<a class="addIcon right" href="{{path('fom_user_group_new')}}" title="{{"Add new group"|trans}}"></a>
 
-<table>
-    <thead>
-        <tr>
-            <th>{{ "Title" | trans }}</th>
-            <th>{{ "Description" | trans }}</th>
-            <th>{{ "Actions" | trans }}</th>
-        </tr>
+{% if groups|length > 0 %}
+  <label for="inputFilterGroups" class="labelInput left">{{"Filter"|trans}}</label>
+  <input id="inputFilterGroups" type="text" class="input left listFilterInput"/>
+
+  <div class="clearContainer"></div>
+  <table id="listFilterGroups" class="table userControlTable listFilterContainer">
+    <thead id="groupsHead">
+      <tr class="doNotFilter">
+        <th>{{ "Title" | trans }}</th>
+        <th>{{ "Description" | trans }}</th>
+        <th></th>
+        <th></th>
+      </tr>
     </thead>
-    <tbody>
-        {% for group in groups %}
-        <tr id="app-{{ group.id }}">
-            <td>
-                <a href="{{ path('fom_user_group_edit', {'id': group.id}) }}" title="{{ 'Edit' | trans }}">{{ group.title }}</a>
-            </td>
-            <td>{{ group.description }}</td>
-            <td>
-                <div>
-                    <a href="{{ path('fom_user_group_edit',  {'id': group.id }) }}" title="{{ 'Edit' | trans }}">{{ 'Edit' | trans }}</a>
-                    <a href="{{ path('fom_user_group_confirmdelete', { 'id': group.id }) }}">{{ 'Delete' | trans }}</a>
-                </div>
-            </td>
-        </tr>
-        {% endfor %}
+    <tbody id="groupsBody">
+      {% for group in groups %}
+      <tr id="app-{{ group.id }}" class="filterItem">
+        <td>
+          <a class="labelText" href="{{ path('fom_user_group_edit', {'id': group.id}) }}" title="{{ 'Edit' | trans }}">{{ group.title }}</a>
+        </td>
+        <td class="description">{{ group.description }}</td>
+        <td class="iconColumn">
+          <a class="editIcon" href="{{ path('fom_user_group_edit',  {'id': group.id }) }}" title="{{ 'Edit' | trans }}"></a>
+        </td>
+        <td class="iconColumn">
+          <a class="deleteIcon" data-name="{{ group.title }}" href="{{ path('fom_user_group_delete', { 'id': group.id }) }}"></a>
+        </td>
+      </tr>
+      {% endfor %}
     </tbody>
-</table>
-
-{% include "FOMUserBundle:Group:actions.html.twig" %}
+  </table>
+{% else %}
+  <p class="description left">{{"No goups exists."|trans}}</p>
+{% endif %}
 
 {% endblock %}

@@ -1,22 +1,41 @@
-<header>
-{% trans %}
-Required fields are marked with dark labels, while optional fields have lighter labels.
-{% endtrans %}
-</header>
+{% extends "FOMManagerBundle::manager.html.twig" %}
 
-<ul>
-    <li><a href="#group-basics" data-toggle="tab">
-        {{ 'Base data' | trans}}</a></li>
-    <li><a href="#group-users" data-toggle="tab">{{ 'Users' | trans}}</a></li>
-</ul>
+{% block title %}
+  {% if edit %}
+    {{ "Edit Group" | trans}}
+  {% else %}
+    {{ "New Group" | trans}}
+  {% endif %}
+{% endblock %}
 
-<div>
-    <section id="group-basics">
-        {% include 'FOMUserBundle:Group:form-basic.html.twig' %}
-    </section>
+{% block js %}
+  {{parent()}}
+  <script type="application/javascript" src="{{ asset('bundles/mapbendermanager/js/user-control.js') }}"></script>
+{% endblock %}
 
-    <section id="group-users">
-        {% include 'FOMUserBundle:Group:form-users.html.twig' %}
-    </section>
-</div>
+{% block manager_content %}
+  {% if edit %}
+    <form action="{{ path('fom_user_group_update', { 'id': group.id }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} novalidate="novalidate">
+  {% else %}
+    <form action="{{ path('fom_user_group_create') }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} novalidate="novalidate">
+  {% endif %}
 
+    {% if form_errors(form) %}
+    <div>
+      {{ form_errors(form) }}
+    </div>
+    {% endif %}
+
+    {% include 'FOMUserBundle:Group:container.html.twig' %}
+
+    {{ form_row(form._token) }}
+
+    <div class="right">
+      <input class="button" type="submit" value="{% if edit %}{{ 'Save' | trans }}{% else %}{{ 'Create' | trans }}{% endif %}"/>
+      <a class="button critical" href="{{ url('fom_user_group_index') }}">{{ 'Cancel' | trans}}</a>
+    </div>
+  </form>
+
+<div class="clearContainer"></div>
+
+{% endblock %}
