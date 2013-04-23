@@ -49,29 +49,6 @@
     border-top:dashed 1px darken(#fff, 30%);
   }
 }
-.checkContainer{
-  position:relative;
-  color:$middleFontColor;
-  display: block;
-  margin-bottom: $space/2;
-  background-color: $contentColor;
-  padding:5px $space/2 5px $space/2;
-  border:solid 1px white;
-  @include border-radius($radius);
-  @include transition(all 0.2s ease-in-out);
-
-  .checkedIcon{
-    @include opacity(0);
-    @include pos(5px,5px,'','');
-  }
-
-  &:hover{
-    background-color: white;
-    border:solid 1px darken(white, 15%);
-    .checkedIcon{@include opacity(1);}
-  }
-
-}
 
 
 
@@ -150,11 +127,9 @@
 /* ----------------------------------------------------------- TABLES */
 .permissionsTable{
   $height:26px;
+  
 
-  tr{
-    height:$height + 20;
-    border-bottom: solid 1px darken($contentColor, 10%);
-  }
+  tr{border-bottom: solid 1px darken($contentColor, 10%);}
   th{cursor: pointer;}
   td{
     .labelInput{width:200px;}

@@ -427,7 +427,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-.icons-sprite, .checkWrapper, .checkWrapper.checked, .checkRadio, .checkRadio.checked, .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon, .deleteIconSmall, .addIcon, .viewIcon, .editIcon, .publishIcon, .publishIcon.disabled, .publishIconSmall, .publishIconSmall.disabled, .checkedIcon, .cancelIcon {
+.icons-sprite, .checkWrapper, .checkWrapper.checked, .checkRadio, .checkRadio.checked, .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon, .deleteIconSmall, .addIcon, .viewIcon, .editIcon, .publishIcon, .publishIcon.disabled, .publishIconSmall, .publishIconSmall.disabled, .checkedIcon, .cancelIcon, .tableUserGroups .checkWrapper {
   background: url('../../images/icons-sd658f3c949.png') no-repeat; }
 
 /*
@@ -558,13 +558,30 @@ fieldset {
 
 /* ------------------------------------------------------- COMPONTENS */
 /* TABLE */
-.table {
-  width: 100%; }
-  .table tr {
-    border-bottom: solid 1px #e0e0e0; }
-  .table th {
+.tableCore, .table {
+  width: 100%;
+  background-color: #f9f9f9; }
+  .tableCore td, .table td {
+    padding: 0 10px;
+    background-color: #f9f9f9; }
+  .tableCore th, .table th {
+    padding: 0 10px;
     font-weight: normal;
-    border-bottom: solid 5px lightgrey; }
+    border-bottom: solid 5px lightgrey;
+    text-align: left; }
+  .tableCore tr, .table tr {
+    height: 46px; }
+  .tableCore tbody tr, .table tbody tr {
+    border-top: solid 1px #e0e0e0; }
+
+.table {
+  border-top: solid 3px #404040;
+  border-left: solid 1px #a2a2a2;
+  border-right: solid 1px #a2a2a2;
+  border-bottom: solid 1px #a2a2a2;
+  -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1); }
 
 /* INPUT */
 .input {
@@ -986,36 +1003,6 @@ fieldset {
   padding-top: 10px;
   border-top: dashed 1px #b3b3b3; }
 
-.checkContainer {
-  position: relative;
-  color: #878787;
-  display: block;
-  margin-bottom: 10px;
-  background-color: #f9f9f9;
-  padding: 5px 10px 5px 10px;
-  border: solid 1px white;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out; }
-  .checkContainer .checkedIcon {
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-    opacity: 0;
-    position: absolute;
-    top: 5px;
-    right: 5px; }
-  .checkContainer:hover {
-    background-color: white;
-    border: solid 1px #d9d9d9; }
-    .checkContainer:hover .checkedIcon {
-      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-      opacity: 1; }
-
 /* ------------------------------------------------------------ ICONS */
 .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon,
 .addIcon, .viewIcon, .editIcon,
@@ -1095,7 +1082,6 @@ fieldset {
 
 /* ----------------------------------------------------------- TABLES */
 .permissionsTable tr {
-  height: 46px;
   border-bottom: solid 1px #e0e0e0; }
 .permissionsTable th {
   cursor: pointer; }
@@ -1447,6 +1433,13 @@ body {
 .elementFormCoordinates .dropdown, .elementFormCoordinates .input {
   width: 210px; }
 
+.elementFormCopyright .labelInput, .elementFormCopyright .popup .popupSubTitle, .popup .elementFormCopyright .popupSubTitle {
+  width: 50px; }
+.elementFormCopyright .checkWrapper {
+  margin-left: 20px; }
+.elementFormCopyright .dropdown, .elementFormCopyright .input {
+  width: 210px; }
+
 /* LAYER FORMS */
 .layersetForm .labelInput, .layersetForm .popup .popupSubTitle, .popup .layersetForm .popupSubTitle {
   width: 40px;
@@ -1458,6 +1451,37 @@ body {
 
 .iconColumn {
   width: 30px; }
+
+/* ------------------------------------------------------------- LAYOUT */
+.checkContainer {
+  position: relative;
+  color: #878787;
+  display: block;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  padding: 5px 10px 5px 10px;
+  border: solid 1px white;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out; }
+  .checkContainer .checkedIcon {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    position: absolute;
+    top: 5px;
+    right: 5px; }
+  .checkContainer:hover {
+    background-color: white;
+    border: solid 1px #d9d9d9; }
+    .checkContainer:hover .checkedIcon {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+      opacity: 1; }
 
 /* ----------------------------------------------------------- SERVICES */
 /* ----------------------------------------------------------- SERVICES */
@@ -1542,3 +1566,65 @@ body {
   display: block;
   margin-left: 95px;
   word-wrap: break-word; }
+
+/* ------------------------------------------------------- USER CONTROL */
+/* --------------------------------------------------------------- ACLS */
+.userControlTable .iconColumn {
+  width: 40px;
+  padding-left: 0px; }
+
+.tableUserGroups {
+  width: 300px; }
+  .tableUserGroups .description {
+    width: 150px;
+    text-align: right;
+    padding: 0px; }
+  .tableUserGroups td {
+    cursor: pointer;
+    padding-right: 0px;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out; }
+    .tableUserGroups td:hover {
+      background-color: #f1f1f1; }
+      .tableUserGroups td:hover .checkWrapper {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+        opacity: 0.4; }
+      .tableUserGroups td:hover .checkWrapper.checked {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+        opacity: 1; }
+  .tableUserGroups .tdContentWrapper {
+    position: relative; }
+  .tableUserGroups .checkWrapper {
+    height: 26px;
+    width: 100%;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    background-position: 0 -156px;
+    background-position-x: right; }
+    .tableUserGroups .checkWrapper .checkbox {
+      width: 100%;
+      height: 26px; }
+    .tableUserGroups .checkWrapper.checked {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+      opacity: 1; }
+
+.userGroupTabContainer {
+  margin-bottom: 20px; }
+  .userGroupTabContainer .containerBaseData .labelInput, .userGroupTabContainer .containerBaseData .popup .popupSubTitle, .popup .userGroupTabContainer .containerBaseData .popupSubTitle {
+    width: 80px;
+    float: left;
+    display: block;
+    margin-bottom: 10px; }
+  .userGroupTabContainer .containerBaseData .input {
+    width: 300px; }
+  .userGroupTabContainer .containerBaseData textarea {
+    height: 150px; }

@@ -30,6 +30,7 @@
         {% endif %}
       {% endspaceless %}
     </div>
+    <div class="clearContainer"></div>
   {% endspaceless %}
 {% endblock form_widget_simple %}
 
@@ -360,7 +361,7 @@
 {% block acl_widget %}
   {% spaceless %}
     {% set prototype = form_widget(form.ace.vars.prototype) %}
-    <table id="listFilterPermission" class="listFilterContainer clear permissionsTable table">
+    <table id="listFilterPermission" class="listFilterContainer clear permissionsTable tableCore">
       <thead id="permissionsHead" data-prototype="{{ prototype }}">
         <tr class="doNotFilter">
           <th>

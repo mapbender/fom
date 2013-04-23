@@ -12,7 +12,7 @@ $(function() {
 
 
     // init filter inputs --------------------------------------------------------------------
-    $(".listFilterInput").on("keyup", function(){
+    $(document).on("keyup", ".listFilterInput", function(){
         var me    = $(this);
         var val   = $.trim(me.val());
         var items = $("#" + me.attr("id").replace("input", "list")).find("li, tr");
@@ -150,7 +150,7 @@ $(function() {
         (me.is(":checked")) ? parent.addClass("checked") 
                             : parent.removeClass("checked");
     }
-    $(".checkbox").on("change", toggleCheckBox);
+    $(document).on("change", ".checkbox", toggleCheckBox);
 
 
 
@@ -186,5 +186,7 @@ $(function() {
             });
         }
     }
-    $(".dropdown").bind("change", loadDropDown).change().bind("click", switchValue);
+    $(document).on("change", ".dropdown", loadDropDown)
+               .change()
+               .on("click", ".dropdown", switchValue);
 });
