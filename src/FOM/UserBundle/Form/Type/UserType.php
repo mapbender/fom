@@ -46,8 +46,7 @@ class UserType extends AbstractType
                 'property_path' => false,
                 'data' => $options['data'],
                 'permissions' => 'standard::object',
-                'standard_anon_access' => false,
-                'label_render' => false));
+                'standard_anon_access' => false));
 
     }
 

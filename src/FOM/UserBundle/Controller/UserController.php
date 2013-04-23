@@ -54,7 +54,7 @@ class UserController extends Controller {
     /**
      * @ManagerRoute("/user/new")
      * @Method({ "GET" })
-     * @Template
+     * @Template("FOMUserBundle:User:form.html.twig")
      */
     public function newAction() {
         $user = new User();
@@ -71,13 +71,14 @@ class UserController extends Controller {
         return array(
             'user' => $user,
             'form' => $form->createView(),
-            'form_name' => $form->getName());
+            'form_name' => $form->getName(),
+            'edit' => false);
     }
 
     /**
      * @ManagerRoute("/user")
      * @Method({ "POST" })
-     * @Template("FOMUserBundle:User:new.html.twig")
+     * @Template("FOMUserBundle:User:form.html.twig")
      */
     public function createAction() {
         $user = new User();
@@ -119,13 +120,14 @@ class UserController extends Controller {
         return array(
             'user' => $user,
             'form' => $form->createView(),
-            'form_name' => $form->getName());
+            'form_name' => $form->getName(),
+            'edit' => false);
     }
 
     /**
      * @ManagerRoute("/user/{id}/edit")
      * @Method({ "GET" })
-     * @Template
+     * @Template("FOMUserBundle:User:form.html.twig")
      */
     public function editAction($id) {
         $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->find($id);
@@ -146,13 +148,14 @@ class UserController extends Controller {
         return array(
             'user' => $user,
             'form' => $form->createView(),
-            'form_name' => $form->getName());
+            'form_name' => $form->getName(),
+            'edit' => true);
     }
 
     /**
      * @ManagerRoute("/user/{id}/update")
      * @Method({ "POST" })
-     * @Template("FOMUserBundle:User:edit.html.twig")
+     * @Template("FOMUserBundle:User:form.html.twig")
      */
     public function updateAction($id) {
         $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->find($id);
@@ -206,32 +209,8 @@ class UserController extends Controller {
         return array(
             'user' => $user,
             'form' => $form->createView(),
-            'form_name' => $form->getName());
-    }
-
-    /**
-     * @ManagerRoute("/user/{id}/delete")
-     * @Method({ "GET" })
-     * @Template("FOMUserBundle:User:delete.html.twig")
-     */
-    public function confirmDeleteAction($id) {
-        $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')
-            ->find($id);
-        if($user === null) {
-            throw new NotFoundHttpException('The user does not exist');
-        }
-
-        // ACL access check
-        $securityContext = $this->get('security.context');
-        if(false === $securityContext->isGranted('DELETE', $user)) {
-            throw new AccessDeniedException();
-        }
-
-        $form = $this->createDeleteForm($id);
-
-        return array(
-            'user' => $user,
-            'form' => $form->createView());
+            'form_name' => $form->getName(),
+            'edit' => true);
     }
 
     /**
@@ -274,15 +253,6 @@ class UserController extends Controller {
         }
         return $this->redirect(
             $this->generateUrl('fom_user_user_index'));
-    }
-
-    /**
-     * Creates the form for the confirm delete page.
-     */
-    private function createDeleteForm($id) {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm();
     }
 }
 

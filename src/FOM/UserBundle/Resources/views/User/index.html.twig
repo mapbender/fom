@@ -2,52 +2,64 @@
 
 {% block title %}{{ 'Users' | trans }}{% endblock %}
 
+{% block js %}
+    {{parent()}}
+    <script type="application/javascript" src="{{ asset('bundles/mapbendermanager/js/user-control.js') }}"></script>
+{% endblock %}
+
 {% block manager_content %}
 
-{% include "FOMUserBundle:User:navigation.html.twig" %}
+<a class="addIcon right" href="{{path('fom_user_user_new')}}" title="{{"Add new user"|trans}}"></a>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>{{ "Name" | trans }}</th>
-      <th>{{ "E-Mail" | trans }}</th>
-      <th>{{ "Groups" | trans }}</th>
-      <th>{{ "Actions" | trans }}</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for user in users %}
-    <tr id="app-{{ user.id }}">
-      <td>
-        {% if is_granted('EDIT', user) %}
-        <a href="{{ path('fom_user_user_edit', {'id': user.id}) }}" title="{{ 'Edit' | trans }}">{{ user.username }}</a>
-        {% else %}
-        {{ user.username }}
-        {% endif %}
-      </td>
-      <td><a href="mailto:{{ user.email }}" title="{{ 'Contact user via e-mail' | trans }}">{{ user.email }}</a></td>
-      <td>
-        <ul>
-          {% for group in user.groups %}
-          <li><a href="{{ path('fom_user_group_edit', { 'id': group.id }) }}" title="{{ 'Edit group' | trans }}">{{ group.title }}</a></li>
-          {% endfor %}
-        </ul>
-      </td>
-      <td>
-        <div>
-          {% if is_granted('EDIT', user) %}
-          <a href="{{ path('fom_user_user_edit',  {'id': user.id }) }}" title="{{ 'Edit' | trans }}">{{ 'Edit' | trans }}</a>
-          {% endif %}
-          {% if user.id != 1 and is_granted('DELETE', user) %}
-          <a href="{{ path('fom_user_user_confirmdelete', { 'id': user.id }) }}">{{ 'Delete' | trans }}</a>
-          {% endif %}
-        </div>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+{% if users|length > 0 %}
+  <label for="inputFilterUsers" class="labelInput left">{{"Filter"|trans}}</label>
+  <input id="inputFilterUsers" type="text" class="input left listFilterInput"/>
 
-{% include "FOMUserBundle:User:actions.html.twig" %}
+  <div class="clearContainer"></div>
+  <table id="listFilterUsers" class="table userControlTable listFilterContainer">
+    <thead id="usersHead">
+      <tr class="doNotFilter">
+        <th>{{ "Name" | trans }}</th>
+        <th>{{ "E-Mail" | trans }}</th>
+        <th>{{ "Groups" | trans }}</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="usersBody">
+      {% for user in users %}
+        <tr id="app-{{ user.id }}" class="filterItem">
+          <td>
+            {% if is_granted('EDIT', user) %}
+            <a class="labelText" href="{{ path('fom_user_user_edit', {'id': user.id}) }}" title="{{ 'Edit' | trans }}">{{ user.username }}</a>
+            {% else %}
+            {{ user.username }}
+            {% endif %}
+          </td>
+          <td><a class="linkButton" href="mailto:{{ user.email }}" title="{{ 'Contact user via e-mail' | trans }}">{{ user.email }}</a></td>
+          <td>
+            <ul>
+              {% for group in user.groups %}
+              <li><a class="linkButton" href="{{ path('fom_user_group_edit', { 'id': group.id }) }}" title="{{ 'Edit group' | trans }}">{{ group.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </td>
+          <td class="iconColumn">
+            {% if is_granted('EDIT', user) %}
+              <a class="editIcon" href="{{ path('fom_user_user_edit',  {'id': user.id }) }}" title="{{ 'Edit' | trans }}"></a>
+            {% endif %}
+          </td>
+          <td class="iconColumn">
+            {% if user.id != 1 and is_granted('DELETE', user) %}
+              <a class="deleteIcon" data-name="{{ user.username }}" href="{{ path('fom_user_user_delete', { 'id': user.id }) }}"></a>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p class="description left">{{"No users exists."|trans}}</p>
+{% endif %}
 
 {% endblock %}

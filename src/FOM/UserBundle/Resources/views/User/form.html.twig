@@ -1,36 +1,43 @@
-<header>
-{% trans %}
-Required fields are marked with dark labels, while optional fields have lighter labels.
-{% endtrans %}
-</header>
+{% extends "FOMManagerBundle::manager.html.twig" %}
 
-<ul>
-    <li><a href="#user-basics" data-toggle="tab">{{ 'Base data' | trans}}</a></li>
-    <li><a href="#user-groups" data-toggle="tab">{{ 'Groups' | trans}}</a></li>
-    <li><a href="#user-acl" data-toggle="tab">{{ 'Security' | trans}}</a></li>
-</ul>
+{% block title %}
+  {% if edit %}
+    {{ "Edit User" | trans}}
+  {% else %}
+    {{ "New User" | trans}}
+  {% endif %}
+{% endblock %}
 
-<div>
-    <section id="user-basics">
-        {% include 'FOMUserBundle:User:form-basic.html.twig' %}
-    </section>
+{% block js %}
+  {{parent()}}
+  <script type="application/javascript" src="{{ asset('bundles/fomuser/js/acl-form.js') }}"></script>
+  <script type="application/javascript" src="{{ asset('bundles/fommanager/js/form.js') }}"></script>
+  <script type="application/javascript" src="{{ asset('bundles/mapbendermanager/js/user-control.js') }}"></script>
+{% endblock %}
 
-    <section id="user-groups">
-        {% include 'FOMUserBundle:User:form-groups.html.twig' %}
-    </section>
+{% block manager_content %}
+  {% if edit %}
+    <form action="{{ path('fom_user_user_update', { 'id': user.id }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} novalidate="novalidate">
+  {% else %}
+    <form action="{{ path('fom_user_user_create') }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} autocomplete="off" novalidate="novalidate">
+  {% endif %}
 
-    <section id="user-acl">
-        {{ form_row(form.acl) }}
-    </section>
-</div>
+    {% if form_errors(form) %}
+    <div>
+      {{ form_errors(form) }}
+    </div>
+    {% endif %}
 
-{###############################################################################
-    Render any remaining fields inside the rulers to make you aware you forgot
-    them
-###############################################################################}
-{% set form_rest = form_rest(form) %}
-{% if form_rest %}
-<hr />
-{{ form_rest | raw }}
-<hr />
-{% endif %}
+    {% include 'FOMUserBundle:User:container.html.twig' %}
+
+    {{ form_row(form._token) }}
+
+    <div class="right">
+      <input class="button" type="submit" value="{% if edit %}{{ 'Save' | trans }}{% else %}{{ 'Create' | trans }}{% endif %}"/>
+      <a class="button critical" href="{{ url('fom_user_user_index') }}">{{ 'Cancel' | trans}}</a>
+    </div>
+  </form>
+
+<div class="clearContainer"></div>
+
+{% endblock %}

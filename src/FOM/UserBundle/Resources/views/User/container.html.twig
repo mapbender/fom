@@ -1,0 +1,55 @@
+<div id="userGroupTabContainer" class="tabContainer userGroupTabContainer">
+  <ul class="tabs">
+    <li id="tabBaseData" class="tab active">{{"Base data" | trans }}</li>
+    <li id="tabGroups" class="tab">{{"Groups" | trans }}</li>
+    <li id="tabSecurity" class="tab">{{"Security" | trans }}</li>
+  </ul>
+
+  <div id="containerBaseData" class="container active containerBaseData">
+    {{ form_row(form.username) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.password) }}
+  </div>
+  <div id="containerGroups" class="container containerGroups">
+    {% if form.groups|length > 0 %}
+
+      {% set group_count = '<span>' ~ user.groups | length ~ '</span>' %}
+
+      <label for="inputFilterUsers" class="labelInput left">{{"Filter"|trans}}</label>
+      <input id="inputFilterUsers" type="text" class="input left listFilterInput"/>
+      <div class="clearContainer"></div>
+
+      <table id="listFilterUsers" class="listFilterContainer tableCore tableUserGroups" cellspacing="0" cellpadding="0">
+        <thead>
+          <tr class="doNotFilter">
+            <th>Name</th>
+            <th class="description"><span id="selectedUsersGroups">{{user.groups | length}}</span> users of {{form.groups|length}} selected</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for group in form.groups %}
+            <tr class="filterItem">
+              <td colspan="2">
+                <div class="tdContentWrapper">
+                  {{ form_label(group) }}
+                  {{ form_widget(group) }}
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    {% else %}
+      <p class="description left">{{"No groups exists."|trans}}</p>
+    {% endif %}
+
+  </div>
+  <div id="containerSecurity" class="container containerSecurity">
+    <a id="addPermission" href="#" class="addIcon right" title="{{'Add new user'|trans}}"></a>
+    <div class="clearContainer"></div>
+    {{ form_widget(form.acl) }}
+  </div>
+</div>
+
+<div class="clearContainer"></div>

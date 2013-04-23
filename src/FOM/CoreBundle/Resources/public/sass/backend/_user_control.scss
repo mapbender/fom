@@ -1,0 +1,60 @@
+@import "../lib/base";
+@import "../lib/mixins";
+
+
+/* --------------------------------------------------------------- ACLS */
+.userControlTable{
+  .iconColumn{
+    width:40px;
+    padding-left:0px;
+  }
+}
+.tableUserGroups{
+  width:300px;
+  .description{
+    width:150px;
+    text-align: right;
+    padding:0px;
+  }
+  td{
+    cursor:pointer;
+    padding-right:0px;
+    @include transition(all 0.2s ease-in-out);
+    &:hover{
+      background-color:darken($contentColor, 3%);
+      .checkWrapper{@include opacity(0.4);}
+      .checkWrapper.checked{@include opacity(1);}
+    }
+  }
+  .tdContentWrapper{position:relative;}
+  .checkWrapper{
+    $height:icons-sprite-height(check);
+
+    .checkbox{
+      width:100%;      height:$height;
+    }
+
+    height:$height;
+    width: 100%;
+    @include opacity(0);
+    @include pos(0,0,'','');
+    @include transition(all 0.2s ease-in-out);
+    @include icons-sprite(check);
+    background-position-x: right;
+
+    &.checked{@include opacity(1);}
+  }
+}
+.userGroupTabContainer{
+  margin-bottom: $space;
+  .containerBaseData{
+    .labelInput{
+      width:80px;
+      float:left;
+      display: block;
+      margin-bottom: $space/2;
+    }
+    .input{width:300px;}
+    textarea{height:150px;}
+  }
+}
