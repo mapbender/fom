@@ -4,33 +4,33 @@
 
 {% block manager_content %}
 
-{% include "FOMUserBundle:User:navigation.html.twig" %}
-
-<table>
-    <thead>
-        <tr>
-            <th>{{ "Name" | trans }}</th>
-            <th>{{ "Class" | trans }}</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for class, name in classes|sort %}
-        <tr id="app-{{ class|lower }}">
-            <td>
-                <a href="{{ path('fom_user_acl_edit', {'class': class}) }}" title="{{ 'Edit' | trans }}">{{ name }}</a>
-            </td>
-            <td>
-                <a href="{{ path('fom_user_acl_edit', {'class': class}) }}" title="{{ 'Edit' | trans }}">{{ class }}</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<div>
-    <p>You can edit class based ACLs, but they are not yet completely honored in every corner
-        of this application. Sorry for the momentarily inconvenience and please be patient.
-        Most of the functionality has been implemented so for the User class.</p>
+<div class="messageBox hint">
+  You can edit class based ACLs, but they are not yet completely honored in every corner
+  of this application. Sorry for the momentarily inconvenience and please be patient.
+  Most of the functionality has been implemented so for the User class.
 </div>
+
+<table class="table userControlTable">
+  <thead>
+    <tr>
+      <th>{{ "Name" | trans }}</th>
+      <th>{{ "Class" | trans }}</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for class, name in classes|sort %}
+      <tr id="app-{{ class|lower }}">
+        <td>
+          <a class="labelText" href="{{ path('fom_user_acl_edit', {'class': class}) }}" title="{{ 'Edit' | trans }}">{{ name }}</a>
+        </td>
+        <td class="description">{{ class }}</td>
+        <td class="iconColumn">
+          <a class="editIcon" href="{{ path('fom_user_acl_edit', {'class': class}) }}" title="{{ 'Edit' | trans }}"></a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 {% endblock %}

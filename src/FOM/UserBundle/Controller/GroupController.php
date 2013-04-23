@@ -35,7 +35,7 @@ class GroupController extends Controller {
     /**
      * @Route("/group/new")
      * @Method({ "GET" })
-     * @Template
+     * @Template("FOMUserBundle:Group:form.html.twig")
      */
     public function newAction() {
         $available_roles = $this->get('fom_roles')->getAll();
@@ -45,13 +45,14 @@ class GroupController extends Controller {
         return array(
             'group' => $group,
             'form' => $form->createView(),
-            'form_name' => $form->getName());
+            'form_name' => $form->getName(),
+            'edit' => false);
     }
 
     /**
      * @Route("/group")
      * @Method({ "POST" })
-     * @Template("MapbenderManagerBundle:Group:new.html.twig")
+     * @Template("FOMUserBundle:Group:form.html.twig")
      *
      * There is one weirdness when storing groups: In Doctrine Many-to-Many
      * associations, updates are only written, when the owning side changes.
@@ -85,13 +86,14 @@ class GroupController extends Controller {
 
         return array(
             'group' => $group,
-            'form' => $form->createView());
+            'form' => $form->createView(),
+            'edit' => false);
     }
 
     /**
      * @Route("/group/{id}/edit")
      * @Method({ "GET" })
-     * @Template
+     * @Template("FOMUserBundle:Group:form.html.twig")
      */
     public function editAction($id) {
         $group = $this->getDoctrine()->getRepository('FOMUserBundle:Group')
@@ -106,13 +108,14 @@ class GroupController extends Controller {
         return array(
             'group' => $group,
             'form' => $form->createView(),
-            'form_name' => $form->getName());
+            'form_name' => $form->getName(),
+            'edit' => true);
     }
 
     /**
      * @Route("/group/{id}/update")
      * @Method({ "POST" })
-     * @Template("MapbenderManagerBundle:Group:edit.html.twig")
+     * @Template("FOMUserBundle:Group:form.html.twig")
      *
      * There is one weirdness when storing groups: In Doctrine Many-to-Many
      * associations, updates are only written, when the owning side changes.
@@ -156,26 +159,8 @@ class GroupController extends Controller {
 
         return array(
             'group' => $group,
-            'form' => $form->createView());
-    }
-
-    /**
-     * @Route("/group/{id}/delete")
-     * @Method({ "GET" })
-     * @Template("FOMUserBundle:Group:delete.html.twig")
-     */
-    public function confirmDeleteAction($id) {
-        $group = $this->getDoctrine()->getRepository('FOMUserBundle:Group')
-            ->find($id);
-        if($group === null) {
-            throw new NotFoundHttpException('The group does not exist');
-        }
-
-        $form = $this->createDeleteForm($id);
-
-        return array(
-            'group' => $group,
-            'form' => $form->createView());
+            'form' => $form->createView(),
+            'edit' => true);
     }
 
     /**
@@ -208,15 +193,6 @@ class GroupController extends Controller {
         }
         return $this->redirect(
             $this->generateUrl('fom_user_group_index'));
-    }
-
-    /**
-     * Creates the form for the confirm delete page.
-     */
-    private function createDeleteForm($id) {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
-            ->getForm();
     }
 }
 
