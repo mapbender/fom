@@ -7,8 +7,11 @@
 
   <div id="containerBaseData" class="container active containerBaseData">
     {{ form_row(form.username) }}
+    <div class="clearContainer"></div> 
     {{ form_row(form.email) }}
+    <div class="clearContainer"></div> 
     {{ form_row(form.password) }}
+    <div class="clearContainer"></div> 
   </div>
   <div id="containerGroups" class="container containerGroups">
     {% if form.groups|length > 0 %}
@@ -32,7 +35,7 @@
               <td colspan="2">
                 <div class="tdContentWrapper">
                   {{ form_label(group) }}
-                  {{ form_widget(group) }}
+                  {{ form_widget(group) }} 
                 </div>
               </td>
             </tr>

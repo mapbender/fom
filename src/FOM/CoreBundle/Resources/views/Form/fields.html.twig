@@ -30,7 +30,6 @@
         {% endif %}
       {% endspaceless %}
     </div>
-    <div class="clearContainer"></div>
   {% endspaceless %}
 {% endblock form_widget_simple %}
 
@@ -255,6 +254,7 @@
   {% spaceless %}
     {% set type = type|default('password') %}
     {{ block('form_widget_simple') }}
+    <div class="clearContainer"></div>
   {% endspaceless %}
 {% endblock password_widget %}
 
