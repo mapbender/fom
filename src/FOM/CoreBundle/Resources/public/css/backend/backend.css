@@ -427,8 +427,8 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-.icons-sprite, .checkWrapper, .checkWrapper.checked, .checkRadio, .checkRadio.checked, .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon, .deleteIconSmall, .addIcon, .viewIcon, .editIcon, .publishIcon, .publishIcon.disabled, .publishIconSmall, .publishIconSmall.disabled, .checkedIcon, .cancelIcon, .tableUserGroups .checkWrapper {
-  background: url('../../images/icons-sd658f3c949.png') no-repeat; }
+.icons-sprite, .linkButton, .linkButton:hover, .linkButton.activeLink, .linkButton:active, .checkWrapper, .checkWrapper.checked, .checkRadio, .checkRadio.checked, .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon, .deleteIconSmall, .addIcon, .viewIcon, .editIcon, .publishIcon, .publishIcon.disabled, .publishIconSmall, .publishIconSmall.disabled, .checkedIcon, .cancelIcon, .tableUserGroups .checkWrapper {
+  background: url('../../images/icons-s7074e4f143.png') no-repeat; }
 
 /*
  * This theme contains global styles for the backend and the frontend
@@ -464,7 +464,7 @@ html, body {
   font-size: 14px;
   line-height: 21px;
   color: #3f3f3f;
-  background: url("../../images/pattern2.png"); }
+  background: url("../../images/body.png"); }
 
 .clear, .clearContainer {
   clear: both;
@@ -553,7 +553,7 @@ fieldset {
   color: #74b63d; }
 
 .description {
-  color: #878787;
+  color: #707070;
   font-style: italic; }
 
 /* ------------------------------------------------------- COMPONTENS */
@@ -607,10 +607,6 @@ fieldset {
 /* BUTTON */
 .buttonCore, .button, .button.critical, .linkButton {
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -634,6 +630,10 @@ fieldset {
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
   border-radius: 3px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
   -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229; }
@@ -644,7 +644,7 @@ fieldset {
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225; }
   .button.icon {
     padding-left: 20px;
-    background-image: url("../../fomcore/images/nav_arrow.png");
+    background-image: url("../../fomcore/images/link_arrow.png");
     background-position: 10px center;
     background-repeat: no-repeat; }
   .button.critical {
@@ -666,19 +666,28 @@ fieldset {
       box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535; }
 
 .linkButton {
-  color: #878787;
-  text-shadow: white 1px 1px 0px; }
+  color: #707070;
+  padding: 0 0 0 20px;
+  background-position: 0 -386px;
+  text-shadow: white 1px 1px 0px;
+  -webkit-transition: color 0.3s ease-in-out;
+  -moz-transition: color 0.3s ease-in-out;
+  -o-transition: color 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out; }
+  .linkButton:active, .linkButton.link_arrow_active, .linkButton.link_arrow-active {
+    background-position: 0 -374px; }
   .linkButton:hover, .linkButton.activeLink, .linkButton:active {
-    color: #3f3f3f; }
+    color: #3f3f3f;
+    background-position: 0 -374px; }
 
 /* CHECKBOX AND RADIO */
 .checkWrapper {
   height: 20px;
   width: 20px;
   margin-right: 5px;
-  background-position: 0 -370px; }
+  background-position: 0 -338px; }
   .checkWrapper.checked {
-    background-position: 0 -218px; }
+    background-position: 0 -202px; }
   .checkWrapper .checkbox {
     height: 20px;
     width: 20px; }
@@ -686,7 +695,7 @@ fieldset {
 .checkRadio {
   height: 20px;
   width: 20px;
-  background-position: 0 -286px; }
+  background-position: 0 -254px; }
   .checkRadio.checked {
     background-position: 0 -182px; }
   .checkRadio .radio {
@@ -738,14 +747,14 @@ fieldset {
     position: absolute;
     top: 6px;
     right: 5px;
-    height: 16px;
-    width: 16px; }
+    height: 12px;
+    width: 12px; }
 
 /* -------------------------------------------------------- CONTAINER */
 /* TABS */
 .tabContainer .tab {
   margin-right: 3px;
-  color: #878787;
+  color: #707070;
   background-color: #f9f9f9;
   cursor: pointer;
   position: relative;
@@ -810,7 +819,7 @@ fieldset {
 
 /* POPUP */
 .overlay {
-  background: url("../../images/pattern1.png");
+  background: url("../../images/overlay.png");
   -webkit-transition: opacity 0.4s ease-in-out;
   -moz-transition: opacity 0.4s ease-in-out;
   -o-transition: opacity 0.4s ease-in-out;
@@ -833,7 +842,7 @@ fieldset {
   margin: -1000px auto 0 auto;
   background-color: #f4f4f4;
   padding: 20px 0 20px 20px;
-  background-image: url("../../images/pattern3.png");
+  background-image: url("../../images/content.png");
   -webkit-transition: margin 0.4s ease-in-out;
   -moz-transition: margin 0.4s ease-in-out;
   -o-transition: margin 0.4s ease-in-out;
@@ -957,7 +966,7 @@ fieldset {
   text-shadow: #3f3f3f 1px 1px 0px; }
 
 .crumbSubTitle {
-  color: #878787;
+  color: #707070;
   text-shadow: black 1px 1px 0px; }
 
 /* -------------------------------------------------------- CONTAINER */
@@ -1026,10 +1035,12 @@ fieldset {
     opacity: 1; }
 
 .closedIcon, .serviceLayersContainer .closed .openCloseTitle {
-  background-position: 0 -238px; }
+  background-position: 0 -410px; }
 
 .openedIcon, .serviceLayersContainer .openCloseTitle {
-  background-position: 0 -202px; }
+  height: 12px;
+  width: 12px;
+  background-position: 0 -398px; }
 
 .deleteIcon {
   height: 26px;
@@ -1039,12 +1050,12 @@ fieldset {
 .deleteIconSmall {
   height: 16px;
   width: 16px;
-  background-position: 0 -254px; }
+  background-position: 0 -222px; }
 
 .addIcon {
   height: 26px;
   width: 26px;
-  background-position: 0 -406px; }
+  background-position: 0 -422px; }
 
 .viewIcon {
   height: 26px;
@@ -1066,9 +1077,9 @@ fieldset {
 .publishIconSmall {
   height: 16px;
   width: 16px;
-  background-position: 0 -338px; }
+  background-position: 0 -306px; }
   .publishIconSmall.disabled {
-    background-position: 0 -270px; }
+    background-position: 0 -238px; }
 
 .checkedIcon {
   height: 26px;
@@ -1166,7 +1177,7 @@ body {
   height: 170px;
   min-width: 960px;
   border-top: solid 5px #272727;
-  background: url("../../images/pattern1.png");
+  background: url("../../images/head.png");
   -webkit-box-shadow: inset #333333 0px 1px 0px;
   -moz-box-shadow: inset #333333 0px 1px 0px;
   box-shadow: inset #333333 0px 1px 0px; }
@@ -1177,14 +1188,10 @@ body {
     left: 0; }
 
 .accountBar {
-  color: #878787;
+  color: #707070;
   cursor: pointer;
   padding: 5px 10px 5px 10px;
   background-color: #f9f9f9;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
   -webkit-box-shadow: 0px 0px 3px black;
   -moz-box-shadow: 0px 0px 3px black;
   box-shadow: 0px 0px 3px black;
@@ -1195,17 +1202,19 @@ body {
 .accountMenu {
   height: 20px;
   overflow: hidden;
-  position: relative; }
+  position: relative;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out; }
   .accountMenu.opened {
     height: 65px; }
   .accountMenu .accountOpen {
     margin-right: 20px; }
   .accountMenu .openedIcon, .accountMenu .serviceLayersContainer .openCloseTitle, .serviceLayersContainer .accountMenu .openCloseTitle {
     position: absolute;
-    right: 0;
-    top: 3px;
-    height: 16px;
-    width: 16px; }
+    top: 4px;
+    right: 0; }
 
 /* -------------------------------------------------------- PAGE LEFT */
 .leftPane {
@@ -1218,9 +1227,9 @@ body {
     margin: 20px 0 0 20px; }
   .leftPane .navigation {
     background-color: #f9f9f9;
-    -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
-    -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
-    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9); }
+    -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6); }
 
 .navLevel1 {
   border-right: 1px solid #a6a6a6;
@@ -1249,9 +1258,8 @@ body {
   .navItem a {
     font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
     font-size: 12px;
+    color: #707070;
     padding: 5px 10px 5px 10px;
-    background: url("../../fomcore/images/nav_arrow.png") left center no-repeat;
-    color: #878787;
     text-shadow: 1px 1px 0px white;
     -webkit-transition: color 0.2s linear;
     -moz-transition: color 0.2s linear;
@@ -1283,10 +1291,10 @@ body {
     padding: 20px;
     margin: 0px;
     background-color: #f9f9f9;
-    background-image: url("../../images/pattern3.png");
-    -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
-    -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
-    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
+    background-image: url("../../images/content.png");
+    -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6);
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
@@ -1301,9 +1309,9 @@ body {
       content: "";
       background-color: #f9f9f9;
       height: 10px;
-      -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
-      -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
-      box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
+      -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6);
+      -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6);
+      box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6);
       -webkit-border-radius: 3px;
       -moz-border-radius: 3px;
       -ms-border-radius: 3px;
@@ -1341,7 +1349,7 @@ body {
     padding: 20px;
     margin: 0 auto;
     width: 340px;
-    background-image: url("../../images/pattern3.png");
+    background-image: url("../../images/content.png");
     -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
     -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9); }
@@ -1407,11 +1415,11 @@ body {
 .elementForm .labelInput, .elementForm .popup .popupSubTitle, .popup .elementForm .popupSubTitle {
   margin-bottom: 10px; }
 
-.elementFormAbout .labelInput, .elementFormAbout .popup .popupSubTitle, .popup .elementFormAbout .popupSubTitle {
+.elementFormAbout .labelInput, .elementFormAbout .popup .popupSubTitle, .popup .elementFormAbout .popupSubTitle, .elementFormSrs .labelInput, .elementFormSrs .popup .popupSubTitle, .popup .elementFormSrs .popupSubTitle, .elementFormScaleSelector .labelInput, .elementFormScaleSelector .popup .popupSubTitle, .popup .elementFormScaleSelector .popupSubTitle, .elementFormGps .labelInput, .elementFormGps .popup .popupSubTitle, .popup .elementFormGps .popupSubTitle {
   width: 40px; }
-.elementFormAbout .checkWrapper {
+.elementFormAbout .checkWrapper, .elementFormSrs .checkWrapper, .elementFormScaleSelector .checkWrapper, .elementFormGps .checkWrapper {
   margin-left: 20px; }
-.elementFormAbout .input {
+.elementFormAbout .input, .elementFormSrs .input, .elementFormScaleSelector .input, .elementFormGps .input {
   width: 200px; }
 
 .elementFormActivity .labelInput, .elementFormActivity .popup .popupSubTitle, .popup .elementFormActivity .popupSubTitle {
@@ -1434,11 +1442,35 @@ body {
   width: 210px; }
 
 .elementFormCopyright .labelInput, .elementFormCopyright .popup .popupSubTitle, .popup .elementFormCopyright .popupSubTitle {
-  width: 50px; }
-.elementFormCopyright .checkWrapper {
-  margin-left: 20px; }
+  width: 80px; }
 .elementFormCopyright .dropdown, .elementFormCopyright .input {
   width: 210px; }
+
+.elementFormFeatureInfo .labelInput, .elementFormFeatureInfo .popup .popupSubTitle, .popup .elementFormFeatureInfo .popupSubTitle {
+  width: 40px; }
+.elementFormFeatureInfo .checkWrapper {
+  margin-bottom: 10px; }
+.elementFormFeatureInfo .dropdown, .elementFormFeatureInfo .input {
+  width: 210px; }
+
+.elementFormMap .labelInput, .elementFormMap .popup .popupSubTitle, .popup .elementFormMap .popupSubTitle {
+  width: 90px; }
+.elementFormMap .checkWrapper {
+  margin-bottom: 10px; }
+.elementFormMap .dropdown, .elementFormMap .input {
+  width: 260px; }
+
+.elementFormOverview .labelInput, .elementFormOverview .popup .popupSubTitle, .popup .elementFormOverview .popupSubTitle {
+  width: 50px; }
+.elementFormOverview .checkWrapper {
+  margin-bottom: 10px; }
+.elementFormOverview .dropdown, .elementFormOverview .input {
+  width: 260px; }
+
+.elementFormPrintClient .labelInput, .elementFormPrintClient .popup .popupSubTitle, .popup .elementFormPrintClient .popupSubTitle {
+  width: 50px; }
+.elementFormPrintClient textarea {
+  width: 200px; }
 
 /* LAYER FORMS */
 .layersetForm .labelInput, .layersetForm .popup .popupSubTitle, .popup .layersetForm .popupSubTitle {
@@ -1455,7 +1487,7 @@ body {
 /* ------------------------------------------------------------- LAYOUT */
 .checkContainer {
   position: relative;
-  color: #878787;
+  color: #707070;
   display: block;
   margin-bottom: 10px;
   background-color: #f9f9f9;
