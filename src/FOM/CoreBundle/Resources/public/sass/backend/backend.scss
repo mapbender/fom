@@ -5,6 +5,7 @@
 // contains backend only components
 @import "components";
 
+$headPatternUrl: "../../images/head.png";
 $bannerHeight:170px;
 $contentPaneWidth:760px;
 $navWidth:200px;
@@ -41,7 +42,7 @@ body{
   // remove broken head background when the page is smaller than defined width
   min-width:$pageWidth;
   border-top:solid 5px darken($firstColor, 10%);
-  background:url($firstPatternUrl);
+  background:url($headPatternUrl);
 
   @include box-shadow(inset lighten(#000, 20%) 0px 1px 0px);
 
@@ -52,7 +53,6 @@ body{
   cursor:pointer;
   padding:($space/4) ($space/2) ($space/4) ($space/2);
   background-color:$contentColor;
-  @include transition(all 0.2s ease-in-out);
   @include box-shadow(0px 0px 3px black);
   @include pos(0,0,'','');
 }
@@ -60,15 +60,13 @@ body{
   height:20px;
   overflow: hidden;
   position: relative;
+  @include transition(all 0.2s ease-in-out);
+  &:hover{
+
+  }
   &.opened{height:65px;}
   .accountOpen{margin-right:$space;}
-  .openedIcon{
-    position: absolute;
-    right:0;
-    top:3px;
-    height: icons-sprite-height(opened);
-    width: icons-sprite-width(opened);
-  }
+  .openedIcon{@include pos(4px,0,'','');}
 }
 
 
@@ -88,7 +86,7 @@ body{
 
   .navigation{
     background-color:$contentColor;
-    @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
+    @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.6));
   }
 }
 .navLevel1{
@@ -116,9 +114,9 @@ body{
       family: $fontFamily;
       size: $fontSize - 2;
     }
-    padding:($space/4) ($space/2) ($space/4) ($space/2);
-    background:url("../../fomcore/images/nav_arrow.png") left center no-repeat;
     color:$middleFontColor;
+    padding:($space/4) ($space/2) ($space/4) ($space/2);
+
     @include text-shadow(1px 1px 0px $lightFontColor);
     @include transition(color 0.2s linear);
 
@@ -160,8 +158,8 @@ body{
     padding:$space;
     margin:0px;
     background-color:$contentColor;
-    background-image:url($secondPatternUrl);
-    @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
+    background-image:url($contentPatternUrl);
+    @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.6));
     @include border-radius($radius);
 
     hr{@include pos(0,0,'',0);}
@@ -171,7 +169,7 @@ body{
       content:"";
       background-color:$contentColor;
       height:10px; 
-      @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
+      @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.6));
       @include border-radius($radius);
     }     
     &:before{

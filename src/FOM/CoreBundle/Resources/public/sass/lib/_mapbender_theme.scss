@@ -33,7 +33,7 @@ html, body{
   }
   line-height:$lineHeight;
   color:$darkFontColor;
-  background:url("../../images/pattern2.png");
+  background:url("../../images/body.png");
 }
 .clear{
   clear:both;
@@ -182,7 +182,6 @@ fieldset{
 .buttonCore{
   font-family: $fontFamily;
   @extend .smallText;
-  @include transition(all 0.3s ease-in-out);
   @include noUserSelect();
 
   // this sucks -.- thank u mozilla for this awesome bug!
@@ -207,6 +206,7 @@ fieldset{
   background-color:$buttonFirstColor;
   @extend .buttonCore;
   @include border-radius($radius);
+  @include transition(all 0.3s ease-in-out);
   @include box-shadow(0 0 6px rgba(0,0,0,0.1),
                       inset 0 -10px 10px $buttonSecondColor);
   &:hover{
@@ -218,7 +218,7 @@ fieldset{
   &.icon{
     padding-left:20px;
     background:{
-      image:url("../../fomcore/images/nav_arrow.png");
+      image:url("../../fomcore/images/link_arrow.png");
       position:10px center;
       repeat: no-repeat;
     }
@@ -245,13 +245,15 @@ fieldset{
 .linkButton{
   @extend .buttonCore;
   color:$middleFontColor;
-  // padding:2px 5px 1px $space/2;
-  // @include icons-sprite(nav_arrow);
+  padding:0 0 0 $space;
+  @include icons-sprite(link_arrow);
   @include text-shadow(#fff 1px 1px 0px);
+  @include transition(color 0.3s ease-in-out);
+
 
   &:hover, &.activeLink, &:active{                
     color:$darkFontColor;
-    // @include icons-sprite(nav_arrow_active);
+    @include icons-sprite(link_arrow_active);
  };
 }
 /* CHECKBOX AND RADIO */
@@ -400,7 +402,7 @@ fieldset{
 }
 /* POPUP */
 .overlay{
-  background:url($firstPatternUrl);
+  background:url("../../images/overlay.png");
   @include transition(opacity 0.4s ease-in-out);
   @include stretch();
   @include noUserSelect();
@@ -412,7 +414,7 @@ fieldset{
   margin:-1000px auto 0 auto;
   background-color:#f4f4f4;
   padding:$space 0 $space $space;
-  background-image:url($secondPatternUrl);
+  background-image:url($contentPatternUrl);
   @include transition(margin 0.4s ease-in-out);
   @include border-radius($radius);
   @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.9),
@@ -445,7 +447,7 @@ fieldset{
   }
 
   &.modal{
-    .popup{width:450px;}
+    .popup{width:$popupModalWidth;}
     .buttonCancel, .buttonYes{float:right;margin-left:3px;}
   }
 

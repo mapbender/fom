@@ -3,8 +3,7 @@
 //
 
 //--------------------------------------------------------------patterns
-$firstPatternUrl:  "../../images/pattern1.png";
-$secondPatternUrl: "../../images/pattern3.png";
+$contentPatternUrl: "../../images/content.png";
 
 //------------------------------------------------------------------font
 $fontFamily:"Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
@@ -14,6 +13,7 @@ $fontSize:14px;
 $lineHeight:21px;
 $space: 20px;
 $radius: 3px;
+$popupModalWidth:450px;
 
 //----------------------------------------------------------------colors
 $firstColor:#404040; // dark gray
@@ -28,5 +28,5 @@ $ciColor:#74B63D; // green
 $ciColor2:#4899ba; // blue
 
 $darkFontColor:#3f3f3f; // darker gray
-$middleFontColor:#878787; // lighter gray
+$middleFontColor:#707070; // lighter gray
 $lightFontColor:#fff; // white

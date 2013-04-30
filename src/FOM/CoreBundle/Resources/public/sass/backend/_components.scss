@@ -70,7 +70,11 @@
 }
 
 .closedIcon{@include icons-sprite(closed);}
-.openedIcon{@include icons-sprite(opened);}
+.openedIcon{
+  height: icons-sprite-height(opened);
+  width: icons-sprite-width(opened);
+  @include icons-sprite(opened);
+}
 .deleteIcon{
   height: icons-sprite-height(delete);
   width: icons-sprite-width(delete);
