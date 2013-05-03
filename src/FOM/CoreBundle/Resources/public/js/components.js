@@ -114,12 +114,54 @@ $(function() {
 
 
 
-
+    //filter popupresult
     $("#addPermission").bind("click", function(){
         if(!$('body').data('mbPopup')) {
-            $("body").mbPopup();
-            $("body").mbPopup('showModal', {content:"add some content!"});
+            var url = $(this).attr("href");
+
+            if(url.length > 0){
+                $("body").mbPopup();
+                $("body").mbPopup('showAjaxModal', {title:"Add users and groups", btnOkLabel: "Add"}, url,
+                    function(){
+                        var proto = $("#permissionsHead").attr("data-prototype");
+
+                        if(proto.length > 0){
+                            var body  = $("#permissionsBody");
+                            var count = body.find("tr").length;
+                            var text, val, parent, newEl;
+
+                            $("#listFilterGroupsAndUsers").find(".checked").each(function(i, e){
+                                parent = $(e).parent();
+                                text   = parent.find(".labelInput").text().trim();
+                                val    = parent.find(".hide").text().trim();
+
+                                newEl = body.prepend(proto.replace(/__name__/g, count))
+                                            .find("tr:first");
+
+                                newEl.addClass("new").find(".labelInput").text(text);
+                                newEl.find(".input").attr("value", val);
+                                ++count;
+                            });
+
+                            $("body").mbPopup('close');
+                        }
+                    }, null, function(){
+                        var item, text;
+                        $("#listFilterGroupsAndUsers").find(".filterItem").each(function(i, e){
+                            item = $(e);
+
+                            $("#permissionsBody").find(".labelInput").each(function(i, e){
+                                text = $(e).text().trim();
+                                if(item.text().trim().toUpperCase().indexOf(text.toUpperCase()) >= 0){
+                                    item.remove();
+                                }
+                            });
+                        });
+                    });
+            }
         }
+
+        return false;
     });
 
 
@@ -162,7 +204,7 @@ $(function() {
         var dropDownLabel = me.find(".dropdownValue");
 
         me.find(".dropdownList").hide();
-        dropDownLabel.text(selected.text()).attr("data-value", selected.attr("data-value"));
+        dropDownLabel.val(selected.text()).attr("data-value", selected.attr("data-value"));
     }
     var switchValue = function(){
         var me        = $(this);

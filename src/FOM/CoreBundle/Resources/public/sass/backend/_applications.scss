@@ -62,6 +62,8 @@
   }
 }
 
+$elementPopupWidth: $popupModalWidth - ($space * 3);
+
 /* ELEMENT FORMS */
 .elementForm{
   .labelInput{margin-bottom:$space/2;}
@@ -72,8 +74,9 @@
   .input{width:200px;}
 }
 .elementFormActivity{
-  .labelInput{width:40px;}
-  .input{width:350px;}
+  $label:40px;
+  .labelInput{width:$label;}
+  .input{width:$elementPopupWidth - $label ;}
 }
 .elementFormButton{
   .labelInput{width:50px;}
@@ -86,13 +89,16 @@
   .dropdown, .input{width:210px;}
 }
 .elementFormCopyright{
-  .labelInput{width:80px;}
-  .dropdown, .input{width:210px;}
+  $label:80px;
+  .labelInput{width:$label;}
+  .dropdown, .input{width:$elementPopupWidth - $label ;}
 }
 .elementFormFeatureInfo{
-  .labelInput{width:40px;}
+  $label:40px;
+  .labelInput{width:$label;}
+  .dropdown, .input{width:$elementPopupWidth - $label ;}
   .checkWrapper{margin-bottom:$space/2;}
-  .dropdown, .input{width:210px;}
+  .labelCheck{margin-right:$space;}
 }
 .elementFormMap{ // XXXTODO
   .labelInput{width:90px;}
@@ -109,7 +115,12 @@
   textarea{width:200px;}
 }
 
-/* LAYER FORMS */
+
+
+
+
+
+/* ------------------------------------------------------------- LAYERS */
 .layersetForm{
   .labelInput{width:40px;float:left;}
   .input{
@@ -118,10 +129,14 @@
     left:40px + $space/2;
   }
 }
-.iconColumn{
-  width:30px;
+.layerset{
+  .publishIconSmall{
+    // shitty shitty bang bang
+    height:13px;
+    margin-right: $space/2;
+  }
+  tbody tr{cursor:move;}
 }
-
 
 
 

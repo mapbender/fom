@@ -5,8 +5,8 @@
 /* --------------------------------------------------------------- ACLS */
 .userControlTable{
   .iconColumn{
-    width:40px;
-    padding-left:0px;
+    padding-top:$space/2;
+    vertical-align: top;
   }
 }
 .tableUserGroups{
@@ -21,7 +21,6 @@
     padding-right:0px;
     @include transition(all 0.2s ease-in-out);
     &:hover{
-      background-color:darken($contentColor, 3%);
       .checkWrapper{@include opacity(0.4);}
       .checkWrapper.checked{@include opacity(1);}
     }
@@ -31,7 +30,8 @@
     $height:icons-sprite-height(check);
 
     .checkbox{
-      width:100%;      height:$height;
+      width:100%;
+      height:$height;
     }
 
     height:$height;

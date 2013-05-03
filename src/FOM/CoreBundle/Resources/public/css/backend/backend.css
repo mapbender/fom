@@ -427,7 +427,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-.icons-sprite, .linkButton, .linkButton:hover, .linkButton.activeLink, .linkButton:active, .checkWrapper, .checkWrapper.checked, .checkRadio, .checkRadio.checked, .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon, .deleteIconSmall, .addIcon, .viewIcon, .editIcon, .publishIcon, .publishIcon.disabled, .publishIconSmall, .publishIconSmall.disabled, .checkedIcon, .cancelIcon, .tableUserGroups .checkWrapper {
+.icons-sprite, .linkButton, .linkButton:hover, .linkButton.activeLink, .linkButton:active, .checkWrapper, .checkWrapper.checked, .checkRadio, .checkRadio.checked, .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon, .deleteIconSmall, .addIcon, .addIconSmall, .viewIcon, .editIcon, .editIconSmall, .publishIcon, .publishIcon.disabled, .publishIconSmall, .publishIconSmall.disabled, .checkedIcon, .cancelIcon, .tableUserGroups .checkWrapper {
   background: url('../../images/icons-s7074e4f143.png') no-repeat; }
 
 /*
@@ -522,7 +522,7 @@ html, body {
 
 .subTitle, fieldset legend {
   font-size: 14px;
-  color: #74b63d;
+  color: #5b932a;
   text-shadow: white 1px 1px 0px; }
 
 fieldset {
@@ -550,7 +550,7 @@ fieldset {
   line-height: 20px; }
 
 .labelText {
-  color: #74b63d; }
+  color: #5b932a; }
 
 .description {
   color: #707070;
@@ -562,17 +562,29 @@ fieldset {
   width: 100%;
   background-color: #f9f9f9; }
   .tableCore td, .table td {
-    padding: 0 10px;
-    background-color: #f9f9f9; }
+    padding: 5px;
+    padding-left: 10px; }
   .tableCore th, .table th {
-    padding: 0 10px;
+    padding: 5px;
+    padding-left: 10px;
     font-weight: normal;
     border-bottom: solid 5px lightgrey;
     text-align: left; }
   .tableCore tr, .table tr {
-    height: 46px; }
+    height: 30px; }
   .tableCore tbody tr, .table tbody tr {
-    border-top: solid 1px #e0e0e0; }
+    border-top: solid 1px #e0e0e0;
+    vertical-align: top;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out; }
+    .tableCore tbody tr:hover, .table tbody tr:hover {
+      background-color: #f1f1f1; }
+  .tableCore .iconColumn, .table .iconColumn {
+    width: 20px; }
+    .tableCore .iconColumn:last-child, .table .iconColumn:last-child {
+      padding-right: 10px; }
 
 .table {
   border-top: solid 3px #404040;
@@ -602,7 +614,7 @@ fieldset {
   border-radius: 3px; }
   .input:focus {
     outline: none;
-    border: 1px solid #a9d683; }
+    border: 1px solid #8dce55; }
 
 /* BUTTON */
 .buttonCore, .button, .button.critical, .linkButton {
@@ -712,7 +724,7 @@ fieldset {
   cursor: pointer;
   display: inline-block;
   position: relative;
-  color: #74b63d;
+  color: #5b932a;
   border: solid 1px #c8c8c8;
   line-height: 29px;
   height: 28px;
@@ -728,7 +740,11 @@ fieldset {
   -ms-user-select: none;
   user-select: none; }
   .dropdown .dropdownValue {
-    padding-left: 5px; }
+    padding-left: 5px;
+    color: #858585;
+    border: none;
+    width: 100%;
+    cursor: pointer; }
   .dropdown .dropdownList {
     background-color: #FFF;
     color: #858585;
@@ -741,7 +757,7 @@ fieldset {
     .dropdown .dropdownList li {
       padding-left: 5px; }
       .dropdown .dropdownList li:hover {
-        color: #74b63d;
+        color: #5b932a;
         background-color: #f9f9f9; }
   .dropdown .openedIcon, .dropdown .serviceLayersContainer .openCloseTitle, .serviceLayersContainer .dropdown .openCloseTitle {
     position: absolute;
@@ -1016,7 +1032,8 @@ fieldset {
 .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon,
 .addIcon, .viewIcon, .editIcon,
 .publishIcon, .checkedIcon, .cancelIcon,
-.publishIconSmall, .deleteIconSmall {
+.publishIconSmall, .deleteIconSmall,
+.addIconSmall, .editIconSmall {
   cursor: pointer;
   display: inline-block;
   position: relative;
@@ -1030,7 +1047,8 @@ fieldset {
   .closedIcon:hover, .serviceLayersContainer .closed .openCloseTitle:hover, .openedIcon:hover, .serviceLayersContainer .openCloseTitle:hover, .deleteIcon:hover,
   .addIcon:hover, .viewIcon:hover, .editIcon:hover,
   .publishIcon:hover, .checkedIcon:hover, .cancelIcon:hover,
-  .publishIconSmall:hover, .deleteIconSmall:hover {
+  .publishIconSmall:hover, .deleteIconSmall:hover,
+  .addIconSmall:hover, .editIconSmall:hover {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
     opacity: 1; }
 
@@ -1057,6 +1075,11 @@ fieldset {
   width: 26px;
   background-position: 0 -422px; }
 
+.addIconSmall {
+  height: 16px;
+  width: 16px;
+  background-position: 0 -358px; }
+
 .viewIcon {
   height: 26px;
   width: 26px;
@@ -1066,6 +1089,11 @@ fieldset {
   height: 26px;
   width: 26px;
   background-position: 0 -130px; }
+
+.editIconSmall {
+  height: 16px;
+  width: 16px;
+  background-position: 0 -290px; }
 
 .publishIcon {
   height: 26px;
@@ -1094,6 +1122,8 @@ fieldset {
 /* ----------------------------------------------------------- TABLES */
 .permissionsTable tr {
   border-bottom: solid 1px #e0e0e0; }
+  .permissionsTable tr.new {
+    background-color: #e5f9e5 !important; }
 .permissionsTable th {
   cursor: pointer; }
 .permissionsTable td .labelInput, .permissionsTable td .popup .popupSubTitle, .popup .permissionsTable td .popupSubTitle {
@@ -1116,6 +1146,8 @@ fieldset {
   height: 26px;
   line-height: 26px;
   text-align: center;
+  padding-left: 4px;
+  padding-right: 4px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -1155,6 +1187,11 @@ fieldset {
   .permissionsTable .tagWrapper.owner.checked {
     color: white;
     background-color: #FF702A; }
+
+.tableGroupsAndUsers {
+  width: 100% !important; }
+  .tableGroupsAndUsers .hide {
+    display: none; }
 
 /*
  * This css contains backend styles only
@@ -1271,7 +1308,7 @@ body {
   .navItem.activeItem {
     display: block; }
     .navItem.activeItem > a {
-      color: #74b63d !important;
+      color: #5b932a !important;
       background: url("../../fomcore/images/nav_arrow_active.png") left center no-repeat; }
 
 /*--------------------------------------------------------- PAGE RIGHT */
@@ -1444,14 +1481,16 @@ body {
 .elementFormCopyright .labelInput, .elementFormCopyright .popup .popupSubTitle, .popup .elementFormCopyright .popupSubTitle {
   width: 80px; }
 .elementFormCopyright .dropdown, .elementFormCopyright .input {
-  width: 210px; }
+  width: 310px; }
 
 .elementFormFeatureInfo .labelInput, .elementFormFeatureInfo .popup .popupSubTitle, .popup .elementFormFeatureInfo .popupSubTitle {
   width: 40px; }
+.elementFormFeatureInfo .dropdown, .elementFormFeatureInfo .input {
+  width: 350px; }
 .elementFormFeatureInfo .checkWrapper {
   margin-bottom: 10px; }
-.elementFormFeatureInfo .dropdown, .elementFormFeatureInfo .input {
-  width: 210px; }
+.elementFormFeatureInfo .labelCheck {
+  margin-right: 20px; }
 
 .elementFormMap .labelInput, .elementFormMap .popup .popupSubTitle, .popup .elementFormMap .popupSubTitle {
   width: 90px; }
@@ -1472,7 +1511,7 @@ body {
 .elementFormPrintClient textarea {
   width: 200px; }
 
-/* LAYER FORMS */
+/* ------------------------------------------------------------- LAYERS */
 .layersetForm .labelInput, .layersetForm .popup .popupSubTitle, .popup .layersetForm .popupSubTitle {
   width: 40px;
   float: left; }
@@ -1481,8 +1520,11 @@ body {
   right: 0px;
   left: 50px; }
 
-.iconColumn {
-  width: 30px; }
+.layerset .publishIconSmall {
+  height: 13px;
+  margin-right: 10px; }
+.layerset tbody tr {
+  cursor: move; }
 
 /* ------------------------------------------------------------- LAYOUT */
 .checkContainer {
@@ -1602,8 +1644,8 @@ body {
 /* ------------------------------------------------------- USER CONTROL */
 /* --------------------------------------------------------------- ACLS */
 .userControlTable .iconColumn {
-  width: 40px;
-  padding-left: 0px; }
+  padding-top: 10px;
+  vertical-align: top; }
 
 .tableUserGroups {
   width: 300px; }
@@ -1618,14 +1660,12 @@ body {
     -moz-transition: all 0.2s ease-in-out;
     -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out; }
-    .tableUserGroups td:hover {
-      background-color: #f1f1f1; }
-      .tableUserGroups td:hover .checkWrapper {
-        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
-        opacity: 0.4; }
-      .tableUserGroups td:hover .checkWrapper.checked {
-        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-        opacity: 1; }
+    .tableUserGroups td:hover .checkWrapper {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+      opacity: 0.4; }
+    .tableUserGroups td:hover .checkWrapper.checked {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+      opacity: 1; }
   .tableUserGroups .tdContentWrapper {
     position: relative; }
   .tableUserGroups .checkWrapper {

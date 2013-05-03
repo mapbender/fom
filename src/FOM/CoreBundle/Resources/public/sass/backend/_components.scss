@@ -59,7 +59,8 @@
 .closedIcon, .openedIcon, .deleteIcon, 
 .addIcon, .viewIcon, .editIcon, 
 .publishIcon, .checkedIcon, .cancelIcon,
-.publishIconSmall, .deleteIconSmall{
+.publishIconSmall, .deleteIconSmall, 
+.addIconSmall, .editIconSmall{
   cursor:pointer;
   display: inline-block;
   position: relative;
@@ -90,6 +91,11 @@
   width: icons-sprite-width(add);
   @include icons-sprite(add);
 }
+.addIconSmall{
+  height: icons-sprite-height(add_small);
+  width: icons-sprite-width(add_small);
+  @include icons-sprite(add_small);
+}
 .viewIcon{
   height: icons-sprite-height(view);
   width: icons-sprite-width(view);
@@ -99,6 +105,11 @@
   height: icons-sprite-height(edit);
   width: icons-sprite-width(edit);
   @include icons-sprite(edit);
+}
+.editIconSmall{
+  height: icons-sprite-height(edit_small);
+  width: icons-sprite-width(edit_small);
+  @include icons-sprite(edit_small);
 }
 .publishIcon{
   height: icons-sprite-height(visible);
@@ -131,9 +142,12 @@
 /* ----------------------------------------------------------- TABLES */
 .permissionsTable{
   $height:26px;
-  
 
-  tr{border-bottom: solid 1px darken($contentColor, 10%);}
+
+  tr{
+    border-bottom: solid 1px darken($contentColor, 10%);
+    &.new{background-color: #e5f9e5 !important;}
+  }
   th{cursor: pointer;}
   td{
     .labelInput{width:200px;}
@@ -155,6 +169,8 @@
     height:$height;
     line-height:$height;
     text-align:center;
+    padding-left:4px;
+    padding-right:4px;
     @include noUserSelect;
     @include border-radius($radius);
 
@@ -180,4 +196,8 @@
       }
     }
   }
+}
+.tableGroupsAndUsers{
+  width:100% !important;
+  .hide{display:none;}
 }

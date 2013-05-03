@@ -1,0 +1,35 @@
+<label for="inputFilterGroupsAndUsers" class="labelInput left">{{"Filter"|trans}}</label>
+<input id="inputFilterGroupsAndUsers" type="text" class="input left listFilterInput"/>
+<div class="clearContainer"></div>
+
+<table id="listFilterGroupsAndUsers" class="listFilterContainer tableCore tableUserGroups tableGroupsAndUsers" cellspacing="0" cellpadding="0">
+  <thead>
+    <tr class="doNotFilter">
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+      <tr class="filterItem">
+        <td>
+          <div class="tdContentWrapper">
+            <label class="labelInput">{{user.getUsername}}</label>
+            <span class="hide">u:{{user.getUsername}}</span>
+            <div class="checkWrapper"><input class="checkbox" type="checkbox"/></div>
+          </div>
+        </td>
+      </tr> 
+    {% endfor %}
+    {% for group in groups %}
+      <tr class="filterItem">
+        <td>
+          <div class="tdContentWrapper">
+            <label class="labelInput">{{ group.getTitle }}</label>
+            <span class="hide">r:{{ group.getAsRole }}</span>
+            <div class="checkWrapper"><input class="checkbox" type="checkbox"/></div>
+          </div>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
