@@ -75,6 +75,17 @@ class ACLController extends Controller
             'form_name' => $form->getName());
     }
 
+    /**
+     * @Route("/acl/overview")
+     * @Method({ "POST" })
+     * @Template("FOMUserBundle:ACL:groups-and-users.html.twig")
+     */
+    public function overviewAction(){
+        $groups = $this->getAllGroups();
+        $users  = $this->getAllUsers();
+        return array('groups' => $groups, 'users' => $users);
+    }
+
     public function getClassACLForm($class)
     {
         return $this->createForm(new ACLType(
@@ -144,12 +155,9 @@ class ACLController extends Controller
     }
 
     /**
-     * Get role security identifiers for given query.
-     *
-     * @param  string $query Query string
-     * @return array         Array of role security identifiers
+     * @return array Array of role security identifiers
      */
-    protected function getRoles($query) {
+    protected function getRoles() {
         $repo = $this->getDoctrine()->getRepository('FOMUserBundle:Group');
         $groups = $repo->findAll();
 
@@ -160,6 +168,31 @@ class ACLController extends Controller
 
         return $roles;
     }
+
+    protected function getAllGroups(){
+        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:Group');
+        $groups = $repo->findAll();
+
+        $all = array();
+        foreach($groups as $group) {
+            $all[] = $group;
+        }
+
+        return $all;
+    }
+
+    protected function getAllUsers(){
+        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:User');
+        $users = $repo->findAll();
+
+        $all = array();
+        foreach($users as $user) {
+            $all[] = $user;
+        }
+
+        return $all;
+    }
+
 
     protected function getACLClasses()
     {

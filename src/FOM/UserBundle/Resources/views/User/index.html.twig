@@ -46,12 +46,12 @@
           </td>
           <td class="iconColumn">
             {% if is_granted('EDIT', user) %}
-              <a class="editIcon" href="{{ path('fom_user_user_edit',  {'id': user.id }) }}" title="{{ 'Edit' | trans }}"></a>
+              <a class="editIconSmall" href="{{ path('fom_user_user_edit',  {'id': user.id }) }}" title="{{ 'Edit' | trans }}"></a>
             {% endif %}
           </td>
           <td class="iconColumn">
             {% if user.id != 1 and is_granted('DELETE', user) %}
-              <a class="deleteIcon" data-name="{{ user.username }}" href="{{ path('fom_user_user_delete', { 'id': user.id }) }}"></a>
+              <a class="deleteIconSmall" data-name="{{ user.username }}" href="{{ path('fom_user_user_delete', { 'id': user.id }) }}"></a>
             {% endif %}
           </td>
         </tr>

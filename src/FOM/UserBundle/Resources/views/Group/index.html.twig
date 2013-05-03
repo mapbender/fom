@@ -33,10 +33,10 @@
         </td>
         <td class="description">{{ group.description }}</td>
         <td class="iconColumn">
-          <a class="editIcon" href="{{ path('fom_user_group_edit',  {'id': group.id }) }}" title="{{ 'Edit' | trans }}"></a>
+          <a class="editIconSmall" href="{{ path('fom_user_group_edit',  {'id': group.id }) }}" title="{{ 'Edit' | trans }}"></a>
         </td>
         <td class="iconColumn">
-          <a class="deleteIcon" data-name="{{ group.title }}" href="{{ path('fom_user_group_delete', { 'id': group.id }) }}"></a>
+          <a class="deleteIconSmall" data-name="{{ group.title }}" href="{{ path('fom_user_group_delete', { 'id': group.id }) }}"></a>
         </td>
       </tr>
       {% endfor %}
