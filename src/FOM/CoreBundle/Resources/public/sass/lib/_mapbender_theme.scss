@@ -3,6 +3,7 @@
 @import "normalize";
 
 @import "icons/*.png";
+@import "icons";
 /*
  * This theme contains global styles for the backend and the frontend
  */
@@ -33,7 +34,6 @@ html, body{
   }
   line-height:$lineHeight;
   color:$darkFontColor;
-  background:url("../../images/body.png");
 }
 .clear{
   clear:both;

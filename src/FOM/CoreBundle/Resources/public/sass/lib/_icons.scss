@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('../../images/icons/fontawesome-webfont.eot?v=3.0.1');
+  src: url('../../images/icons/fontawesome-webfont.eot?#iefix&v=3.0.1') format("embedded-opentype"),
+    url('../../images/icons/fontawesome-webfont.woff?v=3.0.1') format("woff"),
+    url('../../images/icons/fontawesome-webfont.ttf?v=3.0.1') format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"],
+[class*=" icon-"]{
+  font-family: FontAwesome;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+
+  // some resets
+  display: inline;
+  width: auto;
+  height: auto;
+  vertical-align: top;
+  @include opacity(0.9);
+  @include transition(opacity .1s ease-in-out);
+
+  &:hover{@include opacity(1);}
+}
+
+.icon-middle{
+  line-height: 20px;
+  &:before{
+    font-size: 20px;
+    padding-right:5px;
+  }
+}
+
+.icon-about:before{content: "\f0c0";}
+.icon-print:before{content: "\f02f";}
+.icon-gps:before{content: "\f041";}
+.icon-toc:before{content: "\f0e8";}

@@ -1,0 +1,17 @@
+@import "../lib/mapbender_theme";
+
+// contains frontend only components
+@import "components";
+
+.contentPane{
+  width:100%;
+  height:100%;
+  @include pos(0,0,0,0);
+}
+
+.mb-element-map{
+  width:100%;
+  height:100%;
+  z-index: 1;
+  @include pos(0,0,0,0);
+}
