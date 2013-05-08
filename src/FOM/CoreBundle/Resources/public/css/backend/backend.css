@@ -430,6 +430,51 @@ table {
 .icons-sprite, .linkButton, .linkButton:hover, .linkButton.activeLink, .linkButton:active, .checkWrapper, .checkWrapper.checked, .checkRadio, .checkRadio.checked, .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon, .deleteIconSmall, .addIcon, .addIconSmall, .viewIcon, .editIcon, .editIconSmall, .publishIcon, .publishIcon.disabled, .publishIconSmall, .publishIconSmall.disabled, .checkedIcon, .cancelIcon, .tableUserGroups .checkWrapper {
   background: url('../../images/icons-s7074e4f143.png') no-repeat; }
 
+@font-face {
+  font-family: 'FontAwesome';
+  src: url("../../images/icons/fontawesome-webfont.eot?v=3.0.1");
+  src: url("../../images/icons/fontawesome-webfont.eot?#iefix&v=3.0.1") format("embedded-opentype"), url("../../images/icons/fontawesome-webfont.woff?v=3.0.1") format("woff"), url("../../images/icons/fontawesome-webfont.ttf?v=3.0.1") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+[class^="icon-"],
+[class*=" icon-"] {
+  font-family: FontAwesome;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  display: inline;
+  width: auto;
+  height: auto;
+  vertical-align: top;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+  opacity: 0.9;
+  -webkit-transition: opacity 0.1s ease-in-out;
+  -moz-transition: opacity 0.1s ease-in-out;
+  -o-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out; }
+  [class^="icon-"]:hover,
+  [class*=" icon-"]:hover {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1; }
+
+.icon-middle {
+  line-height: 20px; }
+  .icon-middle:before {
+    font-size: 20px;
+    padding-right: 5px; }
+
+.icon-about:before {
+  content: "\f0c0"; }
+
+.icon-print:before {
+  content: "\f02f"; }
+
+.icon-gps:before {
+  content: "\f041"; }
+
+.icon-toc:before {
+  content: "\f0e8"; }
+
 /*
  * This theme contains global styles for the backend and the frontend
  */
@@ -463,8 +508,7 @@ html, body {
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
   font-size: 14px;
   line-height: 21px;
-  color: #3f3f3f;
-  background: url("../../images/body.png"); }
+  color: #3f3f3f; }
 
 .clear, .clearContainer {
   clear: both;
@@ -1200,7 +1244,8 @@ fieldset {
 body {
   z-index: -30;
   position: relative;
-  overflow-y: scroll; }
+  overflow-y: scroll;
+  background: url("../../images/body.png"); }
 
 .page {
   position: relative;
