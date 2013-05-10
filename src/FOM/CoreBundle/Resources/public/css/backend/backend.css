@@ -170,7 +170,7 @@ kbd,
 pre,
 samp {
   font-family: monospace, serif;
-  _font-family: 'courier new', monospace;
+  _font-family: "courier new", monospace;
   font-size: 1em; }
 
 /*
@@ -289,7 +289,7 @@ form {
  * Define consistent border, margin, and padding.
  */
 fieldset {
-  border: 1px solid #c0c0c0;
+  border: 1px solid silver;
   margin: 0 2px;
   padding: 0.35em 0.625em 0.75em; }
 
@@ -427,7 +427,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-.icons-sprite, .linkButton, .linkButton:hover, .linkButton.activeLink, .linkButton:active, .checkWrapper, .checkWrapper.checked, .checkRadio, .checkRadio.checked, .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon, .deleteIconSmall, .addIcon, .addIconSmall, .viewIcon, .editIcon, .editIconSmall, .publishIcon, .publishIcon.disabled, .publishIconSmall, .publishIconSmall.disabled, .checkedIcon, .cancelIcon, .tableUserGroups .checkWrapper {
+.icons-sprite, .linkButton, .linkButton:hover, .linkButton.activeLink, .linkButton:active, .checkRadio, .checkRadio.checked, .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon, .deleteIconSmall, .addIcon, .addIconSmall, .viewIcon, .editIcon, .editIconSmall, .publishIcon, .publishIcon.disabled, .publishIconSmall, .publishIconSmall.disabled, .checkedIcon, .cancelIcon {
   background: url('../../images/icons-s7074e4f143.png') no-repeat; }
 
 @font-face {
@@ -437,43 +437,92 @@ table {
   font-weight: normal;
   font-style: normal; }
 
-[class^="icon-"],
-[class*=" icon-"] {
+[class^="icon"],
+[class*=" icon"],
+.icon,
+.flashBox.success:before {
   font-family: FontAwesome;
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
+  cursor: pointer;
   display: inline;
   width: auto;
   height: auto;
-  vertical-align: top;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
-  opacity: 0.9;
-  -webkit-transition: opacity 0.1s ease-in-out;
-  -moz-transition: opacity 0.1s ease-in-out;
-  -o-transition: opacity 0.1s ease-in-out;
-  transition: opacity 0.1s ease-in-out; }
-  [class^="icon-"]:hover,
-  [class*=" icon-"]:hover {
+  vertical-align: top; }
+
+.iconBig, .tableUserGroups .iconCheckboxActive, .tableUserGroups .iconCheckbox {
+  line-height: 22px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -o-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out; }
+  .iconBig:hover, .tableUserGroups .iconCheckboxActive:hover, .tableUserGroups .iconCheckbox:hover {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
     opacity: 1; }
+  .iconBig:before, .tableUserGroups .iconCheckboxActive:before, .tableUserGroups .iconCheckbox:before {
+    font-size: 22px; }
 
-.icon-middle {
-  line-height: 20px; }
-  .icon-middle:before {
-    font-size: 20px;
-    padding-right: 5px; }
-
-.icon-about:before {
+.iconAbout:before {
   content: "\f0c0"; }
 
-.icon-print:before {
+.iconGroup:before {
+  content: "\f0c0"; }
+
+.iconPrint:before {
   content: "\f02f"; }
 
-.icon-gps:before {
+.iconGps:before {
   content: "\f041"; }
 
-.icon-toc:before {
+.iconToc:before {
   content: "\f0e8"; }
+
+.iconAdd:before {
+  content: "\f067"; }
+
+.iconRemove:before {
+  content: "\f00d"; }
+
+.iconOk:before, .tableUserGroups .iconCheckboxActive:before, .tableUserGroups .iconCheckbox:before {
+  content: "\f00c" !important; }
+
+.iconCheckboxActive:before {
+  content: "\f046" !important; }
+
+.iconCheckbox:before {
+  content: "\f096"; }
+
+.iconRadio:before {
+  content: "\f111"; }
+
+.iconRadioActive:before {
+  content: "\f10c"; }
+
+.iconEdit:before {
+  content: "\f044"; }
+
+.iconPublish:before {
+  content: "\f070"; }
+
+.iconPublishActive:before {
+  content: "\f06e"; }
+
+.iconView:before {
+  content: "\f108"; }
+
+.iconAppDefault:before {
+  content: "\f03e"; }
+
+.iconCancel:before {
+  content: "\f05c"; }
+
+.iconThumbsUp:before, .flashBox.success:before {
+  content: "\f087"; }
+
+.iconThumbsDown:before {
+  content: "\f088"; }
 
 /*
  * This theme contains global styles for the backend and the frontend
@@ -591,6 +640,7 @@ fieldset {
 
 .labelCheck {
   color: #858585;
+  margin-left: 5px;
   line-height: 20px; }
 
 .labelText {
@@ -614,8 +664,6 @@ fieldset {
     font-weight: normal;
     border-bottom: solid 5px lightgrey;
     text-align: left; }
-  .tableCore tr, .table tr {
-    height: 30px; }
   .tableCore tbody tr, .table tbody tr {
     border-top: solid 1px #e0e0e0;
     vertical-align: top;
@@ -625,9 +673,13 @@ fieldset {
     transition: all 0.2s ease-in-out; }
     .tableCore tbody tr:hover, .table tbody tr:hover {
       background-color: #f1f1f1; }
+  .tableCore tr, .table tr {
+    height: 30px; }
   .tableCore .iconColumn, .table .iconColumn {
-    width: 20px; }
+    padding: 0px;
+    line-height: 30px; }
     .tableCore .iconColumn:last-child, .table .iconColumn:last-child {
+      width: 10px;
       padding-right: 10px; }
 
 .table {
@@ -698,7 +750,7 @@ fieldset {
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225; }
-  .button.icon {
+  .button.icon, .button.flashBox.success:before {
     padding-left: 20px;
     background-image: url("../../fomcore/images/link_arrow.png");
     background-position: 10px center;
@@ -737,17 +789,6 @@ fieldset {
     background-position: 0 -374px; }
 
 /* CHECKBOX AND RADIO */
-.checkWrapper {
-  height: 20px;
-  width: 20px;
-  margin-right: 5px;
-  background-position: 0 -338px; }
-  .checkWrapper.checked {
-    background-position: 0 -202px; }
-  .checkWrapper .checkbox {
-    height: 20px;
-    width: 20px; }
-
 .checkRadio {
   height: 20px;
   width: 20px;
@@ -758,8 +799,15 @@ fieldset {
     height: 20px;
     width: 20px; }
 
+.checkWrapper {
+  position: relative; }
+
 .checkbox, .radio {
   cursor: pointer;
+  position: absolute;
+  left: 0px;
+  height: 100%;
+  width: 100%;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0; }
 
@@ -951,27 +999,6 @@ fieldset {
   .popupContainer.show .popup {
     margin: 100px auto 0 auto; }
 
-/* MESSAGES */
-.messageBox {
-  padding: 10px;
-  margin-bottom: 20px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
-  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white; }
-  .messageBox.error {
-    color: #aa2323;
-    background-color: #f6d6d6;
-    border: solid 1px #eeabab; }
-  .messageBox.hint {
-    color: #2375a8;
-    background-color: #d4e9f6;
-    border: solid 1px #aad3ed; }
-
 .inputWrapper {
   position: relative; }
   .inputWrapper .validationMsgBox {
@@ -1029,6 +1056,10 @@ fieldset {
   color: #707070;
   text-shadow: black 1px 1px 0px; }
 
+.iconBig, .tableUserGroups .iconCheckboxActive, .tableUserGroups .iconCheckbox, .iconSmall {
+  color: #3f3f3f;
+  margin-left: 5px; }
+
 /* -------------------------------------------------------- CONTAINER */
 .box {
   border: solid 1px #a2a2a2;
@@ -1071,6 +1102,51 @@ fieldset {
   margin-top: 10px;
   padding-top: 10px;
   border-top: dashed 1px #b3b3b3; }
+
+/* MESSAGES */
+.messageBox {
+  padding: 10px;
+  margin-bottom: 20px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white; }
+  .messageBox.error {
+    color: #aa2323;
+    background-color: #f6d6d6;
+    border: solid 1px #eeabab; }
+  .messageBox.hint {
+    color: #2375a8;
+    background-color: #d4e9f6;
+    border: solid 1px #aad3ed; }
+
+.flashBox {
+  padding: 5px 10px 5px 10px;
+  background-color: #f9f9f9;
+  text-align: center;
+  width: 250px;
+  margin: 0 auto;
+  position: relative;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+  -webkit-box-shadow: 0px 0px 3px black;
+  -moz-box-shadow: 0px 0px 3px black;
+  box-shadow: 0px 0px 3px black; }
+  .flashBox.success {
+    color: #197b19;
+    background-color: #d1f5d1; }
+  .flashBox.kill {
+    top: -100px;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0; }
 
 /* ------------------------------------------------------------ ICONS */
 .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon,
@@ -1306,7 +1382,7 @@ body {
   left: 0; }
   .leftPane .logo {
     width: 160px;
-    margin: 20px 0 0 20px; }
+    margin: 10px 0 0 20px; }
   .leftPane .navigation {
     background-color: #f9f9f9;
     -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6);
@@ -1418,16 +1494,18 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  top: 20%; }
+  top: 15%; }
   .authWrapper .logo {
     margin: 0 auto;
     position: relative;
-    top: -250px;
+    top: -280px;
     display: block;
     width: 200px; }
+  .authWrapper .head {
+    height: 300px; }
   .authWrapper .loginBox {
     position: relative;
-    top: -230px;
+    top: -270px;
     padding: 20px;
     margin: 0 auto;
     width: 340px;
@@ -1465,6 +1543,10 @@ body {
 .listFilterApplicationBoxes .col2 {
   height: 120px;
   margin-left: 120px; }
+.listFilterApplicationBoxes .iconAppDefault {
+  font-size: 70px;
+  line-height: 110px;
+  color: #595959; }
 
 /* ----------------------------------------------- NEW/EDIT APPLICATION */
 .applicationTabContainer {
@@ -1698,6 +1780,9 @@ body {
     width: 150px;
     text-align: right;
     padding: 0px; }
+  .tableUserGroups .iconCheckboxActive:before, .tableUserGroups .iconCheckbox:before {
+    float: right;
+    margin-right: 10px; }
   .tableUserGroups td {
     cursor: pointer;
     padding-right: 0px;
@@ -1708,13 +1793,12 @@ body {
     .tableUserGroups td:hover .checkWrapper {
       filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
       opacity: 0.4; }
-    .tableUserGroups td:hover .checkWrapper.checked {
+    .tableUserGroups td:hover .checkWrapper.iconCheckboxActive {
       filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
       opacity: 1; }
   .tableUserGroups .tdContentWrapper {
     position: relative; }
   .tableUserGroups .checkWrapper {
-    height: 26px;
     width: 100%;
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
     opacity: 0;
@@ -1724,13 +1808,12 @@ body {
     -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
     -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
-    background-position: 0 -156px;
-    background-position-x: right; }
+    transition: all 0.2s ease-in-out; }
     .tableUserGroups .checkWrapper .checkbox {
       width: 100%;
-      height: 26px; }
-    .tableUserGroups .checkWrapper.checked {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+      opacity: 0; }
+    .tableUserGroups .checkWrapper.iconCheckboxActive {
       filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
       opacity: 1; }
 
