@@ -126,7 +126,7 @@
                    '<div id="popupHead" class="popupHead">' +
                      '<span id="popupTitle" class="popupTitle"></span>' +
                      '<span id="popupSubTitle" class="popupSubTitle"></span>' +
-                     '<span class="popupClose right cancelIcon"></span>' +
+                     '<span class="popupClose right iconCancel iconBig"></span>' +
                    '</div>' +
                    '<div id="popupContent" class="clear popupContent"></div>' +
                    '<div class="popupButtons"></div>' +

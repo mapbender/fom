@@ -45,6 +45,13 @@ $(function() {
 
 
 
+    // kill some flashes ---------------------------------------------------------------------
+    setTimeout(function(){$(".flashBox").addClass("kill");}, 2000);
+
+
+
+
+
     // init user box -------------------------------------------------------------------------
     $("#accountOpen").bind("click", function(){
         var menu = $("#accountMenu");
@@ -189,8 +196,8 @@ $(function() {
         var me     = $(this);
         var parent = me.parent();
 
-        (me.is(":checked")) ? parent.addClass("checked") 
-                            : parent.removeClass("checked");
+        (me.is(":checked")) ? parent.addClass("iconCheckboxActive") 
+                            : parent.removeClass("iconCheckboxActive");
     }
     $(document).on("change", ".checkbox", toggleCheckBox);
 
