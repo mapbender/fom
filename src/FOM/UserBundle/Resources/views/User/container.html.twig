@@ -44,12 +44,13 @@
       </table>
 
     {% else %}
-      <p class="description left">{{"No groups exists."|trans}}</p>
+      <p class="description left">{{"No goups defined."|trans}}</p>
+      <div class="clearContainer"></div>
     {% endif %}
 
   </div>
   <div id="containerSecurity" class="container containerSecurity">
-    <a id="addPermission" href="#" class="addIcon right" title="{{'Add new user'|trans}}"></a>
+    <a id="addPermission" href="#" class="iconAdd iconBig right" title="{{'Add new user'|trans}}"></a>
     <div class="clearContainer"></div>
     {{ form_widget(form.acl) }}
   </div>

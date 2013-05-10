@@ -9,7 +9,7 @@
 
 {% block manager_content %}
 
-<a class="addIcon right" href="{{path('fom_user_group_new')}}" title="{{"Add new group"|trans}}"></a>
+<a class="iconAdd iconBig right" href="{{path('fom_user_group_new')}}" title="{{"Add new group"|trans}}"></a>
 
 {% if groups|length > 0 %}
   <label for="inputFilterGroups" class="labelInput left">{{"Filter"|trans}}</label>
@@ -33,17 +33,17 @@
         </td>
         <td class="description">{{ group.description }}</td>
         <td class="iconColumn">
-          <a class="editIconSmall" href="{{ path('fom_user_group_edit',  {'id': group.id }) }}" title="{{ 'Edit' | trans }}"></a>
+          <a class="iconEdit iconSmall" href="{{ path('fom_user_group_edit',  {'id': group.id }) }}" title="{{ 'Edit' | trans }}"></a>
         </td>
         <td class="iconColumn">
-          <a class="deleteIconSmall" data-name="{{ group.title }}" href="{{ path('fom_user_group_delete', { 'id': group.id }) }}"></a>
+          <a class="iconRemove iconSmall" data-name="{{ group.title }}" href="{{ path('fom_user_group_delete', { 'id': group.id }) }}"></a>
         </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 {% else %}
-  <p class="description left">{{"No goups exists."|trans}}</p>
+  <p class="description left">{{"No goups defined."|trans}}</p>
+  <div class="clearContainer"></div>
 {% endif %}
-
 {% endblock %}
