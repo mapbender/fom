@@ -3,18 +3,21 @@
   position: absolute;
   left:0;
   right: 0;
-  top:20%;
+  top:15%;
 
   .logo{
     margin:0 auto;
     position:relative;
-    top:-250px;
+    top:-280px;
     display:block;
     width:200px;
   }
+  .head{
+    height:300px;
+  }
   .loginBox{
     position: relative;
-    top: -230px;
+    top: -270px;
     padding:$space;
     margin: 0 auto;
     width:$boxWidth;

@@ -16,37 +16,44 @@
     text-align: right;
     padding:0px;
   }
+
+  
+  .iconCheckboxActive, .iconCheckbox{
+    @extend .iconOk;
+    @extend .iconBig;
+    &:before{
+      float:right;
+      margin-right:$space/2;
+    }
+  }
+
   td{
     cursor:pointer;
     padding-right:0px;
     @include transition(all 0.2s ease-in-out);
     &:hover{
       .checkWrapper{@include opacity(0.4);}
-      .checkWrapper.checked{@include opacity(1);}
+      .checkWrapper.iconCheckboxActive{@include opacity(1);}
     }
   }
   .tdContentWrapper{position:relative;}
   .checkWrapper{
-    $height:icons-sprite-height(check);
-
     .checkbox{
       width:100%;
-      height:$height;
+      @include opacity(0);
     }
 
-    height:$height;
     width: 100%;
     @include opacity(0);
     @include pos(0,0,'','');
     @include transition(all 0.2s ease-in-out);
-    @include icons-sprite(check);
-    background-position-x: right;
 
-    &.checked{@include opacity(1);}
+    &.iconCheckboxActive{@include opacity(1);}
   }
 }
 .userGroupTabContainer{
   margin-bottom: $space;
+
   .containerBaseData{
     .labelInput{
       width:80px;

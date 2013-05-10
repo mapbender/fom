@@ -62,9 +62,6 @@ body{
   overflow: hidden;
   position: relative;
   @include transition(all 0.2s ease-in-out);
-  &:hover{
-
-  }
   &.opened{height:65px;}
   .accountOpen{margin-right:$space;}
   .openedIcon{@include pos(4px,0,'','');}
@@ -82,7 +79,7 @@ body{
 
   .logo{
     width:$navWidth - $space*2;
-    margin:$space 0 0 $space;
+    margin:$space/2 0 0 $space;
   }
 
   .navigation{

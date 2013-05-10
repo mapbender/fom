@@ -114,6 +114,7 @@ fieldset{
 }
 .labelCheck{
   color:$secondColor;
+  margin-left:$space/4;
   line-height: icons-sprite-height(checkbox);
 }
 .labelText{color:$ciColor;}
@@ -144,19 +145,21 @@ fieldset{
     border-bottom: solid 5px darken($contentColor, 15%);
     text-align: left;
   }
-  tr{height:30px;}
   tbody{
     tr{
       border-top: solid 1px darken($contentColor, 10%);
       vertical-align: top;
       @include transition(all 0.2s ease-in-out);
-      
+
       &:hover{background-color:darken($contentColor, 3%);}
     }
   }
+  tr{height:30px;}
   .iconColumn{
-    width:20px;
+    padding:0px;
+    line-height: 30px;
     &:last-child{
+      width:10px;
       padding-right:$space/2;
     }
   }
@@ -263,28 +266,12 @@ fieldset{
   @include text-shadow(#fff 1px 1px 0px);
   @include transition(color 0.3s ease-in-out);
 
-
   &:hover, &.activeLink, &:active{                
     color:$darkFontColor;
     @include icons-sprite(link_arrow_active);
  };
 }
 /* CHECKBOX AND RADIO */
-.checkWrapper{
-  $height: icons-sprite-height(checkbox);
-  $width: icons-sprite-width(checkbox);
-
-  height:$height;
-  width:$width;
-  margin-right:5px;
-  @include icons-sprite(checkbox);
-
-  &.checked{@include icons-sprite(checkbox_checked);}
-  .checkbox{
-    height:$height;
-    width:$width;
-  }
-}
 .checkRadio{
   $height: icons-sprite-height(radio);
   $width: icons-sprite-width(radio);
@@ -299,8 +286,13 @@ fieldset{
     width:$width;
   }
 }
+.checkWrapper{position:relative;}
 .checkbox, .radio{
   cursor:pointer;
+  position: absolute;
+  left:0px;
+  height: 100%;
+  width: 100%;
   @include opacity(0);
 }
 /* DROPDOWN */
@@ -450,7 +442,7 @@ fieldset{
   .popupSubTitle{@extend .labelInput;}
   .popupContent, .popupSubContent{
     padding-right:$space;
-    margin-bottom: $space;
+    margin-bottom: $space;  
     max-height: 400px;
     overflow-y: auto;
   }
@@ -474,26 +466,6 @@ fieldset{
     .overlay{@include opacity(0.9);}
     .popup{margin:100px auto 0 auto;}
   }
-}
-/* MESSAGES */
-.messageBox{
-  padding:$space/2;
-  margin-bottom:$space;
-  @include border-radius($radius);
-
-  &.error{
-    color:$errorColor;
-    background-color: lighten($errorColor, 50%);
-    border:solid 1px lighten($errorColor, 40%);
-  }
-  &.hint{
-    color:$hintColor;
-    background-color: lighten($hintColor, 50%);
-    border:solid 1px lighten($hintColor, 40%);
-  }
-
-  @include box-shadow(0 0 3px rgba(0, 0, 0, 0.1),
-                      inset 0px 0px 3px #fff);
 }
 .inputWrapper{
   position: relative;

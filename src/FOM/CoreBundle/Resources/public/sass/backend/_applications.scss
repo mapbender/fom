@@ -14,11 +14,15 @@
   .filterItem{
     min-height:$height;
   }
-
   .col1{width:$col1Width;}
   .col2{
     height:$height;
     margin-left: $col1Width;
+  }
+  .iconAppDefault{
+    font-size: 70px;
+    line-height: 110px;
+    color:lighten($darkFontColor, 10%);
   }
 }
 

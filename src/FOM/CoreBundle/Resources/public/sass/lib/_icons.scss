@@ -8,32 +8,46 @@
   font-style: normal;
 }
 
-[class^="icon-"],
-[class*=" icon-"]{
+[class^="icon"],
+[class*=" icon"],
+.icon{
   font-family: FontAwesome;
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
 
   // some resets
+  cursor: pointer;
   display: inline;
   width: auto;
   height: auto;
   vertical-align: top;
-  @include opacity(0.9);
-  @include transition(opacity .1s ease-in-out);
+}
 
+.iconBig{
+  line-height: 22px;
+  @include opacity(0.5);
+  @include transition(opacity .2s ease-in-out);
   &:hover{@include opacity(1);}
+  &:before{font-size: 22px;}
 }
 
-.icon-middle{
-  line-height: 20px;
-  &:before{
-    font-size: 20px;
-    padding-right:5px;
-  }
-}
-
-.icon-about:before{content: "\f0c0";}
-.icon-print:before{content: "\f02f";}
-.icon-gps:before{content: "\f041";}
-.icon-toc:before{content: "\f0e8";}
+.iconAbout:before{content: "\f0c0";}
+.iconGroup:before{content: "\f0c0";}
+.iconPrint:before{content: "\f02f";}
+.iconGps:before{content: "\f041";}
+.iconToc:before{content: "\f0e8";}
+.iconAdd:before{content: "\f067";}
+.iconRemove:before{content:"\f00d";}
+.iconOk:before{content:"\f00c" !important;} // user/group selection need a ok icon but habe a checkbox icon... overwrite it plz :)
+.iconCheckboxActive:before{content:"\f046" !important;} // overwrite the default icon if checked
+.iconCheckbox:before{content:"\f096";}
+.iconRadio:before{content:"\f111";}
+.iconRadioActive:before{content:"\f10c";}
+.iconEdit:before{content:"\f044";}
+.iconPublish:before{content:"\f070";}
+.iconPublishActive:before{content:"\f06e";}
+.iconView:before{content:"\f108";}
+.iconAppDefault:before{content:"\f03e";}
+.iconCancel:before{ content: "\f05c"; }
+.iconThumbsUp:before            { content: "\f087"; }
+.iconThumbsDown:before          { content: "\f088"; }
