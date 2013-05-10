@@ -3,8 +3,11 @@
 {% set title %}{% block title %}{% endblock %}{% endset %}
 
 {% block backend_content %}
+
+
   <div class="head"><hr class="dekoSeperator"></div>
     <div id="wrapper" class="page">
+
 
       <div class="leftPane">
         <a href="{{ path('mapbender_core_welcome_list') }}"><img class="logo" alt="Mapbender 3 Manager" src="{{ asset(fom.server_logo)}}" /></a>
@@ -14,29 +17,32 @@
       </div>
 
       <div class="rightPane">
-            <div class="accountBar shadowBox">
-              {% if app.user != "" %}
-                <ul id="accountMenu" class="accountMenu">
-                    <li id="accountOpen" class="smallText accountOpen">{{ "Logged in as"|trans}}: {{ app.user.username }}<span class="openedIcon"></span></li>
-                    <li><a class="linkButton" href="{{ url('fom_user_user_edit', {'id': app.user.id}) }}">{{ "Your Account"|trans }}</a></li>
-                    <li><a class="linkButton" href="{{ url('fom_user_login_logout') }}">{{ "Logout"|trans }}</a></li>
-                </ul>
-              {% else %}
-                <a class="linkButton" href="{{ path('fom_user_login_login') }}">{{ "Login"|trans}}</a>
-              {% endif %}
-            </div>
+
+        {# flash me baby #}
+        {% for key, flash in app.session.flashes %}
+          <div class="flashBox {{ key }}">
+            {{ flash | trans }}
+          </div>
+        {% endfor %}
+
+        <div class="accountBar shadowBox">
+          {% if app.user != "" %}
+            <ul id="accountMenu" class="accountMenu">
+                <li id="accountOpen" class="smallText accountOpen">{{ "Logged in as"|trans}}: {{ app.user.username }}<span class="openedIcon"></span></li>
+                <li><a class="linkButton" href="{{ url('fom_user_user_edit', {'id': app.user.id}) }}">{{ "Your Account"|trans }}</a></li>
+                <li><a class="linkButton" href="{{ url('fom_user_login_logout') }}">{{ "Logout"|trans }}</a></li>
+            </ul>
+          {% else %}
+            <a class="linkButton" href="{{ path('fom_user_login_login') }}">{{ "Login"|trans}}</a>
+          {% endif %}
+        </div>
+
         <div class="contentPane">
           {% if app.user != "" %}
             {% render "FOMManagerBundle:Manager:bread" with { "request": app.request } %}
           {% endif %}
           <div class="content shadowBox">
             <h1 class="contentTitle">{{ title|trans }}</h1>
-{# XXXVH !! alert? #}
-            {% for key, flash in app.session.flashes %}
-              <div class="alert alert-{{ key }}">
-                {{ flash | trans }}
-              </div>
-            {% endfor %}
 
             {% block manager_content %}{% endblock %}
           </div>
