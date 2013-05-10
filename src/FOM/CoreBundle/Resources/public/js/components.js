@@ -72,12 +72,12 @@ $(function() {
         var root         = $("#" + className);
         var permBody     = $("#permissionsBody");
         var rowCount     = permBody.find("tr").length;
-        var checkedCount = permBody.find(".tagWrapper." + className + ".checked").length;
+        var checkedCount = permBody.find(".tagWrapper." + className + ".iconCheckboxActive").length;
 
-        root.removeClass("checked").removeClass("multi");
+        root.removeClass("iconCheckboxActive").removeClass("multi");
 
         if(rowCount == checkedCount){
-            root.addClass("checked");
+            root.addClass("iconCheckboxActive");
         }else if(checkedCount == 0){
             // do nothing!
         }else{
@@ -91,7 +91,7 @@ $(function() {
         var permElements = $(".checkbox[data-perm-type=" + className + "]:visible");
 
         // change all tagboxes with the same permission type
-        permElements.prop("checked", !me.hasClass("checked")).change();
+        permElements.prop("checked", !me.hasClass("iconCheckboxActive")).change();
         // change root permission state
         setPermissionsRootState(className);
     }
@@ -137,7 +137,7 @@ $(function() {
                             var count = body.find("tr").length;
                             var text, val, parent, newEl;
 
-                            $("#listFilterGroupsAndUsers").find(".checked").each(function(i, e){
+                            $("#listFilterGroupsAndUsers").find(".iconCheckboxActive").each(function(i, e){
                                 parent = $(e).parent();
                                 text   = parent.find(".labelInput").text().trim();
                                 val    = parent.find(".hide").text().trim();
