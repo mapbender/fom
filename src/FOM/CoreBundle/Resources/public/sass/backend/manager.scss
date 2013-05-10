@@ -1,9 +1,7 @@
 @import "../lib/base";
-@import "../lib/mixins";
-@import "../lib/mapbender_theme";
-
-// contains backend only components
-@import "components";
+@import "../lib/normalize";
+@import "../lib/components";
+@import "backend";
 
 $headPatternUrl: "../../images/head.png";
 $bannerHeight:170px;

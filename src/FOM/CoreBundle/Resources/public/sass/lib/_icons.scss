@@ -11,7 +11,7 @@
 [class^="icon"],
 [class*=" icon"],
 .icon{
-  font-family: FontAwesome;
+  font-family: FontAwesome !important;
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
 
@@ -24,30 +24,44 @@
 }
 
 .iconBig{
-  line-height: 22px;
-  @include opacity(0.5);
+  line-height: 20px;
+  @include opacity(0.6);
   @include transition(opacity .2s ease-in-out);
   &:hover{@include opacity(1);}
-  &:before{font-size: 22px;}
+  &:before{font-size: 20px;}
 }
 
-.iconAbout:before{content: "\f0c0";}
-.iconGroup:before{content: "\f0c0";}
-.iconPrint:before{content: "\f02f";}
-.iconGps:before{content: "\f041";}
-.iconToc:before{content: "\f0e8";}
-.iconAdd:before{content: "\f067";}
-.iconRemove:before{content:"\f00d";}
-.iconOk:before{content:"\f00c" !important;} // user/group selection need a ok icon but habe a checkbox icon... overwrite it plz :)
 .iconCheckboxActive:before{content:"\f046" !important;} // overwrite the default icon if checked
 .iconCheckbox:before{content:"\f096";}
 .iconRadio:before{content:"\f111";}
 .iconRadioActive:before{content:"\f10c";}
+.iconView:before{content:"\f108";}
+.iconHelp:before{content:"\f059";}
+.iconLeft:before{content:"\f053";}
+.iconRight:before{content:"\f054";}
+
+
+// only frontend
+.iconAbout:before{content:"\f0c0";}
+.iconPrint:before{content:"\f02f";}
+.iconGps:before{content:"\f041";}
+.iconToc:before{content:"\f0e8";}
+.iconLegend:before{content:"\f00b";}
+.iconFeatureInfo:before{content:"\f05a";}
+.iconSearch:before{content:"\f002";}
+.iconWms:before{content:"\f0ac";}
+.iconOpen:before{content:"\f067";}
+.iconClose:before{content:"\f068" !important;}
+
+// only backend
+.iconGroup:before{content: "\f0c0";}
+.iconAdd:before{content: "\f067";}
+.iconRemove:before{content:"\f00d";}
+.iconOk:before{content:"\f00c" !important;} // user/group selection need a ok icon but habe a checkbox icon... overwrite it plz :)
 .iconEdit:before{content:"\f044";}
 .iconPublish:before{content:"\f070";}
 .iconPublishActive:before{content:"\f06e";}
-.iconView:before{content:"\f108";}
 .iconAppDefault:before{content:"\f03e";}
 .iconCancel:before{ content: "\f05c"; }
-.iconThumbsUp:before            { content: "\f087"; }
-.iconThumbsDown:before          { content: "\f088"; }
+.iconThumbsUp:before{content:"\f087";}
+.iconThumbsDown:before{content:"\f088";}

@@ -427,9 +427,6 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-.icons-sprite, .linkButton, .linkButton:hover, .linkButton.activeLink, .linkButton:active, .checkRadio, .checkRadio.checked, .closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon, .deleteIconSmall, .addIcon, .addIconSmall, .viewIcon, .editIcon, .editIconSmall, .publishIcon, .publishIcon.disabled, .publishIconSmall, .publishIconSmall.disabled, .checkedIcon, .cancelIcon {
-  background: url('../../images/icons-s7074e4f143.png') no-repeat; }
-
 @font-face {
   font-family: 'FontAwesome';
   src: url("../../images/icons/fontawesome-webfont.eot?v=3.0.1");
@@ -441,7 +438,7 @@ table {
 [class*=" icon"],
 .icon,
 .flashBox.success:before {
-  font-family: FontAwesome;
+  font-family: FontAwesome !important;
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
   cursor: pointer;
@@ -451,9 +448,9 @@ table {
   vertical-align: top; }
 
 .iconBig, .tableUserGroups .iconCheckboxActive, .tableUserGroups .iconCheckbox {
-  line-height: 22px;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
-  opacity: 0.5;
+  line-height: 20px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  opacity: 0.6;
   -webkit-transition: opacity 0.2s ease-in-out;
   -moz-transition: opacity 0.2s ease-in-out;
   -o-transition: opacity 0.2s ease-in-out;
@@ -462,31 +459,7 @@ table {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
     opacity: 1; }
   .iconBig:before, .tableUserGroups .iconCheckboxActive:before, .tableUserGroups .iconCheckbox:before {
-    font-size: 22px; }
-
-.iconAbout:before {
-  content: "\f0c0"; }
-
-.iconGroup:before {
-  content: "\f0c0"; }
-
-.iconPrint:before {
-  content: "\f02f"; }
-
-.iconGps:before {
-  content: "\f041"; }
-
-.iconToc:before {
-  content: "\f0e8"; }
-
-.iconAdd:before {
-  content: "\f067"; }
-
-.iconRemove:before {
-  content: "\f00d"; }
-
-.iconOk:before, .tableUserGroups .iconCheckboxActive:before, .tableUserGroups .iconCheckbox:before {
-  content: "\f00c" !important; }
+    font-size: 20px; }
 
 .iconCheckboxActive:before {
   content: "\f046" !important; }
@@ -500,6 +473,60 @@ table {
 .iconRadioActive:before {
   content: "\f10c"; }
 
+.iconView:before {
+  content: "\f108"; }
+
+.iconHelp:before {
+  content: "\f059"; }
+
+.iconLeft:before {
+  content: "\f053"; }
+
+.iconRight:before {
+  content: "\f054"; }
+
+.iconAbout:before {
+  content: "\f0c0"; }
+
+.iconPrint:before {
+  content: "\f02f"; }
+
+.iconGps:before {
+  content: "\f041"; }
+
+.iconToc:before {
+  content: "\f0e8"; }
+
+.iconLegend:before {
+  content: "\f00b"; }
+
+.iconFeatureInfo:before {
+  content: "\f05a"; }
+
+.iconSearch:before {
+  content: "\f002"; }
+
+.iconWms:before {
+  content: "\f0ac"; }
+
+.iconOpen:before {
+  content: "\f067"; }
+
+.iconClose:before {
+  content: "\f068" !important; }
+
+.iconGroup:before {
+  content: "\f0c0"; }
+
+.iconAdd:before {
+  content: "\f067"; }
+
+.iconRemove:before {
+  content: "\f00d"; }
+
+.iconOk:before, .tableUserGroups .iconCheckboxActive:before, .tableUserGroups .iconCheckbox:before {
+  content: "\f00c" !important; }
+
 .iconEdit:before {
   content: "\f044"; }
 
@@ -508,9 +535,6 @@ table {
 
 .iconPublishActive:before {
   content: "\f06e"; }
-
-.iconView:before {
-  content: "\f108"; }
 
 .iconAppDefault:before {
   content: "\f03e"; }
@@ -524,10 +548,6 @@ table {
 .iconThumbsDown:before {
   content: "\f088"; }
 
-/*
- * This theme contains global styles for the backend and the frontend
- */
-/* ------------------------------------------------ MAPBENDER3 RESETS */
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -538,7 +558,7 @@ table {
 ul, ol {
   list-style: none; }
 
-hr, h1, h2, h3, ul, ol {
+hr, h1, h2, h3, ul, ol, li {
   margin: 0;
   padding: 0px; }
 
@@ -548,7 +568,6 @@ a {
 p {
   margin: 0px; }
 
-/* ------------------------------------------------------------- MISC */
 html, body {
   width: 100%;
   height: 100%;
@@ -640,8 +659,7 @@ fieldset {
 
 .labelCheck {
   color: #858585;
-  margin-left: 5px;
-  line-height: 20px; }
+  margin-left: 5px; }
 
 .labelText {
   color: #5b932a; }
@@ -776,29 +794,15 @@ fieldset {
 .linkButton {
   color: #707070;
   padding: 0 0 0 20px;
-  background-position: 0 -386px;
   text-shadow: white 1px 1px 0px;
   -webkit-transition: color 0.3s ease-in-out;
   -moz-transition: color 0.3s ease-in-out;
   -o-transition: color 0.3s ease-in-out;
   transition: color 0.3s ease-in-out; }
-  .linkButton:active, .linkButton.link_arrow_active, .linkButton.link_arrow-active {
-    background-position: 0 -374px; }
   .linkButton:hover, .linkButton.activeLink, .linkButton:active {
-    color: #3f3f3f;
-    background-position: 0 -374px; }
+    color: #3f3f3f; }
 
 /* CHECKBOX AND RADIO */
-.checkRadio {
-  height: 20px;
-  width: 20px;
-  background-position: 0 -254px; }
-  .checkRadio.checked {
-    background-position: 0 -182px; }
-  .checkRadio .radio {
-    height: 20px;
-    width: 20px; }
-
 .checkWrapper {
   position: relative; }
 
@@ -854,9 +858,7 @@ fieldset {
   .dropdown .openedIcon, .dropdown .serviceLayersContainer .openCloseTitle, .serviceLayersContainer .dropdown .openCloseTitle {
     position: absolute;
     top: 6px;
-    right: 5px;
-    height: 12px;
-    width: 12px; }
+    right: 5px; }
 
 /* -------------------------------------------------------- CONTAINER */
 /* TABS */
@@ -1148,114 +1150,27 @@ fieldset {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
     opacity: 0; }
 
-/* ------------------------------------------------------------ ICONS */
-.closedIcon, .serviceLayersContainer .closed .openCloseTitle, .openedIcon, .serviceLayersContainer .openCloseTitle, .deleteIcon,
-.addIcon, .viewIcon, .editIcon,
-.publishIcon, .checkedIcon, .cancelIcon,
-.publishIconSmall, .deleteIconSmall,
-.addIconSmall, .editIconSmall {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  z-index: 9999;
-  -webkit-transition: opacity 0.2s ease-in-out;
-  -moz-transition: opacity 0.2s ease-in-out;
-  -o-transition: opacity 0.2s ease-in-out;
-  transition: opacity 0.2s ease-in-out;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-  opacity: 0.8; }
-  .closedIcon:hover, .serviceLayersContainer .closed .openCloseTitle:hover, .openedIcon:hover, .serviceLayersContainer .openCloseTitle:hover, .deleteIcon:hover,
-  .addIcon:hover, .viewIcon:hover, .editIcon:hover,
-  .publishIcon:hover, .checkedIcon:hover, .cancelIcon:hover,
-  .publishIconSmall:hover, .deleteIconSmall:hover,
-  .addIconSmall:hover, .editIconSmall:hover {
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-    opacity: 1; }
-
-.closedIcon, .serviceLayersContainer .closed .openCloseTitle {
-  background-position: 0 -410px; }
-
-.openedIcon, .serviceLayersContainer .openCloseTitle {
-  height: 12px;
-  width: 12px;
-  background-position: 0 -398px; }
-
-.deleteIcon {
-  height: 26px;
-  width: 26px;
-  background-position: 0 -52px; }
-
-.deleteIconSmall {
-  height: 16px;
-  width: 16px;
-  background-position: 0 -222px; }
-
-.addIcon {
-  height: 26px;
-  width: 26px;
-  background-position: 0 -422px; }
-
-.addIconSmall {
-  height: 16px;
-  width: 16px;
-  background-position: 0 -358px; }
-
-.viewIcon {
-  height: 26px;
-  width: 26px;
-  background-position: 0 -78px; }
-
-.editIcon {
-  height: 26px;
-  width: 26px;
-  background-position: 0 -130px; }
-
-.editIconSmall {
-  height: 16px;
-  width: 16px;
-  background-position: 0 -290px; }
-
-.publishIcon {
-  height: 26px;
-  width: 26px;
-  background-position: 0 -104px; }
-  .publishIcon.disabled {
-    background-position: 0 -26px; }
-
-.publishIconSmall {
-  height: 16px;
-  width: 16px;
-  background-position: 0 -306px; }
-  .publishIconSmall.disabled {
-    background-position: 0 -238px; }
-
-.checkedIcon {
-  height: 26px;
-  width: 26px;
-  background-position: 0 -156px; }
-
-.cancelIcon {
-  height: 26px;
-  width: 26px;
-  background-position: 0 0; }
-
 /* ----------------------------------------------------------- TABLES */
 .permissionsTable tr {
   border-bottom: solid 1px #e0e0e0; }
   .permissionsTable tr.new {
     background-color: #e5f9e5 !important; }
+  .permissionsTable tr .input {
+    width: 210px; }
 .permissionsTable th {
-  cursor: pointer; }
-.permissionsTable td .labelInput, .permissionsTable td .popup .popupSubTitle, .popup .permissionsTable td .popupSubTitle {
-  width: 200px; }
-.permissionsTable td .input {
-  display: none; }
+  cursor: pointer;
+  padding-left: 5px; }
+.permissionsTable td {
+  padding: 5px; }
+  .permissionsTable td .labelInput, .permissionsTable td .popup .popupSubTitle, .popup .permissionsTable td .popupSubTitle {
+    width: 150px; }
+  .permissionsTable td .input {
+    display: none; }
 .permissionsTable .listFilterInput {
   margin-top: 0;
   margin-bottom: 0; }
 .permissionsTable .checkbox {
   height: 26px;
-  width: 100%;
   position: absolute;
   top: 0;
   right: 0;
@@ -1263,11 +1178,11 @@ fieldset {
   left: 0; }
 .permissionsTable .tagWrapper {
   position: relative;
+  width: 58px;
   height: 26px;
   line-height: 26px;
   text-align: center;
-  padding-left: 4px;
-  padding-right: 4px;
+  display: block;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -1277,34 +1192,36 @@ fieldset {
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
   border-radius: 3px; }
+  .permissionsTable .tagWrapper:before {
+    display: none; }
   .permissionsTable .tagWrapper.view.multi {
     background-color: #c1c1c1; }
-  .permissionsTable .tagWrapper.view.checked {
+  .permissionsTable .tagWrapper.view.iconCheckboxActive {
     color: white;
     background-color: #8DCA35; }
   .permissionsTable .tagWrapper.edit.multi {
     background-color: #c1c1c1; }
-  .permissionsTable .tagWrapper.edit.checked {
+  .permissionsTable .tagWrapper.edit.iconCheckboxActive {
     color: white;
     background-color: #FFAB00; }
   .permissionsTable .tagWrapper.delete.multi {
     background-color: #c1c1c1; }
-  .permissionsTable .tagWrapper.delete.checked {
+  .permissionsTable .tagWrapper.delete.iconCheckboxActive {
     color: white;
     background-color: #FFAB00; }
   .permissionsTable .tagWrapper.operator.multi {
     background-color: #c1c1c1; }
-  .permissionsTable .tagWrapper.operator.checked {
+  .permissionsTable .tagWrapper.operator.iconCheckboxActive {
     color: white;
     background-color: #FF702A; }
   .permissionsTable .tagWrapper.master.multi {
     background-color: #c1c1c1; }
-  .permissionsTable .tagWrapper.master.checked {
+  .permissionsTable .tagWrapper.master.iconCheckboxActive {
     color: white;
     background-color: #FF702A; }
   .permissionsTable .tagWrapper.owner.multi {
     background-color: #c1c1c1; }
-  .permissionsTable .tagWrapper.owner.checked {
+  .permissionsTable .tagWrapper.owner.iconCheckboxActive {
     color: white;
     background-color: #FF702A; }
 

@@ -1,5 +1,4 @@
 @import "../lib/base";
-@import "../lib/mixins";
 
 /* ------------------------------------------------------------- TEXT */
 .crumbTitle{
@@ -102,89 +101,6 @@
 
 
 
-/* ------------------------------------------------------------ ICONS */
-.closedIcon, .openedIcon, .deleteIcon, 
-.addIcon, .viewIcon, .editIcon, 
-.publishIcon, .checkedIcon, .cancelIcon,
-.publishIconSmall, .deleteIconSmall, 
-.addIconSmall, .editIconSmall{
-  cursor:pointer;
-  display: inline-block;
-  position: relative;
-  z-index: 9999;
-  @include transition(opacity 0.2s ease-in-out);
-  @include opacity(0.8);
-  &:hover{@include opacity(1);}
-}
-
-.closedIcon{@include icons-sprite(closed);}
-.openedIcon{
-  height: icons-sprite-height(opened);
-  width: icons-sprite-width(opened);
-  @include icons-sprite(opened);
-}
-.deleteIcon{
-  height: icons-sprite-height(delete);
-  width: icons-sprite-width(delete);
-  @include icons-sprite(delete);
-}
-.deleteIconSmall{
-  height: icons-sprite-height(delete_small);
-  width: icons-sprite-width(delete_small);
-  @include icons-sprite(delete_small);
-}
-.addIcon{
-  height: icons-sprite-height(add);
-  width: icons-sprite-width(add);
-  @include icons-sprite(add);
-}
-.addIconSmall{
-  height: icons-sprite-height(add_small);
-  width: icons-sprite-width(add_small);
-  @include icons-sprite(add_small);
-}
-.viewIcon{
-  height: icons-sprite-height(view);
-  width: icons-sprite-width(view);
-  @include icons-sprite(view);
-}
-.editIcon{
-  height: icons-sprite-height(edit);
-  width: icons-sprite-width(edit);
-  @include icons-sprite(edit);
-}
-.editIconSmall{
-  height: icons-sprite-height(edit_small);
-  width: icons-sprite-width(edit_small);
-  @include icons-sprite(edit_small);
-}
-.publishIcon{
-  height: icons-sprite-height(visible);
-  width: icons-sprite-width(visible);
-  @include icons-sprite(visible);
-  &.disabled{@include icons-sprite(hidden);}
-}
-.publishIconSmall{
-  height: icons-sprite-height(visible_small);
-  width: icons-sprite-width(visible_small);
-  @include icons-sprite(visible_small);
-  &.disabled{@include icons-sprite(hidden_small);}
-}
-.checkedIcon{
-  height: icons-sprite-height(check);
-  width: icons-sprite-width(check);
-  @include icons-sprite(check);
-}
-.cancelIcon{
-  height: icons-sprite-height(cancel);
-  width: icons-sprite-width(cancel);
-  @include icons-sprite(cancel);
-}
-
-
-
-
-
 
 /* ----------------------------------------------------------- TABLES */
 .permissionsTable{
@@ -193,10 +109,12 @@
   tr{
     border-bottom: solid 1px darken($contentColor, 10%);
     &.new{background-color: #e5f9e5 !important;}
+    .input{width:210px;}
   }
-  th{cursor: pointer;}
+  th{cursor: pointer;padding-left:5px;}
   td{
-    .labelInput{width:200px;}
+    padding:5px;
+    .labelInput{width:150px;}
     .input{display:none;}
   }
   .listFilterInput{
@@ -206,38 +124,32 @@
 
   .checkbox{
     height:$height;
-    width: 100%;
     @include pos(0,0,$space/2,0);
   }
 
   .tagWrapper{
     position: relative;
+    width:58px;
     height:$height;
     line-height:$height;
     text-align:center;
-    padding-left:4px;
-    padding-right:4px;
+    display: block;
     @include noUserSelect;
     @include border-radius($radius);
+
+    // kill the checkbox icon
+    &:before{display: none;}
 
     @each $perm in view, edit, delete, operator, master, owner{
       &.#{$perm}{
         &.multi{background-color:#c1c1c1;}
 
-        &.checked{
+        &.iconCheckboxActive{
           color:white;
 
-          @if($perm == "view"){
-            background-color: #8DCA35;
-          }
-
-          @if(($perm == "edit") or ($perm == "delete")){
-            background-color: #FFAB00;
-          }
-
-          @if(($perm == "operator") or ($perm == "master") or ($perm == "owner")){
-            background-color: #FF702A;
-          }
+          @if($perm == "view"){background-color: #8DCA35;}
+          @if(($perm == "edit") or ($perm == "delete")){background-color: #FFAB00;}
+          @if(($perm == "operator") or ($perm == "master") or ($perm == "owner")){background-color: #FF702A;}
         }
       }
     }

@@ -1,0 +1,506 @@
+@import "base";
+@import "icons";
+
+
+// --------------------------------------------------- MAPBENDER3 RESETS 
+*{
+  &:focus, &:hover, &:active{outline:none;}
+
+  @include box-sizing(border-box);
+}
+ul, ol{list-style:none;}
+hr, h1, h2, h3, ul, ol, li{margin:0;padding:0px;}
+a{text-decoration:none;}
+p{margin:0px;}
+
+
+
+
+// --------------------------------------------------------------- MISC 
+html, body{
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0;
+  font:{
+    family: $fontFamily;
+    size: $fontSize;
+  }
+  line-height:$lineHeight;
+  color:$darkFontColor;
+}
+.clear{
+  clear:both;
+  @include clearfix();
+}
+.clearContainer{
+  height:0px;
+  @extend .clear;
+}
+.right{float:right;}
+.left{float:left;}
+// dekoration seperator
+.dekoSeperator{
+  height:6px;
+  border:none;
+  outline:none;
+  border-bottom:solid 1px $firstColor;
+  background:url("../../images/line.png");
+  @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+}
+.seperator{
+  border:none;
+  border-bottom:dashed 1px darken(#fff, 30%);
+}
+
+
+
+/* ------------------------------------------------------------- TEXT */
+.smallerText{font-size:$fontSize - 4;}
+.smallText{font-size:$fontSize - 2;}
+.bigText{font-size: $fontSize + 2;}
+.biggerText{font-size: $fontSize + 8;}
+.contentTitle{
+  font-weight:normal;
+  font-style:italic;
+  margin-bottom:$space;
+  padding-bottom:$space/2;
+  border-bottom:dashed 1px darken(#fff, 30%);
+
+  @extend .biggerText;
+  @include text-shadow(#fff 1px 1px 0px);
+}
+.title{
+  font-weight:normal;
+  color:$darkFontColor;
+  @extend .bigText;
+  @include text-shadow(#fff 1px 1px 0px);
+}
+.subTitle{
+  font-size:$fontSize;
+  color:$ciColor;
+  @include text-shadow(#fff 1px 1px 0px);
+}
+fieldset{
+  padding:$space;
+
+  legend{
+    @extend .subTitle;
+    margin:0px !important;
+    padding:0 5px 0 5px;
+  }
+}
+.labelInput, .labelText, .labelCheck{
+  @extend .smallText;
+  @include noUserSelect;
+  @include text-shadow(#fff 1px 1px 0px); 
+}
+.labelInput{
+  color:$secondColor;
+  line-height:$lineHeight + 8;
+
+  .required{
+    color:$errorColor;
+    @include text-shadow(#fff 1px 1px 0px); 
+  }
+}
+.labelCheck{
+  color:$secondColor;
+  margin-left:$space/4;
+}
+.labelText{color:$ciColor;}
+.description{
+  color:$middleFontColor;
+  font-style:italic;
+  @extend .smallText;
+}
+
+
+
+
+
+/* ------------------------------------------------------- COMPONTENS */
+/* TABLE */
+.tableCore{
+  width: 100%;
+  background-color:$contentColor;
+
+  td{
+    padding:$space/4;
+    padding-left:$space/2;
+  }
+  th{
+    padding:$space/4;
+    padding-left:$space/2;
+    font-weight:normal;
+    border-bottom: solid 5px darken($contentColor, 15%);
+    text-align: left;
+  }
+  tbody{
+    tr{
+      border-top: solid 1px darken($contentColor, 10%);
+      vertical-align: top;
+      @include transition(all 0.2s ease-in-out);
+
+      &:hover{background-color:darken($contentColor, 3%);}
+    }
+  }
+  tr{height:30px;}
+  .iconColumn{
+    padding:0px;
+    line-height: 30px;
+    &:last-child{
+      width:10px;
+      padding-right:$space/2;
+    }
+  }
+}
+.table{
+  @extend .tableCore;
+
+  border:{
+    top:solid 3px $firstColor;
+    left:solid 1px $thirdColor;
+    right:solid 1px $thirdColor;
+    bottom:solid 1px $thirdColor;
+  }
+  @include box-shadow(0px 0px 8px rgba(0, 0, 0, 0.1));
+}
+/* INPUT */
+.input{
+  color:$secondColor;
+  border:solid 1px lighten($thirdColor, 15%);
+  line-height:$lineHeight;
+  height:28px;
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: $contentColor;
+
+  &:focus{
+    outline:none;
+    border:1px solid lighten($ciColor, 20%);
+  }
+
+  @extend .smallText;
+  @include box-shadow(inset 0 1px 2px lighten($thirdColor, 25%));
+  @include border-radius($radius);
+}
+/* BUTTON */
+.buttonCore{
+  font-family: $fontFamily;
+  @extend .smallText;
+  @include noUserSelect();
+
+  // this sucks -.- thank u mozilla for this awesome bug!
+  // -> line-height behaviour differs from other browsers.
+  //    font-size and the *non* font sans-serif fix it in all ff.
+  @-moz-document url-prefix(){
+    .buttonCore{font: ($fontSize - 2) sans-serif;}
+  }
+  border:none;
+  cursor:pointer;
+}
+.button{
+  $buttonFirstColor:#6fb536;
+  $buttonSecondColor:#5fa229;
+
+  padding:($space/4) ($space/2);
+  line-height:$fontSize;
+  margin:0px;
+
+  border:1px solid darken($buttonSecondColor, 5%);
+  color:$lightFontColor;
+  background-color:$buttonFirstColor;
+  @extend .buttonCore;
+  @include border-radius($radius);
+  @include transition(all 0.3s ease-in-out);
+  @include box-shadow(0 0 6px rgba(0,0,0,0.1),
+                      inset 0 -10px 10px $buttonSecondColor);
+  &:hover{
+    background-color:darken($buttonFirstColor, 5%);
+    @include box-shadow(0 0 6px rgba(0,0,0,0.1),
+                        inset 0 -10px 10px darken($buttonSecondColor, 4%));
+  }
+
+  &.icon{
+    padding-left:20px;
+    background:{
+      image:url("../../fomcore/images/link_arrow.png");
+      position:10px center;
+      repeat: no-repeat;
+    }
+  }
+
+  &.critical{
+    $buttonCriticalFirstColor:#d36565;
+    $buttonCriticalSecondColor:#b23a3a;
+
+    border:1px solid darken($buttonCriticalSecondColor, 5%);
+    color:$lightFontColor;
+    background-color:$buttonCriticalFirstColor;
+    @extend .buttonCore;
+    @include border-radius($radius);
+    @include box-shadow(0 0 6px rgba(0,0,0,0.1),
+                        inset 0 -10px 10px $buttonCriticalSecondColor);
+    &:hover{
+      background-color:darken($buttonCriticalFirstColor, 5%);
+      @include box-shadow(0 0 6px rgba(0,0,0,0.1),
+                          inset 0 -10px 10px darken($buttonCriticalSecondColor, 4%));
+    }
+  }
+}
+.linkButton{
+  @extend .buttonCore;
+  color:$middleFontColor;
+  padding:0 0 0 $space;
+  // @include icons-sprite(link_arrow);
+  @include text-shadow(#fff 1px 1px 0px);
+  @include transition(color 0.3s ease-in-out);
+
+  &:hover, &.activeLink, &:active{                
+    color:$darkFontColor;
+    // @include icons-sprite(link_arrow_active);
+ };
+}
+/* CHECKBOX AND RADIO */
+// .checkRadio{
+//   $height: icons-sprite-height(radio);
+//   $width: icons-sprite-width(radio);
+
+//   height:$height;
+//   width:$width;
+//   // @include icons-sprite(radio);
+
+//   // &.checked{@include icons-sprite(radio_selected);}
+//   .radio{
+//     height:$height;
+//     width:$width;
+//   }
+// }
+.checkWrapper{position:relative;}
+.checkbox, .radio{
+  cursor:pointer;
+  position: absolute;
+  left:0px;
+  height: 100%;
+  width: 100%;
+  @include opacity(0);
+}
+/* DROPDOWN */
+.dropdown{
+  cursor:pointer;
+  display:inline-block;
+  position: relative;
+  color:$ciColor;
+  border:solid 1px lighten($thirdColor, 15%);
+  line-height:$lineHeight + 8;
+  height:28px;
+  padding-right: $space + $space/2;
+  background-color: #FFF;
+
+  .dropdownValue{
+    padding-left: 5px;
+    color:$secondColor;
+    border:none;
+    width: 100%;
+    cursor: pointer;
+  }
+  .dropdownList{
+    background-color: #FFF;
+    color:$secondColor;
+    position: absolute;
+
+    border:solid 1px lighten($thirdColor, 15%);
+
+    width: 100%;
+    @include box-shadow(0px 0px 2px rgba(0, 0, 0, 0.1),
+                      inset 0px 0px 2px #fff);
+
+    li{
+      padding-left: 5px;
+      &:hover{
+        color:$ciColor;
+        background-color:$contentColor;
+      }
+    }
+  }
+  .openedIcon{
+    @include pos(6px,5px,'','');
+    // height: icons-sprite-height(opened);
+    // width: icons-sprite-width(opened);
+  }
+
+  @extend .smallText;
+  @include border-radius($radius);
+  @include noUserSelect;
+}
+
+
+
+
+/* -------------------------------------------------------- CONTAINER */
+/* TABS */
+.tabContainer{
+  $tabPopHeight:3px;
+  $tabHeight:34px;
+
+  .tab{
+    margin-right:3px;
+    color:$middleFontColor;
+    background-color:$contentColor;
+    cursor:pointer;
+    position:relative;
+    bottom:-$tabPopHeight*2;
+    height:$tabHeight;
+    z-index:10;
+    border:{
+      left:solid 1px $thirdColor;
+      top:solid 1px $thirdColor;
+      right:solid 1px $thirdColor;
+    }
+    float:left;
+    padding:3px 10px 3px 10px;
+    @extend .smallText;
+    @include box-shadow(1px 0px 2px rgba(0, 0, 0, 0.1),
+                        inset 1px 0px 2px #fff);
+    @include transition(all 0.2s ease-in-out);
+    @include noUserSelect();
+
+    &:first-child{@include border-top-left-radius($radius);}
+
+    &:hover{
+      background-color:#fff;
+      bottom:-$tabPopHeight;
+    }
+
+    &.active{
+      cursor:default;
+      color:$darkFontColor;
+      bottom:-$tabPopHeight;
+      height:$tabHeight;
+      z-index: 30;
+      background-color:$contentColor;
+      @include box-shadow(1px 0px 1px rgba(0, 0, 0, 0.1));
+    }
+  }
+  .container{
+    clear:left;
+    display:none;
+    padding:$space;
+    z-index:20;
+    position:relative;
+    background-color:$contentColor;
+    border:{
+      top:solid 3px $firstColor;
+      left:solid 1px $thirdColor;
+      right:solid 1px $thirdColor;
+      bottom:solid 1px $thirdColor;
+    }
+    @include border-bottom-radius($radius);
+    @include box-shadow(0px 0px 8px rgba(0, 0, 0, 0.1));
+
+    &.active{display:block;}
+  }
+}
+/* POPUP */
+.overlay{
+  background:url("../../images/overlay.png");
+  @include transition(opacity 0.4s ease-in-out);
+  @include stretch();
+  @include noUserSelect();
+  @include opacity(0);
+}
+.popup{
+  position:relative;
+  z-index:9999;
+  margin:-1000px auto 0 auto;
+  background-color:#f4f4f4;
+  padding:$space 0 $space $space;
+  background-image:url($contentPatternUrl);
+  @include transition(margin 0.4s ease-in-out);
+  @include border-radius($radius);
+  @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.9),
+                      inset 0px 0px 2px #fff);
+
+  .popupHead{
+    @extend .title;
+    padding-bottom:$space/2;
+    margin-bottom:$space;
+    margin-right:$space;
+    border-bottom:dashed 1px darken(#fff, 30%);
+  }
+  .popupButtons{margin-right:$space;}
+  .popupSubTitle{@extend .labelInput;}
+  .popupContent, .popupSubContent{
+    padding-right:$space;
+    margin-bottom: $space;  
+    max-height: 400px;
+    overflow-y: auto;
+  }
+}
+.popupContainer{
+  position: absolute;
+  z-index:999;
+  @include stretch();
+
+  &.hint{
+    text-align: center;
+    .popup{width:300px;}
+  }
+
+  &.modal{
+    .popup{width:$popupModalWidth;}
+    .buttonCancel, .buttonYes{float:right;margin-left:3px;}
+  }
+
+  &.show{
+    .overlay{@include opacity(0.9);}
+    .popup{margin:100px auto 0 auto;}
+  }
+}
+.inputWrapper{
+  position: relative;
+
+  .validationMsgBox{
+    position: absolute;
+    z-index: 9999;
+    min-width: 250px;
+    margin-left: -$space/2;
+    color:$errorColor;
+    padding: 3px $space/2 3px $space/2;
+    background-color: lighten($errorColor, 50%);
+    border:solid 1px lighten($errorColor, 40%);
+
+    @include opacity(1);
+    @include border-radius($radius);
+    @include box-shadow(0 0 3px rgba(0, 0, 0, 0.1),
+                          inset 0px 0px 3px #fff);
+    @include transition(all 0.8s ease-in-out);
+
+    &.hide{
+      @include opacity(0);
+      margin-left: 0px;
+    }
+
+    &:after, &:before {
+      position: absolute;
+      right: 100%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+    }
+    &:after{
+      border-right-color: lighten($errorColor, 50%);
+      border-width: 3px;
+      top: $space - 6px;
+      margin-top: -3px;
+    }
+    &:before{
+      border-right-color: lighten($errorColor, 40%);
+      border-width: 5px;
+      top: $space - 6px;
+      margin-top: -5px;
+    }
+  }
+}
