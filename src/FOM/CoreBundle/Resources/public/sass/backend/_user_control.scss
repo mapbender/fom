@@ -52,12 +52,13 @@
 
   .containerBaseData{
     .labelInput{
-      width:80px;
       float:left;
       display: block;
       margin-bottom: $space/2;
-    }
-    .input{width:300px;}
+    } 
+    .input{width:250px;}
     textarea{height:150px;}
   }
 }
+.groupTabContainer .containerBaseData .labelInput{width:90px;}
+.userTabContainer .containerBaseData .labelInput{width:130px;}

@@ -485,6 +485,9 @@ table {
 .iconRight:before {
   content: "\f054"; }
 
+.iconLinkButton:before {
+  content: "\f105"; }
+
 .iconAbout:before {
   content: "\f0c0"; }
 
@@ -1006,7 +1009,7 @@ fieldset {
   .inputWrapper .validationMsgBox {
     position: absolute;
     z-index: 9999;
-    min-width: 250px;
+    min-width: 260px;
     margin-left: -10px;
     color: #aa2323;
     padding: 3px 10px 3px 10px;
@@ -1034,7 +1037,7 @@ fieldset {
       position: absolute;
       right: 100%;
       border: solid transparent;
-      content: " ";
+      content: "";
       height: 0;
       width: 0; }
     .inputWrapper .validationMsgBox:after {

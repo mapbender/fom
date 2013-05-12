@@ -2,13 +2,16 @@
 
 namespace FOM\UserBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Group entity
  *
  * @author Christian Wygoda
  * @ORM\Entity()
+ * @UniqueEntity("title")
  * @ORM\Table(name="fom_group")
  */
 class Group
@@ -22,6 +25,8 @@ class Group
 
     /**
      * @ORM\Column(type="string", unique=true)
+     * @Assert\NotBlank()
+     * @Assert\MinLength(3)
      */
     protected $title;
 

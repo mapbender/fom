@@ -464,7 +464,7 @@ fieldset{
   .validationMsgBox{
     position: absolute;
     z-index: 9999;
-    min-width: 250px;
+    min-width: 260px;
     margin-left: -$space/2;
     color:$errorColor;
     padding: 3px $space/2 3px $space/2;
@@ -482,11 +482,12 @@ fieldset{
       margin-left: 0px;
     }
 
+    // small arrow left
     &:after, &:before {
       position: absolute;
       right: 100%;
       border: solid transparent;
-      content: " ";
+      content: "";
       height: 0;
       width: 0;
     }

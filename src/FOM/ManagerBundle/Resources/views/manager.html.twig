@@ -29,8 +29,8 @@
           {% if app.user != "" %}
             <ul id="accountMenu" class="accountMenu">
                 <li id="accountOpen" class="smallText accountOpen">{{ "Logged in as"|trans}}: {{ app.user.username }}<span class="openedIcon"></span></li>
-                <li><a class="linkButton" href="{{ url('fom_user_user_edit', {'id': app.user.id}) }}">{{ "Your Account"|trans }}</a></li>
-                <li><a class="linkButton" href="{{ url('fom_user_login_logout') }}">{{ "Logout"|trans }}</a></li>
+                <li><a class="linkButton iconLinkButton smallIcon" href="{{ url('fom_user_user_edit', {'id': app.user.id}) }}">{{ "Your Account"|trans }}</a></li>
+                <li><a class="linkButton iconLinkButton smallIcon" href="{{ url('fom_user_login_logout') }}">{{ "Logout"|trans }}</a></li>
             </ul>
           {% else %}
             <a class="linkButton" href="{{ path('fom_user_login_login') }}">{{ "Login"|trans}}</a>
