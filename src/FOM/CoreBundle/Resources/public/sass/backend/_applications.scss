@@ -67,6 +67,10 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
 /* ELEMENT FORMS */
 .elementForm{
   .labelInput{margin-bottom:$space/2;}
+  textarea{
+    height:150px;
+    resize: none;
+  }
 }
 .elementFormAbout, .elementFormSrs, .elementFormScaleSelector, .elementFormGps{
   .labelInput{width:40px;}
@@ -100,15 +104,42 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
   .checkWrapper{margin-bottom:$space/2;}
   .labelCheck{margin-right:$space;}
 }
-.elementFormMap{ // XXXTODO
-  .labelInput{width:90px;}
+.elementFormMap{
+  $label:90px;
+  .labelInput{width:$label;}
   .checkWrapper{margin-bottom:$space/2;}
-  .dropdown, .input{width:260px;}
+  .dropdown, .input{width:$elementPopupWidth - $label - $space ;}
+  .singleRow{
+    float:right;
+    width:$elementPopupWidth - $label - $space;
+    .labelInput, & > .input{float:left;}
+    .labelInput{
+      width:40px;
+      margin-right:5px;
+    }
+    .input{
+      width:90px;
+      &:first-child{margin-right:5px;}
+    }
+  }
 }
-.elementFormOverview{ // XXXTODO
-  .labelInput{width:50px;}
+.elementFormOverview{
+  $label:50px;
+  .labelInput{width:$label;}
   .checkWrapper{margin-bottom:$space/2;}
-  .dropdown, .input{width:260px;}
+  .labelCheck{margin-right:$space;}
+  .dropdown, .input{width:$elementPopupWidth - $label - $space ;}
+  .singleRow{
+    .labelInput, & > .input{float:left;}
+    .labelInput{
+      width:15px;
+      margin-right:5px;
+    }
+    .input{
+      width:135px;
+      &:first-child{margin-right:$space/2;}
+    }
+  }
 }
 .elementFormPrintClient{
   .labelInput{width:50px;}
@@ -116,11 +147,7 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
 }
 .elementFormYaml{
   .labelInput{width:70px;}
-  .input{
-    width:$elementPopupWidth + $space;
-    height:200px;
-    resize: none;
-  }
+  .input{width:$elementPopupWidth + $space;}
 }
 
 
