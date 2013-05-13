@@ -19,7 +19,9 @@ class GroupType extends AbstractType
             ->add('title', 'text', array(
                 'label' => 'Name'))
             ->add('description', 'textarea', array(
-                'label' => 'Description'))
+                'required' => false,
+                'label' => 'Description')
+            )
             ->add('users', 'entity', array(
                 'class' =>  'FOMUserBundle:User',
                 'expanded' => true,
