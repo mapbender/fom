@@ -50,6 +50,8 @@
       width:270px;
       margin-left:$space;
     }
+    .iconCheckbox{@extend .iconPublish}
+    .iconCheckboxActive{@extend .iconPublishActive}
   }
 }
 .popup{
@@ -62,9 +64,13 @@
   }
 }
 
-$elementPopupWidth: $popupModalWidth - ($space * 3);
-
 /* ELEMENT FORMS */
+$elementPopupWidth: $popupModalWidth - ($space * 3);
+.region{
+  margin-top:$space;
+  padding-top:$space;
+  border-top:dashed 1px darken(#fff, 30%);
+}
 .elementForm{
   .labelInput{margin-bottom:$space/2;}
   textarea{

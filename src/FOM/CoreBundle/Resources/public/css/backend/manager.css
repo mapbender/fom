@@ -536,11 +536,11 @@ table {
 .iconEdit:before {
   content: "\f044"; }
 
-.iconPublish:before {
-  content: "\f070"; }
+.iconPublish:before, .applicationTabContainer .containerLayout .iconCheckbox:before {
+  content: "\f070" !important; }
 
-.iconPublishActive:before {
-  content: "\f06e"; }
+.iconPublishActive:before, .applicationTabContainer .containerLayout .iconCheckboxActive:before {
+  content: "\f06e" !important; }
 
 .iconAppDefault:before {
   content: "\f03e"; }
@@ -701,9 +701,9 @@ fieldset {
     height: 30px; }
   .tableCore .iconColumn, .table .iconColumn {
     padding: 0px;
-    line-height: 30px; }
+    height: 30px;
+    width: 10px; }
     .tableCore .iconColumn:last-child, .table .iconColumn:last-child {
-      width: 10px;
       padding-right: 10px; }
 
 .table {
@@ -1293,7 +1293,7 @@ body {
     height: 65px; }
   .accountMenu .accountOpen {
     margin-right: 20px; }
-  .accountMenu .openedIcon, .accountMenu .serviceLayersContainer .openCloseTitle, .serviceLayersContainer .accountMenu .openCloseTitle {
+  .accountMenu .openedIcon {
     position: absolute;
     top: 4px;
     right: 0; }
@@ -1500,6 +1500,11 @@ body {
   float: left; }
 
 /* ELEMENT FORMS */
+.region {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: dashed 1px #b3b3b3; }
+
 .elementForm .labelInput, .elementForm .popup .popupSubTitle, .popup .elementForm .popupSubTitle {
   margin-bottom: 10px; }
 .elementForm textarea {
@@ -1788,3 +1793,23 @@ body {
 
 .userTabContainer .containerBaseData .labelInput, .userTabContainer .containerBaseData .popup .popupSubTitle, .popup .userTabContainer .containerBaseData .popupSubTitle {
   width: 130px; }
+
+.aclTabContainer {
+  margin-bottom: 20px; }
+  .aclTabContainer .containerBaseData .labelInput, .aclTabContainer .containerBaseData .popup .popupSubTitle, .popup .aclTabContainer .containerBaseData .popupSubTitle {
+    width: 80px;
+    float: left;
+    display: block;
+    margin-bottom: 10px; }
+  .aclTabContainer .containerBaseData textarea, .aclTabContainer .containerBaseData input {
+    width: 300px; }
+  .aclTabContainer .containerBaseData textarea {
+    height: 100px; }
+  .aclTabContainer .containerBaseData .messageBox {
+    width: 270px;
+    position: absolute;
+    top: 20px;
+    right: 20px; }
+  .aclTabContainer .containerLayout .dropdown {
+    width: 270px;
+    margin-left: 20px; }

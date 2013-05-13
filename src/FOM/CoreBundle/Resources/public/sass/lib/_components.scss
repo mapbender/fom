@@ -148,9 +148,9 @@ fieldset{
   tr{height:30px;}
   .iconColumn{
     padding:0px;
-    line-height: 30px;
+    height: 30px;
+    width:10px;
     &:last-child{
-      width:10px;
       padding-right:$space/2;
     }
   }

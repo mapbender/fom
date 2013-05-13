@@ -62,3 +62,28 @@
 }
 .groupTabContainer .containerBaseData .labelInput{width:90px;}
 .userTabContainer .containerBaseData .labelInput{width:130px;}
+
+.aclTabContainer{
+  margin-bottom:$space;
+
+  .containerBaseData{
+    .labelInput{
+      width:80px;
+      float:left;
+      display: block;
+      margin-bottom: $space/2;
+    }
+    textarea, input{width: 300px;}
+    textarea{height:100px;}
+    .messageBox{
+      width:270px;
+      @include pos($space,$space,'','');
+    }
+  }
+  .containerLayout{
+    .dropdown{
+      width:270px;
+      margin-left:$space;
+    }
+  }
+}

@@ -360,29 +360,33 @@
 
 {% block acl_widget %}
   {% spaceless %}
-    {% set prototype = form_widget(form.ace.vars.prototype) %}
-    <table id="listFilterPermission" class="listFilterContainer clear permissionsTable tableCore">
-      <thead id="permissionsHead" data-prototype="{{ prototype }}">
-        <tr class="doNotFilter">
-          <th>
-            <label for="inputFilterPermission" class="labelInput left">{{"Filter"|trans}}</label>
-            <input id="inputFilterPermission" type="text" class="input left listFilterInput"/>
-          </th>
-          {% for child in form.ace.vars.prototype %}
-          {% if child.vars.attr.class is defined %}
+    {% if form.ace|length > 0 %}
+      {% set prototype = form_widget(form.ace.vars.prototype) %}
+      <table id="listFilterPermission" class="listFilterContainer clear permissionsTable tableCore">
+        <thead id="permissionsHead" data-prototype="{{ prototype }}">
+          <tr class="doNotFilter">
             <th>
-              <div id="{{ child.vars.attr.class }}" class="tagWrapper smallText {{ child.vars.attr.class }}">{{ child.vars.attr.class }}</div>
+              <label for="inputFilterPermission" class="labelInput left">{{"Filter"|trans}}</label>
+              <input id="inputFilterPermission" type="text" class="input left listFilterInput"/>
             </th>
-          {% endif %}
+            {% for child in form.ace.vars.prototype %}
+            {% if child.vars.attr.class is defined %}
+              <th>
+                <div id="{{ child.vars.attr.class }}" class="tagWrapper smallText {{ child.vars.attr.class }}">{{ child.vars.attr.class }}</div>
+              </th>
+            {% endif %}
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody id="permissionsBody">
+          {% for ace in form.ace %}
+            {{ form_widget(ace) }}
           {% endfor %}
-        </tr>
-      </thead>
-      <tbody id="permissionsBody">
-        {% for ace in form.ace %}
-          {{ form_widget(ace) }}
-        {% endfor %}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    {% else %}
+      <p class="description left">{{"No user or group defined."|trans}}</p>
+    {% endif %}
     <div class="clearContainer"></div>
   {% endspaceless %}
 {% endblock %}

@@ -3,30 +3,31 @@
 {% block title %}{{ "Edit Class ACL for %name%" | trans({'%name%': class_name}) }}{% endblock %}
 
 {% block manager_js %}
+    {{parent()}}
     <script type="application/javascript" src="{{ asset('bundles/fomuser/js/acl-form.js') }}"></script>
-    <script type="application/javascript" src="{{ asset('bundles/mopabootstrap/js/mopabootstrap-collection.js') }}"</script>
     <script type="application/javascript" src="{{ asset('bundles/fommanager/js/form.js') }}"></script>
 {% endblock %}
 
 {% block manager_content %}
 
-<form action="{{ path('fom_user_acl_update', { 'class': class }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} data-aclsid="{{ form.get('widget_control_group_attr')['data-aclsid'] }}">
-    {% if form_errors(form) %}
-    <div>
-        {{ form_errors(form) }}
-    </div>
-    {% endif %}
-
-    {{ form_row(form._token) }}
-
-    {% include 'FOMUserBundle:ACL:form.html.twig' %}
-
-    <footer>
-        <div>
-            <input type="submit" value="{{ 'Update' | trans }}"/>
-            <a href="{{ url('fom_user_acl_index') }}">{{ 'Cancel' | trans}}</a>
+<form action="{{ path('fom_user_acl_update', { 'class': class }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} data-aclsid="{{ form.get('widget_control_group_attr') }}" novalidate="novalidate">
+    <div id="aclTabContainer" class="tabContainer aclTabContainer">
+        <ul class="tabs">
+            <li id="tabSecurity" class="tab active">{{"Security" | trans }}</li>
+        </ul>
+        <div id="containerSecurity" class="container containerSecurity active">
+            <a id="addPermission" href="{{path('fom_user_acl_overview')}}" class="iconAdd iconBig right" title="{{'Add users and groups'|trans}}"></a>
+            {{ form_widget(form) }}
         </div>
-    </footer>
+
+        <div class="clearContainer"></div>
+        {{ form_row(form._token) }}
+    </div>
+
+    <div class="right">
+      <input type="submit" value="{{ 'Save' | trans }}" class="button"/>
+      <a href="{{ url('fom_user_acl_index') }}" class="button critical">{{ 'Cancel' | trans}}</a>
+    </div>
 </form>
 
 {% endblock %}

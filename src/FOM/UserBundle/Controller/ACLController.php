@@ -95,8 +95,7 @@ class ACLController extends Controller
                 'property_path' => false,
                 'class' => $class,
                 'permissions' => 'standard::class',
-                'create_standard_permissions' => false,
-                'label_render' => false
+                'create_standard_permissions' => false
             ));
     }
 

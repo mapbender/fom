@@ -95,14 +95,10 @@
     height:17px;
     font-style:italic;
 
-    @extend .openedIcon;
     @include opacity(1);
     @include text-shadow(#fff 1px 1px 0px);
   }
-  .closed .openCloseTitle{
-    background-color:$contentColor;
-    @extend .closedIcon;
-  }
+  .closed .openCloseTitle{background-color:$contentColor;}
   .metaText{
     display: block;
     margin-left:$labeText + $space/2;
