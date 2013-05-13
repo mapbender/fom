@@ -28,28 +28,30 @@ class UserType extends AbstractType
                 'options' => array(
                     'label' => 'Password')));
 
-        //if($options['extendedEdit']) {
-            $builder
-                ->add('groups', 'entity', array(
-                    'class' =>  'FOMUserBundle:Group',
-                    'query_builder' => function(EntityRepository $er) {
-                        $qb = $er->createQueryBuilder('r')
-                            ->add('orderBy', 'r.title ASC');
-                        return $qb;
-                    },
-                    'expanded' => true,
-                    'multiple' => true,
-                    'property' => 'title',
-                    'label' => 'Groups'));
-        //}
+        $builder
+            ->add('groups', 'entity', array(
+                'class' =>  'FOMUserBundle:Group',
+                'query_builder' => function(EntityRepository $er) {
+                    $qb = $er->createQueryBuilder('r')
+                        ->add('orderBy', 'r.title ASC');
+                    return $qb;
+                },
+                'expanded' => true,
+                'multiple' => true,
+                'property' => 'title',
+                'label' => 'Groups'));
 
+        if($options['profile_formtype']) {
+            $formType = $options['profile_formtype'];
+            $builder->add('profile', new $formType());
+        }
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'requirePassword' => true,
-            'extendedEdit' => false
+            'profile_formtype' => null
         ));
     }
 }

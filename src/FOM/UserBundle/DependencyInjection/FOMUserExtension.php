@@ -18,6 +18,10 @@ class FOMUserExtension extends Extension {
         $container->setParameter("fom_user.mail_from_name", $config["mail_from_name"]);
         $container->setParameter("fom_user.mail_from_address", $config["mail_from_address"]);
 
+        $container->setParameter("fom_user.profile_entity", $config["profile_entity"]);
+        $container->setParameter("fom_user.profile_formtype", $config["profile_formtype"]);
+        $container->setParameter("fom_user.profile_template", $config["profile_template"]);
+
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('security.xml');
         $loader->load('services.xml');
