@@ -12,6 +12,7 @@
       showCloseButton:      true,
       cancelOnEsc:          true,
       cancelOnOverlayClick: true,
+      method:               "POST", 
 
       width:                0, // 0 -> css
       cssClass:             "",
@@ -50,7 +51,7 @@
 
       $.ajax({
           url: url,
-          type: "POST",
+          type: that.options.method,
           beforeSend:  beforeLoad,
           success: function(data){
                that.options.content = data;
