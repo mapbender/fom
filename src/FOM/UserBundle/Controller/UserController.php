@@ -16,6 +16,8 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Response;
+
 
 /**
  * User management controller
@@ -84,12 +86,16 @@ class UserController extends Controller {
         $user = new User();
         $form = $this->createForm(new UserType(), $user);
 
+
+
         // ACL access check
         $securityContext = $this->get('security.context');
         $oid = new ObjectIdentity('class', get_class($user));
         if(false === $securityContext->isGranted('CREATE', $oid)) {
             throw new AccessDeniedException();
         }
+
+
 
         $form->bindRequest($this->get('request'));
 
@@ -103,12 +109,11 @@ class UserController extends Controller {
 
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($user);
+            $em->flush();
 
             $aclManager = $this->get('fom.acl.manager');
             $aclManager->setObjectACLFromForm($user, $form->get('acl'),
                 'object');
-
-            $em->flush();
 
             $this->get('session')->setFlash('success',
                 'The user has been saved.');
@@ -168,7 +173,6 @@ class UserController extends Controller {
         if(false === $securityContext->isGranted('EDIT', $user)) {
             throw new AccessDeniedException();
         }
-
         // If no password is given, we'll recycle the old one
         $request = $this->get('request');
         $userData = $request->get('user');
@@ -216,13 +220,13 @@ class UserController extends Controller {
     /**
      * @ManagerRoute("/user/{id}/delete")
      * @Method({ "POST" })
-     * @Template
      *
      * @todo : Delete ACEs for given user
      */
     public function deleteAction($id) {
         $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')
             ->find($id);
+
         if($user === null) {
             throw new NotFoundHttpException('The user does not exist');
         }
@@ -231,28 +235,23 @@ class UserController extends Controller {
         }
 
         // ACL access check
-        $securityContext = $this->get('security.context');
-        if(false === $securityContext->isGranted('DELETE', $user)) {
-            throw new AccessDeniedException();
-        }
+        // $securityContext = $this->get('security.context');
+        // if(false === $securityContext->isGranted('DELETE', $user)) {
+        //     throw new AccessDeniedException();
+        // }
 
-        $form = $this->createDeleteForm($id);
-        $request = $this->getRequest();
-
-        $form->bindRequest($request);
-        if($form->isValid()) {
+        try {
             $em = $this->getDoctrine()->getEntityManager();
             $em->remove($user);
             $em->flush();
 
             $this->get('session')->setFlash('success',
                 'The user has been deleted.');
-        } else {
+        } catch(Exception $e) {
             $this->get('session')->setFlash('error',
                 'The user couldn\'t be deleted.');
         }
-        return $this->redirect(
-            $this->generateUrl('fom_user_user_index'));
+        return new Response();
     }
 }
 
