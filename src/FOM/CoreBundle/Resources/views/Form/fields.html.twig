@@ -115,7 +115,7 @@
     {% else %}
       <div id="dropdown" class="dropdown">
         <input readonly class="dropdownValue" {{ block('widget_attributes') }}/>
-        <span class="openedIcon"></span>
+        <span class="iconDown iconBig"></span>
         <ul class="dropdownList">
           {% if preferred_choices|length > 0 %}
             {% set options = preferred_choices %}

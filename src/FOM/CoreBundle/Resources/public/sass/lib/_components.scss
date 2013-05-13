@@ -309,6 +309,7 @@ fieldset{
     background-color: #FFF;
     color:$secondColor;
     position: absolute;
+    display:none;
 
     border:solid 1px lighten($thirdColor, 15%);
 
@@ -324,11 +325,7 @@ fieldset{
       }
     }
   }
-  .openedIcon{
-    @include pos(6px,5px,'','');
-    // height: icons-sprite-height(opened);
-    // width: icons-sprite-width(opened);
-  }
+  .iconDown{@include pos(4px,$space/2,'','');}
 
   @extend .smallText;
   @include border-radius($radius);
