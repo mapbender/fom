@@ -169,7 +169,6 @@ class GroupController extends Controller {
     /**
      * @Route("/group/{id}/delete")
      * @Method({ "POST" })
-     * @Template
      */
     public function deleteAction($id) {
         $group = $this->getDoctrine()->getRepository('FOMUserBundle:Group')

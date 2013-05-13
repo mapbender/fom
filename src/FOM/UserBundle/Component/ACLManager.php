@@ -34,7 +34,6 @@ class AclManager
     public function setObjectACLFromForm($entity, $form, $type)
     {
         $aces = $form->get('ace')->getData();
-
         $this->setObjectACL($entity, $aces, $type);
     }
 
@@ -55,7 +54,6 @@ class AclManager
                 throw new \RuntimeException('ACEs of type ' . $type
                     . ' are not supported.');
         }
-
         $acl = $this->getAcl($entity);
         $oldAces = $acl->getObjectAces();
 

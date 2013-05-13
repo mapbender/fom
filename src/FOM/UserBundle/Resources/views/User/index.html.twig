@@ -51,7 +51,11 @@
           </td>
           <td class="iconColumn">
             {% if user.id != 1 and is_granted('DELETE', user) %}
-              <a class="iconRemove iconSmall" data-name="{{ user.username }}" href="{{ path('fom_user_user_delete', { 'id': user.id }) }}"></a>
+              <span class="iconRemove iconSmall"  
+                title="{{ 'Delete user' | trans }} {{ user.username }}"
+                data-url="{{ path('fom_user_user_delete', { 'id': user.id}) }}" 
+                data-id="{{ user.id }}"
+              ></span>
             {% endif %}
           </td>
         </tr>
