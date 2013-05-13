@@ -66,12 +66,16 @@ class UserController extends Controller {
             throw new AccessDeniedException();
         }
 
-        $form = $this->createForm(new UserType(), $user);
+        $profile = $this->addProfileForm($user);
+        $form = $this->createForm(new UserType(), $user, array(
+            'profile_formtype' => $profile['formtype']
+        ));
 
         return array(
             'user' => $user,
             'form' => $form->createView(),
-            'form_name' => $form->getName());
+            'form_name' => $form->getName(),
+            'profile_template' => $profile['template']);
     }
 
     /**
@@ -81,7 +85,10 @@ class UserController extends Controller {
      */
     public function createAction() {
         $user = new User();
-        $form = $this->createForm(new UserType(), $user);
+        $profile = $this->addProfileForm($user);
+        $form = $this->createForm(new UserType(), $user, array(
+            'profile_formtype' => $profile['formtype']
+        ));
 
         // ACL access check
         $securityContext = $this->get('security.context');
@@ -107,6 +114,12 @@ class UserController extends Controller {
             $aclManager->setObjectACLFromForm($user, $form->get('acl'),
                 'object');
 
+            // Check and persists profile if exists
+            $profile = $user->getProfile();
+            if($profile) {
+                $em->persist($profile);
+            }
+
             $em->flush();
 
             $this->get('session')->setFlash('success',
@@ -119,7 +132,8 @@ class UserController extends Controller {
         return array(
             'user' => $user,
             'form' => $form->createView(),
-            'form_name' => $form->getName());
+            'form_name' => $form->getName(),
+            'profile_template' => $profile['template']);
     }
 
     /**
@@ -139,14 +153,17 @@ class UserController extends Controller {
             throw new AccessDeniedException();
         }
 
+        $profile = $this->addProfileForm($user);
         $form = $this->createForm(new UserType(), $user, array(
             'requirePassword' => false,
-            'extendedEdit' => $user->isAdmin('USER')));
+            'profile_formtype' => $profile['formtype']
+        ));
 
         return array(
             'user' => $user,
             'form' => $form->createView(),
-            'form_name' => $form->getName());
+            'form_name' => $form->getName(),
+            'profile_template' => $profile['template']);
     }
 
     /**
@@ -178,7 +195,11 @@ class UserController extends Controller {
             $keepPassword = true;
         }
 
-        $form = $this->createForm(new UserType(), $user);
+        $profile = $this->addProfileForm($user);
+        $form = $this->createForm(new UserType(), $user, array(
+            'requirePassword' => false,
+            'profile_formtype' => $profile['formtype']
+        ));
         $form->bind($userData);
 
         if($form->isValid()) {
@@ -195,6 +216,9 @@ class UserController extends Controller {
             $aclManager->setObjectACLFromForm($user, $form->get('acl'),
                 'object');
 
+            if($user->getProfile()) {
+                $em->persist($user->getProfile());
+            }
             $em->flush();
 
             $this->get('session')->setFlash('success', 'The user has been updated.');
@@ -206,7 +230,8 @@ class UserController extends Controller {
         return array(
             'user' => $user,
             'form' => $form->createView(),
-            'form_name' => $form->getName());
+            'form_name' => $form->getName(),
+            'profile_template' => $profile['template']);
     }
 
     /**
@@ -244,6 +269,7 @@ class UserController extends Controller {
     public function deleteAction($id) {
         $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')
             ->find($id);
+
         if($user === null) {
             throw new NotFoundHttpException('The user does not exist');
         }
@@ -257,13 +283,19 @@ class UserController extends Controller {
             throw new AccessDeniedException();
         }
 
+        $this->addProfileForm($user);
+        $profile = $user->getProfile();
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
         $form->bindRequest($request);
         if($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
+
             $em->remove($user);
+            if($user->getProfile()) {
+                $em->remove($user->getProfile());
+            }
             $em->flush();
 
             $this->get('session')->setFlash('success',
@@ -283,6 +315,37 @@ class UserController extends Controller {
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
             ->getForm();
+    }
+
+    private function addProfileForm(User $user)
+    {
+        $container = $this->container;
+        $profileEntity = $container->getParameter('fom_user.profile_entity');
+        $profileFormType = $container->getParameter('fom_user.profile_formtype');
+        $profileTemplate = $container->getParameter('fom_user.profile_template');
+
+        if($profileEntity !== null && $profileFormType !== null) {
+            if($user->getId()) {
+                $profile = $this->getDoctrine()->getRepository($profileEntity)
+                    ->find($user->getId());
+                if(!$profile) {
+                $profile = new $profileEntity();
+                }
+            } else {
+                $profile = new $profileEntity();
+            }
+
+            $user->setProfile($profile);
+
+        } else {
+            $profileFormType = null;
+            $profileTemplate = null;
+        }
+
+        return array(
+            'formtype' => $profileFormType,
+            'template' => $profileTemplate
+        );
     }
 }
 

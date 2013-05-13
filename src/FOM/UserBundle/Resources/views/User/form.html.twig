@@ -8,6 +8,9 @@ Required fields are marked with dark labels, while optional fields have lighter 
     <li class="active"><a href="#user-basics" data-toggle="tab">{{ 'Base data' | trans}}</a></li>
     <li><a href="#user-groups" data-toggle="tab">{{ 'Groups' | trans}}</a></li>
     <li><a href="#user-acl" data-toggle="tab">{{ 'Security' | trans}}</a></li>
+    {% if form.profile is defined %}
+    <li><a href="#user-profile" data-toggle="tab">{{ 'Profile' | trans}}</a></li>
+    {% endif %}
 </ul>
 
 <div class="tab-content">
@@ -22,6 +25,15 @@ Required fields are marked with dark labels, while optional fields have lighter 
     <section id="user-acl" class="tab-pane">
         {{ form_row(form.acl) }}
     </section>
+    {% if form.profile is defined %}
+    <section id="user-profile" class="tab-pane">
+        {% if profile_template %}
+            {% include profile_template %}
+        {% else %}
+            {{ form_widget(form.profile) }}
+        {% endif %}
+    </section>
+    {% endif %}
 </div>
 
 {###############################################################################

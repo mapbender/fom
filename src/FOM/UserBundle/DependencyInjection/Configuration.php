@@ -37,6 +37,15 @@ class Configuration implements ConfigurationInterface {
                 ->scalarNode('mail_from_name')
                     ->isRequired()
                 ->end()
+                ->scalarNode('profile_entity')
+                    ->defaultNull()
+                ->end()
+                ->scalarNode('profile_formtype')
+                    ->defaultNull()
+                ->end()
+                ->scalarNode('profile_template')
+                    ->defaultNull()
+                ->end()
             ->end();
 
         return $treeBuilder;

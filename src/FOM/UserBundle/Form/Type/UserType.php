@@ -49,13 +49,17 @@ class UserType extends AbstractType
                 'standard_anon_access' => false,
                 'label_render' => false));
 
+        if($options['profile_formtype']) {
+            $formType = $options['profile_formtype'];
+            $builder->add('profile', new $formType());
+        }
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'requirePassword' => true,
-            'extendedEdit' => false
+            'profile_formtype' => null
         ));
     }
 }
