@@ -36,7 +36,11 @@
           <a class="iconEdit iconSmall" href="{{ path('fom_user_group_edit',  {'id': group.id }) }}" title="{{ 'Edit' | trans }}"></a>
         </td>
         <td class="iconColumn">
-          <a class="iconRemove iconSmall" data-name="{{ group.title }}" href="{{ path('fom_user_group_delete', { 'id': group.id }) }}"></a>
+            <span class="iconRemove iconSmall"  
+              title="{{ 'Delete application' | trans }} {{ group.title }}"
+              data-url="{{ path('fom_user_group_delete', { 'id': group.id}) }}" 
+              data-id="{{ group.id }}"
+            ></span>
         </td>
       </tr>
       {% endfor %}

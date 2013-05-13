@@ -14,6 +14,7 @@
 {% endblock %}
 
 {% block manager_content %}
+
   {% if edit %}
     <form action="{{ path('fom_user_group_update', { 'id': group.id }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} novalidate="novalidate">
   {% else %}

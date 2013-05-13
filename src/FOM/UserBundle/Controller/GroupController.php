@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOM\ManagerBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Group management controller
@@ -87,6 +88,7 @@ class GroupController extends Controller {
         return array(
             'group' => $group,
             'form' => $form->createView(),
+            'form_name' => $form->getName(),
             'edit' => false);
     }
 
@@ -160,6 +162,7 @@ class GroupController extends Controller {
         return array(
             'group' => $group,
             'form' => $form->createView(),
+            'form_name' => $form->getName(),
             'edit' => true);
     }
 
@@ -176,23 +179,18 @@ class GroupController extends Controller {
             throw new NotFoundHttpException('The group does not exist');
         }
 
-        $form = $this->createDeleteForm($id);
-        $request = $this->getRequest();
-
-        $form->bindRequest($request);
-        if($form->isValid()) {
+        try {
             $em = $this->getDoctrine()->getEntityManager();
             $em->remove($group);
             $em->flush();
 
             $this->get('session')->setFlash('success',
                 'The group has been deleted.');
-        } else {
+        } catch(Exception $e) {
             $this->get('session')->setFlash('error',
                 'The group couldn\'t be deleted.');
         }
-        return $this->redirect(
-            $this->generateUrl('fom_user_group_index'));
+        return new Response();
     }
 }
 
