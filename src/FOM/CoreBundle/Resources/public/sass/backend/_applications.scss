@@ -76,7 +76,7 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
 .elementFormActivity{
   $label:40px;
   .labelInput{width:$label;}
-  .input{width:$elementPopupWidth - $label ;}
+  .input{width:$elementPopupWidth - $label;}
 }
 .elementFormButton{
   .labelInput{width:50px;}
@@ -113,6 +113,14 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
 .elementFormPrintClient{
   .labelInput{width:50px;}
   textarea{width:200px;}
+}
+.elementFormYaml{
+  .labelInput{width:70px;}
+  .input{
+    width:$elementPopupWidth + $space;
+    height:200px;
+    resize: none;
+  }
 }
 
 
@@ -154,7 +162,7 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
   @include border-radius($radius);
   @include transition(all 0.2s ease-in-out);
 
-  .checkedIcon{
+  .iconOk{
     @include opacity(0);
     @include pos(5px,5px,'','');
   }
@@ -162,6 +170,6 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
   &:hover{
     background-color: white;
     border:solid 1px darken(white, 15%);
-    .checkedIcon{@include opacity(1);}
+    .iconOk{@include opacity(1);}
   }
 }

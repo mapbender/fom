@@ -22,13 +22,13 @@
 
   width:$labelWidth + $inputWidth + $space*2 + 2; // + border
   margin-right:$space;  
-  
+
   .labelInput{width:$labelWidth;}
   .input{
     margin-bottom:$space/2;  
     width: $inputWidth; 
   }
-} 
+}
 
 
 

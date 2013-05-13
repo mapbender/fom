@@ -208,10 +208,10 @@ $(function() {
     var loadDropDown = function(){
         var me            = $(this);
         var selected      = me.find(".selected");
-        var dropDownLabel = me.find(".dropdownValue");
+        var dropDownInput = me.find(".dropdownValue");
 
         me.find(".dropdownList").hide();
-        dropDownLabel.val(selected.text()).attr("data-value", selected.attr("data-value"));
+        dropDownInput.val(selected.text()).attr("data-value", selected.attr("data-value"));
     }
     var switchValue = function(){
         var me        = $(this);
@@ -225,7 +225,7 @@ $(function() {
                 event.stopPropagation();
                 var item          = $(this);
                 var parent        = item.parent();
-                var dropDownLabel = parent.siblings(".dropdownValue");
+                var dropDownInput = parent.siblings(".dropdownValue");
 
                 item.siblings(".selected").removeClass("selected");
                 item.addClass("selected");
@@ -236,6 +236,5 @@ $(function() {
         }
     }
     $(document).on("change", ".dropdown", loadDropDown)
-               .change()
                .on("click", ".dropdown", switchValue);
 });

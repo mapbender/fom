@@ -170,7 +170,7 @@ kbd,
 pre,
 samp {
   font-family: monospace, serif;
-  _font-family: "courier new", monospace;
+  _font-family: 'courier new', monospace;
   font-size: 1em; }
 
 /*
@@ -289,7 +289,7 @@ form {
  * Define consistent border, margin, and padding.
  */
 fieldset {
-  border: 1px solid silver;
+  border: 1px solid #c0c0c0;
   margin: 0 2px;
   padding: 0.35em 0.625em 0.75em; }
 
@@ -487,6 +487,9 @@ table {
 
 .iconLinkButton:before {
   content: "\f105"; }
+
+.iconDown:before {
+  content: "\f0d7"; }
 
 .iconAbout:before {
   content: "\f0c0"; }
@@ -848,6 +851,7 @@ fieldset {
     background-color: #FFF;
     color: #858585;
     position: absolute;
+    display: none;
     border: solid 1px #c8c8c8;
     width: 100%;
     -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1), inset 0px 0px 2px white;
@@ -858,10 +862,10 @@ fieldset {
       .dropdown .dropdownList li:hover {
         color: #5b932a;
         background-color: #f9f9f9; }
-  .dropdown .openedIcon, .dropdown .serviceLayersContainer .openCloseTitle, .serviceLayersContainer .dropdown .openCloseTitle {
+  .dropdown .iconDown {
     position: absolute;
-    top: 6px;
-    right: 5px; }
+    top: 4px;
+    right: 10px; }
 
 /* -------------------------------------------------------- CONTAINER */
 /* TABS */
@@ -1558,6 +1562,13 @@ body {
 .elementFormPrintClient textarea {
   width: 200px; }
 
+.elementFormYaml .labelInput, .elementFormYaml .popup .popupSubTitle, .popup .elementFormYaml .popupSubTitle {
+  width: 70px; }
+.elementFormYaml .input {
+  width: 410px;
+  height: 200px;
+  resize: none; }
+
 /* ------------------------------------------------------------- LAYERS */
 .layersetForm .labelInput, .layersetForm .popup .popupSubTitle, .popup .layersetForm .popupSubTitle {
   width: 40px;
@@ -1591,7 +1602,7 @@ body {
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out; }
-  .checkContainer .checkedIcon {
+  .checkContainer .iconOk, .checkContainer .tableUserGroups .iconCheckboxActive, .tableUserGroups .checkContainer .iconCheckboxActive, .checkContainer .tableUserGroups .iconCheckbox, .tableUserGroups .checkContainer .iconCheckbox {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
     opacity: 0;
     position: absolute;
@@ -1600,7 +1611,7 @@ body {
   .checkContainer:hover {
     background-color: white;
     border: solid 1px #d9d9d9; }
-    .checkContainer:hover .checkedIcon {
+    .checkContainer:hover .iconOk, .checkContainer:hover .tableUserGroups .iconCheckboxActive, .tableUserGroups .checkContainer:hover .iconCheckboxActive, .checkContainer:hover .tableUserGroups .iconCheckbox, .tableUserGroups .checkContainer:hover .iconCheckbox {
       filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
       opacity: 1; }
 
