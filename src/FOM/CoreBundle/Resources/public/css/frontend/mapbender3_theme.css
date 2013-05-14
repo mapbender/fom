@@ -823,14 +823,15 @@ fieldset {
   .linkButton:hover, .linkButton.activeLink, .linkButton:active {
     color: #3f3f3f; }
 
-/* CHECKBOX AND RADIO */
+/* CHECKBOX */
 .checkWrapper {
   position: relative; }
 
-.checkbox, .radio {
+.checkbox {
   cursor: pointer;
   position: absolute;
-  left: 0px;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);

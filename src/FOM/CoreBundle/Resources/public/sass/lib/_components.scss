@@ -262,26 +262,11 @@ fieldset{
     // @include icons-sprite(link_arrow_active);
  };
 }
-/* CHECKBOX AND RADIO */
-// .checkRadio{
-//   $height: icons-sprite-height(radio);
-//   $width: icons-sprite-width(radio);
-
-//   height:$height;
-//   width:$width;
-//   // @include icons-sprite(radio);
-
-//   // &.checked{@include icons-sprite(radio_selected);}
-//   .radio{
-//     height:$height;
-//     width:$width;
-//   }
-// }
+/* CHECKBOX */
 .checkWrapper{position:relative;}
-.checkbox, .radio{
+.checkbox{
   cursor:pointer;
-  position: absolute;
-  left:0px;
+  @include pos(0,'','',0);
   height: 100%;
   width: 100%;
   @include opacity(0);

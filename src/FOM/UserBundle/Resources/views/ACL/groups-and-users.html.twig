@@ -13,10 +13,10 @@
       {% for user in users %}
         <tr class="filterItem">
           <td>
-            <div class="tdContentWrapper">
-              <label class="labelInput iconUser">{{user.getUsername}}</label>
+            <div class="tdContentWrapper iconUser">
+              <label class="labelInput">{{user.getUsername}}</label>
               <span class="hide">u:{{user.getUsername}}</span>
-              <div class="checkWrapper"><input class="checkbox" type="checkbox"/></div>
+              <div class="checkWrapper iconCheckbox"><input class="checkbox" type="checkbox"/></div>
             </div>
           </td>
         </tr> 
@@ -25,9 +25,9 @@
         <tr class="filterItem">
           <td>
             <div class="tdContentWrapper iconGroup">
-              <label class="labelInput iconGroup iconSmall">{{ group.getTitle }}</label>
+              <label class="labelInput">{{ group.getTitle }}</label>
               <span class="hide">r:{{ group.getAsRole }}</span>
-              <div class="checkWrapper"><input class="checkbox" type="checkbox"/></div>
+              <div class="checkWrapper iconCheckbox"><input class="checkbox" type="checkbox"/></div>
             </div>
           </td>
         </tr>

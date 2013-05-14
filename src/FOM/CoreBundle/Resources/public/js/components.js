@@ -110,18 +110,7 @@ $(function() {
     }
     $(".permissionsTable").find(".checkbox").bind("click", togglePermission);
 
-
-
-
-
-
-
-
-
-
-
-
-    //filter popupresult
+    // add user or groups
     $("#addPermission").bind("click", function(){
         if(!$('body').data('mbPopup')) {
             var url = $(this).attr("href");

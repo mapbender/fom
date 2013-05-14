@@ -1,4 +1,4 @@
-/* ------------------------------------------------------- APPLICATIONS */
+// ------------------------------------------------------- APPLICATIONS
 .listFilterInput{
   margin-bottom:$space;
   width:250px;
@@ -27,7 +27,7 @@
 
 
 
-/* ----------------------------------------------- NEW/EDIT APPLICATION */
+// ----------------------------------------------- NEW/EDIT APPLICATION
 .applicationTabContainer{
   margin-bottom:$space;
 
@@ -64,7 +64,33 @@
   }
 }
 
-/* ELEMENT FORMS */
+
+
+
+
+// ------------------------------------------------------------- LAYOUT
+.checkContainer{
+  position:relative;
+  color:$middleFontColor;
+  display: block;
+  margin-bottom: $space/2;
+  background-color: $contentColor;
+  padding:5px $space/2 5px $space/2;
+  border:solid 1px white;
+  @include border-radius($radius);
+  @include transition(all 0.2s ease-in-out);
+
+  .iconOk{
+    @include opacity(0);
+    @include pos(5px,5px,'','');
+  }
+
+  &:hover{
+    background-color: white;
+    border:solid 1px darken(white, 15%);
+    .iconOk{@include opacity(1);}
+  }
+}
 $elementPopupWidth: $popupModalWidth - ($space * 3);
 .region{
   margin-top:$space;
@@ -78,7 +104,8 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
     resize: none;
   }
 }
-.elementFormAbout, .elementFormSrs, .elementFormScaleSelector, .elementFormGps{
+.elementFormAbout, .elementFormSrs, 
+.elementFormScaleSelector, .elementFormGps{
   .labelInput{width:40px;}
   .checkWrapper{margin-left:$space;}
   .input{width:200px;}
@@ -199,8 +226,7 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
 
 
 
-
-/* ------------------------------------------------------------- LAYERS */
+// ------------------------------------------------------------- LAYERS
 .layersetForm{
   .labelInput{width:40px;float:left;}
   .input{
@@ -216,32 +242,4 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
     margin-right: $space/2;
   }
   tbody tr{cursor:move;}
-}
-
-
-
-
-
-/* ------------------------------------------------------------- LAYOUT */
-.checkContainer{
-  position:relative;
-  color:$middleFontColor;
-  display: block;
-  margin-bottom: $space/2;
-  background-color: $contentColor;
-  padding:5px $space/2 5px $space/2;
-  border:solid 1px white;
-  @include border-radius($radius);
-  @include transition(all 0.2s ease-in-out);
-
-  .iconOk{
-    @include opacity(0);
-    @include pos(5px,5px,'','');
-  }
-
-  &:hover{
-    background-color: white;
-    border:solid 1px darken(white, 15%);
-    .iconOk{@include opacity(1);}
-  }
 }
