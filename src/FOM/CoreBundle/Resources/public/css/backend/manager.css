@@ -1590,6 +1590,15 @@ body {
     .elementFormMap .singleRow .input:first-child {
       margin-right: 5px; }
 
+.elementFormLayerTree .labelInput, .elementFormLayerTree .popup .popupSubTitle, .popup .elementFormLayerTree .popupSubTitle {
+  width: 80px; }
+.elementFormLayerTree .dropdown, .elementFormLayerTree .input {
+  width: 310px; }
+.elementFormLayerTree .checkWrapper {
+  margin-bottom: 10px; }
+.elementFormLayerTree .labelCheck {
+  margin-right: 20px; }
+
 .elementFormOverview .labelInput, .elementFormOverview .popup .popupSubTitle, .popup .elementFormOverview .popupSubTitle {
   width: 50px; }
 .elementFormOverview .checkWrapper {
