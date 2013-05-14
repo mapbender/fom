@@ -370,12 +370,13 @@
               <input id="inputFilterPermission" type="text" class="input left listFilterInput"/>
             </th>
             {% for child in form.ace.vars.prototype %}
-            {% if child.vars.attr.class is defined %}
-              <th>
-                <div id="{{ child.vars.attr.class }}" class="tagWrapper smallText {{ child.vars.attr.class }}">{{ child.vars.attr.class }}</div>
-              </th>
-            {% endif %}
+              {% if child.vars.attr.class is defined %}
+                <th>
+                  <div id="{{ child.vars.attr.class }}" class="tagWrapper smallText {{ child.vars.attr.class }}">{{ child.vars.attr.class }}</div>
+                </th>
+              {% endif %}
             {% endfor %}
+            <th></th>
           </tr>
         </thead>
         <tbody id="permissionsBody">
@@ -417,6 +418,9 @@
           {% endif %}
         </td>
       {% endfor %}
+      <td class="iconColumn">
+        <span class="iconRemove"></span>
+      </td>
     </tr>
   {% endspaceless %}
 {% endblock %}

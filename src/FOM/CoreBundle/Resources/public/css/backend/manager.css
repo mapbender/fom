@@ -1179,12 +1179,12 @@ fieldset {
   .permissionsTable tr.new {
     background-color: #e5f9e5 !important; }
   .permissionsTable tr .input {
-    width: 210px; }
+    width: 180px; }
 .permissionsTable th {
   cursor: pointer;
-  padding-left: 5px; }
+  padding: 5px 0px; }
 .permissionsTable td {
-  padding: 5px; }
+  padding: 5px 0px; }
   .permissionsTable td .labelInput, .permissionsTable td .popup .popupSubTitle, .popup .permissionsTable td .popupSubTitle {
     width: 150px; }
   .permissionsTable td .input {
@@ -1206,7 +1206,7 @@ fieldset {
   left: 0; }
 .permissionsTable .tagWrapper {
   position: relative;
-  width: 58px;
+  width: 56px;
   height: 26px;
   line-height: 26px;
   text-align: center;
