@@ -49,7 +49,7 @@
             {% endif %}
             {% if user.id != 1 and is_granted('DELETE', user) %}
               <span class="iconRemove iconSmall"  
-                title="{{ 'Delete user' | trans }} {{ user.username }}"
+                title="{{ user.username }}"
                 data-url="{{ path('fom_user_user_delete', { 'id': user.id}) }}" 
                 data-id="{{ user.id }}"
               ></span>
