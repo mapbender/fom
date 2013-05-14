@@ -294,6 +294,7 @@ fieldset{
     background-color: #FFF;
     color:$secondColor;
     position: absolute;
+    z-index: 2;
     display:none;
 
     border:solid 1px lighten($thirdColor, 15%);

@@ -867,6 +867,7 @@ fieldset {
     background-color: #FFF;
     color: #858585;
     position: absolute;
+    z-index: 2;
     display: none;
     border: solid 1px #c8c8c8;
     width: 100%;
