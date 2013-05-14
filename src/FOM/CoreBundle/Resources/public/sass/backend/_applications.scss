@@ -147,13 +147,44 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
     }
   }
 }
+.elementFormRuler{
+  $label:40px;
+  .labelInput{width:$label;}
+  .dropdown, .input{width:$elementPopupWidth - $label ;}
+}
 .elementFormPrintClient{
   .labelInput{width:50px;}
   textarea{width:200px;}
 }
+.elementFormToolbar{
+  $label:80px;
+  .labelInput{width:$label;}
+  .checkWrapper{margin-bottom:$space/2;}
+  .labelCheck{margin-right:$space;}
+  .dropdown, .input, select{width:$elementPopupWidth - $label;}
+  select{margin-bottom:$space/2;}
+  .singleRow{
+    .labelInput, & > .input{float:left;}
+    .labelInput{
+      width:15px;
+      margin-right:5px;
+    }
+    .input{
+      width:125px;
+      &:first-child{margin-right:$space/2;}
+    }
+  }
+}
 .elementFormYaml{
   .labelInput{width:70px;}
   .input{width:$elementPopupWidth + $space;}
+}
+.elementFormWmsLoader{
+  $label:85px;
+  .labelInput{width:$label;}
+  .dropdown, .input{width:$elementPopupWidth - $label ;}
+  .checkWrapper{margin-bottom:$space/2;}
+  .labelCheck{margin-right:$space;}
 }
 
 

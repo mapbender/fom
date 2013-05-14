@@ -694,11 +694,12 @@ fieldset {
   .tableCore td, .table td {
     padding: 5px;
     padding-left: 10px; }
+  .tableCore thead, .table thead {
+    border-bottom: solid 5px lightgrey; }
   .tableCore th, .table th {
     padding: 5px;
     padding-left: 10px;
     font-weight: normal;
-    border-bottom: solid 5px lightgrey;
     text-align: left; }
   .tableCore tbody tr, .table tbody tr {
     border-top: solid 1px #e0e0e0;
@@ -712,11 +713,13 @@ fieldset {
   .tableCore tr, .table tr {
     height: 30px; }
   .tableCore .iconColumn, .table .iconColumn {
-    padding: 0px;
-    height: 30px;
-    width: 10px; }
-    .tableCore .iconColumn:last-child, .table .iconColumn:last-child {
-      padding-right: 10px; }
+    float: right;
+    display: block;
+    padding-top: 5px;
+    padding-right: 10px;
+    vertical-align: top; }
+    .tableCore .iconColumn [class^="icon"], .table .iconColumn [class^="icon"], .tableCore .iconColumn [class*=" icon"], .table .iconColumn [class*=" icon"] {
+      margin-left: 10px; }
 
 .table {
   border-top: solid 3px #404040;

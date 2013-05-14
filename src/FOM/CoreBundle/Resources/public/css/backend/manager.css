@@ -694,11 +694,12 @@ fieldset {
   .tableCore td, .table td {
     padding: 5px;
     padding-left: 10px; }
+  .tableCore thead, .table thead {
+    border-bottom: solid 5px lightgrey; }
   .tableCore th, .table th {
     padding: 5px;
     padding-left: 10px;
     font-weight: normal;
-    border-bottom: solid 5px lightgrey;
     text-align: left; }
   .tableCore tbody tr, .table tbody tr {
     border-top: solid 1px #e0e0e0;
@@ -712,11 +713,13 @@ fieldset {
   .tableCore tr, .table tr {
     height: 30px; }
   .tableCore .iconColumn, .table .iconColumn {
-    padding: 0px;
-    height: 30px;
-    width: 10px; }
-    .tableCore .iconColumn:last-child, .table .iconColumn:last-child {
-      padding-right: 10px; }
+    float: right;
+    display: block;
+    padding-top: 5px;
+    padding-right: 10px;
+    vertical-align: top; }
+    .tableCore .iconColumn [class^="icon"], .table .iconColumn [class^="icon"], .tableCore .iconColumn [class*=" icon"], .table .iconColumn [class*=" icon"] {
+      margin-left: 10px; }
 
 .table {
   border-top: solid 3px #404040;
@@ -1605,15 +1608,49 @@ body {
   .elementFormOverview .singleRow .input:first-child {
     margin-right: 10px; }
 
+.elementFormRuler .labelInput, .elementFormRuler .popup .popupSubTitle, .popup .elementFormRuler .popupSubTitle {
+  width: 40px; }
+.elementFormRuler .dropdown, .elementFormRuler .input {
+  width: 350px; }
+
 .elementFormPrintClient .labelInput, .elementFormPrintClient .popup .popupSubTitle, .popup .elementFormPrintClient .popupSubTitle {
   width: 50px; }
 .elementFormPrintClient textarea {
   width: 200px; }
 
+.elementFormToolbar .labelInput, .elementFormToolbar .popup .popupSubTitle, .popup .elementFormToolbar .popupSubTitle {
+  width: 80px; }
+.elementFormToolbar .checkWrapper {
+  margin-bottom: 10px; }
+.elementFormToolbar .labelCheck {
+  margin-right: 20px; }
+.elementFormToolbar .dropdown, .elementFormToolbar .input, .elementFormToolbar select {
+  width: 310px; }
+.elementFormToolbar select {
+  margin-bottom: 10px; }
+.elementFormToolbar .singleRow .labelInput, .elementFormToolbar .singleRow .popup .popupSubTitle, .popup .elementFormToolbar .singleRow .popupSubTitle, .elementFormToolbar .singleRow > .input {
+  float: left; }
+.elementFormToolbar .singleRow .labelInput, .elementFormToolbar .singleRow .popup .popupSubTitle, .popup .elementFormToolbar .singleRow .popupSubTitle {
+  width: 15px;
+  margin-right: 5px; }
+.elementFormToolbar .singleRow .input {
+  width: 125px; }
+  .elementFormToolbar .singleRow .input:first-child {
+    margin-right: 10px; }
+
 .elementFormYaml .labelInput, .elementFormYaml .popup .popupSubTitle, .popup .elementFormYaml .popupSubTitle {
   width: 70px; }
 .elementFormYaml .input {
   width: 410px; }
+
+.elementFormWmsLoader .labelInput, .elementFormWmsLoader .popup .popupSubTitle, .popup .elementFormWmsLoader .popupSubTitle {
+  width: 85px; }
+.elementFormWmsLoader .dropdown, .elementFormWmsLoader .input {
+  width: 305px; }
+.elementFormWmsLoader .checkWrapper {
+  margin-bottom: 10px; }
+.elementFormWmsLoader .labelCheck {
+  margin-right: 20px; }
 
 /* ------------------------------------------------------------- LAYERS */
 .layersetForm .labelInput, .layersetForm .popup .popupSubTitle, .popup .layersetForm .popupSubTitle {
@@ -1749,10 +1786,6 @@ body {
 
 /* ------------------------------------------------------- USER CONTROL */
 /* --------------------------------------------------------------- ACLS */
-.userControlTable .iconColumn {
-  padding-top: 10px;
-  vertical-align: top; }
-
 .tableUserGroups {
   width: 300px; }
   .tableUserGroups .description {

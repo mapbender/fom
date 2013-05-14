@@ -21,8 +21,7 @@
       <tr class="doNotFilter">
         <th>{{ "Title" | trans }}</th>
         <th>{{ "Description" | trans }}</th>
-        <th></th>
-        <th></th>
+        <th class="iconColumn"></th>
       </tr>
     </thead>
     <tbody id="groupsBody">
@@ -33,9 +32,7 @@
         </td>
         <td class="description">{{ group.description }}</td>
         <td class="iconColumn">
-          <a class="iconEdit iconSmall" href="{{ path('fom_user_group_edit',  {'id': group.id }) }}" title="{{ 'Edit' | trans }}"></a>
-        </td>
-        <td class="iconColumn">
+            <a class="iconEdit iconSmall" href="{{ path('fom_user_group_edit',  {'id': group.id }) }}" title="{{ 'Edit group' | trans }}"></a>
             <span class="iconRemove iconSmall"  
               title="{{ 'Delete group' | trans }} {{ group.title }}"
               data-url="{{ path('fom_user_group_delete', { 'id': group.id}) }}" 
