@@ -1,4 +1,4 @@
-{% if (users|length > 0) || (groups|length > 0) %}
+{% if (users|length > 0) or (groups|length > 0) %}
   <label for="inputFilterGroupsAndUsers" class="labelInput left">{{"Filter"|trans}}</label>
   <input id="inputFilterGroupsAndUsers" type="text" class="input left listFilterInput"/>
   <div class="clearContainer"></div>
