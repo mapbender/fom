@@ -170,7 +170,7 @@ kbd,
 pre,
 samp {
   font-family: monospace, serif;
-  _font-family: 'courier new', monospace;
+  _font-family: "courier new", monospace;
   font-size: 1em; }
 
 /*
@@ -289,7 +289,7 @@ form {
  * Define consistent border, margin, and padding.
  */
 fieldset {
-  border: 1px solid #c0c0c0;
+  border: 1px solid silver;
   margin: 0 2px;
   padding: 0.35em 0.625em 0.75em; }
 
@@ -862,7 +862,12 @@ fieldset {
     color: #858585;
     border: none;
     width: 100%;
+    line-height: 29px;
     cursor: pointer; }
+    .dropdown .dropdownValue.iconDown:before {
+      position: absolute;
+      top: 0px;
+      right: 5px; }
   .dropdown .dropdownList {
     background-color: #FFF;
     color: #858585;
@@ -879,10 +884,9 @@ fieldset {
       .dropdown .dropdownList li:hover {
         color: #5b932a;
         background-color: #f9f9f9; }
-  .dropdown .iconDown {
+  .dropdown .hiddenDropdown {
     position: absolute;
-    top: 4px;
-    right: 10px; }
+    top: -9999px; }
 
 /* -------------------------------------------------------- CONTAINER */
 /* TABS */

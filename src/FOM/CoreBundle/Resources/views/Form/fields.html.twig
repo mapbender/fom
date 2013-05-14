@@ -113,28 +113,32 @@
         {{ block('choice_widget_options') }}
       </select>
     {% else %}
-      <div id="dropdown" class="dropdown">
-        <input readonly class="dropdownValue" {{ block('widget_attributes') }}/>
-        <span class="iconDown iconBig"></span>
-        <ul class="dropdownList">
-          {% if preferred_choices|length > 0 %}
-            {% set options = preferred_choices %}
-            {{ block('choice_widget_options') }}
+      <div class="dropdown">
+        {% set selectedValue = "" %}
 
-            {% if choices|length > 0 and separator is not none %}
-              <option disabled="disabled">{{ separator }}</option>
+        <select class="hiddenDropdown" {{ block('widget_attributes') }}>
+          {% for choice in choices %}
+            {% if choice is selectedchoice(value) %}
+              {% set selectedValue = choice.label|trans({}, translation_domain) %}
             {% endif %}
-          {% endif %}
 
-          {% set options = choices %}
-          {{ block('choice_widget_options') }}
+            <option class="opt-{{ loop.index }}" {% if choice is selectedchoice(value) %} selected="selected" {% endif %} value="{{ choice.value }}">{{ choice.label|trans({}, translation_domain) }}</option>
+          {% endfor %}
+        </select>
+
+        <div class="dropdownValue iconDown">{{ selectedValue }}</div>
+        <ul class="dropdownList">
+          {% for choice in choices %}
+            <li class="item-{{ loop.index }}">{{ choice.label|trans({}, translation_domain) }}</li>
+          {% endfor %}
         </ul>
       </div>
     {% endif %}
   {% endspaceless %}
 {% endblock choice_widget_collapsed %}
 
-{% block choice_widget_options %}
+{# XXXVH le dead?
+% block choice_widget_options %}
   {% spaceless %}
     {% for group_label, choice in options %}
       {% if choice is iterable %}
@@ -143,11 +147,11 @@
           {{ block('choice_widget_options') }}
         </optgroup>
       {% else %}
-        <li data-value="{{ choice.value }}" {% if choice is selectedchoice(value) %} class="selected"{% endif %}>{{ choice.label|trans({}, translation_domain) }}</li>
+        
       {% endif %}
     {% endfor %}
   {% endspaceless %}
-{% endblock choice_widget_options %}
+{% endblock choice_widget_options %#}
 
 {% block checkbox_widget %}
   {% spaceless %}

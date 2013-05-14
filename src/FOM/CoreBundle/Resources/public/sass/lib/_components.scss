@@ -273,12 +273,14 @@ fieldset{
 }
 /* DROPDOWN */
 .dropdown{
+  $lineHeight: $lineHeight + 8;
+
   cursor:pointer;
   display:inline-block;
   position: relative;
   color:$ciColor;
   border:solid 1px lighten($thirdColor, 15%);
-  line-height:$lineHeight + 8;
+  line-height:$lineHeight;
   height:28px;
   padding-right: $space + $space/2;
   background-color: #FFF;
@@ -288,7 +290,9 @@ fieldset{
     color:$secondColor;
     border:none;
     width: 100%;
+    line-height:$lineHeight;
     cursor: pointer;
+    &.iconDown:before{@include pos(0px,5px,'','');}
   }
   .dropdownList{
     background-color: #FFF;
@@ -311,7 +315,9 @@ fieldset{
       }
     }
   }
-  .iconDown{@include pos(4px,$space/2,'','');}
+  .hiddenDropdown{
+    @include pos(-9999px,'','','');
+  }
 
   @extend .smallText;
   @include border-radius($radius);

@@ -216,36 +216,25 @@ $(function() {
 
 
     // init dropdown list --------------------------------------------------------------------
-    var loadDropDown = function(){
-        var me            = $(this);
-        var selected      = me.find(".selected");
-        var dropDownInput = me.find(".dropdownValue");
+    var toggleList = function(){
+        var me   = $(this);
+        var list = me.find(".dropdownList");
+        var opts = me.find(".hiddenDropdown");
 
-        me.find(".dropdownList").hide();
-        dropDownInput.val(selected.text()).attr("data-value", selected.attr("data-value"));
+        list.show();
+        list.find("li").one("click", function(event){
+            event.stopPropagation();
+            list.hide().find("li").off("click");
+            var me2 = $(this);
+            var opt = me2.attr("class").replace("item", "opt");
+            $(".dropdownValue").text(me2.text());
+            opts.find("[selected=selected]").removeAttr("selected");
+            opts.find("." + opt).attr("selected", "selected");
+        })
+        $(document).one("click", function(){
+            list.hide().find("li").off("mouseout").off("click");
+        });
+        return false;
     }
-    var switchValue = function(){
-        var me        = $(this);
-        var value     = me.find(".dropdownValue");
-        var valueList = me.find(".dropdownList");
-
-        if(valueList.is(":visible")){
-            valueList.hide();
-        }else{
-            valueList.show().find("li").one("click", function(event){
-                event.stopPropagation();
-                var item          = $(this);
-                var parent        = item.parent();
-                var dropDownInput = parent.siblings(".dropdownValue");
-
-                item.siblings(".selected").removeClass("selected");
-                item.addClass("selected");
-
-                parent.find("li").unbind("click");
-                parent.parent().change();
-            });
-        }
-    }
-    $(document).on("change", ".dropdown", loadDropDown)
-               .on("click", ".dropdown", switchValue);
+    $(document).on("click", ".dropdown", toggleList);
 });
