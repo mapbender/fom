@@ -159,6 +159,25 @@ $(function() {
 
         return false;
     });
+    var deleteUserGroup = function(){
+        var me     = $(this);
+        var parent = me.parent().parent();
+        var userGroup = ((parent.find(".iconUser").length == 1) ? "user " : "group ") + parent.find(".labelInput").text();
+
+        if(!$('body').data('mbPopup')) {
+            $("body").mbPopup();
+            $("body").mbPopup('showModal',
+                {
+                    title:"Confirm delete",
+                    content:"Really delete " + userGroup + "?"
+                },
+                function(){
+                    parent.remove();
+                    $("body").mbPopup('close');
+                });
+        }
+    }
+    $("#permissionsBody").on("click", '.iconRemove', deleteUserGroup);
 
 
 

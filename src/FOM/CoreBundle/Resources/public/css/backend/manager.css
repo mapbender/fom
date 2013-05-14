@@ -1176,8 +1176,8 @@ fieldset {
 /* ----------------------------------------------------------- TABLES */
 .permissionsTable tr {
   border-bottom: solid 1px #e0e0e0; }
-  .permissionsTable tr.new {
-    background-color: #e5f9e5 !important; }
+  .permissionsTable tr.new .labelInput, .permissionsTable tr.new .popup .popupSubTitle, .popup .permissionsTable tr.new .popupSubTitle {
+    color: green; }
   .permissionsTable tr .input {
     width: 180px; }
 .permissionsTable th {
@@ -1610,6 +1610,15 @@ body {
 .elementFormCopyright .dropdown, .elementFormCopyright .input {
   width: 310px; }
 
+.elementFormLegend .labelInput, .elementFormLegend .popup .popupSubTitle, .popup .elementFormLegend .popupSubTitle {
+  width: 60px; }
+.elementFormLegend .dropdown, .elementFormLegend .input {
+  width: 330px; }
+.elementFormLegend .checkWrapper {
+  margin-bottom: 10px; }
+.elementFormLegend .labelCheck {
+  margin-right: 20px; }
+
 .elementFormFeatureInfo .labelInput, .elementFormFeatureInfo .popup .popupSubTitle, .popup .elementFormFeatureInfo .popupSubTitle {
   width: 40px; }
 .elementFormFeatureInfo .dropdown, .elementFormFeatureInfo .input {
@@ -1637,6 +1646,15 @@ body {
     width: 90px; }
     .elementFormMap .singleRow .input:first-child {
       margin-right: 5px; }
+
+.elementFormToc .labelInput, .elementFormToc .popup .popupSubTitle, .popup .elementFormToc .popupSubTitle {
+  width: 70px; }
+.elementFormToc .dropdown, .elementFormToc .input {
+  width: 320px; }
+.elementFormToc .checkWrapper {
+  margin-bottom: 10px; }
+.elementFormToc .labelCheck {
+  margin-right: 20px; }
 
 .elementFormLayerTree .labelInput, .elementFormLayerTree .popup .popupSubTitle, .popup .elementFormLayerTree .popupSubTitle {
   width: 80px; }

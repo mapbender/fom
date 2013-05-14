@@ -108,7 +108,7 @@
 
   tr{
     border-bottom: solid 1px darken($contentColor, 10%);
-    &.new{background-color: #e5f9e5 !important;}
+    &.new .labelInput{color: green;}
     .input{width:180px;}
   }
   th{cursor: pointer;padding:5px 0px;}

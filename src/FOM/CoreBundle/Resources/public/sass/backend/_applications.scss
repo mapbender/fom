@@ -130,6 +130,13 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
   .labelInput{width:$label;}
   .dropdown, .input{width:$elementPopupWidth - $label ;}
 }
+.elementFormLegend{
+  $label:60px;
+  .labelInput{width:$label;}
+  .dropdown, .input{width:$elementPopupWidth - $label ;}
+  .checkWrapper{margin-bottom:$space/2;}
+  .labelCheck{margin-right:$space;}
+}
 .elementFormFeatureInfo{
   $label:40px;
   .labelInput{width:$label;}
@@ -156,6 +163,13 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
     }
   }
 }
+.elementFormToc{
+  $label:70px;
+  .labelInput{width:$label;}
+  .dropdown, .input{width:$elementPopupWidth - $label ;}
+  .checkWrapper{margin-bottom:$space/2;}
+  .labelCheck{margin-right:$space;}
+}
 .elementFormLayerTree{
   $label:80px;
   .labelInput{width:$label;}
@@ -163,7 +177,6 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
   .checkWrapper{margin-bottom:$space/2;}
   .labelCheck{margin-right:$space;}
 }
-
 .elementFormOverview{
   $label:50px;
   .labelInput{width:$label;}
