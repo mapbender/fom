@@ -41,7 +41,8 @@
 .iconRight:before{content:"\f054";}
 .iconLinkButton:before{content:"\f105"}
 .iconDown:before{content:"\f0d7"}
-
+.iconExpand:before{content: "\f117";}
+.iconExpandClosed:before{content: "\f116";}
 
 // only frontend
 .iconAbout:before{content:"\f0c0";}
@@ -67,3 +68,5 @@
 .iconCancel:before{ content: "\f05c"; }
 .iconThumbsUp:before{content:"\f087";}
 .iconThumbsDown:before{content:"\f088";}
+.iconGroup:before{content:"\f0c0";}
+.iconUser:before{content:"\f007";}

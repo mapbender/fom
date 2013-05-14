@@ -178,10 +178,13 @@ $(function() {
 
     // init open toggle trees ----------------------------------------------------------------
     var toggleList = function(){
-        var parent = $(this).parent();
+        var me     = $(this);
+        var parent = me.parent();
         if(parent.hasClass("closed")){
+            me.removeClass("iconExpandClosed").addClass("iconExpand");
             parent.removeClass("closed");
         }else{
+            me.addClass("iconExpandClosed").removeClass("iconExpand");
             parent.addClass("closed");
         }
     }

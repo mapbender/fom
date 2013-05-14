@@ -13,26 +13,30 @@
     padding:0px;
   }
 
-  
   .iconCheckboxActive, .iconCheckbox{
     @extend .iconOk;
     @extend .iconBig;
     &:before{
       float:right;
+      margin-top:7px;
       margin-right:$space/2;
     }
   }
 
   td{
     cursor:pointer;
-    padding-right:0px;
+    padding:0px;
     @include transition(all 0.2s ease-in-out);
     &:hover{
       .checkWrapper{@include opacity(0.4);}
       .checkWrapper.iconCheckboxActive{@include opacity(1);}
     }
   }
-  .tdContentWrapper{position:relative;}
+  .tdContentWrapper{
+    position:relative;
+    padding:5px;
+    display:block;
+  }
   .checkWrapper{
     .checkbox{
       width:100%;

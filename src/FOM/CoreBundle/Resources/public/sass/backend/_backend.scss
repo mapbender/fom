@@ -116,6 +116,12 @@
     padding:5px;
     .labelInput{width:150px;}
     .input{display:none;}
+    .iconGroup:before, .iconUser:before{
+      text-align: center;
+      width:20px;
+      margin-right: 5px;
+      display: inline-block;
+    }
   }
   .listFilterInput{
     margin-top:0;

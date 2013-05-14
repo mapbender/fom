@@ -491,6 +491,12 @@ table {
 .iconDown:before {
   content: "\f0d7"; }
 
+.iconExpand:before {
+  content: "\f117"; }
+
+.iconExpandClosed:before {
+  content: "\f116"; }
+
 .iconAbout:before {
   content: "\f0c0"; }
 
@@ -553,6 +559,12 @@ table {
 
 .iconThumbsDown:before {
   content: "\f088"; }
+
+.iconGroup:before {
+  content: "\f0c0"; }
+
+.iconUser:before {
+  content: "\f007"; }
 
 * {
   -webkit-box-sizing: border-box;
