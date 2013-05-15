@@ -221,16 +221,22 @@ $(function() {
         var list = me.find(".dropdownList");
         var opts = me.find(".hiddenDropdown");
 
-        list.show();
-        list.find("li").one("click", function(event){
-            event.stopPropagation();
-            list.hide().find("li").off("click");
-            var me2 = $(this);
-            var opt = me2.attr("class").replace("item", "opt");
-            $(".dropdownValue").text(me2.text());
-            opts.find("[selected=selected]").removeAttr("selected");
-            opts.find("." + opt).attr("selected", "selected");
-        })
+        if(list.css("display") == "block"){
+            list.hide();
+            
+        }else{
+            list.show();
+            list.find("li").one("click", function(event){
+                event.stopPropagation();
+                list.hide().find("li").off("click");
+                var me2 = $(this);
+                var opt = me2.attr("class").replace("item", "opt");
+                $(".dropdownValue").text(me2.text());
+                opts.find("[selected=selected]").removeAttr("selected");
+                opts.find("." + opt).attr("selected", "selected");
+            })
+        }
+
         $(document).one("click", function(){
             list.hide().find("li").off("mouseout").off("click");
         });
