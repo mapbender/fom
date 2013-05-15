@@ -104,7 +104,8 @@ body{
   }
 }
 .navItem{
-  display:none;
+
+  // display:none; // XXXVH new navigation structure needed -> next release, but first show all navigation items
   a {
     font:{
       family: $fontFamily;

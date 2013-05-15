@@ -628,7 +628,7 @@ html, body {
 .smallerText {
   font-size: 10px; }
 
-.smallText, .labelInput, .popup .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .button.critical, .linkButton, .sidePaneTabs .sidePaneTabItem, .dropdown, .tabContainer .tab {
+.smallText, .labelInput, .popup .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .sideContent .mb-aboutButton, .button.critical, .sideContent .critical.mb-aboutButton, .linkButton, .sidePaneTabs .sidePaneTabItem, .dropdown, .tabContainer .tab {
   font-size: 12px; }
 
 .bigText, .title, .popup .popupHead {
@@ -752,7 +752,7 @@ fieldset {
     border: 1px solid #8dce55; }
 
 /* BUTTON */
-.buttonCore, .button, .button.critical, .linkButton, .sidePaneTabs .sidePaneTabItem {
+.buttonCore, .button, .sideContent .mb-aboutButton, .button.critical, .sideContent .critical.mb-aboutButton, .linkButton, .sidePaneTabs .sidePaneTabItem {
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -765,7 +765,7 @@ fieldset {
   border: none;
   cursor: pointer; }
 
-.button {
+.button, .sideContent .mb-aboutButton {
   padding: 5px 10px;
   line-height: 14px;
   margin: 0px;
@@ -784,17 +784,17 @@ fieldset {
   -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
   -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229; }
-  .button:hover {
+  .button:hover, .sideContent .mb-aboutButton:hover {
     background-color: #63a130;
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225; }
-  .button.icon, .sidePaneTabs .button.sidePaneTabItem {
+  .button.icon, .sidePaneTabs .button.sidePaneTabItem, .sidePaneTabs .sideContent .sidePaneTabItem.mb-aboutButton, .sideContent .sidePaneTabs .sidePaneTabItem.mb-aboutButton, .sideContent .icon.mb-aboutButton {
     padding-left: 20px;
     background-image: url("../../fomcore/images/link_arrow.png");
     background-position: 10px center;
     background-repeat: no-repeat; }
-  .button.critical {
+  .button.critical, .sideContent .critical.mb-aboutButton {
     border: 1px solid #9f3434;
     color: white;
     background-color: #d36565;
@@ -806,7 +806,7 @@ fieldset {
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a; }
-    .button.critical:hover {
+    .button.critical:hover, .sideContent .critical.mb-aboutButton:hover {
       background-color: #cd5151;
       -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535;
       -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535;
@@ -1076,7 +1076,7 @@ fieldset {
       top: 14px;
       margin-top: -5px; }
 
-/* ---------------------------------------------------------- SIDEBAR */
+/* ----------------------------------------- TOOLBAR - TOP AND BOTTOM */
 .toolBar {
   z-index: 4;
   color: white;
@@ -1097,6 +1097,8 @@ fieldset {
     right: 0;
     bottom: 0;
     left: 0; }
+    .toolBar.bottom [class^="icon"]:before, .toolBar.bottom [class*=" icon"]:before {
+      font-size: 14px; }
   .toolBar .toolBarItem {
     display: inline;
     padding-right: 10px; }
@@ -1116,6 +1118,8 @@ fieldset {
   .toolBar .iconBig:before {
     padding-right: 5px; }
 
+/* ------------------------------------------------- TOOLBAR ELEMENTS */
+/* --------------------------------------------------------- SIDEPANE */
 .sidePaneTabs {
   position: absolute;
   top: 40%; }
@@ -1188,3 +1192,12 @@ fieldset {
     right: 0;
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
     opacity: 0; }
+
+/* ------------------------------------------------ SIDEPANE ELEMENTS */
+.sideContent [class^="icon"]:before, .sideContent [class*=" icon"]:before {
+  font-size: 14px;
+  vertical-align: top;
+  margin-right: 5px; }
+.sideContent .mb-aboutButton {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1; }

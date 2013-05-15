@@ -73,12 +73,14 @@
                       inset 0px 0px 3px #fff);
 }
 .flashBox{
-  padding:($space/4) ($space/2) ($space/4) ($space/2);
+  $width:280px;
+
+  padding:($space/4) ($space/2);
   background-color:$contentColor;
   text-align: center;
-  width: 250px;
-  margin:0 auto;
-  position: relative;
+  width: $width;
+  margin-left:-$width/2;
+  @include pos(0,'','',50%);
   @include transition(all 1s ease-in-out);
   @include opacity(1);
   @include box-shadow(0px 0px 3px black);

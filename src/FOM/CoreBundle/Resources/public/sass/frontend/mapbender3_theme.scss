@@ -3,7 +3,7 @@
 @import "../lib/components";
 
 
-/* ---------------------------------------------------------- SIDEBAR */
+/* ----------------------------------------- TOOLBAR - TOP AND BOTTOM */
 .toolBar{
   z-index:4;
   color:$lightFontColor;
@@ -17,6 +17,7 @@
     border-bottom:solid 1px darken($contentColor, 20%);
   }
   &.bottom{
+    [class^="icon"]:before,[class*=" icon"]:before{font-size: 14px;}
     padding:$space/4 $space/2 $space/4 $space/2;
     font-size:90%;
     line-height: 90%;
@@ -45,7 +46,13 @@
   // space between icon and label
   .iconBig:before{padding-right:5px;}
 }
+/* ------------------------------------------------- TOOLBAR ELEMENTS */
 
+
+
+
+
+/* --------------------------------------------------------- SIDEPANE */
 $tabSize:32px;
 .sidePaneTabs{
   @include pos(40%,'','','');
@@ -115,5 +122,17 @@ $tabSize:32px;
     padding:$space;
     @include stretch();
     @include opacity(0);
+  }
+}
+/* ------------------------------------------------ SIDEPANE ELEMENTS */
+.sideContent{
+  [class^="icon"]:before,[class*=" icon"]:before{
+    font-size: 14px;
+    vertical-align: top;
+    margin-right:5px;
+  }
+  .mb-aboutButton{
+    @extend .button;
+    @include opacity(1);
   }
 }
