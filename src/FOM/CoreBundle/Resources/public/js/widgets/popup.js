@@ -203,12 +203,6 @@
     },
 
     _bindDrag: function(){
-      if(this.options.draggable){
-        //XXXVH:todo
-        var head = $("#popupHead");
-        head.draggable();
-        head.draggable({ scroll: false });
-      }
     },
 
     _addAllButtons: function(){
