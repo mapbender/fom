@@ -448,16 +448,7 @@ table {
   vertical-align: top; }
 
 .iconBig {
-  line-height: 20px;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
-  opacity: 0.6;
-  -webkit-transition: opacity 0.2s ease-in-out;
-  -moz-transition: opacity 0.2s ease-in-out;
-  -o-transition: opacity 0.2s ease-in-out;
-  transition: opacity 0.2s ease-in-out; }
-  .iconBig:hover {
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-    opacity: 1; }
+  line-height: 20px; }
   .iconBig:before {
     font-size: 20px; }
 
@@ -526,6 +517,12 @@ table {
 
 .iconClose:before, .sidePane.opened .sidePaneTabItem:before {
   content: "\f068" !important; }
+
+.iconActivity:before {
+  content: "\f072"; }
+
+.iconCoordinates:before {
+  content: "\f05b"; }
 
 .iconGroup:before {
   content: "\f0c0"; }
@@ -628,7 +625,7 @@ html, body {
 .smallerText {
   font-size: 10px; }
 
-.smallText, .labelInput, .popup .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .sideContent .mb-aboutButton, .button.critical, .sideContent .critical.mb-aboutButton, .linkButton, .sidePaneTabs .sidePaneTabItem, .dropdown, .tabContainer .tab {
+.smallText, .labelInput, .popup .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-button, .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-button, .linkButton, .sidePaneTabs .sidePaneTabItem, .dropdown, .tabContainer .tab {
   font-size: 12px; }
 
 .bigText, .title, .popup .popupHead {
@@ -752,7 +749,7 @@ fieldset {
     border: 1px solid #8dce55; }
 
 /* BUTTON */
-.buttonCore, .button, .sideContent .mb-aboutButton, .button.critical, .sideContent .critical.mb-aboutButton, .linkButton, .sidePaneTabs .sidePaneTabItem {
+.buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-button, .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-button, .linkButton, .sidePaneTabs .sidePaneTabItem {
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -765,7 +762,7 @@ fieldset {
   border: none;
   cursor: pointer; }
 
-.button, .sideContent .mb-aboutButton {
+.button, .sideContent .mb-aboutButton, .sideContent .mb-button {
   padding: 5px 10px;
   line-height: 14px;
   margin: 0px;
@@ -784,17 +781,17 @@ fieldset {
   -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
   -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229; }
-  .button:hover, .sideContent .mb-aboutButton:hover {
+  .button:hover, .sideContent .mb-aboutButton:hover, .sideContent .mb-button:hover {
     background-color: #63a130;
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225; }
-  .button.icon, .sidePaneTabs .button.sidePaneTabItem, .sidePaneTabs .sideContent .sidePaneTabItem.mb-aboutButton, .sideContent .sidePaneTabs .sidePaneTabItem.mb-aboutButton, .sideContent .icon.mb-aboutButton {
+  .button.icon, .sidePaneTabs .button.sidePaneTabItem, .sidePaneTabs .sideContent .sidePaneTabItem.mb-aboutButton, .sideContent .sidePaneTabs .sidePaneTabItem.mb-aboutButton, .sidePaneTabs .sideContent .sidePaneTabItem.mb-button, .sideContent .sidePaneTabs .sidePaneTabItem.mb-button, .sideContent .icon.mb-aboutButton, .sideContent .icon.mb-button {
     padding-left: 20px;
     background-image: url("../../fomcore/images/link_arrow.png");
     background-position: 10px center;
     background-repeat: no-repeat; }
-  .button.critical, .sideContent .critical.mb-aboutButton {
+  .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-button {
     border: 1px solid #9f3434;
     color: white;
     background-color: #d36565;
@@ -806,7 +803,7 @@ fieldset {
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a; }
-    .button.critical:hover, .sideContent .critical.mb-aboutButton:hover {
+    .button.critical:hover, .sideContent .critical.mb-aboutButton:hover, .sideContent .critical.mb-button:hover {
       background-color: #cd5151;
       -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535;
       -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535;
@@ -1076,6 +1073,66 @@ fieldset {
       top: 14px;
       margin-top: -5px; }
 
+/* -------------------------------------------------------------- ALL */
+@-webkit-keyframes activity {
+  0% {
+    opacity: 0; }
+
+  50% {
+    opacity: 1; }
+
+  100% {
+    opacity: 0; } }
+
+@-moz-keyframes activity {
+  0% {
+    opacity: 0; }
+
+  50% {
+    opacity: 1; }
+
+  100% {
+    opacity: 0; } }
+
+@keyframes activity {
+  0% {
+    opacity: 0; }
+
+  50% {
+    opacity: 1; }
+
+  100% {
+    opacity: 0; } }
+
+.mb-element-activityindicator {
+  display: none; }
+
+.mb-activity .mb-element-activityindicator, .mb-activity-ajax .mb-element-activityindicator {
+  display: inline-block;
+  -webkit-animation: activity 1s ease-in-out infinite;
+  -moz-animation: activity 1s ease-in-out infinite;
+  animation: activity 1s ease-in-out infinite;
+  text-shadow: 0 0 2px black; }
+
+.mb-hiddenCheckbox {
+  position: absolute;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0; }
+
+.iconCoordinates {
+  cursor: default; }
+
+.mb-element-copyright {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  opacity: 0.6; }
+
+.mb-element-copyright-link {
+  text-decoration: underline;
+  cursor: pointer; }
+
+.mb-element-copyright-dialog {
+  display: none; }
+
 /* ----------------------------------------- TOOLBAR - TOP AND BOTTOM */
 .toolBar {
   z-index: 4;
@@ -1085,6 +1142,16 @@ fieldset {
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); }
+  .toolBar [class^="icon"], .toolBar [class*=" icon"] {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+    opacity: 0.6;
+    -webkit-transition: opacity 0.2s ease-in-out;
+    -moz-transition: opacity 0.2s ease-in-out;
+    -o-transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out; }
+    .toolBar [class^="icon"]:hover, .toolBar [class*=" icon"]:hover {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+      opacity: 1; }
   .toolBar.top {
     padding: 10px 20px 10px 20px;
     position: relative;
@@ -1102,10 +1169,6 @@ fieldset {
   .toolBar .toolBarItem {
     display: inline;
     padding-right: 10px; }
-  .toolBar .mb-hiddenCheckbox {
-    position: absolute;
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-    opacity: 0; }
   .toolBar.itemsRight {
     text-align: right; }
     .toolBar.itemsRight .toolBarItem {
@@ -1144,7 +1207,7 @@ fieldset {
 
 .sidePane {
   width: 10px;
-  z-index: 3;
+  z-index: 20;
   overflow: visible;
   background-image: url("../../images/content.png");
   border-top: solid 3px #404040;
@@ -1194,10 +1257,38 @@ fieldset {
     opacity: 0; }
 
 /* ------------------------------------------------ SIDEPANE ELEMENTS */
-.sideContent [class^="icon"]:before, .sideContent [class*=" icon"]:before {
-  font-size: 14px;
-  vertical-align: top;
-  margin-right: 5px; }
-.sideContent .mb-aboutButton {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1; }
+.sideContent {
+  /* About button */
+  /* About button */ }
+  .sideContent [class^="icon"]:before, .sideContent [class*=" icon"]:before {
+    font-size: 14px;
+    vertical-align: top;
+    margin-right: 5px; }
+
+.contentPane {
+  /* Activity indecator */ }
+  .contentPane .mb-element-activityindicator, .contentPane .mb-element-coordsdisplay {
+    z-index: 20;
+    position: absolute;
+    right: 20px;
+    bottom: 40px; }
+  .contentPane .left-top {
+    z-index: 10;
+    position: absolute;
+    top: 120px;
+    left: 20px; }
+  .contentPane .right-top {
+    z-index: 10;
+    position: absolute;
+    top: 60px;
+    right: 20px; }
+  .contentPane .left-bottom {
+    z-index: 10;
+    position: absolute;
+    bottom: 40px;
+    left: 20px; }
+  .contentPane .right-bottom {
+    z-index: 10;
+    position: absolute;
+    right: 40px;
+    bottom: 40px; }

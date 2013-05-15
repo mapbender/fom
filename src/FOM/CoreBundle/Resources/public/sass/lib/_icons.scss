@@ -22,12 +22,8 @@
   height: auto;
   vertical-align: top;
 }
-
 .iconBig{
   line-height: 20px;
-  @include opacity(0.6);
-  @include transition(opacity .2s ease-in-out);
-  &:hover{@include opacity(1);}
   &:before{font-size: 20px;}
 }
 
@@ -55,6 +51,8 @@
 .iconWms:before{content:"\f0ac";}
 .iconOpen:before{content:"\f067";}
 .iconClose:before{content:"\f068" !important;}
+.iconActivity:before{content:"\f072";}
+.iconCoordinates:before{content:"\f05b";}
 
 // only backend
 .iconGroup:before{content: "\f0c0";}

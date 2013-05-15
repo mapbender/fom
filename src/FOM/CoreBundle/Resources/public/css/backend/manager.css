@@ -448,16 +448,7 @@ table {
   vertical-align: top; }
 
 .iconBig, .tableUserGroups .iconCheckboxActive, .tableUserGroups .iconCheckbox {
-  line-height: 20px;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
-  opacity: 0.6;
-  -webkit-transition: opacity 0.2s ease-in-out;
-  -moz-transition: opacity 0.2s ease-in-out;
-  -o-transition: opacity 0.2s ease-in-out;
-  transition: opacity 0.2s ease-in-out; }
-  .iconBig:hover, .tableUserGroups .iconCheckboxActive:hover, .tableUserGroups .iconCheckbox:hover {
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-    opacity: 1; }
+  line-height: 20px; }
   .iconBig:before, .tableUserGroups .iconCheckboxActive:before, .tableUserGroups .iconCheckbox:before {
     font-size: 20px; }
 
@@ -526,6 +517,12 @@ table {
 
 .iconClose:before {
   content: "\f068" !important; }
+
+.iconActivity:before {
+  content: "\f072"; }
+
+.iconCoordinates:before {
+  content: "\f05b"; }
 
 .iconGroup:before {
   content: "\f0c0"; }
@@ -1133,6 +1130,17 @@ fieldset {
   padding-top: 10px;
   border-top: dashed 1px #b3b3b3; }
 
+.iconBig, .tableUserGroups .iconCheckboxActive, .tableUserGroups .iconCheckbox {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  opacity: 0.6;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -o-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out; }
+  .iconBig:hover, .tableUserGroups .iconCheckboxActive:hover, .tableUserGroups .iconCheckbox:hover {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1; }
+
 /* MESSAGES */
 .messageBox {
   padding: 10px;
@@ -1601,9 +1609,9 @@ body {
 .elementFormCoordinates .dropdown, .elementFormRuler .input, .elementFormRuler .dropdown {
   width: 340px; }
 
-.elementFormCopyright .labelInput, .elementFormCopyright .popup .popupSubTitle, .popup .elementFormCopyright .popupSubTitle {
+.elementFormCopyright .labelInput, .elementFormCopyright .popup .popupSubTitle, .popup .elementFormCopyright .popupSubTitle, .elementFormActivity .labelInput, .elementFormActivity .popup .popupSubTitle, .popup .elementFormActivity .popupSubTitle {
   width: 80px; }
-.elementFormCopyright .dropdown, .elementFormCopyright .input {
+.elementFormCopyright .dropdown, .elementFormCopyright .input, .elementFormActivity .dropdown, .elementFormActivity .input {
   width: 310px; }
 
 .elementFormLegend .labelInput, .elementFormLegend .popup .popupSubTitle, .popup .elementFormLegend .popupSubTitle {

@@ -52,6 +52,12 @@
     border-top:dashed 1px darken(#fff, 30%);
   }
 }
+.iconBig{
+  @include opacity(0.6);
+  @include transition(opacity .2s ease-in-out);
+  &:hover{@include opacity(1);}
+}
+
 /* MESSAGES */
 .messageBox{
   padding:$space/2;
