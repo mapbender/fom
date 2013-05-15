@@ -411,7 +411,7 @@
       {% for child in form %}
         <td>
           {% if child.vars.block_prefixes.2 == "text" %}
-            <div class="{% if child.vars.value|slice(0, 1) == "u" %}iconUser {% else %} iconGroup{% endif %}">
+            <div class="{% if child.vars.value|slice(0, 1) == "u" %}iconUser {% else %} iconGroup{% endif %} userType">
               <span class="labelInput">{{ child.vars.value|slice(2) }}</span>
             </div>
             {{ form_widget(child) }}

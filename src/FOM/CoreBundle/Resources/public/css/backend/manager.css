@@ -1181,8 +1181,10 @@ fieldset {
 /* ----------------------------------------------------------- TABLES */
 .permissionsTable tr {
   border-bottom: solid 1px #e0e0e0; }
-  .permissionsTable tr.new .labelInput, .permissionsTable tr.new .popup .popupSubTitle, .popup .permissionsTable tr.new .popupSubTitle {
-    color: green; }
+  .permissionsTable tr.new {
+    background-color: #f0ffed; }
+    .permissionsTable tr.new .labelInput, .permissionsTable tr.new .popup .popupSubTitle, .popup .permissionsTable tr.new .popupSubTitle, .permissionsTable tr.new .iconGroup, .permissionsTable tr.new .iconUser {
+      color: green; }
   .permissionsTable tr .input {
     width: 180px; }
 .permissionsTable th {

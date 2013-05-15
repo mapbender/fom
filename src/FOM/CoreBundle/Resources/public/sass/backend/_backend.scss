@@ -108,7 +108,10 @@
 
   tr{
     border-bottom: solid 1px darken($contentColor, 10%);
-    &.new .labelInput{color: green;}
+    &.new{
+      .labelInput, .iconGroup, .iconUser{color:green;}
+      background-color: #f0ffed;
+    }
     .input{width:180px;}
   }
   th{cursor: pointer;padding:5px 0px;}

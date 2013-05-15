@@ -127,29 +127,39 @@ $(function() {
                             var text, val, parent, newEl;
 
                             $("#listFilterGroupsAndUsers").find(".iconCheckboxActive").each(function(i, e){
-                                parent = $(e).parent();
-                                text   = parent.find(".labelInput").text().trim();
-                                val    = parent.find(".hide").text().trim();
-
+                                parent   = $(e).parent();
+                                text     = parent.find(".labelInput").text().trim();
+                                val      = parent.find(".hide").text().trim();
+                                userType = parent.hasClass("iconGroup") ? "iconGroup" : "iconUser";
                                 newEl = body.prepend(proto.replace(/__name__/g, count))
                                             .find("tr:first");
 
                                 newEl.addClass("new").find(".labelInput").text(text);
                                 newEl.find(".input").attr("value", val);
+                                newEl.find(".view .checkbox").trigger("click");
+                                newEl.find(".userType")
+                                     .removeClass("iconGroup")
+                                     .removeClass("iconUser")
+                                     .addClass(userType);
                                 ++count;
                             });
 
                             $("body").mbPopup('close');
                         }
                     }, null, function(){
-                        var item, text;
+                        var groupUserItem, text, me, groupUserType;
                         $("#listFilterGroupsAndUsers").find(".filterItem").each(function(i, e){
-                            item = $(e);
+                            groupUserItem = $(e);
+                            groupUserType = (groupUserItem.find(".tdContentWrapper")
+                                                          .hasClass("iconGroup") ? "iconGroup" 
+                                                                                 : "iconUser");
 
                             $("#permissionsBody").find(".labelInput").each(function(i, e){
-                                text = $(e).text().trim();
-                                if(item.text().trim().toUpperCase().indexOf(text.toUpperCase()) >= 0){
-                                    item.remove();
+                                me = $(e);
+                                text = me.text().trim();
+                                if((groupUserItem.text().trim().toUpperCase().indexOf(text.toUpperCase()) >= 0) &&
+                                   (me.parent().hasClass(groupUserType))){
+                                    groupUserItem.remove();
                                 }
                             });
                         });
