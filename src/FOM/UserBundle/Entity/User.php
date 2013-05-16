@@ -94,6 +94,11 @@ class User implements AdvancedUserInterface {
      */
     protected $groups;
 
+    /**
+     * The profile is not stored here, but a placeholder is needed
+     */
+    protected $profile;
+
     public function __construct() {
         $this->groups = new ArrayCollection();
     }
@@ -360,5 +365,18 @@ class User implements AdvancedUserInterface {
         //$role = ($type !== null ? 'ROLE_ADMIN_' .$type : 'ROLE_ADMIN');
 
         return false;
+    }
+
+    public function setProfile($profile)
+    {
+        $this->profile = $profile;
+        if($profile) {
+            $this->profile->setUid($this);
+        }
+    }
+
+    public function getProfile()
+    {
+        return $this->profile;
     }
 }
