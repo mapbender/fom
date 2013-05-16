@@ -41,16 +41,7 @@
 /* ----------------------------------------- TOOLBAR - TOP AND BOTTOM */
 .toolBar{
   z-index:4; 
-  color:$lightFontColor;
-  background-color:darken($contentColor, 60%); //IE8 & 9 fallback
-  background-color:rgba(0,0,0,0.8);
-  @include box-shadow(0 0 5px rgba(0,0,0,0.2));
-
-  [class^="icon"],[class*=" icon"]{
-    @include opacity(0.6);
-    @include transition(opacity .2s ease-in-out);
-    &:hover{@include opacity(1);}
-  }
+  @include frontendContainerStyle();
 
   &.top{
     padding:$space/2 $space $space/2 $space;
@@ -188,7 +179,7 @@ $tabSize:32px;
 
   .left-top{
     z-index: 10;
-    @include pos($space*6,'','',$space);
+    @include pos($space*7,'','',$space);
   }
   .right-top{
     z-index: 10;
@@ -200,6 +191,60 @@ $tabSize:32px;
   }
   .right-bottom{
     z-index: 10;
-    @include pos('',$space*2,$space*2,'');
+    @include pos('',$space,$space*2,'');
   }
 }
+
+.mb-element-zoombar{
+  &.iconMove:before{
+    @include pos(-$space,0,'','');
+  }
+}
+.pan{
+  height: 49px;
+  width: 49px;
+  @include border-radius(50%,50%);
+  @include frontendContainerStyle();
+
+  .iconTop{@include pos(0,'','',18px);}
+  .iconRight{@include pos(14px,6px,'','');}
+  .iconDown{@include pos('','',2px,18px);}
+  .iconLeft{@include pos(14px,'','',7px);}
+}
+.toolPane{
+  margin:$space/2 5px 0px 5px;
+  padding:5px 0px;
+  @include border-radius($radius);
+  @include frontendContainerStyle();
+
+  & > li{margin:3px 0;}
+}
+.historyPrev, .historyNext{margin-left:5px;}
+.zoomBox{
+  text-align:center;
+  &.activeZoomIcon{
+    .iconZoom{@include opacity(1);}
+  }
+}
+.zoomWorld{text-align:center;}
+.zoomSlider{
+  text-align:center;
+  .zoomSliderLevels{margin:0px;}
+  .iconZoomLevel{
+    font-size:10px;
+    line-height:10px;
+    margin-top:5px;
+    margin-bottom:10px;
+  }
+  .iconZoomOut, .iconZoomLevel{
+    position: relative;
+    display:block;
+    &:after{
+      content:'';
+      height:7px;
+      border-left:dotted 1px white;
+      @include pos(-8px,'','',19px);
+    }
+  }
+}
+.olMapViewport.MapbenderControlZoomBoxActive{cursor: crosshair;}

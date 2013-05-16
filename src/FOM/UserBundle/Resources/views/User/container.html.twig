@@ -2,7 +2,7 @@
   <ul class="tabs">
     <li id="tabBaseData" class="tab active">{{"Base data" | trans }}</li>
     {% if form.profile is defined %}
-      <li id="tabProfile" class="tab active">{{"Profile" | trans }}</li>
+      <li id="tabProfile" class="tab">{{"Profile" | trans }}</li>
     {% endif %}
     <li id="tabGroups" class="tab">{{"Groups" | trans }}</li>
     <li id="tabSecurity" class="tab">{{"Security" | trans }}</li>
@@ -47,8 +47,8 @@
       <table id="listFilterUsers" class="listFilterContainer tableCore tableUserGroups" cellspacing="0" cellpadding="0">
         <thead>
           <tr class="doNotFilter">
-            <th>Name</th>
-            <th class="description"><span id="selectedUsersGroups">{{user.groups | length}}</span> users of {{form.groups|length}} selected</th>
+            <th>{{"Name"|trans}}</th>
+            <th class="description"><span id="selectedUsersGroups">{{user.groups | length}}</span> {{"users of"|trans}} {{form.groups|length}} {{"selected"|trans}}</th>
           </tr>
         </thead>
         <tbody>

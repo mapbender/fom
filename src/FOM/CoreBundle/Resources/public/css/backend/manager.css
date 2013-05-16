@@ -470,23 +470,29 @@ table {
 .iconHelp:before {
   content: "\f059"; }
 
-.iconLeft:before {
-  content: "\f053"; }
-
-.iconRight:before {
-  content: "\f054"; }
-
 .iconLinkButton:before {
   content: "\f105"; }
 
 .iconDown:before {
-  content: "\f0d7"; }
+  content: "\f078"; }
+
+.iconRight:before {
+  content: "\f054"; }
+
+.iconLeft:before {
+  content: "\f053"; }
+
+.iconTop:before {
+  content: "\f077"; }
 
 .iconExpand:before {
   content: "\f117"; }
 
 .iconExpandClosed:before {
   content: "\f116"; }
+
+.iconMove:before {
+  content: "\f047"; }
 
 .iconAbout:before {
   content: "\f0c0"; }
@@ -523,6 +529,30 @@ table {
 
 .iconCoordinates:before {
   content: "\f05b"; }
+
+.iconPrev:before {
+  content: "\f0e2"; }
+
+.iconNext:before {
+  content: "\f01e"; }
+
+.iconZoomSelect:before {
+  content: "\f00e"; }
+
+.iconZoomMin:before {
+  content: "\f0ac"; }
+
+.iconZoomIn:before {
+  content: "\f116"; }
+
+.iconZoomOut:before {
+  content: "\f117"; }
+
+.iconZoomLevel:before {
+  content: "\f10c"; }
+
+.iconZoomLevelSelected:before {
+  content: "\f111"; }
 
 .iconGroup:before {
   content: "\f0c0"; }
