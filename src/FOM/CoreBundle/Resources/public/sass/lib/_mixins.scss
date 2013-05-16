@@ -1,6 +1,6 @@
 //
 // positioning helper mixin
-// compass -> stretch do not support empty values
+// compass -> stretch not support empty values
 //
 @mixin pos($top, $right, $bottom, $left){
   position:absolute;

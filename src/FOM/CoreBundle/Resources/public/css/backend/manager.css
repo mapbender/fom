@@ -1725,8 +1725,8 @@ body {
 
 .elementFormYaml .labelInput, .elementFormYaml .popup .popupSubTitle, .popup .elementFormYaml .popupSubTitle {
   width: 70px; }
-.elementFormYaml .input {
-  width: 410px; }
+.elementFormYaml .dropdown, .elementFormYaml .input {
+  width: 320px; }
 
 .elementFormWmsLoader .labelInput, .elementFormWmsLoader .popup .popupSubTitle, .popup .elementFormWmsLoader .popupSubTitle {
   width: 85px; }

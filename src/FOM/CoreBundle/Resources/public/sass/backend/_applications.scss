@@ -219,8 +219,9 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
   }
 }
 .elementFormYaml{
-  .labelInput{width:70px;}
-  .input{width:$elementPopupWidth + $space;}
+  $label:70px;
+  .labelInput{width:$label;}
+  .dropdown, .input{width:$elementPopupWidth - $label ;}
 }
 .elementFormWmsLoader{
   $label:85px;
