@@ -3,13 +3,45 @@
 @import "../lib/components";
 
 
-/* ---------------------------------------------------------- SIDEBAR */
+/* -------------------------------------------------------------- ALL */
+@-webkit-keyframes activity {
+  0%{opacity:0;}
+  50%{opacity:1;}
+  100%{opacity:0;}
+}
+@-moz-keyframes activity {
+  0%{opacity:0;}
+  50%{opacity:1;}
+  100%{opacity:0;}
+}
+@keyframes activity {
+  0%{opacity:0;}
+  50%{opacity:1;}
+  100%{opacity:0;}
+}
+.mb-element-activityindicator{display:none;}
+.mb-activity, .mb-activity-ajax{
+  .mb-element-activityindicator{
+    display: inline-block;
+    -webkit-animation:activity 1s ease-in-out infinite;
+    -moz-animation:activity 1s ease-in-out infinite;
+    animation:activity 1s ease-in-out infinite;
+    @include text-shadow(0 0 2px black);
+  }
+}
+.mb-hiddenCheckbox{
+  position: absolute;
+  @include opacity(0);
+}
+.iconCoordinates{cursor:default;}
+.mb-element-copyright{@include opacity(0.6);}
+.mb-element-copyright-link{text-decoration:underline;cursor:pointer;}
+.mb-element-copyright-dialog{display: none;}
+
+/* ----------------------------------------- TOOLBAR - TOP AND BOTTOM */
 .toolBar{
-  z-index:4;
-  color:$lightFontColor;
-  background-color:darken($contentColor, 60%); //IE8 & 9 fallback
-  background-color:rgba(0,0,0,0.8);
-  @include box-shadow(0 0 5px rgba(0,0,0,0.2));
+  z-index:4; 
+  @include frontendContainerStyle();
 
   &.top{
     padding:$space/2 $space $space/2 $space;
@@ -17,6 +49,7 @@
     border-bottom:solid 1px darken($contentColor, 20%);
   }
   &.bottom{
+    [class^="icon"]:before,[class*=" icon"]:before{font-size: 14px;}
     padding:$space/4 $space/2 $space/4 $space/2;
     font-size:90%;
     line-height: 90%;
@@ -26,10 +59,6 @@
   .toolBarItem{
     display:inline;
     padding-right:$space/2;
-  }
-  .mb-hiddenCheckbox{
-    position: absolute;
-    @include opacity(0);
   }
   &.itemsRight{
     text-align:right;
@@ -45,7 +74,13 @@
   // space between icon and label
   .iconBig:before{padding-right:5px;}
 }
+/* ------------------------------------------------- TOOLBAR ELEMENTS */
 
+
+
+
+
+/* --------------------------------------------------------- SIDEPANE */
 $tabSize:32px;
 .sidePaneTabs{
   @include pos(40%,'','','');
@@ -77,7 +112,7 @@ $tabSize:32px;
 }
 .sidePane{
   width:10px;
-  z-index:3;
+  z-index:20;
   overflow: visible;
   background-image:url($contentPatternUrl);
   border-top:solid 3px $firstColor;
@@ -117,3 +152,99 @@ $tabSize:32px;
     @include opacity(0);
   }
 }
+/* ------------------------------------------------ SIDEPANE ELEMENTS */
+.sideContent{
+  [class^="icon"]:before,[class*=" icon"]:before{
+    font-size: 14px;
+    vertical-align: top;
+    margin-right:5px;
+  }
+
+  /* About button */
+  .mb-aboutButton{
+    @extend .button;
+  }
+  /* About button */
+  .mb-button{
+    @extend .button;
+  }
+}
+
+.contentPane{
+  /* Activity indecator */
+  .mb-element-activityindicator, .mb-element-coordsdisplay{
+    z-index: 20;
+    @include pos('',$space,$space*2,'');
+  }
+
+  .left-top{
+    z-index: 10;
+    @include pos($space*7,'','',$space);
+  }
+  .right-top{
+    z-index: 10;
+    @include pos($space*3,$space,'','');
+  }
+  .left-bottom{
+    z-index: 10;
+    @include pos('','',$space*2,$space);
+  }
+  .right-bottom{
+    z-index: 10;
+    @include pos('',$space,$space*2,'');
+  }
+}
+
+.mb-element-zoombar{
+  &.iconMove:before{
+    @include pos(-$space,0,'','');
+  }
+}
+.pan{
+  height: 49px;
+  width: 49px;
+  @include border-radius(50%,50%);
+  @include frontendContainerStyle();
+
+  .iconTop{@include pos(0,'','',18px);}
+  .iconRight{@include pos(14px,6px,'','');}
+  .iconDown{@include pos('','',2px,18px);}
+  .iconLeft{@include pos(14px,'','',7px);}
+}
+.toolPane{
+  margin:$space/2 5px 0px 5px;
+  padding:5px 0px;
+  @include border-radius($radius);
+  @include frontendContainerStyle();
+
+  & > li{margin:3px 0;}
+}
+.historyPrev, .historyNext{margin-left:5px;}
+.zoomBox{
+  text-align:center;
+  &.activeZoomIcon{
+    .iconZoom{@include opacity(1);}
+  }
+}
+.zoomWorld{text-align:center;}
+.zoomSlider{
+  text-align:center;
+  .zoomSliderLevels{margin:0px;}
+  .iconZoomLevel{
+    font-size:10px;
+    line-height:10px;
+    margin-top:5px;
+    margin-bottom:10px;
+  }
+  .iconZoomOut, .iconZoomLevel{
+    position: relative;
+    display:block;
+    &:after{
+      content:'';
+      height:7px;
+      border-left:dotted 1px white;
+      @include pos(-8px,'','',19px);
+    }
+  }
+}
+.olMapViewport.MapbenderControlZoomBoxActive{cursor: crosshair;}

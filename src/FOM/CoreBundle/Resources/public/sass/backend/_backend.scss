@@ -52,6 +52,12 @@
     border-top:dashed 1px darken(#fff, 30%);
   }
 }
+.iconBig{
+  @include opacity(0.6);
+  @include transition(opacity .2s ease-in-out);
+  &:hover{@include opacity(1);}
+}
+
 /* MESSAGES */
 .messageBox{
   padding:$space/2;
@@ -73,12 +79,14 @@
                       inset 0px 0px 3px #fff);
 }
 .flashBox{
-  padding:($space/4) ($space/2) ($space/4) ($space/2);
+  $width:280px;
+
+  padding:($space/4) ($space/2);
   background-color:$contentColor;
   text-align: center;
-  width: 250px;
-  margin:0 auto;
-  position: relative;
+  width: $width;
+  margin-left:-$width/2;
+  @include pos(0,'','',50%);
   @include transition(all 1s ease-in-out);
   @include opacity(1);
   @include box-shadow(0px 0px 3px black);
@@ -108,12 +116,15 @@
 
   tr{
     border-bottom: solid 1px darken($contentColor, 10%);
-    &.new{background-color: #e5f9e5 !important;}
-    .input{width:210px;}
+    &.new{
+      .labelInput, .iconGroup, .iconUser{color:green;}
+      background-color: #f0ffed;
+    }
+    .input{width:180px;}
   }
-  th{cursor: pointer;padding-left:5px;}
+  th{cursor: pointer;padding:5px 0px;}
   td{
-    padding:5px;
+    padding:5px 0px;
     .labelInput{width:150px;}
     .input{display:none;}
     .iconGroup:before, .iconUser:before{
@@ -135,7 +146,7 @@
 
   .tagWrapper{
     position: relative;
-    width:58px;
+    width:56px;
     height:$height;
     line-height:$height;
     text-align:center;
@@ -162,6 +173,15 @@
   }
 }
 .tableGroupsAndUsers{
+  border:{
+    top:solid 3px $firstColor;
+    left:solid 1px $thirdColor;
+    right:solid 1px $thirdColor;
+    bottom:solid 1px $thirdColor;
+  }
+  @include border-bottom-radius($radius);
+  @include box-shadow(0px 0px 8px rgba(0, 0, 0, 0.1));
   width:100% !important;
   .hide{display:none;}
+  [class^="icon"],[class*=" icon"]{margin-left:10px;}
 }

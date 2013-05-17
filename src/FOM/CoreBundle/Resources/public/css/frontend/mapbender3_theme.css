@@ -448,16 +448,7 @@ table {
   vertical-align: top; }
 
 .iconBig {
-  line-height: 20px;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
-  opacity: 0.6;
-  -webkit-transition: opacity 0.2s ease-in-out;
-  -moz-transition: opacity 0.2s ease-in-out;
-  -o-transition: opacity 0.2s ease-in-out;
-  transition: opacity 0.2s ease-in-out; }
-  .iconBig:hover {
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-    opacity: 1; }
+  line-height: 20px; }
   .iconBig:before {
     font-size: 20px; }
 
@@ -479,23 +470,29 @@ table {
 .iconHelp:before {
   content: "\f059"; }
 
-.iconLeft:before {
-  content: "\f053"; }
-
-.iconRight:before {
-  content: "\f054"; }
-
 .iconLinkButton:before {
   content: "\f105"; }
 
 .iconDown:before {
-  content: "\f0d7"; }
+  content: "\f078"; }
+
+.iconRight:before {
+  content: "\f054"; }
+
+.iconLeft:before {
+  content: "\f053"; }
+
+.iconTop:before {
+  content: "\f077"; }
 
 .iconExpand:before {
   content: "\f117"; }
 
 .iconExpandClosed:before {
   content: "\f116"; }
+
+.iconMove:before {
+  content: "\f047"; }
 
 .iconAbout:before {
   content: "\f0c0"; }
@@ -526,6 +523,36 @@ table {
 
 .iconClose:before, .sidePane.opened .sidePaneTabItem:before {
   content: "\f068" !important; }
+
+.iconActivity:before {
+  content: "\f072"; }
+
+.iconCoordinates:before {
+  content: "\f05b"; }
+
+.iconPrev:before {
+  content: "\f0e2"; }
+
+.iconNext:before {
+  content: "\f01e"; }
+
+.iconZoomSelect:before {
+  content: "\f00e"; }
+
+.iconZoomMin:before {
+  content: "\f0ac"; }
+
+.iconZoomIn:before {
+  content: "\f116"; }
+
+.iconZoomOut:before {
+  content: "\f117"; }
+
+.iconZoomLevel:before {
+  content: "\f10c"; }
+
+.iconZoomLevelSelected:before {
+  content: "\f111"; }
 
 .iconGroup:before {
   content: "\f0c0"; }
@@ -628,7 +655,7 @@ html, body {
 .smallerText {
   font-size: 10px; }
 
-.smallText, .labelInput, .popup .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .button.critical, .linkButton, .sidePaneTabs .sidePaneTabItem, .dropdown, .tabContainer .tab {
+.smallText, .labelInput, .popup .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-button, .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-button, .linkButton, .sidePaneTabs .sidePaneTabItem, .dropdown, .tabContainer .tab {
   font-size: 12px; }
 
 .bigText, .title, .popup .popupHead {
@@ -694,11 +721,12 @@ fieldset {
   .tableCore td, .table td {
     padding: 5px;
     padding-left: 10px; }
+  .tableCore thead, .table thead {
+    border-bottom: solid 5px lightgrey; }
   .tableCore th, .table th {
     padding: 5px;
     padding-left: 10px;
     font-weight: normal;
-    border-bottom: solid 5px lightgrey;
     text-align: left; }
   .tableCore tbody tr, .table tbody tr {
     border-top: solid 1px #e0e0e0;
@@ -712,11 +740,13 @@ fieldset {
   .tableCore tr, .table tr {
     height: 30px; }
   .tableCore .iconColumn, .table .iconColumn {
-    padding: 0px;
-    height: 30px;
-    width: 10px; }
-    .tableCore .iconColumn:last-child, .table .iconColumn:last-child {
-      padding-right: 10px; }
+    float: right;
+    display: block;
+    padding-top: 5px;
+    padding-right: 10px;
+    vertical-align: top; }
+    .tableCore .iconColumn [class^="icon"], .table .iconColumn [class^="icon"], .tableCore .iconColumn [class*=" icon"], .table .iconColumn [class*=" icon"] {
+      margin-left: 10px; }
 
 .table {
   border-top: solid 3px #404040;
@@ -749,7 +779,7 @@ fieldset {
     border: 1px solid #8dce55; }
 
 /* BUTTON */
-.buttonCore, .button, .button.critical, .linkButton, .sidePaneTabs .sidePaneTabItem {
+.buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-button, .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-button, .linkButton, .sidePaneTabs .sidePaneTabItem {
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -762,7 +792,7 @@ fieldset {
   border: none;
   cursor: pointer; }
 
-.button {
+.button, .sideContent .mb-aboutButton, .sideContent .mb-button {
   padding: 5px 10px;
   line-height: 14px;
   margin: 0px;
@@ -781,17 +811,17 @@ fieldset {
   -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
   -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229; }
-  .button:hover {
+  .button:hover, .sideContent .mb-aboutButton:hover, .sideContent .mb-button:hover {
     background-color: #63a130;
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225; }
-  .button.icon, .sidePaneTabs .button.sidePaneTabItem {
+  .button.icon, .sidePaneTabs .button.sidePaneTabItem, .sidePaneTabs .sideContent .sidePaneTabItem.mb-aboutButton, .sideContent .sidePaneTabs .sidePaneTabItem.mb-aboutButton, .sidePaneTabs .sideContent .sidePaneTabItem.mb-button, .sideContent .sidePaneTabs .sidePaneTabItem.mb-button, .sideContent .icon.mb-aboutButton, .sideContent .icon.mb-button {
     padding-left: 20px;
     background-image: url("../../fomcore/images/link_arrow.png");
     background-position: 10px center;
     background-repeat: no-repeat; }
-  .button.critical {
+  .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-button {
     border: 1px solid #9f3434;
     color: white;
     background-color: #d36565;
@@ -803,7 +833,7 @@ fieldset {
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a; }
-    .button.critical:hover {
+    .button.critical:hover, .sideContent .critical.mb-aboutButton:hover, .sideContent .critical.mb-button:hover {
       background-color: #cd5151;
       -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535;
       -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535;
@@ -820,14 +850,15 @@ fieldset {
   .linkButton:hover, .linkButton.activeLink, .linkButton:active {
     color: #3f3f3f; }
 
-/* CHECKBOX AND RADIO */
+/* CHECKBOX */
 .checkWrapper {
   position: relative; }
 
-.checkbox, .radio {
+.checkbox {
   cursor: pointer;
   position: absolute;
-  left: 0px;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
@@ -858,11 +889,17 @@ fieldset {
     color: #858585;
     border: none;
     width: 100%;
+    line-height: 29px;
     cursor: pointer; }
+    .dropdown .dropdownValue.iconDown:before {
+      position: absolute;
+      top: 0px;
+      right: 5px; }
   .dropdown .dropdownList {
     background-color: #FFF;
     color: #858585;
     position: absolute;
+    z-index: 2;
     display: none;
     border: solid 1px #c8c8c8;
     width: 100%;
@@ -874,10 +911,9 @@ fieldset {
       .dropdown .dropdownList li:hover {
         color: #5b932a;
         background-color: #f9f9f9; }
-  .dropdown .iconDown {
+  .dropdown .hiddenDropdown {
     position: absolute;
-    top: 4px;
-    right: 10px; }
+    top: -9999px; }
 
 /* -------------------------------------------------------- CONTAINER */
 /* TABS */
@@ -1067,15 +1103,86 @@ fieldset {
       top: 14px;
       margin-top: -5px; }
 
-/* ---------------------------------------------------------- SIDEBAR */
+/* -------------------------------------------------------------- ALL */
+@-webkit-keyframes activity {
+  0% {
+    opacity: 0; }
+
+  50% {
+    opacity: 1; }
+
+  100% {
+    opacity: 0; } }
+
+@-moz-keyframes activity {
+  0% {
+    opacity: 0; }
+
+  50% {
+    opacity: 1; }
+
+  100% {
+    opacity: 0; } }
+
+@keyframes activity {
+  0% {
+    opacity: 0; }
+
+  50% {
+    opacity: 1; }
+
+  100% {
+    opacity: 0; } }
+
+.mb-element-activityindicator {
+  display: none; }
+
+.mb-activity .mb-element-activityindicator, .mb-activity-ajax .mb-element-activityindicator {
+  display: inline-block;
+  -webkit-animation: activity 1s ease-in-out infinite;
+  -moz-animation: activity 1s ease-in-out infinite;
+  animation: activity 1s ease-in-out infinite;
+  text-shadow: 0 0 2px black; }
+
+.mb-hiddenCheckbox {
+  position: absolute;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0; }
+
+.iconCoordinates {
+  cursor: default; }
+
+.mb-element-copyright {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  opacity: 0.6; }
+
+.mb-element-copyright-link {
+  text-decoration: underline;
+  cursor: pointer; }
+
+.mb-element-copyright-dialog {
+  display: none; }
+
+/* ----------------------------------------- TOOLBAR - TOP AND BOTTOM */
 .toolBar {
   z-index: 4;
+  position: relative;
   color: white;
   background-color: #606060;
   background-color: rgba(0, 0, 0, 0.8);
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); }
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4); }
+  .toolBar [class^="icon"], .toolBar [class*=" icon"] {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+    opacity: 0.7;
+    -webkit-transition: opacity 0.2s ease-in-out;
+    -moz-transition: opacity 0.2s ease-in-out;
+    -o-transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out; }
+    .toolBar [class^="icon"]:hover, .toolBar [class*=" icon"]:hover {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+      opacity: 1; }
   .toolBar.top {
     padding: 10px 20px 10px 20px;
     position: relative;
@@ -1088,13 +1195,11 @@ fieldset {
     right: 0;
     bottom: 0;
     left: 0; }
+    .toolBar.bottom [class^="icon"]:before, .toolBar.bottom [class*=" icon"]:before {
+      font-size: 14px; }
   .toolBar .toolBarItem {
     display: inline;
     padding-right: 10px; }
-  .toolBar .mb-hiddenCheckbox {
-    position: absolute;
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-    opacity: 0; }
   .toolBar.itemsRight {
     text-align: right; }
     .toolBar.itemsRight .toolBarItem {
@@ -1107,6 +1212,8 @@ fieldset {
   .toolBar .iconBig:before {
     padding-right: 5px; }
 
+/* ------------------------------------------------- TOOLBAR ELEMENTS */
+/* --------------------------------------------------------- SIDEPANE */
 .sidePaneTabs {
   position: absolute;
   top: 40%; }
@@ -1131,7 +1238,7 @@ fieldset {
 
 .sidePane {
   width: 10px;
-  z-index: 3;
+  z-index: 20;
   overflow: visible;
   background-image: url("../../images/content.png");
   border-top: solid 3px #404040;
@@ -1179,3 +1286,148 @@ fieldset {
     right: 0;
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
     opacity: 0; }
+
+/* ------------------------------------------------ SIDEPANE ELEMENTS */
+.sideContent {
+  /* About button */
+  /* About button */ }
+  .sideContent [class^="icon"]:before, .sideContent [class*=" icon"]:before {
+    font-size: 14px;
+    vertical-align: top;
+    margin-right: 5px; }
+
+.contentPane {
+  /* Activity indecator */ }
+  .contentPane .mb-element-activityindicator, .contentPane .mb-element-coordsdisplay {
+    z-index: 20;
+    position: absolute;
+    right: 20px;
+    bottom: 40px; }
+  .contentPane .left-top {
+    z-index: 10;
+    position: absolute;
+    top: 140px;
+    left: 20px; }
+  .contentPane .right-top {
+    z-index: 10;
+    position: absolute;
+    top: 60px;
+    right: 20px; }
+  .contentPane .left-bottom {
+    z-index: 10;
+    position: absolute;
+    bottom: 40px;
+    left: 20px; }
+  .contentPane .right-bottom {
+    z-index: 10;
+    position: absolute;
+    right: 20px;
+    bottom: 40px; }
+
+.mb-element-zoombar.iconMove:before {
+  position: absolute;
+  top: -20px;
+  right: 0; }
+
+.pan {
+  height: 49px;
+  width: 49px;
+  -webkit-border-radius: 50% 50%;
+  -moz-border-radius: 50% / 50%;
+  border-radius: 50% / 50%;
+  position: relative;
+  color: white;
+  background-color: #606060;
+  background-color: rgba(0, 0, 0, 0.8);
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4); }
+  .pan [class^="icon"], .pan [class*=" icon"] {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+    opacity: 0.7;
+    -webkit-transition: opacity 0.2s ease-in-out;
+    -moz-transition: opacity 0.2s ease-in-out;
+    -o-transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out; }
+    .pan [class^="icon"]:hover, .pan [class*=" icon"]:hover {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+      opacity: 1; }
+  .pan .iconTop {
+    position: absolute;
+    top: 0;
+    left: 18px; }
+  .pan .iconRight {
+    position: absolute;
+    top: 14px;
+    right: 6px; }
+  .pan .iconDown {
+    position: absolute;
+    bottom: 2px;
+    left: 18px; }
+  .pan .iconLeft {
+    position: absolute;
+    top: 14px;
+    left: 7px; }
+
+.toolPane {
+  margin: 10px 5px 0px 5px;
+  padding: 5px 0px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  position: relative;
+  color: white;
+  background-color: #606060;
+  background-color: rgba(0, 0, 0, 0.8);
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4); }
+  .toolPane [class^="icon"], .toolPane [class*=" icon"] {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+    opacity: 0.7;
+    -webkit-transition: opacity 0.2s ease-in-out;
+    -moz-transition: opacity 0.2s ease-in-out;
+    -o-transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out; }
+    .toolPane [class^="icon"]:hover, .toolPane [class*=" icon"]:hover {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+      opacity: 1; }
+  .toolPane > li {
+    margin: 3px 0; }
+
+.historyPrev, .historyNext {
+  margin-left: 5px; }
+
+.zoomBox {
+  text-align: center; }
+  .zoomBox.activeZoomIcon .iconZoom {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1; }
+
+.zoomWorld {
+  text-align: center; }
+
+.zoomSlider {
+  text-align: center; }
+  .zoomSlider .zoomSliderLevels {
+    margin: 0px; }
+  .zoomSlider .iconZoomLevel {
+    font-size: 10px;
+    line-height: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px; }
+  .zoomSlider .iconZoomOut, .zoomSlider .iconZoomLevel {
+    position: relative;
+    display: block; }
+    .zoomSlider .iconZoomOut:after, .zoomSlider .iconZoomLevel:after {
+      content: '';
+      height: 7px;
+      border-left: dotted 1px white;
+      position: absolute;
+      top: -8px;
+      left: 19px; }
+
+.olMapViewport.MapbenderControlZoomBoxActive {
+  cursor: crosshair; }

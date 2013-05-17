@@ -23,7 +23,6 @@
         <th>{{ "E-Mail" | trans }}</th>
         <th>{{ "Groups" | trans }}</th>
         <th></th>
-        <th></th>
       </tr>
     </thead>
     <tbody id="usersBody">
@@ -48,11 +47,9 @@
             {% if is_granted('EDIT', user) %}
               <a class="iconEdit iconSmall" href="{{ path('fom_user_user_edit',  {'id': user.id }) }}" title="{{ 'Edit' | trans }}"></a>
             {% endif %}
-          </td>
-          <td class="iconColumn">
             {% if user.id != 1 and is_granted('DELETE', user) %}
               <span class="iconRemove iconSmall"  
-                title="{{ 'Delete user' | trans }} {{ user.username }}"
+                title="{{ user.username }}"
                 data-url="{{ path('fom_user_user_delete', { 'id': user.id}) }}" 
                 data-id="{{ user.id }}"
               ></span>

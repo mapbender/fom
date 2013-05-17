@@ -110,18 +110,7 @@ $(function() {
     }
     $(".permissionsTable").find(".checkbox").bind("click", togglePermission);
 
-
-
-
-
-
-
-
-
-
-
-
-    //filter popupresult
+    // add user or groups
     $("#addPermission").bind("click", function(){
         if(!$('body').data('mbPopup')) {
             var url = $(this).attr("href");
@@ -138,29 +127,39 @@ $(function() {
                             var text, val, parent, newEl;
 
                             $("#listFilterGroupsAndUsers").find(".iconCheckboxActive").each(function(i, e){
-                                parent = $(e).parent();
-                                text   = parent.find(".labelInput").text().trim();
-                                val    = parent.find(".hide").text().trim();
-
+                                parent   = $(e).parent();
+                                text     = parent.find(".labelInput").text().trim();
+                                val      = parent.find(".hide").text().trim();
+                                userType = parent.hasClass("iconGroup") ? "iconGroup" : "iconUser";
                                 newEl = body.prepend(proto.replace(/__name__/g, count))
                                             .find("tr:first");
 
                                 newEl.addClass("new").find(".labelInput").text(text);
                                 newEl.find(".input").attr("value", val);
+                                newEl.find(".view .checkbox").trigger("click");
+                                newEl.find(".userType")
+                                     .removeClass("iconGroup")
+                                     .removeClass("iconUser")
+                                     .addClass(userType);
                                 ++count;
                             });
 
                             $("body").mbPopup('close');
                         }
                     }, null, function(){
-                        var item, text;
+                        var groupUserItem, text, me, groupUserType;
                         $("#listFilterGroupsAndUsers").find(".filterItem").each(function(i, e){
-                            item = $(e);
+                            groupUserItem = $(e);
+                            groupUserType = (groupUserItem.find(".tdContentWrapper")
+                                                          .hasClass("iconGroup") ? "iconGroup" 
+                                                                                 : "iconUser");
 
                             $("#permissionsBody").find(".labelInput").each(function(i, e){
-                                text = $(e).text().trim();
-                                if(item.text().trim().toUpperCase().indexOf(text.toUpperCase()) >= 0){
-                                    item.remove();
+                                me = $(e);
+                                text = me.text().trim();
+                                if((groupUserItem.text().trim().toUpperCase().indexOf(text.toUpperCase()) >= 0) &&
+                                   (me.parent().hasClass(groupUserType))){
+                                    groupUserItem.remove();
                                 }
                             });
                         });
@@ -170,6 +169,25 @@ $(function() {
 
         return false;
     });
+    var deleteUserGroup = function(){
+        var me     = $(this);
+        var parent = me.parent().parent();
+        var userGroup = ((parent.find(".iconUser").length == 1) ? "user " : "group ") + parent.find(".labelInput").text();
+
+        if(!$('body').data('mbPopup')) {
+            $("body").mbPopup();
+            $("body").mbPopup('showModal',
+                {
+                    title:"Confirm delete",
+                    content:"Really delete " + userGroup + "?"
+                },
+                function(){
+                    parent.remove();
+                    $("body").mbPopup('close');
+                });
+        }
+    }
+    $("#permissionsBody").on("click", '.iconRemove', deleteUserGroup);
 
 
 
@@ -208,36 +226,31 @@ $(function() {
 
 
     // init dropdown list --------------------------------------------------------------------
-    var loadDropDown = function(){
-        var me            = $(this);
-        var selected      = me.find(".selected");
-        var dropDownInput = me.find(".dropdownValue");
-
-        me.find(".dropdownList").hide();
-        dropDownInput.val(selected.text()).attr("data-value", selected.attr("data-value"));
-    }
-    var switchValue = function(){
-        var me        = $(this);
-        var value     = me.find(".dropdownValue");
-        var valueList = me.find(".dropdownList");
-
-        if(valueList.is(":visible")){
-            valueList.hide();
+    var toggleList = function(){
+        var me   = $(this);
+        var list = me.find(".dropdownList");
+        var opts = me.find(".hiddenDropdown");
+        if(list.css("display") == "block"){
+            list.hide();
+            
         }else{
-            valueList.show().find("li").one("click", function(event){
+            list.show();
+            list.find("li").one("click", function(event){
+                console.log("aaa");
                 event.stopPropagation();
-                var item          = $(this);
-                var parent        = item.parent();
-                var dropDownInput = parent.siblings(".dropdownValue");
-
-                item.siblings(".selected").removeClass("selected");
-                item.addClass("selected");
-
-                parent.find("li").unbind("click");
-                parent.parent().change();
-            });
+                list.hide().find("li").off("click");
+                var me2 = $(this);
+                var opt = me2.attr("class").replace("item", "opt");
+                me.find(".dropdownValue").text(me2.text());
+                opts.find("[selected=selected]").removeAttr("selected");
+                opts.find("." + opt).attr("selected", "selected");
+            })
         }
+
+        $(document).one("click", function(){
+            list.hide().find("li").off("mouseout").off("click");
+        });
+        return false;
     }
-    $(document).on("change", ".dropdown", loadDropDown)
-               .on("click", ".dropdown", switchValue);
+    $(document).on("click", ".dropdown", toggleList);
 });

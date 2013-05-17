@@ -129,11 +129,11 @@ fieldset{
     padding:$space/4;
     padding-left:$space/2;
   }
+  thead{border-bottom: solid 5px darken($contentColor, 15%);}
   th{
     padding:$space/4;
     padding-left:$space/2;
     font-weight:normal;
-    border-bottom: solid 5px darken($contentColor, 15%);
     text-align: left;
   }
   tbody{
@@ -147,12 +147,12 @@ fieldset{
   }
   tr{height:30px;}
   .iconColumn{
-    padding:0px;
-    height: 30px;
-    width:10px;
-    &:last-child{
-      padding-right:$space/2;
-    }
+    float:right;
+    display: block;
+    padding-top:5px;
+    padding-right:$space/2;
+    vertical-align: top;
+    [class^="icon"],[class*=" icon"]{margin-left:10px;}
   }
 }
 .table{
@@ -262,38 +262,25 @@ fieldset{
     // @include icons-sprite(link_arrow_active);
  };
 }
-/* CHECKBOX AND RADIO */
-// .checkRadio{
-//   $height: icons-sprite-height(radio);
-//   $width: icons-sprite-width(radio);
-
-//   height:$height;
-//   width:$width;
-//   // @include icons-sprite(radio);
-
-//   // &.checked{@include icons-sprite(radio_selected);}
-//   .radio{
-//     height:$height;
-//     width:$width;
-//   }
-// }
+/* CHECKBOX */
 .checkWrapper{position:relative;}
-.checkbox, .radio{
+.checkbox{
   cursor:pointer;
-  position: absolute;
-  left:0px;
+  @include pos(0,'','',0);
   height: 100%;
   width: 100%;
   @include opacity(0);
 }
 /* DROPDOWN */
 .dropdown{
+  $lineHeight: $lineHeight + 8;
+
   cursor:pointer;
   display:inline-block;
   position: relative;
   color:$ciColor;
   border:solid 1px lighten($thirdColor, 15%);
-  line-height:$lineHeight + 8;
+  line-height:$lineHeight;
   height:28px;
   padding-right: $space + $space/2;
   background-color: #FFF;
@@ -303,12 +290,15 @@ fieldset{
     color:$secondColor;
     border:none;
     width: 100%;
+    line-height:$lineHeight;
     cursor: pointer;
+    &.iconDown:before{@include pos(0px,5px,'','');}
   }
   .dropdownList{
     background-color: #FFF;
     color:$secondColor;
     position: absolute;
+    z-index: 2;
     display:none;
 
     border:solid 1px lighten($thirdColor, 15%);
@@ -325,7 +315,9 @@ fieldset{
       }
     }
   }
-  .iconDown{@include pos(4px,$space/2,'','');}
+  .hiddenDropdown{
+    @include pos(-9999px,'','','');
+  }
 
   @extend .smallText;
   @include border-radius($radius);

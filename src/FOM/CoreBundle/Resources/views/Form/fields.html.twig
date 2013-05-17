@@ -113,28 +113,32 @@
         {{ block('choice_widget_options') }}
       </select>
     {% else %}
-      <div id="dropdown" class="dropdown">
-        <input readonly class="dropdownValue" {{ block('widget_attributes') }}/>
-        <span class="iconDown iconBig"></span>
-        <ul class="dropdownList">
-          {% if preferred_choices|length > 0 %}
-            {% set options = preferred_choices %}
-            {{ block('choice_widget_options') }}
+      <div class="dropdown">
+        {% set selectedValue = "" %}
 
-            {% if choices|length > 0 and separator is not none %}
-              <option disabled="disabled">{{ separator }}</option>
+        <select class="hiddenDropdown" {{ block('widget_attributes') }}>
+          {% for choice in choices %}
+            {% if choice is selectedchoice(value) %}
+              {% set selectedValue = choice.label|trans({}, translation_domain) %}
             {% endif %}
-          {% endif %}
 
-          {% set options = choices %}
-          {{ block('choice_widget_options') }}
+            <option class="opt-{{ loop.index }}" {% if choice is selectedchoice(value) %} selected="selected" {% endif %} value="{{ choice.value }}">{{ choice.label|trans({}, translation_domain) }}</option>
+          {% endfor %}
+        </select>
+
+        <div class="dropdownValue iconDown">{{ selectedValue }}</div>
+        <ul class="dropdownList">
+          {% for choice in choices %}
+            <li class="item-{{ loop.index }}">{{ choice.label|trans({}, translation_domain) }}</li>
+          {% endfor %}
         </ul>
       </div>
     {% endif %}
   {% endspaceless %}
 {% endblock choice_widget_collapsed %}
 
-{% block choice_widget_options %}
+{# XXXVH le dead?
+% block choice_widget_options %}
   {% spaceless %}
     {% for group_label, choice in options %}
       {% if choice is iterable %}
@@ -143,11 +147,11 @@
           {{ block('choice_widget_options') }}
         </optgroup>
       {% else %}
-        <li data-value="{{ choice.value }}" {% if choice is selectedchoice(value) %} class="selected"{% endif %}>{{ choice.label|trans({}, translation_domain) }}</li>
+        
       {% endif %}
     {% endfor %}
   {% endspaceless %}
-{% endblock choice_widget_options %}
+{% endblock choice_widget_options %#}
 
 {% block checkbox_widget %}
   {% spaceless %}
@@ -370,12 +374,13 @@
               <input id="inputFilterPermission" type="text" class="input left listFilterInput"/>
             </th>
             {% for child in form.ace.vars.prototype %}
-            {% if child.vars.attr.class is defined %}
-              <th>
-                <div id="{{ child.vars.attr.class }}" class="tagWrapper smallText {{ child.vars.attr.class }}">{{ child.vars.attr.class }}</div>
-              </th>
-            {% endif %}
+              {% if child.vars.attr.class is defined %}
+                <th>
+                  <div id="{{ child.vars.attr.class }}" class="tagWrapper smallText {{ child.vars.attr.class }}">{{ child.vars.attr.class }}</div>
+                </th>
+              {% endif %}
             {% endfor %}
+            <th></th>
           </tr>
         </thead>
         <tbody id="permissionsBody">
@@ -406,7 +411,7 @@
       {% for child in form %}
         <td>
           {% if child.vars.block_prefixes.2 == "text" %}
-            <div class="{% if child.vars.value|slice(0, 1) == "u" %}iconUser {% else %} iconGroup{% endif %}">
+            <div class="{% if child.vars.value|slice(0, 1) == "u" %}iconUser {% else %} iconGroup{% endif %} userType">
               <span class="labelInput">{{ child.vars.value|slice(2) }}</span>
             </div>
             {{ form_widget(child) }}
@@ -417,6 +422,9 @@
           {% endif %}
         </td>
       {% endfor %}
+      <td class="iconColumn">
+        <span class="iconRemove removeUserGroup"></span>
+      </td>
     </tr>
   {% endspaceless %}
 {% endblock %}

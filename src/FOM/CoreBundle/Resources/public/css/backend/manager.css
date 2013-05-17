@@ -448,16 +448,7 @@ table {
   vertical-align: top; }
 
 .iconBig, .tableUserGroups .iconCheckboxActive, .tableUserGroups .iconCheckbox {
-  line-height: 20px;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
-  opacity: 0.6;
-  -webkit-transition: opacity 0.2s ease-in-out;
-  -moz-transition: opacity 0.2s ease-in-out;
-  -o-transition: opacity 0.2s ease-in-out;
-  transition: opacity 0.2s ease-in-out; }
-  .iconBig:hover, .tableUserGroups .iconCheckboxActive:hover, .tableUserGroups .iconCheckbox:hover {
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-    opacity: 1; }
+  line-height: 20px; }
   .iconBig:before, .tableUserGroups .iconCheckboxActive:before, .tableUserGroups .iconCheckbox:before {
     font-size: 20px; }
 
@@ -479,23 +470,29 @@ table {
 .iconHelp:before {
   content: "\f059"; }
 
-.iconLeft:before {
-  content: "\f053"; }
-
-.iconRight:before {
-  content: "\f054"; }
-
 .iconLinkButton:before {
   content: "\f105"; }
 
 .iconDown:before {
-  content: "\f0d7"; }
+  content: "\f078"; }
+
+.iconRight:before {
+  content: "\f054"; }
+
+.iconLeft:before {
+  content: "\f053"; }
+
+.iconTop:before {
+  content: "\f077"; }
 
 .iconExpand:before {
   content: "\f117"; }
 
 .iconExpandClosed:before {
   content: "\f116"; }
+
+.iconMove:before {
+  content: "\f047"; }
 
 .iconAbout:before {
   content: "\f0c0"; }
@@ -526,6 +523,36 @@ table {
 
 .iconClose:before {
   content: "\f068" !important; }
+
+.iconActivity:before {
+  content: "\f072"; }
+
+.iconCoordinates:before {
+  content: "\f05b"; }
+
+.iconPrev:before {
+  content: "\f0e2"; }
+
+.iconNext:before {
+  content: "\f01e"; }
+
+.iconZoomSelect:before {
+  content: "\f00e"; }
+
+.iconZoomMin:before {
+  content: "\f0ac"; }
+
+.iconZoomIn:before {
+  content: "\f116"; }
+
+.iconZoomOut:before {
+  content: "\f117"; }
+
+.iconZoomLevel:before {
+  content: "\f10c"; }
+
+.iconZoomLevelSelected:before {
+  content: "\f111"; }
 
 .iconGroup:before {
   content: "\f0c0"; }
@@ -694,11 +721,12 @@ fieldset {
   .tableCore td, .table td {
     padding: 5px;
     padding-left: 10px; }
+  .tableCore thead, .table thead {
+    border-bottom: solid 5px lightgrey; }
   .tableCore th, .table th {
     padding: 5px;
     padding-left: 10px;
     font-weight: normal;
-    border-bottom: solid 5px lightgrey;
     text-align: left; }
   .tableCore tbody tr, .table tbody tr {
     border-top: solid 1px #e0e0e0;
@@ -712,11 +740,13 @@ fieldset {
   .tableCore tr, .table tr {
     height: 30px; }
   .tableCore .iconColumn, .table .iconColumn {
-    padding: 0px;
-    height: 30px;
-    width: 10px; }
-    .tableCore .iconColumn:last-child, .table .iconColumn:last-child {
-      padding-right: 10px; }
+    float: right;
+    display: block;
+    padding-top: 5px;
+    padding-right: 10px;
+    vertical-align: top; }
+    .tableCore .iconColumn [class^="icon"], .table .iconColumn [class^="icon"], .tableCore .iconColumn [class*=" icon"], .table .iconColumn [class*=" icon"] {
+      margin-left: 10px; }
 
 .table {
   border-top: solid 3px #404040;
@@ -820,14 +850,15 @@ fieldset {
   .linkButton:hover, .linkButton.activeLink, .linkButton:active {
     color: #3f3f3f; }
 
-/* CHECKBOX AND RADIO */
+/* CHECKBOX */
 .checkWrapper {
   position: relative; }
 
-.checkbox, .radio {
+.checkbox {
   cursor: pointer;
   position: absolute;
-  left: 0px;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
@@ -858,11 +889,17 @@ fieldset {
     color: #858585;
     border: none;
     width: 100%;
+    line-height: 29px;
     cursor: pointer; }
+    .dropdown .dropdownValue.iconDown:before {
+      position: absolute;
+      top: 0px;
+      right: 5px; }
   .dropdown .dropdownList {
     background-color: #FFF;
     color: #858585;
     position: absolute;
+    z-index: 2;
     display: none;
     border: solid 1px #c8c8c8;
     width: 100%;
@@ -874,10 +911,9 @@ fieldset {
       .dropdown .dropdownList li:hover {
         color: #5b932a;
         background-color: #f9f9f9; }
-  .dropdown .iconDown {
+  .dropdown .hiddenDropdown {
     position: absolute;
-    top: 4px;
-    right: 10px; }
+    top: -9999px; }
 
 /* -------------------------------------------------------- CONTAINER */
 /* TABS */
@@ -1124,6 +1160,17 @@ fieldset {
   padding-top: 10px;
   border-top: dashed 1px #b3b3b3; }
 
+.iconBig, .tableUserGroups .iconCheckboxActive, .tableUserGroups .iconCheckbox {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  opacity: 0.6;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -o-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out; }
+  .iconBig:hover, .tableUserGroups .iconCheckboxActive:hover, .tableUserGroups .iconCheckbox:hover {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1; }
+
 /* MESSAGES */
 .messageBox {
   padding: 10px;
@@ -1146,12 +1193,14 @@ fieldset {
     border: solid 1px #aad3ed; }
 
 .flashBox {
-  padding: 5px 10px 5px 10px;
+  padding: 5px 10px;
   background-color: #f9f9f9;
   text-align: center;
-  width: 250px;
-  margin: 0 auto;
-  position: relative;
+  width: 280px;
+  margin-left: -140px;
+  position: absolute;
+  top: 0;
+  left: 50%;
   -webkit-transition: all 1s ease-in-out;
   -moz-transition: all 1s ease-in-out;
   -o-transition: all 1s ease-in-out;
@@ -1173,14 +1222,16 @@ fieldset {
 .permissionsTable tr {
   border-bottom: solid 1px #e0e0e0; }
   .permissionsTable tr.new {
-    background-color: #e5f9e5 !important; }
+    background-color: #f0ffed; }
+    .permissionsTable tr.new .labelInput, .permissionsTable tr.new .popup .popupSubTitle, .popup .permissionsTable tr.new .popupSubTitle, .permissionsTable tr.new .iconGroup, .permissionsTable tr.new .iconUser {
+      color: green; }
   .permissionsTable tr .input {
-    width: 210px; }
+    width: 180px; }
 .permissionsTable th {
   cursor: pointer;
-  padding-left: 5px; }
+  padding: 5px 0px; }
 .permissionsTable td {
-  padding: 5px; }
+  padding: 5px 0px; }
   .permissionsTable td .labelInput, .permissionsTable td .popup .popupSubTitle, .popup .permissionsTable td .popupSubTitle {
     width: 150px; }
   .permissionsTable td .input {
@@ -1202,7 +1253,7 @@ fieldset {
   left: 0; }
 .permissionsTable .tagWrapper {
   position: relative;
-  width: 58px;
+  width: 56px;
   height: 26px;
   line-height: 26px;
   text-align: center;
@@ -1250,9 +1301,24 @@ fieldset {
     background-color: #FF702A; }
 
 .tableGroupsAndUsers {
+  border-top: solid 3px #404040;
+  border-left: solid 1px #a2a2a2;
+  border-right: solid 1px #a2a2a2;
+  border-bottom: solid 1px #a2a2a2;
+  -moz-border-radius-bottomleft: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
   width: 100% !important; }
   .tableGroupsAndUsers .hide {
     display: none; }
+  .tableGroupsAndUsers [class^="icon"], .tableGroupsAndUsers [class*=" icon"] {
+    margin-left: 10px; }
 
 /*
  * This css contains backend styles only
@@ -1352,26 +1418,24 @@ body {
 .navLevel2 > .activeItem .navLevel3 > .navItem {
   display: block; }
 
-.navItem {
-  display: none; }
-  .navItem a {
-    font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
-    font-size: 12px;
-    color: #707070;
-    padding: 5px 10px 5px 10px;
-    text-shadow: 1px 1px 0px white;
-    -webkit-transition: color 0.2s linear;
-    -moz-transition: color 0.2s linear;
-    -o-transition: color 0.2s linear;
-    transition: color 0.2s linear; }
-    .navItem a:hover {
-      color: #3f3f3f;
-      background: url("../../fomcore/images/nav_arrow_active.png") left center no-repeat; }
-  .navItem.activeItem {
-    display: block; }
-    .navItem.activeItem > a {
-      color: #5b932a !important;
-      background: url("../../fomcore/images/nav_arrow_active.png") left center no-repeat; }
+.navItem a {
+  font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 12px;
+  color: #707070;
+  padding: 5px 10px 5px 10px;
+  text-shadow: 1px 1px 0px white;
+  -webkit-transition: color 0.2s linear;
+  -moz-transition: color 0.2s linear;
+  -o-transition: color 0.2s linear;
+  transition: color 0.2s linear; }
+  .navItem a:hover {
+    color: #3f3f3f;
+    background: url("../../fomcore/images/nav_arrow_active.png") left center no-repeat; }
+.navItem.activeItem {
+  display: block; }
+  .navItem.activeItem > a {
+    color: #5b932a !important;
+    background: url("../../fomcore/images/nav_arrow_active.png") left center no-repeat; }
 
 /*--------------------------------------------------------- PAGE RIGHT */
 .rightPane {
@@ -1472,7 +1536,6 @@ body {
     width: 175px; }
 
 /* ------------------------------------------------------- APPLICATIONS */
-/* ------------------------------------------------------- APPLICATIONS */
 .listFilterInput {
   margin-bottom: 20px;
   width: 250px; }
@@ -1489,7 +1552,6 @@ body {
   line-height: 110px;
   color: #595959; }
 
-/* ----------------------------------------------- NEW/EDIT APPLICATION */
 .applicationTabContainer {
   margin-bottom: 20px; }
   .applicationTabContainer .containerBaseData .labelInput, .applicationTabContainer .containerBaseData .popup .popupSubTitle, .popup .applicationTabContainer .containerBaseData .popupSubTitle {
@@ -1516,121 +1578,6 @@ body {
 .popup .popupSubContent .input {
   float: left; }
 
-/* ELEMENT FORMS */
-.region {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: dashed 1px #b3b3b3; }
-
-.elementForm .labelInput, .elementForm .popup .popupSubTitle, .popup .elementForm .popupSubTitle {
-  margin-bottom: 10px; }
-.elementForm textarea {
-  height: 150px;
-  resize: none; }
-
-.elementFormAbout .labelInput, .elementFormAbout .popup .popupSubTitle, .popup .elementFormAbout .popupSubTitle, .elementFormSrs .labelInput, .elementFormSrs .popup .popupSubTitle, .popup .elementFormSrs .popupSubTitle, .elementFormScaleSelector .labelInput, .elementFormScaleSelector .popup .popupSubTitle, .popup .elementFormScaleSelector .popupSubTitle, .elementFormGps .labelInput, .elementFormGps .popup .popupSubTitle, .popup .elementFormGps .popupSubTitle {
-  width: 40px; }
-.elementFormAbout .checkWrapper, .elementFormSrs .checkWrapper, .elementFormScaleSelector .checkWrapper, .elementFormGps .checkWrapper {
-  margin-left: 20px; }
-.elementFormAbout .input, .elementFormSrs .input, .elementFormScaleSelector .input, .elementFormGps .input {
-  width: 200px; }
-
-.elementFormActivity .labelInput, .elementFormActivity .popup .popupSubTitle, .popup .elementFormActivity .popupSubTitle {
-  width: 40px; }
-.elementFormActivity .input {
-  width: 350px; }
-
-.elementFormButton .labelInput, .elementFormButton .popup .popupSubTitle, .popup .elementFormButton .popupSubTitle {
-  width: 50px; }
-.elementFormButton .checkWrapper {
-  margin-left: 20px; }
-.elementFormButton .input, .elementFormButton .dropdown {
-  width: 180px; }
-
-.elementFormCoordinates .labelInput, .elementFormCoordinates .popup .popupSubTitle, .popup .elementFormCoordinates .popupSubTitle {
-  width: 50px; }
-.elementFormCoordinates .checkWrapper {
-  margin-left: 20px; }
-.elementFormCoordinates .dropdown, .elementFormCoordinates .input {
-  width: 210px; }
-
-.elementFormCopyright .labelInput, .elementFormCopyright .popup .popupSubTitle, .popup .elementFormCopyright .popupSubTitle {
-  width: 80px; }
-.elementFormCopyright .dropdown, .elementFormCopyright .input {
-  width: 310px; }
-
-.elementFormFeatureInfo .labelInput, .elementFormFeatureInfo .popup .popupSubTitle, .popup .elementFormFeatureInfo .popupSubTitle {
-  width: 40px; }
-.elementFormFeatureInfo .dropdown, .elementFormFeatureInfo .input {
-  width: 350px; }
-.elementFormFeatureInfo .checkWrapper {
-  margin-bottom: 10px; }
-.elementFormFeatureInfo .labelCheck {
-  margin-right: 20px; }
-
-.elementFormMap .labelInput, .elementFormMap .popup .popupSubTitle, .popup .elementFormMap .popupSubTitle {
-  width: 90px; }
-.elementFormMap .checkWrapper {
-  margin-bottom: 10px; }
-.elementFormMap .dropdown, .elementFormMap .input {
-  width: 280px; }
-.elementFormMap .singleRow {
-  float: right;
-  width: 280px; }
-  .elementFormMap .singleRow .labelInput, .elementFormMap .singleRow .popup .popupSubTitle, .popup .elementFormMap .singleRow .popupSubTitle, .elementFormMap .singleRow > .input {
-    float: left; }
-  .elementFormMap .singleRow .labelInput, .elementFormMap .singleRow .popup .popupSubTitle, .popup .elementFormMap .singleRow .popupSubTitle {
-    width: 40px;
-    margin-right: 5px; }
-  .elementFormMap .singleRow .input {
-    width: 90px; }
-    .elementFormMap .singleRow .input:first-child {
-      margin-right: 5px; }
-
-.elementFormOverview .labelInput, .elementFormOverview .popup .popupSubTitle, .popup .elementFormOverview .popupSubTitle {
-  width: 50px; }
-.elementFormOverview .checkWrapper {
-  margin-bottom: 10px; }
-.elementFormOverview .labelCheck {
-  margin-right: 20px; }
-.elementFormOverview .dropdown, .elementFormOverview .input {
-  width: 320px; }
-.elementFormOverview .singleRow .labelInput, .elementFormOverview .singleRow .popup .popupSubTitle, .popup .elementFormOverview .singleRow .popupSubTitle, .elementFormOverview .singleRow > .input {
-  float: left; }
-.elementFormOverview .singleRow .labelInput, .elementFormOverview .singleRow .popup .popupSubTitle, .popup .elementFormOverview .singleRow .popupSubTitle {
-  width: 15px;
-  margin-right: 5px; }
-.elementFormOverview .singleRow .input {
-  width: 135px; }
-  .elementFormOverview .singleRow .input:first-child {
-    margin-right: 10px; }
-
-.elementFormPrintClient .labelInput, .elementFormPrintClient .popup .popupSubTitle, .popup .elementFormPrintClient .popupSubTitle {
-  width: 50px; }
-.elementFormPrintClient textarea {
-  width: 200px; }
-
-.elementFormYaml .labelInput, .elementFormYaml .popup .popupSubTitle, .popup .elementFormYaml .popupSubTitle {
-  width: 70px; }
-.elementFormYaml .input {
-  width: 410px; }
-
-/* ------------------------------------------------------------- LAYERS */
-.layersetForm .labelInput, .layersetForm .popup .popupSubTitle, .popup .layersetForm .popupSubTitle {
-  width: 40px;
-  float: left; }
-.layersetForm .input {
-  position: absolute;
-  right: 0px;
-  left: 50px; }
-
-.layerset .publishIconSmall {
-  height: 13px;
-  margin-right: 10px; }
-.layerset tbody tr {
-  cursor: move; }
-
-/* ------------------------------------------------------------- LAYOUT */
 .checkContainer {
   position: relative;
   color: #707070;
@@ -1660,6 +1607,179 @@ body {
     .checkContainer:hover .iconOk, .checkContainer:hover .tableUserGroups .iconCheckboxActive, .tableUserGroups .checkContainer:hover .iconCheckboxActive, .checkContainer:hover .tableUserGroups .iconCheckbox, .tableUserGroups .checkContainer:hover .iconCheckbox {
       filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
       opacity: 1; }
+
+.region {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: dashed 1px #b3b3b3; }
+
+.elementForm .labelInput, .elementForm .popup .popupSubTitle, .popup .elementForm .popupSubTitle {
+  margin-bottom: 10px; }
+.elementForm textarea {
+  height: 150px;
+  resize: none; }
+
+.elementFormAbout .labelInput, .elementFormAbout .popup .popupSubTitle, .popup .elementFormAbout .popupSubTitle, .elementFormSrs .labelInput, .elementFormSrs .popup .popupSubTitle, .popup .elementFormSrs .popupSubTitle,
+.elementFormScaleSelector .labelInput,
+.elementFormScaleSelector .popup .popupSubTitle,
+.popup .elementFormScaleSelector .popupSubTitle, .elementFormGps .labelInput, .elementFormGps .popup .popupSubTitle, .popup .elementFormGps .popupSubTitle,
+.elementFormActivity .labelInput,
+.elementFormActivity .popup .popupSubTitle,
+.popup .elementFormActivity .popupSubTitle, .elementFormButton .labelInput, .elementFormButton .popup .popupSubTitle, .popup .elementFormButton .popupSubTitle,
+.elementFormCoordinates .labelInput,
+.elementFormCoordinates .popup .popupSubTitle,
+.popup .elementFormCoordinates .popupSubTitle, .elementFormRuler .labelInput, .elementFormRuler .popup .popupSubTitle, .popup .elementFormRuler .popupSubTitle {
+  width: 50px; }
+.elementFormAbout .input, .elementFormAbout .dropdown, .elementFormSrs .input, .elementFormSrs .dropdown,
+.elementFormScaleSelector .input,
+.elementFormScaleSelector .dropdown, .elementFormGps .input, .elementFormGps .dropdown,
+.elementFormActivity .input,
+.elementFormActivity .dropdown, .elementFormButton .input, .elementFormButton .dropdown,
+.elementFormCoordinates .input,
+.elementFormCoordinates .dropdown, .elementFormRuler .input, .elementFormRuler .dropdown {
+  width: 340px; }
+
+.elementFormCopyright .labelInput, .elementFormCopyright .popup .popupSubTitle, .popup .elementFormCopyright .popupSubTitle, .elementFormActivity .labelInput, .elementFormActivity .popup .popupSubTitle, .popup .elementFormActivity .popupSubTitle {
+  width: 80px; }
+.elementFormCopyright .dropdown, .elementFormCopyright .input, .elementFormActivity .dropdown, .elementFormActivity .input {
+  width: 310px; }
+
+.elementFormLegend .labelInput, .elementFormLegend .popup .popupSubTitle, .popup .elementFormLegend .popupSubTitle {
+  width: 60px; }
+.elementFormLegend .dropdown, .elementFormLegend .input {
+  width: 330px; }
+.elementFormLegend .checkWrapper {
+  margin-bottom: 10px; }
+.elementFormLegend .labelCheck {
+  margin-right: 20px; }
+
+.elementFormFeatureInfo .labelInput, .elementFormFeatureInfo .popup .popupSubTitle, .popup .elementFormFeatureInfo .popupSubTitle {
+  width: 40px; }
+.elementFormFeatureInfo .dropdown, .elementFormFeatureInfo .input {
+  width: 350px; }
+.elementFormFeatureInfo .checkWrapper {
+  margin-bottom: 10px; }
+.elementFormFeatureInfo .labelCheck {
+  margin-right: 20px; }
+
+.elementFormMap .labelInput, .elementFormMap .popup .popupSubTitle, .popup .elementFormMap .popupSubTitle {
+  width: 90px; }
+.elementFormMap .checkWrapper {
+  margin-bottom: 10px; }
+.elementFormMap .dropdown, .elementFormMap .input {
+  width: 280px; }
+.elementFormMap .singleRow {
+  float: right;
+  width: 280px; }
+  .elementFormMap .singleRow .labelInput, .elementFormMap .singleRow .popup .popupSubTitle, .popup .elementFormMap .singleRow .popupSubTitle, .elementFormMap .singleRow > .input {
+    float: left; }
+  .elementFormMap .singleRow .labelInput, .elementFormMap .singleRow .popup .popupSubTitle, .popup .elementFormMap .singleRow .popupSubTitle {
+    width: 40px;
+    margin-right: 5px; }
+  .elementFormMap .singleRow .input {
+    width: 90px; }
+    .elementFormMap .singleRow .input:first-child {
+      margin-right: 5px; }
+
+.elementFormToc .labelInput, .elementFormToc .popup .popupSubTitle, .popup .elementFormToc .popupSubTitle {
+  width: 70px; }
+.elementFormToc .dropdown, .elementFormToc .input {
+  width: 320px; }
+.elementFormToc .checkWrapper {
+  margin-bottom: 10px; }
+.elementFormToc .labelCheck {
+  margin-right: 20px; }
+
+.elementFormLayerTree .labelInput, .elementFormLayerTree .popup .popupSubTitle, .popup .elementFormLayerTree .popupSubTitle {
+  width: 80px; }
+.elementFormLayerTree .dropdown, .elementFormLayerTree .input {
+  width: 310px; }
+.elementFormLayerTree .checkWrapper {
+  margin-bottom: 10px; }
+.elementFormLayerTree .labelCheck {
+  margin-right: 20px; }
+
+.elementFormOverview .labelInput, .elementFormOverview .popup .popupSubTitle, .popup .elementFormOverview .popupSubTitle {
+  width: 50px; }
+.elementFormOverview .checkWrapper {
+  margin-bottom: 10px; }
+.elementFormOverview .labelCheck {
+  margin-right: 20px; }
+.elementFormOverview .dropdown, .elementFormOverview .input {
+  width: 320px; }
+.elementFormOverview .singleRow .labelInput, .elementFormOverview .singleRow .popup .popupSubTitle, .popup .elementFormOverview .singleRow .popupSubTitle, .elementFormOverview .singleRow > .input {
+  float: left; }
+.elementFormOverview .singleRow .labelInput, .elementFormOverview .singleRow .popup .popupSubTitle, .popup .elementFormOverview .singleRow .popupSubTitle {
+  width: 15px;
+  margin-right: 5px; }
+.elementFormOverview .singleRow .input {
+  width: 135px; }
+  .elementFormOverview .singleRow .input:first-child {
+    margin-right: 10px; }
+
+.elementFormScaleBar .labelInput, .elementFormScaleBar .popup .popupSubTitle, .popup .elementFormScaleBar .popupSubTitle {
+  width: 60px; }
+.elementFormScaleBar .dropdown, .elementFormScaleBar .input, .elementFormScaleBar select {
+  width: 330px; }
+.elementFormScaleBar select {
+  margin-bottom: 10px; }
+.elementFormScaleBar .singleRow .labelInput, .elementFormScaleBar .singleRow .popup .popupSubTitle, .popup .elementFormScaleBar .singleRow .popupSubTitle, .elementFormScaleBar .singleRow > .input {
+  float: left; }
+.elementFormScaleBar .singleRow .labelInput, .elementFormScaleBar .singleRow .popup .popupSubTitle, .popup .elementFormScaleBar .singleRow .popupSubTitle {
+  width: 15px;
+  margin-right: 5px; }
+.elementFormScaleBar .singleRow .input {
+  width: 135px; }
+  .elementFormScaleBar .singleRow .input:first-child {
+    margin-right: 10px; }
+
+.elementFormToolbar .labelInput, .elementFormToolbar .popup .popupSubTitle, .popup .elementFormToolbar .popupSubTitle {
+  width: 80px; }
+.elementFormToolbar .checkWrapper {
+  margin-bottom: 10px; }
+.elementFormToolbar .labelCheck {
+  margin-right: 20px; }
+.elementFormToolbar .dropdown, .elementFormToolbar .input, .elementFormToolbar select {
+  width: 310px; }
+.elementFormToolbar select {
+  margin-bottom: 10px; }
+.elementFormToolbar .singleRow .labelInput, .elementFormToolbar .singleRow .popup .popupSubTitle, .popup .elementFormToolbar .singleRow .popupSubTitle, .elementFormToolbar .singleRow > .input {
+  float: left; }
+.elementFormToolbar .singleRow .labelInput, .elementFormToolbar .singleRow .popup .popupSubTitle, .popup .elementFormToolbar .singleRow .popupSubTitle {
+  width: 15px;
+  margin-right: 5px; }
+.elementFormToolbar .singleRow .input {
+  width: 125px; }
+  .elementFormToolbar .singleRow .input:first-child {
+    margin-right: 10px; }
+
+.elementFormYaml .labelInput, .elementFormYaml .popup .popupSubTitle, .popup .elementFormYaml .popupSubTitle {
+  width: 70px; }
+.elementFormYaml .dropdown, .elementFormYaml .input {
+  width: 320px; }
+
+.elementFormWmsLoader .labelInput, .elementFormWmsLoader .popup .popupSubTitle, .popup .elementFormWmsLoader .popupSubTitle {
+  width: 85px; }
+.elementFormWmsLoader .dropdown, .elementFormWmsLoader .input {
+  width: 305px; }
+.elementFormWmsLoader .checkWrapper {
+  margin-bottom: 10px; }
+.elementFormWmsLoader .labelCheck {
+  margin-right: 20px; }
+
+.layersetForm .labelInput, .layersetForm .popup .popupSubTitle, .popup .layersetForm .popupSubTitle {
+  width: 40px;
+  float: left; }
+.layersetForm .input {
+  position: absolute;
+  right: 0px;
+  left: 50px; }
+
+.layerset .publishIconSmall {
+  height: 13px;
+  margin-right: 10px; }
+.layerset tbody tr {
+  cursor: move; }
 
 /* ----------------------------------------------------------- SERVICES */
 /* ----------------------------------------------------------- SERVICES */
@@ -1749,10 +1869,6 @@ body {
 
 /* ------------------------------------------------------- USER CONTROL */
 /* --------------------------------------------------------------- ACLS */
-.userControlTable .iconColumn {
-  padding-top: 10px;
-  vertical-align: top; }
-
 .tableUserGroups {
   width: 300px; }
   .tableUserGroups .description {
