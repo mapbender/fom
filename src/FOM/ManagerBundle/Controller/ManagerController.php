@@ -72,13 +72,42 @@ class ManagerController extends Controller
         return $this->menuAction($request);
     }
 
+    protected function pruneSubroutes(&$container)
+    {
+        $securityContext = $this->get('security.context');
+        if(is_array($container) && array_key_exists('subroutes', $container)) {
+            foreach($container['subroutes'] as $idx2 => &$route) {
+                if(array_key_exists('enabled', $route)) {
+                    $closure = $route['enabled'];
+                    if(!$closure($securityContext)) {
+                        unset($container['subroutes'][$idx2]);
+                        continue;
+                    }
+                }
+                $this->pruneSubroutes($route);
+            }
+        }
+    }
+
     protected function getManagerControllersDefinition()
     {
         $manager_controllers = array();
+        $securityContext = $this->get('security.context');
         foreach($this->get('kernel')->getBundles() as $bundle) {
             if(is_subclass_of($bundle, 'FOM\ManagerBundle\Component\ManagerBundle')) {
                 $controllers = $bundle->getManagerControllers();
                 if($controllers) {
+                    foreach($controllers as $idx => &$controller) {
+                        // Remove disabled main routes
+                        if(array_key_exists('enabled', $controller)) {
+                            $closure = $controller['enabled'];
+                            if(!$closure($securityContext)) {
+                                unset($controllers[$idx]);
+                                continue;
+                            }
+                        }
+                        $this->pruneSubroutes($controllers[$idx]);
+                    }
                     $manager_controllers = array_merge($manager_controllers, $controllers);
                 }
             }

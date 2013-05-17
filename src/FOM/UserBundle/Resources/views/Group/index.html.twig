@@ -9,7 +9,9 @@
 
 {% block manager_content %}
 
+{% if create_permission %}
 <a class="iconAdd iconBig right" href="{{path('fom_user_group_new')}}" title="{{"Add new group"|trans}}"></a>
+{% endif %}
 
 {% if groups|length > 0 %}
   <label for="inputFilterGroups" class="labelInput left">{{"Filter"|trans}}</label>
@@ -48,7 +50,7 @@
     </tbody>
   </table>
 {% else %}
-  <p class="description left">{{"No goups defined."|trans}}</p>
+  <p class="description left">{{"No groups available."|trans}}</p>
   <div class="clearContainer"></div>
 {% endif %}
 {% endblock %}

@@ -9,7 +9,9 @@
 
 {% block manager_content %}
 
+{% if create_permission %}
 <a class="iconAdd iconBig right" href="{{path('fom_user_user_new')}}" title="{{"Add new user"|trans}}"></a>
+{% endif %}
 
 {% if users|length > 0 %}
   <label for="inputFilterUsers" class="labelInput left">{{"Filter"|trans}}</label>
@@ -48,9 +50,9 @@
               <a class="iconEdit iconSmall" href="{{ path('fom_user_user_edit',  {'id': user.id }) }}" title="{{ 'Edit' | trans }}"></a>
             {% endif %}
             {% if user.id != 1 and is_granted('DELETE', user) %}
-              <span class="iconRemove iconSmall"  
+              <span class="iconRemove iconSmall"
                 title="{{ user.username }}"
-                data-url="{{ path('fom_user_user_delete', { 'id': user.id}) }}" 
+                data-url="{{ path('fom_user_user_delete', { 'id': user.id}) }}"
                 data-id="{{ user.id }}"
               ></span>
             {% endif %}
@@ -60,7 +62,7 @@
     </tbody>
   </table>
 {% else %}
-  <p class="description left">{{"No users exists."|trans}}</p>
+  <p class="description left">{{"No users available."|trans}}</p>
 {% endif %}
 <div class="clearContainer"></div>
 {% endblock %}

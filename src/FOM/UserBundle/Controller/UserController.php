@@ -43,8 +43,6 @@ class UserController extends Controller {
         foreach($users as $index => $user) {
             if($securityContext->isGranted('VIEW', $user)) {
                 $allowed_users[] = $user;
-            } else {
-
             }
         }
 

@@ -37,12 +37,12 @@ class GroupController extends Controller {
         // ACL access check
         foreach($groups as $index => $group) {
             if($securityContext->isGranted('VIEW', $group)) {
-                $allowed_users[] = $group;
+                $allowed_groups[] = $group;
             }
         }
 
         return array(
-            'groups' => $groups,
+            'groups' => $allowed_groups,
             'create_permission' => $securityContext->isGranted('CREATE', $oid));
     }
 
