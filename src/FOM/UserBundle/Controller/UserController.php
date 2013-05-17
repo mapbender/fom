@@ -43,8 +43,6 @@ class UserController extends Controller {
         foreach($users as $index => $user) {
             if($securityContext->isGranted('VIEW', $user)) {
                 $allowed_users[] = $user;
-            } else {
-
             }
         }
 
@@ -242,31 +240,6 @@ class UserController extends Controller {
             'form_name' => $form->getName(),
             'edit' => true,
             'profile_template' => $profile['template']);
-    }
-
-    /**
-     * @ManagerRoute("/user/{id}/delete")
-     * @Method({ "GET" })
-     * @Template("FOMUserBundle:User:delete.html.twig")
-     */
-    public function confirmDeleteAction($id) {
-        $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')
-            ->find($id);
-        if($user === null) {
-            throw new NotFoundHttpException('The user does not exist');
-        }
-
-        // ACL access check
-        $securityContext = $this->get('security.context');
-        if(false === $securityContext->isGranted('DELETE', $user)) {
-            throw new AccessDeniedException();
-        }
-
-        $form = $this->createDeleteForm($id);
-
-        return array(
-            'user' => $user,
-            'form' => $form->createView());
     }
 
     /**

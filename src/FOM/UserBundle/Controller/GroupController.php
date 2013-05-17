@@ -11,6 +11,8 @@ use FOM\ManagerBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Group management controller
@@ -26,11 +28,22 @@ class GroupController extends Controller {
      * @Template
      */
     public function indexAction() {
-        $groups = $this->getDoctrine()->getRepository('FOMUserBundle:Group')
-            ->findAll();
+        $securityContext = $this->get('security.context');
+        $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
+
+        $query = $this->getDoctrine()->getEntityManager()->createQuery('SELECT g FROM FOMUserBundle:Group g');
+        $groups = $query->getResult();
+        $allowed_groups = array();
+        // ACL access check
+        foreach($groups as $index => $group) {
+            if($securityContext->isGranted('VIEW', $group)) {
+                $allowed_groups[] = $group;
+            }
+        }
 
         return array(
-            'groups' => $groups);
+            'groups' => $allowed_groups,
+            'create_permission' => $securityContext->isGranted('CREATE', $oid));
     }
 
     /**
@@ -39,8 +52,16 @@ class GroupController extends Controller {
      * @Template("FOMUserBundle:Group:form.html.twig")
      */
     public function newAction() {
-        $available_roles = $this->get('fom_roles')->getAll();
         $group = new Group();
+
+        // ACL access check
+        $securityContext = $this->get('security.context');
+        $oid = new ObjectIdentity('class', get_class($group));
+        if(false === $securityContext->isGranted('CREATE', $oid)) {
+            throw new AccessDeniedException();
+        }
+
+        $available_roles = $this->get('fom_roles')->getAll();
         $form = $this->createForm(new GroupType(), $group);
 
         return array(
@@ -60,8 +81,16 @@ class GroupController extends Controller {
      * For the User-Group association, the user is the owner part.
      */
     public function createAction() {
-        $available_roles = $this->get('fom_roles')->getAll();
         $group = new Group();
+
+        // ACL access check
+        $securityContext = $this->get('security.context');
+        $oid = new ObjectIdentity('class', get_class($group));
+        if(false === $securityContext->isGranted('CREATE', $oid)) {
+            throw new AccessDeniedException();
+        }
+
+        $available_roles = $this->get('fom_roles')->getAll();
         $form = $this->createForm(new GroupType(), $group, array(
             'available_roles' => $available_roles));
 
@@ -104,6 +133,12 @@ class GroupController extends Controller {
             throw new NotFoundHttpException('The group does not exist');
         }
 
+        // ACL access check
+        $securityContext = $this->get('security.context');
+        if(false === $securityContext->isGranted('EDIT', $group)) {
+            throw new AccessDeniedException();
+        }
+
         $available_roles = $this->get('fom_roles')->getAll();
         $form = $this->createForm(new GroupType(), $group);
 
@@ -128,6 +163,12 @@ class GroupController extends Controller {
             ->find($id);
         if($group === null) {
             throw new NotFoundHttpException('The group does not exist');
+        }
+
+        // ACL access check
+        $securityContext = $this->get('security.context');
+        if(false === $securityContext->isGranted('EDIT', $group)) {
+            throw new AccessDeniedException();
         }
 
         // See method documentation for Doctrine weirdness
@@ -179,12 +220,24 @@ class GroupController extends Controller {
         }
 
         try {
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->remove($group);
-            $em->flush();
+            // ACL access check
+            $securityContext = $this->get('security.context');
+            if(false === $securityContext->isGranted('DELETE', $group)) {
+                throw new AccessDeniedException();
+            }
 
-            $this->get('session')->setFlash('success',
-                'The group has been deleted.');
+            $form = $this->createDeleteForm($id);
+            $request = $this->getRequest();
+
+            $form->bindRequest($request);
+            if($form->isValid()) {
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->remove($group);
+                $em->flush();
+
+                $this->get('session')->setFlash('success',
+                    'The group has been deleted.');
+            }
         } catch(Exception $e) {
             $this->get('session')->setFlash('error',
                 'The group couldn\'t be deleted.');

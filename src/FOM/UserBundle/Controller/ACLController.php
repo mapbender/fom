@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use FOM\UserBundle\Form\Type\ACLType;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ACLController extends Controller
 {
@@ -27,6 +29,13 @@ class ACLController extends Controller
      */
     public function editAction()
     {
+        // ACL access check
+        $securityContext = $this->get('security.context');
+        $oid = new ObjectIdentity('class', 'Symfony\Component\Security\Acl\Domain\Acl');
+        if(false === $securityContext->isGranted('EDIT', $oid)) {
+            throw new AccessDeniedException();
+        }
+
         $class = $this->get('request')->get('class');
         $acl_classes = $this->getACLClasses();
         if(!array_key_exists($class, $acl_classes)) {
@@ -49,6 +58,13 @@ class ACLController extends Controller
      */
     public function updateAction()
     {
+        // ACL access check
+        $securityContext = $this->get('security.context');
+        $oid = new ObjectIdentity('class', 'Symfony\Component\Security\Acl\Domain\Acl');
+        if(false === $securityContext->isGranted('EDIT', $oid)) {
+            throw new AccessDeniedException();
+        }
+
         $class = $this->get('request')->get('class');
         $acl_classes = $this->getACLClasses();
         if(!array_key_exists($class, $acl_classes)) {

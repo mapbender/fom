@@ -9,7 +9,9 @@
 
 {% block manager_content %}
 
+{% if create_permission %}
 <a class="iconAdd iconBig right" href="{{path('fom_user_group_new')}}" title="{{"Add new group"|trans}}"></a>
+{% endif %}
 
 {% if groups|length > 0 %}
   <label for="inputFilterGroups" class="labelInput left">{{"Filter"|trans}}</label>
@@ -32,19 +34,23 @@
         </td>
         <td class="description">{{ group.description }}</td>
         <td class="iconColumn">
+            {% if is_granted('EDIT', group) %}
             <a class="iconEdit iconSmall" href="{{ path('fom_user_group_edit',  {'id': group.id }) }}" title="{{ 'Edit group' | trans }}"></a>
-            <span class="iconRemove iconSmall"  
+            {% endif %}
+            {% if is_granted('DELETE', group) %}
+            <span class="iconRemove iconSmall"
               title="{{ group.title }}"
-              data-url="{{ path('fom_user_group_delete', { 'id': group.id}) }}" 
+              data-url="{{ path('fom_user_group_delete', { 'id': group.id}) }}"
               data-id="{{ group.id }}"
             ></span>
+            {% endif %}
         </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 {% else %}
-  <p class="description left">{{"No goups defined."|trans}}</p>
+  <p class="description left">{{"No groups available."|trans}}</p>
   <div class="clearContainer"></div>
 {% endif %}
 {% endblock %}

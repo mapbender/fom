@@ -5,6 +5,7 @@ namespace FOM\UserBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use FOM\UserBundle\DependencyInjection\Factory\LdapSecurityFactory;
 use FOM\ManagerBundle\Component\ManagerBundle;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 
 /**
  * FOMUserBundle - provides user management
@@ -38,19 +39,33 @@ class FOMUserBundle extends ManagerBundle
                     0 => array('title'=>'Users',
                                'route'=>'fom_user_user_index',
                                'subroutes' => array(
-                                    0 => array('title'=>'New User',
-                                               'route'=>'fom_user_user_new')
+                                    0 => array(
+                                      'title'=>'New User',
+                                      'route'=>'fom_user_user_new',
+                                      'enabled' => function($securityContext) {
+                                          $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
+                                          return $securityContext->isGranted('CREATE', $oid);
+                                      })
                                 )
                               ),
-                    1 => array('title'=>'Groups', 
+                    1 => array('title'=>'Groups',
                                'route'=>'fom_user_group_index',
                                'subroutes' => array(
-                                    0 => array('title'=>'New Group',
-                                               'route'=>'fom_user_group_new')
+                                    0 => array(
+                                      'title'=>'New Group',
+                                      'route'=>'fom_user_group_new',
+                                      'enabled' => function($securityContext) {
+                                          $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
+                                          return $securityContext->isGranted('CREATE', $oid);
+                                      })
                                 )
                                ),
                     2 => array('title'=>'ACLs',
-                               'route'=>'fom_user_acl_index')
+                               'route'=>'fom_user_acl_index',
+                                'enabled' => function($securityContext) {
+                                    $oid = new ObjectIdentity('class', 'Symfony\Component\Security\Acl\Domain\Acl');
+                                    return $securityContext->isGranted('CREATE', $oid) || $securityContext->isGranted('EDIT', $oid);
+                                })
                 )
             )
         );
@@ -66,6 +81,7 @@ class FOMUserBundle extends ManagerBundle
     public function getACLClasses()
     {
         return array(
+            'Symfony\Component\Security\Acl\Domain\Acl' => 'ACLs',
             'FOM\UserBundle\Entity\User' => 'Users',
             'FOM\UserBundle\Entity\Group' => 'Groups');
     }
