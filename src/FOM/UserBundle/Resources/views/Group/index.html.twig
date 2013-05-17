@@ -33,14 +33,18 @@
         </td>
         <td class="description">{{ group.description }}</td>
         <td class="iconColumn">
+          {% if is_granted('EDIT', group) %}
           <a class="iconEdit iconSmall" href="{{ path('fom_user_group_edit',  {'id': group.id }) }}" title="{{ 'Edit' | trans }}"></a>
+          {% endif %}
         </td>
         <td class="iconColumn">
-            <span class="iconRemove iconSmall"  
+            {% if is_granted('DELETE', group) %}
+            <span class="iconRemove iconSmall"
               title="{{ 'Delete group' | trans }} {{ group.title }}"
-              data-url="{{ path('fom_user_group_delete', { 'id': group.id}) }}" 
+              data-url="{{ path('fom_user_group_delete', { 'id': group.id}) }}"
               data-id="{{ group.id }}"
             ></span>
+            {% endif %}
         </td>
       </tr>
       {% endfor %}

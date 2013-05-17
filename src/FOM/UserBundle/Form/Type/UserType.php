@@ -48,13 +48,17 @@ class UserType extends AbstractType
                 'permissions' => 'standard::object',
                 'standard_anon_access' => false));
 
+        if($options['profile_formtype']) {
+            $formType = $options['profile_formtype'];
+            $builder->add('profile', new $formType());
+        }
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'requirePassword' => true,
-            'extendedEdit' => false
+            'profile_formtype' => null
         ));
     }
 }
