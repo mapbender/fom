@@ -23,8 +23,12 @@
             <td>{{ group.description }}</td>
             <td>
                 <div class="entity-actions btn-group">
+                    {% if is_granted('EDIT', group) %}
                     <a class="action-edit btn" href="{{ path('fom_user_group_edit',  {'id': group.id }) }}" title="{{ 'Edit' | trans }}">{{ 'Edit' | trans }}</a>
+                    {% endif %}
+                    {% if is_granted('DELETE', group) %}
                     <a class="action-delete btn btn-warning" href="{{ path('fom_user_group_confirmdelete', { 'id': group.id }) }}">{{ 'Delete' | trans }}</a>
+                    {% endif %}
                 </div>
             </td>
         </tr>
