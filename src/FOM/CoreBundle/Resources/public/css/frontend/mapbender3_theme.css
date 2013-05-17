@@ -488,7 +488,7 @@ table {
 .iconExpand:before {
   content: "\f117"; }
 
-.iconExpandClosed:before {
+.iconExpandClosed:before, .mb-element-overview.closed .iconExpand:before {
   content: "\f116"; }
 
 .iconMove:before {
@@ -1170,6 +1170,7 @@ fieldset {
   color: white;
   background-color: #606060;
   background-color: rgba(0, 0, 0, 0.8);
+  text-shadow: 1px 1px 0px black;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4); }
@@ -1339,6 +1340,7 @@ fieldset {
   color: white;
   background-color: #606060;
   background-color: rgba(0, 0, 0, 0.8);
+  text-shadow: 1px 1px 0px black;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4); }
@@ -1354,19 +1356,19 @@ fieldset {
       opacity: 1; }
   .pan .iconTop {
     position: absolute;
-    top: 0;
+    top: 1px;
     left: 18px; }
   .pan .iconRight {
     position: absolute;
-    top: 14px;
+    top: 15px;
     right: 6px; }
   .pan .iconDown {
     position: absolute;
-    bottom: 2px;
+    bottom: 1px;
     left: 18px; }
   .pan .iconLeft {
     position: absolute;
-    top: 14px;
+    top: 15px;
     left: 7px; }
 
 .toolPane {
@@ -1381,6 +1383,7 @@ fieldset {
   color: white;
   background-color: #606060;
   background-color: rgba(0, 0, 0, 0.8);
+  text-shadow: 1px 1px 0px black;
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.4); }
@@ -1431,3 +1434,31 @@ fieldset {
 
 .olMapViewport.MapbenderControlZoomBoxActive {
   cursor: crosshair; }
+
+.mb-element-overview .iconExpand:before {
+  font-size: 28px; }
+.mb-element-overview .olMap {
+  -webkit-transition: width 0.2s linear;
+  -moz-transition: width 0.2s linear;
+  -o-transition: width 0.2s linear;
+  transition: width 0.2s linear; }
+  .mb-element-overview .olMap > div {
+    border: solid 1px black; }
+.mb-element-overview.closed .olMap {
+  width: 0px !important; }
+.mb-element-overview.right-top .iconExpand {
+  position: absolute;
+  top: 0;
+  left: -25px; }
+.mb-element-overview.left-top .iconExpand {
+  position: absolute;
+  top: 0;
+  right: -25px; }
+.mb-element-overview.right-bottom .iconExpand {
+  position: absolute;
+  bottom: -5px;
+  left: -25px; }
+.mb-element-overview.left-bottom .iconExpand {
+  position: absolute;
+  right: -25px;
+  bottom: -5px; }
