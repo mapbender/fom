@@ -9,18 +9,8 @@ $contentPaneWidth:760px;
 $navWidth:200px;
 $pageWidth:$contentPaneWidth + $navWidth;
 
-/*
- * This css contains backend styles only
- */
-
-/* ------------------------------------------------------------- PAGE */
-// avoid that the background pattern overlaing the paper deck effect of the contentbox
-body{
-  z-index:-30;
-  position:relative;
-  overflow-y:scroll;
-  background:url("../../images/body.png");
-}
+// --------------------------------------------------------------- PAGE
+body{background:url("../../images/body.png");}
 .page{
   position:relative;
   top:-$bannerHeight;
@@ -33,7 +23,7 @@ body{
 
 
 
-/* --------------------------------------------------------- PAGE TOP */
+// ----------------------------------------------------------- PAGE TOP
 .head{
   position: relative;
   height:$bannerHeight;
@@ -70,7 +60,7 @@ body{
 
 
 
-/* -------------------------------------------------------- PAGE LEFT */
+// ---------------------------------------------------------- PAGE LEFT
 .leftPane{
   width:$navWidth;
   @include pos(0, '', '', 0);
@@ -135,7 +125,7 @@ body{
 
 
 
-/*--------------------------------------------------------- PAGE RIGHT */
+// ---------------------------------------------------------- PAGE RIGHT
 .rightPane{
   width:$contentPaneWidth;
   @include pos(0, 0, '', $navWidth);
@@ -145,7 +135,7 @@ body{
 
 
 
-/* ------------------------------------------------------- PAGE CENTER */
+// --------------------------------------------------------- PAGE CENTER 
 .contentPane{
   padding-top:$space*4;
 

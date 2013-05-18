@@ -26,7 +26,6 @@
 
 
 
-
 // ----------------------------------------------- NEW/EDIT APPLICATION
 .applicationTabContainer{
   margin-bottom:$space;
@@ -91,6 +90,8 @@
     .iconOk{@include opacity(1);}
   }
 }
+// ----------------------------------------- ELEMENT FORMULARS
+
 $elementPopupWidth: $popupModalWidth - ($space * 3);
 .region{
   margin-top:$space;

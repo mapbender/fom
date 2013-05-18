@@ -1,6 +1,20 @@
 @import "../lib/base";
 
-/* ------------------------------------------------------------- TEXT */
+
+// --------------------------------------------------------------- MISC
+.area{@include border-radius($radius);}
+.listFilterInput{margin-left:$space;}
+.iconBig{
+  @include opacity(0.6);
+  @include transition(opacity .2s ease-in-out);
+  &:hover{@include opacity(1);}
+}
+
+
+
+
+
+// --------------------------------------------------------------- TEXT
 .crumbTitle{
   color:$lightFontColor;
   font-weight:bold;
@@ -14,103 +28,67 @@
   color:$darkFontColor;
   margin-left:5px;
 }
+.dekoSeperator{
+  height:6px;
+  border:none;
+  outline:none;
+  border-bottom:solid 1px $firstColor;
+  background:url("../../images/line.png");
+  @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+}
 
 
 
 
 
+// --------------------------------------------------------- COMPONENTS
+// --------------------------------------------------- TABLES
 
-/* -------------------------------------------------------- CONTAINER */
-.box{
-  border: solid 1px $thirdColor;
-  background-color: $contentColor;
+.tableCore{
+  width: 100%;
+  background-color:$contentColor;
+
+  td{
+    padding:$space/4;
+    padding-left:$space/2;
+  }
+  thead{border-bottom: solid 5px darken($contentColor, 15%);}
+  th{
+    padding:$space/4;
+    padding-left:$space/2;
+    font-weight:normal;
+    text-align: left;
+  }
+  tbody{
+    tr{
+      border-top: solid 1px darken($contentColor, 10%);
+      vertical-align: top;
+      @include transition(all 0.2s ease-in-out);
+
+      &:hover{background-color:darken($contentColor, 3%);}
+    }
+  }
+  tr{height:30px;}
+  .iconColumn{
+    float:right;
+    display: block;
+    padding-top:5px;
+    padding-right:$space/2;
+    vertical-align: top;
+    [class^="icon"],[class*=" icon"]{margin-left:10px;}
+  }
+}
+.table{
+  @extend .tableCore;
+
+  border:{
+    top:solid 3px $firstColor;
+    left:solid 1px $thirdColor;
+    right:solid 1px $thirdColor;
+    bottom:solid 1px $thirdColor;
+  }
   @include box-shadow(0px 0px 8px rgba(0, 0, 0, 0.1));
 }
-.area{
-  @include border-radius($radius);
-}
-.listFilterInput{margin-left:$space;}
-.listFilterBoxes{
-  .filterItem{
-    position:relative;
-    background-color: $contentColor;
-    margin-bottom:$space;
-  }
-  .col1{
-    text-align:center;
-    color:$lightFontColor;
-    padding:$space/4;
-    line-height:$lineHeight - 6;
-    background-color:$firstColor;
-    @include pos(0,'',0,0);
-  }
-  .col2{padding:$space/2;}    
-  .buttonGroup{@include pos($space/2,$space/2,'','');}
-  .description{
-    margin-top:$space/2;
-    padding-top:$space/2;
-    border-top:dashed 1px darken(#fff, 30%);
-  }
-}
-.iconBig{
-  @include opacity(0.6);
-  @include transition(opacity .2s ease-in-out);
-  &:hover{@include opacity(1);}
-}
-
-/* MESSAGES */
-.messageBox{
-  padding:$space/2;
-  margin-bottom:$space;
-  @include border-radius($radius);
-
-  &.error{
-    color:$errorColor;
-    background-color: lighten($errorColor, 50%);
-    border:solid 1px lighten($errorColor, 40%);
-  }
-  &.hint{
-    color:$hintColor;
-    background-color: lighten($hintColor, 50%);
-    border:solid 1px lighten($hintColor, 40%);
-  }
-
-  @include box-shadow(0 0 3px rgba(0, 0, 0, 0.1),
-                      inset 0px 0px 3px #fff);
-}
-.flashBox{
-  $width:280px;
-
-  padding:($space/4) ($space/2);
-  background-color:$contentColor;
-  text-align: center;
-  width: $width;
-  margin-left:-$width/2;
-  @include pos(0,'','',50%);
-  @include transition(all 1s ease-in-out);
-  @include opacity(1);
-  @include box-shadow(0px 0px 3px black);
-
-  &.success{
-    &:before{
-      @extend .icon;
-    }
-    @extend .iconThumbsUp;
-    color:darken($noticeColor, 10%);
-    background-color: lighten($noticeColor, 50%);
-  }
-  &.kill{
-    top:-100px;
-    @include opacity(0);
-  }
-}
-
-
-
-
-
-
-/* ----------------------------------------------------------- TABLES */
 .permissionsTable{
   $height:26px;
 
@@ -184,4 +162,201 @@
   width:100% !important;
   .hide{display:none;}
   [class^="icon"],[class*=" icon"]{margin-left:10px;}
+}
+
+
+
+
+
+
+// --------------------------------------------------------- CONTAINERS
+.box{
+  border: solid 1px $thirdColor;
+  background-color: $contentColor;
+  @include box-shadow(0px 0px 8px rgba(0, 0, 0, 0.1));
+}
+.listFilterBoxes{
+  .filterItem{
+    position:relative;
+    background-color: $contentColor;
+    margin-bottom:$space;
+  }
+  .col1{
+    text-align:center;
+    color:$lightFontColor;
+    padding:$space/4;
+    line-height:$lineHeight - 6;
+    background-color:$firstColor;
+    @include pos(0,'',0,0);
+  }
+  .col2{padding:$space/2;}    
+  .buttonGroup{@include pos($space/2,$space/2,'','');}
+  .description{
+    margin-top:$space/2;
+    padding-top:$space/2;
+    border-top:dashed 1px darken(#fff, 30%);
+  }
+}
+
+// ---------------------------------------------------TABS
+
+.tabContainer{
+  $tabPopHeight:3px;
+  $tabHeight:34px;
+
+  .tab{
+    margin-right:3px;
+    color:$middleFontColor;
+    background-color:$contentColor;
+    cursor:pointer;
+    position:relative;
+    bottom:-$tabPopHeight*2;
+    height:$tabHeight;
+    z-index:10;
+    border:{
+      left:solid 1px $thirdColor;
+      top:solid 1px $thirdColor;
+      right:solid 1px $thirdColor;
+    }
+    float:left;
+    padding:3px 10px 3px 10px;
+    @extend .smallText;
+    @include box-shadow(1px 0px 2px rgba(0, 0, 0, 0.1),
+                        inset 1px 0px 2px #fff);
+    @include transition(all 0.2s ease-in-out);
+    @include noUserSelect();
+
+    &:first-child{@include border-top-left-radius($radius);}
+
+    &:hover{
+      background-color:#fff;
+      bottom:-$tabPopHeight;
+    }
+
+    &.active{
+      cursor:default;
+      color:$darkFontColor;
+      bottom:-$tabPopHeight;
+      height:$tabHeight;
+      z-index: 30;
+      background-color:$contentColor;
+      @include box-shadow(1px 0px 1px rgba(0, 0, 0, 0.1));
+    }
+  }
+  .container{
+    clear:left;
+    display:none;
+    padding:$space;
+    z-index:20;
+    position:relative;
+    background-color:$contentColor;
+    border:{
+      top:solid 3px $firstColor;
+      left:solid 1px $thirdColor;
+      right:solid 1px $thirdColor;
+      bottom:solid 1px $thirdColor;
+    }
+    @include border-bottom-radius($radius);
+    @include box-shadow(0px 0px 8px rgba(0, 0, 0, 0.1));
+
+    &.active{display:block;}
+  }
+}
+
+
+
+
+
+// ----------------------------------------------------------- MESSAGES
+.messageBox{
+  padding:$space/2;
+  margin-bottom:$space;
+  @include border-radius($radius);
+
+  &.error{
+    color:$errorColor;
+    background-color: lighten($errorColor, 50%);
+    border:solid 1px lighten($errorColor, 40%);
+  }
+  &.hint{
+    color:$hintColor;
+    background-color: lighten($hintColor, 50%);
+    border:solid 1px lighten($hintColor, 40%);
+  }
+
+  @include box-shadow(0 0 3px rgba(0, 0, 0, 0.1),
+                      inset 0px 0px 3px #fff);
+}
+.flashBox{
+  $width:280px;
+
+  padding:($space/4) ($space/2);
+  background-color:$contentColor;
+  text-align: center;
+  width: $width;
+  margin-left:-$width/2;
+  @include pos(0,'','',50%);
+  @include transition(all 1s ease-in-out);
+  @include opacity(1);
+  @include box-shadow(0px 0px 3px black);
+
+  &.success{
+    &:before{
+      @extend .icon;
+    }
+    @extend .iconThumbsUp;
+    color:darken($noticeColor, 10%);
+    background-color: lighten($noticeColor, 50%);
+  }
+  &.kill{
+    top:-100px;
+    @include opacity(0);
+  }
+}
+.inputWrapper{
+  position: relative;
+
+  .validationMsgBox{
+    position: absolute;
+    z-index: 9999;
+    min-width: 260px;
+    margin-left: -$space/2;
+    color:$errorColor;
+    padding: 3px $space/2 3px $space/2;
+    background-color: lighten($errorColor, 50%);
+    border:solid 1px lighten($errorColor, 40%);
+
+    @include opacity(1);
+    @include border-radius($radius);
+    @include box-shadow(0 0 3px rgba(0, 0, 0, 0.1),
+                          inset 0px 0px 3px #fff);
+    @include transition(all 0.8s ease-in-out);
+
+    &.hide{
+      @include opacity(0);
+      margin-left: 0px;
+    }
+
+    // small arrow left
+    &:after, &:before {
+      position: absolute;
+      right: 100%;
+      border: solid transparent;
+      content: "";
+      height: 0;
+      width: 0;
+    }
+    &:after{
+      border-right-color: lighten($errorColor, 50%);
+      border-width: 3px;
+      top: $space - 6px;
+      margin-top: -3px;
+    }
+    &:before{
+      border-right-color: lighten($errorColor, 40%);
+      border-width: 5px;
+      top: $space - 6px;
+      margin-top: -5px;
+    }
+  }
 }

@@ -1,3 +1,4 @@
+/* -------------------------------------------------------------- LOGO */
 .logoContainer {
   position: relative;
   z-index: 10;
@@ -10,6 +11,7 @@
   -moz-box-shadow: 0px 0px 3px black;
   box-shadow: 0px 0px 3px black; }
 
+/* ---------------------------------------------------------- CONTENT */
 .contentPane {
   width: 100%;
   height: 100%;
@@ -17,12 +19,51 @@
   top: 0;
   left: 0; }
 
-.mb-element-map {
-  width: 100%;
-  height: 100%;
-  z-index: 1;
+/* --------------------------------------------------------- TOOLBARS */
+.toolBar.top {
+  position: relative;
+  z-index: 4; }
+.toolBar.bottom {
   position: absolute;
-  top: 0;
   right: 0;
   bottom: 0;
   left: 0; }
+
+/* --------------------------------------------------------- SIDEPANE */
+.sidePaneTabs {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 40%;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out; }
+
+.sidePane {
+  width: 10px;
+  z-index: 20; }
+  .sidePane.notCollapsable .sidePaneTabs {
+    display: none; }
+  .sidePane.left {
+    position: absolute;
+    top: 120px;
+    bottom: 40px;
+    left: 0; }
+    .sidePane.left .sidePaneTabs {
+      right: -32px; }
+  .sidePane.right {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    bottom: 40px; }
+    .sidePane.right .sidePaneTabs {
+      left: -32px; }
+  .sidePane.opened {
+    width: 450px; }
+  .sidePane .sideContent {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0; }

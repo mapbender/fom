@@ -3,7 +3,7 @@
 @import "../lib/components";
 
 
-/* -------------------------------------------------------------- ALL */
+/* ------------------------------------------------------------- MISC */
 @-webkit-keyframes activity {
   0%{opacity:0;}
   50%{opacity:1;}
@@ -38,14 +38,16 @@
 .mb-element-copyright-link{text-decoration:underline;cursor:pointer;}
 .mb-element-copyright-dialog{display: none;}
 
-/* ----------------------------------------- TOOLBAR - TOP AND BOTTOM */
+
+
+
+
+/* ---------------------------------------------------------- TOOLBAR */
 .toolBar{
-  z-index:4; 
   @include frontendContainerStyle();
 
   &.top{
     padding:$space/2 $space $space/2 $space;
-    position:relative;
     border-bottom:solid 1px darken($contentColor, 20%);
   }
   &.bottom{
@@ -53,7 +55,6 @@
     padding:$space/4 $space/2 $space/4 $space/2;
     font-size:90%;
     line-height: 90%;
-    @include pos('',0,0,0);
   }
 
   .toolBarItem{
@@ -74,73 +75,53 @@
   // space between icon and label
   .iconBig:before{padding-right:5px;}
 }
-/* ------------------------------------------------- TOOLBAR ELEMENTS */
 
 
 
 
 
 /* --------------------------------------------------------- SIDEPANE */
-$tabSize:32px;
-.sidePaneTabs{
-  @include pos(40%,'','','');
+.sidePaneTabItem{
+  $buttonFirstColor:#6fb536;
+  $buttonSecondColor:#5fa229;
 
-  .sidePaneTabItem{
-    $buttonFirstColor:#6fb536;
-    $buttonSecondColor:#5fa229;
-
-    display: block;
-    width: $tabSize;
-    height: $tabSize;
-    padding:($space/4) ($space/2);
-    margin-bottom:5px;
-    color:$lightFontColor;
-    background-color:$buttonFirstColor;
-    text-align: center;
-    border:{
-      top:1px solid darken(white, 30%);
-      bottom:1px solid darken(white, 30%);
-    }
-
-    @extend .icon;
-    @extend .iconOpen;
-    @extend .buttonCore;
-    @include transition(all 0.3s ease-in-out);
-    @include box-shadow(0 0 6px rgba(0,0,0,0.1),
-                        inset 0 -10px 10px $buttonSecondColor);
+  display: block;
+  padding:($space/4) ($space/2);
+  margin-bottom:5px;
+  color:$lightFontColor;
+  background-color:$buttonFirstColor;
+  text-align: center;
+  border:{
+    top:1px solid darken(white, 30%);
+    bottom:1px solid darken(white, 30%);
   }
+
+  @extend .icon;
+  @extend .iconOpen;
+  @extend .buttonCore;
+  @include box-shadow(0 0 6px rgba(0,0,0,0.1),
+                      inset 0 -10px 10px $buttonSecondColor);
 }
 .sidePane{
-  width:10px;
-  z-index:20;
   overflow: visible;
   background-image:url($contentPatternUrl);
   border-top:solid 3px $firstColor;
   border-bottom:solid 3px $firstColor;
   @include transition(all 0.4s ease-in-out);
 
-  &.notCollapsable{
-    .sidePaneTabs{display:none;}
-  }
-
   // style for the left side pane
   &.left{
     border-right:solid 3px $firstColor;
-    @include pos(120px,'',$space*2,0);
     @include box-shadow(3px 0px 8px rgba(0, 0, 0, 0.1));
-    .sidePaneTabs{right:-$tabSize;}
   }
 
   // style for the right side pane
   &.right{
     border-left:solid 3px $firstColor;
-    @include pos(80px,0,$space*2,'');
     @include box-shadow(-3px 0px 8px rgba(0, 0, 0, 0.1));
-    .sidePaneTabs{left:-$tabSize;}
   }
 
   &.opened{
-    width:450px;
     .sideContent{@include opacity(1);}
     .sidePaneTabItem{@extend .iconClose;}
   }
@@ -148,11 +129,11 @@ $tabSize:32px;
   .sideContent{
     overflow: auto;
     padding:$space;
-    @include stretch();
     @include opacity(0);
   }
 }
-/* ------------------------------------------------ SIDEPANE ELEMENTS */
+/* -------------------------------------------- ELEMENTS */
+
 .sideContent{
   [class^="icon"]:before,[class*=" icon"]:before{
     font-size: 14px;
@@ -170,13 +151,16 @@ $tabSize:32px;
   }
 }
 
-.contentPane{
-  /* Activity indecator */
-  .mb-element-activityindicator, .mb-element-coordsdisplay{
-    z-index: 20;
-    @include pos('',$space,$space*2,'');
-  }
 
+
+
+
+
+/* ----------------------------------------------------------- CONTENT */
+/* ----------------------------------------------- ELEMENTS */
+
+.contentPane{
+  /* Positioning */
   .left-top{
     z-index: 10;
     @include pos($space*7,'','',$space);
@@ -193,8 +177,23 @@ $tabSize:32px;
     z-index: 10;
     @include pos('',$space,$space*2,'');
   }
+
+  /* Activity indecator */
+  .mb-element-activityindicator, .mb-element-coordsdisplay{
+    z-index: 20;
+    @include pos('',$space,$space*2,'');
+  }
+
+  /* Map */
+  .mb-element-map{
+    width:100%;
+    height:100%;
+    z-index: 1;
+    @include pos(0,0,0,0);
+  }
 }
 
+/* Navigation toolbar */
 .mb-element-zoombar{
   &.iconMove:before{
     @include pos(-$space,0,'','');
@@ -249,6 +248,7 @@ $tabSize:32px;
 }
 .olMapViewport.MapbenderControlZoomBoxActive{cursor: crosshair;}
 
+/* Overview */
 .mb-element-overview{
   .iconExpand:before{
     font-size: 28px;

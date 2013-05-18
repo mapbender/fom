@@ -1,5 +1,7 @@
 @import "../lib/base";
 
+
+/* -------------------------------------------------------------- LOGO */
 .logoContainer{
   position: relative;
   z-index: 10;
@@ -11,15 +13,60 @@
   @include box-shadow(0px 0px 3px black);
 }
 
+
+
+
+
+/* ---------------------------------------------------------- CONTENT */
 .contentPane{
   width:100%;
   height:100%;
   @include pos(0,'','',0);
 }
 
-.mb-element-map{
-  width:100%;
-  height:100%;
-  z-index: 1;
-  @include pos(0,0,0,0);
+
+
+
+
+/* --------------------------------------------------------- TOOLBARS */
+.toolBar{
+  &.top{
+    position:relative;
+    z-index:4; 
+  }
+  &.bottom{
+    @include pos('',0,0,0);
+  }
+}
+
+
+
+
+
+/* --------------------------------------------------------- SIDEPANE */
+$tabSize:32px;
+.sidePaneTabs{
+  width: $tabSize;
+  height: $tabSize;
+  @include pos(40%,'','','');
+  @include transition(all 0.3s ease-in-out);
+}
+.sidePane{
+  width:10px;
+  z-index:20;
+
+  &.notCollapsable{
+    .sidePaneTabs{display:none;}
+  }
+
+  &.left{
+    @include pos(120px,'',$space*2,0);
+    .sidePaneTabs{right:-$tabSize;}
+  }
+  &.right{
+    @include pos(80px,0,$space*2,'');
+    .sidePaneTabs{left:-$tabSize;}
+  }
+  &.opened{width:450px;}
+  .sideContent{@include stretch();}
 }
