@@ -197,15 +197,11 @@ fieldset{
 .linkButton{
   @extend .buttonCore;
   color:$middleFontColor;
-  padding:0 0 0 $space;
-  // @include icons-sprite(link_arrow);
   @include text-shadow(#fff 1px 1px 0px);
-  @include transition(color 0.3s ease-in-out);
 
-  &:hover, &.activeLink, &:active{                
-    color:$darkFontColor;
-    // @include icons-sprite(link_arrow_active);
- };
+  &:before{margin-right:5px;}
+  &:hover, &.activeLink, &:active{color:$ciColor;};
+
 }
 /* CHECKBOX */
 .checkWrapper{position:relative;}

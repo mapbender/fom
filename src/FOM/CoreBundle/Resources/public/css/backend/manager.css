@@ -593,6 +593,12 @@ table {
 .iconUser:before {
   content: "\f007"; }
 
+.iconSettings:before {
+  content: "\f0ad"; }
+
+.iconSignOut:before {
+  content: "\f08b"; }
+
 /* ------------------------------------------------- MAPBENDER3 RESETS */
 * {
   -webkit-box-sizing: border-box;
@@ -790,14 +796,11 @@ fieldset {
 
 .linkButton {
   color: #707070;
-  padding: 0 0 0 20px;
-  text-shadow: white 1px 1px 0px;
-  -webkit-transition: color 0.3s ease-in-out;
-  -moz-transition: color 0.3s ease-in-out;
-  -o-transition: color 0.3s ease-in-out;
-  transition: color 0.3s ease-in-out; }
+  text-shadow: white 1px 1px 0px; }
+  .linkButton:before {
+    margin-right: 5px; }
   .linkButton:hover, .linkButton.activeLink, .linkButton:active {
-    color: #3f3f3f; }
+    color: #5b932a; }
 
 /* CHECKBOX */
 .checkWrapper {
@@ -1362,12 +1365,11 @@ body {
   transition: all 0.2s ease-in-out; }
   .accountMenu.opened {
     height: 65px; }
-  .accountMenu .accountOpen {
-    margin-right: 20px; }
-  .accountMenu .openedIcon {
-    position: absolute;
-    top: 4px;
-    right: 0; }
+  .accountMenu .iconDown {
+    padding-right: 20px; }
+    .accountMenu .iconDown:before {
+      position: absolute;
+      right: 0; }
 
 .leftPane {
   width: 200px;
@@ -1432,7 +1434,7 @@ body {
   left: 200px; }
 
 .contentPane {
-  padding-top: 80px; }
+  padding-top: 120px; }
   .contentPane > .content {
     min-height: 600px;
     position: relative;

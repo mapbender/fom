@@ -51,8 +51,10 @@ body{background:url("../../images/body.png");}
   position: relative;
   @include transition(all 0.2s ease-in-out);
   &.opened{height:65px;}
-  .accountOpen{margin-right:$space;}
-  .openedIcon{@include pos(4px,0,'','');}
+  .iconDown{
+    padding-right:$space;
+    &:before{@include pos('',0,'','');}
+  }
 }
 
 
@@ -137,7 +139,7 @@ body{background:url("../../images/body.png");}
 
 // --------------------------------------------------------- PAGE CENTER 
 .contentPane{
-  padding-top:$space*4;
+  padding-top:$space*6;
 
   & > .content{
     min-height: 600px; 
