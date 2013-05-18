@@ -1,4 +1,4 @@
-// ----------------------------------------------------------------- ACLS
+// --------------------------------------------------------- USER/GROUP
 .tableUserGroups{
   width:300px;
   .description{
@@ -47,19 +47,27 @@
 .userGroupTabContainer{
   margin-bottom: $space;
 
-  .containerBaseData{
+  .containerBaseData, .containerProfile{
     .labelInput{
       float:left;
       display: block;
       margin-bottom: $space/2;
     } 
-    .input{width:250px;}
+    .input, .dropdown{width:250px;}
     textarea{height:150px;}
   }
 }
 .groupTabContainer .containerBaseData .labelInput{width:90px;}
-.userTabContainer .containerBaseData .labelInput{width:130px;}
+.userTabContainer{
+  .containerBaseData .labelInput{width:130px;}
+  .containerProfile .labelInput{width:90px;}
+}
 
+
+
+
+
+// ----------------------------------------------------------- SECURITY
 .aclTabContainer{
   margin-bottom:$space;
 

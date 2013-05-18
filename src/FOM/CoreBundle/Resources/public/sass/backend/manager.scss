@@ -79,7 +79,7 @@ body{background:url("../../images/body.png");}
 }
 .navLevel1{
   border-right:1px solid lighten($firstColor, 40%);
-  padding:$space/2 $space $space/2 $space;
+  padding:$space/2 $space;
   background-color:$contentColor;
   @include box-shadow(0px 0px 3px rgba(0, 0, 0, 1));
   @include pos($bannerHeight,0,'',0);
@@ -96,15 +96,16 @@ body{background:url("../../images/body.png");}
   }
 }
 .navItem{
-
   // display:none; // XXXVH new navigation structure needed -> next release, but first show all navigation items
   a {
+    &:before{margin-right:5px;}
+
     font:{
       family: $fontFamily;
       size: $fontSize - 2;
     }
     color:$middleFontColor;
-    padding:($space/4) ($space/2) ($space/4) ($space/2);
+    padding:($space/4) ($space/2);
 
     @include text-shadow(1px 1px 0px $lightFontColor);
     @include transition(color 0.2s linear);

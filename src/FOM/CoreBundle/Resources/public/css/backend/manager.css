@@ -1390,7 +1390,7 @@ body {
 
 .navLevel1 {
   border-right: 1px solid #a6a6a6;
-  padding: 10px 20px 10px 20px;
+  padding: 10px 20px;
   background-color: #f9f9f9;
   -webkit-box-shadow: 0px 0px 3px black;
   -moz-box-shadow: 0px 0px 3px black;
@@ -1414,12 +1414,14 @@ body {
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
   font-size: 12px;
   color: #707070;
-  padding: 5px 10px 5px 10px;
+  padding: 5px 10px;
   text-shadow: 1px 1px 0px white;
   -webkit-transition: color 0.2s linear;
   -moz-transition: color 0.2s linear;
   -o-transition: color 0.2s linear;
   transition: color 0.2s linear; }
+  .navItem a:before {
+    margin-right: 5px; }
   .navItem a:hover {
     color: #3f3f3f;
     background: url("../../fomcore/images/nav_arrow_active.png") left center no-repeat; }
@@ -1906,13 +1908,13 @@ body {
 
 .userGroupTabContainer {
   margin-bottom: 20px; }
-  .userGroupTabContainer .containerBaseData .labelInput, .userGroupTabContainer .containerBaseData .popup .popupSubTitle, .popup .userGroupTabContainer .containerBaseData .popupSubTitle {
+  .userGroupTabContainer .containerBaseData .labelInput, .userGroupTabContainer .containerBaseData .popup .popupSubTitle, .popup .userGroupTabContainer .containerBaseData .popupSubTitle, .userGroupTabContainer .containerProfile .labelInput, .userGroupTabContainer .containerProfile .popup .popupSubTitle, .popup .userGroupTabContainer .containerProfile .popupSubTitle {
     float: left;
     display: block;
     margin-bottom: 10px; }
-  .userGroupTabContainer .containerBaseData .input {
+  .userGroupTabContainer .containerBaseData .input, .userGroupTabContainer .containerBaseData .dropdown, .userGroupTabContainer .containerProfile .input, .userGroupTabContainer .containerProfile .dropdown {
     width: 250px; }
-  .userGroupTabContainer .containerBaseData textarea {
+  .userGroupTabContainer .containerBaseData textarea, .userGroupTabContainer .containerProfile textarea {
     height: 150px; }
 
 .groupTabContainer .containerBaseData .labelInput, .groupTabContainer .containerBaseData .popup .popupSubTitle, .popup .groupTabContainer .containerBaseData .popupSubTitle {
@@ -1920,6 +1922,8 @@ body {
 
 .userTabContainer .containerBaseData .labelInput, .userTabContainer .containerBaseData .popup .popupSubTitle, .popup .userTabContainer .containerBaseData .popupSubTitle {
   width: 130px; }
+.userTabContainer .containerProfile .labelInput, .userTabContainer .containerProfile .popup .popupSubTitle, .popup .userTabContainer .containerProfile .popupSubTitle {
+  width: 90px; }
 
 .aclTabContainer {
   margin-bottom: 20px; }
