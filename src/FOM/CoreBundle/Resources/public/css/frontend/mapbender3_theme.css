@@ -471,7 +471,7 @@ table {
   content: "\f059"; }
 
 .iconLinkButton:before {
-  content: "\f105"; }
+  content: "\f0da"; }
 
 .iconDown:before {
   content: "\f078"; }
@@ -598,6 +598,9 @@ table {
 
 .iconSignOut:before {
   content: "\f08b"; }
+
+.iconSignIn:before {
+  content: "\f090"; }
 
 /* ------------------------------------------------- MAPBENDER3 RESETS */
 * {

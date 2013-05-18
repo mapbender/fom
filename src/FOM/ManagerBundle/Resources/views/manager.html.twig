@@ -33,7 +33,7 @@
                 <li><a class="linkButton iconSignOut" href="{{ url('fom_user_login_logout') }}">{{ "Logout"|trans }}</a></li>
             </ul>
           {% else %}
-            <a class="linkButton" href="{{ path('fom_user_login_login') }}">{{ "Login"|trans}}</a>
+            <a class="linkButton iconSignIn" href="{{ path('fom_user_login_login') }}">{{ "Login"|trans}}</a>
           {% endif %}
         </div>
 

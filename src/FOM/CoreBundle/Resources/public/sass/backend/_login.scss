@@ -24,6 +24,10 @@
   }
   .labelInput{display:block;}
   .input{margin-bottom:$space/2;}
+  .linkButton{
+    margin-right:$space/2;
+    margin-top:5px;
+  }
  
   &.login{
     $labelWidth: 80px;

@@ -471,7 +471,7 @@ table {
   content: "\f059"; }
 
 .iconLinkButton:before {
-  content: "\f105"; }
+  content: "\f0da"; }
 
 .iconDown:before {
   content: "\f078"; }
@@ -598,6 +598,9 @@ table {
 
 .iconSignOut:before {
   content: "\f08b"; }
+
+.iconSignIn:before {
+  content: "\f090"; }
 
 /* ------------------------------------------------- MAPBENDER3 RESETS */
 * {
@@ -1509,6 +1512,9 @@ body {
     display: block; }
   .authWrapper .input {
     margin-bottom: 10px; }
+  .authWrapper .linkButton {
+    margin-right: 10px;
+    margin-top: 5px; }
   .authWrapper.login .labelInput, .authWrapper.login .popup .popupSubTitle, .popup .authWrapper.login .popupSubTitle {
     width: 80px; }
   .authWrapper.login .input {

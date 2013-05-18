@@ -24,12 +24,11 @@
 
         <div class="clearContainer"></div>
 
-        <div class="left">
-          {% if selfregister == true %}
-          <a class="linkButton" href="{{ path('fom_user_registration_form') }}">{{ 'Register' | trans}}</a>
-          {% endif %}
-          <a class="linkButton" href="{{ path('fom_user_password_form') }}">{{ 'Forgot password' | trans}}?</a>
-        </div>
+        {% if selfregister == true %}
+        <a class="linkButton iconLinkButton left" href="{{ path('fom_user_registration_form') }}">{{ 'Register' | trans}}</a>
+        {% endif %}
+        <a class="linkButton iconLinkButton left" href="{{ path('fom_user_password_form') }}">{{ 'Forgot password' | trans}}?</a>
+
         <input type="submit" class="right button" value="{{ 'Login' | trans}}" />
         <div class="clearContainer"></div>
       </form>
