@@ -652,6 +652,9 @@ p {
   border: none;
   border-bottom: dashed 1px #b3b3b3; }
 
+.noScroll {
+  overflow: hidden; }
+
 /* ------------------------------------------------------------- TEXT */
 .smallerText {
   font-size: 10px; }
@@ -919,7 +922,7 @@ fieldset {
   .popup .popupContent, .popup .popupSubContent {
     padding-right: 20px;
     margin-bottom: 20px;
-    max-height: 400px;
+    max-height: 500px;
     overflow-y: auto; }
 
 .popupContainer {
@@ -940,6 +943,8 @@ fieldset {
     float: right;
     margin-left: 3px; }
   .popupContainer.show .overlay {
+    height: 2000px;
+    width: 2000px;
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
     opacity: 0.9; }
   .popupContainer.show .popup {

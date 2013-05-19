@@ -652,6 +652,9 @@ p {
   border: none;
   border-bottom: dashed 1px #b3b3b3; }
 
+.noScroll {
+  overflow: hidden; }
+
 /* ------------------------------------------------------------- TEXT */
 .smallerText {
   font-size: 10px; }
@@ -919,7 +922,7 @@ fieldset {
   .popup .popupContent, .popup .popupSubContent {
     padding-right: 20px;
     margin-bottom: 20px;
-    max-height: 400px;
+    max-height: 500px;
     overflow-y: auto; }
 
 .popupContainer {
@@ -940,6 +943,8 @@ fieldset {
     float: right;
     margin-left: 3px; }
   .popupContainer.show .overlay {
+    height: 2000px;
+    width: 2000px;
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
     opacity: 0.9; }
   .popupContainer.show .popup {
@@ -1323,7 +1328,11 @@ fieldset {
       margin-top: -5px; }
 
 body {
-  background: url("../../images/body.png"); }
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(100px, rgba(255, 255, 255, 0.3)), color-stop(100%, rgba(255, 255, 255, 0))) fixed, url('../../images/body.png?1367954315');
+  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367954315');
+  background: -moz-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367954315');
+  background: -o-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367954315');
+  background: linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367954315'); }
 
 .page {
   position: relative;
@@ -1336,7 +1345,11 @@ body {
   height: 170px;
   min-width: 960px;
   border-top: solid 5px #272727;
-  background: url("../../images/head.png");
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0))), url('../../images/head.png?1368090832');
+  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368090832');
+  background: -moz-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368090832');
+  background: -o-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368090832');
+  background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368090832');
   -webkit-box-shadow: inset #333333 0px 1px 0px;
   -moz-box-shadow: inset #333333 0px 1px 0px;
   box-shadow: inset #333333 0px 1px 0px; }
@@ -1485,6 +1498,11 @@ body {
       right: 10px;
       bottom: -6px;
       left: 10px; }
+  .contentPane .mapbenderVersion {
+    color: white;
+    position: absolute;
+    top: 100px;
+    right: 0; }
 
 /* -------------------------------------------------------------- LOGIN */
 .authWrapper {
@@ -1567,11 +1585,12 @@ body {
     width: 270px;
     margin-left: 20px; }
 
-.popup .popupSubContent .labelInput, .popup .popupSubContent .popupSubTitle {
-  float: left;
-  margin-right: 20px; }
-.popup .popupSubContent .input {
-  float: left; }
+.popup .popupSubContent {
+  overflow: visible; }
+  .popup .popupSubContent .labelInput, .popup .popupSubContent .popupSubTitle {
+    float: left; }
+  .popup .popupSubContent .input {
+    float: left; }
 
 .checkContainer {
   position: relative;
@@ -1624,7 +1643,7 @@ body {
 .elementFormCoordinates .labelInput,
 .elementFormCoordinates .popup .popupSubTitle,
 .popup .elementFormCoordinates .popupSubTitle, .elementFormRuler .labelInput, .elementFormRuler .popup .popupSubTitle, .popup .elementFormRuler .popupSubTitle {
-  width: 50px; }
+  width: 70px; }
 .elementFormAbout .input, .elementFormAbout .dropdown, .elementFormSrs .input, .elementFormSrs .dropdown,
 .elementFormScaleSelector .input,
 .elementFormScaleSelector .dropdown, .elementFormGps .input, .elementFormGps .dropdown,
@@ -1635,21 +1654,21 @@ body {
   width: 340px; }
 
 .elementFormCopyright .labelInput, .elementFormCopyright .popup .popupSubTitle, .popup .elementFormCopyright .popupSubTitle, .elementFormActivity .labelInput, .elementFormActivity .popup .popupSubTitle, .popup .elementFormActivity .popupSubTitle {
-  width: 80px; }
+  width: 100px; }
 .elementFormCopyright .dropdown, .elementFormCopyright .input, .elementFormActivity .dropdown, .elementFormActivity .input {
   width: 310px; }
 
 .elementFormLegend .labelInput, .elementFormLegend .popup .popupSubTitle, .popup .elementFormLegend .popupSubTitle {
-  width: 60px; }
+  width: 90px; }
 .elementFormLegend .dropdown, .elementFormLegend .input {
-  width: 330px; }
+  width: 320px; }
 .elementFormLegend .checkWrapper {
   margin-bottom: 10px; }
 .elementFormLegend .labelCheck {
   margin-right: 20px; }
 
 .elementFormFeatureInfo .labelInput, .elementFormFeatureInfo .popup .popupSubTitle, .popup .elementFormFeatureInfo .popupSubTitle {
-  width: 40px; }
+  width: 60px; }
 .elementFormFeatureInfo .dropdown, .elementFormFeatureInfo .input {
   width: 350px; }
 .elementFormFeatureInfo .checkWrapper {
@@ -1658,35 +1677,26 @@ body {
   margin-right: 20px; }
 
 .elementFormMap .labelInput, .elementFormMap .popup .popupSubTitle, .popup .elementFormMap .popupSubTitle {
-  width: 90px; }
+  width: 100px; }
 .elementFormMap .checkWrapper {
   margin-bottom: 10px; }
 .elementFormMap .dropdown, .elementFormMap .input {
-  width: 280px; }
+  width: 310px; }
 .elementFormMap .singleRow {
   float: right;
-  width: 280px; }
+  width: 310px; }
   .elementFormMap .singleRow .labelInput, .elementFormMap .singleRow .popup .popupSubTitle, .popup .elementFormMap .singleRow .popupSubTitle, .elementFormMap .singleRow > .input {
     float: left; }
   .elementFormMap .singleRow .labelInput, .elementFormMap .singleRow .popup .popupSubTitle, .popup .elementFormMap .singleRow .popupSubTitle {
     width: 40px;
     margin-right: 5px; }
   .elementFormMap .singleRow .input {
-    width: 90px; }
+    width: 100px; }
     .elementFormMap .singleRow .input:first-child {
       margin-right: 5px; }
 
-.elementFormToc .labelInput, .elementFormToc .popup .popupSubTitle, .popup .elementFormToc .popupSubTitle {
-  width: 70px; }
-.elementFormToc .dropdown, .elementFormToc .input {
-  width: 320px; }
-.elementFormToc .checkWrapper {
-  margin-bottom: 10px; }
-.elementFormToc .labelCheck {
-  margin-right: 20px; }
-
 .elementFormLayerTree .labelInput, .elementFormLayerTree .popup .popupSubTitle, .popup .elementFormLayerTree .popupSubTitle {
-  width: 80px; }
+  width: 100px; }
 .elementFormLayerTree .dropdown, .elementFormLayerTree .input {
   width: 310px; }
 .elementFormLayerTree .checkWrapper {
@@ -1695,27 +1705,27 @@ body {
   margin-right: 20px; }
 
 .elementFormOverview .labelInput, .elementFormOverview .popup .popupSubTitle, .popup .elementFormOverview .popupSubTitle {
-  width: 50px; }
+  width: 70px; }
 .elementFormOverview .checkWrapper {
   margin-bottom: 10px; }
 .elementFormOverview .labelCheck {
   margin-right: 20px; }
 .elementFormOverview .dropdown, .elementFormOverview .input {
-  width: 320px; }
+  width: 340px; }
 .elementFormOverview .singleRow .labelInput, .elementFormOverview .singleRow .popup .popupSubTitle, .popup .elementFormOverview .singleRow .popupSubTitle, .elementFormOverview .singleRow > .input {
   float: left; }
 .elementFormOverview .singleRow .labelInput, .elementFormOverview .singleRow .popup .popupSubTitle, .popup .elementFormOverview .singleRow .popupSubTitle {
   width: 15px;
   margin-right: 5px; }
 .elementFormOverview .singleRow .input {
-  width: 135px; }
+  width: 140px; }
   .elementFormOverview .singleRow .input:first-child {
     margin-right: 10px; }
 
 .elementFormScaleBar .labelInput, .elementFormScaleBar .popup .popupSubTitle, .popup .elementFormScaleBar .popupSubTitle {
-  width: 60px; }
+  width: 70px; }
 .elementFormScaleBar .dropdown, .elementFormScaleBar .input, .elementFormScaleBar select {
-  width: 330px; }
+  width: 340px; }
 .elementFormScaleBar select {
   margin-bottom: 10px; }
 .elementFormScaleBar .singleRow .labelInput, .elementFormScaleBar .singleRow .popup .popupSubTitle, .popup .elementFormScaleBar .singleRow .popupSubTitle, .elementFormScaleBar .singleRow > .input {
@@ -1724,7 +1734,7 @@ body {
   width: 15px;
   margin-right: 5px; }
 .elementFormScaleBar .singleRow .input {
-  width: 135px; }
+  width: 140px; }
   .elementFormScaleBar .singleRow .input:first-child {
     margin-right: 10px; }
 
@@ -1749,14 +1759,14 @@ body {
     margin-right: 10px; }
 
 .elementFormYaml .labelInput, .elementFormYaml .popup .popupSubTitle, .popup .elementFormYaml .popupSubTitle {
-  width: 70px; }
+  width: 90px; }
 .elementFormYaml .dropdown, .elementFormYaml .input {
   width: 320px; }
 
 .elementFormWmsLoader .labelInput, .elementFormWmsLoader .popup .popupSubTitle, .popup .elementFormWmsLoader .popupSubTitle {
-  width: 85px; }
+  width: 110px; }
 .elementFormWmsLoader .dropdown, .elementFormWmsLoader .input {
-  width: 305px; }
+  width: 300px; }
 .elementFormWmsLoader .checkWrapper {
   margin-bottom: 10px; }
 .elementFormWmsLoader .labelCheck {
@@ -1858,6 +1868,21 @@ body {
   display: block;
   margin-left: 95px;
   word-wrap: break-word; }
+
+.instanceContainer .labelInput, .instanceContainer .popup .popupSubTitle, .popup .instanceContainer .popupSubTitle {
+  width: 100px;
+  display: inline-block; }
+.instanceContainer .dropdown {
+  width: 250px;
+  margin-bottom: 10px; }
+.instanceContainer .checkWrapper, .instanceContainer .labelCheck {
+  display: inline-block;
+  margin-top: 8px;
+  height: 28px; }
+.instanceContainer .leftContainer {
+  margin-right: 20px; }
+.instanceContainer .rightContainer {
+  width: 200px; }
 
 /* ------------------------------------------------------- USER CONTROL */
 .tableUserGroups {

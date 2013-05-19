@@ -107,3 +107,26 @@
     word-wrap: break-word;
   }
 }
+
+
+
+
+
+// --------------------------------------------------------- EDIT SERVICE
+.instanceContainer{
+  .labelInput{
+    width:100px;
+    display: inline-block;
+  }
+  .dropdown{
+    width:250px;
+    margin-bottom:$space/2;
+  }
+  .checkWrapper, .labelCheck{
+    display: inline-block;
+    margin-top:8px;
+    height:$inputHeight;
+  }
+  .leftContainer{margin-right:$space;}
+  .rightContainer{width:200px;} // omg is this ugly!
+}

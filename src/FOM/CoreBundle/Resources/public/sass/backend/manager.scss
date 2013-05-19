@@ -10,7 +10,10 @@ $navWidth:200px;
 $pageWidth:$contentPaneWidth + $navWidth;
 
 // --------------------------------------------------------------- PAGE
-body{background:url("../../images/body.png");}
+body{
+  @include background(linear-gradient(rgba(255,255,255,.3) 100px, rgba(255,255,255,0)) fixed, 
+                      image-url("body.png"));
+}
 .page{
   position:relative;
   top:-$bannerHeight;
@@ -31,7 +34,8 @@ body{background:url("../../images/body.png");}
   // remove broken head background when the page is smaller than defined width
   min-width:$pageWidth;
   border-top:solid 5px darken($firstColor, 10%);
-  background:url($headPatternUrl);
+  @include background(linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,0)),
+                      image-url("head.png"));
 
   @include box-shadow(inset lighten(#000, 20%) 0px 1px 0px);
 
@@ -140,7 +144,9 @@ body{background:url("../../images/body.png");}
 
 // --------------------------------------------------------- PAGE CENTER 
 .contentPane{
-  padding-top:$space*6;
+  $top:$space*5;
+
+  padding-top:$top + $space;
 
   & > .content{
     min-height: 600px; 
@@ -171,6 +177,10 @@ body{background:url("../../images/body.png");}
       z-index:-20;
       @include pos('',10px,-6px,10px);
     }
+  }
+  .mapbenderVersion{
+    color:$lightFontColor;
+    @include pos($top,0,'','');
   }
 }
 
