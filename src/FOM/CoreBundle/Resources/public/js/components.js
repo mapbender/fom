@@ -37,7 +37,7 @@ $(function() {
 
 
     // init validation feedback --------------------------------------------------------------
-    $(".validationInput").one("keypress", function(){
+    $(document).on("keypress", ".validationInput", function(){
       $(this).siblings(".validationMsgBox").addClass("hide");
     });
 

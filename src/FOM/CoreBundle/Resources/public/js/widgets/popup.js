@@ -101,7 +101,10 @@
       var that = this;
 
       that.popup.removeClass("show");
-      setTimeout(function() {that._destroy()},200);
+      setTimeout(function() {
+        that._destroy()
+        $("body").removeClass("noScroll");
+      },200);
 
       return false;
     },
@@ -118,7 +121,11 @@
 
     _show: function(){
       var that = this;
-      setTimeout(function() {that.popup.addClass("show")},10);
+      setTimeout(function() {
+        that.popup.addClass("show");
+        console.log("aa")
+        $("body").addClass("noScroll");
+      },10);
     },
 
     _getTemplate: function(){
