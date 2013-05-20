@@ -509,7 +509,7 @@ table {
 .iconLegend:before {
   content: "\f00b"; }
 
-.iconFeatureInfo:before {
+.iconInfo:before {
   content: "\f05a"; }
 
 .iconSearch:before {
@@ -1010,10 +1010,10 @@ fieldset {
   .tableCore tbody tr, .table tbody tr {
     border-top: solid 1px #e0e0e0;
     vertical-align: top;
-    -webkit-transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out; }
+    -webkit-transition: background 0.2s ease-in-out;
+    -moz-transition: background 0.2s ease-in-out;
+    -o-transition: background 0.2s ease-in-out;
+    transition: background 0.2s ease-in-out; }
     .tableCore tbody tr:hover, .table tbody tr:hover {
       background-color: #f1f1f1; }
   .tableCore tr, .table tr {
@@ -1338,12 +1338,12 @@ body {
   position: relative;
   top: -170px;
   margin: 0 auto;
-  width: 960px; }
+  width: 1000px; }
 
 .head {
   position: relative;
   height: 170px;
-  min-width: 960px;
+  min-width: 1000px;
   border-top: solid 5px #272727;
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0))), url('../../images/head.png?1368090832');
   background: -webkit-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368090832');
@@ -1445,7 +1445,7 @@ body {
     background: url("../../fomcore/images/nav_arrow_active.png") left center no-repeat; }
 
 .rightPane {
-  width: 760px;
+  width: 800px;
   position: absolute;
   top: 0;
   right: 0;
@@ -1582,7 +1582,8 @@ body {
     top: 20px;
     right: 20px; }
   .applicationTabContainer .containerLayout .dropdown {
-    width: 270px;
+    width: 200px;
+    margin-bottom: 20px;
     margin-left: 20px; }
 
 .popup .popupSubContent {
@@ -1591,6 +1592,17 @@ body {
     float: left; }
   .popup .popupSubContent .input {
     float: left; }
+
+.elementsTable tr {
+  cursor: move; }
+.elementsTable .typeColumn {
+  width: 35%; }
+.elementsTable .titleColumn {
+  width: 50%; }
+.elementsTable .ui-sortable-helper {
+  background-color: #f1f1f1; }
+.elementsTable .placeholderRow {
+  height: 20px; }
 
 .checkContainer {
   position: relative;
@@ -1623,7 +1635,6 @@ body {
       opacity: 1; }
 
 .region {
-  margin-top: 20px;
   padding-top: 20px;
   border-top: dashed 1px #b3b3b3; }
 
@@ -1869,6 +1880,8 @@ body {
   margin-left: 95px;
   word-wrap: break-word; }
 
+.instanceContainer .linkButton {
+  display: inline-block; }
 .instanceContainer .labelInput, .instanceContainer .popup .popupSubTitle, .popup .instanceContainer .popupSubTitle {
   width: 100px;
   display: inline-block; }
@@ -1883,6 +1896,88 @@ body {
   margin-right: 20px; }
 .instanceContainer .rightContainer {
   width: 200px; }
+
+.instanceTable {
+  margin-top: 20px;
+  margin-bottom: 20px; }
+  .instanceTable .checkboxColumn {
+    text-align: center; }
+  .instanceTable .odd {
+    background-color: #eaeaea; }
+  .instanceTable thead .checkboxColumn {
+    padding: 0px; }
+  .instanceTable tbody .input, .instanceTable tbody .dropdown {
+    width: 100%; }
+  .instanceTable tbody .titleColumn {
+    width: 220px; }
+  .instanceTable tbody .minScaleColumn, .instanceTable tbody .maxScaleColumn, .instanceTable tbody .styleColumn {
+    width: 90px; }
+  .instanceTable tbody .checkboxColumn {
+    padding: 5px 3px 5px 3px; }
+  .instanceTable tbody .checkWrapper {
+    margin-top: 5px;
+    width: 100%; }
+  .instanceTable .dummy {
+    display: none; }
+  .instanceTable .iconLinkButton {
+    font-size: 18px;
+    line-height: 38px;
+    margin-left: 20px;
+    padding: 0px; }
+  .instanceTable .iconInfo {
+    position: relative;
+    line-height: 28px; }
+
+.infoMsgBox {
+  z-index: 10;
+  min-width: 260px;
+  padding: 3px 10px 3px 10px;
+  background-color: white;
+  border: solid 1px #a2a2a2;
+  position: absolute;
+  top: -8px;
+  right: 30px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
+  -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), inset 0px 0px 3px white;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out; }
+  .infoMsgBox.hide {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    position: absolute;
+    right: 1000px; }
+  .infoMsgBox:after, .infoMsgBox:before {
+    position: absolute;
+    left: 100%;
+    border: solid transparent;
+    content: "";
+    height: 0;
+    width: 0; }
+  .infoMsgBox:after {
+    border-left-color: #404040;
+    border-width: 4px;
+    top: 13px;
+    margin-top: -4px; }
+  .infoMsgBox:before {
+    border-left-color: #404040;
+    border-width: 6px;
+    top: 13px;
+    margin-top: -5px; }
+  .infoMsgBox .labelText {
+    width: 100px;
+    display: inline-block; }
+  .infoMsgBox .dropdown {
+    width: 130px !important; }
 
 /* ------------------------------------------------------- USER CONTROL */
 .tableUserGroups {

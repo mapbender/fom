@@ -46,7 +46,8 @@
   }
   .containerLayout{
     .dropdown{
-      width:270px;
+      width:200px;
+      margin-bottom:$space;
       margin-left:$space;
     }
     .iconCheckbox{@extend .iconPublish}
@@ -59,6 +60,17 @@
     .labelInput{float:left;}
     .input{float:left;}
   }
+}
+.elementsTable{
+  tr{cursor:move;}
+  .typeColumn{
+    width:35%; // very ugly, but fixing the scale behaviour by dragging at the moment
+  }
+  .titleColumn{width: 50%;}
+  .ui-sortable-helper{
+    background-color:darken($contentColor, 3%)
+  }
+  .placeholderRow{height:$space;}
 }
 
 
@@ -88,11 +100,12 @@
     .iconOk{@include opacity(1);}
   }
 }
+
+
 // ----------------------------------------- ELEMENT FORMULARS
 
 $elementPopupWidth: $popupModalWidth - ($space * 3);
 .region{
-  margin-top:$space;
   padding-top:$space;
   border-top:dashed 1px darken(#fff, 30%);
 }

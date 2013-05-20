@@ -509,7 +509,7 @@ table {
 .iconLegend:before {
   content: "\f00b"; }
 
-.iconFeatureInfo:before {
+.iconInfo:before {
   content: "\f05a"; }
 
 .iconSearch:before {
