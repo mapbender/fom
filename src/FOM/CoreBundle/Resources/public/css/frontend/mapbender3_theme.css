@@ -170,7 +170,7 @@ kbd,
 pre,
 samp {
   font-family: monospace, serif;
-  _font-family: "courier new", monospace;
+  _font-family: 'courier new', monospace;
   font-size: 1em; }
 
 /*
@@ -289,7 +289,7 @@ form {
  * Define consistent border, margin, and padding.
  */
 fieldset {
-  border: 1px solid silver;
+  border: 1px solid #c0c0c0;
   margin: 0 2px;
   padding: 0.35em 0.625em 0.75em; }
 
@@ -659,7 +659,9 @@ p {
 .smallerText {
   font-size: 10px; }
 
-.smallText, .labelInput, .popup .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-button, .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-button, .linkButton, .sidePaneTabItem, .dropdown {
+.smallText, .labelInput, .popup .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
+.sideContent .mb-button, .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-gpsButton,
+.sideContent .critical.mb-button, .linkButton, .sidePaneTabItem, .dropdown {
   font-size: 12px; }
 
 .bigText, .title, .popup .popupHead {
@@ -740,7 +742,9 @@ fieldset {
     border: 1px solid #8dce55; }
 
 /* BUTTON */
-.buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-button, .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-button, .linkButton, .sidePaneTabItem {
+.buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
+.sideContent .mb-button, .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-gpsButton,
+.sideContent .critical.mb-button, .linkButton, .sidePaneTabItem {
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -753,7 +757,8 @@ fieldset {
   border: none;
   cursor: pointer; }
 
-.button, .sideContent .mb-aboutButton, .sideContent .mb-button {
+.button, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
+.sideContent .mb-button {
   padding: 5px 10px;
   line-height: 14px;
   margin: 0px;
@@ -772,17 +777,21 @@ fieldset {
   -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
   -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229; }
-  .button:hover, .sideContent .mb-aboutButton:hover, .sideContent .mb-button:hover {
+  .button:hover, .sideContent .mb-aboutButton:hover, .sideContent .mb-gpsButton:hover,
+  .sideContent .mb-button:hover {
     background-color: #63a130;
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225; }
-  .button.icon, .button.sidePaneTabItem, .sideContent .sidePaneTabItem.mb-aboutButton, .sideContent .sidePaneTabItem.mb-button, .sideContent .icon.mb-aboutButton, .sideContent .icon.mb-button {
+  .button.icon, .button.sidePaneTabItem, .sideContent .sidePaneTabItem.mb-aboutButton, .sideContent .sidePaneTabItem.mb-gpsButton,
+  .sideContent .sidePaneTabItem.mb-button, .sideContent .icon.mb-aboutButton, .sideContent .icon.mb-gpsButton,
+  .sideContent .icon.mb-button {
     padding-left: 20px;
     background-image: url("../../fomcore/images/link_arrow.png");
     background-position: 10px center;
     background-repeat: no-repeat; }
-  .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-button {
+  .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-gpsButton,
+  .sideContent .critical.mb-button {
     border: 1px solid #9f3434;
     color: white;
     background-color: #d36565;
@@ -794,7 +803,8 @@ fieldset {
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a; }
-    .button.critical:hover, .sideContent .critical.mb-aboutButton:hover, .sideContent .critical.mb-button:hover {
+    .button.critical:hover, .sideContent .critical.mb-aboutButton:hover, .sideContent .critical.mb-gpsButton:hover,
+    .sideContent .critical.mb-button:hover {
       background-color: #cd5151;
       -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535;
       -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535;
@@ -1007,7 +1017,7 @@ fieldset {
   text-decoration: underline;
   cursor: pointer; }
 
-.mb-element-copyright-dialog {
+.mb-eleemnt-copyright-dialog {
   display: none; }
 
 /* ---------------------------------------------------------- TOOLBAR */
@@ -1039,6 +1049,9 @@ fieldset {
     line-height: 90%; }
     .toolBar.bottom [class^="icon"]:before, .toolBar.bottom [class*=" icon"]:before {
       font-size: 14px; }
+    .toolBar.bottom .dropdownList {
+      bottom: 0px;
+      margin-bottom: 28px; }
   .toolBar .toolBarItem {
     display: inline;
     padding-right: 10px; }
@@ -1097,16 +1110,21 @@ fieldset {
     opacity: 0; }
 
 /* -------------------------------------------- ELEMENTS */
-.sideContent {
-  /* About button */
-  /* About button */ }
-  .sideContent [class^="icon"]:before, .sideContent [class*=" icon"]:before {
-    font-size: 14px;
-    vertical-align: top;
-    margin-right: 5px; }
+.sideContent [class^="icon"]:before, .sideContent [class*=" icon"]:before {
+  font-size: 14px;
+  vertical-align: top;
+  margin-right: 5px; }
 
 /* ----------------------------------------------------------- CONTENT */
 /* ----------------------------------------------- ELEMENTS */
+.dropdown {
+  text-align: left;
+  min-width: 200px;
+  text-shadow: none; }
+
+.hiddenDropdown {
+  display: none; }
+
 .contentPane {
   /* Positioning */
   /* Activity indecator */
@@ -1261,12 +1279,19 @@ fieldset {
 .mb-element-overview .iconExpand:before {
   font-size: 28px; }
 .mb-element-overview .olMap {
+  background-color: white;
   -webkit-transition: width 0.2s linear;
   -moz-transition: width 0.2s linear;
   -o-transition: width 0.2s linear;
-  transition: width 0.2s linear; }
+  transition: width 0.2s linear;
+  -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1); }
   .mb-element-overview .olMap > div {
-    border: solid 1px black; }
+    border-top: solid 3px #404040;
+    border-left: solid 1px #a2a2a2;
+    border-right: solid 1px #a2a2a2;
+    border-bottom: solid 1px #a2a2a2; }
 .mb-element-overview.closed .olMap {
   width: 0px !important; }
 .mb-element-overview.right-top .iconExpand {

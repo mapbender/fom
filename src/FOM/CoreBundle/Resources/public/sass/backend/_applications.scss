@@ -117,12 +117,18 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
   }
 }
 .elementFormAbout, .elementFormSrs, 
-.elementFormScaleSelector, .elementFormGps,
-.elementFormActivity, .elementFormButton,
-.elementFormCoordinates, .elementFormRuler{
+.elementFormScaleSelector, .elementFormActivity, 
+.elementFormButton, .elementFormCoordinates, 
+.elementFormRuler{
   $label:70px;
   .labelInput{width:$label;}
   .input, .dropdown{width:$elementPopupWidth - $label + $space;}
+}
+.elementFormGps{
+  $label:100px;
+  .labelInput{width:$label;}
+  .input{width:$elementPopupWidth - $label + $space;}
+  .labelCheck{margin-right:$space;}
 }
 .elementFormCopyright, .elementFormActivity{
   $label:100px;

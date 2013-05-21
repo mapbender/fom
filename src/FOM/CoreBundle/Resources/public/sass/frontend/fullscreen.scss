@@ -30,13 +30,9 @@
 
 /* --------------------------------------------------------- TOOLBARS */
 .toolBar{
-  &.top{
-    position:relative;
-    z-index:4; 
-  }
-  &.bottom{
-    @include pos('',0,0,0);
-  }
+  z-index:4; 
+  &.top{position:relative;}
+  &.bottom{@include pos('',0,0,0);}
 }
 
 

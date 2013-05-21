@@ -20,14 +20,15 @@
   left: 0; }
 
 /* --------------------------------------------------------- TOOLBARS */
-.toolBar.top {
-  position: relative;
+.toolBar {
   z-index: 4; }
-.toolBar.bottom {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0; }
+  .toolBar.top {
+    position: relative; }
+  .toolBar.bottom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0; }
 
 /* --------------------------------------------------------- SIDEPANE */
 .sidePaneTabs {

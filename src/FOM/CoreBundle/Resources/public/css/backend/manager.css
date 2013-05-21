@@ -170,7 +170,7 @@ kbd,
 pre,
 samp {
   font-family: monospace, serif;
-  _font-family: "courier new", monospace;
+  _font-family: 'courier new', monospace;
   font-size: 1em; }
 
 /*
@@ -289,7 +289,7 @@ form {
  * Define consistent border, margin, and padding.
  */
 fieldset {
-  border: 1px solid silver;
+  border: 1px solid #c0c0c0;
   margin: 0 2px;
   padding: 0.35em 0.625em 0.75em; }
 
@@ -1328,11 +1328,11 @@ fieldset {
       margin-top: -5px; }
 
 body {
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(100px, rgba(255, 255, 255, 0.3)), color-stop(100%, rgba(255, 255, 255, 0))) fixed, url('../../images/body.png?1367954315');
-  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367954315');
-  background: -moz-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367954315');
-  background: -o-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367954315');
-  background: linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367954315'); }
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(100px, rgba(255, 255, 255, 0.3)), color-stop(100%, rgba(255, 255, 255, 0))) fixed, url('../../images/body.png?1367146802');
+  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367146802');
+  background: -moz-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367146802');
+  background: -o-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367146802');
+  background: linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367146802'); }
 
 .page {
   position: relative;
@@ -1345,11 +1345,11 @@ body {
   height: 170px;
   min-width: 1000px;
   border-top: solid 5px #272727;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0))), url('../../images/head.png?1368090832');
-  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368090832');
-  background: -moz-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368090832');
-  background: -o-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368090832');
-  background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368090832');
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0))), url('../../images/head.png?1368431720');
+  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368431720');
+  background: -moz-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368431720');
+  background: -o-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368431720');
+  background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368431720');
   -webkit-box-shadow: inset #333333 0px 1px 0px;
   -moz-box-shadow: inset #333333 0px 1px 0px;
   box-shadow: inset #333333 0px 1px 0px; }
@@ -1647,22 +1647,29 @@ body {
 .elementFormAbout .labelInput, .elementFormAbout .popup .popupSubTitle, .popup .elementFormAbout .popupSubTitle, .elementFormSrs .labelInput, .elementFormSrs .popup .popupSubTitle, .popup .elementFormSrs .popupSubTitle,
 .elementFormScaleSelector .labelInput,
 .elementFormScaleSelector .popup .popupSubTitle,
-.popup .elementFormScaleSelector .popupSubTitle, .elementFormGps .labelInput, .elementFormGps .popup .popupSubTitle, .popup .elementFormGps .popupSubTitle,
-.elementFormActivity .labelInput,
-.elementFormActivity .popup .popupSubTitle,
-.popup .elementFormActivity .popupSubTitle, .elementFormButton .labelInput, .elementFormButton .popup .popupSubTitle, .popup .elementFormButton .popupSubTitle,
-.elementFormCoordinates .labelInput,
-.elementFormCoordinates .popup .popupSubTitle,
-.popup .elementFormCoordinates .popupSubTitle, .elementFormRuler .labelInput, .elementFormRuler .popup .popupSubTitle, .popup .elementFormRuler .popupSubTitle {
+.popup .elementFormScaleSelector .popupSubTitle, .elementFormActivity .labelInput, .elementFormActivity .popup .popupSubTitle, .popup .elementFormActivity .popupSubTitle,
+.elementFormButton .labelInput,
+.elementFormButton .popup .popupSubTitle,
+.popup .elementFormButton .popupSubTitle, .elementFormCoordinates .labelInput, .elementFormCoordinates .popup .popupSubTitle, .popup .elementFormCoordinates .popupSubTitle,
+.elementFormRuler .labelInput,
+.elementFormRuler .popup .popupSubTitle,
+.popup .elementFormRuler .popupSubTitle {
   width: 70px; }
 .elementFormAbout .input, .elementFormAbout .dropdown, .elementFormSrs .input, .elementFormSrs .dropdown,
 .elementFormScaleSelector .input,
-.elementFormScaleSelector .dropdown, .elementFormGps .input, .elementFormGps .dropdown,
-.elementFormActivity .input,
-.elementFormActivity .dropdown, .elementFormButton .input, .elementFormButton .dropdown,
-.elementFormCoordinates .input,
-.elementFormCoordinates .dropdown, .elementFormRuler .input, .elementFormRuler .dropdown {
+.elementFormScaleSelector .dropdown, .elementFormActivity .input, .elementFormActivity .dropdown,
+.elementFormButton .input,
+.elementFormButton .dropdown, .elementFormCoordinates .input, .elementFormCoordinates .dropdown,
+.elementFormRuler .input,
+.elementFormRuler .dropdown {
   width: 340px; }
+
+.elementFormGps .labelInput, .elementFormGps .popup .popupSubTitle, .popup .elementFormGps .popupSubTitle {
+  width: 100px; }
+.elementFormGps .input {
+  width: 310px; }
+.elementFormGps .labelCheck {
+  margin-right: 20px; }
 
 .elementFormCopyright .labelInput, .elementFormCopyright .popup .popupSubTitle, .popup .elementFormCopyright .popupSubTitle, .elementFormActivity .labelInput, .elementFormActivity .popup .popupSubTitle, .popup .elementFormActivity .popupSubTitle {
   width: 100px; }

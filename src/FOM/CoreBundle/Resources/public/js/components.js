@@ -232,7 +232,6 @@ $(function() {
         var opts = me.find(".hiddenDropdown");
         if(list.css("display") == "block"){
             list.hide();
-            
         }else{
             list.show();
             list.find("li").one("click", function(event){
