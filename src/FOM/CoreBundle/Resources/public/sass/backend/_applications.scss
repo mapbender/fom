@@ -53,26 +53,30 @@
     .iconCheckbox{@extend .iconPublish}
     .iconCheckboxActive{@extend .iconPublishActive}
   }
+  .containerLayers{
+    .iconCheckbox{@extend .iconPublish}
+    .iconCheckboxActive{@extend .iconPublishActive}
+  }
 }
 .popup{
   .popupSubContent{
     overflow: visible;
-    .labelInput{float:left;}
-    .input{float:left;}
+    .labelInput, .input{float:left;}
   }
 }
 .elementsTable{
-  tr{cursor:move;}
-  .typeColumn{
-    width:35%; // very ugly, but fixing the scale behaviour by dragging at the moment
-  }
+  tbody tr{cursor:move;}
+  .typeColumn{width:35%;} // very ugly, but fixing the scale behaviour by dragging at the moment
   .titleColumn{width: 50%;}
-  .ui-sortable-helper{
-    background-color:darken($contentColor, 3%)
-  }
+  .ui-sortable-helper{background-color:darken($contentColor, 3%)}
   .placeholderRow{height:$space;}
 }
-
+.layersetTable{
+  tbody tr{cursor:move;}
+  .idColumn{width:3%;}
+  .typeColumn{width:7%;} // very ugly, but fixing the scale behaviour by dragging at the moment
+  .titleColumn{width: 70%;}
+} 
 
 
 
@@ -254,12 +258,4 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
     right:0px;
     left:40px + $space/2;
   }
-}
-.layerset{
-  .publishIconSmall{
-    // shitty shitty bang bang
-    height:13px;
-    margin-right: $space/2;
-  }
-  tbody tr{cursor:move;}
 }

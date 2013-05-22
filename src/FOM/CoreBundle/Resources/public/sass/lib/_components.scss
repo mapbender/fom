@@ -313,7 +313,6 @@ fieldset{
   @include stretch();
 
   &.hint{
-    text-align: center;
     .popup{width:300px;}
   }
 

@@ -522,7 +522,7 @@ table {
   content: "\f067"; }
 
 .iconClose:before {
-  content: "\f068" !important; }
+  content: "\f068"; }
 
 .iconActivity:before {
   content: "\f072"; }
@@ -569,10 +569,10 @@ table {
 .iconEdit:before {
   content: "\f044"; }
 
-.iconPublish:before, .applicationTabContainer .containerLayout .iconCheckbox:before {
+.iconPublish:before, .applicationTabContainer .containerLayout .iconCheckbox:before, .applicationTabContainer .containerLayers .iconCheckbox:before {
   content: "\f070" !important; }
 
-.iconPublishActive:before, .applicationTabContainer .containerLayout .iconCheckboxActive:before {
+.iconPublishActive:before, .applicationTabContainer .containerLayout .iconCheckboxActive:before, .applicationTabContainer .containerLayers .iconCheckboxActive:before {
   content: "\f06e" !important; }
 
 .iconAppDefault:before {
@@ -933,10 +933,8 @@ fieldset {
   bottom: 0;
   left: 0;
   right: 0; }
-  .popupContainer.hint {
-    text-align: center; }
-    .popupContainer.hint .popup {
-      width: 300px; }
+  .popupContainer.hint .popup {
+    width: 300px; }
   .popupContainer.modal .popup {
     width: 450px; }
   .popupContainer.modal .buttonCancel, .popupContainer.modal .buttonYes {
@@ -1588,12 +1586,10 @@ body {
 
 .popup .popupSubContent {
   overflow: visible; }
-  .popup .popupSubContent .labelInput, .popup .popupSubContent .popupSubTitle {
-    float: left; }
-  .popup .popupSubContent .input {
+  .popup .popupSubContent .labelInput, .popup .popupSubContent .popupSubTitle, .popup .popupSubContent .input {
     float: left; }
 
-.elementsTable tr {
+.elementsTable tbody tr {
   cursor: move; }
 .elementsTable .typeColumn {
   width: 35%; }
@@ -1603,6 +1599,15 @@ body {
   background-color: #f1f1f1; }
 .elementsTable .placeholderRow {
   height: 20px; }
+
+.layersetTable tbody tr {
+  cursor: move; }
+.layersetTable .idColumn {
+  width: 3%; }
+.layersetTable .typeColumn {
+  width: 7%; }
+.layersetTable .titleColumn {
+  width: 70%; }
 
 .checkContainer {
   position: relative;
@@ -1797,12 +1802,6 @@ body {
   position: absolute;
   right: 0px;
   left: 50px; }
-
-.layerset .publishIconSmall {
-  height: 13px;
-  margin-right: 10px; }
-.layerset tbody tr {
-  cursor: move; }
 
 /* ----------------------------------------------------------- SERVICES */
 .listFilterInput {

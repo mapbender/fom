@@ -37,7 +37,7 @@
         </div>
 
         <div class="contentPane">
-          <div id="version" class="mapbenderVersion smallText">v. 3.0.0.0</div>
+          <div id="version" class="mapbenderVersion smallText">v. {{ fom.server_version }}</div>
           {% if app.user != "" %}
             {% render "FOMManagerBundle:Manager:bread" with { "request": app.request } %}
           {% endif %}

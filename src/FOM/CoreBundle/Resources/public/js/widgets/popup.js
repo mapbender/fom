@@ -35,7 +35,7 @@
       hintDefaults.cssClass        = "hint";
 
       this.options = $.extend(hintDefaults, customOptions);
-      this.addButton(this.options.btnOkLabel, "buttonYes")
+      this.addButton(this.options.btnOkLabel, "button buttonYes right")
           ._createMarkup()
           ._show();
     },
@@ -92,7 +92,7 @@
                          function(e){clickFunction.call(that, e)} :
                          function(e){that.close.call(that, e)});
 
-      that.buttons.push(button);
+      this.buttons.push(button);
 
       return this;
     },
@@ -102,7 +102,7 @@
 
       that.popup.removeClass("show");
       setTimeout(function() {
-        that._destroy()
+        that._destroy();
         $("body").removeClass("noScroll");
       },200);
 
@@ -113,9 +113,10 @@
       with (this){
         popup.find(".popupButtons").find("*").unbind();
         options = {};
-        buttons = [];
+        buttons.length = 0;
         popup.remove();
         popup = null;
+        element.data("mbPopup", null);
       }
     },
 
@@ -123,7 +124,6 @@
       var that = this;
       setTimeout(function() {
         that.popup.addClass("show");
-        console.log("aa")
         $("body").addClass("noScroll");
       },10);
     },
@@ -160,8 +160,7 @@
         _addAllButtons();
         _setWidth();
 
-        this.element.append(popup);
-
+        element.append(popup);
         _bindDrag();
       }
       return this;

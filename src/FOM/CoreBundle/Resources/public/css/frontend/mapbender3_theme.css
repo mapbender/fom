@@ -437,7 +437,8 @@ table {
 [class^="icon"],
 [class*=" icon"],
 .icon,
-.sidePaneTabItem {
+.sidePaneTabItem,
+.mb-element-overview .toggleOverview {
   font-family: FontAwesome !important;
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
@@ -488,7 +489,7 @@ table {
 .iconExpand:before {
   content: "\f117"; }
 
-.iconExpandClosed:before, .mb-element-overview.closed .iconExpand:before {
+.iconExpandClosed:before {
   content: "\f116"; }
 
 .iconMove:before {
@@ -518,11 +519,11 @@ table {
 .iconWms:before {
   content: "\f0ac"; }
 
-.iconOpen:before, .sidePaneTabItem:before {
+.iconOpen:before, .sidePaneTabItem:before, .mb-element-overview.closed .toggleOverview:before {
   content: "\f067"; }
 
-.iconClose:before, .sidePane.opened .sidePaneTabItem:before {
-  content: "\f068" !important; }
+.iconClose:before, .sidePane.opened .sidePaneTabItem:before, .mb-element-overview .toggleOverview:before {
+  content: "\f068"; }
 
 .iconActivity:before {
   content: "\f072"; }
@@ -661,7 +662,7 @@ p {
 
 .smallText, .labelInput, .popup .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
 .sideContent .mb-button, .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-gpsButton,
-.sideContent .critical.mb-button, .linkButton, .sidePaneTabItem, .dropdown {
+.sideContent .critical.mb-button, .linkButton, .sidePaneTabItem, .mb-element-overview .toggleOverview, .dropdown {
   font-size: 12px; }
 
 .bigText, .title, .popup .popupHead {
@@ -744,7 +745,7 @@ fieldset {
 /* BUTTON */
 .buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
 .sideContent .mb-button, .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-gpsButton,
-.sideContent .critical.mb-button, .linkButton, .sidePaneTabItem {
+.sideContent .critical.mb-button, .linkButton, .sidePaneTabItem, .mb-element-overview .toggleOverview {
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -784,8 +785,10 @@ fieldset {
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225; }
   .button.icon, .button.sidePaneTabItem, .sideContent .sidePaneTabItem.mb-aboutButton, .sideContent .sidePaneTabItem.mb-gpsButton,
-  .sideContent .sidePaneTabItem.mb-button, .sideContent .icon.mb-aboutButton, .sideContent .icon.mb-gpsButton,
-  .sideContent .icon.mb-button {
+  .sideContent .sidePaneTabItem.mb-button, .sideContent .icon.mb-aboutButton, .sideContent .mb-element-overview .mb-aboutButton.toggleOverview, .mb-element-overview .sideContent .mb-aboutButton.toggleOverview, .sideContent .icon.mb-gpsButton, .sideContent .mb-element-overview .mb-gpsButton.toggleOverview, .mb-element-overview .sideContent .mb-gpsButton.toggleOverview,
+  .sideContent .icon.mb-button,
+  .sideContent .mb-element-overview .mb-button.toggleOverview,
+  .mb-element-overview .sideContent .mb-button.toggleOverview, .mb-element-overview .button.toggleOverview {
     padding-left: 20px;
     background-image: url("../../fomcore/images/link_arrow.png");
     background-position: 10px center;
@@ -943,10 +946,8 @@ fieldset {
   bottom: 0;
   left: 0;
   right: 0; }
-  .popupContainer.hint {
-    text-align: center; }
-    .popupContainer.hint .popup {
-      width: 300px; }
+  .popupContainer.hint .popup {
+    width: 300px; }
   .popupContainer.modal .popup {
     width: 450px; }
   .popupContainer.modal .buttonCancel, .popupContainer.modal .buttonYes {
@@ -999,7 +1000,7 @@ fieldset {
   -webkit-animation: activity 1s ease-in-out infinite;
   -moz-animation: activity 1s ease-in-out infinite;
   animation: activity 1s ease-in-out infinite;
-  text-shadow: 0 0 2px black; }
+  text-shadow: 0 0 1px black; }
 
 .mb-hiddenCheckbox {
   position: absolute;
@@ -1007,7 +1008,10 @@ fieldset {
   opacity: 0; }
 
 .iconCoordinates {
-  cursor: default; }
+  cursor: default;
+  vertical-align: baseline; }
+  .iconCoordinates:before {
+    margin-right: 5px; }
 
 .mb-element-copyright {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
@@ -1017,7 +1021,7 @@ fieldset {
   text-decoration: underline;
   cursor: pointer; }
 
-.mb-eleemnt-copyright-dialog {
+.mb-element-copyright-dialog {
   display: none; }
 
 /* ---------------------------------------------------------- TOOLBAR */
@@ -1040,6 +1044,8 @@ fieldset {
     .toolBar [class^="icon"]:hover, .toolBar [class*=" icon"]:hover {
       filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
       opacity: 1; }
+  .toolBar .labelInput, .toolBar .popup .popupSubTitle, .popup .toolBar .popupSubTitle {
+    text-shadow: inherit; }
   .toolBar.top {
     padding: 10px 20px 10px 20px;
     border-bottom: solid 1px #c6c6c6; }
@@ -1142,14 +1148,14 @@ fieldset {
   .contentPane .left-bottom {
     z-index: 10;
     position: absolute;
-    bottom: 40px;
+    bottom: 60px;
     left: 20px; }
   .contentPane .right-bottom {
     z-index: 10;
     position: absolute;
     right: 20px;
-    bottom: 40px; }
-  .contentPane .mb-element-activityindicator, .contentPane .mb-element-coordsdisplay {
+    bottom: 60px; }
+  .contentPane .mb-element-coordsdisplay {
     z-index: 20;
     position: absolute;
     right: 20px;
@@ -1276,8 +1282,18 @@ fieldset {
   cursor: crosshair; }
 
 /* Overview */
-.mb-element-overview .iconExpand:before {
-  font-size: 28px; }
+.mb-element-overview .toggleOverview {
+  padding: 0px 6px;
+  color: white;
+  background-color: #6fb536;
+  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
+  -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px; }
 .mb-element-overview .olMap {
   background-color: white;
   -webkit-transition: width 0.2s linear;
@@ -1294,19 +1310,42 @@ fieldset {
     border-bottom: solid 1px #a2a2a2; }
 .mb-element-overview.closed .olMap {
   width: 0px !important; }
-.mb-element-overview.right-top .iconExpand {
+.mb-element-overview.right-top .toggleOverview {
   position: absolute;
   top: 0;
   left: -25px; }
-.mb-element-overview.left-top .iconExpand {
+.mb-element-overview.left-top .toggleOverview {
   position: absolute;
   top: 0;
   right: -25px; }
-.mb-element-overview.right-bottom .iconExpand {
+.mb-element-overview.right-bottom .toggleOverview {
   position: absolute;
   bottom: -5px;
   left: -25px; }
-.mb-element-overview.left-bottom .iconExpand {
+.mb-element-overview.left-bottom .toggleOverview {
   position: absolute;
   right: -25px;
   bottom: -5px; }
+
+/* Scalebar */
+.mb-element-scaleline {
+  text-align: center;
+  display: inline-block; }
+  .mb-element-scaleline .scaleBorder {
+    border-left: solid 2px #404040;
+    border-right: solid 2px #404040;
+    border-bottom: solid 2px #404040;
+    height: 5px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0; }
+
+/* ----------------------------------------------------------- TOOLBAR */
+/* ----------------------------------------------- ELEMENTS */
+.toolBar .mb-element-scaleline {
+  position: relative;
+  bottom: 5px;
+  padding-bottom: 5px; }
+  .toolBar .mb-element-scaleline .scaleBorder {
+    border-color: white; }

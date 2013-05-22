@@ -49,7 +49,7 @@
   .sidePane.left {
     position: absolute;
     top: 120px;
-    bottom: 40px;
+    bottom: 60px;
     left: 0; }
     .sidePane.left .sidePaneTabs {
       right: -32px; }
@@ -57,7 +57,7 @@
     position: absolute;
     top: 80px;
     right: 0;
-    bottom: 40px; }
+    bottom: 60px; }
     .sidePane.right .sidePaneTabs {
       left: -32px; }
   .sidePane.opened {
