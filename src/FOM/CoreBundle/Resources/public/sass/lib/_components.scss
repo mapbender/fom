@@ -309,6 +309,10 @@ fieldset{
 }
 .popupContainer{
   position: absolute;
+
+  // need to hide the container if the popup is not modal
+  width:0px;
+  height:0px;
   z-index:999;
   @include stretch();
 
@@ -317,6 +321,8 @@ fieldset{
   }
 
   &.modal{
+    height:100%;
+    width:100%;
     .popup{width:$popupModalWidth;}
     .buttonCancel, .buttonYes{float:right;margin-left:3px;}
   }
