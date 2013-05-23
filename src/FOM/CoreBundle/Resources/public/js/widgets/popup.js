@@ -116,7 +116,7 @@
         buttons.length = 0;
         popup.remove();
         popup = null;
-        element.data("mbPopup", null);
+        element.removeData("mapbenderMbPopup");
       }
     },
 
