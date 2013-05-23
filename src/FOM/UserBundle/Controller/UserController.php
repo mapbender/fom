@@ -267,7 +267,6 @@ class UserController extends Controller {
 
         $this->addProfileForm($user);
         $profile = $user->getProfile();
-        $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
         try {
