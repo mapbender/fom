@@ -503,7 +503,7 @@ table {
 .iconGps:before {
   content: "\f041"; }
 
-.iconToc:before {
+.iconLayertree:before {
   content: "\f0e8"; }
 
 .iconLegend:before {
@@ -927,6 +927,8 @@ fieldset {
 
 .popupContainer {
   position: absolute;
+  width: 0px;
+  height: 0px;
   z-index: 999;
   position: absolute;
   top: 0;
@@ -935,11 +937,14 @@ fieldset {
   right: 0; }
   .popupContainer.hint .popup {
     width: 300px; }
-  .popupContainer.modal .popup {
-    width: 450px; }
-  .popupContainer.modal .buttonCancel, .popupContainer.modal .buttonYes {
-    float: right;
-    margin-left: 3px; }
+  .popupContainer.modal {
+    height: 100%;
+    width: 100%; }
+    .popupContainer.modal .popup {
+      width: 450px; }
+    .popupContainer.modal .buttonCancel, .popupContainer.modal .buttonYes {
+      float: right;
+      margin-left: 3px; }
   .popupContainer.show .overlay {
     height: 2000px;
     width: 2000px;
