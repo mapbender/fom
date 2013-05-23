@@ -226,18 +226,10 @@ class GroupController extends Controller {
                 throw new AccessDeniedException();
             }
 
-            $form = $this->createDeleteForm($id);
-            $request = $this->getRequest();
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->remove($group);
+            $em->flush();
 
-            $form->bindRequest($request);
-            if($form->isValid()) {
-                $em = $this->getDoctrine()->getEntityManager();
-                $em->remove($group);
-                $em->flush();
-
-                $this->get('session')->setFlash('success',
-                    'The group has been deleted.');
-            }
         } catch(Exception $e) {
             $this->get('session')->setFlash('error',
                 'The group couldn\'t be deleted.');
