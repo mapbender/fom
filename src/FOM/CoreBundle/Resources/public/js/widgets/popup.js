@@ -209,6 +209,13 @@
     },
 
     _bindDrag: function(){
+      if(this.options.draggable && !this.options.modal) {
+            var popup = $('#popup', this.popup),
+                handle = $('#popupHead', this.popup);
+            popup.draggable({
+              handle: handle
+            });
+      }
     },
 
     _addAllButtons: function(){
