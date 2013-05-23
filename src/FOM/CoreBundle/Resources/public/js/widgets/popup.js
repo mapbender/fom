@@ -207,7 +207,14 @@
         popup.draggable({
           handle: handle
         });
-        this.popup.find(".overlay").remove();
+
+        // centrate the dialog, if it is draggable
+        var leftOffset = 0;
+        var popupWidth = this.popup.find(".popup").width();
+        if(popupWidth > 0){
+          leftOffset = ((window.innerWidth/2) - (popupWidth/2));
+        }
+        this.popup.css("left", leftOffset).find(".overlay").remove();
 
       }else{
         this.popup.addClass("modal");

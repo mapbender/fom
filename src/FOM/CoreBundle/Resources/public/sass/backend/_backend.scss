@@ -4,7 +4,7 @@
 // --------------------------------------------------------------- MISC
 .area{@include border-radius($radius);}
 .listFilterInput{margin-left:$space;}
-.iconBig{
+.iconBig, .iconSmall{
   @include opacity(0.6);
   @include transition(opacity .2s ease-in-out);
   &:hover{@include opacity(1);}

@@ -557,6 +557,9 @@ table {
 .iconZoomLevelSelected:before {
   content: "\f111"; }
 
+.iconAreaRuler:before {
+  content: "\f125"; }
+
 .iconGroup:before {
   content: "\f0c0"; }
 
@@ -570,7 +573,7 @@ table {
   content: "\f00c" !important; }
 
 .iconEdit:before {
-  content: "\f044"; }
+  content: "\f040"; }
 
 .iconPublish:before, .applicationTabContainer .containerLayout .iconCheckbox:before, .applicationTabContainer .containerLayers .iconCheckbox:before {
   content: "\f070" !important; }
@@ -1034,14 +1037,14 @@ fieldset {
 .listFilterInput {
   margin-left: 20px; }
 
-.iconBig, .tableUserGroups .iconCheckboxActive, .tableUserGroups .iconCheckbox {
+.iconBig, .tableUserGroups .iconCheckboxActive, .tableUserGroups .iconCheckbox, .iconSmall {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6;
   -webkit-transition: opacity 0.2s ease-in-out;
   -moz-transition: opacity 0.2s ease-in-out;
   -o-transition: opacity 0.2s ease-in-out;
   transition: opacity 0.2s ease-in-out; }
-  .iconBig:hover, .tableUserGroups .iconCheckboxActive:hover, .tableUserGroups .iconCheckbox:hover {
+  .iconBig:hover, .tableUserGroups .iconCheckboxActive:hover, .tableUserGroups .iconCheckbox:hover, .iconSmall:hover {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
     opacity: 1; }
 

@@ -558,6 +558,9 @@ table {
 .iconZoomLevelSelected:before {
   content: "\f111"; }
 
+.iconAreaRuler:before {
+  content: "\f125"; }
+
 .iconGroup:before {
   content: "\f0c0"; }
 
@@ -571,7 +574,7 @@ table {
   content: "\f00c" !important; }
 
 .iconEdit:before {
-  content: "\f044"; }
+  content: "\f040"; }
 
 .iconPublish:before {
   content: "\f070" !important; }
