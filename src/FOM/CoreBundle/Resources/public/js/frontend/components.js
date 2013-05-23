@@ -6,6 +6,14 @@ $(function() {
     }
     $(".toggleSideBar").bind("click", sideBarToggle);
 
+    // init tabcontainers --------------------------------------------------------------------
+    $(".tabContainer").find(".tab").live("click", function(){
+        var me = $(this);
+        me.parent().parent().find(".active").removeClass("active");
+        me.addClass("active");
+        $("#" + me.attr("id").replace("tab", "container")).addClass("active");
+    });
+
     // init dropdown list --------------------------------------------------------------------
     var initDropdown = function(){
         var me = $(this);

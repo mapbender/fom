@@ -5,9 +5,8 @@
     popup: null,
 
     defaults: {
-      draggable:            true,
+      draggable:            false,
       resizeable:           false, //not implemented yet
-      modal:                true,
       showHeader:           true,
       showCloseButton:      true,
       cancelOnEsc:          true,
@@ -28,7 +27,6 @@
 
     showHint: function(customOptions){
       var hintDefaults             = this.defaults;
-      hintDefaults.draggable       = false;
       hintDefaults.resizeable      = false;
       hintDefaults.showCloseButton = false;
       hintDefaults.showHeader      = false;
@@ -41,11 +39,9 @@
     },
 
     showAjaxModal: function(customOptions, url, yesClick, beforeLoad, afterLoad){
-      var that               = this;
-      var modalDefaults      = that.defaults;
-      modalDefaults.cssClass = "modal";
+      var that = this;
 
-      that.options = $.extend(modalDefaults, customOptions);
+      that.options = $.extend(that.defaults, customOptions);
       that.addButton(that.options.btnCancelLabel, "button buttonCancel critical")
           .addButton(that.options.btnOkLabel, "button buttonYes", yesClick);
 
@@ -66,10 +62,7 @@
 
     showModal: function(customOptions, yesClick){
       with (this){
-        var modalDefaults      = defaults;
-        modalDefaults.cssClass = "modal";
-
-        options = $.extend(modalDefaults, customOptions);
+        options = $.extend(defaults, customOptions);
         addButton(options.btnCancelLabel, "button buttonCancel critical")
         .addButton(options.btnOkLabel, "button buttonYes", yesClick)
         ._createMarkup()
@@ -82,7 +75,11 @@
       this._createMarkup()._show();
     },
 
-    addButton: function(label, cssClass, clickFunction, append){
+    setContent: function(text){
+      this.popup.find(".popupContent").text("").append(text);
+    },
+
+    addButton: function(label, cssClass, clickFunction){
       var that   = this;
       cssClass   = (cssClass != undefined) ? 'class="' + cssClass + '"' : "";
 
@@ -155,7 +152,6 @@
         popup.find(".popupSubTitle").text(options.subTitle);
 
         _removeHeader();
-        _removeOverlay();
         _bindCancelEvents();
         _addAllButtons();
         _setWidth();
@@ -175,12 +171,6 @@
     _removeHeader: function(){
       if(!this.options.showHeader){
         this.popup.find(".popupHead").remove();
-      }
-    },
-
-    _removeOverlay: function(){
-      if(!this.options.modal){
-        this.popup.find(".overlay").remove();
       }
     },
 
@@ -209,12 +199,18 @@
     },
 
     _bindDrag: function(){
-      if(this.options.draggable && !this.options.modal) {
-            var popup = $('#popup', this.popup),
-                handle = $('#popupHead', this.popup);
-            popup.draggable({
-              handle: handle
-            });
+      if(this.options.draggable) {
+
+        var popup = $('#popup', this.popup),
+            handle = $('#popupHead', this.popup);
+            $("#popupHead").addClass("draggable");
+        popup.draggable({
+          handle: handle
+        });
+        this.popup.find(".overlay").remove();
+
+      }else{
+        this.popup.addClass("modal");
       }
     },
 

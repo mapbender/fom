@@ -28,6 +28,7 @@
 }
 
 .iconCheckboxActive:before{content:"\f046" !important;} // overwrite the default icon if checked
+.iconCheckboxHalf:before{content:"\f147" !important;} // overwrite the default icon if checked
 .iconCheckbox:before{content:"\f096";}
 .iconRadio:before{content:"\f111";}
 .iconRadioActive:before{content:"\f10c";}

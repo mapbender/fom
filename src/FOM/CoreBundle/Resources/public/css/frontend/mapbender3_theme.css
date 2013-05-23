@@ -456,6 +456,9 @@ table {
 .iconCheckboxActive:before {
   content: "\f046" !important; }
 
+.iconCheckboxHalf:before {
+  content: "\f147" !important; }
+
 .iconCheckbox:before {
   content: "\f096"; }
 
@@ -662,7 +665,7 @@ p {
 
 .smallText, .labelInput, .popup .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
 .sideContent .mb-button, .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-gpsButton,
-.sideContent .critical.mb-button, .linkButton, .sidePaneTabItem, .mb-element-overview .toggleOverview, .dropdown {
+.sideContent .critical.mb-button, .linkButton, .sidePaneTabItem, .mb-element-overview .toggleOverview, .dropdown, .tabContainer .tab {
   font-size: 12px; }
 
 .bigText, .title, .popup .popupHead {
@@ -930,6 +933,8 @@ fieldset {
     margin-bottom: 20px;
     margin-right: 20px;
     border-bottom: dashed 1px #b3b3b3; }
+    .popup .popupHead.draggable {
+      cursor: move; }
   .popup .popupButtons {
     margin-right: 20px; }
   .popup .popupContent, .popup .popupSubContent {
@@ -948,8 +953,6 @@ fieldset {
   bottom: 0;
   left: 0;
   right: 0; }
-  .popupContainer.hint .popup {
-    width: 300px; }
   .popupContainer.modal {
     height: 100%;
     width: 100%; }
@@ -958,6 +961,8 @@ fieldset {
     .popupContainer.modal .buttonCancel, .popupContainer.modal .buttonYes {
       float: right;
       margin-left: 3px; }
+  .popupContainer.hint .popup {
+    width: 300px; }
   .popupContainer.show .overlay {
     height: 2000px;
     width: 2000px;
@@ -965,6 +970,72 @@ fieldset {
     opacity: 0.9; }
   .popupContainer.show .popup {
     margin: 100px auto 0 auto; }
+
+/* ------------------------------------------------- TABS */
+.tabContainer .tab {
+  margin-right: 3px;
+  color: #707070;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  position: relative;
+  bottom: -6px;
+  height: 34px;
+  z-index: 10;
+  border-left: solid 1px #a2a2a2;
+  border-top: solid 1px #a2a2a2;
+  border-right: solid 1px #a2a2a2;
+  float: left;
+  padding: 3px 10px 3px 10px;
+  -webkit-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.1), inset 1px 0px 2px white;
+  -moz-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.1), inset 1px 0px 2px white;
+  box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.1), inset 1px 0px 2px white;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+  .tabContainer .tab:first-child {
+    -moz-border-radius-topleft: 3px;
+    -webkit-border-top-left-radius: 3px;
+    border-top-left-radius: 3px; }
+  .tabContainer .tab:hover {
+    background-color: #fff;
+    bottom: -3px; }
+  .tabContainer .tab.active {
+    cursor: default;
+    color: #3f3f3f;
+    bottom: -3px;
+    height: 34px;
+    z-index: 30;
+    background-color: #f9f9f9;
+    -webkit-box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.1); }
+.tabContainer .container {
+  clear: left;
+  display: none;
+  padding: 20px;
+  z-index: 20;
+  position: relative;
+  background-color: #f9f9f9;
+  border-top: solid 3px #404040;
+  border-left: solid 1px #a2a2a2;
+  border-right: solid 1px #a2a2a2;
+  border-bottom: solid 1px #a2a2a2;
+  -moz-border-radius-bottomleft: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1); }
+  .tabContainer .container.active {
+    display: block; }
 
 /* ------------------------------------------------------------- MISC */
 @-webkit-keyframes activity {
