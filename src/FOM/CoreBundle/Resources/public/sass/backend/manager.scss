@@ -11,6 +11,7 @@ $pageWidth:$contentPaneWidth + $navWidth;
 
 // --------------------------------------------------------------- PAGE
 body{
+  background-image:url('../../images/body.png');
   @include background(linear-gradient(rgba(255,255,255,.3) 100px, rgba(255,255,255,0)) fixed, 
                       image-url("body.png"));
 }
@@ -34,6 +35,7 @@ body{
   // remove broken head background when the page is smaller than defined width
   min-width:$pageWidth;
   border-top:solid 5px darken($firstColor, 10%);
+  background-image:url($headPatternUrl);
   @include background(linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,0)),
                       image-url("head.png"));
 

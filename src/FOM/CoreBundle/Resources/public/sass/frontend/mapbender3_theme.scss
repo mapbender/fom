@@ -47,6 +47,7 @@
 
 
 /* ---------------------------------------------------------- TOOLBAR */
+.logoContainer{background-image:url($headPatternUrl);}
 .toolBar{
   @include frontendContainerStyle();
   .labelInput{@include text-shadow(inherit);}
@@ -315,6 +316,12 @@
     height:5px;
     @include pos('',0,0,0);
   }
+}
+
+/* WMS Loader */
+.mb-element-wmsloader{
+  display: none;
+  .input{width:348px;}
 }
 
 /* ----------------------------------------------------------- TOOLBAR */

@@ -310,6 +310,7 @@ fieldset{
     max-height: 500px;
     overflow-y: auto;
   }
+  &.ui-draggable-dragging.transparency{@include opacity(0.6);}
 }
 .popupContainer{
   position: absolute;

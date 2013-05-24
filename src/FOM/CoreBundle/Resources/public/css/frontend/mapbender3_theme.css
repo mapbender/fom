@@ -948,6 +948,9 @@ fieldset {
     margin-bottom: 20px;
     max-height: 500px;
     overflow-y: auto; }
+  .popup.ui-draggable-dragging.transparency {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+    opacity: 0.6; }
 
 .popupContainer {
   position: absolute;
@@ -1107,6 +1110,9 @@ fieldset {
   display: none; }
 
 /* ---------------------------------------------------------- TOOLBAR */
+.logoContainer {
+  background-image: url("../../images/head.png"); }
+
 .toolBar {
   position: relative;
   color: white;
@@ -1422,6 +1428,12 @@ fieldset {
     right: 0;
     bottom: 0;
     left: 0; }
+
+/* WMS Loader */
+.mb-element-wmsloader {
+  display: none; }
+  .mb-element-wmsloader .input {
+    width: 348px; }
 
 /* ----------------------------------------------------------- TOOLBAR */
 /* ----------------------------------------------- ELEMENTS */
