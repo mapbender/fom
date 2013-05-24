@@ -817,6 +817,9 @@ fieldset {
 /* CHECKBOX */
 .checkWrapper {
   position: relative; }
+  .checkWrapper.checkboxDisabled {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+    opacity: 0.4; }
 
 .checkbox {
   cursor: pointer;

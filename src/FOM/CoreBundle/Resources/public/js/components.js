@@ -219,8 +219,12 @@ $(function() {
 
         (me.is(":checked")) ? parent.addClass("iconCheckboxActive") 
                             : parent.removeClass("iconCheckboxActive");
+        if(me.is(":disabled")){
+           parent.addClass("checkboxDisabled");
+        }
     }
     $(document).on("change", ".checkbox", toggleCheckBox);
+    $(".checkbox").trigger("change");
 
 
 
