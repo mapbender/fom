@@ -17,6 +17,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 
 /**
@@ -127,6 +129,20 @@ class UserController extends Controller {
             }
 
             $em->flush();
+
+            // Make sure, the new user has VIEW & EDIT permissions
+            $aclProvider = $this->get('security.acl.provider');
+            $maskBuilder = new MaskBuilder();
+
+            $usid = UserSecurityIdentity::fromAccount($user);
+            $uoid = ObjectIdentity::fromDomainObject($user);
+            $umask = $maskBuilder
+                ->add('VIEW')
+                ->add('EDIT')
+                ->get();
+            $acl = $aclProvider->findAcl($uoid);
+            $acl->insertObjectAce($usid, $umask);
+            $aclProvider->updateAcl($acl);
 
             $this->get('session')->setFlash('success',
                 'The user has been saved.');
