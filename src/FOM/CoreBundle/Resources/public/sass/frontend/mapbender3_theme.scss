@@ -321,7 +321,20 @@
 /* WMS Loader */
 .mb-element-wmsloader{
   display: none;
-  .input{width:348px;}
+  .input{width:340px;}
+}
+
+/* Print client */
+.mb-element-printclient{
+  display:none;
+  overflow: visible;
+
+  .labelInput{width:60px;}
+  .input, .dropdown{
+    width:190px;
+    margin-bottom:$space/2;
+    min-width: 0px;
+  }
 }
 
 /* ----------------------------------------------------------- TOOLBAR */

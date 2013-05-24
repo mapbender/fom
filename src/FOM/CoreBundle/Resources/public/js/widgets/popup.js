@@ -12,6 +12,7 @@
       cancelOnEsc:          true,
       cancelOnOverlayClick: true,
       transparency:         true,
+      overflow:             false,
       method:               "POST", 
 
       width:                0, // 0 -> css
@@ -152,17 +153,30 @@
         popup.find(".popupContent")
                .append(options.content);
         popup.find(".popupSubTitle").text(options.subTitle);
-        popup.find(".popup").addClass("transparency");
 
         _removeHeader();
         _bindCancelEvents();
         _addAllButtons();
         _setSize();
+        _addTransparency();
+        _addOverflow();
 
         element.append(popup);
         _bindDrag();
       }
       return this;
+    },
+
+    _addTransparency: function(){
+      if(this.options.transparency){
+        this.popup.find(".popup").addClass("popupTransparency");
+      }
+    },
+
+    _addOverflow: function(){
+      if(this.options.overflow){
+        this.popup.find(".popup").addClass("popupOverflow");
+      }
     },
 
     _setSize: function(){

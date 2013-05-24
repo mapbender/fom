@@ -26,7 +26,6 @@ $(function() {
             dropdownList.append(newElement);
         });
         me.find(".dropdownValue").text(me.find("option:first").text())
-
     }
     var toggleList = function(){
         var me   = $(this);
@@ -52,6 +51,5 @@ $(function() {
         });
         return false;
     }
-    initDropdown();
     $(".dropdown").load(initDropdown).load().bind("click", toggleList);
 });

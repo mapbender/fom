@@ -706,6 +706,7 @@ fieldset {
   text-shadow: white 1px 1px 0px; }
 
 .labelInput, .popup .popupSubTitle {
+  display: inline-block;
   color: #858585;
   line-height: 29px; }
   .labelInput .required, .popup .popupSubTitle .required {
@@ -935,9 +936,11 @@ fieldset {
     margin-bottom: 20px;
     max-height: 500px;
     overflow-y: auto; }
-  .popup.ui-draggable-dragging.transparency {
+  .popup.ui-draggable-dragging.popupTransparency {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
     opacity: 0.6; }
+  .popup.popupOverflow .popupContent, .popup.popupOverflow .popupSubContent {
+    overflow: visible; }
 
 .popupContainer {
   position: absolute;

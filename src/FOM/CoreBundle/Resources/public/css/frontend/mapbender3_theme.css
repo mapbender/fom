@@ -709,6 +709,7 @@ fieldset {
   text-shadow: white 1px 1px 0px; }
 
 .labelInput, .popup .popupSubTitle {
+  display: inline-block;
   color: #858585;
   line-height: 29px; }
   .labelInput .required, .popup .popupSubTitle .required {
@@ -948,9 +949,11 @@ fieldset {
     margin-bottom: 20px;
     max-height: 500px;
     overflow-y: auto; }
-  .popup.ui-draggable-dragging.transparency {
+  .popup.ui-draggable-dragging.popupTransparency {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
     opacity: 0.6; }
+  .popup.popupOverflow .popupContent, .popup.popupOverflow .popupSubContent {
+    overflow: visible; }
 
 .popupContainer {
   position: absolute;
@@ -1433,7 +1436,18 @@ fieldset {
 .mb-element-wmsloader {
   display: none; }
   .mb-element-wmsloader .input {
-    width: 348px; }
+    width: 340px; }
+
+/* Print client */
+.mb-element-printclient {
+  display: none;
+  overflow: visible; }
+  .mb-element-printclient .labelInput, .mb-element-printclient .popup .popupSubTitle, .popup .mb-element-printclient .popupSubTitle {
+    width: 60px; }
+  .mb-element-printclient .input, .mb-element-printclient .dropdown {
+    width: 190px;
+    margin-bottom: 10px;
+    min-width: 0px; }
 
 /* ----------------------------------------------------------- TOOLBAR */
 /* ----------------------------------------------- ELEMENTS */
