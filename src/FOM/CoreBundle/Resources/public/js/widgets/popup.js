@@ -11,9 +11,12 @@
       showCloseButton:      true,
       cancelOnEsc:          true,
       cancelOnOverlayClick: true,
+      transparency:         true,
+      overflow:             false,
       method:               "POST", 
 
       width:                0, // 0 -> css
+      height:               0, // 0 -> css
       cssClass:             "",
 
       title:                "",
@@ -154,7 +157,9 @@
         _removeHeader();
         _bindCancelEvents();
         _addAllButtons();
-        _setWidth();
+        _setSize();
+        _addTransparency();
+        _addOverflow();
 
         element.append(popup);
         _bindDrag();
@@ -162,9 +167,26 @@
       return this;
     },
 
-    _setWidth: function(){
+    _addTransparency: function(){
+      if(this.options.transparency){
+        this.popup.find(".popup").addClass("popupTransparency");
+      }
+    },
+
+    _addOverflow: function(){
+      if(this.options.overflow){
+        this.popup.find(".popup").addClass("popupOverflow");
+      }
+    },
+
+    _setSize: function(){
+      var pop = this.popup.find(".popup");
+
       if(this.options.width > 0){
-        this.popup.find(".popup").css("width", this.options.width);
+        pop.css("width", this.options.width);
+      }
+      if(this.options.height > 0){
+        pop.find(".popupContent").css("height", this.options.height);
       }
     },
 

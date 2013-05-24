@@ -47,6 +47,7 @@
 
 
 /* ---------------------------------------------------------- TOOLBAR */
+.logoContainer{background-image:url($headPatternUrl);}
 .toolBar{
   @include frontendContainerStyle();
   .labelInput{@include text-shadow(inherit);}
@@ -314,6 +315,25 @@
     }
     height:5px;
     @include pos('',0,0,0);
+  }
+}
+
+/* WMS Loader */
+.mb-element-wmsloader{
+  display: none;
+  .input{width:340px;}
+}
+
+/* Print client */
+.mb-element-printclient{
+  display:none;
+  overflow: visible;
+
+  .labelInput{width:60px;}
+  .input, .dropdown{
+    width:190px;
+    margin-bottom:$space/2;
+    min-width: 0px;
   }
 }
 

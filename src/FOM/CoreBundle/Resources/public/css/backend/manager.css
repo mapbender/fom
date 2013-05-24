@@ -706,6 +706,7 @@ fieldset {
   text-shadow: white 1px 1px 0px; }
 
 .labelInput, .popup .popupSubTitle {
+  display: inline-block;
   color: #858585;
   line-height: 29px; }
   .labelInput .required, .popup .popupSubTitle .required {
@@ -935,6 +936,11 @@ fieldset {
     margin-bottom: 20px;
     max-height: 500px;
     overflow-y: auto; }
+  .popup.ui-draggable-dragging.popupTransparency {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+    opacity: 0.6; }
+  .popup.popupOverflow .popupContent, .popup.popupOverflow .popupSubContent {
+    overflow: visible; }
 
 .popupContainer {
   position: absolute;
@@ -1343,6 +1349,7 @@ fieldset {
       margin-top: -5px; }
 
 body {
+  background-image: url("../../images/body.png");
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(100px, rgba(255, 255, 255, 0.3)), color-stop(100%, rgba(255, 255, 255, 0))) fixed, url('../../images/body.png?1367146802');
   background: -webkit-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367146802');
   background: -moz-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367146802');
@@ -1360,6 +1367,7 @@ body {
   height: 170px;
   min-width: 1000px;
   border-top: solid 5px #272727;
+  background-image: url("../../images/head.png");
   background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0))), url('../../images/head.png?1368431720');
   background: -webkit-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368431720');
   background: -moz-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368431720');

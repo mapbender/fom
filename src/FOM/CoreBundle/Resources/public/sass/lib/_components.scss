@@ -88,6 +88,7 @@ fieldset{
   @include text-shadow(#fff 1px 1px 0px); 
 }
 .labelInput{
+  display: inline-block;
   color:$secondColor;
   line-height:$lineHeight + 8;
 
@@ -309,6 +310,10 @@ fieldset{
     margin-bottom: $space;  
     max-height: 500px;
     overflow-y: auto;
+  }
+  &.ui-draggable-dragging.popupTransparency{@include opacity(0.6);}
+  &.popupOverflow{
+    .popupContent, .popupSubContent{overflow:visible;}
   }
 }
 .popupContainer{
