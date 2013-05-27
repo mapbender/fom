@@ -43,7 +43,7 @@ p{margin:0px;}
   border:none;
   border-bottom:dashed 1px darken(#fff, 30%);
 }
-.noScroll{overflow:hidden;}
+
 
 
 
@@ -280,6 +280,7 @@ fieldset{
   background:url("../../images/overlay.png");
   @include transition(opacity 0.4s ease-in-out);
   @include stretch();
+  position:fixed;
   @include noUserSelect();
   @include opacity(0);
 }
@@ -338,11 +339,7 @@ fieldset{
   }
 
   &.show{
-    .overlay{
-      height: 2000px;
-      width: 2000px;
-      @include opacity(0.9);
-    }
+    .overlay{@include opacity(0.9);}
     .popup{margin:100px auto 0 auto;}
   }
 }

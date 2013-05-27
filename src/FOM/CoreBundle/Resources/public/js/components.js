@@ -145,6 +145,8 @@ $(function() {
                             });
 
                             $("body").mbPopup('close');
+                            $(".permissionsTable").show();
+                            $("#permissionsDescription").hide();
                         }
                     }, null, function(){
                         var groupUserItem, text, me, groupUserType;

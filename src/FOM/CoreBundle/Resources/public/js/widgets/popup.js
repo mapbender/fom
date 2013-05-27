@@ -103,7 +103,6 @@
       that.popup.removeClass("show");
       setTimeout(function() {
         that._destroy();
-        $("body").removeClass("noScroll");
       },200);
 
       return false;
@@ -124,7 +123,6 @@
       var that = this;
       setTimeout(function() {
         that.popup.addClass("show");
-        $("body").addClass("noScroll");
       },10);
     },
 

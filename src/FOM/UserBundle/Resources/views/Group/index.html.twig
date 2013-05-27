@@ -30,16 +30,16 @@
       {% for group in groups %}
       <tr id="app-{{ group.id }}" class="filterItem">
         <td>
-          <a class="labelText" href="{{ path('fom_user_group_edit', {'id': group.id}) }}" title="{{ 'Edit' | trans }}">{{ group.title }}</a>
+          <a class="labelText" href="{{ path('fom_user_group_edit', {'id': group.id}) }}" title="{{ 'Edit group' | trans }} {{ group.title }}">{{ group.title }}</a>
         </td>
         <td class="description">{{ group.description }}</td>
         <td class="iconColumn">
             {% if is_granted('EDIT', group) %}
-            <a class="iconEdit iconSmall" href="{{ path('fom_user_group_edit',  {'id': group.id }) }}" title="{{ 'Edit group' | trans }}"></a>
+            <a class="iconEdit iconSmall" href="{{ path('fom_user_group_edit',  {'id': group.id }) }}" title="{{ 'Edit group' | trans }} {{ group.title }}"></a>
             {% endif %}
             {% if is_granted('DELETE', group) %}
             <span class="iconRemove iconSmall"
-              title="{{ group.title }}"
+              title="{{"Delete group"|trans}} {{ group.title }}"
               data-url="{{ path('fom_user_group_delete', { 'id': group.id}) }}"
               data-id="{{ group.id }}"
             ></span>

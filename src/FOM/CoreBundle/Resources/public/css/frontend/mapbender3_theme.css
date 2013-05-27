@@ -671,9 +671,6 @@ p {
   border: none;
   border-bottom: dashed 1px #b3b3b3; }
 
-.noScroll {
-  overflow: hidden; }
-
 /* ------------------------------------------------------------- TEXT */
 .smallerText {
   font-size: 10px; }
@@ -921,6 +918,7 @@ fieldset {
   bottom: 0;
   left: 0;
   right: 0;
+  position: fixed;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -988,8 +986,6 @@ fieldset {
   .popupContainer.hint .popup {
     width: 300px; }
   .popupContainer.show .overlay {
-    height: 2000px;
-    width: 2000px;
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
     opacity: 0.9; }
   .popupContainer.show .popup {
@@ -1211,10 +1207,10 @@ fieldset {
     box-shadow: -3px 0px 8px rgba(0, 0, 0, 0.1); }
   .sidePane.opened .sideContent {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-    opacity: 1; }
+    opacity: 1;
+    padding: 20px; }
   .sidePane .sideContent {
     overflow: auto;
-    padding: 20px;
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
     opacity: 0; }
 

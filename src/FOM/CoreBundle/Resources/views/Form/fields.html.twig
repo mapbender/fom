@@ -348,33 +348,34 @@
 
 {% block acl_widget %}
   {% spaceless %}
-    {% if form.ace|length > 0 %}
-      {% set prototype = form_widget(form.ace.vars.prototype) %}
-      <table id="listFilterPermission" class="listFilterContainer clear permissionsTable tableCore">
-        <thead id="permissionsHead" data-prototype="{{ prototype }}">
-          <tr class="doNotFilter">
-            <th>
-              <label for="inputFilterPermission" class="labelInput left">{{"Filter"|trans}}</label>
-              <input id="inputFilterPermission" type="text" class="input left listFilterInput"/>
-            </th>
-            {% for child in form.ace.vars.prototype %}
-              {% if child.vars.attr.class is defined %}
-                <th>
-                  <div id="{{ child.vars.attr.class }}" class="tagWrapper smallText {{ child.vars.attr.class }}">{{ child.vars.attr.class }}</div>
-                </th>
-              {% endif %}
-            {% endfor %}
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="permissionsBody">
-          {% for ace in form.ace %}
-            {{ form_widget(ace) }}
+
+    {% set prototype = form_widget(form.ace.vars.prototype) %}
+    <table id="listFilterPermission" class="listFilterContainer clear permissionsTable tableCore {% if form.ace|length == 0 %}hidePermissions{% endif %}">
+      <thead id="permissionsHead" data-prototype="{{ prototype }}">
+        <tr class="doNotFilter">
+          <th>
+            <label for="inputFilterPermission" class="labelInput left">{{"Filter"|trans}}</label>
+            <input id="inputFilterPermission" type="text" class="input left listFilterInput"/>
+          </th>
+          {% for child in form.ace.vars.prototype %}
+            {% if child.vars.attr.class is defined %}
+              <th>
+                <div id="{{ child.vars.attr.class }}" class="tagWrapper smallText {{ child.vars.attr.class }}">{{ child.vars.attr.class }}</div>
+              </th>
+            {% endif %}
           {% endfor %}
-        </tbody>
-      </table>
-    {% else %}
-      <p class="description left">{{"No user or group defined."|trans}}</p>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="permissionsBody">
+        {% for ace in form.ace %}
+          {{ form_widget(ace) }}
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% if form.ace|length == 0 %}
+      <p id="permissionsDescription" class="description left">{{"No user or group defined."|trans}}</p>
     {% endif %}
     <div class="clearContainer"></div>
   {% endspaceless %}

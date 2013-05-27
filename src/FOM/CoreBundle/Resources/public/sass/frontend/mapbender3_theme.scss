@@ -134,13 +134,12 @@
   }
 
   &.opened{
-    .sideContent{@include opacity(1);}
+    .sideContent{@include opacity(1);padding:$space;}
     .sidePaneTabItem{@extend .iconClose;}
   }
 
   .sideContent{
     overflow: auto;
-    padding:$space;
     @include opacity(0);
   }
 }
