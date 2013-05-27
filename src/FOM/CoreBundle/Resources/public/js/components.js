@@ -239,7 +239,6 @@ $(function() {
         }else{
             list.show();
             list.find("li").one("click", function(event){
-                console.log("aaa");
                 event.stopPropagation();
                 list.hide().find("li").off("click");
                 var me2 = $(this);

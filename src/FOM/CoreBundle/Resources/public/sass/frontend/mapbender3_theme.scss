@@ -337,6 +337,48 @@
   }
 }
 
+/* Layer tree */
+.mb-element-layertree{
+  .iconFolder{display:none;}
+
+  // needed for the feature info icon
+  .featureInfoWrapper{
+    width:$space;
+    text-align:center;
+    &.iconCheckboxActive{@extend .iconInfoActive}
+  }
+  .serviceContainer, .groupContainer{
+    border-left:dotted 1px black;
+
+    // elements with childrens
+    & > .leaveContainer{
+      .iconFolder{display:block;}
+      .layer-title{@extend .subTitle;}
+    }
+
+    // show only layers which are toggled
+    .layers{display:none;}    
+    &.showLeaves > .layers{display:block;}
+
+    .leave{
+      margin-left:18px;
+      position: relative;
+      &.invisible{@include opacity(.3);}
+
+      &:before{
+        content:'';
+        display: block;
+        height:5px;
+        width:5px;
+        border-top:dotted 1px black;
+        @include pos(10px,'','',-15px);
+      }
+    }
+    .leaveContainer{margin-left:-6px;}
+  }
+  .serviceContainer{margin-bottom:$space/2;}
+}
+
 /* ----------------------------------------------------------- TOOLBAR */
 /* ----------------------------------------------- ELEMENTS */
 .toolBar{

@@ -514,7 +514,10 @@ table {
   content: "\f00b"; }
 
 .iconInfo:before {
-  content: "\f05a"; }
+  content: "\f129"; }
+
+.iconInfoActive:before, .mb-element-layertree .featureInfoWrapper.iconCheckboxActive:before {
+  content: "\f05a" !important; }
 
 .iconSearch:before {
   content: "\f002"; }
@@ -560,6 +563,12 @@ table {
 
 .iconAreaRuler:before {
   content: "\f125"; }
+
+.iconFolder:before {
+  content: "\f07b"; }
+
+.iconFolderActive:before {
+  content: "\f07c"; }
 
 .iconGroup:before {
   content: "\f0c0"; }
@@ -608,6 +617,9 @@ table {
 
 .iconSignIn:before {
   content: "\f090"; }
+
+.iconMore:before {
+  content: "\f141"; }
 
 /* ------------------------------------------------- MAPBENDER3 RESETS */
 * {
@@ -690,7 +702,7 @@ p {
   color: #3f3f3f;
   text-shadow: white 1px 1px 0px; }
 
-.subTitle, fieldset legend {
+.subTitle, fieldset legend, .mb-element-layertree .serviceContainer > .leaveContainer .layer-title, .mb-element-layertree .groupContainer > .leaveContainer .layer-title {
   font-size: 14px;
   color: #5b932a;
   text-shadow: white 1px 1px 0px; }
@@ -710,14 +722,14 @@ fieldset {
 
 .labelInput, .popup .popupSubTitle {
   display: inline-block;
-  color: #858585;
+  color: #707070;
   line-height: 29px; }
   .labelInput .required, .popup .popupSubTitle .required {
     color: #aa2323;
     text-shadow: white 1px 1px 0px; }
 
 .labelCheck {
-  color: #858585;
+  color: #707070;
   margin-left: 5px; }
 
 .labelText {
@@ -1448,6 +1460,40 @@ fieldset {
     width: 190px;
     margin-bottom: 10px;
     min-width: 0px; }
+
+/* Layer tree */
+.mb-element-layertree .iconFolder {
+  display: none; }
+.mb-element-layertree .featureInfoWrapper {
+  width: 20px;
+  text-align: center; }
+.mb-element-layertree .serviceContainer, .mb-element-layertree .groupContainer {
+  border-left: dotted 1px black; }
+  .mb-element-layertree .serviceContainer > .leaveContainer .iconFolder, .mb-element-layertree .groupContainer > .leaveContainer .iconFolder {
+    display: block; }
+  .mb-element-layertree .serviceContainer .layers, .mb-element-layertree .groupContainer .layers {
+    display: none; }
+  .mb-element-layertree .serviceContainer.showLeaves > .layers, .mb-element-layertree .groupContainer.showLeaves > .layers {
+    display: block; }
+  .mb-element-layertree .serviceContainer .leave, .mb-element-layertree .groupContainer .leave {
+    margin-left: 18px;
+    position: relative; }
+    .mb-element-layertree .serviceContainer .leave.invisible, .mb-element-layertree .groupContainer .leave.invisible {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+      opacity: 0.3; }
+    .mb-element-layertree .serviceContainer .leave:before, .mb-element-layertree .groupContainer .leave:before {
+      content: '';
+      display: block;
+      height: 5px;
+      width: 5px;
+      border-top: dotted 1px black;
+      position: absolute;
+      top: 10px;
+      left: -15px; }
+  .mb-element-layertree .serviceContainer .leaveContainer, .mb-element-layertree .groupContainer .leaveContainer {
+    margin-left: -6px; }
+.mb-element-layertree .serviceContainer {
+  margin-bottom: 10px; }
 
 /* ----------------------------------------------------------- TOOLBAR */
 /* ----------------------------------------------- ELEMENTS */

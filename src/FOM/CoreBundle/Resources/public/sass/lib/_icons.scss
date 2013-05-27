@@ -49,7 +49,8 @@
 .iconGps:before{content:"\f041";}
 .iconLayertree:before{content:"\f0e8";}
 .iconLegend:before{content:"\f00b";}
-.iconInfo:before{content:"\f05a";}
+.iconInfo:before{content:"\f129";}
+.iconInfoActive:before{content:"\f05a" !important;} // overwrite the default icon if checked
 .iconSearch:before{content:"\f002";}
 .iconWms:before{content:"\f0ac";}
 .iconOpen:before{content:"\f067";}
@@ -65,6 +66,8 @@
 .iconZoomLevel:before{content: "\f10c";}
 .iconZoomLevelSelected:before{content: "\f111";}
 .iconAreaRuler:before{content:"\f125";}
+.iconFolder:before{content:"\f07b";}
+.iconFolderActive:before{content:"\f07c";}
 
 // only backend
 .iconGroup:before{content: "\f0c0";}
@@ -83,3 +86,4 @@
 .iconSettings:before{content:"\f0ad";}
 .iconSignOut:before{content:"\f08b";}
 .iconSignIn:before{content:"\f090";}
+.iconMore:before{content:"\f141";}

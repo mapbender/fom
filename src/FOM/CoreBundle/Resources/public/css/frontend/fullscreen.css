@@ -61,7 +61,7 @@
     .sidePane.right .sidePaneTabs {
       left: -32px; }
   .sidePane.opened {
-    width: 450px; }
+    width: 350px; }
   .sidePane .sideContent {
     position: absolute;
     top: 0;

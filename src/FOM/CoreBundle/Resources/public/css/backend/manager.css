@@ -513,7 +513,10 @@ table {
   content: "\f00b"; }
 
 .iconInfo:before {
-  content: "\f05a"; }
+  content: "\f129"; }
+
+.iconInfoActive:before {
+  content: "\f05a" !important; }
 
 .iconSearch:before {
   content: "\f002"; }
@@ -559,6 +562,12 @@ table {
 
 .iconAreaRuler:before {
   content: "\f125"; }
+
+.iconFolder:before {
+  content: "\f07b"; }
+
+.iconFolderActive:before {
+  content: "\f07c"; }
 
 .iconGroup:before {
   content: "\f0c0"; }
@@ -607,6 +616,9 @@ table {
 
 .iconSignIn:before {
   content: "\f090"; }
+
+.iconMore:before {
+  content: "\f141"; }
 
 /* ------------------------------------------------- MAPBENDER3 RESETS */
 * {
@@ -707,14 +719,14 @@ fieldset {
 
 .labelInput, .popup .popupSubTitle {
   display: inline-block;
-  color: #858585;
+  color: #707070;
   line-height: 29px; }
   .labelInput .required, .popup .popupSubTitle .required {
     color: #aa2323;
     text-shadow: white 1px 1px 0px; }
 
 .labelCheck {
-  color: #858585;
+  color: #707070;
   margin-left: 5px; }
 
 .labelText {
@@ -1955,7 +1967,9 @@ body {
     line-height: 38px;
     margin-left: 20px;
     padding: 0px; }
-  .instanceTable .iconInfo {
+  .instanceTable .moreColumn {
+    padding-left: 0px; }
+  .instanceTable .iconMore {
     position: relative;
     line-height: 28px; }
 

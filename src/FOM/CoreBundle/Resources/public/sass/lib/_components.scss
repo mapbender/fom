@@ -89,7 +89,7 @@ fieldset{
 }
 .labelInput{
   display: inline-block;
-  color:$secondColor;
+  color:$middleFontColor;
   line-height:$lineHeight + 8;
 
   .required{
@@ -98,7 +98,7 @@ fieldset{
   }
 }
 .labelCheck{
-  color:$secondColor;
+  color:$middleFontColor;
   margin-left:$space/4;
 }
 .labelText{color:$ciColor;}
@@ -306,10 +306,10 @@ fieldset{
   .popupButtons{margin-right:$space;}
   .popupSubTitle{@extend .labelInput;}
   .popupContent, .popupSubContent{
-    padding-right:$space;
+    padding-right: $space;
     margin-bottom: $space;  
     max-height: 500px;
-    overflow-y: auto;
+    overflow-y:auto;
   }
   &.ui-draggable-dragging.popupTransparency{@include opacity(0.6);}
   &.popupOverflow{
