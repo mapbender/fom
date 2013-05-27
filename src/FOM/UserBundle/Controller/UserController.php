@@ -176,11 +176,18 @@ class UserController extends Controller {
             throw new AccessDeniedException();
         }
 
+        $groupPermission = $securityContext
+                ->isGranted('EDIT', new ObjectIdentity('class','FOM\UserBundle\Entity\Group')) ||
+                $securityContext->isGranted('OWNER', $user);
+
         $profile = $this->addProfileForm($user);
         $form = $this->createForm(new UserType(), $user, array(
             'requirePassword' => false,
-            'profile_formtype' => $profile['formtype']
+            'profile_formtype' => $profile['formtype'],
+            'group_permission' => $groupPermission,
+            'acl_permission' => $securityContext->isGranted('OWNER', $user)
         ));
+
 
         return array(
             'user' => $user,
@@ -218,10 +225,16 @@ class UserController extends Controller {
             $keepPassword = true;
         }
 
+        $groupPermission = $securityContext
+                ->isGranted('EDIT', new ObjectIdentity('class','FOM\UserBundle\Entity\Group')) ||
+                $securityContext->isGranted('OWNER', $user);
+
         $profile = $this->addProfileForm($user);
         $form = $this->createForm(new UserType(), $user, array(
             'requirePassword' => false,
-            'profile_formtype' => $profile['formtype']
+            'profile_formtype' => $profile['formtype'],
+            'group_permission' => $groupPermission,
+            'acl_permission' => $securityContext->isGranted('OWNER', $user)
         ));
         $form->bind($userData);
 
@@ -235,9 +248,12 @@ class UserController extends Controller {
 
             $em = $this->getDoctrine()->getEntityManager();
 
-            $aclManager = $this->get('fom.acl.manager');
-            $aclManager->setObjectACLFromForm($user, $form->get('acl'),
-                'object');
+            // This is the same check as abote in createForm for acl_permission
+            if($securityContext->isGranted('OWNER', $user)) {
+                $aclManager = $this->get('fom.acl.manager');
+                $aclManager->setObjectACLFromForm($user, $form->get('acl'),
+                    'object');
+            }
 
             if($user->getProfile()) {
                 $em->persist($user->getProfile());

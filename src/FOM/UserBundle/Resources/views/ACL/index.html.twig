@@ -1,15 +1,8 @@
 {% extends "FOMManagerBundle::manager.html.twig" %}
 
-{% block title %}{{ 'ACLs' | trans }}{% endblock %}
+{% block title %}{{ 'Global Access Control Lists' | trans }}{% endblock %}
 
 {% block manager_content %}
-
-<div class="messageBox hint">
-  You can edit class based ACLs, but they are not yet completely honored in every corner
-  of this application. Sorry for the momentarily inconvenience and please be patient.
-  Most of the functionality has been implemented so for the User class.
-</div>
-
 <table class="table userControlTable">
   <thead>
     <tr>

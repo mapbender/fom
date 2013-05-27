@@ -28,25 +28,29 @@ class UserType extends AbstractType
                 'options' => array(
                     'label' => 'Password')));
 
-        $builder
-            ->add('groups', 'entity', array(
-                'class' =>  'FOMUserBundle:Group',
-                'query_builder' => function(EntityRepository $er) {
-                    $qb = $er->createQueryBuilder('r')
-                        ->add('orderBy', 'r.title ASC');
-                    return $qb;
-                },
-                'expanded' => true,
-                'multiple' => true,
-                'property' => 'title',
-                'label' => 'Groups'));
+        if(true === $options['group_permission']) {
+            $builder
+                ->add('groups', 'entity', array(
+                    'class' =>  'FOMUserBundle:Group',
+                    'query_builder' => function(EntityRepository $er) {
+                        $qb = $er->createQueryBuilder('r')
+                            ->add('orderBy', 'r.title ASC');
+                        return $qb;
+                    },
+                    'expanded' => true,
+                    'multiple' => true,
+                    'property' => 'title',
+                    'label' => 'Groups'));
+        }
 
-        $builder
-            ->add('acl', 'acl', array(
-                'property_path' => false,
-                'data' => $options['data'],
-                'permissions' => 'standard::object',
-                'standard_anon_access' => false));
+        if(true === $options['acl_permission']) {
+            $builder
+                ->add('acl', 'acl', array(
+                    'property_path' => false,
+                    'data' => $options['data'],
+                    'permissions' => 'standard::object',
+                    'standard_anon_access' => false));
+        }
 
         if($options['profile_formtype']) {
             $formType = $options['profile_formtype'];
@@ -58,7 +62,9 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults(array(
             'requirePassword' => true,
-            'profile_formtype' => null
+            'profile_formtype' => null,
+            'group_permission' => false,
+            'acl_permission' => false
         ));
     }
 }
