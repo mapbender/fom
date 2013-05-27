@@ -246,7 +246,7 @@ $(function() {
                 me.find(".dropdownValue").text(me2.text());
                 opts.find("[selected=selected]").removeAttr("selected");
                 var val = opts.find("." + opt).attr("selected", "selected").val();
-                opts.val(val);
+                opts.val(val).trigger('change');
             })
         }
 
