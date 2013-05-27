@@ -239,14 +239,14 @@ $(function() {
         }else{
             list.show();
             list.find("li").one("click", function(event){
-                console.log("aaa");
                 event.stopPropagation();
                 list.hide().find("li").off("click");
                 var me2 = $(this);
                 var opt = me2.attr("class").replace("item", "opt");
                 me.find(".dropdownValue").text(me2.text());
                 opts.find("[selected=selected]").removeAttr("selected");
-                opts.find("." + opt).attr("selected", "selected");
+                var val = opts.find("." + opt).attr("selected", "selected").val();
+                opts.val(val);
             })
         }
 
