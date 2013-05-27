@@ -137,22 +137,6 @@
   {% endspaceless %}
 {% endblock choice_widget_collapsed %}
 
-{# XXXVH le dead?
-% block choice_widget_options %}
-  {% spaceless %}
-    {% for group_label, choice in options %}
-      {% if choice is iterable %}
-        <optgroup label="{{ group_label|trans({}, translation_domain) }}">
-          {% set options = choice %}
-          {{ block('choice_widget_options') }}
-        </optgroup>
-      {% else %}
-        
-      {% endif %}
-    {% endfor %}
-  {% endspaceless %}
-{% endblock choice_widget_options %#}
-
 {% block checkbox_widget %}
   {% spaceless %}
     <div class="checkWrapper left iconCheckbox{% if checked %} iconCheckboxActive{% endif %}">

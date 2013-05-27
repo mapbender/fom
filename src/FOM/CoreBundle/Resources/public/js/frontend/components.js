@@ -39,10 +39,10 @@ $(function() {
                 event.stopPropagation();
                 list.hide().find("li").unbind("click");
                 var me2 = $(this);
-                var opt = me2.attr("class").replace("item", "opt");
+                var liIndex = me2.index();
                 me.find(".dropdownValue").text(me2.text());
                 opts.find("[selected=selected]").removeAttr("selected");
-                opts.find("." + opt).attr("selected", "selected").change();
+                opts.find('option:eq(' + liIndex + ')').attr("selected", "selected").change();
             })
         }
 
@@ -52,4 +52,17 @@ $(function() {
         return false;
     }
     $(".dropdown").load(initDropdown).load().bind("click", toggleList);
+
+    // init checkbox toggle ------------------------------------------------------------------
+    var toggleCheckBox = function(){
+        var me     = $(this);
+        var parent = me.parent();
+
+        (me.is(":checked")) ? parent.addClass("iconCheckboxActive") 
+                            : parent.removeClass("iconCheckboxActive");
+        if(me.is(":disabled")){
+           parent.addClass("checkboxDisabled");
+        }
+    }
+    $(".checkbox").bind("change", toggleCheckBox).trigger("change");
 });
