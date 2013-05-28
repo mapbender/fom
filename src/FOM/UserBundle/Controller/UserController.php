@@ -68,9 +68,15 @@ class UserController extends Controller {
             throw new AccessDeniedException();
         }
 
+        $groupPermission = $securityContext
+                ->isGranted('EDIT', new ObjectIdentity('class','FOM\UserBundle\Entity\Group')) ||
+                $securityContext->isGranted('OWNER', $oid);
+
         $profile = $this->addProfileForm($user);
         $form = $this->createForm(new UserType(), $user, array(
-            'profile_formtype' => $profile['formtype']
+            'profile_formtype' => $profile['formtype'],
+            'group_permission' => $groupPermission,
+            'acl_permission' => $securityContext->isGranted('OWNER', $oid),
         ));
 
         return array(
@@ -88,10 +94,6 @@ class UserController extends Controller {
      */
     public function createAction() {
         $user = new User();
-        $profile = $this->addProfileForm($user);
-        $form = $this->createForm(new UserType(), $user, array(
-            'profile_formtype' => $profile['formtype']
-        ));
 
 
 
@@ -102,7 +104,17 @@ class UserController extends Controller {
             throw new AccessDeniedException();
         }
 
+        $groupPermission = $securityContext
+                ->isGranted('EDIT', new ObjectIdentity('class','FOM\UserBundle\Entity\Group')) ||
+                $securityContext->isGranted('OWNER', $oid);
 
+
+        $profile = $this->addProfileForm($user);
+        $form = $this->createForm(new UserType(), $user, array(
+            'profile_formtype' => $profile['formtype'],
+            'group_permission' => $groupPermission,
+            'acl_permission' => $securityContext->isGranted('OWNER', $oid),
+        ));
 
         $form->bindRequest($this->get('request'));
 
