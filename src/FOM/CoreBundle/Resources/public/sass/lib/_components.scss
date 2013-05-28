@@ -43,7 +43,7 @@ p{margin:0px;}
   border:none;
   border-bottom:dashed 1px darken(#fff, 30%);
 }
-.noScroll{overflow:hidden;}
+
 
 
 
@@ -89,7 +89,7 @@ fieldset{
 }
 .labelInput{
   display: inline-block;
-  color:$secondColor;
+  color:$middleFontColor;
   line-height:$lineHeight + 8;
 
   .required{
@@ -98,7 +98,7 @@ fieldset{
   }
 }
 .labelCheck{
-  color:$secondColor;
+  color:$middleFontColor;
   margin-left:$space/4;
 }
 .labelText{color:$ciColor;}
@@ -280,6 +280,7 @@ fieldset{
   background:url("../../images/overlay.png");
   @include transition(opacity 0.4s ease-in-out);
   @include stretch();
+  position:fixed;
   @include noUserSelect();
   @include opacity(0);
 }
@@ -306,10 +307,10 @@ fieldset{
   .popupButtons{margin-right:$space;}
   .popupSubTitle{@extend .labelInput;}
   .popupContent, .popupSubContent{
-    padding-right:$space;
+    padding-right: $space;
     margin-bottom: $space;  
     max-height: 500px;
-    overflow-y: auto;
+    overflow-y:auto;
   }
   &.ui-draggable-dragging.popupTransparency{@include opacity(0.6);}
   &.popupOverflow{
@@ -338,11 +339,7 @@ fieldset{
   }
 
   &.show{
-    .overlay{
-      height: 2000px;
-      width: 2000px;
-      @include opacity(0.9);
-    }
+    .overlay{@include opacity(0.9);}
     .popup{margin:100px auto 0 auto;}
   }
 }

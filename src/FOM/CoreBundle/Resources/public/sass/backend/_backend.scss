@@ -92,6 +92,8 @@
 .permissionsTable{
   $height:26px;
 
+  &.hidePermissions{display:none;}
+
   tr{
     border-bottom: solid 1px darken($contentColor, 10%);
     &.new{
