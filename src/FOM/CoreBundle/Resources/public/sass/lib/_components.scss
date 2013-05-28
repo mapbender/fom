@@ -207,12 +207,11 @@ fieldset{
 }
 /* CHECKBOX */
 .checkWrapper{
-  position:relative;
+  cursor:pointer;
   &.checkboxDisabled{@include opacity(0.4);}
 }
 .checkbox{
-  cursor:pointer;
-  @include pos(0,'','',0);
+  @include pos(-9999px,'','',0);
   height: 100%;
   width: 100%;
   @include opacity(0);

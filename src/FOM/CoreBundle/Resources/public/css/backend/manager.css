@@ -826,15 +826,14 @@ fieldset {
 
 /* CHECKBOX */
 .checkWrapper {
-  position: relative; }
+  cursor: pointer; }
   .checkWrapper.checkboxDisabled {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
     opacity: 0.4; }
 
 .checkbox {
-  cursor: pointer;
   position: absolute;
-  top: 0;
+  top: -9999px;
   left: 0;
   height: 100%;
   width: 100%;
@@ -1157,15 +1156,7 @@ fieldset {
 .permissionsTable .listFilterInput {
   margin-top: 0;
   margin-bottom: 0; }
-.permissionsTable .checkbox {
-  height: 26px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 10px;
-  left: 0; }
-.permissionsTable .tagWrapper {
-  position: relative;
+.permissionsTable .checkWrapper, .permissionsTable .headTagWrapper {
   width: 56px;
   height: 26px;
   line-height: 26px;
@@ -1180,36 +1171,36 @@ fieldset {
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
   border-radius: 3px; }
-  .permissionsTable .tagWrapper:before {
+  .permissionsTable .checkWrapper:before, .permissionsTable .headTagWrapper:before {
     display: none; }
-  .permissionsTable .tagWrapper.view.multi {
+  .permissionsTable .checkWrapper.view.multi, .permissionsTable .headTagWrapper.view.multi {
     background-color: #c1c1c1; }
-  .permissionsTable .tagWrapper.view.iconCheckboxActive {
+  .permissionsTable .checkWrapper.view.iconCheckboxActive, .permissionsTable .headTagWrapper.view.iconCheckboxActive {
     color: white;
     background-color: #8DCA35; }
-  .permissionsTable .tagWrapper.edit.multi {
+  .permissionsTable .checkWrapper.edit.multi, .permissionsTable .headTagWrapper.edit.multi {
     background-color: #c1c1c1; }
-  .permissionsTable .tagWrapper.edit.iconCheckboxActive {
+  .permissionsTable .checkWrapper.edit.iconCheckboxActive, .permissionsTable .headTagWrapper.edit.iconCheckboxActive {
     color: white;
     background-color: #FFAB00; }
-  .permissionsTable .tagWrapper.delete.multi {
+  .permissionsTable .checkWrapper.delete.multi, .permissionsTable .headTagWrapper.delete.multi {
     background-color: #c1c1c1; }
-  .permissionsTable .tagWrapper.delete.iconCheckboxActive {
+  .permissionsTable .checkWrapper.delete.iconCheckboxActive, .permissionsTable .headTagWrapper.delete.iconCheckboxActive {
     color: white;
     background-color: #FFAB00; }
-  .permissionsTable .tagWrapper.operator.multi {
+  .permissionsTable .checkWrapper.operator.multi, .permissionsTable .headTagWrapper.operator.multi {
     background-color: #c1c1c1; }
-  .permissionsTable .tagWrapper.operator.iconCheckboxActive {
+  .permissionsTable .checkWrapper.operator.iconCheckboxActive, .permissionsTable .headTagWrapper.operator.iconCheckboxActive {
     color: white;
     background-color: #FF702A; }
-  .permissionsTable .tagWrapper.master.multi {
+  .permissionsTable .checkWrapper.master.multi, .permissionsTable .headTagWrapper.master.multi {
     background-color: #c1c1c1; }
-  .permissionsTable .tagWrapper.master.iconCheckboxActive {
+  .permissionsTable .checkWrapper.master.iconCheckboxActive, .permissionsTable .headTagWrapper.master.iconCheckboxActive {
     color: white;
     background-color: #FF702A; }
-  .permissionsTable .tagWrapper.owner.multi {
+  .permissionsTable .checkWrapper.owner.multi, .permissionsTable .headTagWrapper.owner.multi {
     background-color: #c1c1c1; }
-  .permissionsTable .tagWrapper.owner.iconCheckboxActive {
+  .permissionsTable .checkWrapper.owner.iconCheckboxActive, .permissionsTable .headTagWrapper.owner.iconCheckboxActive {
     color: white;
     background-color: #FF702A; }
 

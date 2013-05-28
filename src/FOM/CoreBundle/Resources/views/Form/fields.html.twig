@@ -360,7 +360,7 @@
           {% for child in form.ace.vars.prototype %}
             {% if child.vars.attr.class is defined %}
               <th>
-                <div id="{{ child.vars.attr.class }}" class="tagWrapper smallText {{ child.vars.attr.class }}">{{ child.vars.attr.class }}</div>
+                <div id="{{ child.vars.attr.class }}" class="headTagWrapper smallText {{ child.vars.attr.class }}">{{ child.vars.attr.class }}</div>
               </th>
             {% endif %}
           {% endfor %}
@@ -383,9 +383,9 @@
 
 {% block tagbox_widget %}
   {% spaceless %}
-    <div class="tagWrapper smallText {{ form.vars.attr.class }} {% if form.vars.checked %} iconCheckboxActive {% endif %}">
+    <div data-perm-type="{{ form.vars.attr.class }}" class="checkWrapper smallText {{ form.vars.attr.class }} {% if form.vars.checked %} iconCheckboxActive {% endif %}">
       {{ form.vars.attr.class }}
-      <input class="checkbox" data-perm-type="{{ form.vars.attr.class }}" type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+      <input class="checkbox" type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
     </div>
   {% endspaceless %}
 {% endblock tagbox_widget %}
