@@ -376,7 +376,13 @@
     .leaveContainer{margin-left:-6px;}
   }
   .serviceContainer{margin-bottom:$space/2;}
+  .checkWrapper{position: relative;}
+  .checkbox{@include pos(0,'','',0);cursor:pointer;}
 }
+/* Legend */
+// notshow -> hide always legend item
+// notvisible -> hide legend item by user
+.notshow, .notvisible{display:none;}
 
 /* ----------------------------------------------------------- TOOLBAR */
 /* ----------------------------------------------- ELEMENTS */
