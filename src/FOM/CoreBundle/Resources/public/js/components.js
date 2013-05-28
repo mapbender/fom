@@ -66,14 +66,36 @@ $(function() {
 
 
 
+    // init checkbox toggle ------------------------------------------------------------------
+    var toggleCheckBox = function(){
+        var me       = $(this);
+        var checkbox = me.find(".checkbox");
+
+        if(checkbox.is(":disabled")){
+            me.addClass("checkboxDisabled");
+        }else{
+            if(checkbox.is(":checked")){
+                me.removeClass("iconCheckboxActive");
+                checkbox.get(0).checked = false;
+            }else{
+                me.addClass("iconCheckboxActive") 
+                checkbox.get(0).checked = true;
+            }
+        }
+    }
+    $(document).on("click", ".checkWrapper", toggleCheckBox);
+
+
+
+
+
     // init permissions table ----------------------------------------------------------------
     // set permission root state
     function setPermissionsRootState(className){
         var root         = $("#" + className);
         var permBody     = $("#permissionsBody");
         var rowCount     = permBody.find("tr").length;
-        var checkedCount = permBody.find(".tagWrapper." + className + ".iconCheckboxActive").length;
-
+        var checkedCount = permBody.find(".checkWrapper." + className + ".iconCheckboxActive").length;
         root.removeClass("iconCheckboxActive").removeClass("multi");
 
         if(rowCount == checkedCount){
@@ -86,18 +108,30 @@ $(function() {
     }
     // toggle all permissions
     var toggleAllPermissions = function(){
-        var me           = $(this);
-        var className    = me.attr("id");
-        var permElements = $(".checkbox[data-perm-type=" + className + "]:visible");
+        var self           = $(this);
+        var className    = self.attr("id");
+        var permElements = $(".checkWrapper[data-perm-type=" + className + "]:visible");
+        var state        = !self.hasClass("iconCheckboxActive");
+        var me;
 
         // change all tagboxes with the same permission type
-        permElements.prop("checked", !me.hasClass("iconCheckboxActive")).change();
+        permElements.find(".checkbox").each(function(i,e){
+            me = $(e);
+            me.get(0).checked = state;
+
+            if(state){
+                me.parent().addClass("iconCheckboxActive");
+            }else{
+                me.parent().removeClass("iconCheckboxActive");
+            }
+        });
+
         // change root permission state
         setPermissionsRootState(className);
     }
     // init permission root state
     var initPermissionRoot = function(){
-        $(this).find(".tagWrapper").each(function(){
+        $(this).find(".headTagWrapper").each(function(){
             setPermissionsRootState($(this).attr("id"));
             $(this).bind("click", toggleAllPermissions);
         });    
@@ -108,7 +142,7 @@ $(function() {
     var togglePermission = function(){
         setPermissionsRootState($(this).attr("data-perm-type"));
     }
-    $(".permissionsTable").find(".checkbox").bind("click", togglePermission);
+    $(document).on("click", ".permissionsTable .checkWrapper", togglePermission);
 
     // add user or groups
     $("#addPermission").bind("click", function(){
@@ -136,7 +170,7 @@ $(function() {
 
                                 newEl.addClass("new").find(".labelInput").text(text);
                                 newEl.find(".input").attr("value", val);
-                                newEl.find(".view .checkbox").trigger("click");
+                                newEl.find(".view.checkWrapper").trigger("click");
                                 newEl.find(".userType")
                                      .removeClass("iconGroup")
                                      .removeClass("iconUser")
@@ -210,23 +244,6 @@ $(function() {
     }
     $(".openCloseTitle").bind("click", toggleList);
 
-
-
-
-
-    // init checkbox toggle ------------------------------------------------------------------
-    var toggleCheckBox = function(){
-        var me     = $(this);
-        var parent = me.parent();
-
-        (me.is(":checked")) ? parent.addClass("iconCheckboxActive") 
-                            : parent.removeClass("iconCheckboxActive");
-        if(me.is(":disabled")){
-           parent.addClass("checkboxDisabled");
-        }
-    }
-    $(document).on("change", ".checkbox", toggleCheckBox);
-    $(".checkbox").trigger("change");
 
 
 

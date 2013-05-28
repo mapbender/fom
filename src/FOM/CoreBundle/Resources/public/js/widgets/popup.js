@@ -116,6 +116,9 @@
         popup.remove();
         popup = null;
         element.removeData("mapbenderMbPopup");
+        // @fixme: This is due to different jQuery UI version in front- and
+        // backend.
+        element.removeData("mbPopup");
       }
     },
 

@@ -119,13 +119,7 @@
     margin-bottom:0;
   }
 
-  .checkbox{
-    height:$height;
-    @include pos(0,0,$space/2,0);
-  }
-
-  .tagWrapper{
-    position: relative;
+  .checkWrapper, .headTagWrapper{
     width:56px;
     height:$height;
     line-height:$height;
