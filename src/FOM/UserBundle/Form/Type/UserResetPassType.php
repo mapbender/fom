@@ -15,7 +15,6 @@ class UserResetPassType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('id', 'hidden', array())
             ->add('password', 'repeated', array(
                 'type' => 'password',
                 'invalid_message' => 'The password fields must match.',
