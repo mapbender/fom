@@ -5,6 +5,8 @@ namespace FOM\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
 
 class UserResetPassType extends AbstractType {
     public function getName() {
@@ -23,9 +25,10 @@ class UserResetPassType extends AbstractType {
 
     }
 
-    // TODO: Switch to setDefaultOptions (before Symfony 2.3)
-    public function getDefaultOptions() {
-        return array('requirePassword' => true);
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'requirePassword' => true
+        ));
     }
 }
-
