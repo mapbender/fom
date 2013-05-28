@@ -139,7 +139,7 @@
 
 {% block checkbox_widget %}
   {% spaceless %}
-    <div class="checkWrapper left iconCheckbox{% if checked %} iconCheckboxActive{% endif %}">
+    <div class="checkWrapper left iconCheckbox{% if checked %} iconCheckboxActive{% endif %} {% if disabled %} checkboxDisabled{% endif %}">
       <input class="checkbox" type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
     </div>
   {% endspaceless %}
