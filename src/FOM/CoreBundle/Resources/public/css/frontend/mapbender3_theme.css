@@ -1116,6 +1116,9 @@ fieldset {
 .mb-element-copyright {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
   opacity: 0.6; }
+  .mb-element-copyright a {
+    color: white;
+    text-decoration: none; }
 
 .mb-element-copyright-link {
   text-decoration: underline;
