@@ -82,6 +82,8 @@ $(function() {
                 checkbox.get(0).checked = true;
             }
         }
+
+        checkbox.trigger('click');
     }
     $(document).on("click", ".checkWrapper", toggleCheckBox);
 
