@@ -1489,6 +1489,17 @@ fieldset {
     margin-left: -6px; }
 .mb-element-layertree .serviceContainer {
   margin-bottom: 10px; }
+.mb-element-layertree .checkWrapper {
+  position: relative; }
+.mb-element-layertree .checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer; }
+
+/* Legend */
+.notshow, .notvisible {
+  display: none; }
 
 /* ----------------------------------------------------------- TOOLBAR */
 /* ----------------------------------------------- ELEMENTS */
