@@ -438,7 +438,8 @@ table {
 [class*=" icon"],
 .icon,
 .sidePaneTabItem,
-.mb-element-overview .toggleOverview {
+.mb-element-overview .toggleOverview,
+.olControlOverviewMapRectReplacement {
   font-family: FontAwesome !important;
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
@@ -569,6 +570,9 @@ table {
 
 .iconFolderActive:before {
   content: "\f07c"; }
+
+.iconTarget:before, .olControlOverviewMapRectReplacement:before {
+  content: "\f05b"; }
 
 .iconGroup:before {
   content: "\f0c0"; }
@@ -801,10 +805,11 @@ fieldset {
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225; }
   .button.icon, .button.sidePaneTabItem, .sideContent .sidePaneTabItem.mb-aboutButton, .sideContent .sidePaneTabItem.mb-gpsButton,
-  .sideContent .sidePaneTabItem.mb-button, .sideContent .icon.mb-aboutButton, .sideContent .mb-element-overview .mb-aboutButton.toggleOverview, .mb-element-overview .sideContent .mb-aboutButton.toggleOverview, .sideContent .icon.mb-gpsButton, .sideContent .mb-element-overview .mb-gpsButton.toggleOverview, .mb-element-overview .sideContent .mb-gpsButton.toggleOverview,
+  .sideContent .sidePaneTabItem.mb-button, .sideContent .icon.mb-aboutButton, .sideContent .mb-element-overview .mb-aboutButton.toggleOverview, .mb-element-overview .sideContent .mb-aboutButton.toggleOverview, .sideContent .mb-aboutButton.olControlOverviewMapRectReplacement, .sideContent .icon.mb-gpsButton, .sideContent .mb-element-overview .mb-gpsButton.toggleOverview, .mb-element-overview .sideContent .mb-gpsButton.toggleOverview, .sideContent .mb-gpsButton.olControlOverviewMapRectReplacement,
   .sideContent .icon.mb-button,
   .sideContent .mb-element-overview .mb-button.toggleOverview,
-  .mb-element-overview .sideContent .mb-button.toggleOverview, .mb-element-overview .button.toggleOverview {
+  .mb-element-overview .sideContent .mb-button.toggleOverview,
+  .sideContent .mb-button.olControlOverviewMapRectReplacement, .mb-element-overview .button.toggleOverview, .button.olControlOverviewMapRectReplacement {
     padding-left: 20px;
     background-image: url("../../fomcore/images/link_arrow.png");
     background-position: 10px center;
@@ -1378,6 +1383,11 @@ fieldset {
 
 .olMapViewport.MapbenderControlZoomBoxActive {
   cursor: crosshair; }
+.olMapViewport .olHandlerBoxZoomBox {
+  border: 2px solid #404040;
+  background-color: white;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8; }
 
 /* Overview */
 .mb-element-overview .toggleOverview {
@@ -1424,6 +1434,14 @@ fieldset {
   position: absolute;
   right: -25px;
   bottom: -5px; }
+
+.olControlOverviewMapExtentRectangle {
+  overflow: hidden;
+  cursor: move;
+  border: 2px solid #404040; }
+
+.olControlOverviewMapRectReplacement {
+  cursor: move; }
 
 /* Scalebar */
 .mb-element-scaleline {

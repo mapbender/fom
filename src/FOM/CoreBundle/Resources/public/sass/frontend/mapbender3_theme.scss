@@ -257,7 +257,14 @@
     }
   }
 }
-.olMapViewport.MapbenderControlZoomBoxActive{cursor: crosshair;}
+.olMapViewport{
+  &.MapbenderControlZoomBoxActive{cursor: crosshair;}
+  .olHandlerBoxZoomBox {
+    border: 2px solid $firstColor;
+    background-color: white;
+    @include opacity(.8);
+  }
+}
 
 /* Overview */
 .mb-element-overview{
@@ -301,6 +308,18 @@
   &.right-bottom .toggleOverview{@include pos('','',-5px,-25px);}
   &.left-bottom .toggleOverview{@include pos('',-25px,-5px,'');}
 }
+.olControlOverviewMapExtentRectangle {
+    overflow: hidden;
+    cursor: move;
+    border: 2px solid $firstColor;
+}
+.olControlOverviewMapRectReplacement {
+    @extend .icon;
+    @extend .iconTarget;
+    cursor: move;
+}
+
+
 
 /* Scalebar */
 .mb-element-scaleline{

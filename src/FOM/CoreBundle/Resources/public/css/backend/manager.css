@@ -569,6 +569,9 @@ table {
 .iconFolderActive:before {
   content: "\f07c"; }
 
+.iconTarget:before {
+  content: "\f05b"; }
+
 .iconGroup:before {
   content: "\f0c0"; }
 
