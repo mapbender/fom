@@ -40,9 +40,12 @@
 }
 .mb-element-copyright{
   @include opacity(0.6);
-  a{color:$lightFontColor;text-decoration:none;}
 }
-.mb-element-copyright-link{text-decoration:underline;cursor:pointer;}
+.mb-element-copyright-link{
+  cursor:pointer;
+  color:$lightFontColor;
+  text-decoration:none;
+}
 .mb-element-copyright-dialog{display: none;}
 
 
