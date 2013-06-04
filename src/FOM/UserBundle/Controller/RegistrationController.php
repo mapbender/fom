@@ -90,8 +90,19 @@ class RegistrationController extends Controller
             $user->setRegistrationToken(hash("sha1",rand()));
             $user->setRegistrationTime(new \DateTime());
 
-            //@TODO: Set configurable roles for user on creation
-            //$user->setRoles(array('ROLE_USER'));
+            $groupRepository = $this->getDoctrine()->getRepository('FOMUserBundle:Group');
+            foreach($this->container->getParameter('fom_user.self_registration_groups') as $groupTitle) {
+                $group = $groupRepository->findOneByTitle($groupTitle);
+                if($group) {
+                    $user->addGroups($group);
+                } else {
+                    $msg = sprintf('Self-registration group "%s" not found for user "%s"',
+                        $groupTitle,
+                        $user->getUsername());
+                    $this->get('logger')->err($msg);
+                }
+
+            }
 
             $this->sendEmail($user);
 
