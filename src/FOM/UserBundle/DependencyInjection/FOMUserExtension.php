@@ -23,6 +23,8 @@ class FOMUserExtension extends Extension {
         $container->setParameter("fom_user.profile_formtype", $config["profile_formtype"]);
         $container->setParameter("fom_user.profile_template", $config["profile_template"]);
 
+        $container->setParameter("fom_user.self_registration_groups", $config["self_registration_groups"]);
+
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('security.xml');
         $loader->load('services.xml');

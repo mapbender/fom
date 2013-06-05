@@ -26,7 +26,11 @@
       btnCancelLabel:       "Cancel",
     },
 
-    _create: function(){},
+    _create: function(){
+      // This is weird - when closing a popup, then opening a new one,
+      // the old buttons are still there? So we reset them forcefully.
+      this.buttons = [];
+    },
 
     showHint: function(customOptions){
       var hintDefaults             = this.defaults;
@@ -87,39 +91,57 @@
       cssClass   = (cssClass != undefined) ? 'class="' + cssClass + '"' : "";
 
       var button = $('<a href="#" ' + cssClass + '>' + label + '</a>')
-                   .bind("click", 
-                         (typeof(clickFunction) == "function") ? 
+                   .bind("click",
+                         (typeof(clickFunction) == "function") ?
                          function(e){clickFunction.call(that, e)} :
                          function(e){that.close.call(that, e)});
-
       this.buttons.push(button);
 
       return this;
     },
 
     close: function(){
-      var that = this;
+        var that = this;
 
-      that.popup.removeClass("show");
-      setTimeout(function() {
-        that._destroy();
-      },200);
+        this.element.removeData("mapbenderMbPopup");
+        // @fixme: This is due to different jQuery UI version in front- and
+        // backend.
+        this.element.removeData("mbPopup");
 
-      return false;
+        var transEndEvent = this._whichTransitionEvent();
+        if(transEndEvent && that.popup.hasClass('show')) {
+          this.popup.bind(transEndEvent, $.proxy(this._destroy, this));
+          that.popup.removeClass("show");
+        } else {
+          this._destroy();
+        }
+
+        return false;
+    },
+
+    _whichTransitionEvent: function() {
+        var t;
+        var el = document.createElement('fakeelement');
+        var transitions = {
+          'transition':'transitionend',
+          'OTransition':'oTransitionEnd',
+          'MozTransition':'transitionend',
+          'WebkitTransition':'webkitTransitionEnd'
+        };
+
+        for(t in transitions){
+            if( el.style[t] !== undefined ){
+                return transitions[t];
+            }
+        }
     },
 
     _destroy: function(){
-      with (this){
-        popup.find(".popupButtons").find("*").unbind();
-        options = {};
-        buttons.length = 0;
-        popup.remove();
-        popup = null;
-        element.removeData("mapbenderMbPopup");
-        // @fixme: This is due to different jQuery UI version in front- and
-        // backend.
-        element.removeData("mbPopup");
-      }
+        this.popup.find(".popupButtons").find("*").unbind();
+        this.options = {};
+        this.buttons = [];
+        this.popup.remove();
+        this.popup = null;
     },
 
     _show: function(){
@@ -249,6 +271,8 @@
         var len = this.buttons.length;
         if(len > 0){
           var btnContainer = this.popup.find(".popupButtons");
+          var btnContainer = $(".popupButtons", this.popup.get(0));
+
           for(var i = 0; i < len; ++i){
             btnContainer.append(this.buttons[i]);
           }

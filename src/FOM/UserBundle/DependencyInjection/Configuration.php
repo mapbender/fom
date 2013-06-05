@@ -46,6 +46,10 @@ class Configuration implements ConfigurationInterface {
                 ->scalarNode('profile_template')
                     ->defaultNull()
                 ->end()
+                ->arrayNode('self_registration_groups')
+                    ->prototype('scalar')->end()
+                    ->defaultValue(array())
+                ->end()
             ->end();
 
         return $treeBuilder;
