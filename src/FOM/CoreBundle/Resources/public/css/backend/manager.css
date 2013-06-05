@@ -427,6 +427,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+/* ------------------------------------------------- MAPBENDER3 ICONS */
 @font-face {
   font-family: 'FontAwesome';
   src: url("../../images/icons/fontawesome-webfont.eot?v=3.0.1");
@@ -1700,7 +1701,7 @@ body {
 
 .elementFormGps .labelInput, .elementFormGps .popup .popupSubTitle, .popup .elementFormGps .popupSubTitle {
   width: 100px; }
-.elementFormGps .input {
+.elementFormGps .input, .elementFormGps .dropdown {
   width: 310px; }
 .elementFormGps .labelCheck {
   margin-right: 20px; }
