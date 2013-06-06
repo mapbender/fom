@@ -208,6 +208,7 @@ fieldset{
 /* CHECKBOX */
 .checkWrapper{
   cursor:pointer;
+  width:$fontSize;
   &.checkboxDisabled{@include opacity(0.4);}
 }
 .checkbox{

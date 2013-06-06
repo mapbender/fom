@@ -845,7 +845,8 @@ fieldset {
 
 /* CHECKBOX */
 .checkWrapper {
-  cursor: pointer; }
+  cursor: pointer;
+  width: 14px; }
   .checkWrapper.checkboxDisabled {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
     opacity: 0.4; }
@@ -1496,7 +1497,7 @@ fieldset {
   .mb-element-layertree .serviceContainer.showLeaves > .layers, .mb-element-layertree .groupContainer.showLeaves > .layers {
     display: block; }
   .mb-element-layertree .serviceContainer .leave, .mb-element-layertree .groupContainer .leave {
-    margin-left: 18px;
+    margin-left: 20px;
     position: relative; }
     .mb-element-layertree .serviceContainer .leave.invisible, .mb-element-layertree .groupContainer .leave.invisible {
       filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);

@@ -391,7 +391,7 @@
     &.showLeaves > .layers{display:block;}
 
     .leave{
-      margin-left:18px;
+      margin-left:20px;
       position: relative;
       &.invisible{@include opacity(.3);}
 
