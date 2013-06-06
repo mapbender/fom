@@ -534,7 +534,7 @@ table {
   content: "\f068"; }
 
 .iconActivity:before {
-  content: "\f072"; }
+  content: "\f110"; }
 
 .iconCoordinates:before {
   content: "\f05b"; }
@@ -1063,44 +1063,35 @@ fieldset {
     display: block; }
 
 /* ------------------------------------------------------------- MISC */
-@-webkit-keyframes activity {
+@-webkit-keyframes spin {
   0% {
-    opacity: 0; }
-
-  50% {
-    opacity: 1; }
+    -webkit-transform: rotate(0deg); }
 
   100% {
-    opacity: 0; } }
+    -webkit-transform: rotate(359deg); } }
 
-@-moz-keyframes activity {
+@-moz-keyframes spin {
   0% {
-    opacity: 0; }
-
-  50% {
-    opacity: 1; }
+    -moz-transform: rotate(0deg); }
 
   100% {
-    opacity: 0; } }
+    -moz-transform: rotate(359deg); } }
 
-@keyframes activity {
+@keyframes spin {
   0% {
-    opacity: 0; }
-
-  50% {
-    opacity: 1; }
+    transform: rotate(0deg); }
 
   100% {
-    opacity: 0; } }
+    transform: rotate(359deg); } }
 
 .mb-element-activityindicator {
   display: none; }
 
 .mb-activity .mb-element-activityindicator, .mb-activity-ajax .mb-element-activityindicator {
   display: inline-block;
-  -webkit-animation: activity 1s ease-in-out infinite;
-  -moz-animation: activity 1s ease-in-out infinite;
-  animation: activity 1s ease-in-out infinite;
+  -webkit-animation: spin 1s linear infinite;
+  -moz-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
   text-shadow: 0 0 1px black; }
 
 .mb-hiddenCheckbox {
