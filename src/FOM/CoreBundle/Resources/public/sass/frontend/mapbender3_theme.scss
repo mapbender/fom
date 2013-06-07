@@ -317,8 +317,8 @@
 
   &.right-top .toggleOverview{@include pos(0,'','',-25px);}
   &.left-top .toggleOverview{@include pos(0,-25px,'','');}
-  &.right-bottom .toggleOverview{@include pos('','',-5px,-25px);}
-  &.left-bottom .toggleOverview{@include pos('',-25px,-5px,'');}
+  &.right-bottom .toggleOverview{@include pos('','',0,-25px);}
+  &.left-bottom .toggleOverview{@include pos('',-25px,0,'');}
 }
 .olControlOverviewMapExtentRectangle {
     overflow: hidden;
