@@ -131,7 +131,7 @@
     // kill the checkbox icon
     &:before{display: none;}
 
-    @each $perm in view, edit, delete, operator, master, owner{
+    @each $perm in view, create, edit, delete, operator, master, owner{
       &.#{$perm}{
         &.multi{background-color:#c1c1c1;}
 
@@ -139,7 +139,7 @@
           color:white;
 
           @if($perm == "view"){background-color: #8DCA35;}
-          @if(($perm == "edit") or ($perm == "delete")){background-color: #FFAB00;}
+          @if(($perm == "create") or ($perm == "edit") or ($perm == "delete")){background-color: #FFAB00;}
           @if(($perm == "operator") or ($perm == "master") or ($perm == "owner")){background-color: #FF702A;}
         }
       }

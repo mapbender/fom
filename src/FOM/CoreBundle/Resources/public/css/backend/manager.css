@@ -1183,6 +1183,11 @@ fieldset {
   .permissionsTable .checkWrapper.view.iconCheckboxActive, .permissionsTable .headTagWrapper.view.iconCheckboxActive {
     color: white;
     background-color: #8DCA35; }
+  .permissionsTable .checkWrapper.create.multi, .permissionsTable .headTagWrapper.create.multi {
+    background-color: #c1c1c1; }
+  .permissionsTable .checkWrapper.create.iconCheckboxActive, .permissionsTable .headTagWrapper.create.iconCheckboxActive {
+    color: white;
+    background-color: #FFAB00; }
   .permissionsTable .checkWrapper.edit.multi, .permissionsTable .headTagWrapper.edit.multi {
     background-color: #c1c1c1; }
   .permissionsTable .checkWrapper.edit.iconCheckboxActive, .permissionsTable .headTagWrapper.edit.iconCheckboxActive {
