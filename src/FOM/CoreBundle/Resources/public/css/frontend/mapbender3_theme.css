@@ -1464,7 +1464,29 @@ fieldset {
     right: 0;
     bottom: 0;
     left: 0; }
-
+  
+/* ScaleDisplay */
+.mb-element-scaledisplay.right-top {
+    z-index: 10;
+    position: absolute;
+    top: 50px;
+    right: 20px; }
+.mb-element-scaledisplay.left-top {
+    z-index: 10;
+    position: absolute;
+    top: 50px;
+    left: 20px; }
+.mb-element-scaledisplay.right-bottom {
+    z-index: 10;
+    position: absolute;
+    right: 20px;
+    bottom: 80px; }
+.mb-element-scaledisplay.left-bottom {
+    z-index: 10;
+    position: absolute;
+    bottom: 80px;
+    left: 20px; }
+  
 /* WMS Loader */
 .mb-element-wmsloader {
   display: none; }

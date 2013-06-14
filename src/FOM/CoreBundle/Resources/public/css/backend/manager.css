@@ -1797,6 +1797,22 @@ body {
   .elementFormScaleBar .singleRow .input:first-child {
     margin-right: 10px; }
 
+.elementFormScaleDisplay .labelInput, .elementFormScaleDisplay .popup .popupSubTitle, .popup .elementFormScaleDisplay .popupSubTitle {
+  width: 70px; }
+.elementFormScaleDisplay .dropdown, .elementFormScaleDisplay .input, .elementFormScaleDisplay select {
+  width: 200px; } 
+.elementFormScaleDisplay select {
+  margin-bottom: 10px; }
+.elementFormScaleDisplay .singleRow .labelInput, .elementFormScaleDisplay .singleRow .popup .popupSubTitle, .popup .elementFormScaleDisplay .singleRow .popupSubTitle, .elementFormScaleDisplay .singleRow > .input {
+  float: left; }
+.elementFormScaleDisplay .singleRow .labelInput, .elementFormScaleDisplay .singleRow .popup .popupSubTitle, .popup .elementFormScaleDisplay .singleRow .popupSubTitle {
+  width: 15px;
+  margin-right: 5px; }
+.elementFormScaleDisplay .singleRow .input {
+  width: 140px; }
+  .elementFormScaleDisplay .singleRow .input:first-child {
+    margin-right: 10px; }
+  
 .elementFormToolbar .labelInput, .elementFormToolbar .popup .popupSubTitle, .popup .elementFormToolbar .popupSubTitle {
   width: 80px; }
 .elementFormToolbar .checkWrapper {
