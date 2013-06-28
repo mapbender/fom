@@ -207,6 +207,12 @@
     @include pos('',$space,$space*2,'');
   }
 
+  /* Scale display */
+  .mb-element-scaledisplay{
+    padding:$space/4 $space/2;
+    @include frontendContainerStyle();
+  }
+
   /* Map */
   .mb-element-map{
     width:100%;
@@ -221,10 +227,15 @@
   &.iconMove:before{
     @include pos(-$space,0,'','');
   }
+  &.right-bottom, &.right-top{
+    right:inherit;
+    left:92%;
+  }
 }
 .pan{
   height: 49px;
   width: 49px;
+  position:relative;
   @include border-radius(50%,50%);
   @include frontendContainerStyle();
 
@@ -330,8 +341,6 @@
     @extend .iconTarget;
     cursor: move;
 }
-
-
 
 /* Scalebar */
 .mb-element-scaleline{

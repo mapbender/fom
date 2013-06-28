@@ -12,7 +12,6 @@
 [class^="icon"],
 [class*=" icon"],
 .icon{
-  font-family: FontAwesome !important;
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
 
@@ -25,9 +24,37 @@
 }
 .iconBig{
   line-height: 20px;
-  &:before{font-size: 20px;}
+  &:before{
+    font-family: FontAwesome;
+    font-size: 20px;
+  }
 }
 
+// 
+// WATCHOUT:
+// firefox doesn't like the above 'icon' class selector.
+// So we choose here the ugly way...
+// What what in the butt... XD
+// 
+.iconCheckboxActive, .iconCheckboxHalf, .iconCheckbox, 
+.iconRadio, .iconRadioActive, .iconView, .iconHelp, 
+.iconLinkButton, .iconDown, .iconRight, .iconLeft, 
+.iconTop, .iconExpand, .iconExpandClosed, .iconMove, 
+.iconAbout, .iconPrint, .iconGps, .iconLayertree, 
+.iconLegend, .iconInfo, .iconInfoActive, .iconSearch, 
+.iconWms, .iconOpen, .iconClose, .iconActivity, 
+.iconCoordinates, .iconPrev, .iconNext, .iconZoomSelect, 
+.iconZoomMin, .iconZoomIn, .iconZoomOut, .iconZoomLevel, 
+.iconZoomLevelSelected, .iconAreaRuler, .iconFolder, 
+.iconFolderActive, .iconTarget, .iconGroup, .iconAdd, 
+.iconRemove, .iconOk, .iconEdit, .iconPublish, 
+.iconPublishActive, .iconAppDefault, .iconCancel, 
+.iconThumbsUp, .iconThumbsDown, .iconGroup, .iconUser, 
+.iconSettings, .iconSignOut, .iconSignIn, .iconMore{
+  &:before{font-family: FontAwesome;}
+}
+
+// all
 .iconCheckboxActive:before{content:"\f046" !important;} // overwrite the default icon if checked
 .iconCheckboxHalf:before{content:"\f147" !important;} // overwrite the default icon if checked
 .iconCheckbox:before{content:"\f096";}
