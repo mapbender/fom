@@ -715,7 +715,7 @@ fieldset {
   .popup .popupContent, .popup .popupSubContent {
     padding-right: 20px;
     margin-bottom: 20px;
-    max-height: 500px;
+    max-height: 300px;
     overflow-y: auto; }
   .popup.ui-draggable-dragging.popupTransparency {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);

@@ -309,7 +309,7 @@ fieldset{
   .popupContent, .popupSubContent{
     padding-right: $space;
     margin-bottom: $space;  
-    max-height: 500px;
+    max-height: 300px;
     overflow-y:auto;
   }
   &.ui-draggable-dragging.popupTransparency{@include opacity(0.6);}
