@@ -1,114 +1,38 @@
-/* normalize.css v1.0.2 | MIT License | git.io/normalize */
-/* ==========================================================================
-   HTML5 display definitions
-   ========================================================================== */
-/*
- * Corrects `block` display not defined in IE 6/7/8/9 and Firefox 3.
- */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-nav,
-section,
-summary {
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {
   display: block; }
 
-/*
- * Corrects `inline-block` display not defined in IE 6/7/8/9 and Firefox 3.
- */
-audio,
-canvas,
-video {
-  display: inline-block;
-  *display: inline;
-  *zoom: 1; }
+audio, canvas, video {
+  display: inline;
+  zoom: 1; }
 
-/*
- * Prevents modern browsers from displaying `audio` without controls.
- * Remove excess height in iOS 5 devices.
- */
 audio:not([controls]) {
   display: none;
   height: 0; }
 
-/*
- * Addresses styling for `hidden` attribute not present in IE 7/8/9, Firefox 3,
- * and Safari 4.
- * Known issue: no IE 6 support.
- */
 [hidden] {
   display: none; }
 
-/* ==========================================================================
-   Base
-   ========================================================================== */
-/*
- * 1. Corrects text resizing oddly in IE 6/7 when body `font-size` is set using
- *    `em` units.
- * 2. Prevents iOS text size adjust after orientation change, without disabling
- *    user zoom.
- */
 html {
   font-size: 100%;
-  /* 1 */
   -webkit-text-size-adjust: 100%;
-  /* 2 */
-  -ms-text-size-adjust: 100%;
-  /* 2 */ }
+  -ms-text-size-adjust: 100%; }
 
-/*
- * Addresses `font-family` inconsistency between `textarea` and other form
- * elements.
- */
-html,
-button,
-input,
-select,
-textarea {
+html, button, input, select, textarea {
   font-family: sans-serif; }
 
-/*
- * Addresses margins handled incorrectly in IE 6/7.
- */
-body {
-  margin: 0; }
-
-/* ==========================================================================
-   Links
-   ========================================================================== */
-/*
- * Addresses `outline` inconsistency between Chrome and other browsers.
- */
 a:focus {
   outline: thin dotted; }
 
-/*
- * Improves readability when focused and also mouse hovered in all browsers.
- */
-a:active,
-a:hover {
+a:active, a:hover {
   outline: 0; }
 
-/* ==========================================================================
-   Typography
-   ========================================================================== */
-/*
- * Addresses font sizes and margins set differently in IE 6/7.
- * Addresses font sizes within `section` and `article` in Firefox 4+, Safari 5,
- * and Chrome.
- */
 h1 {
   font-size: 2em;
-  margin: 0.67em 0; }
+  margin: .67em 0; }
 
 h2 {
   font-size: 1.5em;
-  margin: 0.83em 0; }
+  margin: .83em 0; }
 
 h3 {
   font-size: 1.17em;
@@ -119,313 +43,136 @@ h4 {
   margin: 1.33em 0; }
 
 h5 {
-  font-size: 0.83em;
+  font-size: .83em;
   margin: 1.67em 0; }
 
 h6 {
-  font-size: 0.67em;
+  font-size: .67em;
   margin: 2.33em 0; }
 
-/*
- * Addresses styling not present in IE 7/8/9, Safari 5, and Chrome.
- */
 abbr[title] {
   border-bottom: 1px dotted; }
 
-/*
- * Addresses style set to `bolder` in Firefox 3+, Safari 4/5, and Chrome.
- */
-b,
-strong {
-  font-weight: bold; }
+b, strong {
+  font-weight: 700; }
 
 blockquote {
   margin: 1em 40px; }
 
-/*
- * Addresses styling not present in Safari 5 and Chrome.
- */
 dfn {
   font-style: italic; }
 
-/*
- * Addresses styling not present in IE 6/7/8/9.
- */
 mark {
   background: #ff0;
   color: #000; }
 
-/*
- * Addresses margins set differently in IE 6/7.
- */
-p,
-pre {
-  margin: 1em 0; }
-
-/*
- * Corrects font family set oddly in IE 6, Safari 4/5, and Chrome.
- */
-code,
-kbd,
-pre,
-samp {
+code, kbd, pre, samp {
   font-family: monospace, serif;
   _font-family: 'courier new', monospace;
   font-size: 1em; }
 
-/*
- * Improves readability of pre-formatted text in all browsers.
- */
 pre {
-  white-space: pre;
   white-space: pre-wrap;
   word-wrap: break-word; }
 
-/*
- * Addresses CSS quotes not supported in IE 6/7.
- */
 q {
   quotes: none; }
 
-/*
- * Addresses `quotes` property not supported in Safari 4.
- */
-q:before,
-q:after {
-  content: '';
+q:before, q:after {
   content: none; }
 
-/*
- * Addresses inconsistent and variable font size in all browsers.
- */
 small {
   font-size: 80%; }
 
-/*
- * Prevents `sub` and `sup` affecting `line-height` in all browsers.
- */
-sub,
-sup {
+sub, sup {
   font-size: 75%;
   line-height: 0;
   position: relative;
   vertical-align: baseline; }
 
 sup {
-  top: -0.5em; }
+  top: -.5em; }
 
 sub {
-  bottom: -0.25em; }
-
-/* ==========================================================================
-   Lists
-   ========================================================================== */
-/*
- * Addresses margins set differently in IE 6/7.
- */
-dl,
-menu,
-ol,
-ul {
-  margin: 1em 0; }
+  bottom: -.25em; }
 
 dd {
   margin: 0 0 0 40px; }
 
-/*
- * Addresses paddings set differently in IE 6/7.
- */
-menu,
-ol,
-ul {
+menu, ol, ul {
   padding: 0 0 0 40px; }
 
-/*
- * Corrects list images handled incorrectly in IE 7.
- */
-nav ul,
-nav ol {
+nav ul, nav ol {
   list-style: none;
   list-style-image: none; }
 
-/* ==========================================================================
-   Embedded content
-   ========================================================================== */
-/*
- * 1. Removes border when inside `a` element in IE 6/7/8/9 and Firefox 3.
- * 2. Improves image quality when scaled in IE 7.
- */
 img {
   border: 0;
-  /* 1 */
-  -ms-interpolation-mode: bicubic;
-  /* 2 */ }
+  -ms-interpolation-mode: bicubic; }
 
-/*
- * Corrects overflow displayed oddly in IE 9.
- */
 svg:not(:root) {
   overflow: hidden; }
 
-/* ==========================================================================
-   Figures
-   ========================================================================== */
-/*
- * Addresses margin not present in IE 6/7/8/9, Safari 5, and Opera 11.
- */
-figure {
-  margin: 0; }
-
-/* ==========================================================================
-   Forms
-   ========================================================================== */
-/*
- * Corrects margin displayed oddly in IE 6/7.
- */
-form {
-  margin: 0; }
-
-/*
- * Define consistent border, margin, and padding.
- */
 fieldset {
-  border: 1px solid #c0c0c0;
+  border: 1px solid silver;
   margin: 0 2px;
-  padding: 0.35em 0.625em 0.75em; }
+  padding: .35em .625em .75em; }
 
-/*
- * 1. Corrects color not being inherited in IE 6/7/8/9.
- * 2. Corrects text not wrapping in Firefox 3.
- * 3. Corrects alignment displayed oddly in IE 6/7.
- */
 legend {
   border: 0;
-  /* 1 */
-  padding: 0;
   white-space: normal;
-  /* 2 */
-  *margin-left: -7px;
-  /* 3 */ }
+  margin-left: -7px;
+  padding: 0; }
 
-/*
- * 1. Corrects font size not being inherited in all browsers.
- * 2. Addresses margins set differently in IE 6/7, Firefox 3+, Safari 5,
- *    and Chrome.
- * 3. Improves appearance and consistency in all browsers.
- */
-button,
-input,
-select,
-textarea {
+button, input, select, textarea {
   font-size: 100%;
-  /* 1 */
-  margin: 0;
-  /* 2 */
-  vertical-align: baseline;
-  /* 3 */
-  *vertical-align: middle;
-  /* 3 */ }
+  vertical-align: middle;
+  margin: 0; }
 
-/*
- * Addresses Firefox 3+ setting `line-height` on `input` using `!important` in
- * the UA stylesheet.
- */
-button,
-input {
+button, input {
   line-height: normal; }
 
-/*
- * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
- *    and `video` controls.
- * 2. Corrects inability to style clickable `input` types in iOS.
- * 3. Improves usability and consistency of cursor style between image-type
- *    `input` and others.
- * 4. Removes inner spacing in IE 7 without affecting normal text inputs.
- *    Known issue: inner spacing remains in IE 6.
- */
-button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"] {
+button, html input[type=button],
+input[type=reset], input[type=submit] {
   -webkit-appearance: button;
-  /* 2 */
   cursor: pointer;
-  /* 3 */
-  *overflow: visible;
-  /* 4 */ }
+  overflow: visible; }
 
-/*
- * Re-set default cursor for disabled elements.
- */
-button[disabled],
-input[disabled] {
+button[disabled], input[disabled] {
   cursor: default; }
 
-/*
- * 1. Addresses box sizing set to content-box in IE 8/9.
- * 2. Removes excess padding in IE 8/9.
- * 3. Removes excess padding in IE 7.
- *    Known issue: excess padding remains in IE 6.
- */
-input[type="checkbox"],
-input[type="radio"] {
+input[type=checkbox], input[type=radio] {
   box-sizing: border-box;
-  /* 1 */
-  padding: 0;
-  /* 2 */
-  *height: 13px;
-  /* 3 */
-  *width: 13px;
-  /* 3 */ }
+  height: 13px;
+  width: 13px;
+  padding: 0; }
 
-/*
- * 1. Addresses `appearance` set to `searchfield` in Safari 5 and Chrome.
- * 2. Addresses `box-sizing` set to `border-box` in Safari 5 and Chrome
- *    (include `-moz` to future-proof).
- */
-input[type="search"] {
+input[type=search] {
   -webkit-appearance: textfield;
-  /* 1 */
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
-  /* 2 */
   box-sizing: content-box; }
 
-/*
- * Removes inner padding and search cancel button in Safari 5 and Chrome
- * on OS X.
- */
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
+input[type=search]::-webkit-search-cancel-button, input[type=search]::-webkit-search-decoration {
   -webkit-appearance: none; }
 
-/*
- * Removes inner padding and border in Firefox 3+.
- */
-button::-moz-focus-inner,
-input::-moz-focus-inner {
+button::-moz-focus-inner, input::-moz-focus-inner {
   border: 0;
   padding: 0; }
 
-/*
- * 1. Removes default vertical scrollbar in IE 6/7/8/9.
- * 2. Improves readability and alignment in all browsers.
- */
 textarea {
   overflow: auto;
-  /* 1 */
-  vertical-align: top;
-  /* 2 */ }
+  vertical-align: top; }
 
-/* ==========================================================================
-   Tables
-   ========================================================================== */
-/*
- * Remove most spacing between table cells.
- */
 table {
   border-collapse: collapse;
   border-spacing: 0; }
+
+body, figure, form {
+  margin: 0; }
+
+p, pre, dl, menu, ol, ul {
+  margin: 1em 0; }
 
 /* ------------------------------------------------- MAPBENDER3 ICONS */
 @font-face {
@@ -441,7 +188,6 @@ table {
 .sidePaneTabItem,
 .mb-element-overview .toggleOverview,
 .olControlOverviewMapRectReplacement {
-  font-family: FontAwesome !important;
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
   cursor: pointer;
@@ -453,7 +199,25 @@ table {
 .iconBig {
   line-height: 20px; }
   .iconBig:before {
+    font-family: FontAwesome;
     font-size: 20px; }
+
+.iconCheckboxActive:before, .iconCheckboxHalf:before, .iconCheckbox:before,
+.iconRadio:before, .iconRadioActive:before, .iconView:before, .iconHelp:before,
+.iconLinkButton:before, .iconDown:before, .iconRight:before, .iconLeft:before,
+.iconTop:before, .iconExpand:before, .iconExpandClosed:before, .iconMove:before,
+.iconAbout:before, .iconPrint:before, .iconGps:before, .iconLayertree:before,
+.iconLegend:before, .iconInfo:before, .iconInfoActive:before, .mb-element-layertree .featureInfoWrapper.iconCheckboxActive:before, .iconSearch:before,
+.iconWms:before, .iconOpen:before, .sidePaneTabItem:before, .mb-element-overview.closed .toggleOverview:before, .iconClose:before, .sidePane.opened .sidePaneTabItem:before, .mb-element-overview .toggleOverview:before, .iconActivity:before,
+.iconCoordinates:before, .iconPrev:before, .iconNext:before, .iconZoomSelect:before,
+.iconZoomMin:before, .iconZoomIn:before, .iconZoomOut:before, .iconZoomLevel:before,
+.iconZoomLevelSelected:before, .iconAreaRuler:before, .iconFolder:before,
+.iconFolderActive:before, .iconTarget:before, .olControlOverviewMapRectReplacement:before, .iconGroup:before, .iconAdd:before,
+.iconRemove:before, .iconOk:before, .iconEdit:before, .iconPublish:before,
+.iconPublishActive:before, .iconAppDefault:before, .iconCancel:before,
+.iconThumbsUp:before, .iconThumbsDown:before, .iconGroup:before, .iconUser:before,
+.iconSettings:before, .iconSignOut:before, .iconSignIn:before, .iconMore:before {
+  font-family: FontAwesome; }
 
 .iconCheckboxActive:before {
   content: "\f046" !important; }
@@ -1123,7 +887,6 @@ fieldset {
   background-image: url("../../images/head.png"); }
 
 .toolBar {
-  position: relative;
   color: white;
   background-color: #606060;
   background-color: rgba(0, 0, 0, 0.8);
@@ -1245,6 +1008,7 @@ fieldset {
 .contentPane {
   /* Positioning */
   /* Activity indecator */
+  /* Scale display */
   /* Map */ }
   .contentPane .left-top {
     z-index: 10;
@@ -1271,6 +1035,25 @@ fieldset {
     position: absolute;
     right: 20px;
     bottom: 40px; }
+  .contentPane .mb-element-scaledisplay {
+    padding: 5px 10px;
+    color: white;
+    background-color: #606060;
+    background-color: rgba(0, 0, 0, 0.8);
+    text-shadow: 1px 1px 0px black;
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4); }
+    .contentPane .mb-element-scaledisplay [class^="icon"], .contentPane .mb-element-scaledisplay [class*=" icon"] {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+      opacity: 0.7;
+      -webkit-transition: opacity 0.2s ease-in-out;
+      -moz-transition: opacity 0.2s ease-in-out;
+      -o-transition: opacity 0.2s ease-in-out;
+      transition: opacity 0.2s ease-in-out; }
+      .contentPane .mb-element-scaledisplay [class^="icon"]:hover, .contentPane .mb-element-scaledisplay [class*=" icon"]:hover {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+        opacity: 1; }
   .contentPane .mb-element-map {
     width: 100%;
     height: 100%;
@@ -1286,14 +1069,17 @@ fieldset {
   position: absolute;
   top: -20px;
   right: 0; }
+.mb-element-zoombar.right-bottom, .mb-element-zoombar.right-top {
+  right: inherit;
+  left: 92%; }
 
 .pan {
   height: 49px;
   width: 49px;
+  position: relative;
   -webkit-border-radius: 50% 50%;
   -moz-border-radius: 50% / 50%;
   border-radius: 50% / 50%;
-  position: relative;
   color: white;
   background-color: #606060;
   background-color: rgba(0, 0, 0, 0.8);
@@ -1336,7 +1122,6 @@ fieldset {
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
   border-radius: 3px;
-  position: relative;
   color: white;
   background-color: #606060;
   background-color: rgba(0, 0, 0, 0.8);
@@ -1464,29 +1249,7 @@ fieldset {
     right: 0;
     bottom: 0;
     left: 0; }
-  
-/* ScaleDisplay */
-.mb-element-scaledisplay.right-top {
-    z-index: 10;
-    position: absolute;
-    top: 50px;
-    right: 20px; }
-.mb-element-scaledisplay.left-top {
-    z-index: 10;
-    position: absolute;
-    top: 50px;
-    left: 20px; }
-.mb-element-scaledisplay.right-bottom {
-    z-index: 10;
-    position: absolute;
-    right: 20px;
-    bottom: 80px; }
-.mb-element-scaledisplay.left-bottom {
-    z-index: 10;
-    position: absolute;
-    bottom: 80px;
-    left: 20px; }
-  
+
 /* WMS Loader */
 .mb-element-wmsloader {
   display: none; }
