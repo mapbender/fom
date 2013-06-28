@@ -1185,11 +1185,8 @@ body {
   .accountMenu .iconDown {
     padding-right: 20px; }
     .accountMenu .iconDown:before {
-      font-family: FontAwesome;
       position: absolute;
       right: 0; }
-  .accountMenu a:before {
-    font-family: FontAwesome; }
 
 .leftPane {
   width: 200px;
@@ -1228,7 +1225,6 @@ body {
   display: block; }
 
 .navItem a {
-  font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif !important;
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
   font-size: 12px;
   color: #707070;
@@ -1239,8 +1235,7 @@ body {
   -o-transition: color 0.2s linear;
   transition: color 0.2s linear; }
   .navItem a:before {
-    margin-right: 5px;
-    font-family: FontAwesome; }
+    margin-right: 5px; }
   .navItem a:hover {
     color: #3f3f3f;
     background: url("../../fomcore/images/nav_arrow_active.png") left center no-repeat; }
@@ -1370,8 +1365,6 @@ body {
   font-size: 70px;
   line-height: 110px;
   color: #595959; }
-  .listFilterApplicationBoxes .iconAppDefault:before {
-    font-family: FontAwesome; }
 
 .applicationTabContainer {
   margin-bottom: 20px; }
