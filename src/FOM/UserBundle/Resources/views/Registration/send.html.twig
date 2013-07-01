@@ -1,16 +1,15 @@
-{% extends "FOMManagerBundle::backend.html.twig" %}
+{% extends "FOMUserBundle:Login:box.html.twig" %}
 
-{% block title %}Registration{% endblock %}
+{% block title %} {{ 'Registration' | trans}} {% endblock %}
 
-{% block content %}
-<div>
-    <h1>{% trans %}Almost done...{% endtrans %}</h1>
-{% trans %}
-    <p>Your account has been created and is waiting patiently for your activation - An email with your activation code 
+{% block box_content %}
+    <div class="loginBox">
+        <h2 class="contentTitle">{{ 'Registration' | trans}}</h2>
+        {% trans %}
+            <p class="description">Your account has been created. An email with your activation code 
     and link has been sent to the address you provided.</p>
-{% endtrans %}
-</div>
-{% endblock %}
-
-{% block js %}
+        {% endtrans %}
+        <a class="left iconLinkButton linkButton" href="{{ path('fom_user_login_login') }}">{{ "Back to login"|trans}}</a>
+        <div class="clearContainer"></div>
+    </div>
 {% endblock %}

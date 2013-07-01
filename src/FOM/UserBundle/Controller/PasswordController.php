@@ -130,13 +130,13 @@ class PasswordController extends Controller
     {
         $token = $this->get('request')->get('token');
         if(!$token) {
-            return $this->render('FOMUserBundle:Password:tokenreset-error-notoken.html.twig');
+            return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }
 
         $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneByResetToken($token);
         if(!$user) {
             //@TODO: Get site email from configuration
-            return $this->render('FOMUserBundle:Password:tokenreset-error-nosuchtoken.html.twig', array(
+            return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
                 'site_email' => 'FOFO'));
         }
 
@@ -156,20 +156,20 @@ class PasswordController extends Controller
     {
         $token = $this->get('request')->get('token');
         if(!$token) {
-            return $this->render('FOMUserBundle:Password:reset-error-notoken.html.twig');
+            return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }
 
         $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneByResetToken($token);
         if(!$user) {
             //@TODO: Get site email from configuration
-            return $this->render('FOMUserBundle:Password:reset-error-nosuchtoken.html.twig', array(
+            return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
                 'site_email' => 'FOFO'));
         }
 
         $max_token_age = $this->container->getParameter("fom_user.max_reset_time");
         if(!$this->checkTimeInterval($user->getResetTime(), $max_token_age)) {
             $form = $this->createForm('form');
-            return $this->render('FOMUserBundle:Password:reset-error-tokenexpired.html.twig', array(
+            return $this->render('FOMUserBundle:Login:error-tokenexpired.html.twig', array(
                 'user' => $user,
                 'form' => $form->createView()
             ));
@@ -192,20 +192,20 @@ class PasswordController extends Controller
     {
         $token = $this->get('request')->get('token');
         if(!$token) {
-            return $this->render('FOMUserBundle:Password:password-error-notoken.html.twig');
+            return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }
 
         $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneByResetToken($token);
         if(!$user) {
             //@TODO: Get site email
-            return $this->render('FOMUserBundle:Password:password-error-nosuchtoken.html.twig', array(
+            return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
                 'site_email' => 'FOFO'));
         }
 
         $max_token_age = $this->container->getParameter("fom_user.max_reset_time");
         if(!$this->checkTimeInterval($user->getResetTime(), $max_token_age)) {
             $form = $this->createForm('form');
-            return $this->render('FOMUserBundle:Password:password-error-tokenexpired.html.twig', array(
+            return $this->render('FOMUserBundle:Login:error-tokenexpired.html.twig', array(
                 'user' => $user,
                 'form' => $form->createView()
             ));
