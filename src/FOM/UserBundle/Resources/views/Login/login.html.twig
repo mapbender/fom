@@ -1,39 +1,34 @@
-{% extends "FOMManagerBundle::backend.html.twig" %}
+{% extends "FOMUserBundle:Login:box.html.twig" %}
 
 {% block title %}{{ 'Login' | trans}}{% endblock %}
 
-{% block backend_content %}
-  <div class="authWrapper login">
-    <div class="head"><hr class="dekoSeperator"></div>
-    <a class="logo" href="{{ path('mapbender_core_welcome_list') }}"><img alt="Mapbender 3" src="{{ asset(fom.server_logo)}}" /></a>
+{% block box_content %}
+  <div class="loginBox login">
+    <h2 class="contentTitle">{{ 'Login' | trans}}</h2>
+    <form action="{{ path("fom_user_login_logincheck") }}" method="post" id="login" novalidate="novalidate">
+      {% if error %}
+        <div class="messageBox error">{{ error.message }}</div>
+      {% endif %}
 
-    <div class="loginBox">
-      <h2 class="contentTitle">{{ 'Login' | trans}}</h2>
-      <form action="{{ path("fom_user_login_logincheck") }}" method="post" id="login" novalidate="novalidate">
-        {% if error %}
-          <div class="messageBox error">{{ error.message }}</div>
-        {% endif %}
+      <label class="left labelInput" for="username">{{ 'Username' | trans}}:</label>
+      <input class="input" id="username" type="text" name="_username" value="{{ last_username }}" autofocus />
 
-        <label class="left labelInput" for="username">{{ 'Username' | trans}}:</label>
-        <input class="input" id="username" type="text" name="_username" value="{{ last_username }}" autofocus />
+      <div class="clearContainer"></div>
 
-        <div class="clearContainer"></div>
+      <label class="left labelInput" for="password">{{ 'Password' | trans}}:</label>
+      <input class="input" type="password" id="password" name="_password" />
 
-        <label class="left labelInput" for="password">{{ 'Password' | trans}}:</label>
-        <input class="input" type="password" id="password" name="_password" />
+      <div class="clearContainer"></div>
 
-        <div class="clearContainer"></div>
+      {% if selfregister == true %}
+      <a class="linkButton iconLinkButton left" href="{{ path('fom_user_registration_form') }}">{{ 'Register' | trans}}</a>
+      {% endif %}
+      {% if reset_password == true %}
+      <a class="linkButton iconLinkButton left" href="{{ path('fom_user_password_form') }}">{{ 'Forgot password' | trans}}?</a>
+      {% endif %}
 
-        {% if selfregister == true %}
-        <a class="linkButton iconLinkButton left" href="{{ path('fom_user_registration_form') }}">{{ 'Register' | trans}}</a>
-        {% endif %}
-        {% if reset_password == true %}
-        <a class="linkButton iconLinkButton left" href="{{ path('fom_user_password_form') }}">{{ 'Forgot password' | trans}}?</a>
-        {% endif %}
-
-        <input type="submit" class="right button" value="{{ 'Login' | trans}}" />
-        <div class="clearContainer"></div>
-      </form>
-    </div>
+      <input type="submit" class="right button" value="{{ 'Login' | trans}}" />
+      <div class="clearContainer"></div>
+    </form>
   </div>
 {% endblock %}

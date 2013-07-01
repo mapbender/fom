@@ -1,0 +1,21 @@
+{% extends "FOMUserBundle:Login:box.html.twig" %}
+
+{% block title %} {{ 'Password Reset' | trans}} {% endblock %}
+
+{% block box_content %}
+    <div class="loginBox">
+        <h2 class="contentTitle">{{ 'Sorry!' | trans}}</h2>
+
+        {% trans %}
+            <span class="description">No such token can be found. If you think this is an error, please contact the site administrator.</span>
+        {% endtrans %}
+        <div class="clearContainer"></div>
+
+        {% if site_email is defined %}
+            <a class="linkButton iconLinkButton right" href="mailto:{{site_email}}">Contact administrator</a>
+        {% endif %}
+
+        <a class="left iconLinkButton linkButton" href="{{ path('fom_user_login_login') }}">{{ "Back to login"|trans}}</a>
+        <div class="clearContainer"></div>
+    </div>
+{% endblock %}
