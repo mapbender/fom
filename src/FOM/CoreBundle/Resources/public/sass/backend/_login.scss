@@ -21,27 +21,27 @@
     width:$boxWidth;
     background-image:url($contentPatternUrl);
     @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
+
+    &.login{
+    $labelWidth: 80px;
+    .labelInput{width:$labelWidth;}
+    .input{width:$boxWidth - $labelWidth - $space*2;}
+    }
+    &.forgot{
+      $labelWidth: 135px;
+      .labelInput{width:$labelWidth;}
+      .input{width:$boxWidth - $labelWidth - $space*2;}
+    }
+    &.register{
+      $labelWidth: 125px;
+      .labelInput{width:$labelWidth;}
+      .input{width:$boxWidth - $labelWidth - $space*2;}
+    }
   }
   .labelInput{display:block;}
   .input{margin-bottom:$space/2;}
   .linkButton{
     margin-right:$space/2;
     margin-top:5px;
-  }
- 
-  &.login{
-    $labelWidth: 80px;
-    .labelInput{width:$labelWidth;}
-    .input{width:$boxWidth - $labelWidth - $space*2;}
-  }
-  &.forgot{
-    $labelWidth: 135px;
-    .labelInput{width:$labelWidth;}
-    .input{width:$boxWidth - $labelWidth - $space*2;}
-  }
-  &.register{
-    $labelWidth: 125px;
-    .labelInput{width:$labelWidth;}
-    .input{width:$boxWidth - $labelWidth - $space*2;}
   }
 }

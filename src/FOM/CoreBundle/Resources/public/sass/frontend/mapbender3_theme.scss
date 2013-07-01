@@ -227,10 +227,6 @@
   &.iconMove:before{
     @include pos(-$space,0,'','');
   }
-  &.right-bottom, &.right-top{
-    right:inherit;
-    left:92%;
-  }
 }
 .pan{
   height: 49px;

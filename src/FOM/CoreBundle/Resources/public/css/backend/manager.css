@@ -667,6 +667,7 @@ fieldset {
 /* ------------------------------------------------ POPUP */
 .overlay {
   background: url("../../images/overlay.png");
+  position: fixed;
   -webkit-transition: opacity 0.4s ease-in-out;
   -moz-transition: opacity 0.4s ease-in-out;
   -o-transition: opacity 0.4s ease-in-out;
@@ -676,7 +677,6 @@ fieldset {
   bottom: 0;
   left: 0;
   right: 0;
-  position: fixed;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -715,7 +715,7 @@ fieldset {
   .popup .popupContent, .popup .popupSubContent {
     padding-right: 20px;
     margin-bottom: 20px;
-    max-height: 300px;
+    max-height: 370px;
     overflow-y: auto; }
   .popup.ui-draggable-dragging.popupTransparency {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
@@ -747,7 +747,7 @@ fieldset {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
     opacity: 0.9; }
   .popupContainer.show .popup {
-    margin: 100px auto 0 auto; }
+    margin: 80px auto 0 auto; }
 
 /* ------------------------------------------------- TABS */
 .tabContainer .tab {
@@ -1329,6 +1329,18 @@ body {
     -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
     -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9);
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.9); }
+    .authWrapper .loginBox.login .labelInput, .authWrapper .loginBox.login .popup .popupSubTitle, .popup .authWrapper .loginBox.login .popupSubTitle {
+      width: 80px; }
+    .authWrapper .loginBox.login .input {
+      width: 220px; }
+    .authWrapper .loginBox.forgot .labelInput, .authWrapper .loginBox.forgot .popup .popupSubTitle, .popup .authWrapper .loginBox.forgot .popupSubTitle {
+      width: 135px; }
+    .authWrapper .loginBox.forgot .input {
+      width: 165px; }
+    .authWrapper .loginBox.register .labelInput, .authWrapper .loginBox.register .popup .popupSubTitle, .popup .authWrapper .loginBox.register .popupSubTitle {
+      width: 125px; }
+    .authWrapper .loginBox.register .input {
+      width: 175px; }
   .authWrapper .labelInput, .authWrapper .popup .popupSubTitle, .popup .authWrapper .popupSubTitle {
     display: block; }
   .authWrapper .input {
@@ -1336,18 +1348,6 @@ body {
   .authWrapper .linkButton {
     margin-right: 10px;
     margin-top: 5px; }
-  .authWrapper.login .labelInput, .authWrapper.login .popup .popupSubTitle, .popup .authWrapper.login .popupSubTitle {
-    width: 80px; }
-  .authWrapper.login .input {
-    width: 220px; }
-  .authWrapper.forgot .labelInput, .authWrapper.forgot .popup .popupSubTitle, .popup .authWrapper.forgot .popupSubTitle {
-    width: 135px; }
-  .authWrapper.forgot .input {
-    width: 165px; }
-  .authWrapper.register .labelInput, .authWrapper.register .popup .popupSubTitle, .popup .authWrapper.register .popupSubTitle {
-    width: 125px; }
-  .authWrapper.register .input {
-    width: 175px; }
 
 /* ------------------------------------------------------- APPLICATIONS */
 .listFilterInput {

@@ -278,9 +278,9 @@ fieldset{
 /* ------------------------------------------------ POPUP */
 .overlay{
   background:url("../../images/overlay.png");
+  position:fixed;
   @include transition(opacity 0.4s ease-in-out);
   @include stretch();
-  position:fixed;
   @include noUserSelect();
   @include opacity(0);
 }
@@ -309,7 +309,7 @@ fieldset{
   .popupContent, .popupSubContent{
     padding-right: $space;
     margin-bottom: $space;  
-    max-height: 300px;
+    max-height: 370px; // hack hack discothek
     overflow-y:auto;
   }
   &.ui-draggable-dragging.popupTransparency{@include opacity(0.6);}
@@ -340,7 +340,7 @@ fieldset{
 
   &.show{
     .overlay{@include opacity(0.9);}
-    .popup{margin:100px auto 0 auto;}
+    .popup{margin:80px auto 0 auto;}
   }
 }
 

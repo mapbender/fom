@@ -679,6 +679,7 @@ fieldset {
 /* ------------------------------------------------ POPUP */
 .overlay {
   background: url("../../images/overlay.png");
+  position: fixed;
   -webkit-transition: opacity 0.4s ease-in-out;
   -moz-transition: opacity 0.4s ease-in-out;
   -o-transition: opacity 0.4s ease-in-out;
@@ -688,7 +689,6 @@ fieldset {
   bottom: 0;
   left: 0;
   right: 0;
-  position: fixed;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -727,7 +727,7 @@ fieldset {
   .popup .popupContent, .popup .popupSubContent {
     padding-right: 20px;
     margin-bottom: 20px;
-    max-height: 300px;
+    max-height: 370px;
     overflow-y: auto; }
   .popup.ui-draggable-dragging.popupTransparency {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
@@ -759,7 +759,7 @@ fieldset {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
     opacity: 0.9; }
   .popupContainer.show .popup {
-    margin: 100px auto 0 auto; }
+    margin: 80px auto 0 auto; }
 
 /* ------------------------------------------------- TABS */
 .tabContainer .tab {
@@ -1069,9 +1069,6 @@ fieldset {
   position: absolute;
   top: -20px;
   right: 0; }
-.mb-element-zoombar.right-bottom, .mb-element-zoombar.right-top {
-  right: inherit;
-  left: 92%; }
 
 .pan {
   height: 49px;
