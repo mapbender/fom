@@ -64,5 +64,5 @@ $(function() {
            parent.addClass("checkboxDisabled");
         }
     }
-    $(".checkbox").live("change", toggleCheckBox).trigger("change");
+    $(".checkbox").live("change", toggleCheckBox).each(toggleCheckBox);
 });
