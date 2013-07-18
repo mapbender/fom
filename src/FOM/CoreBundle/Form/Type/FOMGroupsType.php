@@ -2,13 +2,12 @@
 
 namespace FOM\CoreBundle\Form\Type;
 
+use FOM\CoreBundle\Form\DataTransformer\GroupIdTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
-use FOM\CoreBundle\Form\DataTransformer\GroupIdTransformer;
 
 /**
  * 
@@ -53,12 +52,12 @@ class FOMGroupsType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $type = $this;
         
+        $type = $this;
         $resolver->setDefaults(array(
             'user_groups' => False,
             'return_entity' => False,
-            'compound' => true,
+            'compound' => false,
             'class' => 'FOMUserBundle:Group',
             'property' => 'title',
             'query_builder' => function(Options $options) use ($type) {
@@ -83,7 +82,6 @@ class FOMGroupsType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        
         if($options['return_entity'] === false)
         {
             $entityManager = $this->container->get('doctrine')->getEntityManager();
