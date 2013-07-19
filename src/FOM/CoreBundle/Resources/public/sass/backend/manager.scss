@@ -83,8 +83,8 @@ body{
   height:$bannerHeight;
 }
 .logo{
-  width:$navWidth - $space*2;
-  @include pos('','',$space/2,$space);
+  height:120px;
+  @include pos($space,'','',($space + $space/2));
 }
 
 .navLevel1{
