@@ -679,7 +679,6 @@ fieldset {
 /* ------------------------------------------------ POPUP */
 .overlay {
   background: url("../../images/overlay.png");
-  position: fixed;
   -webkit-transition: opacity 0.4s ease-in-out;
   -moz-transition: opacity 0.4s ease-in-out;
   -o-transition: opacity 0.4s ease-in-out;
@@ -689,6 +688,7 @@ fieldset {
   bottom: 0;
   left: 0;
   right: 0;
+  position: fixed;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -1309,6 +1309,7 @@ fieldset {
 .notshow, .notvisible {
   display: none; }
 
+/* Search router */
 /* ----------------------------------------------------------- TOOLBAR */
 /* ----------------------------------------------- ELEMENTS */
 .toolBar .mb-element-scaleline {
