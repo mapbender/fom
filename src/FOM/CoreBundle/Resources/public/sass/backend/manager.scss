@@ -73,16 +73,20 @@ body{
   width:$navWidth;
   @include pos(0, '', '', 0);
 
-  .logo{
-    width:$navWidth - $space*2;
-    margin:$space/2 0 0 $space;
-  }
-
   .navigation{
     background-color:$contentColor;
     @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.6));
   }
 }
+.logoContainer{
+  position:relative;
+  height:$bannerHeight;
+}
+.logo{
+  width:$navWidth - $space*2;
+  @include pos('','',$space/2,$space);
+}
+
 .navLevel1{
   border-right:1px solid lighten($firstColor, 40%);
   padding:$space/2 $space;
