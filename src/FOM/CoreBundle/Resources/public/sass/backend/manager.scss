@@ -83,7 +83,7 @@ body{
   height:$bannerHeight;
 }
 .logo{
-  height:120px;
+  max-height:120px;
   @include pos($space,'','',($space + $space/2));
 }
 
