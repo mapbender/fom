@@ -7,7 +7,7 @@ $(function() {
     $(".toggleSideBar").bind("click", sideBarToggle);
 
     // init tabcontainers --------------------------------------------------------------------
-    $(".tabContainer").find(".tab").live("click", function(){
+    $(".tabContainer").on('click', '.tab', function() {
         var me = $(this);
         me.parent().parent().find(".active").removeClass("active");
         me.addClass("active");
@@ -15,6 +15,7 @@ $(function() {
     });
 
     // init dropdown list --------------------------------------------------------------------
+    // @deprecated
     var initDropdown = function(){
         var me = $(this);
         var dropdownList = me.find(".dropdownList");
@@ -51,18 +52,26 @@ $(function() {
         });
         return false;
     }
-    $(".dropdown").load(initDropdown).load().bind("click", toggleList);
+
+    $(window).on('load', function() {
+        $('.dropdown').each(function() {
+            initDropdown.call(this);
+        });
+    });
+    $(document).on('click', '.dropdown', toggleList);
 
     // init checkbox toggle ------------------------------------------------------------------
-    var toggleCheckBox = function(){
+    var toggleCheckBox = function(event){
         var me     = $(this);
         var parent = me.parent();
 
-        (me.is(":checked")) ? parent.addClass("iconCheckboxActive") 
+        (me.is(":checked")) ? parent.addClass("iconCheckboxActive")
                             : parent.removeClass("iconCheckboxActive");
         if(me.is(":disabled")){
            parent.addClass("checkboxDisabled");
         }
     }
-    $(".checkbox").live("change", toggleCheckBox).trigger("change");
+    //$(".checkbox").live("change", toggleCheckBox).trigger("change");
+    $(document).on('change', '.checkbox', toggleCheckBox);
+    $('.checkbox').trigger('change');
 });
