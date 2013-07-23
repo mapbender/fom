@@ -1,15 +1,18 @@
 /* -------------------------------------------------------------- LOGO */
 .logoContainer {
-  position: relative;
+  padding: 5px 20px;
+  height: 70px;
+  width: 100%;
   z-index: 10;
-  display: inline-block;
-  padding: 10px 20px;
-  margin-left: 20px;
-  float: left;
-  background-color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
   -webkit-box-shadow: 0px 0px 3px black;
   -moz-box-shadow: 0px 0px 3px black;
   box-shadow: 0px 0px 3px black; }
+  .logoContainer img {
+    height: 60px; }
 
 /* ---------------------------------------------------------- CONTENT */
 .contentPane {
@@ -27,7 +30,7 @@
     left: 20px; }
   .contentPane .right-top {
     position: absolute;
-    top: 60px;
+    top: 140px;
     right: 20px; }
   .contentPane .left-bottom {
     position: absolute;
@@ -42,7 +45,10 @@
 .toolBar {
   z-index: 4; }
   .toolBar.top {
-    position: relative; }
+    position: absolute;
+    top: 70px;
+    right: 0;
+    left: 0; }
   .toolBar.bottom {
     position: absolute;
     right: 0;
@@ -67,16 +73,16 @@
     display: none; }
   .sidePane.left {
     position: absolute;
-    top: 120px;
-    bottom: 60px;
+    top: 110px;
+    bottom: 40px;
     left: 0; }
     .sidePane.left .sidePaneTabs {
       right: -32px; }
   .sidePane.right {
     position: absolute;
-    top: 80px;
+    top: 70px;
     right: 0;
-    bottom: 60px; }
+    bottom: 0; }
     .sidePane.right .sidePaneTabs {
       left: -32px; }
   .sidePane.opened {

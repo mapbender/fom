@@ -1,16 +1,17 @@
 @import "../lib/base";
 
+$topPaneHeight: 70px;
 
 /* -------------------------------------------------------------- LOGO */
 .logoContainer{
-  position: relative;
+  padding:5px $space;
+  height:$topPaneHeight;
+  width: 100%;
   z-index: 10;
-  display: inline-block;
-  padding:$space/2 $space;
-  margin-left: $space;
-  float:left;
-  background-color: white;
+  @include pos(0,0,'',0);
   @include box-shadow(0px 0px 3px black);
+
+  img{height:60px;}
 }
 
 
@@ -26,7 +27,7 @@
 
   /* Positioning */
   .left-top{@include pos($space*7,'','',$space);}
-  .right-top{@include pos($space*3,$space,'','');}
+  .right-top{@include pos($space*7,$space,'','');}
   .left-bottom{@include pos('','',$space*3,$space);}
   .right-bottom{@include pos('',$space,$space*3,'');}
 }
@@ -38,7 +39,9 @@
 /* --------------------------------------------------------- TOOLBARS */
 .toolBar{
   z-index:4; 
-  &.top{position:relative;}
+  &.top{
+    @include pos($topPaneHeight,0,'',0);
+  }
   &.bottom{@include pos('',0,0,0);}
 }
 
@@ -63,11 +66,11 @@ $tabSize:32px;
   }
 
   &.left{
-    @include pos(120px,'',$space*3,0);
+    @include pos($topPaneHeight + $space*2,'',$space*2,0);
     .sidePaneTabs{right:-$tabSize;}
   }
   &.right{
-    @include pos(80px,0,$space*3,'');
+    @include pos($topPaneHeight,0,0,'');
     .sidePaneTabs{left:-$tabSize;}
   }
   &.opened{width:350px;}
