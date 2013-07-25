@@ -122,7 +122,7 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
 .elementFormAbout, .elementFormSrs, 
 .elementFormScaleSelector, .elementFormActivity, 
 .elementFormButton, .elementFormCoordinates, 
-.elementFormRuler{
+.elementFormRuler, .elementFormScaleDisplay{
   $label:70px;
   .labelInput{width:$label;}
   .input, .dropdown{width:$elementPopupWidth - $label + $space;}
@@ -154,19 +154,21 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
 }
 .elementFormMap{
   $label:100px;
+  height:380px;
+  overflow:auto;
   .labelInput{width:$label;}
   .checkWrapper{margin-bottom:$space/2;}
-  .dropdown, .input{width:$elementPopupWidth - $label + $space;}
+  .dropdown, .input{width:$elementPopupWidth - $label - $space/2;}
   .singleRow{
     float:right;
-    width:$elementPopupWidth - $label + $space;
+    width:$elementPopupWidth - $label - $space;
     .labelInput, & > .input{float:left;}
     .labelInput{
       width:40px;
       margin-right:5px;
     }
     .input{
-      width:100px;
+      width:80px;
       &:first-child{margin-right:5px;}
     }
   }
@@ -243,6 +245,26 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
   .dropdown, .input{width:$elementPopupWidth - $label  + $space;}
   .checkWrapper{margin-bottom:$space/2;}
   .labelCheck{margin-right:$space;}
+}
+.elementFormPrintClient{
+  $label:110px;
+  overflow: auto;
+  height:380px;
+  .labelInput{width:$label;}
+  .dropdown, .input{width:$elementPopupWidth - $label  - $space;}
+  .checkWrapper{margin-bottom:$space/2;}
+  .labelCheck{margin-right:$space;}
+  .singleRow{
+    .labelInput, & > .input{float:left;}
+    .labelInput{
+      width:25px;
+      margin-right:$space/2;
+    }
+    .input{
+      width:90px;
+      &:first-child{margin-right:$space/2;}
+    }
+  }
 }
 
 

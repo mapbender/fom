@@ -1,24 +1,23 @@
-{% extends "FOMManagerBundle::backend.html.twig" %}
+{% extends "FOMUserBundle:Login:box.html.twig" %}
 
 {% block title %} {{ 'Forgot password' | trans}} {% endblock %}
 
-{% block backend_content %}
-  <div class="authWrapper forgot">
-    <div class="head"><hr class="dekoSeperator"></div>
-    <a class="logo" href="{{ path('mapbender_core_welcome_list') }}"><img alt="Mapbender 3" src="{{ asset(fom.server_logo)}}" /></a>
+{% block box_content %}
+  <div class="loginBox forgot">
+    <h2 class="contentTitle">{{ 'Forgot password' | trans}}</h2>
+    <form action="{{ path('fom_user_password_request') }}" method="post" {{ form_enctype(form)}} autocomplete="off" novalidate="novalidate">
 
-    <div class="loginBox">
-      <h2 class="contentTitle">{{ 'Forgot password' | trans}}</h2>
-      <form action="{{ path('fom_user_password_request') }}" method="post" {{ form_enctype(form)}} autocomplete="off" novalidate="novalidate">
+      {% if form_errors(form) %}
+        <div class="messageBox error">{{ form_errors(form) }}</div>
+      {% endif %}
 
-        <label for="{{ form.search.get('id') }}" class="left labelInput">{{"Username or Email" | trans}}:<span class="required">*</span></label>
-        {{ form_widget(form.search) }}
-        {{ form_row(form._token) }}
+      <label for="{{ form.search.get('id') }}" class="left labelInput">{{"Username or Email" | trans}}:<span class="required">*</span></label>
+      {{ form_widget(form.search) }}
+      {{ form_row(form._token) }}
 
-        <a class="left iconLinkButton linkButton" href="{{ path('fom_user_login_login') }}">{{ "Back to login"|trans}}</a>
-        <button class="button right">{{ 'Require password' | trans}}</button>
-      </form>
-      <div class="clearContainer"></div>
-    </div>
+      <a class="left iconLinkButton linkButton" href="{{ path('fom_user_login_login') }}">{{ "Back to login"|trans}}</a>
+      <button class="button right">{{ 'Require password' | trans}}</button>
+    </form>
+    <div class="clearContainer"></div>
   </div>
 {% endblock %}

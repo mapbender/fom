@@ -1,0 +1,22 @@
+{% extends "FOMUserBundle:Login:box.html.twig" %}
+
+{% block title %} {{ 'Password Reset' | trans}} {% endblock %}
+
+{% block box_content %}
+    <div class="loginBox">
+        <h2 class="contentTitle">{{ 'Sorry!' | trans}}</h2>
+
+        {% trans %}
+            <span class="description">Your registration token has expired. Unfortunately, you will have to request a new token.</span>
+        {% endtrans %}
+        <div class="clearContainer"></div>
+
+        <form action="{{ path('fom_user_password_tokenreset', {'token': user.resettoken}) }}" method="post">
+            {{ form_widget(form) }}
+            <button class="right button">{{trans|'Request new token'}}</button>
+        </form>
+
+        <a class="left iconLinkButton linkButton" href="{{ path('fom_user_login_login') }}">{{ "Back to login"|trans}}</a>
+        <div class="clearContainer"></div>
+    </div>
+{% endblock %}

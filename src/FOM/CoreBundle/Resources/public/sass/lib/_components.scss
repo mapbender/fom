@@ -208,6 +208,7 @@ fieldset{
 /* CHECKBOX */
 .checkWrapper{
   cursor:pointer;
+  width:$fontSize;
   &.checkboxDisabled{@include opacity(0.4);}
 }
 .checkbox{
@@ -279,7 +280,7 @@ fieldset{
   background:url("../../images/overlay.png");
   @include transition(opacity 0.4s ease-in-out);
   @include stretch();
-  position:fixed;
+  position:fixed; // WATCHOUT: position fixed after absolute!
   @include noUserSelect();
   @include opacity(0);
 }
@@ -308,7 +309,7 @@ fieldset{
   .popupContent, .popupSubContent{
     padding-right: $space;
     margin-bottom: $space;  
-    max-height: 500px;
+    max-height: 370px; // hack hack discothek
     overflow-y:auto;
   }
   &.ui-draggable-dragging.popupTransparency{@include opacity(0.6);}
@@ -339,7 +340,7 @@ fieldset{
 
   &.show{
     .overlay{@include opacity(0.9);}
-    .popup{margin:100px auto 0 auto;}
+    .popup{margin:80px auto 0 auto;}
   }
 }
 
