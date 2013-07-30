@@ -5,17 +5,17 @@
   right: 0;
   top:15%;
 
-  .logo{
-    margin:0 auto;
+  .logoContainer{
+    text-align:center;
     position:relative;
     top:-280px;
     display:block;
-    width:200px;
+    .logo{max-height:120px;}
   }
   .head{height:300px;}
   .loginBox{
     position: relative;
-    top: -270px;
+    top: -320px;
     padding:$space;
     margin: 0 auto;
     width:$boxWidth;

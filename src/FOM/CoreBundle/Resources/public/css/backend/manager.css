@@ -667,7 +667,6 @@ fieldset {
 /* ------------------------------------------------ POPUP */
 .overlay {
   background: url("../../images/overlay.png");
-  position: fixed;
   -webkit-transition: opacity 0.4s ease-in-out;
   -moz-transition: opacity 0.4s ease-in-out;
   -o-transition: opacity 0.4s ease-in-out;
@@ -677,6 +676,7 @@ fieldset {
   bottom: 0;
   left: 0;
   right: 0;
+  position: fixed;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -1193,14 +1193,20 @@ body {
   position: absolute;
   top: 0;
   left: 0; }
-  .leftPane .logo {
-    width: 160px;
-    margin: 10px 0 0 20px; }
   .leftPane .navigation {
     background-color: #f9f9f9;
     -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6);
     -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6);
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6); }
+  .leftPane .logo {
+    max-height: 120px;
+    position: absolute;
+    top: 20px;
+    left: 30px; }
+
+.logoContainer {
+  position: relative;
+  height: 170px; }
 
 .navLevel1 {
   border-right: 1px solid #a6a6a6;
@@ -1311,17 +1317,18 @@ body {
   left: 0;
   right: 0;
   top: 15%; }
-  .authWrapper .logo {
-    margin: 0 auto;
+  .authWrapper .logoContainer {
+    text-align: center;
     position: relative;
     top: -280px;
-    display: block;
-    width: 200px; }
+    display: block; }
+    .authWrapper .logoContainer .logo {
+      max-height: 120px; }
   .authWrapper .head {
     height: 300px; }
   .authWrapper .loginBox {
     position: relative;
-    top: -270px;
+    top: -320px;
     padding: 20px;
     margin: 0 auto;
     width: 340px;
@@ -1502,24 +1509,27 @@ body {
 .elementFormFeatureInfo .labelCheck {
   margin-right: 20px; }
 
-.elementFormMap .labelInput, .elementFormMap .popup .popupSubTitle, .popup .elementFormMap .popupSubTitle {
-  width: 100px; }
-.elementFormMap .checkWrapper {
-  margin-bottom: 10px; }
-.elementFormMap .dropdown, .elementFormMap .input {
-  width: 310px; }
-.elementFormMap .singleRow {
-  float: right;
-  width: 310px; }
-  .elementFormMap .singleRow .labelInput, .elementFormMap .singleRow .popup .popupSubTitle, .popup .elementFormMap .singleRow .popupSubTitle, .elementFormMap .singleRow > .input {
-    float: left; }
-  .elementFormMap .singleRow .labelInput, .elementFormMap .singleRow .popup .popupSubTitle, .popup .elementFormMap .singleRow .popupSubTitle {
-    width: 40px;
-    margin-right: 5px; }
-  .elementFormMap .singleRow .input {
+.elementFormMap {
+  height: 380px;
+  overflow: auto; }
+  .elementFormMap .labelInput, .elementFormMap .popup .popupSubTitle, .popup .elementFormMap .popupSubTitle {
     width: 100px; }
-    .elementFormMap .singleRow .input:first-child {
+  .elementFormMap .checkWrapper {
+    margin-bottom: 10px; }
+  .elementFormMap .dropdown, .elementFormMap .input {
+    width: 280px; }
+  .elementFormMap .singleRow {
+    float: right;
+    width: 270px; }
+    .elementFormMap .singleRow .labelInput, .elementFormMap .singleRow .popup .popupSubTitle, .popup .elementFormMap .singleRow .popupSubTitle, .elementFormMap .singleRow > .input {
+      float: left; }
+    .elementFormMap .singleRow .labelInput, .elementFormMap .singleRow .popup .popupSubTitle, .popup .elementFormMap .singleRow .popupSubTitle {
+      width: 40px;
       margin-right: 5px; }
+    .elementFormMap .singleRow .input {
+      width: 80px; }
+      .elementFormMap .singleRow .input:first-child {
+        margin-right: 5px; }
 
 .elementFormLayerTree .labelInput, .elementFormLayerTree .popup .popupSubTitle, .popup .elementFormLayerTree .popupSubTitle {
   width: 100px; }
@@ -1597,6 +1607,27 @@ body {
   margin-bottom: 10px; }
 .elementFormWmsLoader .labelCheck {
   margin-right: 20px; }
+
+.elementFormPrintClient {
+  overflow: auto;
+  height: 380px; }
+  .elementFormPrintClient .labelInput, .elementFormPrintClient .popup .popupSubTitle, .popup .elementFormPrintClient .popupSubTitle {
+    width: 110px; }
+  .elementFormPrintClient .dropdown, .elementFormPrintClient .input {
+    width: 260px; }
+  .elementFormPrintClient .checkWrapper {
+    margin-bottom: 10px; }
+  .elementFormPrintClient .labelCheck {
+    margin-right: 20px; }
+  .elementFormPrintClient .singleRow .labelInput, .elementFormPrintClient .singleRow .popup .popupSubTitle, .popup .elementFormPrintClient .singleRow .popupSubTitle, .elementFormPrintClient .singleRow > .input {
+    float: left; }
+  .elementFormPrintClient .singleRow .labelInput, .elementFormPrintClient .singleRow .popup .popupSubTitle, .popup .elementFormPrintClient .singleRow .popupSubTitle {
+    width: 25px;
+    margin-right: 10px; }
+  .elementFormPrintClient .singleRow .input {
+    width: 90px; }
+    .elementFormPrintClient .singleRow .input:first-child {
+      margin-right: 10px; }
 
 .layersetForm .labelInput, .layersetForm .popup .popupSubTitle, .popup .layersetForm .popupSubTitle {
   width: 40px;
