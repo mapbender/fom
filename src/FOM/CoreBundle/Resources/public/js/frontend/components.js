@@ -7,7 +7,7 @@ $(function() {
     $(".toggleSideBar").bind("click", sideBarToggle);
 
     // init tabcontainers --------------------------------------------------------------------
-    $(".tabContainer").find(".tab").live("click", function(){
+    $(document).on("click", ".tab", function(){
         var me = $(this);
         me.parent().parent().find(".active").removeClass("active");
         me.addClass("active");
@@ -64,5 +64,5 @@ $(function() {
            parent.addClass("checkboxDisabled");
         }
     }
-    $(".checkbox").live("change", toggleCheckBox).each(toggleCheckBox);
+    $(document).on("change", ".checkbox", toggleCheckBox);
 });
