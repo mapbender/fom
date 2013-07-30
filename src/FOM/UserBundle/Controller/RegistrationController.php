@@ -129,14 +129,14 @@ class RegistrationController extends Controller
     {
         $token = $this->get('request')->get('token');
         if(!$token) {
-            return $this->render('FOMUserBundle:Registration:confirm-error-notoken.html.twig');
+            return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }
 
         // Lookup token
         $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneByRegistrationToken($token);
         if(!$user) {
             //@TODO: Get site email from configuration
-            return $this->render('FOMUserBundle:Registration:confirm-error-nosuchtoken.html.twig', array(
+            return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
                 'site_email' => 'FOFO'));
         }
 
@@ -144,7 +144,7 @@ class RegistrationController extends Controller
         $max_registration_age = $this->container->getParameter("fom_user.max_registration_time");
         if(!$this->checkTimeInterval($user->getRegistrationTime(), $max_registration_age)) {
             $form = $this->createForm('form');
-            return $this->render('FOMUserBundle:Registration:confirm-error-tokenexpired.html.twig', array(
+            return $this->render('FOMUserBundle:Login:error-tokenexpired.html.twig', array(
                 'user' => $user,
                 'form' => $form->createView()
             ));
@@ -170,13 +170,13 @@ class RegistrationController extends Controller
         // Lookup token
         $token = $this->get('request')->get('token');
         if(!$token) {
-            return $this->render('FOMUserBundle:Registration:reset-error-notoken.html.twig');
+            return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }
 
         $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneByRegistrationToken($token);
         if(!$user) {
             //@TODO: Get site email from configuration
-            return $this->render('FOMUserBundle:Registration:reset-error-nosuchtoken.html.twig', array(
+            return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
                 'site_email' => 'FOFO'));
         }
 

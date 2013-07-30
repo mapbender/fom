@@ -4,28 +4,25 @@
 
 
 /* ------------------------------------------------------------- MISC */
-@-webkit-keyframes activity {
-  0%{opacity:0;}
-  50%{opacity:1;}
-  100%{opacity:0;}
+@-webkit-keyframes spin{
+  0%{-webkit-transform:rotate(0deg)}
+  100%{-webkit-transform:rotate(359deg)}
 }
-@-moz-keyframes activity {
-  0%{opacity:0;}
-  50%{opacity:1;}
-  100%{opacity:0;}
+@-moz-keyframes spin{
+  0%{-moz-transform:rotate(0deg)}
+  100%{-moz-transform:rotate(359deg)}
 }
-@keyframes activity {
-  0%{opacity:0;}
-  50%{opacity:1;}
-  100%{opacity:0;}
+@keyframes spin{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(359deg)}
 }
 .mb-element-activityindicator{display:none;}
 .mb-activity, .mb-activity-ajax{
   .mb-element-activityindicator{
     display: inline-block;
-    -webkit-animation:activity 1s ease-in-out infinite;
-    -moz-animation:activity 1s ease-in-out infinite;
-    animation:activity 1s ease-in-out infinite;
+    -webkit-animation:spin 1s linear infinite;
+    -moz-animation:spin 1s linear infinite;
+    animation:spin 1s linear infinite;
     @include text-shadow(0 0 1px black);
   }
 }
@@ -210,6 +207,12 @@
     @include pos('',$space,$space*2,'');
   }
 
+  /* Scale display */
+  .mb-element-scaledisplay{
+    padding:$space/4 $space/2;
+    @include frontendContainerStyle();
+  }
+
   /* Map */
   .mb-element-map{
     width:100%;
@@ -228,6 +231,7 @@
 .pan{
   height: 49px;
   width: 49px;
+  position:relative;
   @include border-radius(50%,50%);
   @include frontendContainerStyle();
 
@@ -320,8 +324,8 @@
 
   &.right-top .toggleOverview{@include pos(0,'','',-25px);}
   &.left-top .toggleOverview{@include pos(0,-25px,'','');}
-  &.right-bottom .toggleOverview{@include pos('','',-5px,-25px);}
-  &.left-bottom .toggleOverview{@include pos('',-25px,-5px,'');}
+  &.right-bottom .toggleOverview{@include pos('','',0,-25px);}
+  &.left-bottom .toggleOverview{@include pos('',-25px,0,'');}
 }
 .olControlOverviewMapExtentRectangle {
     overflow: hidden;
@@ -333,8 +337,6 @@
     @extend .iconTarget;
     cursor: move;
 }
-
-
 
 /* Scalebar */
 .mb-element-scaleline{
@@ -394,7 +396,7 @@
     &.showLeaves > .layers{display:block;}
 
     .leave{
-      margin-left:18px;
+      margin-left:20px;
       position: relative;
       &.invisible{@include opacity(.3);}
 
@@ -417,6 +419,9 @@
 // notshow -> hide always legend item
 // notvisible -> hide legend item by user
 .notshow, .notvisible{display:none;}
+
+/* Search router */
+.mb-element-search-router{}
 
 /* ----------------------------------------------------------- TOOLBAR */
 /* ----------------------------------------------- ELEMENTS */

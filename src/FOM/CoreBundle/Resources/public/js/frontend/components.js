@@ -71,7 +71,6 @@ $(function() {
            parent.addClass("checkboxDisabled");
         }
     }
-    //$(".checkbox").live("change", toggleCheckBox).trigger("change");
     $(document).on('change', '.checkbox', toggleCheckBox);
     $('.checkbox').trigger('change');
 });

@@ -78,7 +78,7 @@
 
   <div id="containerSecurity" class="container containerSecurity">
     {% if form.acl is defined %}
-    <a id="addPermission" href="#" class="iconAdd iconBig right" title="{{'Add new user'|trans}}"></a>
+    <a id="addPermission" href="{{path('fom_user_acl_overview')}}" class="iconAdd iconBig right" title="{{'Add users and groups'|trans}}"></a>
     <div class="clearContainer"></div>
     {{ form_widget(form.acl) }}
     {% else %}

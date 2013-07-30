@@ -11,6 +11,8 @@ use FOM\ManagerBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -106,6 +108,19 @@ class GroupController extends Controller {
             }
 
             $em->flush();
+
+            // creating the ACL
+            $aclProvider = $this->get('security.acl.provider');
+            $objectIdentity = ObjectIdentity::fromDomainObject($group);
+            $acl = $aclProvider->createAcl($objectIdentity);
+
+            // retrieving the security identity of the currently logged-in user
+            $securityContext = $this->get('security.context');
+            $user = $securityContext->getToken()->getUser();
+            $securityIdentity = UserSecurityIdentity::fromAccount($user);
+
+            $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+            $aclProvider->updateAcl($acl);
 
             $this->get('session')->setFlash('success',
                 'The group has been saved.');

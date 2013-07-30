@@ -130,9 +130,11 @@ class UserController extends Controller {
             $em->persist($user);
             $em->flush();
 
-            $aclManager = $this->get('fom.acl.manager');
-            $aclManager->setObjectACLFromForm($user, $form->get('acl'),
-                'object');
+            if($form->has('acl')) {
+                $aclManager = $this->get('fom.acl.manager');
+                $aclManager->setObjectACLFromForm($user, $form->get('acl'),
+                    'object');
+            }
 
             // Check and persists profile if exists
             $profile = $user->getProfile();
@@ -152,7 +154,11 @@ class UserController extends Controller {
                 ->add('VIEW')
                 ->add('EDIT')
                 ->get();
-            $acl = $aclProvider->findAcl($uoid);
+            try {
+                $acl = $aclProvider->findAcl($uoid);
+            } catch(\Exception $e) {
+                $acl = $aclProvider->createAcl($uoid);
+            }
             $acl->insertObjectAce($usid, $umask);
             $aclProvider->updateAcl($acl);
 
