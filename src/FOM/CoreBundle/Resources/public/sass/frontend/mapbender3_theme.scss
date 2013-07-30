@@ -183,24 +183,6 @@
 .hiddenDropdown{display:none;}
 
 .contentPane{
-  /* Positioning */
-  .left-top{
-    z-index: 10;
-    @include pos($space*7,'','',$space);
-  }
-  .right-top{
-    z-index: 10;
-    @include pos($space*3,$space,'','');
-  }
-  .left-bottom{
-    z-index: 10;
-    @include pos('','',$space*3,$space);
-  }
-  .right-bottom{
-    z-index: 10;
-    @include pos('',$space,$space*3,'');
-  }
-
   /* Activity indecator */
   .mb-element-coordsdisplay{
     z-index: 20;

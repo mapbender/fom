@@ -1006,30 +1006,9 @@ fieldset {
   display: none; }
 
 .contentPane {
-  /* Positioning */
   /* Activity indecator */
   /* Scale display */
   /* Map */ }
-  .contentPane .left-top {
-    z-index: 10;
-    position: absolute;
-    top: 140px;
-    left: 20px; }
-  .contentPane .right-top {
-    z-index: 10;
-    position: absolute;
-    top: 60px;
-    right: 20px; }
-  .contentPane .left-bottom {
-    z-index: 10;
-    position: absolute;
-    bottom: 60px;
-    left: 20px; }
-  .contentPane .right-bottom {
-    z-index: 10;
-    position: absolute;
-    right: 20px;
-    bottom: 60px; }
   .contentPane .mb-element-coordsdisplay {
     z-index: 20;
     position: absolute;
