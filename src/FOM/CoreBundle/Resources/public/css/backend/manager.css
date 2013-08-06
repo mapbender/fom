@@ -431,6 +431,9 @@ p {
 .clearContainer {
   height: 0px; }
 
+.hidden {
+  display: none; }
+
 .right {
   float: right; }
 
