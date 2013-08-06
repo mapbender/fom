@@ -13,18 +13,9 @@
 {% block form_widget_simple %}
   {% spaceless %}
     {% set type = type|default('text') %}
-    {% set cssClass = block('widget_attributes')|split('class') %}
 
     {% if type != 'hidden'%}
-
-      {# Get the class attribute from widget_attributes #}
-      {% if cssClass[1] is defined%}
-        {% set cssClass = cssClass[1]|replace({'"': '', '=':''}) %}
-      {% else %}
-        {% set cssClass = '' %}
-      {% endif %}
-
-      <div class="inputWrapper {{ cssClass }}" {{block('widget_attributes')}}>
+      <div class="inputWrapper {{ block('widget_attribute_class') }}" {{block('widget_attributes')}}>
         {% spaceless %}
           <input class="input validationInput" type="{{ type }}" {% if value is not empty %}value="{{ value }}" {% endif %}/>
 
@@ -111,15 +102,6 @@
 
 {% block choice_widget_collapsed %}
   {% spaceless %}
-    {% set cssClass = block('widget_attributes')|split('class') %}
-
-    {# Get the class attribute from widget_attributes #}
-    {% if cssClass[1] is defined%}
-      {% set cssClass = cssClass[1]|replace({'"': '', '=':''}) %}
-    {% else %}
-      {% set cssClass = '' %}
-    {% endif %}
-
     {% if multiple %}
       <select {{ block('widget_attributes') }} multiple="multiple">
         {% if empty_value is not none %}
@@ -136,7 +118,7 @@
         {{ block('choice_widget_options') }}
       </select>
     {% else %}
-      <div class="dropdown {{ cssClass }}" {{ block('widget_attributes') }}>
+      <div class="dropdown {{ block('widget_attribute_class') }}" {{ block('widget_attributes') }}>
         {% set selectedValue = "" %}
 
         <select class="hiddenDropdown">
@@ -464,3 +446,12 @@
     {% for attrname, attrvalue in attr %}{{ attrname }}="{{ attrvalue }}" {% endfor %}
   {% endspaceless %}
 {% endblock widget_container_attributes %}
+
+{% block widget_attribute_class %}
+  {% set cssClass = block('widget_attributes')|split('class') %}
+
+  {# Get the class attribute from widget_attributes #}
+  {% if cssClass[1] is defined%}
+    {{ cssClass[1]|replace({'"': '', '=':''}) }}
+  {% endif %}
+{% endblock widget_attribute_class %}
