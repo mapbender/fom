@@ -34,7 +34,7 @@
       </div>
 
     {% else %}
-      <input class="hidden" block('widget_attributes') type="{{ type }}" {% if value is not empty %}value="{{ value }}" {% endif %}/>
+      <input class="hidden" {{block('widget_attributes')}} type="{{ type }}" {% if value is not empty %}value="{{ value }}" {% endif %}/>
     {% endif %}
   {% endspaceless %}
 {% endblock form_widget_simple %}
