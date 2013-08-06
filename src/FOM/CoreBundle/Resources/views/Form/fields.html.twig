@@ -15,9 +15,9 @@
     {% set type = type|default('text') %}
 
     {% if type != 'hidden'%}
-      <div class="inputWrapper {{ block('widget_attribute_class') }}" {{block('widget_attributes')}}>
+      <div class="inputWrapper {{ block('widget_attribute_class') }}">
         {% spaceless %}
-          <input class="input validationInput" type="{{ type }}" {% if value is not empty %}value="{{ value }}" {% endif %}/>
+          <input class="input validationInput" {{block('widget_attributes')}} type="{{ type }}" {% if value is not empty %}value="{{ value }}" {% endif %}/>
 
           {% if errors|length > 0 %}
             <span class="validationMsgBox smallText">
@@ -118,10 +118,10 @@
         {{ block('choice_widget_options') }}
       </select>
     {% else %}
-      <div class="dropdown {{ block('widget_attribute_class') }}" {{ block('widget_attributes') }}>
+      <div class="dropdown {{ block('widget_attribute_class') }}" >
         {% set selectedValue = "" %}
 
-        <select class="hiddenDropdown">
+        <select class="hiddenDropdown" {{ block('widget_attributes') }}>
           {% for choice in choices %}
             {% if choice is selectedchoice(value) %}
               {% set selectedValue = choice.label|trans({}, translation_domain) %}
