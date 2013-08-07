@@ -233,7 +233,7 @@ $(function() {
 
 
     // init open toggle trees ----------------------------------------------------------------
-    var toggleList = function(){
+    var toggleTree = function(){
         var me     = $(this);
         var parent = me.parent();
         if(parent.hasClass("closed")){
@@ -244,37 +244,5 @@ $(function() {
             parent.addClass("closed");
         }
     }
-    $(".openCloseTitle").bind("click", toggleList);
-
-
-
-
-
-    // init dropdown list --------------------------------------------------------------------
-    var toggleList = function(){
-        var me   = $(this);
-        var list = me.find(".dropdownList");
-        var opts = me.find(".hiddenDropdown");
-        if(list.css("display") == "block"){
-            list.hide();
-        }else{
-            list.show();
-            list.find("li").one("click", function(event){
-                event.stopPropagation();
-                list.hide().find("li").off("click");
-                var me2 = $(this);
-                var opt = me2.attr("class").replace("item", "opt");
-                me.find(".dropdownValue").text(me2.text());
-                opts.find("[selected=selected]").removeAttr("selected");
-                var val = opts.find("." + opt).attr("selected", "selected").val();
-                opts.val(val).trigger('change');
-            })
-        }
-
-        $(document).one("click", function(){
-            list.hide().find("li").off("mouseout").off("click");
-        });
-        return false;
-    }
-    $(document).on("click", ".dropdown", toggleList);
+    $(".openCloseTitle").bind("click", toggleTree);
 });
