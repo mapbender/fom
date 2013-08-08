@@ -395,7 +395,6 @@
   }
   .serviceContainer{margin-bottom:$space/2;}
   .checkWrapper{position: relative;}
-  .checkbox{@include pos(0,'','',0);cursor:pointer;}
 }
 /* Legend */
 // notshow -> hide always legend item

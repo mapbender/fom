@@ -448,8 +448,7 @@ p {
   font-size: 10px; }
 
 .smallText, .labelInput, .popup .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
-.sideContent .mb-button, .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-gpsButton,
-.sideContent .critical.mb-button, .linkButton, .sidePaneTabItem, .mb-element-overview .toggleOverview, .dropdown, .tabContainer .tab {
+.sideContent .mb-button, .linkButton, .sidePaneTabItem, .mb-element-overview .toggleOverview, .dropdown, .tabContainer .tab {
   font-size: 12px; }
 
 .bigText, .title, .popup .popupHead {
@@ -532,8 +531,7 @@ fieldset {
 
 /* BUTTON */
 .buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
-.sideContent .mb-button, .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-gpsButton,
-.sideContent .critical.mb-button, .linkButton, .sidePaneTabItem, .mb-element-overview .toggleOverview {
+.sideContent .mb-button, .button.critical, .linkButton, .sidePaneTabItem, .mb-element-overview .toggleOverview {
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -1281,11 +1279,6 @@ fieldset {
   margin-bottom: 10px; }
 .mb-element-layertree .checkWrapper {
   position: relative; }
-.mb-element-layertree .checkbox {
-  position: absolute;
-  top: 0;
-  left: 0;
-  cursor: pointer; }
 
 /* Legend */
 .notshow, .notvisible {

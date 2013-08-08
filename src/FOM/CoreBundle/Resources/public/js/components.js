@@ -66,31 +66,6 @@ $(function() {
 
 
 
-    // init checkbox toggle ------------------------------------------------------------------
-    var toggleCheckBox = function(){
-        var me       = $(this);
-        var checkbox = me.find(".checkbox");
-
-        if(checkbox.is(":disabled")){
-            me.addClass("checkboxDisabled");
-        }else{
-            if(checkbox.is(":checked")){
-                me.removeClass("iconCheckboxActive");
-                checkbox.get(0).checked = false;
-            }else{
-                me.addClass("iconCheckboxActive") 
-                checkbox.get(0).checked = true;
-            }
-        }
-
-        checkbox.trigger('click');
-    }
-    $(document).on("click", ".checkWrapper", toggleCheckBox);
-
-
-
-
-
     // init permissions table ----------------------------------------------------------------
     // set permission root state
     function setPermissionsRootState(className){
