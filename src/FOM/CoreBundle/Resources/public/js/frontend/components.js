@@ -14,52 +14,6 @@ $(function() {
         $("#" + me.attr("id").replace("tab", "container")).addClass("active");
     });
 
-    // init dropdown list --------------------------------------------------------------------
-    // @deprecated
-    var initDropdown = function(){
-        var me = $(this);
-        var dropdownList = me.find(".dropdownList");
-        var newElement;
-
-        me.find("option").each(function(i, e){
-            $(e).addClass("opt-" + i)
-            newElement = $('<li class="item-' + i + '">' + $(e).text() + '</li>')
-            dropdownList.append(newElement);
-        });
-        me.find(".dropdownValue").text(me.find("option:first").text())
-    }
-    var toggleList = function(){
-        var me   = $(this);
-        var list = me.find(".dropdownList");
-        var opts = me.find(".hiddenDropdown");
-        if(list.css("display") == "block"){
-            list.hide();
-        }else{
-            list.show();
-            list.find("li").bind("click", function(event){
-                event.stopPropagation();
-                list.hide().find("li").unbind("click");
-                var me2 = $(this);
-                var liIndex = me2.index();
-                me.find(".dropdownValue").text(me2.text());
-                opts.find("[selected=selected]").removeAttr("selected");
-                opts.find('option:eq(' + liIndex + ')').attr("selected", "selected").change();
-            })
-        }
-
-        $(document).bind("click", function(){
-            list.hide().find("li").unbind("mouseout").unbind("click");
-        });
-        return false;
-    }
-
-    $(window).on('load', function() {
-        $('.dropdown').each(function() {
-            initDropdown.call(this);
-        });
-    });
-    $(document).on('click', '.dropdown', toggleList);
-
     // init checkbox toggle ------------------------------------------------------------------
     var toggleCheckBox = function(event){
         var me     = $(this);

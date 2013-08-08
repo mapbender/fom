@@ -13,23 +13,29 @@
 {% block form_widget_simple %}
   {% spaceless %}
     {% set type = type|default('text') %}
-    <div class="inputWrapper">
-      {% spaceless %}
-        <input class="input validationInput" type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
 
-        {% if errors|length > 0 %}
-          <span class="validationMsgBox smallText">
-            {% for error in errors %}
-              {{
-                error.messagePluralization is null
-                ? error.messageTemplate|trans(error.messageParameters, 'validators')
-                : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
-              }}
-            {% endfor %}
-          </span>
-        {% endif %}
-      {% endspaceless %}
-    </div>
+    {% if type != 'hidden'%}
+      <div class="inputWrapper {{ block('widget_attribute_class') }}">
+        {% spaceless %}
+          <input class="input validationInput" {{block('widget_attributes')}} type="{{ type }}" {% if value is not empty %}value="{{ value }}" {% endif %}/>
+
+          {% if errors|length > 0 %}
+            <span class="validationMsgBox smallText">
+              {% for error in errors %}
+                {{
+                  error.messagePluralization is null
+                  ? error.messageTemplate|trans(error.messageParameters, 'validators')
+                  : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
+                }}
+              {% endfor %}
+            </span>
+          {% endif %}
+        {% endspaceless %}
+      </div>
+
+    {% else %}
+      <input class="hidden" {{block('widget_attributes')}} type="{{ type }}" {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {% endif %}
   {% endspaceless %}
 {% endblock form_widget_simple %}
 
@@ -96,7 +102,6 @@
 
 {% block choice_widget_collapsed %}
   {% spaceless %}
-    {# XXXVH: design for multiple lists? TODO!!! #}
     {% if multiple %}
       <select {{ block('widget_attributes') }} multiple="multiple">
         {% if empty_value is not none %}
@@ -113,7 +118,7 @@
         {{ block('choice_widget_options') }}
       </select>
     {% else %}
-      <div class="dropdown">
+      <div class="dropdown {{ block('widget_attribute_class') }}" >
         {% set selectedValue = "" %}
 
         <select class="hiddenDropdown" {{ block('widget_attributes') }}>
@@ -441,3 +446,12 @@
     {% for attrname, attrvalue in attr %}{{ attrname }}="{{ attrvalue }}" {% endfor %}
   {% endspaceless %}
 {% endblock widget_container_attributes %}
+
+{% block widget_attribute_class %}
+  {% set cssClass = block('widget_attributes')|split('class') %}
+
+  {# Get the class attribute from widget_attributes #}
+  {% if cssClass[1] is defined%}
+    {{ cssClass[1]|replace({'"': '', '=':''}) }}
+  {% endif %}
+{% endblock widget_attribute_class %}
