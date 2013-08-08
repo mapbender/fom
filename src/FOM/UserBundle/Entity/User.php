@@ -89,6 +89,16 @@ class User implements AdvancedUserInterface {
     protected $resetToken;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $loginFailed;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $loginFailCount;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Group", inversedBy="users")
      * @ORM\JoinTable(name="fom_users_groups")
      */
@@ -328,16 +338,39 @@ class User implements AdvancedUserInterface {
             && $this->getUsername() === $user->getUsername());
     }
 
-
-
     public function isAccountNonExpired()
     {
         return true;
     }
 
+    /**
+     * Upon failed logins, the account will be locked for a certain time.
+     * The lock duration grows exponentially (2s^(n-1)) to divert brute
+     * force attacks while still allowing to log in if the password was
+     * forgotten, but remembered later.
+     *
+     * @return boolean
+     */
     public function isAccountNonLocked()
     {
-        return true;
+        $unLocked = true;
+        if(($this->getLoginFailed() && $this->getLoginFailCount())) {
+            if($this->getLoginFailCount() >= 13) {
+                // Lock for at max one hour
+                $lockSeconds = 3600;
+            } else {
+                $lockSeconds = pow(2, $this->getLoginFailCount() - 1);
+            }
+
+            $lockInterval = new \DateInterval('PT' . $lockSeconds . 'S');
+            $lockEnd = clone $this->getLoginFailed();
+            $lockEnd->add($lockInterval);
+
+            $now = new \DateTime();
+            $unLocked = $now > $lockEnd;
+        }
+
+        return $unLocked;
     }
 
     public function isCredentialsNonExpired()
@@ -378,5 +411,74 @@ class User implements AdvancedUserInterface {
     public function getProfile()
     {
         return $this->profile;
+    }
+
+    /**
+     * Set loginFailed
+     *
+     * @param \DateTime $loginFailed
+     * @return User
+     */
+    public function setLoginFailed($loginFailed)
+    {
+        $this->loginFailed = $loginFailed;
+
+        return $this;
+    }
+
+    /**
+     * Get loginFailed
+     *
+     * @return \DateTime
+     */
+    public function getLoginFailed()
+    {
+        return $this->loginFailed;
+    }
+
+    /**
+     * Set loginFailCount
+     *
+     * @param integer $loginFailCount
+     * @return User
+     */
+    public function setLoginFailCount($loginFailCount)
+    {
+        $this->loginFailCount = $loginFailCount;
+
+        return $this;
+    }
+
+    /**
+     * Get loginFailCount
+     *
+     * @return integer
+     */
+    public function getLoginFailCount()
+    {
+        return $this->loginFailCount;
+    }
+
+    /**
+     * Add groups
+     *
+     * @param \FOM\UserBundle\Entity\Group $groups
+     * @return User
+     */
+    public function addGroup(\FOM\UserBundle\Entity\Group $groups)
+    {
+        $this->groups[] = $groups;
+
+        return $this;
+    }
+
+    /**
+     * Remove groups
+     *
+     * @param \FOM\UserBundle\Entity\Group $groups
+     */
+    public function removeGroup(\FOM\UserBundle\Entity\Group $groups)
+    {
+        $this->groups->removeElement($groups);
     }
 }

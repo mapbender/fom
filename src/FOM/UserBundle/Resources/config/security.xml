@@ -6,6 +6,7 @@
         <parameter key="fom_user.security.access.rootaccount.voter.class">FOM\UserBundle\Security\Authorization\Voter\RootAccountVoter</parameter>
         <parameter key="fom_user.ldap.user_provider.class">FOM\UserBundle\Security\User\LdapUserProvider</parameter>
         <parameter key="fom_user.ldap.authentication_provider.class">FOM\UserBundle\Security\Authentication\Provider\LdapAuthenticationProvider</parameter>
+        <parameter key="fom_user.failed_login_listener.class">FOM\UserBundle\EventListener\FailedLoginListener</parameter>
     </parameters>
 
     <services>
@@ -30,6 +31,12 @@
             <argument type="service" id="security.encoder_factory" />
             <argument>%security.authentication.hide_user_not_found%</argument>
             <argument type="service" id="logger" />
+        </service>
+
+        <service id="fom.security.failed_login_listener" class="%fom_user.failed_login_listener.class%">
+            <argument type="service" id="service_container" />
+            <tag name="kernel.event_listener" event="security.authentication.failure" method="onLoginFailure" />
+            <tag name="kernel.event_listener" event="security.authentication.success" method="onLoginSuccess" />
         </service>
     </services>
 </container>
