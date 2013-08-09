@@ -290,7 +290,7 @@ fieldset{
   z-index:9999;
   margin:-1000px auto 0 auto;
   background-color:#f4f4f4;
-  padding:$space 0 $space $space;
+  padding:$space 0;
   background-image:url($contentPatternUrl);
   @include transition(margin 0.4s ease-in-out);
   @include border-radius($radius);
@@ -299,17 +299,16 @@ fieldset{
 
   .popupHead{
     @extend .title;
-    padding-bottom:$space/2;
-    margin-bottom:$space;
-    margin-right:$space;
+    margin:0 $space $space $space;
+    padding-bottom: $space/2;
     border-bottom:dashed 1px darken(#fff, 30%);
     &.draggable{cursor:move;}
   }
   .popupButtons{margin-right:$space;}
   .popupSubTitle{@extend .labelInput;}
   .popupContent, .popupSubContent{
-    padding-right: $space;
-    margin-bottom: $space;  
+    padding:0 $space/2 0 $space;
+    margin:0 $space $space 0;  
     max-height: 370px; // hack hack discothek
     overflow-y:auto;
   }

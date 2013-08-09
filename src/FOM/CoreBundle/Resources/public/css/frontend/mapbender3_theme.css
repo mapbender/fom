@@ -702,7 +702,7 @@ fieldset {
   z-index: 9999;
   margin: -1000px auto 0 auto;
   background-color: #f4f4f4;
-  padding: 20px 0 20px 20px;
+  padding: 20px 0;
   background-image: url("../../images/content.png");
   -webkit-transition: margin 0.4s ease-in-out;
   -moz-transition: margin 0.4s ease-in-out;
@@ -717,17 +717,16 @@ fieldset {
   -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9), inset 0px 0px 2px white;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9), inset 0px 0px 2px white; }
   .popup .popupHead {
+    margin: 0 20px 20px 20px;
     padding-bottom: 10px;
-    margin-bottom: 20px;
-    margin-right: 20px;
     border-bottom: dashed 1px #b3b3b3; }
     .popup .popupHead.draggable {
       cursor: move; }
   .popup .popupButtons {
     margin-right: 20px; }
   .popup .popupContent, .popup .popupSubContent {
-    padding-right: 20px;
-    margin-bottom: 20px;
+    padding: 0 10px 0 20px;
+    margin: 0 20px 20px 0;
     max-height: 370px;
     overflow-y: auto; }
   .popup.ui-draggable-dragging.popupTransparency {
@@ -991,11 +990,6 @@ fieldset {
     opacity: 0; }
 
 /* -------------------------------------------- ELEMENTS */
-.sideContent [class^="icon"]:before, .sideContent [class*=" icon"]:before {
-  font-size: 14px;
-  vertical-align: top;
-  margin-right: 5px; }
-
 /* ----------------------------------------------------------- CONTENT */
 /* ----------------------------------------------- ELEMENTS */
 .dropdown {
@@ -1245,8 +1239,11 @@ fieldset {
     min-width: 0px; }
 
 /* Layer tree */
-.mb-element-layertree .iconFolder {
+.mb-element-layertree .layer-menu-btn, .mb-element-layertree .iconRemove {
   display: none; }
+.mb-element-layertree .iconFolder {
+  display: none;
+  margin-right: 5px; }
 .mb-element-layertree .featureInfoWrapper {
   width: 20px;
   text-align: center; }

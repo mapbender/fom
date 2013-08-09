@@ -158,12 +158,6 @@
 /* -------------------------------------------- ELEMENTS */
 
 .sideContent{
-  [class^="icon"]:before,[class*=" icon"]:before{
-    font-size: 14px;
-    vertical-align: top;
-    margin-right:5px;
-  }
-
   .mb-aboutButton, .mb-gpsButton, 
   .mb-button, {@extend .button;}
 }
@@ -356,7 +350,16 @@
 
 /* Layer tree */
 .mb-element-layertree{
-  .iconFolder{display:none;}
+
+  // 
+  // TODO: Feature need to be designed!!!
+  // 
+  .layer-menu-btn, .iconRemove{display:none;}
+
+  .iconFolder{
+    display:none;
+    margin-right:5px;
+  }
 
   // needed for the feature info icon
   .featureInfoWrapper{
