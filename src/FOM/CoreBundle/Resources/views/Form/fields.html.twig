@@ -42,6 +42,9 @@
 {% block form_widget_compound %}
   {% spaceless %}
     <div {{ block('widget_container_attributes') }}>
+      {% if form.get('allow_add') and form.get('prototype') %}
+      <a href="#add" class="collectionAdd iconAdd iconSmall"></a>
+      {% endif %}
       {% if form.parent is empty %}
       {{ form_errors(form) }}
       {% endif %}
@@ -55,6 +58,9 @@
   {% spaceless %}
     {% if prototype is defined %}
       {% set attr = attr|merge({'data-prototype': form_row(prototype) }) %}
+      {% endif %}
+      {% if allow_delete %}
+      {% set attr = attr|merge({'data-allow-delete': 1 }) %}
       {% endif %}
       {{ block('form_widget') }}
     {% endspaceless %}
