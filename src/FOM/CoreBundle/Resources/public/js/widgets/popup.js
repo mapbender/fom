@@ -48,21 +48,20 @@
     showAjaxModal: function(customOptions, url, yesClick, beforeLoad, afterLoad){
       var that = this;
 
-      that.options = $.extend(that.defaults, customOptions);
-      that.addButton(that.options.btnCancelLabel, "button buttonCancel critical")
-          .addButton(that.options.btnOkLabel, "button buttonYes", yesClick);
-
       $.ajax({
           url: url,
           type: that.options.method,
           beforeSend:  beforeLoad,
           success: function(data){
-               that.options.content = data;
-               that._createMarkup()
-                   ._show();
-               if(afterLoad != undefined){
-                 afterLoad();
-               }
+              that.options = $.extend(that.defaults, customOptions);
+              that.addButton(that.options.btnCancelLabel, "button buttonCancel critical")
+                  .addButton(that.options.btnOkLabel, "button buttonYes", yesClick);
+              that.options.content = data;
+              that._createMarkup()
+                  ._show();
+              if(afterLoad != undefined){
+                  afterLoad();
+              }
           }
       });
     },
