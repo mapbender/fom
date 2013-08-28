@@ -350,12 +350,6 @@
 
 /* Layer tree */
 .mb-element-layertree{
-
-  // 
-  // TODO: Feature need to be designed!!!
-  // 
-  .layer-menu-btn, .iconRemove{display:none;}
-
   .iconFolder{
     display:none;
     margin-right:5px;
@@ -369,6 +363,7 @@
   }
   .serviceContainer, .groupContainer{
     border-left:dotted 1px black;
+    margin-bottom:1px; // Fix for Firefox
 
     // elements with childrens
     & > .leaveContainer{
@@ -396,7 +391,6 @@
     }
     .leaveContainer{margin-left:-6px;}
   }
-  .serviceContainer{margin-bottom:$space/2;}
   .checkWrapper{position: relative;}
 }
 /* Legend */
