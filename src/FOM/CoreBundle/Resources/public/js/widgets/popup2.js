@@ -132,6 +132,7 @@ var Mapbender = (function($, Mapbender) {
             closeOnESC: true,
             closeOnOutsideClick: false,
             destroyOnClose: false,
+            modal: true,
 
             // Width, if not set, use custom CSS for cssClass
             width: null,
@@ -212,18 +213,32 @@ var Mapbender = (function($, Mapbender) {
          */
         open: function(content) {
             var self = this;
+            var selfElement = this.$element;
 
             if(content) {
                 this.setContent(content);
             }
 
-            this.$element.trigger('open');
-            this.$element.appendTo(this.$container);
+            selfElement.trigger('open');
+            selfElement.appendTo(this.$container);
             window.setTimeout(function() {
-                self.$element.addClass("show");
+                selfElement.addClass("show");
             }, 100);
-            this.$element.one(transitionEvent, function(){
-                self.$element.trigger('openend');
+
+            // modal
+            if(this.options.modal){
+                selfElement.addClass("modal");
+            }
+
+            // close on overlay click
+            if(this.options.closeOnOutsideClick){
+                selfElement.find(".overlay").one("click", function(){
+                    self.close();
+                });
+            }
+
+            selfElement.one(transitionEvent, function(){
+                selfElement.trigger('openend');
             });
         },
 
@@ -231,15 +246,18 @@ var Mapbender = (function($, Mapbender) {
          * Close the popup, removing it from the container.
          */
         close: function() {
-            this.$element.trigger('close');
-            this.$element.removeClass("show");
-            this.$element.one(transitionEvent, function(){
-                this.$element.detach();
+            var selfElement = this.$element;
+
+            selfElement.trigger('close');
+            selfElement.removeClass("show");
+            selfElement.one(transitionEvent, function(){
+                selfElement.detach();
             });
             if(this.options.destroyOnClose) {
                 this.destroy();
+                selfElement.removeClass("modal")
             }
-            this.$element.trigger('closed');
+            selfElement.trigger('closed');
         },
 
         /**
