@@ -211,14 +211,20 @@ var Mapbender = (function($, Mapbender) {
          * @param  {mixed}  content  New content, if any
          */
         open: function(content) {
+            var self = this;
+
             if(content) {
                 this.setContent(content);
             }
 
             this.$element.trigger('open');
             this.$element.appendTo(this.$container);
-            // @todo: Wait for transition
-            this.$element.trigger('openend');
+            window.setTimeout(function() {
+                self.$element.addClass("show");
+            }, 100);
+            this.$element.one(transitionEvent, function(){
+                self.$element.trigger('openend');
+            });
         },
 
         /**
@@ -226,12 +232,14 @@ var Mapbender = (function($, Mapbender) {
          */
         close: function() {
             this.$element.trigger('close');
-            // @todo: Wait for transition
-            this.$element.detach();
-            this.$element.trigger('closed');
+            this.$element.removeClass("show");
+            this.$element.one(transitionEvent, function(){
+                this.$element.detach();
+            });
             if(this.options.destroyOnClose) {
                 this.destroy();
             }
+            this.$element.trigger('closed');
         },
 
         /**
@@ -373,11 +381,11 @@ var Mapbender = (function($, Mapbender) {
 
             if(typeof content === 'string') {
                 // parse into HTM first
-                contentContainer.append($(content));
+                contentContainer.html(content);
             } else if(content instanceof HTMLElement) {
-                contentContainer.append(content);
+                contentContainer.html(content);
             } else if(content instanceof $) {
-                contentContainer.append(content);
+                contentContainer.html(content);
             } else if(undefined !== content.readyState) {
                 // Ajax can be finished or not
                 if(4 === content.readyState) {
@@ -385,7 +393,7 @@ var Mapbender = (function($, Mapbender) {
                     if(200 == content.status) {
                         contentContainer.apppend(content.responseText);
                     } else {
-                        contentContainer.append($('<div/>', {
+                        contentContainer.html($('<div/>', {
                             'class': 'ajax ajaxFailed',
                             'html': 'Ajax failed.'
                         }));
