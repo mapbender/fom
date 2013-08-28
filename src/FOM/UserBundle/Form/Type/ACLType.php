@@ -116,26 +116,6 @@ class ACLType extends AbstractType
             'property_path' => false,
             'data' => $aces);
 
-        if($isMaster || $isOwner) {
-            // only masters or owners can add new ACEs
-            //XXXVH: buttons selber backen
-            // $aceOptions['widget_add_btn'] = array(
-            //     'label' => '',
-            //     'icon' => 'plus-sign icon-white',
-            //     'attr' => array(
-            //         'class' => 'btn btn-primary btn-mini'));
-
-            // // only masters or owners can delete existing ACEs
-            // $aceOptions['options']['widget_remove_btn'] = array(
-            //     'label' => '',
-            //     'icon' => 'minus-sign',
-            //     'attr' => array(
-            //         'class' => 'btn btn-mini'));
-
-            // only masters or owners can modify existing ACEs
-            // @TODO: Disable "disabled" permissions
-        }
-
         $builder->add('ace', 'collection', $aceOptions);
     }
 
@@ -149,8 +129,6 @@ class ACLType extends AbstractType
             'user' => null,
             'force_master' => false,
             'force_owner' => false
-            // 'widget_control_group_attr' => array(
-            //     'data-aclsid' => $this->router->generate('fom_user_acl_aclsid')
             ));
     }
 

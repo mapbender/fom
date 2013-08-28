@@ -1239,8 +1239,6 @@ fieldset {
     min-width: 0px; }
 
 /* Layer tree */
-.mb-element-layertree .layer-menu-btn, .mb-element-layertree .iconRemove {
-  display: none; }
 .mb-element-layertree .iconFolder {
   display: none;
   margin-right: 5px; }
@@ -1248,7 +1246,8 @@ fieldset {
   width: 20px;
   text-align: center; }
 .mb-element-layertree .serviceContainer, .mb-element-layertree .groupContainer {
-  border-left: dotted 1px black; }
+  border-left: dotted 1px black;
+  margin-bottom: 1px; }
   .mb-element-layertree .serviceContainer > .leaveContainer .iconFolder, .mb-element-layertree .groupContainer > .leaveContainer .iconFolder {
     display: block; }
   .mb-element-layertree .serviceContainer .layers, .mb-element-layertree .groupContainer .layers {
@@ -1272,8 +1271,6 @@ fieldset {
       left: -15px; }
   .mb-element-layertree .serviceContainer .leaveContainer, .mb-element-layertree .groupContainer .leaveContainer {
     margin-left: -6px; }
-.mb-element-layertree .serviceContainer {
-  margin-bottom: 10px; }
 .mb-element-layertree .checkWrapper {
   position: relative; }
 
