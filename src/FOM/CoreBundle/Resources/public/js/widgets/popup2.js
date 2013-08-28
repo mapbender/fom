@@ -225,18 +225,6 @@ var Mapbender = (function($, Mapbender) {
                 selfElement.addClass("show");
             }, 100);
 
-            // modal
-            if(this.options.modal){
-                selfElement.addClass("modal");
-            }
-
-            // close on overlay click
-            if(this.options.closeOnOutsideClick){
-                selfElement.find(".overlay").one("click", function(){
-                    self.close();
-                });
-            }
-
             selfElement.one(transitionEvent, function(){
                 selfElement.trigger('openend');
             });
@@ -354,6 +342,44 @@ var Mapbender = (function($, Mapbender) {
                 subtitleNode.html(subtitle);
             }
             this.options.subtitle = subtitle;
+        },
+
+        /**
+         * Set or get modal
+         * @param  {boolean} state, undefined gets
+         * @return {boolean}
+         */
+        modal: function(state) {
+            if(undefined === state) {
+                return this.options.modal;
+            }
+
+            if(state){
+              this.$element.addClass("modal");
+            }else{
+              this.$element.removeClass("modal");
+            }
+
+            this.options.modal = state;
+        },
+
+        /**
+         * Set or get closeOnOutsideClick
+         * @param  {boolean} state, undefined gets
+         * @return {boolean}
+         */
+        closeOnOutsideClick: function(state) {
+            if(undefined === state) {
+                return this.options.closeOnOutsideClick;
+            }
+
+            if(state){                
+                $('.overlay', this.$element.get(0)).on('click', $.proxy(this.close, this));
+            }else{
+                $('.overlay', this.$element.get(0)).off('click');
+            }
+
+            this.options.closeOnOutsideClick = state;
         },
 
         /**
