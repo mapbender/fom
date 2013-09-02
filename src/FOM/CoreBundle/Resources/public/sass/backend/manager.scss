@@ -156,7 +156,7 @@ body{
 
   & > .content{
     min-height: 600px; 
-    position:relative; 
+    position:relative;
     padding:$space;
     margin:0px;
     background-color:$contentColor;
@@ -167,7 +167,7 @@ body{
     hr{@include pos(0,0,'',0);}
 
     // uuhh baby show me your paper effect ... hrrr
-    &:before, &:after{ 
+    &:before, &:after{
       content:"";
       background-color:$contentColor;
       height:10px; 

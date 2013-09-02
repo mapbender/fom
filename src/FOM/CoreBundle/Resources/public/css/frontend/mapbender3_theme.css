@@ -216,7 +216,7 @@ p, pre, dl, menu, ol, ul {
 .iconRemove:before, .iconOk:before, .iconEdit:before, .iconPublish:before,
 .iconPublishActive:before, .iconAppDefault:before, .iconCancel:before,
 .iconThumbsUp:before, .iconThumbsDown:before, .iconGroup:before, .iconUser:before,
-.iconSettings:before, .iconSignOut:before, .iconSignIn:before, .iconMore:before {
+.iconSettings:before, .iconSignOut:before, .iconSignIn:before, .iconMore:before, .iconCopy:before {
   font-family: FontAwesome; }
 
 .iconCheckboxActive:before {
@@ -390,6 +390,9 @@ p, pre, dl, menu, ol, ul {
 .iconMore:before {
   content: "\f141"; }
 
+.iconCopy:before {
+  content: "\f0c5"; }
+
 /* ------------------------------------------------- MAPBENDER3 RESETS */
 * {
   -webkit-box-sizing: border-box;
@@ -447,11 +450,11 @@ p {
 .smallerText {
   font-size: 10px; }
 
-.smallText, .labelInput, .popup .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
+.smallText, .labelInput, .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
 .sideContent .mb-button, .linkButton, .sidePaneTabItem, .mb-element-overview .toggleOverview, .dropdown, .tabContainer .tab {
   font-size: 12px; }
 
-.bigText, .title, .popup .popupHead {
+.bigText, .title, .popupHead {
   font-size: 16px; }
 
 .biggerText, .contentTitle {
@@ -465,7 +468,7 @@ p {
   border-bottom: dashed 1px #b3b3b3;
   text-shadow: white 1px 1px 0px; }
 
-.title, .popup .popupHead {
+.title, .popupHead {
   font-weight: normal;
   color: #3f3f3f;
   text-shadow: white 1px 1px 0px; }
@@ -481,18 +484,18 @@ fieldset {
     margin: 0px !important;
     padding: 0 5px 0 5px; }
 
-.labelInput, .popup .popupSubTitle, .labelText, .labelCheck {
+.labelInput, .popupSubTitle, .labelText, .labelCheck {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   text-shadow: white 1px 1px 0px; }
 
-.labelInput, .popup .popupSubTitle {
+.labelInput, .popupSubTitle {
   display: inline-block;
   color: #707070;
   line-height: 29px; }
-  .labelInput .required, .popup .popupSubTitle .required {
+  .labelInput .required, .popupSubTitle .required {
     color: #aa2323;
     text-shadow: white 1px 1px 0px; }
 
@@ -680,22 +683,28 @@ fieldset {
 /* ------------------------------------------------ POPUP */
 .overlay {
   background: url("../../images/overlay.png");
-  -webkit-transition: opacity 0.4s ease-in-out;
-  -moz-transition: opacity 0.4s ease-in-out;
-  -o-transition: opacity 0.4s ease-in-out;
-  transition: opacity 0.4s ease-in-out;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  position: fixed;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0; }
+
+.popupHead {
+  margin: 0 20px 20px 20px;
+  padding-bottom: 10px;
+  border-bottom: dashed 1px #b3b3b3; }
+  .popupHead.draggable {
+    cursor: move; }
+
+.popupButtons {
+  margin-right: 20px; }
+
+.popupContent, .popupSubContent {
+  padding: 0 10px 0 20px;
+  margin: 0 20px 20px 0;
+  max-height: 370px;
+  overflow-y: auto; }
 
 .popup {
   position: relative;
@@ -716,19 +725,6 @@ fieldset {
   -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9), inset 0px 0px 2px white;
   -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9), inset 0px 0px 2px white;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9), inset 0px 0px 2px white; }
-  .popup .popupHead {
-    margin: 0 20px 20px 20px;
-    padding-bottom: 10px;
-    border-bottom: dashed 1px #b3b3b3; }
-    .popup .popupHead.draggable {
-      cursor: move; }
-  .popup .popupButtons {
-    margin-right: 20px; }
-  .popup .popupContent, .popup .popupSubContent {
-    padding: 0 10px 0 20px;
-    margin: 0 20px 20px 0;
-    max-height: 370px;
-    overflow-y: auto; }
   .popup.ui-draggable-dragging.popupTransparency {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
     opacity: 0.6; }
@@ -736,30 +732,35 @@ fieldset {
     overflow: visible; }
 
 .popupContainer {
-  position: absolute;
-  width: 0px;
   height: 0px;
+  width: 0px;
   z-index: 999;
-  position: absolute;
+  position: fixed;
   top: 0;
+  right: 0;
   bottom: 0;
-  left: 0;
-  right: 0; }
-  .popupContainer.modal {
-    height: 100%;
-    width: 100%; }
-    .popupContainer.modal .popup {
-      width: 450px; }
-    .popupContainer.modal .buttonCancel, .popupContainer.modal .buttonYes {
-      float: right;
-      margin-left: 3px; }
-  .popupContainer.hint .popup {
-    width: 300px; }
-  .popupContainer.show .overlay {
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
-    opacity: 0.9; }
+  left: 0; }
   .popupContainer.show .popup {
     margin: 80px auto 0 auto; }
+  .popupContainer.show.modal {
+    height: 100%;
+    width: 100%; }
+    .popupContainer.show.modal .overlay {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+      opacity: 0.9;
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      -webkit-transition: opacity 0.4s ease-in-out;
+      -moz-transition: opacity 0.4s ease-in-out;
+      -o-transition: opacity 0.4s ease-in-out;
+      transition: opacity 0.4s ease-in-out; }
+  .popupContainer .button, .popupContainer .sideContent .mb-aboutButton, .sideContent .popupContainer .mb-aboutButton, .popupContainer .sideContent .mb-gpsButton, .sideContent .popupContainer .mb-gpsButton,
+  .popupContainer .sideContent .mb-button,
+  .sideContent .popupContainer .mb-button {
+    margin-left: 3px; }
 
 /* ------------------------------------------------- TABS */
 .tabContainer .tab {
@@ -904,7 +905,7 @@ fieldset {
     .toolBar [class^="icon"]:hover, .toolBar [class*=" icon"]:hover {
       filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
       opacity: 1; }
-  .toolBar .labelInput, .toolBar .popup .popupSubTitle, .popup .toolBar .popupSubTitle {
+  .toolBar .labelInput, .toolBar .popupSubTitle {
     text-shadow: inherit; }
   .toolBar.top {
     padding: 5px 10px 5px 10px;
@@ -1231,7 +1232,7 @@ fieldset {
 .mb-element-printclient {
   display: none;
   overflow: visible; }
-  .mb-element-printclient .labelInput, .mb-element-printclient .popup .popupSubTitle, .popup .mb-element-printclient .popupSubTitle {
+  .mb-element-printclient .labelInput, .mb-element-printclient .popupSubTitle {
     width: 60px; }
   .mb-element-printclient .input, .mb-element-printclient .dropdown {
     width: 190px;

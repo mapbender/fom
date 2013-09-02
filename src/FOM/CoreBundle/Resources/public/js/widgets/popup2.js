@@ -28,7 +28,6 @@
  *   - destroy - just before the popup is destroyed. Last dance, anyone?
  *
  * @TODOs:
- *   - Base CSS
  *   - CSS for following classes:
  *     - noTitle
  *     - noSubTitle
@@ -39,7 +38,6 @@
  *     - ajaxFailed content
  *   - Event handling
  *     - ESC
- *     - Mouse click outside popup
  */
 var Mapbender = (function($, Mapbender) {
 
@@ -128,7 +126,7 @@ var Mapbender = (function($, Mapbender) {
             header: true,
             closeButton: true,
 
-            autoOpen: false,
+            autoOpen: true,
             closeOnESC: true,
             closeOnOutsideClick: false,
             destroyOnClose: false,
@@ -166,10 +164,12 @@ var Mapbender = (function($, Mapbender) {
                     if(undefined === value) {
                         return this.options[key];
                     }
+                    var header = $('.popupHead', this.$element.get(0));
+
                     if(value) {
-                        popup.removeClass('noHeader');
+                        header.removeClass('hidden');
                     } else {
-                        popup.addClass('noHeader');
+                        header.addClass('hidden');
                     }
                 break;
 
@@ -243,7 +243,6 @@ var Mapbender = (function($, Mapbender) {
             });
             if(this.options.destroyOnClose) {
                 this.destroy();
-                selfElement.removeClass("modal")
             }
             selfElement.trigger('closed');
         },
@@ -317,7 +316,7 @@ var Mapbender = (function($, Mapbender) {
             }
 
             if(null === title) {
-                titleNode.empty();
+                titleNode.empty().addClass("hidden");
             } else {
                 titleNode.html(title);
             }
@@ -425,11 +424,14 @@ var Mapbender = (function($, Mapbender) {
 
             if(typeof content === 'string') {
                 // parse into HTM first
-                contentContainer.html(content);
+                contentContainer.append($('<p>', {
+                    'html': content,
+                    'class': 'clear'
+                }));
             } else if(content instanceof HTMLElement) {
-                contentContainer.html(content);
+                contentContainer.append(content);
             } else if(content instanceof $) {
-                contentContainer.html(content);
+                contentContainer.append(content);
             } else if(undefined !== content.readyState) {
                 // Ajax can be finished or not
                 if(4 === content.readyState) {
@@ -437,7 +439,7 @@ var Mapbender = (function($, Mapbender) {
                     if(200 == content.status) {
                         contentContainer.apppend(content.responseText);
                     } else {
-                        contentContainer.html($('<div/>', {
+                        contentContainer.append($('<div/>', {
                             'class': 'ajax ajaxFailed',
                             'html': 'Ajax failed.'
                         }));
