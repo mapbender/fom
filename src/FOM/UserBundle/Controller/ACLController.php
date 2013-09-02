@@ -93,7 +93,7 @@ class ACLController extends Controller
 
     /**
      * @Route("/acl/overview")
-     * @Method({ "POST" })
+     * @Method({ "GET" })
      * @Template("FOMUserBundle:ACL:groups-and-users.html.twig")
      */
     public function overviewAction(){
