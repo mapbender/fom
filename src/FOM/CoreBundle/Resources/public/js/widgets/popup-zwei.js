@@ -363,6 +363,29 @@ var Mapbender = (function($, Mapbender) {
             this.options.modal = state;
         },
 
+
+
+        /**
+         * Set or get closeOnPopupCloseClick
+         * @param  {boolean} state, undefined gets
+         * @return {boolean}
+         */
+        closeOnESC: function(state) {
+            if(undefined === state) {
+                return this.options.closeOnESC;
+            }
+
+            if(state) {
+                var that = this;    
+                $(document).one("keyup", function(e){
+                  if(e.keyCode == 27) that.close();
+                });
+            }
+
+            this.options.closeOnESC = state;
+        },
+
+
         /**
          * Set or get closeOnPopupCloseClick
          * @param  {boolean} state, undefined gets
