@@ -14,6 +14,7 @@ $(document).on('click', '.collectionAdd', function(event) {
         // And finally parse the prototype into a new clean item for insertion.
         item = $($.parseHTML(prototype
             .trim()
+            .replace(/__name__label__/g, '')
             .replace(/__name__/g, index))[0])
             .addClass('collectionItem');
 

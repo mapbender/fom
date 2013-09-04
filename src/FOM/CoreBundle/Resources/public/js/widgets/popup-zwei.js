@@ -249,9 +249,11 @@ var Mapbender = (function($, Mapbender) {
          * @todo: How to do it right
          */
         destroy: function() {
-            this.$element.trigger('destroy');
-            this.$element.remove();
-            this.$element = null;
+            if(this.$element){
+                this.$element.trigger('destroy');
+                this.$element.remove();
+                this.$element = null;
+            }
         },
 
         /**
