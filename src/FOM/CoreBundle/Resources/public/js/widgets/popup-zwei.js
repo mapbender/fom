@@ -216,7 +216,7 @@ var Mapbender = (function($, Mapbender) {
             var selfElement = this.$element;
 
             if(content) {
-                this.setContent(content);
+                this.content(content);
             }
 
             selfElement.trigger('open');
