@@ -129,6 +129,7 @@ var Mapbender = (function($, Mapbender) {
             autoOpen: true,
             closeOnESC: true,
             closeOnOutsideClick: false,
+            closeOnPopupCloseClick: true,
             destroyOnClose: false,
             modal: true,
 
@@ -362,6 +363,50 @@ var Mapbender = (function($, Mapbender) {
             }
 
             this.options.modal = state;
+        },
+
+
+
+        /**
+         * Set or get closeOnPopupCloseClick
+         * @param  {boolean} state, undefined gets
+         * @return {boolean}
+         */
+        closeOnESC: function(state) {
+            if(undefined === state) {
+                return this.options.closeOnESC;
+            }
+
+            if(state) {
+                var that = this;    
+                $(document).one("keyup", function(e){
+                  if(e.keyCode == 27) that.close();
+                });
+            }
+
+            this.options.closeOnESC = state;
+        },
+
+
+        /**
+         * Set or get closeOnPopupCloseClick
+         * @param  {boolean} state, undefined gets
+         * @return {boolean}
+         */
+        closeOnPopupCloseClick: function(state) {
+            if(undefined === state) {
+                return this.options.closeOnPopupCloseClick;
+            }
+
+            if(state){
+                $('.popupClose', this.$element.get(0)).on('click', $.proxy(this.close, this));
+                $('.popupClose', this.$element.get(0)).removeClass('hidden');
+            }else{
+                $('.popupClose', this.$element.get(0)).off('click');
+                $('.popupClose', this.$element.get(0)).addClass('hidden');
+            }
+
+            this.options.closeOnPopupCloseClick = state;
         },
 
         /**
