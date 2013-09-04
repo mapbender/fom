@@ -446,6 +446,9 @@ p {
   border: none;
   border-bottom: dashed 1px #b3b3b3; }
 
+.italic {
+  font-style: italic; }
+
 /* ------------------------------------------------------------- TEXT */
 .smallerText {
   font-size: 10px; }
@@ -688,7 +691,11 @@ fieldset {
   -ms-user-select: none;
   user-select: none;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  opacity: 0; }
+  opacity: 0;
+  -webkit-transition: opacity 0.4s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  -o-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out; }
 
 .popupHead {
   margin: 0 20px 20px 20px;
@@ -709,6 +716,7 @@ fieldset {
 .popup {
   position: relative;
   z-index: 9999;
+  width: 460px;
   margin: -1000px auto 0 auto;
   background-color: #f4f4f4;
   padding: 20px 0;
@@ -742,21 +750,17 @@ fieldset {
   left: 0; }
   .popupContainer.show .popup {
     margin: 80px auto 0 auto; }
-  .popupContainer.show.modal {
+  .popupContainer.modal {
     height: 100%;
     width: 100%; }
-    .popupContainer.show.modal .overlay {
+    .popupContainer.modal .overlay {
       filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
       opacity: 0.9;
       position: fixed;
       top: 0;
       right: 0;
       bottom: 0;
-      left: 0;
-      -webkit-transition: opacity 0.4s ease-in-out;
-      -moz-transition: opacity 0.4s ease-in-out;
-      -o-transition: opacity 0.4s ease-in-out;
-      transition: opacity 0.4s ease-in-out; }
+      left: 0; }
   .popupContainer .button, .popupContainer .sideContent .mb-aboutButton, .sideContent .popupContainer .mb-aboutButton, .popupContainer .sideContent .mb-gpsButton, .sideContent .popupContainer .mb-gpsButton,
   .popupContainer .sideContent .mb-button,
   .sideContent .popupContainer .mb-button {

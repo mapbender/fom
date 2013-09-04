@@ -31,13 +31,9 @@
  *   - CSS for following classes:
  *     - noTitle
  *     - noSubTitle
- *     - noCloseButton
- *     - noHeader
  *     - ajax content
  *     - ajaxWaiting content
  *     - ajaxFailed content
- *   - Event handling
- *     - ESC
  */
 var Mapbender = (function($, Mapbender) {
 
@@ -366,7 +362,7 @@ var Mapbender = (function($, Mapbender) {
 
 
         /**
-         * Set or get closeOnPopupCloseClick
+         * Set or get closeOnESC
          * @param  {boolean} state, undefined gets
          * @return {boolean}
          */
@@ -377,7 +373,7 @@ var Mapbender = (function($, Mapbender) {
 
             if(state) {
                 var that = this;    
-                $(document).one("keyup", function(e){
+                $(document).on("keyup", function(e){
                   if(e.keyCode == 27) that.close();
                 });
             }

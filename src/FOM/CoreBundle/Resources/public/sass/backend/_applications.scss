@@ -268,7 +268,11 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
     }
   }
 }
-
+.elementFormSearchRouter{
+  $label:60px;
+  .labelInput{width:$label;}
+  .input{width:$elementPopupWidth - $label  + $space;}
+}
 
 
 
