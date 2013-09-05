@@ -1485,24 +1485,24 @@ body {
 .elementFormButton .dropdown, .elementFormCoordinates .input, .elementFormCoordinates .dropdown,
 .elementFormRuler .input,
 .elementFormRuler .dropdown, .elementFormScaleDisplay .input, .elementFormScaleDisplay .dropdown {
-  width: 340px; }
+  width: 350px; }
 
 .elementFormGps .labelInput, .elementFormGps .popupSubTitle {
   width: 100px; }
 .elementFormGps .input, .elementFormGps .dropdown {
-  width: 310px; }
+  width: 320px; }
 .elementFormGps .labelCheck {
   margin-right: 20px; }
 
 .elementFormCopyright .labelInput, .elementFormCopyright .popupSubTitle, .elementFormActivity .labelInput, .elementFormActivity .popupSubTitle {
   width: 100px; }
 .elementFormCopyright .dropdown, .elementFormCopyright .input, .elementFormActivity .dropdown, .elementFormActivity .input {
-  width: 310px; }
+  width: 320px; }
 
 .elementFormLegend .labelInput, .elementFormLegend .popupSubTitle {
   width: 90px; }
 .elementFormLegend .dropdown, .elementFormLegend .input {
-  width: 320px; }
+  width: 330px; }
 .elementFormLegend .checkWrapper {
   margin-bottom: 10px; }
 .elementFormLegend .labelCheck {
@@ -1511,7 +1511,7 @@ body {
 .elementFormFeatureInfo .labelInput, .elementFormFeatureInfo .popupSubTitle {
   width: 60px; }
 .elementFormFeatureInfo .dropdown, .elementFormFeatureInfo .input {
-  width: 350px; }
+  width: 360px; }
 .elementFormFeatureInfo .checkWrapper {
   margin-bottom: 10px; }
 .elementFormFeatureInfo .labelCheck {
@@ -1525,10 +1525,10 @@ body {
   .elementFormMap .checkWrapper {
     margin-bottom: 10px; }
   .elementFormMap .dropdown, .elementFormMap .input {
-    width: 280px; }
+    width: 290px; }
   .elementFormMap .singleRow {
     float: right;
-    width: 270px; }
+    width: 280px; }
     .elementFormMap .singleRow .labelInput, .elementFormMap .singleRow .popupSubTitle, .elementFormMap .singleRow > .input {
       float: left; }
     .elementFormMap .singleRow .labelInput, .elementFormMap .singleRow .popupSubTitle {
@@ -1542,7 +1542,7 @@ body {
 .elementFormLayerTree .labelInput, .elementFormLayerTree .popupSubTitle {
   width: 100px; }
 .elementFormLayerTree .dropdown, .elementFormLayerTree .input {
-  width: 310px; }
+  width: 320px; }
 .elementFormLayerTree .checkWrapper {
   margin-bottom: 10px; }
 .elementFormLayerTree .labelCheck {
@@ -1555,7 +1555,7 @@ body {
 .elementFormOverview .labelCheck {
   margin-right: 20px; }
 .elementFormOverview .dropdown, .elementFormOverview .input {
-  width: 340px; }
+  width: 350px; }
 .elementFormOverview .singleRow .labelInput, .elementFormOverview .singleRow .popupSubTitle, .elementFormOverview .singleRow > .input {
   float: left; }
 .elementFormOverview .singleRow .labelInput, .elementFormOverview .singleRow .popupSubTitle {
@@ -1569,7 +1569,7 @@ body {
 .elementFormScaleBar .labelInput, .elementFormScaleBar .popupSubTitle {
   width: 70px; }
 .elementFormScaleBar .dropdown, .elementFormScaleBar .input, .elementFormScaleBar select {
-  width: 340px; }
+  width: 350px; }
 .elementFormScaleBar select {
   margin-bottom: 10px; }
 .elementFormScaleBar .singleRow .labelInput, .elementFormScaleBar .singleRow .popupSubTitle, .elementFormScaleBar .singleRow > .input {
@@ -1589,7 +1589,7 @@ body {
 .elementFormToolbar .labelCheck {
   margin-right: 20px; }
 .elementFormToolbar .dropdown, .elementFormToolbar .input, .elementFormToolbar select {
-  width: 310px; }
+  width: 320px; }
 .elementFormToolbar select {
   margin-bottom: 10px; }
 .elementFormToolbar .singleRow .labelInput, .elementFormToolbar .singleRow .popupSubTitle, .elementFormToolbar .singleRow > .input {
@@ -1605,12 +1605,12 @@ body {
 .elementFormYaml .labelInput, .elementFormYaml .popupSubTitle {
   width: 90px; }
 .elementFormYaml .dropdown, .elementFormYaml .input {
-  width: 320px; }
+  width: 330px; }
 
 .elementFormWmsLoader .labelInput, .elementFormWmsLoader .popupSubTitle {
   width: 110px; }
 .elementFormWmsLoader .dropdown, .elementFormWmsLoader .input {
-  width: 300px; }
+  width: 310px; }
 .elementFormWmsLoader .checkWrapper {
   margin-bottom: 10px; }
 .elementFormWmsLoader .labelCheck {
@@ -1622,7 +1622,7 @@ body {
   .elementFormPrintClient .labelInput, .elementFormPrintClient .popupSubTitle {
     width: 110px; }
   .elementFormPrintClient .dropdown, .elementFormPrintClient .input {
-    width: 260px; }
+    width: 270px; }
   .elementFormPrintClient .checkWrapper {
     margin-bottom: 10px; }
   .elementFormPrintClient .labelCheck {
@@ -1637,10 +1637,26 @@ body {
     .elementFormPrintClient .singleRow .input:first-child {
       margin-right: 10px; }
 
-.elementFormSearchRouter .labelInput, .elementFormSearchRouter .popupSubTitle {
-  width: 60px; }
-.elementFormSearchRouter .input {
-  width: 350px; }
+.elementFormSearchRouter {
+  overflow: auto;
+  max-height: 370px; }
+  .elementFormSearchRouter .labelInput, .elementFormSearchRouter .popupSubTitle {
+    width: 90px; }
+  .elementFormSearchRouter .input {
+    width: 270px; }
+
+.collectionItem {
+  clear: both; }
+  .collectionItem > .labelInput, .collectionItem > .popupSubTitle {
+    display: none; }
+  .collectionItem .labelInput, .collectionItem .popupSubTitle {
+    clear: both; }
+  .collectionItem textarea {
+    height: 100px;
+    margin-bottom: 20px; }
+
+.collectionRemove {
+  line-height: 28px; }
 
 .layersetForm .labelInput, .layersetForm .popupSubTitle {
   width: 40px;

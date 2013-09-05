@@ -269,10 +269,22 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
   }
 }
 .elementFormSearchRouter{
-  $label:60px;
+  $label:90px;
+  overflow: auto;
+  max-height: $popupMaxHeight;
   .labelInput{width:$label;}
-  .input{width:$elementPopupWidth - $label  + $space;}
+  .input{width:$elementPopupWidth - $label - $space*2;}
 }
+.collectionItem{
+  clear:both;
+  & > .labelInput{display:none;}
+  .labelInput{clear:both;}
+  textarea{
+    height:100px;
+    margin-bottom:$space;
+  }
+}
+.collectionRemove{line-height:$inputHeight;}
 
 
 

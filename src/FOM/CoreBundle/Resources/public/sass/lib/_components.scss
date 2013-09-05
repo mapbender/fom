@@ -296,13 +296,13 @@ fieldset{
 .popupContent, .popupSubContent{
   padding:0 $space/2 0 $space;
   margin:0 $space $space 0;  
-  max-height: 370px; // hack hack discothek
+  max-height: $popupMaxHeight; // hack hack discothek
   overflow-y:auto;
 }
 .popup{
   position:relative;
   z-index:9999;
-  width: 460px;
+  width: $popupModalWidth;
   margin:-1000px auto 0 auto;
   background-color:#f4f4f4;
   padding:$space 0;
