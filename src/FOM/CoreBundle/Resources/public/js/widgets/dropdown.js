@@ -1,6 +1,7 @@
+var initDropdown;
 $(function() {
     // init dropdown list --------------------------------------------------------------------
-    var initDropdown = function(){
+    initDropdown = function(){
         var me = $(this);
         var dropdownList = me.find(".dropdownList");
         var childCount = dropdownList.children().length;

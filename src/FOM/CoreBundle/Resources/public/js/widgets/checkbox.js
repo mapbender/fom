@@ -1,5 +1,6 @@
+var initCheckbox;
 $(function() {
-    var initCheckbox = function(){
+    initCheckbox = function(){
         var me     = $(this);
         var parent = me.parent(".checkWrapper");
 
