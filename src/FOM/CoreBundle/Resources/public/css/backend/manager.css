@@ -1248,13 +1248,11 @@ body {
   .navItem a:before {
     margin-right: 5px; }
   .navItem a:hover {
-    color: #3f3f3f;
-    background: url("../../fomcore/images/nav_arrow_active.png") left center no-repeat; }
+    color: #3f3f3f; }
 .navItem.activeItem {
   display: block; }
   .navItem.activeItem > a {
-    color: #5b932a !important;
-    background: url("../../fomcore/images/nav_arrow_active.png") left center no-repeat; }
+    color: #5b932a !important; }
 
 .rightPane {
   width: 800px;

@@ -120,17 +120,11 @@ body{
     @include text-shadow(1px 1px 0px $lightFontColor);
     @include transition(color 0.2s linear);
 
-    &:hover{
-      color:$darkFontColor;
-      background:url("../../fomcore/images/nav_arrow_active.png") left center no-repeat;
-    }
+    &:hover{color:$darkFontColor;}
   }
   &.activeItem {
     display: block;
-    & > a{
-      color: $ciColor !important;
-      background:url("../../fomcore/images/nav_arrow_active.png") left center no-repeat;
-    }
+    & > a{color: $ciColor !important;}
   }
 }
 
