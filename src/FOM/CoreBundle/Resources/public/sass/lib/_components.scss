@@ -299,6 +299,7 @@ fieldset{
   max-height: $popupMaxHeight; // hack hack discothek
   overflow-y:auto;
 }
+.popupSubContent{width: $popupModalWidth;}
 .popup{
   position:relative;
   z-index:9999;
@@ -312,7 +313,6 @@ fieldset{
   @include box-shadow(1px 1px 2px rgba(0, 0, 0, 0.9),
                       inset 0px 0px 2px #fff);
 
-  &.ui-draggable-dragging.popupTransparency{@include opacity(0.6);}
   &.popupOverflow{
     .popupContent, .popupSubContent{overflow:visible;}
   }
@@ -324,9 +324,9 @@ fieldset{
   z-index:999;
   @include fixed(0 0 0 0);
 
-  &.show{
-    .popup{margin:80px auto 0 auto;}
-  }
+  &.show .popup{margin:80px auto 0 auto;}
+  &.ui-draggable-dragging{@include opacity(0.6);}
+  &.ui-draggable .popupHead{cursor:move;}
   &.modal{
     height:100%;
     width:100%;

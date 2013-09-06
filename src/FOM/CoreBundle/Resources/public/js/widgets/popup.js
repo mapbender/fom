@@ -425,6 +425,27 @@ var Mapbender = (function($, Mapbender) {
         },
 
         /**
+         * Set or get draggable
+         * @param  {boolean} state, undefined gets
+         * @return {boolean}
+         */
+        draggable: function(state) {
+            if(undefined === state) {
+                return this.options.draggable;
+            }
+
+            if(state){        
+                this.$element.draggable({
+                  handle: $('.popupHead', this.$element)
+                });
+            }else{
+                this.$element.draggable("destroy");
+            }
+
+            this.options.draggable = state;
+        },
+
+        /**
          * Set or get contents
          *
          * Contents may be:
