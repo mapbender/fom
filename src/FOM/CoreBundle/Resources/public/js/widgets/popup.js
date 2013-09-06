@@ -438,8 +438,6 @@ var Mapbender = (function($, Mapbender) {
                 this.$element.draggable({
                   handle: $('.popupHead', this.$element)
                 });
-            }else{
-                this.$element.draggable("destroy");
             }
 
             this.options.draggable = state;
