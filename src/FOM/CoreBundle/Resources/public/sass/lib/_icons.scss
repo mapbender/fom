@@ -50,7 +50,7 @@
 .iconRemove, .iconOk, .iconEdit, .iconPublish, 
 .iconPublishActive, .iconAppDefault, .iconCancel, 
 .iconThumbsUp, .iconThumbsDown, .iconGroup, .iconUser, 
-.iconSettings, .iconSignOut, .iconSignIn, .iconMore{
+.iconSettings, .iconSignOut, .iconSignIn, .iconMore, .iconCopy{
   &:before{font-family: FontAwesome;}
 }
 
@@ -116,3 +116,4 @@
 .iconSignOut:before{content:"\f08b";}
 .iconSignIn:before{content:"\f090";}
 .iconMore:before{content:"\f141";}
+.iconCopy:before{content:"\f0c5";}

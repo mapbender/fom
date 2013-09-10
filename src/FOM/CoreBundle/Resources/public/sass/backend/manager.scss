@@ -120,17 +120,11 @@ body{
     @include text-shadow(1px 1px 0px $lightFontColor);
     @include transition(color 0.2s linear);
 
-    &:hover{
-      color:$darkFontColor;
-      background:url("../../fomcore/images/nav_arrow_active.png") left center no-repeat;
-    }
+    &:hover{color:$darkFontColor;}
   }
   &.activeItem {
     display: block;
-    & > a{
-      color: $ciColor !important;
-      background:url("../../fomcore/images/nav_arrow_active.png") left center no-repeat;
-    }
+    & > a{color: $ciColor !important;}
   }
 }
 
@@ -156,7 +150,7 @@ body{
 
   & > .content{
     min-height: 600px; 
-    position:relative; 
+    position:relative;
     padding:$space;
     margin:0px;
     background-color:$contentColor;
@@ -167,7 +161,7 @@ body{
     hr{@include pos(0,0,'',0);}
 
     // uuhh baby show me your paper effect ... hrrr
-    &:before, &:after{ 
+    &:before, &:after{
       content:"";
       background-color:$contentColor;
       height:10px; 

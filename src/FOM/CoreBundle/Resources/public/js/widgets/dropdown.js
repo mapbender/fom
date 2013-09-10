@@ -1,19 +1,24 @@
+var initDropdown;
 $(function() {
     // init dropdown list --------------------------------------------------------------------
-    var initDropdown = function(){
+    initDropdown = function(){
         var me = $(this);
         var dropdownList = me.find(".dropdownList");
         var childCount = dropdownList.children().length;
 
         if(childCount == 0){
-            var newElement;
+            var newElement, select;
 
             me.find("option").each(function(i, e){
                 $(e).addClass("opt-" + i)
                 newElement = $('<li class="item-' + i + '">' + $(e).text() + '</li>')
                 dropdownList.append(newElement);
             });
-            me.find(".dropdownValue").text(me.find("option:first").text())
+
+            select = (me.find("option[selected=selected]").length > 0) ? "option[selected=selected]" 
+                                                                       : "option:first";
+
+            me.find(".dropdownValue").text(me.find(select).text())
         }
 
     }
