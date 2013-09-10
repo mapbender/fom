@@ -67,7 +67,7 @@
 {% endblock collection_widget %}
 
 {% block textarea_widget %}
-  <div class="inputWrapper" {{ block('widget_attribute_class') }}>
+  <div class="inputWrapper {{ block('widget_attribute_class') }}">
     {% spaceless %}
       <textarea class="input validationInput" {{ block('widget_attributes') }}>{{ value }}</textarea>
       {% if errors|length > 0 %}
