@@ -142,7 +142,6 @@ $(function() {
                         url: url,
                         complete: function() {
                             var groupUserItem, text, me, groupUserType;
-                            console.log($("#listFilterGroupsAndUsers"));
 
                             $("#listFilterGroupsAndUsers").find(".filterItem").each(function(i, e){
 

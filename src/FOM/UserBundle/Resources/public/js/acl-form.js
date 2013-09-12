@@ -15,7 +15,6 @@
             return $.get(acl_provider, {
                 query: query
             }, function(data) {
-                console.log(data);
                 return process_callback(data);
             });
 
