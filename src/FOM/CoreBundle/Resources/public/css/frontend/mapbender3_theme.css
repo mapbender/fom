@@ -753,8 +753,10 @@ fieldset {
   .popupContainer.ui-draggable-dragging {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
     opacity: 0.6; }
-  .popupContainer.ui-draggable .popupHead {
-    cursor: move; }
+  .popupContainer.ui-draggable {
+    position: absolute !important; }
+    .popupContainer.ui-draggable .popupHead {
+      cursor: move; }
   .popupContainer.modal {
     height: 100%;
     width: 100%; }
