@@ -1280,7 +1280,8 @@ fieldset {
       top: 10px;
       left: -15px; }
   .mb-element-layertree .serviceContainer .leaveContainer, .mb-element-layertree .groupContainer .leaveContainer {
-    margin-left: -6px; }
+    margin-left: -6px;
+    margin-top: 1px; }
 .mb-element-layertree .checkWrapper {
   position: relative; }
 

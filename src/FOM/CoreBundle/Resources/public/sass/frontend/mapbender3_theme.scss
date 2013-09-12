@@ -389,7 +389,10 @@
         @include pos(10px,'','',-15px);
       }
     }
-    .leaveContainer{margin-left:-6px;}
+    .leaveContainer{
+      margin-left:-6px;
+      margin-top:1px; // Fix for Firefox
+    }
   }
   .checkWrapper{position: relative;}
 }
