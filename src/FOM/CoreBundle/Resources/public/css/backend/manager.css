@@ -1396,7 +1396,7 @@ body {
     float: left;
     display: block;
     margin-bottom: 10px; }
-  .applicationTabContainer .containerBaseData textarea, .applicationTabContainer .containerBaseData input {
+  .applicationTabContainer .containerBaseData textarea, .applicationTabContainer .containerBaseData input, .applicationTabContainer .containerBaseData .dropdown {
     width: 300px; }
   .applicationTabContainer .containerBaseData textarea {
     height: 100px; }

@@ -126,9 +126,15 @@
     {% else %}
       <div class="dropdown {{ block('widget_attribute_class') }}" >
         {% set selectedValue = "" %}
+        {% set firstValue = "" %}
 
         <select class="hiddenDropdown" {{ block('widget_attributes') }}>
           {% for choice in choices %}
+
+            {% if loop.index == 1 %}
+              {% set firstValue = choice.label %}
+            {% endif %}
+
             {% if choice is selectedchoice(value) %}
               {% set selectedValue = choice.label|trans({}, translation_domain) %}
             {% endif %}
@@ -137,7 +143,13 @@
           {% endfor %}
         </select>
 
-        <div class="dropdownValue iconDown">{{ selectedValue }}</div>
+        <div class="dropdownValue iconDown">
+          {% if selectedValue|length == 0 %}
+            {{ firstValue }}
+          {% else %}
+            {{ selectedValue }}
+          {% endif %}
+        </div>
         <ul class="dropdownList">
           {% for choice in choices %}
             <li class="item-{{ loop.index }}">{{ choice.label|trans({}, translation_domain) }}</li>
