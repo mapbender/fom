@@ -483,14 +483,17 @@ var Mapbender = (function($, Mapbender) {
             }
 
             this.contents.push(content);
-
+            
+            var elementPrototype = typeof HTMLElement !== "undefined"
+                                   ? HTMLElement : Element;
+            
             if(typeof content === 'string') {
                 // parse into HTM first
                 contentContainer.append($('<p>', {
                     'html': content,
                     'class': 'clear'
                 }));
-            } else if(content instanceof HTMLElement) {
+            } else if(content instanceof elementPrototype) {
                 contentContainer.append(content);
             } else if(content instanceof $) {
                 contentContainer.append(content);
