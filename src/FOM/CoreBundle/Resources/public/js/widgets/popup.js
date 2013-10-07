@@ -374,7 +374,7 @@ var Mapbender = (function($, Mapbender) {
             }
 
             if(state) {
-                var that = this;    
+                var that = this;
                 $(document).on("keyup", function(e){
                   if(e.keyCode == 27) that.close();
                 });
@@ -415,7 +415,7 @@ var Mapbender = (function($, Mapbender) {
                 return this.options.closeOnOutsideClick;
             }
 
-            if(state){                
+            if(state){
                 $('.overlay', this.$element.get(0)).on('click', $.proxy(this.close, this));
             }else{
                 $('.overlay', this.$element.get(0)).off('click');
@@ -434,7 +434,7 @@ var Mapbender = (function($, Mapbender) {
                 return this.options.draggable;
             }
 
-            if(state){        
+            if(state){
                 this.$element.draggable({
                   handle: $('.popupHead', this.$element)
                 });
@@ -483,49 +483,49 @@ var Mapbender = (function($, Mapbender) {
             }
 
             this.contents.push(content);
-            
+
+            var contentItem = $('<div class="contentItem"/>');
+
             var elementPrototype = typeof HTMLElement !== "undefined"
                                    ? HTMLElement : Element;
-            
+
             if(typeof content === 'string') {
                 // parse into HTM first
-                contentContainer.append($('<p>', {
+                contentItem.append($('<p>', {
                     'html': content,
                     'class': 'clear'
                 }));
             } else if(content instanceof elementPrototype) {
-                contentContainer.append(content);
+                contentItem.append(content);
             } else if(content instanceof $) {
-                contentContainer.append(content);
+                contentItem.append(content);
             } else if(undefined !== content.readyState) {
                 // Ajax can be finished or not
                 if(4 === content.readyState) {
                     // If finished, insert result or failure notice
                     if(200 == content.status) {
-                        contentContainer.apppend(content.responseText);
+                        contentItem.apppend(content.responseText);
                     } else {
-                        contentContainer.append($('<div/>', {
-                            'class': 'ajax ajaxFailed',
-                            'html': 'Ajax failed.'
-                        }));
+                        contentItem
+                            .addClass('ajax ajaxFailed')
+                            .html('Ajax failed.');
                     }
                 } else {
                     // If not finished, insert placeholder and wait until
                     // request has returned
-                    var placeholder = $('<div/>', {
-                        'class': 'ajax ajaxWaiting',
-                        'html': 'Loading...'
-                    }).appendTo(contentContainer);
+                    contentItem
+                        .addClass('ajax ajaxWaiting')
+                        .html('Loading...');
                     content
                         .done(function(responseText, state, jqXHR) {
-                            placeholder
+                            contentItem
                                 .empty()
                                 .append(responseText)
                                 .removeClass('ajaxWaiting');
 
                         })
                         .fail(function(jqXHR, state, message) {
-                            placeholder
+                            contentItem
                             .empty()
                             .append(message)
                             .removeClass('ajaxWaiting')
@@ -533,6 +533,7 @@ var Mapbender = (function($, Mapbender) {
                         });
                 }
             }
+            contentContainer.append(contentItem);
         },
 
         /**
