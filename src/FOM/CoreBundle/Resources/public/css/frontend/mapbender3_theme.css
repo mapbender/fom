@@ -291,6 +291,12 @@ p, pre, dl, menu, ol, ul {
 .iconWms:before {
   content: "\f0ac"; }
 
+.iconWmcEditor:before {
+  content: "\f044"; }
+
+.iconWmcLoader:before {
+  content: "\f07c"; }
+
 .iconOpen:before, .sidePaneTabItem:before, .mb-element-overview.closed .toggleOverview:before {
   content: "\f067"; }
 
