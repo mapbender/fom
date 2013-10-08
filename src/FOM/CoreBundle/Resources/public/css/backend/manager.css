@@ -292,6 +292,12 @@ p, pre, dl, menu, ol, ul {
 .iconWms:before {
   content: "\f0ac"; }
 
+.iconWmcEditor:before {
+  content: "\f044"; }
+
+.iconWmcLoader:before {
+  content: "\f07c"; }
+
 .iconOpen:before {
   content: "\f067"; }
 

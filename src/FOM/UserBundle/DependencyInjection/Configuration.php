@@ -50,9 +50,14 @@ class Configuration implements ConfigurationInterface {
                     ->prototype('scalar')->end()
                     ->defaultValue(array())
                 ->end()
+                ->scalarNode('use_sspi')
+                    ->defaultFalse()
+                ->end()
+                ->scalarNode('trust_sspi')
+                    ->defaultFalse()
+                ->end()
             ->end();
 
         return $treeBuilder;
     }
 }
-

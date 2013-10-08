@@ -11,7 +11,7 @@ $(function() {
         if(me.is(":disabled")){
             parent.addClass("checkboxDisabled");
         }
-    }
+    };
     var toggleCheckBox = function(){
         var me       = $(this);
         var checkbox = me.find(".checkbox");
@@ -23,13 +23,13 @@ $(function() {
                 me.removeClass("iconCheckboxActive");
                 checkbox.get(0).checked = false;
             }else{
-                me.addClass("iconCheckboxActive") 
+                me.addClass("iconCheckboxActive");
                 checkbox.get(0).checked = true;
             }
         }
-
+        
         checkbox.trigger('change');
-    }
+    };
     $(window).on('load', function() {
         $('.checkbox').each(function() {
             initCheckbox.call(this);
