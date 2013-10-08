@@ -129,31 +129,29 @@
 .sidePane{
   overflow: visible;
   background-image:url($contentPatternUrl);
-  border-top:solid 3px $firstColor;
-  border-bottom:solid 3px $firstColor;
+  border-top:1px solid darken(white, 30%);
+  border-bottom:1px solid darken(white, 30%);
   @include transition(all 0.4s ease-in-out);
 
   // style for the left side pane
   &.left{
-    border-right:solid 3px $firstColor;
+    border-right:1px solid darken(white, 30%);
     @include box-shadow(3px 0px 8px rgba(0, 0, 0, 0.1));
   }
 
   // style for the right side pane
   &.right{
-    border-left:solid 3px $firstColor;
+    border-left:1px solid darken(white, 30%);
     @include box-shadow(-3px 0px 8px rgba(0, 0, 0, 0.1));
   }
-
-  &.opened{
-    .sideContent{@include opacity(1);padding:$space;}
-    .sidePaneTabItem{@extend .iconClose;}
-  }
-
   .sideContent{
-    overflow: auto;
-    @include opacity(0);
+    overflow: hidden;
+    padding:$space;
   }
+}
+.sidePaneOpened{
+  .sideContent{overflow: auto;}
+  .sidePaneTabItem{@extend .iconClose;}
 }
 /* -------------------------------------------- ELEMENTS */
 

@@ -19,6 +19,10 @@ $topPaneHeight: 70px;
 
 
 /* ---------------------------------------------------------- CONTENT */
+.templateWrapper{
+  margin:0 auto;
+  @include absolute(0 0 0 0);
+}
 .contentPane{
   width:100%;
   height:100%;
@@ -73,6 +77,6 @@ $tabSize:32px;
     @include pos($topPaneHeight,0,0,'');
     .sidePaneTabs{left:-$tabSize;}
   }
-  &.opened{width:350px;}
   .sideContent{@include stretch();}
 }
+.sidePaneOpened .sidePane{width:350px;}

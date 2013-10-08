@@ -18,10 +18,14 @@
 
 
 /* ---------------------------------------------------------- CONTENT */
+.templateWrapper{
+  margin:0 auto;
+  @include absolute(0 0 0 0);
+}
 .contentPane{
   width:100%;
   height:100%;
-  @include pos(0,'','',0);
+  @include absolute(0 '' '' 0);
   .left-top, .right-top, .left-bottom, .right-bottom{z-index: 10;}
 
   /* Positioning */
@@ -70,6 +74,6 @@ $tabSize:32px;
     @include pos(80px,0,$space*3,'');
     .sidePaneTabs{left:-$tabSize;}
   }
-  &.opened{width:350px;}
   .sideContent{@include stretch();}
 }
+.sidePaneOpened .sidePane{width:350px;}
