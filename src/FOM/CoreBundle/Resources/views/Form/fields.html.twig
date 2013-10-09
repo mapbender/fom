@@ -126,25 +126,19 @@
     {% else %}
       <div class="dropdown {{ block('widget_attribute_class') }}" >
         {% set selectedValue = "" %}
-              
-        <select class="hiddenDropdown{% if attr is defined and attr.class is defined %} {{ attr.class }}{% endif %}" {{ block('widget_attributes') }}>
-          {% if empty_value is defined %}
-            <option class="opt-0" selected="selected" value="">{{ empty_value|trans({}, translation_domain) }}</option>
-            {% set selectedValue = empty_value|trans({}, translation_domain) %}
-          {% endif %}
+
+        <select class="hiddenDropdown" {{ block('widget_attributes') }}>
           {% for choice in choices %}
             {% if choice is selectedchoice(value) %}
               {% set selectedValue = choice.label|trans({}, translation_domain) %}
             {% endif %}
+
             <option class="opt-{{ loop.index }}" {% if choice is selectedchoice(value) %} selected="selected" {% endif %} value="{{ choice.value }}">{{ choice.label|trans({}, translation_domain) }}</option>
           {% endfor %}
         </select>
 
         <div class="dropdownValue iconDown">{{ selectedValue }}</div>
         <ul class="dropdownList">
-          {% if empty_value is defined %}
-            <li class="item-0" value="">{{ empty_value|trans({}, translation_domain) }}</li>
-          {% endif %}
           {% for choice in choices %}
             <li class="item-{{ loop.index }}">{{ choice.label|trans({}, translation_domain) }}</li>
           {% endfor %}
@@ -157,7 +151,7 @@
 {% block checkbox_widget %}
   {% spaceless %}
     <div class="checkWrapper left iconCheckbox{% if checked %} iconCheckboxActive{% endif %} {% if disabled %} checkboxDisabled{% endif %}">
-      <input class="checkbox{% if attr is defined and attr.class is defined %} {{ attr.class }}{% endif %}" type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+      <input class="checkbox" type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
     </div>
   {% endspaceless %}
 {% endblock checkbox_widget %}
