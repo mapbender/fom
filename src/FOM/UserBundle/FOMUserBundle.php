@@ -4,6 +4,7 @@ namespace FOM\UserBundle;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use FOM\UserBundle\DependencyInjection\Factory\LdapSecurityFactory;
+use FOM\UserBundle\DependencyInjection\Factory\SspiFactory;
 use FOM\ManagerBundle\Component\ManagerBundle;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 
@@ -18,6 +19,7 @@ class FOMUserBundle extends ManagerBundle
     {
         $extension = $container->getExtension('security');
         $extension->addSecurityListenerFactory(new LdapSecurityFactory());
+        $extension->addSecurityListenerFactory(new SspiFactory());
     }
 
     /**

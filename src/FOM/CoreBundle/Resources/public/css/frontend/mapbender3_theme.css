@@ -291,6 +291,12 @@ p, pre, dl, menu, ol, ul {
 .iconWms:before {
   content: "\f0ac"; }
 
+.iconWmcEditor:before {
+  content: "\f044"; }
+
+.iconWmcLoader:before {
+  content: "\f07c"; }
+
 .iconOpen:before, .sidePaneTabItem:before, .mb-element-overview.closed .toggleOverview:before {
   content: "\f067"; }
 
@@ -454,7 +460,7 @@ p {
   font-size: 10px; }
 
 .smallText, .labelInput, .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
-.sideContent .mb-button, .linkButton, .sidePaneTabItem, .mb-element-overview .toggleOverview, .dropdown, .tabContainer .tab {
+.sideContent .mb-button, .linkButton, .mb-element-searchrouter tr, .sidePaneTabItem, .mb-element-overview .toggleOverview, .dropdown, .tabContainer .tab {
   font-size: 12px; }
 
 .bigText, .title, .popupHead {
@@ -476,7 +482,7 @@ p {
   color: #3f3f3f;
   text-shadow: white 1px 1px 0px; }
 
-.subTitle, fieldset legend, .mb-element-layertree .serviceContainer > .leaveContainer .layer-title, .mb-element-layertree .groupContainer > .leaveContainer .layer-title {
+.subTitle, fieldset legend, .mb-element-layertree .serviceContainer > .leaveContainer .layer-title, .mb-element-layertree .groupContainer > .leaveContainer .layer-title, .mb-element-searchrouter th {
   font-size: 14px;
   color: #5b932a;
   text-shadow: white 1px 1px 0px; }
@@ -537,7 +543,7 @@ fieldset {
 
 /* BUTTON */
 .buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
-.sideContent .mb-button, .button.critical, .linkButton, .sidePaneTabItem, .mb-element-overview .toggleOverview {
+.sideContent .mb-button, .button.critical, .linkButton, .mb-element-searchrouter tr, .sidePaneTabItem, .mb-element-overview .toggleOverview {
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -606,12 +612,12 @@ fieldset {
       -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535;
       box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535; }
 
-.linkButton {
+.linkButton, .mb-element-searchrouter tr {
   color: #707070;
   text-shadow: white 1px 1px 0px; }
-  .linkButton:before {
+  .linkButton:before, .mb-element-searchrouter tr:before {
     margin-right: 5px; }
-  .linkButton:hover, .linkButton.activeLink, .linkButton:active {
+  .linkButton:hover, .mb-element-searchrouter tr:hover, .linkButton.activeLink, .mb-element-searchrouter tr.activeLink, .linkButton:active, .mb-element-searchrouter tr:active {
     color: #5b932a; }
 
 /* CHECKBOX */
@@ -1292,6 +1298,42 @@ fieldset {
   display: none; }
 
 /* Search router */
+.mb-element-searchrouter {
+  display: none; }
+  .mb-element-searchrouter .labelInput, .mb-element-searchrouter .popupSubTitle {
+    width: 90px;
+    float: left; }
+  .mb-element-searchrouter .dropdown, .mb-element-searchrouter .input {
+    float: left;
+    width: 310px;
+    margin-bottom: 20px; }
+  .mb-element-searchrouter .ui-helper-hidden-accessible {
+    display: none; }
+  .mb-element-searchrouter .search-results {
+    max-height: 200px;
+    overflow-y: auto; }
+  .mb-element-searchrouter th {
+    text-align: left; }
+  .mb-element-searchrouter td {
+    padding-right: 10px; }
+
+.ui-autocomplete {
+  z-index: 1000;
+  background-color: #FFF;
+  color: #858585;
+  cursor: pointer;
+  line-height: 29px;
+  max-width: 310px;
+  max-height: 200px;
+  overflow: auto;
+  border: solid 1px #c8c8c8;
+  font-size: 12px; }
+  .ui-autocomplete li {
+    padding-left: 5px; }
+    .ui-autocomplete li:hover {
+      color: #5b932a;
+      background-color: #f9f9f9; }
+
 /* ----------------------------------------------------------- TOOLBAR */
 /* ----------------------------------------------- ELEMENTS */
 .toolBar .mb-element-scaleline {
