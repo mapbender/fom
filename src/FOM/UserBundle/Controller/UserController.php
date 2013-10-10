@@ -127,40 +127,48 @@ class UserController extends Controller {
             $user->setRegistrationTime(new \DateTime());
 
             $em = $this->getDoctrine()->getEntityManager();
-            $em->persist($user);
-            $em->flush();
+            $em->getConnection()->beginTransaction();
 
-            if($form->has('acl')) {
-                $aclManager = $this->get('fom.acl.manager');
-                $aclManager->setObjectACLFromForm($user, $form->get('acl'),
-                    'object');
-            }
-
-            // Check and persists profile if exists
-            $profile = $user->getProfile();
-            if($profile) {
-                $em->persist($profile);
-            }
-
-            $em->flush();
-
-            // Make sure, the new user has VIEW & EDIT permissions
-            $aclProvider = $this->get('security.acl.provider');
-            $maskBuilder = new MaskBuilder();
-
-            $usid = UserSecurityIdentity::fromAccount($user);
-            $uoid = ObjectIdentity::fromDomainObject($user);
-            $umask = $maskBuilder
-                ->add('VIEW')
-                ->add('EDIT')
-                ->get();
             try {
-                $acl = $aclProvider->findAcl($uoid);
-            } catch(\Exception $e) {
-                $acl = $aclProvider->createAcl($uoid);
+                $em->persist($user);
+                $em->flush();
+
+                if($form->has('acl')) {
+                    $aclManager = $this->get('fom.acl.manager');
+                    $aclManager->setObjectACLFromForm($user, $form->get('acl'),
+                                                      'object');
+                }
+
+                // Check and persists profile if exists
+                $profile = $user->getProfile();
+                if($profile) {
+                    $em->persist($profile);
+                }
+
+                $em->flush();
+
+                // Make sure, the new user has VIEW & EDIT permissions
+                $aclProvider = $this->get('security.acl.provider');
+                $maskBuilder = new MaskBuilder();
+
+                $usid = UserSecurityIdentity::fromAccount($user);
+                $uoid = ObjectIdentity::fromDomainObject($user);
+                $umask = $maskBuilder
+                    ->add('VIEW')
+                    ->add('EDIT')
+                    ->get();
+                try {
+                    $acl = $aclProvider->findAcl($uoid);
+                } catch(\Exception $e) {
+                    $acl = $aclProvider->createAcl($uoid);
+                }
+                $acl->insertObjectAce($usid, $umask);
+                $aclProvider->updateAcl($acl);
+                $em->getConnection()->commit();
+            } catch (\Exception $e) {
+                $em->getConnection()->rollback();
+                throw $e;
             }
-            $acl->insertObjectAce($usid, $umask);
-            $aclProvider->updateAcl($acl);
 
             $this->get('session')->setFlash('success',
                 'The user has been saved.');
@@ -308,11 +316,11 @@ class UserController extends Controller {
         if($user->getId() === 1) {
             throw new NotFoundHttpException('The root user can not be deleted');
         }
-        
+
         $aclProvider = $this->get('security.acl.provider');
         $oid = ObjectIdentity::fromDomainObject($user);
         $aclProvider->deleteAcl($oid);
-        
+
         // ACL access check
         $securityContext = $this->get('security.context');
         if(false === $securityContext->isGranted('DELETE', $user)) {
@@ -372,4 +380,3 @@ class UserController extends Controller {
         );
     }
 }
-
