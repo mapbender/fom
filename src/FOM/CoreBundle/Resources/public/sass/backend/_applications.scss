@@ -68,7 +68,7 @@
 }
 .elementsTable{
   tbody tr{cursor:move;}
-  .typeColumn{width:35%;} // very ugly, but fixing the scale behaviour by dragging at the moment
+  .typeColumn{width:30%;} // very ugly, but fixing the scale behaviour by dragging at the moment
   .titleColumn{width:50%;}
   .ui-sortable-helper{background-color:darken($contentColor, 3%)}
   .placeholderRow{height:$space;}

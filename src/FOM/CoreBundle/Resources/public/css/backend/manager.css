@@ -217,7 +217,7 @@ p, pre, dl, menu, ol, ul {
 .applicationTabContainer .containerLayers .iconCheckboxActive:before, .iconAppDefault:before, .iconCancel:before,
 .iconThumbsUp:before,
 .flashBox.success:before, .iconThumbsDown:before, .iconGroup:before, .iconUser:before,
-.iconSettings:before, .iconSignOut:before, .iconSignIn:before, .iconMore:before, .iconCopy:before {
+.iconSettings:before, .iconSignOut:before, .iconSignIn:before, .iconMore:before, .iconCopy:before, .iconKey:before {
   font-family: FontAwesome; }
 
 .iconCheckboxActive:before {
@@ -399,6 +399,9 @@ p, pre, dl, menu, ol, ul {
 
 .iconCopy:before {
   content: "\f0c5"; }
+
+.iconKey:before {
+  content: "\f084"; }
 
 /* ------------------------------------------------- MAPBENDER3 RESETS */
 * {
@@ -1424,7 +1427,7 @@ body {
 .elementsTable tbody tr {
   cursor: move; }
 .elementsTable .typeColumn {
-  width: 35%; }
+  width: 30%; }
 .elementsTable .titleColumn {
   width: 50%; }
 .elementsTable .ui-sortable-helper {
