@@ -143,6 +143,7 @@
             {% if choice is selectedchoice(value) %}
               {% set selectedValue = choice.label|trans({}, translation_domain) %}
             {% endif %}
+
             <option class="opt-{{ loop.index }}" {% if choice is selectedchoice(value) %} selected="selected" {% endif %} value="{{ choice.value }}">{{ choice.label|trans({}, translation_domain) }}</option>
           {% endfor %}
         </select>
@@ -170,7 +171,7 @@
 {% block checkbox_widget %}
   {% spaceless %}
     <div class="checkWrapper left iconCheckbox{% if checked %} iconCheckboxActive{% endif %} {% if disabled %} checkboxDisabled{% endif %}">
-      <input class="checkbox{% if attr is defined and attr.class is defined %} {{ attr.class }}{% endif %}" type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+      <input class="checkbox" type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
     </div>
   {% endspaceless %}
 {% endblock checkbox_widget %}
