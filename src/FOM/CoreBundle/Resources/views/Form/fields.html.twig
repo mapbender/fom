@@ -128,7 +128,7 @@
         {% set selectedValue = "" %}
 
         <select class="hiddenDropdown" {{ block('widget_attributes') }}>
-          {% if empty_value is defined %}
+          {% if empty_value is not none %}
             <option class="opt-0" selected="selected" value="">{{ empty_value|trans({}, translation_domain) }}</option>
             {% set selectedValue = empty_value|trans({}, translation_domain) %}
           {% endif %}
@@ -143,7 +143,7 @@
 
         <div class="dropdownValue iconDown">{{ selectedValue }}</div>
         <ul class="dropdownList">
-          {% if empty_value is defined %}
+          {% if empty_value is not none %}
             <li class="item-0" value="">{{ empty_value|trans({}, translation_domain) }}</li>
           {% endif %}
           {% for choice in choices %}
