@@ -695,7 +695,7 @@ fieldset {
 
 .popupHead {
   margin: 0 20px 20px 20px;
-  padding-bottom: 10px;
+  padding: 20px 0 10px 0;
   border-bottom: dashed 1px #b3b3b3; }
   .popupHead.draggable {
     cursor: move; }
@@ -718,7 +718,7 @@ fieldset {
   width: 460px;
   margin: -1000px auto 0 auto;
   background-color: #f4f4f4;
-  padding: 20px 0;
+  padding-bottom: 20px;
   background-image: url("../../images/content.png");
   -webkit-transition: margin 0.4s ease-in-out;
   -moz-transition: margin 0.4s ease-in-out;
@@ -1481,21 +1481,9 @@ body {
   height: 150px;
   resize: none; }
 
-.elementFormAbout .labelInput, .elementFormAbout .popupSubTitle, .elementFormSrs .labelInput, .elementFormSrs .popupSubTitle,
-.elementFormScaleSelector .labelInput,
-.elementFormScaleSelector .popupSubTitle, .elementFormActivity .labelInput, .elementFormActivity .popupSubTitle,
-.elementFormButton .labelInput,
-.elementFormButton .popupSubTitle, .elementFormCoordinates .labelInput, .elementFormCoordinates .popupSubTitle,
-.elementFormRuler .labelInput,
-.elementFormRuler .popupSubTitle, .elementFormScaleDisplay .labelInput, .elementFormScaleDisplay .popupSubTitle {
+.defaultForm .labelInput, .defaultForm .popupSubTitle {
   width: 70px; }
-.elementFormAbout .input, .elementFormAbout .dropdown, .elementFormSrs .input, .elementFormSrs .dropdown,
-.elementFormScaleSelector .input,
-.elementFormScaleSelector .dropdown, .elementFormActivity .input, .elementFormActivity .dropdown,
-.elementFormButton .input,
-.elementFormButton .dropdown, .elementFormCoordinates .input, .elementFormCoordinates .dropdown,
-.elementFormRuler .input,
-.elementFormRuler .dropdown, .elementFormScaleDisplay .input, .elementFormScaleDisplay .dropdown {
+.defaultForm .input, .defaultForm .dropdown {
   width: 350px; }
 
 .elementFormGps .labelInput, .elementFormGps .popupSubTitle {

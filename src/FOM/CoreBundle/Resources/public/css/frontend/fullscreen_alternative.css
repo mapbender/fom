@@ -31,7 +31,7 @@
   left: 0;
   /* Positioning */ }
   .contentPane .left-top, .contentPane .right-top, .contentPane .left-bottom, .contentPane .right-bottom {
-    z-index: 10; }
+    z-index: 1; }
   .contentPane .left-top {
     position: absolute;
     top: 140px;
