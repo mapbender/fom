@@ -30,10 +30,8 @@ $(function() {
         
         checkbox.trigger('change');
     };
-    $(window).on('load', function() {
-        $('.checkbox').each(function() {
-            initCheckbox.call(this);
-        });
+    $('.checkbox').each(function() {
+        initCheckbox.call(this);
     });
     $(document).on("click", ".checkWrapper", toggleCheckBox);
 });

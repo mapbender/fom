@@ -48,10 +48,8 @@ $(function() {
         });
         return false;
     }
-    $(window).on('load', function() {
-        $('.dropdown').each(function() {
-            initDropdown.call(this);
-        });
+    $('.dropdown').each(function() {
+        initDropdown.call(this);
     });
     $(document).on("click", ".dropdown", toggleList);
 });
