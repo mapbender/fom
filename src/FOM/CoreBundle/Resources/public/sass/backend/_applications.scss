@@ -121,10 +121,7 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
     resize: none;
   }
 }
-.elementFormAbout, .elementFormSrs, 
-.elementFormScaleSelector, .elementFormActivity, 
-.elementFormButton, .elementFormCoordinates, 
-.elementFormRuler, .elementFormScaleDisplay{
+.defaultForm{
   $label:70px;
   .labelInput{width:$label;}
   .input, .dropdown{width:$elementPopupWidth - $label + $space;}
