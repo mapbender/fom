@@ -6,10 +6,14 @@ $(function() {
 
         if(me.is(":checked")){
             parent.addClass("iconCheckboxActive");
+        }else{
+            parent.removeClass("iconCheckboxActive");
         }
 
         if(me.is(":disabled")){
             parent.addClass("checkboxDisabled");
+        }else{
+            parent.removeClass("checkboxDisabled");
         }
     };
     var toggleCheckBox = function(){
