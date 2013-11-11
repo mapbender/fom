@@ -1,5 +1,4 @@
 <?php
-
 namespace FOM\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
@@ -7,7 +6,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
-
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
@@ -57,7 +55,7 @@ class ACLType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         try {
-            if($options['class'] && class_exists($options['class'])) {
+            if ($options['class'] && class_exists($options['class'])) {
                 $oid = new ObjectIdentity('class', $options['class']);
                 $acl = $this->aclProvider->findAcl($oid);
                 $aces = $acl->getClassAces();
@@ -69,32 +67,32 @@ class ACLType extends AbstractType
 
             $isMaster = $this->securityContext->isGranted('MASTER');
             $isOwner = $this->securityContext->isGranted('OWNER');
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $isMaster = true;
             $isOwner = true;
-            $aces = array();
-            if(true === $options['create_standard_permissions']) {
+            $aces = array ();
+            if (true === $options['create_standard_permissions']) {
                 // for unsaved entities, fake three standard permissions:
                 // - Owner access for current user
                 // - View access for anonymous users
                 // - View access for logged in users
                 $oid = null;
-                $aces = array();
+                $aces = array ();
 
                 $owner = $this->securityContext->getToken()->getUser();
-                $ownerAccess = array(
+                $ownerAccess = array (
                     'sid' => UserSecurityIdentity::fromAccount($owner),
                     'mask' => MaskBuilder::MASK_OWNER);
                 $aces[] = $ownerAccess;
 
-                if($options['standard_anon_access']) {
+                if ($options['standard_anon_access']) {
                     $anon = new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY');
-                    $anonAccess = array(
+                    $anonAccess = array (
                         'sid' => $anon,
                         'mask' => MaskBuilder::MASK_VIEW);
 
                     $user = new RoleSecurityIdentity('ROLE_USER');
-                    $userAccess = array(
+                    $userAccess = array (
                         'sid' => $anon,
                         'mask' => MaskBuilder::MASK_VIEW);
                     $aces[] = $anonAccess;
@@ -102,17 +100,16 @@ class ACLType extends AbstractType
             }
         }
 
-        $permissions = is_string($options['permissions'])
-            ? $this->getStandardPermissions($options, $isMaster, $isOwner)
-            : $options['permissions'];
+        $permissions = is_string($options['permissions']) ? $this->getStandardPermissions($options,
+                $isMaster, $isOwner) : array ('show' => $options['permissions']);
 
-        $aceOptions = array(
+        $aceOptions = array (
             'type' => 'ace',
             'label' => 'Permissions',
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,
-            'options' => array('available_permissions' => $permissions['show']),
+            'options' => array ('available_permissions' => $permissions['show']),
             'property_path' => false,
             'data' => $aces);
 
@@ -121,15 +118,15 @@ class ACLType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'permissions' => array(),
+        $resolver->setDefaults(array (
+            'permissions' => array (),
             'class' => null,
             'create_standard_permissions' => true,
             'standard_anon_access' => true,
             'user' => null,
             'force_master' => false,
             'force_owner' => false
-            ));
+        ));
     }
 
     /**
@@ -146,17 +143,17 @@ class ACLType extends AbstractType
      */
     protected function getStandardPermissions(array $options, $master, $owner)
     {
-        switch($options['permissions']) {
+        switch ($options['permissions']) {
             case 'standard::object':
-                $disable = array();
+                $disable = array ();
                 // if not owner or master, disable all permissions
-                if(!$master && !$owner) {
-                    $disable = array(1, 3, 4, 6, 7, 8);
+                if (!$master && !$owner) {
+                    $disable = array (1, 3, 4, 6, 7, 8);
                 }
                 // if not master, disable
                 // 5 -> undelete is not used
-                return array(
-                    'show' => array(
+                return array (
+                    'show' => array (
                         1 => 'View',
                         3 => 'Edit',
                         4 => 'Delete',
@@ -167,8 +164,8 @@ class ACLType extends AbstractType
                     'disable' => $disable);
                 break;
             case 'standard::class':
-                return array(
-                    'show' => array(
+                return array (
+                    'show' => array (
                         1 => 'View',
                         2 => 'Create',
                         3 => 'Edit',
@@ -176,11 +173,12 @@ class ACLType extends AbstractType
                         6 => 'Operator',
                         7 => 'Master',
                         8 => 'Owner'
-                    ));
+                ));
                 break;
             default:
                 throw new \RuntimeException('"' . $options['permissions'] .
-                    '" is not a valid standard permission set identifier');
+                '" is not a valid standard permission set identifier');
         }
     }
+
 }
