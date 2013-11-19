@@ -1,29 +1,29 @@
-var initDropdown;
-$(function() {
-    // init dropdown list --------------------------------------------------------------------
-    initDropdown = function(){
-        var me = $(this);
-        var dropdownList = me.find(".dropdownList");
-        var childCount = dropdownList.children().length;
+var initDropdown = function(){
+    var me = $(this);
+    var dropdownList = me.find(".dropdownList");
+    var childCount = dropdownList.children().length;
 
-        if(childCount == 0){
-            var newElement, select;
+    if(childCount == 0){
+        var newElement, select;
 
-            me.find("option").each(function(i, e){
-                $(e).addClass("opt-" + i)
-                newElement = $('<li class="item-' + i + '">' + $(e).text() + '</li>')
-                dropdownList.append(newElement);
-            });
+        me.find("option").each(function(i, e){
+            $(e).addClass("opt-" + i)
+            newElement = $('<li class="item-' + i + '">' + $(e).text() + '</li>')
+            dropdownList.append(newElement);
+        });
 
-            select = (me.find("option[selected=selected]").length > 0) ? "option[selected=selected]" 
-                                                                       : "option:first";
+        select = (me.find("option[selected=selected]").length > 0) ? "option[selected=selected]"
+            : "option:first";
 
-            me.find(".dropdownValue").text(me.find(select).text())
-        }
-
+        me.find(".dropdownValue").text(me.find(select).text())
     }
+
+};
+$(function(){
+    // init dropdown list --------------------------------------------------------------------
+
     var toggleList = function(){
-        var me   = $(this);
+        var me = $(this);
         var list = me.find(".dropdownList");
         var opts = me.find(".hiddenDropdown");
         if(list.css("display") == "block"){
@@ -48,7 +48,7 @@ $(function() {
         });
         return false;
     }
-    $('.dropdown').each(function() {
+    $('.dropdown').each(function(){
         initDropdown.call(this);
     });
     $(document).on("click", ".dropdown", toggleList);
