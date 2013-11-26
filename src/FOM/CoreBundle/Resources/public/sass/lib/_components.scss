@@ -248,6 +248,8 @@ fieldset{
     position: absolute;
     z-index: 2;
     display:none;
+    overflow: auto;
+    max-height:200px;
 
     border:solid 1px lighten($thirdColor, 15%);
 
