@@ -346,6 +346,12 @@ p, pre, dl, menu, ol, ul {
 .iconTarget:before {
   content: "\f05b"; }
 
+.iconPoi:before {
+  content: "\f08d"; }
+
+.iconImageExport:before {
+  content: "\f030"; }
+
 .iconGroup:before {
   content: "\f0c0"; }
 

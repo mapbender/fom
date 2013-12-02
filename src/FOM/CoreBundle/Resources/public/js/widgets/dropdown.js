@@ -11,12 +11,11 @@ var initDropdown = function(){
             newElement = $('<li class="item-' + i + '">' + $(e).text() + '</li>')
             dropdownList.append(newElement);
         });
-
-        select = (me.find("option[selected=selected]").length > 0) ? "option[selected=selected]"
-            : "option:first";
-
-        me.find(".dropdownValue").text(me.find(select).text())
     }
+
+    select = (me.find("option[selected=selected]").length > 0) ? "option[selected=selected]"
+        : "option:first";
+    me.find(".dropdownValue").text(me.find(select).text())
 
 };
 $(function(){
