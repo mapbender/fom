@@ -407,3 +407,21 @@ fieldset{
     &.active{display:block;}
   }
 }
+
+.tabContainerAlt{
+  .tab{
+    display: inline-block;
+    @extend .button;
+  }
+  .container{
+    border-top:dashed 1px $thirdColor;
+    margin-top:$space;
+    clear:left;
+    display:none;
+    padding:$space;
+    z-index:20;
+    position:relative;
+
+    &.active{display:block;}
+  }
+}

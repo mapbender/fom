@@ -469,7 +469,7 @@ p {
 .smallerText {
   font-size: 10px; }
 
-.smallText, .labelInput, .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .linkButton, .dropdown, .tabContainer .tab, .serviceContainer .metaText {
+.smallText, .labelInput, .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .tabContainerAlt .tab, .linkButton, .dropdown, .tabContainer .tab, .serviceContainer .metaText {
   font-size: 12px; }
 
 .bigText, .title, .popupHead {
@@ -551,7 +551,7 @@ fieldset {
     border: 1px solid #8dce55; }
 
 /* BUTTON */
-.buttonCore, .button, .button.critical, .linkButton {
+.buttonCore, .button, .tabContainerAlt .tab, .button.critical, .linkButton {
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -564,7 +564,7 @@ fieldset {
   border: none;
   cursor: pointer; }
 
-.button {
+.button, .tabContainerAlt .tab {
   padding: 5px 10px;
   line-height: 14px;
   margin: 0px;
@@ -583,17 +583,17 @@ fieldset {
   -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
   -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229; }
-  .button:hover {
+  .button:hover, .tabContainerAlt .tab:hover {
     background-color: #63a130;
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225; }
-  .button.icon, .button.flashBox.success:before {
+  .button.icon, .tabContainerAlt .icon.tab, .tabContainerAlt .tab.flashBox.success:before, .button.flashBox.success:before {
     padding-left: 20px;
     background-image: url("../../fomcore/images/link_arrow.png");
     background-position: 10px center;
     background-repeat: no-repeat; }
-  .button.critical {
+  .button.critical, .tabContainerAlt .critical.tab {
     border: 1px solid #9f3434;
     color: white;
     background-color: #d36565;
@@ -605,7 +605,7 @@ fieldset {
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a; }
-    .button.critical:hover {
+    .button.critical:hover, .tabContainerAlt .critical.tab:hover {
       background-color: #cd5151;
       -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535;
       -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535;
@@ -775,7 +775,7 @@ fieldset {
       right: 0;
       bottom: 0;
       left: 0; }
-  .popupContainer .button {
+  .popupContainer .button, .popupContainer .tabContainerAlt .tab, .tabContainerAlt .popupContainer .tab {
     margin-left: 3px; }
 
 /* ------------------------------------------------- TABS */
@@ -842,6 +842,19 @@ fieldset {
   -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1); }
   .tabContainer .container.active {
+    display: block; }
+
+.tabContainerAlt .tab {
+  display: inline-block; }
+.tabContainerAlt .container {
+  border-top: dashed 1px #a2a2a2;
+  margin-top: 20px;
+  clear: left;
+  display: none;
+  padding: 20px;
+  z-index: 20;
+  position: relative; }
+  .tabContainerAlt .container.active {
     display: block; }
 
 .area {
