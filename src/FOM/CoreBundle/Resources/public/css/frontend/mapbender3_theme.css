@@ -408,6 +408,12 @@ p, pre, dl, menu, ol, ul {
 .iconKey:before {
   content: "\f084"; }
 
+.iconTab:before {
+  content: "\f114"; }
+
+.iconTabActive:before {
+  content: "\f07b" !important; }
+
 /* ------------------------------------------------- MAPBENDER3 RESETS */
 * {
   -webkit-box-sizing: border-box;

@@ -112,6 +112,8 @@
 }
 .regionProperties{
   margin-right: $space/2;
+  .iconCheckbox{@extend .iconTab}
+  .iconCheckboxActive{@extend .iconTabActive}
   .labelInput{display:none;}
 }
 
