@@ -211,9 +211,9 @@ p, pre, dl, menu, ol, ul {
 .iconZoomMin:before, .iconZoomIn:before, .iconZoomOut:before, .iconZoomLevel:before,
 .iconZoomLevelSelected:before, .iconAreaRuler:before, .iconFolder:before,
 .iconFolderActive:before, .iconTarget:before, .iconGroup:before, .iconAdd:before,
-.iconRemove:before, .iconOk:before, .tableUserGroups .iconCheckboxActive:before, .tableUserGroups .iconCheckbox:before, .iconEdit:before, .iconPublish:before, .applicationTabContainer .containerLayout .iconCheckbox:before, .applicationTabContainer .containerLayers .iconCheckbox:before,
+.iconRemove:before, .iconOk:before, .tableUserGroups .iconCheckboxActive:before, .tableUserGroups .iconCheckbox:before, .iconEdit:before, .iconPublish:before, .applicationTabContainer table .iconCheckbox:before, .applicationTabContainer .containerLayers .iconCheckbox:before,
 .iconPublishActive:before,
-.applicationTabContainer .containerLayout .iconCheckboxActive:before,
+.applicationTabContainer table .iconCheckboxActive:before,
 .applicationTabContainer .containerLayers .iconCheckboxActive:before, .iconAppDefault:before, .iconCancel:before,
 .iconThumbsUp:before,
 .flashBox.success:before, .iconThumbsDown:before, .iconGroup:before, .iconUser:before,
@@ -367,10 +367,10 @@ p, pre, dl, menu, ol, ul {
 .iconEdit:before {
   content: "\f040"; }
 
-.iconPublish:before, .applicationTabContainer .containerLayout .iconCheckbox:before, .applicationTabContainer .containerLayers .iconCheckbox:before {
+.iconPublish:before, .applicationTabContainer table .iconCheckbox:before, .applicationTabContainer .containerLayers .iconCheckbox:before {
   content: "\f070" !important; }
 
-.iconPublishActive:before, .applicationTabContainer .containerLayout .iconCheckboxActive:before, .applicationTabContainer .containerLayers .iconCheckboxActive:before {
+.iconPublishActive:before, .applicationTabContainer table .iconCheckboxActive:before, .applicationTabContainer .containerLayers .iconCheckboxActive:before {
   content: "\f06e" !important; }
 
 .iconAppDefault:before {
@@ -1494,6 +1494,11 @@ body {
     .checkContainer:hover .iconOk, .checkContainer:hover .tableUserGroups .iconCheckboxActive, .tableUserGroups .checkContainer:hover .iconCheckboxActive, .checkContainer:hover .tableUserGroups .iconCheckbox, .tableUserGroups .checkContainer:hover .iconCheckbox {
       filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
       opacity: 1; }
+
+.regionProperties {
+  margin-right: 10px; }
+  .regionProperties .labelInput, .regionProperties .popupSubTitle {
+    display: none; }
 
 .region {
   padding-top: 20px;
