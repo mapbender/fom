@@ -30,6 +30,19 @@
   }
 }
 
+@-webkit-keyframes spin{
+  0%{-webkit-transform:rotate(0deg)}
+  100%{-webkit-transform:rotate(359deg)}
+}
+@-moz-keyframes spin{
+  0%{-moz-transform:rotate(0deg)}
+  100%{-moz-transform:rotate(359deg)}
+}
+@keyframes spin{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(359deg)}
+}
+
 // 
 // WATCHOUT:
 // firefox doesn't like the above 'icon' class selector.
@@ -50,7 +63,8 @@
 .iconRemove, .iconOk, .iconEdit, .iconPublish, 
 .iconPublishActive, .iconAppDefault, .iconCancel, 
 .iconThumbsUp, .iconThumbsDown, .iconGroup, .iconUser, 
-.iconSettings, .iconSignOut, .iconSignIn, .iconMore, .iconCopy, .iconKey{
+.iconSettings, .iconSignOut, .iconSignIn, .iconMore, 
+.iconCopy, .iconKey, .iconWarning{
   &:before{font-family: FontAwesome;}
 }
 
@@ -101,6 +115,7 @@
 .iconTarget:before{content:"\f05b";}
 .iconPoi:before{content:"\f08d";}
 .iconImageExport:before{content:"\f030";}
+.iconWarning:before{content:"\f071";}
 
 // only backend
 .iconGroup:before{content: "\f0c0";}

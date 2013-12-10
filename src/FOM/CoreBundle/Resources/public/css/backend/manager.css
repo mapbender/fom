@@ -200,6 +200,27 @@ p, pre, dl, menu, ol, ul {
     font-family: FontAwesome;
     font-size: 20px; }
 
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg); }
+
+  100% {
+    -webkit-transform: rotate(359deg); } }
+
+@-moz-keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg); }
+
+  100% {
+    -moz-transform: rotate(359deg); } }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+
+  100% {
+    transform: rotate(359deg); } }
+
 .iconCheckboxActive:before, .iconCheckboxHalf:before, .iconCheckbox:before,
 .iconRadio:before, .iconRadioActive:before, .iconView:before, .iconHelp:before,
 .iconLinkButton:before, .iconDown:before, .iconRight:before, .iconLeft:before,
@@ -217,7 +238,8 @@ p, pre, dl, menu, ol, ul {
 .applicationTabContainer .containerLayers .iconCheckboxActive:before, .iconAppDefault:before, .iconCancel:before,
 .iconThumbsUp:before,
 .flashBox.success:before, .iconThumbsDown:before, .iconGroup:before, .iconUser:before,
-.iconSettings:before, .iconSignOut:before, .iconSignIn:before, .iconMore:before, .iconCopy:before, .iconKey:before {
+.iconSettings:before, .iconSignOut:before, .iconSignIn:before, .iconMore:before,
+.iconCopy:before, .iconKey:before, .iconWarning:before {
   font-family: FontAwesome; }
 
 .iconCheckboxActive:before {
@@ -351,6 +373,9 @@ p, pre, dl, menu, ol, ul {
 
 .iconImageExport:before {
   content: "\f030"; }
+
+.iconWarning:before {
+  content: "\f071"; }
 
 .iconGroup:before {
   content: "\f0c0"; }
