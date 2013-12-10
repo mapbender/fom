@@ -90,9 +90,9 @@
         <source>Security</source>
         <target>__Security</target>
       </trans-unit>
-      <trans-unit id="c2c9d02e99770d246e9a9e40b88f29fd" resname="Add users and groups">
-        <source>Add users and groups</source>
-        <target>__Add users and groups</target>
+      <trans-unit id="c2c9d02e99770d246e9a9e40b88f29fd" resname="fom.user.user.container.add_users_groups">
+        <source>fom.user.user.container.add_users_groups</source>
+        <target>Benutzer and Gruppen hinzufügen</target>
       </trans-unit>
       <trans-unit id="a7a32f2291004cea877ada370d2a9064" resname="No goups and users defined.">
         <source>No goups and users defined.</source>
@@ -222,13 +222,13 @@
         <source>No goups defined.</source>
         <target>__No goups defined.</target>
       </trans-unit>
-      <trans-unit id="ff56199d85f2dfef9efaac839b7dec3e" resname="You are not allowed to manage groups.">
-        <source>You are not allowed to manage groups.</source>
-        <target>__You are not allowed to manage groups.</target>
+      <trans-unit id="ff56199d85f2dfef9efaac839b7dec3e" resname="fom.user.user.container.manage_not_allowed_group">
+        <source>fom.user.user.container.manage_not_allowed_group</source>
+        <target>Sie sind nicht berechtigt Gruppen zu verwalten.</target>
       </trans-unit>
-      <trans-unit id="29e355bfd25d2b434b4a62b519cd1722" resname="You are not allowed to manage security.">
-        <source>You are not allowed to manage security.</source>
-        <target>__You are not allowed to manage security.</target>
+      <trans-unit id="29e355bfd25d2b434b4a62b519cd1722" resname="fom.user.user.container.manage_not_allowed_security">
+        <source>fom.user.user.container.manage_not_allowed_security</source>
+        <target>Sie sind nicht berechtigt Sicherheit zu verwalten.</target>
       </trans-unit>
       <trans-unit id="10f062a633811c3cda06571c77699c81" resname="Add new user">
         <source>Add new user</source>
