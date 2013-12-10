@@ -1362,6 +1362,26 @@ fieldset {
       color: #5b932a;
       background-color: #f9f9f9; }
 
+/* WMC Editor */
+.mb-wmcEditor .tableCore {
+  width: 100%; }
+.mb-wmcEditor th {
+  text-align: left; }
+.mb-wmcEditor .iconColumn {
+  padding-left: 10px; }
+.mb-wmcEditor .iconAdd {
+  color: #3f3f3f; }
+.mb-wmcEditor .buttonBack {
+  margin-left: 20px; }
+
+.elementFormWMC .labelInput, .elementFormWMC .popupSubTitle {
+  width: 110px;
+  float: left; }
+.elementFormWMC .inputWrapper {
+  margin-bottom: 10px; }
+.elementFormWMC .input {
+  width: 300px; }
+
 /* ----------------------------------------------------------- TOOLBAR */
 /* ----------------------------------------------- ELEMENTS */
 .toolBar .mb-element-scaleline {

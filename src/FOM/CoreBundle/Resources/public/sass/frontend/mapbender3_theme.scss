@@ -447,6 +447,27 @@ $searchRouterInputWidth:310px;
   }
 }
 
+/* WMC Editor */
+.mb-wmcEditor{
+  .tableCore{
+    width:100%;
+  }
+  th{text-align:left;}
+  .iconColumn{padding-left:$space/2;}
+  .iconAdd{color:$darkFontColor;}
+  .buttonBack{margin-left:$space;}
+
+}
+.elementFormWMC{
+  .labelInput{
+    width:110px;
+    float:left;
+  }
+  .inputWrapper{margin-bottom:$space/2;}
+  .input{width:300px;}
+}
+
+
 /* ----------------------------------------------------------- TOOLBAR */
 /* ----------------------------------------------- ELEMENTS */
 .toolBar{
