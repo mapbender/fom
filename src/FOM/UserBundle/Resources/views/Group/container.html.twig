@@ -1,7 +1,7 @@
 <div id="userGroupTabContainer" class="tabContainer userGroupTabContainer groupTabContainer">
   <ul class="tabs">
-    <li id="tabBaseData" class="tab active">{{"Base data" | trans }}</li>
-    <li id="tabUsers" class="tab">{{"Users" | trans }}</li>
+    <li id="tabBaseData" class="tab active">{{"fom.user.group.container.base_data" | trans }}</li>
+    <li id="tabUsers" class="tab">{{"fom.user.group.container.users" | trans }}</li>
   </ul>
 
   <div id="containerBaseData" class="container active containerBaseData">
@@ -17,7 +17,7 @@
     {% if form.users|length > 0 %}
       {% set user_count = '<span>' ~ group.users | length ~ '</span>' %}
 
-      <label for="inputFilterUsers" class="labelInput left">{{"Filter"|trans}}</label>
+      <label for="inputFilterUsers" class="labelInput left">{{"fom.user.group.container.filter"|trans}}</label>
       <input id="inputFilterUsers" type="text" class="input left listFilterInput"/>
       <div class="clearContainer"></div>
 
@@ -43,7 +43,7 @@
       </table>
 
     {% else %}
-      <p class="description left">{{"No users exists."|trans}}</p>
+      <p class="description left">{{"fom.user.group.container.no_user_exists"|trans}}</p>
     {% endif %}
   </div>
 </div>

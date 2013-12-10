@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="de" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="d6476ace005d9b925865c1404a0095e8" resname="fom.user.group.container.base_data">
+        <source>fom.user.group.container.base_data</source>
+        <target>Dasisdaten</target>
+      </trans-unit>
+      <trans-unit id="f9aae5fda8d810a29f12d1e61b4ab25f" resname="fom.user.group.container.users">
+        <source>fom.user.group.container.users</source>
+        <target>Benutzer</target>
+      </trans-unit>
+      <trans-unit id="d7778d0c64b6ba21494c97f77a66885a" resname="fom.user.group.container.filter">
+        <source>fom.user.group.container.filter</source>
+        <target>Filter</target>
+      </trans-unit>
+      <trans-unit id="999c704aa1962e01150debf94b6a626e" resname="fom.user.group.container.no_user_exists">
+        <source>fom.user.group.container.no_user_exists</source>
+        <target>Kein Benutzer existiert.</target>
+      </trans-unit>
+      <trans-unit id="a37ede293936e29279ed543129451ec3" resname="Groups">
+        <source>Groups</source>
+        <target>__Groups</target>
+      </trans-unit>
+      <trans-unit id="3bc18b9a688cd9ee9c915cb0023a8d74" resname="Add new group">
+        <source>Add new group</source>
+        <target>__Add new group</target>
+      </trans-unit>
+      <trans-unit id="b78a3223503896721cca1303f776159b" resname="Title">
+        <source>Title</source>
+        <target>__Title</target>
+      </trans-unit>
+      <trans-unit id="b5a7adde1af5c87d7fd797b6245c2a39" resname="Description">
+        <source>Description</source>
+        <target>__Description</target>
+      </trans-unit>
+      <trans-unit id="3bd11b19e48893c0e79521359ee42211" resname="Edit group">
+        <source>Edit group</source>
+        <target>__Edit group</target>
+      </trans-unit>
+      <trans-unit id="14d65465b75a0ec3382e3a92a4c07188" resname="Delete group">
+        <source>Delete group</source>
+        <target>__Delete group</target>
+      </trans-unit>
+      <trans-unit id="1571eca93055d8f5f957d048a52fde88" resname="No groups available.">
+        <source>No groups available.</source>
+        <target>__No groups available.</target>
+      </trans-unit>
+      <trans-unit id="379d5e7e8c9f09972e0915714abad8d3" resname="Edit Group">
+        <source>Edit Group</source>
+        <target>__Edit Group</target>
+      </trans-unit>
+      <trans-unit id="ab9ca00f50405a333c6d7523146c62ea" resname="New Group">
+        <source>New Group</source>
+        <target>__New Group</target>
+      </trans-unit>
+      <trans-unit id="c9cc8cce247e49bae79f15173ce97354" resname="Save">
+        <source>Save</source>
+        <target>__Save</target>
+      </trans-unit>
+      <trans-unit id="686e697538050e4664636337cc3b834f" resname="Create">
+        <source>Create</source>
+        <target>__Create</target>
+      </trans-unit>
+      <trans-unit id="ea4788705e6873b424c65e91c2846b19" resname="Cancel">
+        <source>Cancel</source>
+        <target>__Cancel</target>
+      </trans-unit>
+      <trans-unit id="eed7789bb723b79449541dd62fc1edd3" resname="Global Access Control Lists">
+        <source>Global Access Control Lists</source>
+        <target>__Global Access Control Lists</target>
+      </trans-unit>
+      <trans-unit id="49ee3087348e8d44e1feda1917443987" resname="Name">
+        <source>Name</source>
+        <target>__Name</target>
+      </trans-unit>
+      <trans-unit id="9bd81329febf6efe22788e03ddeaf0af" resname="Class">
+        <source>Class</source>
+        <target>__Class</target>
+      </trans-unit>
+      <trans-unit id="7dce122004969d56ae2e0245cb754d35" resname="Edit">
+        <source>Edit</source>
+        <target>__Edit</target>
+      </trans-unit>
+      <trans-unit id="dc376d076b64a94938d841edc7569747" resname="Edit Class ACL for %name%">
+        <source>Edit Class ACL for %name%</source>
+        <target>__Edit Class ACL for %name%</target>
+      </trans-unit>
+      <trans-unit id="2fae32629d4ef4fc6341f1751b405e45" resname="Security">
+        <source>Security</source>
+        <target>__Security</target>
+      </trans-unit>
+      <trans-unit id="c2c9d02e99770d246e9a9e40b88f29fd" resname="Add users and groups">
+        <source>Add users and groups</source>
+        <target>__Add users and groups</target>
+      </trans-unit>
+      <trans-unit id="a7a32f2291004cea877ada370d2a9064" resname="No goups and users defined.">
+        <source>No goups and users defined.</source>
+        <target>__No goups and users defined.</target>
+      </trans-unit>
+      <trans-unit id="c073fb2c2c4e56e796001408c233084e" resname="Required fields are marked with dark labels, while optional fields have lighter labels.">
+        <source>Required fields are marked with dark labels, while optional fields have lighter labels.</source>
+        <target>__Required fields are marked with dark labels, while optional fields have lighter labels.</target>
+      </trans-unit>
+      <trans-unit id="2a3b14ecc16a85608a9fc4c56330bc16" resname="This user is inactive. Please activate first.">
+        <source>This user is inactive. Please activate first.</source>
+        <target>__This user is inactive. Please activate first.</target>
+      </trans-unit>
+      <trans-unit id="11f581ede2d21a7f2c9c8f6fdc9eb754" resname="Password reset">
+        <source>Password reset</source>
+        <target>__Password reset</target>
+      </trans-unit>
+      <trans-unit id="1a81759353d36dbd31059fc261af0aa2" resname="Congratulations!">
+        <source>Congratulations!</source>
+        <target>__Congratulations!</target>
+      </trans-unit>
+      <trans-unit id="b0cd2ae1e7ee4346383e00b142098f85" resname="&lt;p class=&quot;description&quot;&gt;You're password has been successfully reset.&lt;/p&gt;">
+        <source>&lt;p class="description"&gt;You're password has been successfully reset.&lt;/p&gt;</source>
+        <target>__&lt;p class="description"&gt;You're password has been successfully reset.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="463e58c1d35fb5a4a8d717c99a60d257" resname="Back to login">
+        <source>Back to login</source>
+        <target>__Back to login</target>
+      </trans-unit>
+      <trans-unit id="490882ef7638da34561fcc9f2789bf6c" resname="Hello %user_username%, You have requested a new password. Call in your browser the link &quot;%url%&quot;.">
+        <source>Hello %user_username%, You have requested a new password. Call in your browser the link "%url%".</source>
+        <target>__Hello %user_username%, You have requested a new password. Call in your browser the link "%url%".</target>
+      </trans-unit>
+      <trans-unit id="3b5b0f1e26d98a827ef82af202c2e85b" resname="Reset password">
+        <source>Reset password</source>
+        <target>__Reset password</target>
+      </trans-unit>
+      <trans-unit id="ba9600b60915be3164cc84a37b6d6d9e" resname="Password Reset">
+        <source>Password Reset</source>
+        <target>__Password Reset</target>
+      </trans-unit>
+      <trans-unit id="737811071d522f041f12c1aaf52b3100" resname="&lt;p class=&quot;description&quot;&gt;An email with your reset code and link has been sent to the address you provided.&lt;/p&gt;">
+        <source>&lt;p class="description"&gt;An email with your reset code and link has been sent to the address you provided.&lt;/p&gt;</source>
+        <target>__&lt;p class="description"&gt;An email with your reset code and link has been sent to the address you provided.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="4aa7dd58117e060855653e956d0b41ca" resname="&amp;lt;p&amp;gt;Hello %user_username%,&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;You have requested a new password.&#10;&amp;lt;br /&amp;gt;Click please &amp;lt;a href=&quot;%url%&quot;&amp;gt;here&amp;lt;/a&amp;gt;.">
+        <source>&amp;lt;p&amp;gt;Hello %user_username%,&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;You have requested a new password.
+&amp;lt;br /&amp;gt;Click please &amp;lt;a href="%url%"&amp;gt;here&amp;lt;/a&amp;gt;.</source>
+        <target>__&amp;lt;p&amp;gt;Hello %user_username%,&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;You have requested a new password.
+&amp;lt;br /&amp;gt;Click please &amp;lt;a href="%url%"&amp;gt;here&amp;lt;/a&amp;gt;.</target>
+      </trans-unit>
+      <trans-unit id="98f130908bdb82901f3bc905870908fb" resname="Forgot password">
+        <source>Forgot password</source>
+        <target>__Forgot password</target>
+      </trans-unit>
+      <trans-unit id="1c315fe64c02f0dc4a605373f68d911b" resname="Username or Email">
+        <source>Username or Email</source>
+        <target>__Username or Email</target>
+      </trans-unit>
+      <trans-unit id="d85ad534154bf7e7cc135ec541f976c3" resname="Require password">
+        <source>Require password</source>
+        <target>__Require password</target>
+      </trans-unit>
+      <trans-unit id="07b75a0699a101e28df28ba1e14856b7" resname="No such user can be found.">
+        <source>No such user can be found.</source>
+        <target>__No such user can be found.</target>
+      </trans-unit>
+      <trans-unit id="0f98b7f230f3c91292f0de4c99e263f2" resname="Registration">
+        <source>Registration</source>
+        <target>__Registration</target>
+      </trans-unit>
+      <trans-unit id="c3ef33d4d79233e7dc0f41a80273ab97" resname="&lt;p class=&quot;description&quot;&gt;You're account has been successfully activated and is ready for use.&lt;/p&gt;">
+        <source>&lt;p class="description"&gt;You're account has been successfully activated and is ready for use.&lt;/p&gt;</source>
+        <target>__&lt;p class="description"&gt;You're account has been successfully activated and is ready for use.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="b7b53aa71339bd16b0639bed0b0e7a9c" resname="Hallo %user_username%, You have just recently registered. To conclude your registration, please, call in your browser the link %url%.">
+        <source>Hallo %user_username%, You have just recently registered. To conclude your registration, please, call in your browser the link %url%.</source>
+        <target>__Hallo %user_username%, You have just recently registered. To conclude your registration, please, call in your browser the link %url%.</target>
+      </trans-unit>
+      <trans-unit id="86fdf60d02de8fb9889ff476b9cd9556" resname="&lt;p class=&quot;description&quot;&gt;Your account has been created. An email with your activation code &#10;    and link has been sent to the address you provided.&lt;/p&gt;">
+        <source>&lt;p class="description"&gt;Your account has been created. An email with your activation code 
+    and link has been sent to the address you provided.&lt;/p&gt;</source>
+        <target>__&lt;p class="description"&gt;Your account has been created. An email with your activation code 
+    and link has been sent to the address you provided.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="d25cda76ba7d93342a4ea7330dd6edc0" resname="&lt;p&gt;Hallo %user_username%,&lt;/p&gt;&lt;p&gt;You have just recently registered.To conclude your registration, please, click please &lt;a href=&quot;%url%&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;">
+        <source>&lt;p&gt;Hallo %user_username%,&lt;/p&gt;&lt;p&gt;You have just recently registered.To conclude your registration, please, click please &lt;a href="%url%"&gt;here&lt;/a&gt;.&lt;/p&gt;</source>
+        <target>__&lt;p&gt;Hallo %user_username%,&lt;/p&gt;&lt;p&gt;You have just recently registered.To conclude your registration, please, click please &lt;a href="%url%"&gt;here&lt;/a&gt;.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="7027c83a2da6a55c7f5398565ba5d439" resname="Your registration">
+        <source>Your registration</source>
+        <target>__Your registration</target>
+      </trans-unit>
+      <trans-unit id="f6039d44b29456b20f8f373155ae4973" resname="Username">
+        <source>Username</source>
+        <target>__Username</target>
+      </trans-unit>
+      <trans-unit id="c8dbd46d1de37755ddf40fde5946172c" resname="Choose password">
+        <source>Choose password</source>
+        <target>__Choose password</target>
+      </trans-unit>
+      <trans-unit id="4c231e0da3eaaa6a9752174f7f9cfb31" resname="Confirm password">
+        <source>Confirm password</source>
+        <target>__Confirm password</target>
+      </trans-unit>
+      <trans-unit id="ce8ae9da5b7cd6c3df2929543a9af92d" resname="Email">
+        <source>Email</source>
+        <target>__Email</target>
+      </trans-unit>
+      <trans-unit id="0ba7583639a274c434bbe6ef797115a4" resname="Register">
+        <source>Register</source>
+        <target>__Register</target>
+      </trans-unit>
+      <trans-unit id="cce99c598cfdb9773ab041d54c3d973a" resname="Profile">
+        <source>Profile</source>
+        <target>__Profile</target>
+      </trans-unit>
+      <trans-unit id="0f34c4e8eec1367571cd8965155575b5" resname="users of">
+        <source>users of</source>
+        <target>__users of</target>
+      </trans-unit>
+      <trans-unit id="ef7de3f485174ff47f061ad27d83d0ee" resname="selected">
+        <source>selected</source>
+        <target>__selected</target>
+      </trans-unit>
+      <trans-unit id="6f46bc9e43d07d890d054fd5cf257f70" resname="No goups defined.">
+        <source>No goups defined.</source>
+        <target>__No goups defined.</target>
+      </trans-unit>
+      <trans-unit id="ff56199d85f2dfef9efaac839b7dec3e" resname="You are not allowed to manage groups.">
+        <source>You are not allowed to manage groups.</source>
+        <target>__You are not allowed to manage groups.</target>
+      </trans-unit>
+      <trans-unit id="29e355bfd25d2b434b4a62b519cd1722" resname="You are not allowed to manage security.">
+        <source>You are not allowed to manage security.</source>
+        <target>__You are not allowed to manage security.</target>
+      </trans-unit>
+      <trans-unit id="10f062a633811c3cda06571c77699c81" resname="Add new user">
+        <source>Add new user</source>
+        <target>__Add new user</target>
+      </trans-unit>
+      <trans-unit id="082e55a73f10496681c84231dc1c88f7" resname="E-Mail">
+        <source>E-Mail</source>
+        <target>__E-Mail</target>
+      </trans-unit>
+      <trans-unit id="ed29920fade587761581f737fff44155" resname="Edit user">
+        <source>Edit user</source>
+        <target>__Edit user</target>
+      </trans-unit>
+      <trans-unit id="714401a4d403c6a83d3754dde243fb55" resname="Contact user via e-mail">
+        <source>Contact user via e-mail</source>
+        <target>__Contact user via e-mail</target>
+      </trans-unit>
+      <trans-unit id="2c8df5d2707ef75b27d8d9c27e9267fb" resname="Delete user">
+        <source>Delete user</source>
+        <target>__Delete user</target>
+      </trans-unit>
+      <trans-unit id="25f0c08c265209d5aef820008279e2fd" resname="No users available.">
+        <source>No users available.</source>
+        <target>__No users available.</target>
+      </trans-unit>
+      <trans-unit id="65d7cc265608a3f28d479f7cb8e742ec" resname="Edit User">
+        <source>Edit User</source>
+        <target>__Edit User</target>
+      </trans-unit>
+      <trans-unit id="19a093af0cee2a1d0f8bb6ac14d79843" resname="New User">
+        <source>New User</source>
+        <target>__New User</target>
+      </trans-unit>
+      <trans-unit id="a705295effa30d092aa1667d610d5947" resname="Sorry!">
+        <source>Sorry!</source>
+        <target>__Sorry!</target>
+      </trans-unit>
+      <trans-unit id="1e9fb87b519d594803371ad194679526" resname="&lt;span class=&quot;description&quot;&gt;No such token can be found. If you think this is an error, please contact the site administrator.&lt;/span&gt;">
+        <source>&lt;span class="description"&gt;No such token can be found. If you think this is an error, please contact the site administrator.&lt;/span&gt;</source>
+        <target>__&lt;span class="description"&gt;No such token can be found. If you think this is an error, please contact the site administrator.&lt;/span&gt;</target>
+      </trans-unit>
+      <trans-unit id="332403f5ef3235b2e768624c19ded12a" resname="&lt;span class=&quot;description&quot;&gt;Your registration token has expired. Unfortunately, you will have to request a new token.&lt;/span&gt;">
+        <source>&lt;span class="description"&gt;Your registration token has expired. Unfortunately, you will have to request a new token.&lt;/span&gt;</source>
+        <target>__&lt;span class="description"&gt;Your registration token has expired. Unfortunately, you will have to request a new token.&lt;/span&gt;</target>
+      </trans-unit>
+      <trans-unit id="a9e83a18e57b5e8dd5be4bf0d49daa4c" resname="Request new token">
+        <source>Request new token</source>
+        <target>__Request new token</target>
+      </trans-unit>
+      <trans-unit id="99dea78007133396a7b8ed70578ac6ae" resname="Login">
+        <source>Login</source>
+        <target>__Login</target>
+      </trans-unit>
+      <trans-unit id="dc647eb65e6711e155375218212b3964" resname="Password">
+        <source>Password</source>
+        <target>__Password</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -13,7 +13,7 @@
 
         <form action="{{ path('fom_user_password_tokenreset', {'token': user.resettoken}) }}" method="post">
             {{ form_widget(form) }}
-            <button class="right button">{{trans|'Request new token'}}</button>
+            <button class="right button">{{'Request new token'| trans}}</button>
         </form>
 
         <a class="left iconLinkButton linkButton" href="{{ path('fom_user_login_login') }}">{{ "Back to login"|trans}}</a>

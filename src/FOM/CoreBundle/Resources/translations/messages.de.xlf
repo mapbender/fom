@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="de" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="1c95ee7d7297c9de68e25414f7ccb78d" resname="fom.core.fields.filter">
+        <source>fom.core.fields.filter</source>
+        <target>Filter</target>
+      </trans-unit>
+      <trans-unit id="9bb04ab703cc6046b9cb27dc8fa4ba50" resname="fom.core.fields.no_user_group_defined">
+        <source>fom.core.fields.no_user_group_defined</source>
+        <target>Kein Benutzer oder keine Gruppe ist definiert.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
