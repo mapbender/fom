@@ -2,9 +2,9 @@
 
 {% block title %}
   {% if edit %}
-    {{ "Edit User" | trans}}
+    {{ "fom.user.user.form.edit_user" | trans}}
   {% else %}
-    {{ "New User" | trans}}
+    {{ "fom.user.user.form.new_user" | trans}}
   {% endif %}
 {% endblock %}
 
@@ -33,8 +33,8 @@
     {{ form_row(form._token) }}
 
     <div class="right">
-      <input class="button" type="submit" value="{% if edit %}{{ 'Save' | trans }}{% else %}{{ 'Create' | trans }}{% endif %}"/>
-      <a class="button critical" href="{{ url('fom_user_user_index') }}">{{ 'Cancel' | trans}}</a>
+      <input class="button" type="submit" value="{% if edit %}{{ 'fom.user.user.form.save' | trans }}{% else %}{{ 'fom.user.user.form.create' | trans }}{% endif %}"/>
+      <a class="button critical" href="{{ url('fom_user_user_index') }}">{{ 'fom.user.user.form.cancel' | trans}}</a>
     </div>
   </form>
 

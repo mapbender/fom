@@ -1,34 +1,34 @@
 {% extends "FOMUserBundle:Login:box.html.twig" %}
 
-{% block title %} {{ 'Registration' | trans}} {% endblock %}
+{% block title %} {{ 'fom.user.registration.form.title' | trans}} {% endblock %}
 
 {% block box_content %}
   <div class="loginBox register">
-    <h2 class="contentTitle">{{ 'Registration' | trans}}</h2>
+    <h2 class="contentTitle">{{ 'fom.user.registration.form.caption' | trans}}</h2>
     <form action="{{ path('fom_user_registration_register') }}" method="post" {{ form_enctype(form) }} autocomplete="off" novalidate="novalidate">
 
-        <label class="left labelInput" for="{{ form.username.get('id') }}">{{"Username" | trans}}:<span class="required">*</span></label>
+        <label class="left labelInput" for="{{ form.username.get('id') }}">{{"fom.user.registration.form.username" | trans}}:<span class="required">*</span></label>
         {{ form_widget(form.username) }}
         <div class="clearContainer"></div>
 
         {% for pw in form.password %}
           {% if pw.get('name') == 'first' %}
-            <label class="left labelInput" for="{{ pw.get('id') }}">{{"Choose password" | trans}}:<span class="required">*</span></label>
+            <label class="left labelInput" for="{{ pw.get('id') }}">{{"fom.user.registration.form.choose_password" | trans}}:<span class="required">*</span></label>
           {% else %}
-            <label class="left labelInput" for="{{ pw.get('id') }}">{{"Confirm password" | trans}}:<span class="required">*</span></label>
+            <label class="left labelInput" for="{{ pw.get('id') }}">{{"fom.user.registration.form.confirm_password" | trans}}:<span class="required">*</span></label>
           {% endif %}
 
           {{ form_widget(pw) }}
         {% endfor %}
 
-        <label class="left labelInput" for="{{ form.email.get('id') }}">{{"Email" | trans}}:<span class="required">*</span></label>
+        <label class="left labelInput" for="{{ form.email.get('id') }}">{{"fom.user.registration.form.email" | trans}}:<span class="required">*</span></label>
         {{ form_widget(form.email) }}
         <div class="clearContainer"></div>
 
         {{ form_row(form._token) }}
 
-        <a class="left linkButton iconLinkButton" href="{{ path('fom_user_login_login') }}">{{ "Back to login"|trans}}</a>
-        <button class="right button">{% trans %}Register{% endtrans %}</button>
+        <a class="left linkButton iconLinkButton" href="{{ path('fom_user_login_login') }}">{{ "fom.user.registration.form.back_to_login"|trans}}</a>
+        <button class="right button">{{ 'fom.user.registration.form.register' | trans }}</button>
     </form>
     <div class="clearContainer"></div>
   </div>

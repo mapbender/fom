@@ -13,7 +13,7 @@ var Mapbender = (function($, Mapbender) {
         }
         this.autocompleteList = this.input.parent(".autocompleteWrapper").find(".autocompleteList");
         if(!this.options.url || !this.autocompleteList)
-            window.console && console.error("mbAutoComplete can't be implemented.")
+            window.console && console.error("mbAutoComplete can't be implemented.");
         else{
             this.input.on('keyup', function(e){
                 var txt = $(e.target).val();

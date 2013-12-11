@@ -25,7 +25,7 @@
         <thead>
           <tr class="doNotFilter">
             <th>Name</th>
-            <th class="description"><span id="selectedUsersGroups">{{group.users | length}}</span> users of {{form.users|length}} selected</th>
+            <th class="description"><span id="selectedUsersGroups">{{group.users | length}}</span>{{ 'fom.user.group.container.users_of_selected' | trans ({'%users_count%': form.users|length }) }}</th>
           </tr>
         </thead>
         <tbody>

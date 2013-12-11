@@ -1,2 +1,2 @@
-{{'Hello %user_username%, You have requested a new password. Call in your browser the link "%url%".'|trans(
+{{'fom.user.password.email_body_text' | trans(
 {'%user_username%': user.username,'%url%': url('fom_user_password_reset', { 'token': user.resettoken }) }, "messages")|raw}}

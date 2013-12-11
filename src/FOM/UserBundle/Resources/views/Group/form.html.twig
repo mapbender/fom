@@ -2,9 +2,9 @@
 
 {% block title %}
   {% if edit %}
-    {{ "Edit Group" | trans}}
+    {{ "fom.user.group.form.edit_group" | trans}}
   {% else %}
-    {{ "New Group" | trans}}
+    {{ "fom.user.group.form.new_group" | trans}}
   {% endif %}
 {% endblock %}
 
@@ -32,8 +32,8 @@
     {{ form_row(form._token) }}
 
     <div class="right">
-      <input class="button" type="submit" value="{% if edit %}{{ 'Save' | trans }}{% else %}{{ 'Create' | trans }}{% endif %}"/>
-      <a class="button critical" href="{{ url('fom_user_group_index') }}">{{ 'Cancel' | trans}}</a>
+      <input class="button" type="submit" value="{% if edit %}{{ 'fom.user.group.form.save' | trans }}{% else %}{{ 'fom.user.group.form.create' | trans }}{% endif %}"/>
+      <a class="button critical" href="{{ url('fom_user_group_index') }}">{{ 'fom.user.group.form.cancel' | trans}}</a>
     </div>
   </form>
 

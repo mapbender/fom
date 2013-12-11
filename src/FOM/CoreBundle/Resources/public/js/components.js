@@ -135,7 +135,7 @@ $(function() {
 
         if(url.length > 0){
             popup = new Mapbender.Popup2({
-                title:"Add users and groups",
+                title:"Add users and groups", //@TODO Mapbender.trans('fom.core.components.popup.add_user_group.title')
                 closeOnOutsideClick: true,
                 content: [
                     $.ajax({
@@ -163,14 +163,14 @@ $(function() {
                 ],
                 buttons: {
                     'cancel': {
-                        label: 'Cancel',
+                        label: 'Cancel', //@TODO Mapbender.trans('fom.core.components.popup.add_user_group.btn.cancel')
                         cssClass: 'button buttonCancel critical right',
                         callback: function() {
                             this.close();
                         }
                     },
                     'add': {
-                        label: 'Add',
+                        label: 'Add', //@TODO Mapbender.trans('fom.core.components.popup.add_user_group.btn.add')
                         cssClass: 'button right',
                         callback: function() {
                             var proto = $("#permissionsHead").attr("data-prototype");
@@ -221,21 +221,21 @@ $(function() {
             popup = popup.destroy();
         }
         popup = new Mapbender.Popup2({
-            title: "Confirm delete",
+            title: "Confirm delete", //@TODO Mapbender.trans('fom.core.components.popup.delete_user_group.title')
             closeOnOutsideClick: true,
             content: [
-                "Really delete " + userGroup + "?"
+                "Really delete " + userGroup + "?" //@TODO Mapbender.trans('fom.core.components.popup.delete_user_group.content',{'userGroup': userGroup})
             ],
             buttons: {
                 'cancel': {
-                    label: 'Cancel',
+                    label: 'Cancel', //@TODO Mapbender.trans('fom.core.components.popup.delete_user_group.btn.cancel')
                     cssClass: 'button buttonCancel critical right',
                     callback: function() {
                         this.close();
                     }
                 },
                 'ok': {
-                    label: 'OK',
+                    label: 'OK', //@TODO Mapbender.trans('fom.core.components.popup.delete_user_group.btn.ok')
                     cssClass: 'button right',
                     callback: function() {
                         parent.remove();
