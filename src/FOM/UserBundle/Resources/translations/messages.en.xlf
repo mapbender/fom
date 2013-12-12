@@ -20,7 +20,7 @@
       </trans-unit>
       <trans-unit id="4f4942e8969a5f16db08fd269c7782b1" resname="fom.user.group.container.no_user_exists">
         <source>fom.user.group.container.no_user_exists</source>
-        <target>No users exists.</target>
+        <target>No user exists.</target>
       </trans-unit>
       <trans-unit id="16f6c2959610a4555dc745eab58bdec2" resname="fom.user.group.index.groups">
         <source>fom.user.group.index.groups</source>
@@ -322,7 +322,7 @@
       </trans-unit>
       <trans-unit id="c64e6ae7261a99ed96d7754802424890" resname="fom.user.user.container.users_of_selected">
         <source>fom.user.user.container.users_of_selected</source>
-        <target>_users of %users_count% selected</target>
+        <target>users of %users_count% selected</target>
       </trans-unit>
       <trans-unit id="1b09066b0fb3977196f0d580f20217d2" resname="fom.user.user.container.no_goups_defined.">
         <source>fom.user.user.container.no_goups_defined.</source>

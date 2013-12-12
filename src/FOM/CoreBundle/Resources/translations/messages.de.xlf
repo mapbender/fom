@@ -12,7 +12,7 @@
       </trans-unit>
       <trans-unit id="b3f2204c6ae085806aa664f34bb52758" resname="fom.core.components.popup.add_user_group.title">
         <source>fom.core.components.popup.add_user_group.title</source>
-        <target>Add users and groups</target>
+        <target>Benutzer und GRuppen hinzufügen.</target>
       </trans-unit>
       <trans-unit id="fa0730c1943e2451142ff2daeb150ebe" resname="fom.core.components.popup.add_user_group.btn.cancel">
         <source>fom.core.components.popup.add_user_group.btn.cancel</source>
@@ -20,11 +20,11 @@
       </trans-unit>
       <trans-unit id="3b0d4f85e5941cb2ab0ffbb3593b74b6" resname="fom.core.components.popup.add_user_group.btn.add">
         <source>fom.core.components.popup.add_user_group.btn.add</source>
-        <target>Add</target>
+        <target>Hinzufügen</target>
       </trans-unit>
       <trans-unit id="3fb798c23db486b16e9e685785fab018" resname="fom.core.components.popup.delete_user_group.title">
         <source>fom.core.components.popup.delete_user_group.title</source>
-        <target>Confirm delete</target>
+        <target>Löschen bestätigen</target>
       </trans-unit>
       <trans-unit id="f1065d0cfa78675a733aef889a2452b7" resname="fom.core.components.popup.delete_user_group.content">
         <source>fom.core.components.popup.delete_user_group.content</source>
