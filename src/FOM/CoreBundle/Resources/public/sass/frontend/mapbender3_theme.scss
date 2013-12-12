@@ -364,7 +364,6 @@
     .leave{
       margin-left:20px;
       position: relative;
-      display: inline-block;
       &.invisible{@include opacity(.3);}
 
       &:before{
