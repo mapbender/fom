@@ -202,13 +202,34 @@ p, pre, dl, menu, ol, ul {
     font-family: FontAwesome;
     font-size: 20px; }
 
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg); }
+
+  100% {
+    -webkit-transform: rotate(359deg); } }
+
+@-moz-keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg); }
+
+  100% {
+    -moz-transform: rotate(359deg); } }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+
+  100% {
+    transform: rotate(359deg); } }
+
 .iconCheckboxActive:before, .iconCheckboxHalf:before, .iconCheckbox:before,
 .iconRadio:before, .iconRadioActive:before, .iconView:before, .iconHelp:before,
 .iconLinkButton:before, .iconDown:before, .iconRight:before, .iconLeft:before,
 .iconTop:before, .iconExpand:before, .iconExpandClosed:before, .iconMove:before,
 .iconAbout:before, .iconPrint:before, .iconGps:before, .iconLayertree:before,
 .iconLegend:before, .iconInfo:before, .iconInfoActive:before, .mb-element-layertree .featureInfoWrapper.iconCheckboxActive:before, .iconSearch:before,
-.iconWms:before, .iconOpen:before, .sidePaneTabItem:before, .mb-element-overview.closed .toggleOverview:before, .iconClose:before, .sidePaneOpened .sidePaneTabItem:before, .mb-element-overview .toggleOverview:before, .iconActivity:before,
+.iconWms:before, .iconOpen:before, .sidePaneTabItem:before, .mb-element-overview.closed .toggleOverview:before, .iconClose:before, .sidePaneOpened .sidePaneTabItem:before, .mb-element-overview .toggleOverview:before, .iconActivity:before, .mb-element-layertree [data-state="loading"]:before,
 .iconCoordinates:before, .iconPrev:before, .iconNext:before, .iconZoomSelect:before,
 .iconZoomMin:before, .iconZoomIn:before, .iconZoomOut:before, .iconZoomLevel:before,
 .iconZoomLevelSelected:before, .iconAreaRuler:before, .iconFolder:before,
@@ -216,7 +237,8 @@ p, pre, dl, menu, ol, ul {
 .iconRemove:before, .iconOk:before, .iconEdit:before, .iconPublish:before,
 .iconPublishActive:before, .iconAppDefault:before, .iconCancel:before,
 .iconThumbsUp:before, .iconThumbsDown:before, .iconGroup:before, .iconUser:before,
-.iconSettings:before, .iconSignOut:before, .iconSignIn:before, .iconMore:before, .iconCopy:before, .iconKey:before {
+.iconSettings:before, .iconSignOut:before, .iconSignIn:before, .iconMore:before,
+.iconCopy:before, .iconKey:before, .iconWarning:before, .mb-element-layertree [data-state="error"]:before {
   font-family: FontAwesome; }
 
 .iconCheckboxActive:before {
@@ -303,7 +325,7 @@ p, pre, dl, menu, ol, ul {
 .iconClose:before, .sidePaneOpened .sidePaneTabItem:before, .mb-element-overview .toggleOverview:before {
   content: "\f068"; }
 
-.iconActivity:before {
+.iconActivity:before, .mb-element-layertree [data-state="loading"]:before {
   content: "\f110"; }
 
 .iconCoordinates:before {
@@ -350,6 +372,9 @@ p, pre, dl, menu, ol, ul {
 
 .iconImageExport:before {
   content: "\f030"; }
+
+.iconWarning:before, .mb-element-layertree [data-state="error"]:before {
+  content: "\f071"; }
 
 .iconGroup:before {
   content: "\f0c0"; }
@@ -876,27 +901,6 @@ fieldset {
     display: block; }
 
 /* ------------------------------------------------------------- MISC */
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg); }
-
-  100% {
-    -webkit-transform: rotate(359deg); } }
-
-@-moz-keyframes spin {
-  0% {
-    -moz-transform: rotate(0deg); }
-
-  100% {
-    -moz-transform: rotate(359deg); } }
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg); }
-
-  100% {
-    transform: rotate(359deg); } }
-
 .mb-element-activityindicator {
   display: none; }
 
@@ -1320,6 +1324,21 @@ fieldset {
     margin-top: 1px; }
 .mb-element-layertree .checkWrapper {
   position: relative; }
+.mb-element-layertree [data-state="loading"] {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+  opacity: 0.7; }
+  .mb-element-layertree [data-state="loading"]:before {
+    -webkit-animation: spin 1s linear infinite;
+    -moz-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    right: 20px; }
+.mb-element-layertree [data-state="error"] .layer-title {
+  color: #aa2323 !important; }
+.mb-element-layertree [data-state="error"]:before {
+  color: #aa2323;
+  position: absolute;
+  right: 20px; }
 
 /* Legend */
 .notshow, .notvisible {
@@ -1361,6 +1380,26 @@ fieldset {
     .ui-autocomplete li:hover {
       color: #5b932a;
       background-color: #f9f9f9; }
+
+/* WMC Editor */
+.mb-wmcEditor .tableCore {
+  width: 100%; }
+.mb-wmcEditor th {
+  text-align: left; }
+.mb-wmcEditor .iconColumn {
+  padding-left: 10px; }
+.mb-wmcEditor .iconAdd {
+  color: #3f3f3f; }
+.mb-wmcEditor .buttonBack {
+  margin-left: 20px; }
+
+.elementFormWMC .labelInput, .elementFormWMC .popupSubTitle {
+  width: 110px;
+  float: left; }
+.elementFormWMC .inputWrapper {
+  margin-bottom: 10px; }
+.elementFormWMC .input {
+  width: 300px; }
 
 /* ----------------------------------------------------------- TOOLBAR */
 /* ----------------------------------------------- ELEMENTS */
