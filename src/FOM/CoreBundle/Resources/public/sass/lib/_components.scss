@@ -412,6 +412,14 @@ fieldset{
   .tab{
     display: inline-block;
     @extend .button;
+
+    &.active{
+      cursor:default;
+      background-color:darken(#6fb536, 10%);
+      color:$lightFontColor;
+      @include box-shadow(0 0 6px rgba(0,0,0,0.1),
+                        inset 0 -10px 10px darken(#5fa229, 8%));
+    }
   }
   .container{
     border-top:dashed 1px $thirdColor;

@@ -889,6 +889,13 @@ fieldset {
 
 .tabContainerAlt .tab {
   display: inline-block; }
+  .tabContainerAlt .tab.active {
+    cursor: default;
+    background-color: #578e2a;
+    color: white;
+    -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #4c8121;
+    -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #4c8121;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #4c8121; }
 .tabContainerAlt .container {
   border-top: dashed 1px #a2a2a2;
   margin-top: 20px;
