@@ -217,27 +217,27 @@
     .iconZoom{@include opacity(1);}
   }
 }
-.zoomWorld{text-align:center;}
-.zoomSlider{
-  text-align:center;
-  .zoomSliderLevels{margin:0px;}
-  .iconZoomLevel{
-    font-size:10px;
-    line-height:10px;
-    margin-top:5px;
-    margin-bottom:10px;
-  }
-  .iconZoomOut, .iconZoomLevel{
-    position: relative;
-    display:block;
-    &:after{
-      content:'';
-      height:7px;
-      border-left:dotted 1px white;
-      @include pos(-8px,'','',19px);
-    }
+.zoomWorld, .zoomSlider{text-align:center;}
+.zoomSliderLevels{margin:0px;}
+.iconZoomLevel{
+  font-size:10px;
+  line-height:10px;
+  margin-top:5px;
+  margin-bottom:10px;
+}
+.iconZoomOut, .iconZoomLevel{
+  position: relative;
+  display:block;
+}
+.iconZoomLevel{
+  &:not(:first-child):after{
+    content:'';
+    height:7px;
+    border-left:dotted 1px white;
+    @include pos(-8px,'','',19px);
   }
 }
+
 .olMapViewport{
   &.MapbenderControlZoomBoxActive{cursor: crosshair;}
   .olHandlerBoxZoomBox {
@@ -389,7 +389,7 @@
       -webkit-animation:spin 1s linear infinite;
       -moz-animation:spin 1s linear infinite;
       animation:spin 1s linear infinite;
-      @include absolute('' $space '' '');
+      @include absolute('' $space*2 '' '');
     }
   }
   [data-state="error"]{
@@ -397,7 +397,7 @@
     .layer-title{color:$errorColor !important;}// if error, overwrite the title color
     &:before{
       color:$errorColor;
-      @include absolute('' $space '' '');
+      @include absolute('' $space*2 '' '');
     }
   }
 }
@@ -407,7 +407,7 @@
 .notshow, .notvisible{display:none;}
 
 /* Search router */
-$searchRouterInputWidth:310px;
+$searchRouterInputWidth:290px;
 .mb-element-searchrouter{
   display: none;
 
@@ -419,6 +419,10 @@ $searchRouterInputWidth:310px;
     float:left;
     width:$searchRouterInputWidth;
     margin-bottom: $space;
+  }
+  .dropdown{
+    margin-left:-90px;
+    width:$searchRouterInputWidth + 90;
   }
   .ui-helper-hidden-accessible{display: none;}
   .search-results{

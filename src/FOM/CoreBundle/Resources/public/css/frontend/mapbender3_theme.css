@@ -1179,28 +1179,29 @@ fieldset {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
     opacity: 1; }
 
-.zoomWorld {
+.zoomWorld, .zoomSlider {
   text-align: center; }
 
-.zoomSlider {
-  text-align: center; }
-  .zoomSlider .zoomSliderLevels {
-    margin: 0px; }
-  .zoomSlider .iconZoomLevel {
-    font-size: 10px;
-    line-height: 10px;
-    margin-top: 5px;
-    margin-bottom: 10px; }
-  .zoomSlider .iconZoomOut, .zoomSlider .iconZoomLevel {
-    position: relative;
-    display: block; }
-    .zoomSlider .iconZoomOut:after, .zoomSlider .iconZoomLevel:after {
-      content: '';
-      height: 7px;
-      border-left: dotted 1px white;
-      position: absolute;
-      top: -8px;
-      left: 19px; }
+.zoomSliderLevels {
+  margin: 0px; }
+
+.iconZoomLevel {
+  font-size: 10px;
+  line-height: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px; }
+
+.iconZoomOut, .iconZoomLevel {
+  position: relative;
+  display: block; }
+
+.iconZoomLevel:not(:first-child):after {
+  content: '';
+  height: 7px;
+  border-left: dotted 1px white;
+  position: absolute;
+  top: -8px;
+  left: 19px; }
 
 .olMapViewport.MapbenderControlZoomBoxActive {
   cursor: crosshair; }
@@ -1339,13 +1340,13 @@ fieldset {
     -moz-animation: spin 1s linear infinite;
     animation: spin 1s linear infinite;
     position: absolute;
-    right: 20px; }
+    right: 40px; }
 .mb-element-layertree [data-state="error"] .layer-title {
   color: #aa2323 !important; }
 .mb-element-layertree [data-state="error"]:before {
   color: #aa2323;
   position: absolute;
-  right: 20px; }
+  right: 40px; }
 
 /* Legend */
 .notshow, .notvisible {
@@ -1359,8 +1360,11 @@ fieldset {
     float: left; }
   .mb-element-searchrouter .dropdown, .mb-element-searchrouter .input {
     float: left;
-    width: 310px;
+    width: 290px;
     margin-bottom: 20px; }
+  .mb-element-searchrouter .dropdown {
+    margin-left: -90px;
+    width: 380px; }
   .mb-element-searchrouter .ui-helper-hidden-accessible {
     display: none; }
   .mb-element-searchrouter .search-results {
@@ -1377,7 +1381,7 @@ fieldset {
   color: #858585;
   cursor: pointer;
   line-height: 29px;
-  max-width: 310px;
+  max-width: 290px;
   max-height: 200px;
   overflow: auto;
   border: solid 1px #c8c8c8;
