@@ -372,6 +372,9 @@ p, pre, dl, menu, ol, ul {
 
 .iconImageExport:before {
   content: "\f030"; }
+  
+.iconSketch:before {
+  content: "\f10c"; }  
 
 .iconWarning:before, .mb-element-layertree [data-state="error"]:before {
   content: "\f071"; }
