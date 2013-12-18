@@ -65,7 +65,7 @@ var Mapbender = (function($, Mapbender) {
                     res += '<li data-idx="' + item[self.options.dataIdx] + '">' + item[self.options.dataTitle] + '</li>';
                 });
                 res += "</ul>";
-                this.autocompleteList.append(res).show();
+                this.autocompleteList.html(res).show();
                 this.autocompleteList.find('li').on('click', $.proxy(self.select, self));
             }
         },
