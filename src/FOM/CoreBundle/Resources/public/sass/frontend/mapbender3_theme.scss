@@ -132,12 +132,12 @@
     @include box-shadow(-3px 0px 8px rgba(0, 0, 0, 0.1));
   }
   .sideContent{
-    overflow: hidden;
     padding:$space;
+    display: none;
   }
 }
 .sidePaneOpened{
-  .sideContent{overflow: auto;}
+  .sideContent{display:block;}
   .sidePaneTabItem{@extend .iconClose;}
 }
 /* -------------------------------------------- ELEMENTS */
@@ -494,7 +494,7 @@ $searchRouterInputWidth:290px;
     padding:5px 7px;
     background-color: #b5b5b5;
     display:inline-block;
-    margin-right:-4px;
+    margin-right:-4px; 
     color:$lightFontColor;
     cursor:pointer;
     @include text-shadow(none);

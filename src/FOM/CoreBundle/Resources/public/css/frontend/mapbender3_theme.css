@@ -1039,11 +1039,11 @@ fieldset {
     -moz-box-shadow: -3px 0px 8px rgba(0, 0, 0, 0.1);
     box-shadow: -3px 0px 8px rgba(0, 0, 0, 0.1); }
   .sidePane .sideContent {
-    overflow: hidden;
-    padding: 20px; }
+    padding: 20px;
+    display: none; }
 
 .sidePaneOpened .sideContent {
-  overflow: auto; }
+  display: block; }
 
 /* -------------------------------------------- ELEMENTS */
 /* ----------------------------------------------------------- CONTENT */
