@@ -1043,7 +1043,8 @@ fieldset {
     display: none; }
 
 .sidePaneOpened .sideContent {
-  display: block; }
+  display: block;
+  overflow: auto; }
 
 /* -------------------------------------------- ELEMENTS */
 /* ----------------------------------------------------------- CONTENT */

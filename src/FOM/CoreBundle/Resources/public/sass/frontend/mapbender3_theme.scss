@@ -137,7 +137,10 @@
   }
 }
 .sidePaneOpened{
-  .sideContent{display:block;}
+  .sideContent{
+    display:block;
+    overflow: auto;
+  }
   .sidePaneTabItem{@extend .iconClose;}
 }
 /* -------------------------------------------- ELEMENTS */
