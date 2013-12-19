@@ -74,6 +74,50 @@
         <source>fom.user.group.form.cancel</source>
         <target>Cancel</target>
       </trans-unit>
+      <trans-unit id="a3d21fdd612642cde6e9fb017a5ab722" resname="fom.user.userbundle.user_control">
+        <source>fom.user.userbundle.user_control</source>
+        <target>User control</target>
+      </trans-unit>
+      <trans-unit id="8ec6670ad0fbf0a2625c0da661612db2" resname="fom.user.userbundle.users">
+        <source>fom.user.userbundle.users</source>
+        <target>Users</target>
+      </trans-unit>
+      <trans-unit id="3b0415aecfed8074c8013fff575fa5fb" resname="fom.user.userbundle.new_user">
+        <source>fom.user.userbundle.new_user</source>
+        <target>New user</target>
+      </trans-unit>
+      <trans-unit id="b51f225fb25cc139ccedb5a8c6a38f9b" resname="fom.user.userbundle.groups">
+        <source>fom.user.userbundle.groups</source>
+        <target>Groups</target>
+      </trans-unit>
+      <trans-unit id="773c3ff46a6cf4628e1974a796566b04" resname="fom.user.userbundle.new_group">
+        <source>fom.user.userbundle.new_group</source>
+        <target>New group</target>
+      </trans-unit>
+      <trans-unit id="06a55817b83d0c6a3a072533d26a5ed3" resname="fom.user.userbundle.acls">
+        <source>fom.user.userbundle.acls</source>
+        <target>ACLs</target>
+      </trans-unit>
+      <trans-unit id="43dc608aeb4eb67af41e17d7b4dd455f" resname="fom.user.userbundle.classes.acls">
+        <source>fom.user.userbundle.classes.acls</source>
+        <target>ACLs</target>
+      </trans-unit>
+      <trans-unit id="78578622ab61212049ffc9138ee0755e" resname="fom.user.userbundle.classes.users">
+        <source>fom.user.userbundle.classes.users</source>
+        <target>Users</target>
+      </trans-unit>
+      <trans-unit id="4bb4835a269300d75d56b4d9fd968adf" resname="fom.user.userbundle.classes.groups">
+        <source>fom.user.userbundle.classes.groups</source>
+        <target>groups</target>
+      </trans-unit>
+      <trans-unit id="e17e415d80699f104b275d62fec85c07" resname="fom.user.userbundle.roles.super_admin">
+        <source>fom.user.userbundle.roles.super_admin</source>
+        <target>Can administrate everything (super admin)</target>
+      </trans-unit>
+      <trans-unit id="94f12c2a219f99cc1e5bcd8eb42f3315" resname="fom.user.userbundle.roles.user_admin">
+        <source>fom.user.userbundle.roles.user_admin</source>
+        <target>Can administrate users and groups</target>
+      </trans-unit>
       <trans-unit id="d79b7fe56c950f569f02000eed4459e2" resname="fom.user.acl.index.access_control_lists">
         <source>fom.user.acl.index.access_control_lists</source>
         <target>Global Access Control Lists</target>

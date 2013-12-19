@@ -27,9 +27,10 @@ class FOMUserBundle extends ManagerBundle
      */
     public function getManagerControllers()
     {
+        $trans = $this->container->get('translator');
         return array(
             array(
-                'title' => 'User Control',
+                'title' => $trans->trans("fom.user.userbundle.user_control"),
                 'weight' => 100,
                 'route' => 'fom_user_user_index',
                 'routes' => array(
@@ -38,11 +39,11 @@ class FOMUserBundle extends ManagerBundle
                     'fom_user_acl'
                 ),
                 'subroutes' => array(
-                    0 => array('title'=>'Users',
+                    0 => array('title'=>$trans->trans("fom.user.userbundle.users"),
                                'route'=>'fom_user_user_index',
                                'subroutes' => array(
                                     0 => array(
-                                      'title'=>'New User',
+                                      'title'=>$trans->trans("fom.user.userbundle.new_user"),
                                       'route'=>'fom_user_user_new',
                                       'enabled' => function($securityContext) {
                                           $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
@@ -50,11 +51,11 @@ class FOMUserBundle extends ManagerBundle
                                       })
                                 )
                               ),
-                    1 => array('title'=>'Groups',
+                    1 => array('title'=>$trans->trans("fom.user.userbundle.groups"),
                                'route'=>'fom_user_group_index',
                                'subroutes' => array(
                                     0 => array(
-                                      'title'=>'New Group',
+                                      'title'=>$trans->trans("fom.user.userbundle.new_group"),
                                       'route'=>'fom_user_group_new',
                                       'enabled' => function($securityContext) {
                                           $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
@@ -62,7 +63,7 @@ class FOMUserBundle extends ManagerBundle
                                       })
                                 )
                                ),
-                    2 => array('title'=>'ACLs',
+                    2 => array('title'=>$trans->trans("fom.user.userbundle.acls"),
                                'route'=>'fom_user_acl_index',
                                 'enabled' => function($securityContext) {
                                     $oid = new ObjectIdentity('class', 'Symfony\Component\Security\Acl\Domain\Acl');
@@ -75,16 +76,18 @@ class FOMUserBundle extends ManagerBundle
 
     public function getRoles()
     {
+        $trans = $this->container->get('translator');
         return array(
-            'ROLE_SUPER_ADMIN' => 'Can administrate everything (super admin)',
-            'ROLE_USER_ADMIN' => 'Can administrate users & groups');
+            'ROLE_SUPER_ADMIN' => $trans->trans("fom.user.userbundle.roles.super_admin"),
+            'ROLE_USER_ADMIN' => $trans->trans("fom.user.userbundle.roles.user_admin"));
     }
 
     public function getACLClasses()
     {
+        $trans = $this->container->get('translator');
         return array(
-            'Symfony\Component\Security\Acl\Domain\Acl' => 'ACLs',
-            'FOM\UserBundle\Entity\User' => 'Users',
-            'FOM\UserBundle\Entity\Group' => 'Groups');
+            'Symfony\Component\Security\Acl\Domain\Acl' => $trans->trans("fom.user.userbundle.classes.acls"),
+            'FOM\UserBundle\Entity\User' => $trans->trans("fom.user.userbundle.classes.users"),
+            'FOM\UserBundle\Entity\Group' => $trans->trans("fom.user.userbundle.classes.groups"));
     }
 }
