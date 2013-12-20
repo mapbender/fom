@@ -4,7 +4,7 @@
     <body>
       <trans-unit id="10ebd083788b8b81bc23dfbf949591e0" resname="fom.user.group.container.base_data">
         <source>fom.user.group.container.base_data</source>
-        <target>Basis Daten</target>
+        <target>Basisdaten</target>
       </trans-unit>
       <trans-unit id="d0695ec25e176e3501ba3cfe40c9babb" resname="fom.user.group.container.users">
         <source>fom.user.group.container.users</source>
@@ -68,7 +68,7 @@
       </trans-unit>
       <trans-unit id="526efe9dd2e7601123415620da7db198" resname="fom.user.group.form.create">
         <source>fom.user.group.form.create</source>
-        <target>Erzeugen</target>
+        <target>Speichern</target>
       </trans-unit>
       <trans-unit id="baee2fae6b5b174007ceb2c0fd70bafb" resname="fom.user.group.form.cancel">
         <source>fom.user.group.form.cancel</source>
@@ -76,7 +76,7 @@
       </trans-unit>
       <trans-unit id="a3d21fdd612642cde6e9fb017a5ab722" resname="fom.user.userbundle.user_control">
         <source>fom.user.userbundle.user_control</source>
-        <target>Benutzerkontrolle</target>
+        <target>Benutzerverwaltung</target>
       </trans-unit>
       <trans-unit id="8ec6670ad0fbf0a2625c0da661612db2" resname="fom.user.userbundle.users">
         <source>fom.user.userbundle.users</source>
@@ -96,11 +96,11 @@
       </trans-unit>
       <trans-unit id="06a55817b83d0c6a3a072533d26a5ed3" resname="fom.user.userbundle.acls">
         <source>fom.user.userbundle.acls</source>
-        <target>GZLen (ACLs)</target>
+        <target>Berechtigungen ACLs</target>
       </trans-unit>
       <trans-unit id="43dc608aeb4eb67af41e17d7b4dd455f" resname="fom.user.userbundle.classes.acls">
         <source>fom.user.userbundle.classes.acls</source>
-        <target>GZLen (ACLs)</target>
+        <target>Berechtigungen ACLs</target>
       </trans-unit>
       <trans-unit id="78578622ab61212049ffc9138ee0755e" resname="fom.user.userbundle.classes.users">
         <source>fom.user.userbundle.classes.users</source>
@@ -144,7 +144,7 @@
       </trans-unit>
       <trans-unit id="7ca241ee4294e362ceeafe477874ccf6" resname="fom.user.acl.edit.add_users_groups">
         <source>fom.user.acl.edit.add_users_groups</source>
-        <target>Benutzer und Gruppen hinzufügen</target>
+        <target>Benutzer/Gruppen hinzufügen</target>
       </trans-unit>
       <trans-unit id="85608e08998ce5f16f6893194018ba07" resname="fom.user.acl.edit.save">
         <source>fom.user.acl.edit.save</source>
@@ -164,11 +164,11 @@
       </trans-unit>
       <trans-unit id="216fe12bb8ae642c4c7ad3f131a4397a" resname="fom.user.acl.groups_users.no_goups_users">
         <source>fom.user.acl.groups_users.no_goups_users</source>
-        <target>Keine Gruppen und Benutzer definiert.</target>
+        <target>Keine Gruppen/Benutzer definiert.</target>
       </trans-unit>
       <trans-unit id="192916a6b1aebf1705b2b5a0d14a80de" resname="fom.user.acl.required">
         <source>fom.user.acl.required</source>
-        <target>Erforderliche Felder sind mit dunkler Beschriftung markiert, optionale Felder haben hellere Beschriftung.</target>
+        <target>Die erforderlichen Felder sind mit dunkler Beschriftung markiert, optionale Felder haben eine hellere Beschriftung.</target>
       </trans-unit>
       <trans-unit id="87c33391dbfc5af08c1bd1190ea1e2e1" resname="fom.user.password.request.user_inactive">
         <source>fom.user.password.request.user_inactive</source>
@@ -188,11 +188,11 @@
       </trans-unit>
       <trans-unit id="704c79de283eb8b7dcb695b56c3696fe" resname="fom.user.password.done.back_to_login">
         <source>fom.user.password.done.back_to_login</source>
-        <target>Zurück zum Login</target>
+        <target>Zurück zur Anmeldung</target>
       </trans-unit>
       <trans-unit id="d6d0b6344c51305d3f403f46c9e361a9" resname="fom.user.password.email_body_text">
         <source>fom.user.password.email_body_text</source>
-        <target>Hallo %user_username%, Sie haben ein neues Passwort angefordert. Rufen Sie in Ihrem browser folgenden Link auf "%url%"</target>
+        <target>Hallo %user_username%, Sie haben ein neues Passwort angefordert. Rufen Sie in Ihrem Browser folgenden Link auf "%url%"</target>
       </trans-unit>
       <trans-unit id="482a130e8a32b331d90f828c7d3c2d22" resname="fom.user.password.reset.title">
         <source>fom.user.password.reset.title</source>
@@ -220,7 +220,7 @@
       </trans-unit>
       <trans-unit id="fffe19404fde23a9b3a85496c1bd482e" resname="fom.user.password.send.back_to_login">
         <source>fom.user.password.send.back_to_login</source>
-        <target>Zurück zum Login</target>
+        <target>Zurück zur Anmeldung</target>
       </trans-unit>
       <trans-unit id="c2dd3a91aa1dbb6d29654af01b23eebf" resname="fom.user.password.email_body_html">
         <source>fom.user.password.email_body_html</source>
@@ -252,7 +252,7 @@
       </trans-unit>
       <trans-unit id="d160ecbaff18ffa6372d34ae92839db9" resname="fom.user.password.request_error_no_user">
         <source>fom.user.password.request_error_no_user</source>
-        <target>Benutzer wurde nicht gefunden.</target>
+        <target>Der Benutzer wurde nicht gefunden.</target>
       </trans-unit>
       <trans-unit id="16aedf1aba17d3e32708607f6574d3af" resname="fom.user.registration.done.title">
         <source>fom.user.registration.done.title</source>
@@ -328,15 +328,15 @@
       </trans-unit>
       <trans-unit id="4e5294f740132c3972c620fa1452cdbb" resname="fom.user.registration.form.register">
         <source>fom.user.registration.form.register</source>
-        <target>Register</target>
+        <target>Registrieren</target>
       </trans-unit>
       <trans-unit id="1857e332573452e99c43f95205d285fb" resname="fom.user.user.container.base_data">
         <source>fom.user.user.container.base_data</source>
-        <target>Basis Daten</target>
+        <target>Basisdaten</target>
       </trans-unit>
       <trans-unit id="c75ba394d97036dd35107a597cfd5d60" resname="fom.user.user.container.profile">
         <source>fom.user.user.container.profile</source>
-        <target>Profile</target>
+        <target>Profil</target>
       </trans-unit>
       <trans-unit id="3abe88b2e8ae6e8a1a5346dd16d583c5" resname="fom.user.user.container.groups">
         <source>fom.user.user.container.groups</source>
@@ -372,11 +372,11 @@
       </trans-unit>
       <trans-unit id="414b080311e903094e01a6d810d5b702" resname="fom.user.user.container.manage_not_allowed">
         <source>fom.user.user.container.manage_not_allowed</source>
-        <target>Sie dürfen keine Gruppen managen.</target>
+        <target>Sie dürfen Gruppen nicht verwalten.</target>
       </trans-unit>
       <trans-unit id="8e65e5019a37cd2aaf52addefa0c526b" resname="fom.user.user.container.add_users_groups">
         <source>fom.user.user.container.add_users_groups</source>
-        <target>Benutzer und Gruppen hinzufügen</target>
+        <target>Benutzer/Gruppen hinzufügen</target>
       </trans-unit>
       <trans-unit id="2cd7151086892a654ee449d89fa8ea9d" resname="fom.user.user.container.manage_not_allowed_security">
         <source>fom.user.user.container.manage_not_allowed_security</source>
@@ -440,7 +440,7 @@
       </trans-unit>
       <trans-unit id="21dc708e5b1b87cad327510a160795a0" resname="fom.user.user.form.create">
         <source>fom.user.user.form.create</source>
-        <target>Erzeugen</target>
+        <target>Speichern</target>
       </trans-unit>
       <trans-unit id="af5a078bc3d25f703bf609dd0d913a6d" resname="fom.user.user.form.cancel">
         <source>fom.user.user.form.cancel</source>
@@ -460,11 +460,11 @@
       </trans-unit>
       <trans-unit id="45d1bebc078ced811e44ecfc7184d01b" resname="fom.user.login.error_notocken.contact">
         <source>fom.user.login.error_notocken.contact</source>
-        <target>Contakt Administrator</target>
+        <target>Kontakt Administrator</target>
       </trans-unit>
       <trans-unit id="86a280b655b2e702ee8c491197682f7c" resname="fom.user.login.error_notocken.back_to_login">
         <source>fom.user.login.error_notocken.back_to_login</source>
-        <target>Zurück zum Login</target>
+        <target>Zurück zur Anmeldung</target>
       </trans-unit>
       <trans-unit id="0ac6f8f22228bce348c0871bb2cec820" resname="fom.user.login.error_tockenexp.title">
         <source>fom.user.login.error_tockenexp.title</source>
@@ -484,19 +484,19 @@
       </trans-unit>
       <trans-unit id="70966b21d4c02f098624fcaed5ff4def" resname="fom.user.login.error_tockenexp.back_to_login">
         <source>fom.user.login.error_tockenexp.back_to_login</source>
-        <target>Zurück zum Login</target>
+        <target>Zurück zur Anmeldung</target>
       </trans-unit>
       <trans-unit id="9689c69246ee6383ba6614c71bee6d2a" resname="fom.user.login.login.title">
         <source>fom.user.login.login.title</source>
-        <target>Login</target>
+        <target>Anmeldung</target>
       </trans-unit>
       <trans-unit id="317a163a7868f3c834beb884be3a7fdd" resname="fom.user.login.login.caption">
         <source>fom.user.login.login.caption</source>
-        <target>Login</target>
+        <target>Anmeldung</target>
       </trans-unit>
       <trans-unit id="bd60e3bfdde2f9ad9cd9f40d3913cc28" resname="fom.user.login.login.username">
         <source>fom.user.login.login.username</source>
-        <target>Benutzername</target>
+        <target>Benutzer</target>
       </trans-unit>
       <trans-unit id="6e6c6488c2d50480c4daa4fdfa0d8032" resname="fom.user.login.login.password">
         <source>fom.user.login.login.password</source>
@@ -512,7 +512,7 @@
       </trans-unit>
       <trans-unit id="85ea81326e987117cc84666e02b0a239" resname="fom.user.login.login.login">
         <source>fom.user.login.login.login</source>
-        <target>Login</target>
+        <target>Anmelden</target>
       </trans-unit>
     </body>
   </file>
