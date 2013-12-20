@@ -17,5 +17,8 @@
   <script src="{{ asset('bundles/fomcore/js/components.js')}}"></script>
   <script src="{{ asset('bundles/fomcore/js/widgets/collection.js')}}"></script>
   <script src="{{ asset('bundles/mapbendercore/mapbender.trans.js')}}"></script>
-  <script type="text/javascript">{% include "FOMCoreBundle::components.json.twig" %}</script>
+  <script type="text/javascript">
+{% include "FOMCoreBundle::components.json.twig" %}
+{% include "MapbenderManagerBundle::components.json.twig" %}
+  </script>
 {% endblock %}
