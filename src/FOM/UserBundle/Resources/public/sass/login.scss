@@ -1,0 +1,65 @@
+@import "libs/variables";
+@import "libs/mixins";
+@import "libs/normalize";
+@import "libs/icons"; 
+
+@import "modules/base"; 
+@import "modules/layout";
+@import "modules/text";
+@import "modules/input";
+@import "modules/button"; 
+@import "modules/seperator"; 
+@import "modules/container"; 
+
+$boxWidth:340px;
+
+
+.head{
+  position: relative;
+  border-top:solid 5px darken($firstColor, 10%);
+  background-image:url($headPatternUrl);
+  @include background(linear-gradient(rgba(255,255,255,.1), 
+                                      rgba(255,255,255,0)),
+                      url($headPatternUrl));
+
+  @include box-shadow(inset lighten(#000, 20%) 0px 1px 0px);
+}
+.dekoSeperator{@include absolute('' 0 0 0);}
+.authWrapper{@include absolute(15% 0 '' 0);}
+.logo{max-height:120px;}
+.head{height:300px;}
+.labelInput{display:block;}
+.input{margin-bottom:$space/2;}
+.logoContainer{
+  text-align:center;
+  display:block;
+  @include relative(-280px '' '' '');
+}
+.linkButton{
+  margin-right:$space/2;
+  margin-top:5px;
+}
+.loginBox{
+  padding:$space;
+  margin: 0 auto;
+  width:$boxWidth;
+  background-image:url($contentPatternUrl);
+  @include relative(-260px '' '' '');
+  @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
+
+  &.login{
+  $labelWidth: 80px;
+  .labelInput{width:$labelWidth;}
+  .input{width:$boxWidth - $labelWidth - $space*2;}
+  }
+  &.forgot{
+    $labelWidth: 135px;
+    .labelInput{width:$labelWidth;}
+    .input{width:$boxWidth - $labelWidth - $space*2;}
+  }
+  &.register{
+    $labelWidth: 125px;
+    .labelInput{width:$labelWidth;}
+    .input{width:$boxWidth - $labelWidth - $space*2;}
+  }
+}
