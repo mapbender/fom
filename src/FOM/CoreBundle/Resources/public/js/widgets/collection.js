@@ -18,11 +18,6 @@ $(document).on('click', '.collectionAdd', function(event) {
             .replace(/__name__/g, index))[0])
             .addClass('collectionItem');
 
-    // Also add a delete button if needed
-    if(collection.data('allow-delete') == '1') {
-        item.append($('<a href="#delete" class="collectionRemove iconSmall iconRemove"></a>'));
-    }
-
     // Now let's enter that item...
     collection.append(item);
     // And update our counter.
