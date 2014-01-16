@@ -118,6 +118,8 @@ var Mapbender = (function($, Mapbender) {
 
             // Is popup draggable (showHeader must be true)
             draggable: false,
+            // Resizable, you can pass true or an object of resizable options
+            resizable: false,
 
             header: true,
             closeButton: true,
@@ -361,6 +363,27 @@ var Mapbender = (function($, Mapbender) {
             this.options.modal = state;
         },
 
+
+        /**
+         * Set or get resizable status
+         * @param {mixed} state, undefined gets, true or false sets state, an object of options for jQuery UI resizable
+         *                can also be passed
+         * @return {boolean}
+         */
+        resizable: function(state) {
+            if(undefined === state) {
+                return this.options.resizable;
+            }
+
+            if(state) {
+                $('.popup', this.$element).resizable($.isPlainObject(state) ? state : null);
+            } else {
+                var popup = $('.popup', this.$element);
+                if(popup.data('uiResizable')) {
+                    popup.resizable('destroy');
+                }
+            }
+        },
 
 
         /**
