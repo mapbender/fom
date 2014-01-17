@@ -1,5 +1,6 @@
 @import "libs/variables";
 @import "libs/mixins";
+@import "libs/icons";
 
 // --------------------------------------------------------- USER/GROUP
 .tableUserGroups{
@@ -55,7 +56,7 @@
       float:left;
       display: block;
       margin-bottom: $space/2;
-    } 
+    }
     .input, .dropdown{width:250px;}
     textarea{height:150px;}
   }

@@ -1,15 +1,15 @@
 @import "libs/variables";
 @import "libs/mixins";
 @import "libs/normalize";
-@import "libs/icons"; 
+@import "libs/icons";
 
-@import "modules/base"; 
+@import "modules/base";
 @import "modules/layout";
 @import "modules/text";
 @import "modules/input";
-@import "modules/button"; 
-@import "modules/seperator"; 
-@import "modules/container"; 
+@import "modules/button";
+@import "modules/seperator";
+@import "modules/container";
 
 $boxWidth:340px;
 
@@ -18,11 +18,9 @@ $boxWidth:340px;
   position: relative;
   border-top:solid 5px darken($firstColor, 10%);
   background-image:url($headPatternUrl);
-  @include background(linear-gradient(rgba(255,255,255,.1), 
+  @include background(linear-gradient(rgba(255,255,255,.1),
                                       rgba(255,255,255,0)),
                       url($headPatternUrl));
-
-  @include box-shadow(inset lighten(#000, 20%) 0px 1px 0px);
 }
 .dekoSeperator{@include absolute('' 0 0 0);}
 .authWrapper{@include absolute(15% 0 '' 0);}
@@ -44,22 +42,27 @@ $boxWidth:340px;
   margin: 0 auto;
   width:$boxWidth;
   background-image:url($contentPatternUrl);
+  border: {
+    top: solid 1px $secondColor;
+    left: solid 1px $thirdColor;
+    right: solid 1px $thirdColor;
+    bottom: solid 5px $thirdColor;
+  }
   @include relative(-260px '' '' '');
-  @include box-shadow(0px 0px 3px rgba(0, 0, 0, 0.9));
 
   &.login{
-  $labelWidth: 80px;
+  $labelWidth: 60px;
   .labelInput{width:$labelWidth;}
-  .input{width:$boxWidth - $labelWidth - $space*2;}
+  .input{width:$boxWidth - $labelWidth - $space*3;}
   }
   &.forgot{
     $labelWidth: 135px;
     .labelInput{width:$labelWidth;}
-    .input{width:$boxWidth - $labelWidth - $space*2;}
+    .input{width:$boxWidth - $labelWidth - $space*3;}
   }
   &.register{
     $labelWidth: 125px;
     .labelInput{width:$labelWidth;}
-    .input{width:$boxWidth - $labelWidth - $space*2;}
+    .input{width:$boxWidth - $labelWidth - $space*3;}
   }
 }
