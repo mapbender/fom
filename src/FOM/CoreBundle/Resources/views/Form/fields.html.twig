@@ -56,7 +56,6 @@
 
 {% block collection_widget %}
   {% spaceless %}
-    {% set attr = attr|merge({'data-index': form.children|length}) %}
     {% if prototype is defined %}
       {% set attr = attr|merge({'data-prototype': form_row(prototype) }) %}
       {% endif %}
