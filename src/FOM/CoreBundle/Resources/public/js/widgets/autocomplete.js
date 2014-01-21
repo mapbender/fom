@@ -15,17 +15,30 @@ var Mapbender = (function($, Mapbender) {
         if(!this.options.url || !this.autocompleteList)
             window.console && console.error("mbAutoComplete can't be implemented.");
         else{
-            this.input.on('keyup', function(e){
-                var txt = $(e.target).val();
-                self.autocompleteList.html('').hide();
-                if(txt.length >= self.options.minLength){
-                    self.find(txt);
-                }
-            });
+            if(this.options.delay > 0) {
+                // @todo: delayed triggering
+                this.input.on('keyup', function(e){
+                    self.autocompleteList.html('').hide();
+
+                    if($(e.target).val().length < self.options.minLength) {
+                        return;
+                    }
+
+                    if(null !== this.delay) {
+                        clearTimeout(this.delay);
+                    }
+                    this.delay = setTimeout(function() {
+                        self.find($(e.target).val());
+                    }, self.options.delay);
+                });
+            }
         }
     };
     Autocomplete.prototype = {
+        delay: null,
+        data: null,
         options: {
+            delay: 300,
             minLength: 2,
             requestType: 'GET',
             requestParamTerm: 'term',
@@ -52,17 +65,27 @@ var Mapbender = (function($, Mapbender) {
             });
         },
         select: function(e){
-            this.selected = {idx: $(e.target).attr('data-idx'), title: $(e.target).text()};
+            var target = $(e.target);
+            var index = $('li', target.parent()).index(target);
+            this.selected = {
+                idx: target.attr('data-idx'),
+                title: target.text(),
+                data: this.data[index]
+            };
             this.input.val(this.selected.title);
             this.close();
+
+            this.input.trigger('mbautocomplete.selected', this.selected);
         },
         open: function(data){
             this.selected = null;
             if(data.length > 0){
                 var self = this;
+                this.data = data;
                 var res = "<ul>";
                 $.each(data, function(idx, item){
-                    res += '<li data-idx="' + item[self.options.dataIdx] + '">' + item[self.options.dataTitle] + '</li>';
+                    var itemIndex = self.options.dataIdx ? item[self.options.dataIdx] : idx;
+                    res += '<li data-idx="' + itemIndex + '">' + item[self.options.dataTitle] + '</li>';
                 });
                 res += "</ul>";
                 this.autocompleteList.html(res).show();
