@@ -23,7 +23,6 @@
   td{
     cursor:pointer;
     padding:0px;
-    @include transition(all 0.2s ease-in-out);
     &:hover{
       .checkWrapper{@include opacity(0.4);}
       .checkWrapper.iconCheckboxActive{@include opacity(1);}
@@ -43,7 +42,6 @@
     width: 100%;
     @include opacity(0);
     @include pos(0,0,'','');
-    @include transition(all 0.2s ease-in-out);
 
     &.iconCheckboxActive{@include opacity(1);}
   }
