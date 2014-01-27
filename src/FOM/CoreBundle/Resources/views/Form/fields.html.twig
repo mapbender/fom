@@ -328,10 +328,13 @@
 
 {% block form_row %}
   {% spaceless %}
-    <div>
+    <div {% if 'collection' in form.parent.get('block_prefixes') %}class="collectionItem"{% endif %}>
       {{ form_label(form) }}
       {{ form_errors(form) }}
       {{ form_widget(form) }}
+      {% if form.parent.get('allow_delete') %}
+      <a href="#delete" class="collectionRemove iconSmall iconRemove"></a>
+      {% endif %}
     </div>
   {% endspaceless %}
 {% endblock form_row %}
