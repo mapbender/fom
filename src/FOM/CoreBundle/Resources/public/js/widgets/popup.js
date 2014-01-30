@@ -504,7 +504,7 @@ var Mapbender = (function($, Mapbender) {
                 if(4 === content.readyState) {
                     // If finished, insert result or failure notice
                     if(200 == content.status) {
-                        contentItem.apppend(content.responseText);
+                        contentItem.append(content.responseText);
                     } else {
                         contentItem
                             .addClass('ajax ajaxFailed')
