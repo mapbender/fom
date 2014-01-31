@@ -1,5 +1,16 @@
 (function($) {
 
+function s4() {
+  return Math.floor((1 + Math.random()) * 0x10000)
+             .toString(16)
+             .substring(1);
+};
+
+function guid() {
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+         s4() + '-' + s4() + s4() + s4();
+}
+
 $(document).on('click', '.collectionAdd', function(event) {
     event.preventDefault();
 
@@ -8,20 +19,15 @@ $(document).on('click', '.collectionAdd', function(event) {
     var collection = $(event.target).parent(),
         // The prototype text for the new item...
         prototype = collection.data('prototype'),
-        // The index, which might be undefined first...
-        index = collection.data('index') || 0,
-
         // And finally parse the prototype into a new clean item for insertion.
         item = $($.parseHTML(prototype
             .trim()
             .replace(/__name__label__/g, '')
-            .replace(/__name__/g, index))[0])
+            .replace(/__name__/g, guid()))[0])
             .addClass('collectionItem');
 
     // Now let's enter that item...
     collection.append(item);
-    // And update our counter.
-    collection.data('index', index + 1);
 });
 
 $(document).on('click', '.collectionRemove', function(event) {
