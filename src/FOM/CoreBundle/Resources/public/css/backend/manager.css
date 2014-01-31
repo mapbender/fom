@@ -185,9 +185,11 @@ p, pre, dl, menu, ol, ul {
 [class^="icon"],
 [class*=" icon"],
 .icon,
+.ui-resizable-se,
 .flashBox.success:before {
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
+  font-family: FontAwesome;
   cursor: pointer;
   display: inline;
   width: auto;
@@ -619,7 +621,7 @@ fieldset {
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225; }
-  .button.icon, .tabContainerAlt .icon.tab, .tabContainerAlt .tab.flashBox.success:before, .button.flashBox.success:before {
+  .button.icon, .button.ui-resizable-se, .tabContainerAlt .ui-resizable-se.tab, .tabContainerAlt .icon.tab, .tabContainerAlt .tab.flashBox.success:before, .button.flashBox.success:before {
     padding-left: 20px;
     background-image: url("../../fomcore/images/link_arrow.png");
     background-position: 10px center;
@@ -743,18 +745,20 @@ fieldset {
     cursor: move; }
 
 .popupButtons {
-  margin-right: 20px; }
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  left: 0; }
 
 .popupContent, .popupSubContent {
-  padding: 0 10px 0 20px;
-  margin: 0 20px 20px 0;
-  max-height: 370px;
-  overflow-y: auto; }
+  padding: 0 20px; }
 
 .popupSubContent {
   width: 460px; }
 
 .popup {
+  min-width: 300px;
+  min-height: 250px;
   position: relative;
   z-index: 9999;
   width: 460px;
@@ -808,6 +812,29 @@ fieldset {
       left: 0; }
   .popupContainer .button, .popupContainer .tabContainerAlt .tab, .tabContainerAlt .popupContainer .tab {
     margin-left: 3px; }
+
+.popupScroll {
+  overflow: auto;
+  position: absolute;
+  top: 70px;
+  right: 0;
+  bottom: 60px;
+  left: 0; }
+
+.ui-resizable-se {
+  font-size: 16px;
+  position: absolute;
+  right: 3px;
+  bottom: -3px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  cursor: default; }
+  .ui-resizable-se:before {
+    content: "\f054";
+    display: block; }
 
 /* ------------------------------------------------- TABS */
 .tabContainer .tab {
@@ -1208,11 +1235,11 @@ fieldset {
 
 body {
   background-image: url("../../images/body.png");
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(100px, rgba(255, 255, 255, 0.3)), color-stop(100%, rgba(255, 255, 255, 0))) fixed, url('../../images/body.png?1367146802');
-  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367146802');
-  background: -moz-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367146802');
-  background: -o-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367146802');
-  background: linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1367146802'); }
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(100px, rgba(255, 255, 255, 0.3)), color-stop(100%, rgba(255, 255, 255, 0))) fixed, url('../../images/body.png?1391160854');
+  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1391160854');
+  background: -moz-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1391160854');
+  background: -o-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1391160854');
+  background: linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1391160854'); }
 
 .page {
   position: relative;
@@ -1226,11 +1253,11 @@ body {
   min-width: 1000px;
   border-top: solid 5px #272727;
   background-image: url("../../images/head.png");
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0))), url('../../images/head.png?1368431720');
-  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368431720');
-  background: -moz-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368431720');
-  background: -o-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368431720');
-  background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1368431720');
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0))), url('../../images/head.png?1391160854');
+  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1391160854');
+  background: -moz-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1391160854');
+  background: -o-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1391160854');
+  background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1391160854');
   -webkit-box-shadow: inset #333333 0px 1px 0px;
   -moz-box-shadow: inset #333333 0px 1px 0px;
   box-shadow: inset #333333 0px 1px 0px; }
