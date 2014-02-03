@@ -137,6 +137,7 @@ $(function() {
             popup = new Mapbender.Popup2({
                 title: Mapbender.trans('fom.core.components.popup.add_user_group.title'),
                 closeOnOutsideClick: true,
+                height: 400,
                 content: [
                     $.ajax({
                         url: url,

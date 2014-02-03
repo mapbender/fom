@@ -769,7 +769,7 @@ fieldset {
 
 .popup {
   min-width: 300px;
-  min-height: 250px;
+  min-height: 200px;
   position: relative;
   z-index: 9999;
   width: 460px;
