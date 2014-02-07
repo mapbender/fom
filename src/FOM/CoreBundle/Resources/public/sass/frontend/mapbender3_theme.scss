@@ -137,16 +137,13 @@
   }
 }
 .sidePaneOpened{
-  .sideContent{
-    display:block;
-    overflow: auto;
-  }
+  .sideContent{display:block;}
   .sidePaneTabItem{@extend .iconClose;}
 }
 /* -------------------------------------------- ELEMENTS */
 
 .sideContent{
-  .mb-aboutButton, .mb-gpsButton, 
+  .mb-aboutButton, .mb-gpsButton,
   .mb-button, {@extend .button;}
 }
 
@@ -360,7 +357,7 @@
     }
 
     // show only layers which are toggled
-    .layers{display:none;}    
+    .layers{display:none;}
     &.showLeaves > .layers{display:block;}
 
     .leave{
@@ -403,6 +400,54 @@
     }
   }
 }
+.layer-menu-btn{
+  position: relative;
+}
+.layer-menu{
+  position: absolute;
+  background-color: white;
+  padding: $space/2;
+  margin-top: $space/2;
+  margin-left: -5px;
+  z-index: 20;
+  border:solid 1px $thirdColor;
+  @include border-radius($radius);
+
+  &:before{
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-bottom:10px solid $firstColor;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    @include absolute(-$space/2 '' '' 0);
+  }
+}
+$layer-opacity-bar-height: 5px;
+.layer-opacity-bar{
+  position: relative;
+  color:$lightFontColor;
+  height: $layer-opacity-bar-height;
+  background-color: $thirdColor;
+  width: 100px;
+  @include border-radius(2px);
+}
+.layer-opacity-handle{
+  position: absolute;
+  top: -$layer-opacity-bar-height;
+  left: 0;
+  cursor: pointer;
+  width: 30px;
+  height: 16px;
+  line-height: 16px;
+  background-color:#6fb536;
+  font-size: 12px;
+  text-align:center;
+  @include border-radius(4px);
+}
+
+
 /* Legend */
 // notshow -> hide always legend item
 // notvisible -> hide legend item by user
@@ -497,7 +542,7 @@ $searchRouterInputWidth:290px;
     padding:5px 7px;
     background-color: #b5b5b5;
     display:inline-block;
-    margin-right:-4px; 
+    margin-right:-4px;
     color:$lightFontColor;
     cursor:pointer;
     @include text-shadow(none);
