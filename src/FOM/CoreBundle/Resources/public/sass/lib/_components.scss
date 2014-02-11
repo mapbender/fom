@@ -259,6 +259,7 @@ fieldset{
 
     li{
       padding-left: 5px;
+      line-height: $lineHeight;
       &:hover{
         color:$ciColor;
         background-color:$contentColor;
