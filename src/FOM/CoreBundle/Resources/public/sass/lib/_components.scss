@@ -343,11 +343,7 @@ fieldset{
 
   .button{margin-left:3px;}
 }
-.popupScroll{
-  overflow: auto;
-  @include absolute(70px 0 $space*3 0);
-}
-.ui-resizable-se{
+.popup.ui-resizable-se{
   font-size: 16px;
   @extend .icon;
   @include absolute('' 3px -3px '');
@@ -356,6 +352,10 @@ fieldset{
   &:before{
     content: "\f054";
     display: block;
+  }
+  .popupScroll{
+    overflow: auto;
+    @include absolute(70px 0 $space*3 0);
   }
 }
 
