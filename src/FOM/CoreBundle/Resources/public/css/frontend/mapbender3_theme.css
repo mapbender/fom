@@ -1392,9 +1392,6 @@ fieldset {
     margin-bottom: 20px; }
   .mb-element-searchrouter .dropdown {
     width: 290px; }
-  .mb-element-searchrouter .search-forms > form > div > div {
-    clear: both;
-  }
   .mb-element-searchrouter .ui-helper-hidden-accessible {
     display: none; }
   .mb-element-searchrouter .search-results {
@@ -1404,6 +1401,8 @@ fieldset {
     text-align: left; }
   .mb-element-searchrouter td {
     padding-right: 10px; }
+  .mb-element-searchrouter .search-forms > form > div > div {
+    clear: both; }
 
 .ui-autocomplete {
   z-index: 1000;
