@@ -827,7 +827,7 @@ fieldset {
   .sideContent .popupContainer .mb-button {
     margin-left: 3px; }
 
-.popupScroll {
+.popup.ui-resizable .popupScroll {
   overflow: auto;
   position: absolute;
   top: 70px;
