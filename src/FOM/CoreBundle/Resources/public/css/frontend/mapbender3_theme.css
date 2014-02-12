@@ -1392,8 +1392,10 @@ fieldset {
     width: 290px;
     margin-bottom: 20px; }
   .mb-element-searchrouter .dropdown {
-    margin-left: -90px;
-    width: 380px; }
+    width: 290px; }
+  .mb-element-searchrouter .search-forms > form > div > div {
+    clear: both;
+  }
   .mb-element-searchrouter .ui-helper-hidden-accessible {
     display: none; }
   .mb-element-searchrouter .search-results {
