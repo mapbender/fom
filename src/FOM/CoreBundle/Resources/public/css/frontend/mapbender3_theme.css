@@ -185,7 +185,7 @@ p, pre, dl, menu, ol, ul {
 [class^="icon"],
 [class*=" icon"],
 .icon,
-.popup.ui-resizable-se,
+.ui-resizable-se,
 .sidePaneTabItem,
 .mb-element-overview .toggleOverview,
 .olControlOverviewMapRectReplacement {
@@ -474,9 +474,7 @@ p {
 
 /* ------------------------------------------------------------- MISC */
 .clear, .clearContainer {
-  clear: both;
-  overflow: hidden;
-  *zoom: 1; }
+  clear: both; }
 
 .clearContainer {
   height: 0px; }
@@ -624,8 +622,8 @@ fieldset {
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225; }
-  .button.icon, .button.popup.ui-resizable-se, .tabContainerAlt .popup.ui-resizable-se.tab, .sideContent .popup.ui-resizable-se.mb-aboutButton, .sideContent .popup.ui-resizable-se.mb-gpsButton,
-  .sideContent .popup.ui-resizable-se.mb-button, .tabContainerAlt .icon.tab, .tabContainerAlt .tab.sidePaneTabItem, .tabContainerAlt .mb-element-overview .tab.toggleOverview, .mb-element-overview .tabContainerAlt .tab.toggleOverview, .tabContainerAlt .tab.olControlOverviewMapRectReplacement, .button.sidePaneTabItem, .sideContent .sidePaneTabItem.mb-aboutButton, .sideContent .sidePaneTabItem.mb-gpsButton,
+  .button.icon, .button.ui-resizable-se, .tabContainerAlt .ui-resizable-se.tab, .sideContent .ui-resizable-se.mb-aboutButton, .sideContent .ui-resizable-se.mb-gpsButton,
+  .sideContent .ui-resizable-se.mb-button, .tabContainerAlt .icon.tab, .tabContainerAlt .tab.sidePaneTabItem, .tabContainerAlt .mb-element-overview .tab.toggleOverview, .mb-element-overview .tabContainerAlt .tab.toggleOverview, .tabContainerAlt .tab.olControlOverviewMapRectReplacement, .button.sidePaneTabItem, .sideContent .sidePaneTabItem.mb-aboutButton, .sideContent .sidePaneTabItem.mb-gpsButton,
   .sideContent .sidePaneTabItem.mb-button, .sideContent .icon.mb-aboutButton, .sideContent .mb-element-overview .mb-aboutButton.toggleOverview, .mb-element-overview .sideContent .mb-aboutButton.toggleOverview, .sideContent .mb-aboutButton.olControlOverviewMapRectReplacement, .sideContent .icon.mb-gpsButton, .sideContent .mb-element-overview .mb-gpsButton.toggleOverview, .mb-element-overview .sideContent .mb-gpsButton.toggleOverview, .sideContent .mb-gpsButton.olControlOverviewMapRectReplacement,
   .sideContent .icon.mb-button,
   .sideContent .mb-element-overview .mb-button.toggleOverview,
@@ -763,7 +761,8 @@ fieldset {
   left: 0; }
 
 .popupContent, .popupSubContent {
-  padding: 0 20px; }
+  padding: 0 40px;
+  margin-bottom: 20px; }
 
 .popupSubContent {
   width: 460px; }
@@ -827,7 +826,15 @@ fieldset {
   .sideContent .popupContainer .mb-button {
     margin-left: 3px; }
 
-.popup.ui-resizable-se {
+.ui-resizable .popupScroll {
+  overflow: auto;
+  position: absolute;
+  top: 70px;
+  right: 0;
+  bottom: 60px;
+  left: 0; }
+
+.ui-resizable-se {
   font-size: 16px;
   position: absolute;
   right: 3px;
@@ -838,16 +845,9 @@ fieldset {
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
   cursor: default; }
-  .popup.ui-resizable-se:before {
+  .ui-resizable-se:before {
     content: "\f054";
     display: block; }
-  .popup.ui-resizable-se .popupScroll {
-    overflow: auto;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    bottom: 60px;
-    left: 0; }
 
 /* ------------------------------------------------- TABS */
 .tabContainer .tab {

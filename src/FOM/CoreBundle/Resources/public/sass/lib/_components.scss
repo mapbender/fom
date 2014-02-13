@@ -29,10 +29,7 @@ p{margin:0px;}
 
 
 /* ------------------------------------------------------------- MISC */
-.clear{
-  clear:both;
-  @include clearfix();
-}
+.clear{clear:both;}
 .clearContainer{
   height:0px;
   @extend .clear;
@@ -297,7 +294,8 @@ fieldset{
 .popupButtons{@include absolute('' $space $space 0);}
 .popupSubTitle{@extend .labelInput;}
 .popupContent, .popupSubContent{
-  padding:0 $space;
+  padding:0 $space*2;
+  margin-bottom: $space;
 }
 .popupSubContent{width: $popupModalWidth;}
 .popup{
@@ -343,7 +341,11 @@ fieldset{
 
   .button{margin-left:3px;}
 }
-.popup.ui-resizable-se{
+.ui-resizable .popupScroll{
+  overflow: auto;
+  @include absolute(70px 0 $space*3 0);
+}
+.ui-resizable-se{
   font-size: 16px;
   @extend .icon;
   @include absolute('' 3px -3px '');
@@ -352,10 +354,6 @@ fieldset{
   &:before{
     content: "\f054";
     display: block;
-  }
-  .popupScroll{
-    overflow: auto;
-    @include absolute(70px 0 $space*3 0);
   }
 }
 

@@ -185,7 +185,7 @@ p, pre, dl, menu, ol, ul {
 [class^="icon"],
 [class*=" icon"],
 .icon,
-.popup.ui-resizable-se,
+.ui-resizable-se,
 .flashBox.success:before {
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
@@ -475,9 +475,7 @@ p {
 
 /* ------------------------------------------------------------- MISC */
 .clear, .clearContainer {
-  clear: both;
-  overflow: hidden;
-  *zoom: 1; }
+  clear: both; }
 
 .clearContainer {
   height: 0px; }
@@ -621,7 +619,7 @@ fieldset {
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225; }
-  .button.icon, .button.popup.ui-resizable-se, .tabContainerAlt .popup.ui-resizable-se.tab, .tabContainerAlt .icon.tab, .tabContainerAlt .tab.flashBox.success:before, .button.flashBox.success:before {
+  .button.icon, .button.ui-resizable-se, .tabContainerAlt .ui-resizable-se.tab, .tabContainerAlt .icon.tab, .tabContainerAlt .tab.flashBox.success:before, .button.flashBox.success:before {
     padding-left: 20px;
     background-image: url("../../fomcore/images/link_arrow.png");
     background-position: 10px center;
@@ -752,7 +750,8 @@ fieldset {
   left: 0; }
 
 .popupContent, .popupSubContent {
-  padding: 0 20px; }
+  padding: 0 40px;
+  margin-bottom: 20px; }
 
 .popupSubContent {
   width: 460px; }
@@ -814,7 +813,15 @@ fieldset {
   .popupContainer .button, .popupContainer .tabContainerAlt .tab, .tabContainerAlt .popupContainer .tab {
     margin-left: 3px; }
 
-.popup.ui-resizable-se {
+.ui-resizable .popupScroll {
+  overflow: auto;
+  position: absolute;
+  top: 70px;
+  right: 0;
+  bottom: 60px;
+  left: 0; }
+
+.ui-resizable-se {
   font-size: 16px;
   position: absolute;
   right: 3px;
@@ -825,16 +832,9 @@ fieldset {
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
   cursor: default; }
-  .popup.ui-resizable-se:before {
+  .ui-resizable-se:before {
     content: "\f054";
     display: block; }
-  .popup.ui-resizable-se .popupScroll {
-    overflow: auto;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    bottom: 60px;
-    left: 0; }
 
 /* ------------------------------------------------- TABS */
 .tabContainer .tab {
@@ -1233,13 +1233,24 @@ fieldset {
       top: 14px;
       margin-top: -5px; }
 
+.popupContent, .popupSubContent {
+  overflow: auto !important;
+  padding: 0;
+  position: absolute;
+  top: 90px;
+  right: 20px;
+  bottom: 60px;
+  left: 20px; }
+  .popupContent .contentItem, .popupSubContent .contentItem {
+    margin-right: 20px; }
+
 body {
   background-image: url("../../images/body.png");
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(100px, rgba(255, 255, 255, 0.3)), color-stop(100%, rgba(255, 255, 255, 0))) fixed, url('../../images/body.png?1392193571');
-  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1392193571');
-  background: -moz-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1392193571');
-  background: -o-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1392193571');
-  background: linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1392193571'); }
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(100px, rgba(255, 255, 255, 0.3)), color-stop(100%, rgba(255, 255, 255, 0))) fixed, url('../../images/body.png?1392212836');
+  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1392212836');
+  background: -moz-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1392212836');
+  background: -o-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1392212836');
+  background: linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1392212836'); }
 
 .page {
   position: relative;
@@ -1253,11 +1264,11 @@ body {
   min-width: 1000px;
   border-top: solid 5px #272727;
   background-image: url("../../images/head.png");
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0))), url('../../images/head.png?1392193571');
-  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1392193571');
-  background: -moz-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1392193571');
-  background: -o-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1392193571');
-  background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1392193571');
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0))), url('../../images/head.png?1392212836');
+  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1392212836');
+  background: -moz-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1392212836');
+  background: -o-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1392212836');
+  background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1392212836');
   -webkit-box-shadow: inset #333333 0px 1px 0px;
   -moz-box-shadow: inset #333333 0px 1px 0px;
   box-shadow: inset #333333 0px 1px 0px; }
@@ -1726,7 +1737,6 @@ body {
     margin-right: 10px; }
 
 .elementFormSearchRouter {
-  overflow: auto;
   max-height: 370px; }
   .elementFormSearchRouter .labelInput, .elementFormSearchRouter .popupSubTitle {
     width: 90px; }
