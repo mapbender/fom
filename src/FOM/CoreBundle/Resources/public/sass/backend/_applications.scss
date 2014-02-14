@@ -83,7 +83,7 @@
   .idColumn{width:3%;}
   .typeColumn{width:7%;} // very ugly, but fixing the scale behaviour by dragging at the moment
   .titleColumn{width: 70%;}
-} 
+}
 
 
 
@@ -274,7 +274,6 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
 }
 .elementFormSearchRouter{
   $label:90px;
-  overflow: auto;
   max-height: $popupMaxHeight;
   .labelInput{width:$label;}
   .input{width:$elementPopupWidth - $label - $space*2;}

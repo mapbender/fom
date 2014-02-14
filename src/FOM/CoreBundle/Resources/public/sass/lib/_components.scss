@@ -29,10 +29,7 @@ p{margin:0px;}
 
 
 /* ------------------------------------------------------------- MISC */
-.clear{
-  clear:both;
-  @include clearfix();
-}
+.clear{clear:both;}
 .clearContainer{
   height:0px;
   @extend .clear;
@@ -259,6 +256,7 @@ fieldset{
 
     li{
       padding-left: 5px;
+      line-height: $lineHeight;
       &:hover{
         color:$ciColor;
         background-color:$contentColor;
@@ -296,12 +294,13 @@ fieldset{
 .popupButtons{@include absolute('' $space $space 0);}
 .popupSubTitle{@extend .labelInput;}
 .popupContent, .popupSubContent{
-  padding:0 $space;
+  padding:0 $space*2;
+  margin-bottom: $space;
 }
 .popupSubContent{width: $popupModalWidth;}
 .popup{
   min-width: 300px;
-  min-height: 200px;
+  min-height: 250px;
   position:relative;
   z-index:9999;
   width: $popupModalWidth;
@@ -342,7 +341,7 @@ fieldset{
 
   .button{margin-left:3px;}
 }
-.popupScroll{
+.ui-resizable .popupScroll{
   overflow: auto;
   @include absolute(70px 0 $space*3 0);
 }
