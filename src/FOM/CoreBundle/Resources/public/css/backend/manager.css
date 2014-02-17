@@ -186,7 +186,8 @@ p, pre, dl, menu, ol, ul {
 [class*=" icon"],
 .icon,
 .ui-resizable-se,
-.flashBox.success:before {
+.flashBox.success:before,
+.flashBox.error:before {
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
   font-family: FontAwesome;
@@ -239,7 +240,7 @@ p, pre, dl, menu, ol, ul {
 .applicationTabContainer table .iconCheckboxActive:before,
 .applicationTabContainer .containerLayers .iconCheckboxActive:before, .iconAppDefault:before, .iconCancel:before,
 .iconThumbsUp:before,
-.flashBox.success:before, .iconThumbsDown:before, .iconGroup:before, .iconUser:before,
+.flashBox.success:before, .iconThumbsDown:before, .flashBox.error:before, .iconGroup:before, .iconUser:before,
 .iconSettings:before, .iconSignOut:before, .iconSignIn:before, .iconMore:before,
 .iconCopy:before, .iconKey:before, .iconWarning:before {
   font-family: FontAwesome; }
@@ -409,7 +410,7 @@ p, pre, dl, menu, ol, ul {
 .iconThumbsUp:before, .flashBox.success:before {
   content: "\f087"; }
 
-.iconThumbsDown:before {
+.iconThumbsDown:before, .flashBox.error:before {
   content: "\f088"; }
 
 .iconGroup:before {
@@ -619,7 +620,7 @@ fieldset {
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225; }
-  .button.icon, .button.ui-resizable-se, .tabContainerAlt .ui-resizable-se.tab, .tabContainerAlt .icon.tab, .tabContainerAlt .tab.flashBox.success:before, .button.flashBox.success:before {
+  .button.icon, .button.ui-resizable-se, .tabContainerAlt .ui-resizable-se.tab, .tabContainerAlt .icon.tab, .tabContainerAlt .tab.flashBox.success:before, .tabContainerAlt .tab.flashBox.error:before, .button.flashBox.success:before, .button.flashBox.error:before {
     padding-left: 20px;
     background-image: url("../../fomcore/images/link_arrow.png");
     background-position: 10px center;
@@ -1181,6 +1182,9 @@ fieldset {
   .flashBox.success {
     color: #197b19;
     background-color: #d1f5d1; }
+  .flashBox.error {
+    color: #801a1a;
+    background-color: #f6d6d6; }
   .flashBox.kill {
     top: -100px;
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
