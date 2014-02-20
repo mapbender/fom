@@ -410,6 +410,8 @@
   margin-top: $space/2;
   margin-left: -5px;
   z-index: 20;
+  min-width: 120px;
+  max-width: 200px;
   border:solid 1px $thirdColor;
   @include border-radius($radius);
 
@@ -431,6 +433,7 @@ $layer-opacity-bar-height: 5px;
   height: $layer-opacity-bar-height;
   background-color: $thirdColor;
   width: 100px;
+  margin-bottom: $space;
   @include border-radius(2px);
 }
 .layer-opacity-handle{
