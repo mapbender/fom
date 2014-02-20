@@ -454,7 +454,7 @@ $layer-opacity-bar-height: 5px;
 .notshow, .notvisible{display:none;}
 
 /* Search router */
-$searchRouterInputWidth:290px;
+$searchRouterInputWidth: 290px;
 .mb-element-searchrouter{
   display: none;
 
@@ -467,10 +467,7 @@ $searchRouterInputWidth:290px;
     width:$searchRouterInputWidth;
     margin-bottom: $space;
   }
-  .dropdown{
-    margin-left:-90px;
-    width:$searchRouterInputWidth + 90;
-  }
+  .dropdown{width:$searchRouterInputWidth;}
   .ui-helper-hidden-accessible{display: none;}
   .search-results{
     max-height:200px;
@@ -482,6 +479,7 @@ $searchRouterInputWidth:290px;
   }
   td{padding-right:$space/2;}
   tr{@extend .linkButton}
+  .search-forms > form > div > div {clear:both;} // the ugly and unflexible way
 }
 // dublicate ! > components
 .ui-autocomplete{

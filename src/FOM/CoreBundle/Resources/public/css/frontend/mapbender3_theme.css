@@ -474,9 +474,7 @@ p {
 
 /* ------------------------------------------------------------- MISC */
 .clear, .clearContainer {
-  clear: both;
-  overflow: hidden;
-  *zoom: 1; }
+  clear: both; }
 
 .clearContainer {
   height: 0px; }
@@ -725,7 +723,8 @@ fieldset {
     -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1), inset 0px 0px 2px white;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1), inset 0px 0px 2px white; }
     .dropdown .dropdownList li {
-      padding-left: 5px; }
+      padding-left: 5px;
+      line-height: 29px; }
       .dropdown .dropdownList li:hover {
         color: #5b932a;
         background-color: #f9f9f9; }
@@ -762,14 +761,15 @@ fieldset {
   left: 0; }
 
 .popupContent, .popupSubContent {
-  padding: 0 20px; }
+  padding: 0 40px;
+  margin-bottom: 20px; }
 
 .popupSubContent {
   width: 460px; }
 
 .popup {
   min-width: 300px;
-  min-height: 200px;
+  min-height: 250px;
   position: relative;
   z-index: 9999;
   width: 460px;
@@ -826,7 +826,7 @@ fieldset {
   .sideContent .popupContainer .mb-button {
     margin-left: 3px; }
 
-.popupScroll {
+.ui-resizable .popupScroll {
   overflow: auto;
   position: absolute;
   top: 70px;
@@ -1447,8 +1447,7 @@ fieldset {
     width: 290px;
     margin-bottom: 20px; }
   .mb-element-searchrouter .dropdown {
-    margin-left: -90px;
-    width: 380px; }
+    width: 290px; }
   .mb-element-searchrouter .ui-helper-hidden-accessible {
     display: none; }
   .mb-element-searchrouter .search-results {
@@ -1458,6 +1457,8 @@ fieldset {
     text-align: left; }
   .mb-element-searchrouter td {
     padding-right: 10px; }
+  .mb-element-searchrouter .search-forms > form > div > div {
+    clear: both; }
 
 .ui-autocomplete {
   z-index: 1000;
