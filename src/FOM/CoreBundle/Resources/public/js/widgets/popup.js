@@ -109,7 +109,9 @@ var Mapbender = (function($, Mapbender) {
                 '      <span class="popupSubTitle"></span>',
                 '      <span class="popupClose right iconCancel iconBig"></span>',
                 '    </div>',
-                '    <div class="clear popupContent"></div>',
+                '    <div class="popupScroll">',
+                '      <div class="clear popupContent"></div>',
+                '    </div>',
                 '    <div class="popupButtons"></div>',
                 '    <div class="clearContainer"></div>',
                 '  </div>',
@@ -118,6 +120,8 @@ var Mapbender = (function($, Mapbender) {
 
             // Is popup draggable (showHeader must be true)
             draggable: false,
+            // Resizable, you can pass true or an object of resizable options
+            resizable: false,
 
             header: true,
             closeButton: true,
@@ -362,6 +366,27 @@ var Mapbender = (function($, Mapbender) {
         },
 
 
+        /**
+         * Set or get resizable status
+         * @param {mixed} state, undefined gets, true or false sets state, an object of options for jQuery UI resizable
+         *                can also be passed
+         * @return {boolean}
+         */
+        resizable: function(state) {
+            if(undefined === state) {
+                return this.options.resizable;
+            }
+
+            if(state) {
+                $('.popup', this.$element).resizable($.isPlainObject(state) ? state : null);
+            } else {
+                var popup = $('.popup', this.$element);
+                if(popup.data('uiResizable')) {
+                    popup.resizable('destroy');
+                }
+            }
+        },
+
 
         /**
          * Set or get closeOnESC
@@ -504,7 +529,7 @@ var Mapbender = (function($, Mapbender) {
                 if(4 === content.readyState) {
                     // If finished, insert result or failure notice
                     if(200 == content.status) {
-                        contentItem.apppend(content.responseText);
+                        contentItem.append(content.responseText);
                     } else {
                         contentItem
                             .addClass('ajax ajaxFailed')

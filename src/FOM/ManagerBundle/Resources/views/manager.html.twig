@@ -2,6 +2,8 @@
 
 {% set title %}{% block title %}{% endblock %}{% endset %}
 
+{% block favicon %}{{ asset('favicon.png') }}{% endblock %}
+
 {% block backend_content %}
   <div class="head"><hr class="dekoSeperator"></div>
     <div id="wrapper" class="page">
@@ -27,12 +29,12 @@
         <div class="accountBar shadowBox">
           {% if app.user != "" %}
             <ul id="accountMenu" class="accountMenu">
-                <li id="accountOpen" class="iconDown smallText">{{ "Logged in as"|trans}}: {{ app.user.username }}<span class="openedIcon"></span></li>
-                <li><a class="linkButton iconSettings" href="{{ url('fom_user_user_edit', {'id': app.user.id}) }}">{{ "Your Account"|trans }}</a></li>
-                <li><a class="linkButton iconSignOut" href="{{ url('fom_user_login_logout') }}">{{ "Logout"|trans }}</a></li>
+                <li id="accountOpen" class="iconDown smallText">{{ "fom.core.manager.logged_as"|trans}}: {{ app.user.username }}<span class="openedIcon"></span></li>
+                <li><a class="linkButton iconSettings" href="{{ url('fom_user_user_edit', {'id': app.user.id}) }}">{{ "fom.core.manager.you_account"|trans }}</a></li>
+                <li><a class="linkButton iconSignOut" href="{{ url('fom_user_login_logout') }}">{{ "fom.core.manager.btn.logout"|trans }}</a></li>
             </ul>
           {% else %}
-            <a class="linkButton iconSignIn" href="{{ path('fom_user_login_login') }}">{{ "Login"|trans}}</a>
+            <a class="linkButton iconSignIn" href="{{ path('fom_user_login_login') }}">{{ "fom.core.manager.btn.login"|trans}}</a>
           {% endif %}
         </div>
 

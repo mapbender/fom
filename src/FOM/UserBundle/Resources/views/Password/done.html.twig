@@ -1,14 +1,12 @@
 {% extends "FOMUserBundle:Login:box.html.twig" %}
 
-{% block title %} {{ 'Password reset' | trans}} {% endblock %}
+{% block title %} {{ 'fom.user.password.done.password_reset' | trans}} {% endblock %}
 
 {% block box_content %}
     <div class="loginBox">
-        <h2 class="contentTitle">{% trans %}Congratulations!{% endtrans %}</h2>
-        {% trans with { '%url%': url('fom_user_login_login') } %}
-            <p class="description">You're password has been successfully reset.</p>
-        {% endtrans %}
-        <a class="left iconLinkButton linkButton" href="{{ path('fom_user_login_login') }}">{{ "Back to login"|trans}}</a>
+        <h2 class="contentTitle">{{ 'fom.user.password.done.congratulations' | trans }}</h2>
+        <p class="description">{{ "fom.user.password.done.password_been_reset" | trans }}</p>
+        <a class="left iconLinkButton linkButton" href="{{ path('fom_user_login_login') }}">{{ "fom.user.password.done.back_to_login"|trans}}</a>
         <div class="clearContainer"></div>
     </div>
 {% endblock %}

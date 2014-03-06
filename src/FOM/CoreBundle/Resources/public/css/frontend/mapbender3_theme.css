@@ -185,11 +185,13 @@ p, pre, dl, menu, ol, ul {
 [class^="icon"],
 [class*=" icon"],
 .icon,
+.ui-resizable-se,
 .sidePaneTabItem,
 .mb-element-overview .toggleOverview,
 .olControlOverviewMapRectReplacement {
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
+  font-family: FontAwesome;
   cursor: pointer;
   display: inline;
   width: auto;
@@ -202,13 +204,34 @@ p, pre, dl, menu, ol, ul {
     font-family: FontAwesome;
     font-size: 20px; }
 
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg); }
+
+  100% {
+    -webkit-transform: rotate(359deg); } }
+
+@-moz-keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg); }
+
+  100% {
+    -moz-transform: rotate(359deg); } }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+
+  100% {
+    transform: rotate(359deg); } }
+
 .iconCheckboxActive:before, .iconCheckboxHalf:before, .iconCheckbox:before,
 .iconRadio:before, .iconRadioActive:before, .iconView:before, .iconHelp:before,
 .iconLinkButton:before, .iconDown:before, .iconRight:before, .iconLeft:before,
 .iconTop:before, .iconExpand:before, .iconExpandClosed:before, .iconMove:before,
 .iconAbout:before, .iconPrint:before, .iconGps:before, .iconLayertree:before,
 .iconLegend:before, .iconInfo:before, .iconInfoActive:before, .mb-element-layertree .featureInfoWrapper.iconCheckboxActive:before, .iconSearch:before,
-.iconWms:before, .iconOpen:before, .sidePaneTabItem:before, .mb-element-overview.closed .toggleOverview:before, .iconClose:before, .sidePane.opened .sidePaneTabItem:before, .mb-element-overview .toggleOverview:before, .iconActivity:before,
+.iconWms:before, .iconOpen:before, .sidePaneTabItem:before, .mb-element-overview.closed .toggleOverview:before, .iconClose:before, .sidePaneOpened .sidePaneTabItem:before, .mb-element-overview .toggleOverview:before, .iconActivity:before, .mb-element-layertree [data-state="loading"]:before,
 .iconCoordinates:before, .iconPrev:before, .iconNext:before, .iconZoomSelect:before,
 .iconZoomMin:before, .iconZoomIn:before, .iconZoomOut:before, .iconZoomLevel:before,
 .iconZoomLevelSelected:before, .iconAreaRuler:before, .iconFolder:before,
@@ -216,7 +239,9 @@ p, pre, dl, menu, ol, ul {
 .iconRemove:before, .iconOk:before, .iconEdit:before, .iconPublish:before,
 .iconPublishActive:before, .iconAppDefault:before, .iconCancel:before,
 .iconThumbsUp:before, .iconThumbsDown:before, .iconGroup:before, .iconUser:before,
-.iconSettings:before, .iconSignOut:before, .iconSignIn:before, .iconMore:before, .iconCopy:before, .iconKey:before {
+.iconSettings:before, .iconSignOut:before, .iconSignIn:before, .iconMore:before,
+.iconCopy:before, .iconKey:before, .iconWarning:before, .mb-element-layertree [data-state="error"]:before, .iconEmail:before, .iconTwitter:before,
+.iconFacebook:before, .iconGooglePlus:before {
   font-family: FontAwesome; }
 
 .iconCheckboxActive:before {
@@ -300,10 +325,10 @@ p, pre, dl, menu, ol, ul {
 .iconOpen:before, .sidePaneTabItem:before, .mb-element-overview.closed .toggleOverview:before {
   content: "\f067"; }
 
-.iconClose:before, .sidePane.opened .sidePaneTabItem:before, .mb-element-overview .toggleOverview:before {
+.iconClose:before, .sidePaneOpened .sidePaneTabItem:before, .mb-element-overview .toggleOverview:before {
   content: "\f068"; }
 
-.iconActivity:before {
+.iconActivity:before, .mb-element-layertree [data-state="loading"]:before {
   content: "\f110"; }
 
 .iconCoordinates:before {
@@ -344,6 +369,27 @@ p, pre, dl, menu, ol, ul {
 
 .iconTarget:before, .olControlOverviewMapRectReplacement:before {
   content: "\f05b"; }
+
+.iconPoi:before {
+  content: "\f08d"; }
+
+.iconImageExport:before {
+  content: "\f030"; }
+
+.iconWarning:before, .mb-element-layertree [data-state="error"]:before {
+  content: "\f071"; }
+
+.iconEmail:before {
+  content: "\f0e0"; }
+
+.iconTwitter:before {
+  content: "\f081"; }
+
+.iconFacebook:before {
+  content: "\f082"; }
+
+.iconGooglePlus:before {
+  content: "\f0d4"; }
 
 .iconGroup:before {
   content: "\f0c0"; }
@@ -402,6 +448,12 @@ p, pre, dl, menu, ol, ul {
 .iconKey:before {
   content: "\f084"; }
 
+.iconTab:before {
+  content: "\f114"; }
+
+.iconTabActive:before {
+  content: "\f07b" !important; }
+
 /* ------------------------------------------------- MAPBENDER3 RESETS */
 * {
   -webkit-box-sizing: border-box;
@@ -435,9 +487,7 @@ p {
 
 /* ------------------------------------------------------------- MISC */
 .clear, .clearContainer {
-  clear: both;
-  overflow: hidden;
-  *zoom: 1; }
+  clear: both; }
 
 .clearContainer {
   height: 0px; }
@@ -462,7 +512,7 @@ p {
 .smallerText {
   font-size: 10px; }
 
-.smallText, .labelInput, .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
+.smallText, .labelInput, .popupSubTitle, .labelText, .labelCheck, .description, .input, .buttonCore, .button, .tabContainerAlt .tab, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
 .sideContent .mb-button, .linkButton, .mb-element-searchrouter tr, .sidePaneTabItem, .mb-element-overview .toggleOverview, .dropdown, .tabContainer .tab {
   font-size: 12px; }
 
@@ -545,7 +595,7 @@ fieldset {
     border: 1px solid #8dce55; }
 
 /* BUTTON */
-.buttonCore, .button, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
+.buttonCore, .button, .tabContainerAlt .tab, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
 .sideContent .mb-button, .button.critical, .linkButton, .mb-element-searchrouter tr, .sidePaneTabItem, .mb-element-overview .toggleOverview {
   font-family: "Calluna Sans", "Gill Sans", Calibri, "Trebuchet MS", sans-serif;
   -webkit-user-select: none;
@@ -559,7 +609,7 @@ fieldset {
   border: none;
   cursor: pointer; }
 
-.button, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
+.button, .tabContainerAlt .tab, .sideContent .mb-aboutButton, .sideContent .mb-gpsButton,
 .sideContent .mb-button {
   padding: 5px 10px;
   line-height: 14px;
@@ -579,13 +629,14 @@ fieldset {
   -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
   -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #5fa229; }
-  .button:hover, .sideContent .mb-aboutButton:hover, .sideContent .mb-gpsButton:hover,
+  .button:hover, .tabContainerAlt .tab:hover, .sideContent .mb-aboutButton:hover, .sideContent .mb-gpsButton:hover,
   .sideContent .mb-button:hover {
     background-color: #63a130;
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #559225; }
-  .button.icon, .button.sidePaneTabItem, .sideContent .sidePaneTabItem.mb-aboutButton, .sideContent .sidePaneTabItem.mb-gpsButton,
+  .button.icon, .button.ui-resizable-se, .tabContainerAlt .ui-resizable-se.tab, .sideContent .ui-resizable-se.mb-aboutButton, .sideContent .ui-resizable-se.mb-gpsButton,
+  .sideContent .ui-resizable-se.mb-button, .tabContainerAlt .icon.tab, .tabContainerAlt .tab.sidePaneTabItem, .tabContainerAlt .mb-element-overview .tab.toggleOverview, .mb-element-overview .tabContainerAlt .tab.toggleOverview, .tabContainerAlt .tab.olControlOverviewMapRectReplacement, .button.sidePaneTabItem, .sideContent .sidePaneTabItem.mb-aboutButton, .sideContent .sidePaneTabItem.mb-gpsButton,
   .sideContent .sidePaneTabItem.mb-button, .sideContent .icon.mb-aboutButton, .sideContent .mb-element-overview .mb-aboutButton.toggleOverview, .mb-element-overview .sideContent .mb-aboutButton.toggleOverview, .sideContent .mb-aboutButton.olControlOverviewMapRectReplacement, .sideContent .icon.mb-gpsButton, .sideContent .mb-element-overview .mb-gpsButton.toggleOverview, .mb-element-overview .sideContent .mb-gpsButton.toggleOverview, .sideContent .mb-gpsButton.olControlOverviewMapRectReplacement,
   .sideContent .icon.mb-button,
   .sideContent .mb-element-overview .mb-button.toggleOverview,
@@ -595,7 +646,7 @@ fieldset {
     background-image: url("../../fomcore/images/link_arrow.png");
     background-position: 10px center;
     background-repeat: no-repeat; }
-  .button.critical, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-gpsButton,
+  .button.critical, .tabContainerAlt .critical.tab, .sideContent .critical.mb-aboutButton, .sideContent .critical.mb-gpsButton,
   .sideContent .critical.mb-button {
     border: 1px solid #9f3434;
     color: white;
@@ -608,7 +659,7 @@ fieldset {
     -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a;
     -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #b23a3a; }
-    .button.critical:hover, .sideContent .critical.mb-aboutButton:hover, .sideContent .critical.mb-gpsButton:hover,
+    .button.critical:hover, .tabContainerAlt .critical.tab:hover, .sideContent .critical.mb-aboutButton:hover, .sideContent .critical.mb-gpsButton:hover,
     .sideContent .critical.mb-button:hover {
       background-color: #cd5151;
       -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #a33535;
@@ -677,13 +728,16 @@ fieldset {
     position: absolute;
     z-index: 2;
     display: none;
+    overflow: auto;
+    max-height: 200px;
     border: solid 1px #c8c8c8;
     width: 100%;
     -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1), inset 0px 0px 2px white;
     -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1), inset 0px 0px 2px white;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1), inset 0px 0px 2px white; }
     .dropdown .dropdownList li {
-      padding-left: 5px; }
+      padding-left: 5px;
+      line-height: 29px; }
       .dropdown .dropdownList li:hover {
         color: #5b932a;
         background-color: #f9f9f9; }
@@ -708,30 +762,33 @@ fieldset {
 
 .popupHead {
   margin: 0 20px 20px 20px;
-  padding-bottom: 10px;
+  padding: 20px 0 10px 0;
   border-bottom: dashed 1px #b3b3b3; }
   .popupHead.draggable {
     cursor: move; }
 
 .popupButtons {
-  margin-right: 20px; }
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  left: 0; }
 
 .popupContent, .popupSubContent {
-  padding: 0 10px 0 20px;
-  margin: 0 20px 20px 0;
-  max-height: 370px;
-  overflow-y: auto; }
+  padding: 0 40px;
+  margin-bottom: 20px; }
 
 .popupSubContent {
   width: 460px; }
 
 .popup {
+  min-width: 300px;
+  min-height: 250px;
   position: relative;
   z-index: 9999;
   width: 460px;
   margin: -1000px auto 0 auto;
   background-color: #f4f4f4;
-  padding: 20px 0;
+  padding-bottom: 20px;
   background-image: url("../../images/content.png");
   -webkit-transition: margin 0.4s ease-in-out;
   -moz-transition: margin 0.4s ease-in-out;
@@ -777,10 +834,33 @@ fieldset {
       right: 0;
       bottom: 0;
       left: 0; }
-  .popupContainer .button, .popupContainer .sideContent .mb-aboutButton, .sideContent .popupContainer .mb-aboutButton, .popupContainer .sideContent .mb-gpsButton, .sideContent .popupContainer .mb-gpsButton,
+  .popupContainer .button, .popupContainer .tabContainerAlt .tab, .tabContainerAlt .popupContainer .tab, .popupContainer .sideContent .mb-aboutButton, .sideContent .popupContainer .mb-aboutButton, .popupContainer .sideContent .mb-gpsButton, .sideContent .popupContainer .mb-gpsButton,
   .popupContainer .sideContent .mb-button,
   .sideContent .popupContainer .mb-button {
     margin-left: 3px; }
+
+.ui-resizable .popupScroll {
+  overflow: auto;
+  position: absolute;
+  top: 70px;
+  right: 0;
+  bottom: 60px;
+  left: 0; }
+
+.ui-resizable-se {
+  font-size: 16px;
+  position: absolute;
+  right: 3px;
+  bottom: -3px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  cursor: default; }
+  .ui-resizable-se:before {
+    content: "\f054";
+    display: block; }
 
 /* ------------------------------------------------- TABS */
 .tabContainer .tab {
@@ -848,28 +928,27 @@ fieldset {
   .tabContainer .container.active {
     display: block; }
 
+.tabContainerAlt .tab {
+  display: inline-block; }
+  .tabContainerAlt .tab.active {
+    cursor: default;
+    background-color: #578e2a;
+    color: white;
+    -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #4c8121;
+    -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #4c8121;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1), inset 0 -10px 10px #4c8121; }
+.tabContainerAlt .container {
+  border-top: dashed 1px #a2a2a2;
+  margin-top: 20px;
+  clear: left;
+  display: none;
+  padding: 20px;
+  z-index: 20;
+  position: relative; }
+  .tabContainerAlt .container.active {
+    display: block; }
+
 /* ------------------------------------------------------------- MISC */
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg); }
-
-  100% {
-    -webkit-transform: rotate(359deg); } }
-
-@-moz-keyframes spin {
-  0% {
-    -moz-transform: rotate(0deg); }
-
-  100% {
-    -moz-transform: rotate(359deg); } }
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg); }
-
-  100% {
-    transform: rotate(359deg); } }
-
 .mb-element-activityindicator {
   display: none; }
 
@@ -931,7 +1010,6 @@ fieldset {
     padding: 5px 10px 5px 10px;
     border-bottom: solid 1px #c6c6c6; }
     .toolBar.top .toolBarItem {
-      height: 32px;
       display: inline-block;
       padding: 5px; }
   .toolBar.bottom {
@@ -985,30 +1063,28 @@ fieldset {
 .sidePane {
   overflow: visible;
   background-image: url("../../images/content.png");
-  border-top: solid 3px #404040;
-  border-bottom: solid 3px #404040;
+  border-top: 1px solid #b3b3b3;
+  border-bottom: 1px solid #b3b3b3;
   -webkit-transition: all 0.4s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;
   -o-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out; }
   .sidePane.left {
-    border-right: solid 3px #404040;
+    border-right: 1px solid #b3b3b3;
     -webkit-box-shadow: 3px 0px 8px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 3px 0px 8px rgba(0, 0, 0, 0.1);
     box-shadow: 3px 0px 8px rgba(0, 0, 0, 0.1); }
   .sidePane.right {
-    border-left: solid 3px #404040;
+    border-left: 1px solid #b3b3b3;
     -webkit-box-shadow: -3px 0px 8px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: -3px 0px 8px rgba(0, 0, 0, 0.1);
     box-shadow: -3px 0px 8px rgba(0, 0, 0, 0.1); }
-  .sidePane.opened .sideContent {
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-    opacity: 1;
-    padding: 20px; }
   .sidePane .sideContent {
-    overflow: auto;
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-    opacity: 0; }
+    padding: 20px;
+    display: none; }
+
+.sidePaneOpened .sideContent {
+  display: block; }
 
 /* -------------------------------------------- ELEMENTS */
 /* ----------------------------------------------------------- CONTENT */
@@ -1143,28 +1219,29 @@ fieldset {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
     opacity: 1; }
 
-.zoomWorld {
+.zoomWorld, .zoomSlider {
   text-align: center; }
 
-.zoomSlider {
-  text-align: center; }
-  .zoomSlider .zoomSliderLevels {
-    margin: 0px; }
-  .zoomSlider .iconZoomLevel {
-    font-size: 10px;
-    line-height: 10px;
-    margin-top: 5px;
-    margin-bottom: 10px; }
-  .zoomSlider .iconZoomOut, .zoomSlider .iconZoomLevel {
-    position: relative;
-    display: block; }
-    .zoomSlider .iconZoomOut:after, .zoomSlider .iconZoomLevel:after {
-      content: '';
-      height: 7px;
-      border-left: dotted 1px white;
-      position: absolute;
-      top: -8px;
-      left: 19px; }
+.zoomSliderLevels {
+  margin: 0px; }
+
+.iconZoomLevel {
+  font-size: 10px;
+  line-height: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px; }
+
+.iconZoomOut, .iconZoomLevel {
+  position: relative;
+  display: block; }
+
+.iconZoomLevel:not(:first-child):after {
+  content: '';
+  height: 7px;
+  border-left: dotted 1px white;
+  position: absolute;
+  top: -8px;
+  left: 19px; }
 
 .olMapViewport.MapbenderControlZoomBoxActive {
   cursor: crosshair; }
@@ -1295,6 +1372,81 @@ fieldset {
     margin-top: 1px; }
 .mb-element-layertree .checkWrapper {
   position: relative; }
+.mb-element-layertree [data-state="loading"] {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+  opacity: 0.7; }
+  .mb-element-layertree [data-state="loading"]:before {
+    -webkit-animation: spin 1s linear infinite;
+    -moz-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    right: 40px; }
+.mb-element-layertree [data-state="error"] .layer-title {
+  color: #aa2323 !important; }
+.mb-element-layertree [data-state="error"]:before {
+  color: #aa2323;
+  position: absolute;
+  right: 40px; }
+
+.layer-menu-btn {
+  position: relative; }
+
+.layer-menu {
+  position: absolute;
+  background-color: white;
+  padding: 10px;
+  margin-top: 10px;
+  margin-left: -5px;
+  z-index: 20;
+  min-width: 120px;
+  max-width: 200px;
+  border: solid 1px #a2a2a2;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px; }
+  .layer-menu:before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-bottom: 10px solid #404040;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: absolute;
+    top: -10px;
+    left: 0; }
+
+.layer-opacity-bar {
+  position: relative;
+  color: white;
+  height: 5px;
+  background-color: #a2a2a2;
+  width: 100px;
+  margin-bottom: 20px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px; }
+
+.layer-opacity-handle {
+  position: absolute;
+  top: -5px;
+  left: 0;
+  cursor: pointer;
+  width: 30px;
+  height: 16px;
+  line-height: 16px;
+  background-color: #6fb536;
+  font-size: 12px;
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px; }
 
 /* Legend */
 .notshow, .notvisible {
@@ -1308,8 +1460,10 @@ fieldset {
     float: left; }
   .mb-element-searchrouter .dropdown, .mb-element-searchrouter .input {
     float: left;
-    width: 310px;
+    width: 290px;
     margin-bottom: 20px; }
+  .mb-element-searchrouter .dropdown {
+    width: 290px; }
   .mb-element-searchrouter .ui-helper-hidden-accessible {
     display: none; }
   .mb-element-searchrouter .search-results {
@@ -1319,6 +1473,8 @@ fieldset {
     text-align: left; }
   .mb-element-searchrouter td {
     padding-right: 10px; }
+  .mb-element-searchrouter .search-forms > form > div > div {
+    clear: both; }
 
 .ui-autocomplete {
   z-index: 1000;
@@ -1326,7 +1482,7 @@ fieldset {
   color: #858585;
   cursor: pointer;
   line-height: 29px;
-  max-width: 310px;
+  max-width: 290px;
   max-height: 200px;
   overflow: auto;
   border: solid 1px #c8c8c8;
@@ -1337,6 +1493,28 @@ fieldset {
       color: #5b932a;
       background-color: #f9f9f9; }
 
+/* WMC Editor */
+.mb-wmcEditor .tableCore {
+  width: 100%; }
+.mb-wmcEditor th {
+  text-align: left; }
+.mb-wmcEditor .iconColumn {
+  padding-left: 10px; }
+.mb-wmcEditor .iconAdd {
+  color: #3f3f3f; }
+.mb-wmcEditor .buttonBack {
+  margin-left: 20px; }
+.mb-wmcEditor tr {
+  vertical-align: top; }
+
+.elementFormWMC .labelInput, .elementFormWMC .popupSubTitle {
+  width: 110px;
+  float: left; }
+.elementFormWMC .inputWrapper {
+  margin-bottom: 10px; }
+.elementFormWMC .input {
+  width: 300px; }
+
 /* ----------------------------------------------------------- TOOLBAR */
 /* ----------------------------------------------- ELEMENTS */
 .toolBar .mb-element-scaleline {
@@ -1345,3 +1523,33 @@ fieldset {
   padding-bottom: 5px; }
   .toolBar .mb-element-scaleline .scaleBorder {
     border-color: white; }
+
+.mb-element-basesourceswitcher li {
+  padding: 5px 7px;
+  background-color: #b5b5b5;
+  display: inline-block;
+  margin-right: -4px;
+  color: white;
+  cursor: pointer;
+  text-shadow: none;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out; }
+  .mb-element-basesourceswitcher li:first-child {
+    -moz-border-radius-topleft: 3px;
+    -webkit-border-top-left-radius: 3px;
+    border-top-left-radius: 3px;
+    -moz-border-radius-bottomleft: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    border-bottom-left-radius: 3px; }
+  .mb-element-basesourceswitcher li:last-child {
+    -moz-border-radius-topright: 3px;
+    -webkit-border-top-right-radius: 3px;
+    border-top-right-radius: 3px;
+    -moz-border-radius-bottomright: 3px;
+    -webkit-border-bottom-right-radius: 3px;
+    border-bottom-right-radius: 3px; }
+  .mb-element-basesourceswitcher li:hover, .mb-element-basesourceswitcher li[data-state="active"] {
+    color: #404040;
+    background-color: #f9f9f9; }

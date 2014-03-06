@@ -1,8 +1,7 @@
 $(function() {
     // init sidebar toggle -------------------------------------------------------------------
     var sideBarToggle = function(){
-        var parent = $(this).parent().parent();
-        (parent.hasClass("opened")) ? parent.removeClass("opened") : parent.addClass("opened");
+        $('#templateWrapper').toggleClass("sidePaneOpened");
     };
     $(".toggleSideBar").bind("click", sideBarToggle);
 });

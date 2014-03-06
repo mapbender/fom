@@ -1,3 +1,2 @@
-{{'&lt;p&gt;Hello %user_username%,&lt;/p&gt;&lt;p&gt;You have requested a new password.
-&lt;br /&gt;Click please &lt;a href="%url%"&gt;here&lt;/a&gt;.'|trans(
+{{ 'fom.user.password.email_body_html'|trans(
 {'%user_username%': user.username,'%url%': url('fom_user_password_reset', { 'token': user.resettoken }) }, "messages")|raw}}

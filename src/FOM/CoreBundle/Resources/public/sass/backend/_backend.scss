@@ -185,7 +185,7 @@
     background-color:$firstColor;
     @include pos(0,'',0,0);
   }
-  .col2{padding:$space/2;}    
+  .col2{padding:$space/2;}
   .buttonGroup{@include pos($space/2,$space/2,'','');}
   .description{
     margin-top:$space/2;
@@ -239,6 +239,14 @@
     color:darken($noticeColor, 10%);
     background-color: lighten($noticeColor, 50%);
   }
+  &.error{
+    &:before{
+      @extend .icon;
+    }
+    @extend .iconThumbsDown;
+    color:darken($errorColor, 10%);
+    background-color: lighten($errorColor, 50%);
+  }
   &.kill{
     top:-100px;
     @include opacity(0);
@@ -290,4 +298,17 @@
       margin-top: -5px;
     }
   }
+}
+
+
+
+
+
+// -------------------------------------------------------------- POPUP
+.popupContent, .popupSubContent{
+  overflow: auto !important; // very bad :(
+  padding:0;
+  @include absolute(90px $space $space*3 $space);
+
+  .contentItem{margin-right:$space;}
 }

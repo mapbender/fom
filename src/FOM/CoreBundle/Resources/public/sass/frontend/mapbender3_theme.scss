@@ -4,18 +4,6 @@
 
 
 /* ------------------------------------------------------------- MISC */
-@-webkit-keyframes spin{
-  0%{-webkit-transform:rotate(0deg)}
-  100%{-webkit-transform:rotate(359deg)}
-}
-@-moz-keyframes spin{
-  0%{-moz-transform:rotate(0deg)}
-  100%{-moz-transform:rotate(359deg)}
-}
-@keyframes spin{
-  0%{transform:rotate(0deg)}
-  100%{transform:rotate(359deg)}
-}
 .mb-element-activityindicator{display:none;}
 .mb-activity, .mb-activity-ajax{
   .mb-element-activityindicator{
@@ -58,7 +46,6 @@
   &.top{
     padding:$space/4 $space/2 $space/4 $space/2;
     .toolBarItem{
-      height:32px;
       display:inline-block;
       padding:5px;
     }
@@ -129,36 +116,34 @@
 .sidePane{
   overflow: visible;
   background-image:url($contentPatternUrl);
-  border-top:solid 3px $firstColor;
-  border-bottom:solid 3px $firstColor;
+  border-top:1px solid darken(white, 30%);
+  border-bottom:1px solid darken(white, 30%);
   @include transition(all 0.4s ease-in-out);
 
   // style for the left side pane
   &.left{
-    border-right:solid 3px $firstColor;
+    border-right:1px solid darken(white, 30%);
     @include box-shadow(3px 0px 8px rgba(0, 0, 0, 0.1));
   }
 
   // style for the right side pane
   &.right{
-    border-left:solid 3px $firstColor;
+    border-left:1px solid darken(white, 30%);
     @include box-shadow(-3px 0px 8px rgba(0, 0, 0, 0.1));
   }
-
-  &.opened{
-    .sideContent{@include opacity(1);padding:$space;}
-    .sidePaneTabItem{@extend .iconClose;}
-  }
-
   .sideContent{
-    overflow: auto;
-    @include opacity(0);
+    padding:$space;
+    display: none;
   }
+}
+.sidePaneOpened{
+  .sideContent{display:block;}
+  .sidePaneTabItem{@extend .iconClose;}
 }
 /* -------------------------------------------- ELEMENTS */
 
 .sideContent{
-  .mb-aboutButton, .mb-gpsButton, 
+  .mb-aboutButton, .mb-gpsButton,
   .mb-button, {@extend .button;}
 }
 
@@ -231,27 +216,27 @@
     .iconZoom{@include opacity(1);}
   }
 }
-.zoomWorld{text-align:center;}
-.zoomSlider{
-  text-align:center;
-  .zoomSliderLevels{margin:0px;}
-  .iconZoomLevel{
-    font-size:10px;
-    line-height:10px;
-    margin-top:5px;
-    margin-bottom:10px;
-  }
-  .iconZoomOut, .iconZoomLevel{
-    position: relative;
-    display:block;
-    &:after{
-      content:'';
-      height:7px;
-      border-left:dotted 1px white;
-      @include pos(-8px,'','',19px);
-    }
+.zoomWorld, .zoomSlider{text-align:center;}
+.zoomSliderLevels{margin:0px;}
+.iconZoomLevel{
+  font-size:10px;
+  line-height:10px;
+  margin-top:5px;
+  margin-bottom:10px;
+}
+.iconZoomOut, .iconZoomLevel{
+  position: relative;
+  display:block;
+}
+.iconZoomLevel{
+  &:not(:first-child):after{
+    content:'';
+    height:7px;
+    border-left:dotted 1px white;
+    @include pos(-8px,'','',19px);
   }
 }
+
 .olMapViewport{
   &.MapbenderControlZoomBoxActive{cursor: crosshair;}
   .olHandlerBoxZoomBox {
@@ -372,7 +357,7 @@
     }
 
     // show only layers which are toggled
-    .layers{display:none;}    
+    .layers{display:none;}
     &.showLeaves > .layers{display:block;}
 
     .leave{
@@ -395,14 +380,84 @@
     }
   }
   .checkWrapper{position: relative;}
+
+  [data-state="loading"]{
+    @include opacity(.7);
+    @extend .iconActivity;
+    &:before{
+      -webkit-animation:spin 1s linear infinite;
+      -moz-animation:spin 1s linear infinite;
+      animation:spin 1s linear infinite;
+      @include absolute('' $space*2 '' '');
+    }
+  }
+  [data-state="error"]{
+    @extend .iconWarning;
+    .layer-title{color:$errorColor !important;}// if error, overwrite the title color
+    &:before{
+      color:$errorColor;
+      @include absolute('' $space*2 '' '');
+    }
+  }
 }
+.layer-menu-btn{
+  position: relative;
+}
+.layer-menu{
+  position: absolute;
+  background-color: white;
+  padding: $space/2;
+  margin-top: $space/2;
+  margin-left: -5px;
+  z-index: 20;
+  min-width: 120px;
+  max-width: 200px;
+  border:solid 1px $thirdColor;
+  @include border-radius($radius);
+
+  &:before{
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-bottom:10px solid $firstColor;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    @include absolute(-$space/2 '' '' 0);
+  }
+}
+$layer-opacity-bar-height: 5px;
+.layer-opacity-bar{
+  position: relative;
+  color:$lightFontColor;
+  height: $layer-opacity-bar-height;
+  background-color: $thirdColor;
+  width: 100px;
+  margin-bottom: $space;
+  @include border-radius(2px);
+}
+.layer-opacity-handle{
+  position: absolute;
+  top: -$layer-opacity-bar-height;
+  left: 0;
+  cursor: pointer;
+  width: 30px;
+  height: 16px;
+  line-height: 16px;
+  background-color:#6fb536;
+  font-size: 12px;
+  text-align:center;
+  @include border-radius(4px);
+}
+
+
 /* Legend */
 // notshow -> hide always legend item
 // notvisible -> hide legend item by user
 .notshow, .notvisible{display:none;}
 
 /* Search router */
-$searchRouterInputWidth:310px;
+$searchRouterInputWidth: 290px;
 .mb-element-searchrouter{
   display: none;
 
@@ -415,6 +470,7 @@ $searchRouterInputWidth:310px;
     width:$searchRouterInputWidth;
     margin-bottom: $space;
   }
+  .dropdown{width:$searchRouterInputWidth;}
   .ui-helper-hidden-accessible{display: none;}
   .search-results{
     max-height:200px;
@@ -426,6 +482,7 @@ $searchRouterInputWidth:310px;
   }
   td{padding-right:$space/2;}
   tr{@extend .linkButton}
+  .search-forms > form > div > div {clear:both;} // the ugly and unflexible way
 }
 // dublicate ! > components
 .ui-autocomplete{
@@ -449,6 +506,27 @@ $searchRouterInputWidth:310px;
   }
 }
 
+/* WMC Editor */
+.mb-wmcEditor{
+  .tableCore{
+    width:100%;
+  }
+  th{text-align:left;}
+  .iconColumn{padding-left:$space/2;}
+  .iconAdd{color:$darkFontColor;}
+  .buttonBack{margin-left:$space;}
+  tr{vertical-align:top;}
+}
+.elementFormWMC{
+  .labelInput{
+    width:110px;
+    float:left;
+  }
+  .inputWrapper{margin-bottom:$space/2;}
+  .input{width:300px;}
+}
+
+
 /* ----------------------------------------------------------- TOOLBAR */
 /* ----------------------------------------------- ELEMENTS */
 .toolBar{
@@ -457,5 +535,26 @@ $searchRouterInputWidth:310px;
     bottom:5px;
     padding-bottom:5px;
     .scaleBorder{border-color:$lightFontColor}
+  }
+}
+
+.mb-element-basesourceswitcher{
+  li{
+    padding:5px 7px;
+    background-color: #b5b5b5;
+    display:inline-block;
+    margin-right:-4px;
+    color:$lightFontColor;
+    cursor:pointer;
+    @include text-shadow(none);
+    @include transition(all .2s ease-in-out);
+
+    &:first-child{@include border-left-radius($radius);}
+    &:last-child{@include border-right-radius($radius);}
+
+    &:hover, &[data-state="active"]{
+      color:$firstColor;
+      background-color: $contentColor;
+    }
   }
 }

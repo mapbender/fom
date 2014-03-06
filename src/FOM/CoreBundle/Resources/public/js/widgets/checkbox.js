@@ -1,19 +1,22 @@
-var initCheckbox;
-$(function() {
-    initCheckbox = function(){
-        var me     = $(this);
-        var parent = me.parent(".checkWrapper");
+var initCheckbox = function(){
+    var me = $(this);
+    var parent = me.parent(".checkWrapper");
 
-        if(me.is(":checked")){
-            parent.addClass("iconCheckboxActive");
-        }
+    if(me.is(":checked")){
+        parent.addClass("iconCheckboxActive");
+    }else{
+        parent.removeClass("iconCheckboxActive");
+    }
 
-        if(me.is(":disabled")){
-            parent.addClass("checkboxDisabled");
-        }
-    };
+    if(me.is(":disabled")){
+        parent.addClass("checkboxDisabled");
+    }else{
+        parent.removeClass("checkboxDisabled");
+    }
+};
+$(function(){
     var toggleCheckBox = function(){
-        var me       = $(this);
+        var me = $(this);
         var checkbox = me.find(".checkbox");
 
         if(checkbox.is(":disabled")){
@@ -27,13 +30,11 @@ $(function() {
                 checkbox.get(0).checked = true;
             }
         }
-        
+
         checkbox.trigger('change');
     };
-    $(window).on('load', function() {
-        $('.checkbox').each(function() {
-            initCheckbox.call(this);
-        });
+    $('.checkbox').each(function(){
+        initCheckbox.call(this);
     });
     $(document).on("click", ".checkWrapper", toggleCheckBox);
 });

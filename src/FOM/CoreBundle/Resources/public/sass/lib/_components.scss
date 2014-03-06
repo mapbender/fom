@@ -29,10 +29,7 @@ p{margin:0px;}
 
 
 /* ------------------------------------------------------------- MISC */
-.clear{
-  clear:both;
-  @include clearfix();
-}
+.clear{clear:both;}
 .clearContainer{
   height:0px;
   @extend .clear;
@@ -87,7 +84,7 @@ fieldset{
 .labelInput, .labelText, .labelCheck{
   @extend .smallText;
   @include noUserSelect;
-  @include text-shadow(#fff 1px 1px 0px); 
+  @include text-shadow(#fff 1px 1px 0px);
 }
 .labelInput{
   display: inline-block;
@@ -96,7 +93,7 @@ fieldset{
 
   .required{
     color:$errorColor;
-    @include text-shadow(#fff 1px 1px 0px); 
+    @include text-shadow(#fff 1px 1px 0px);
   }
 }
 .labelCheck{
@@ -248,6 +245,8 @@ fieldset{
     position: absolute;
     z-index: 2;
     display:none;
+    overflow: auto;
+    max-height:200px;
 
     border:solid 1px lighten($thirdColor, 15%);
 
@@ -257,6 +256,7 @@ fieldset{
 
     li{
       padding-left: 5px;
+      line-height: $lineHeight;
       &:hover{
         color:$ciColor;
         background-color:$contentColor;
@@ -287,26 +287,26 @@ fieldset{
 .popupHead{
   @extend .title;
   margin:0 $space $space $space;
-  padding-bottom: $space/2;
+  padding: $space 0 $space/2 0;
   border-bottom:dashed 1px darken(#fff, 30%);
   &.draggable{cursor:move;}
 }
-.popupButtons{margin-right:$space;}
+.popupButtons{@include absolute('' $space $space 0);}
 .popupSubTitle{@extend .labelInput;}
 .popupContent, .popupSubContent{
-  padding:0 $space/2 0 $space;
-  margin:0 $space $space 0;  
-  max-height: $popupMaxHeight; // hack hack discothek
-  overflow-y:auto;
+  padding:0 $space*2;
+  margin-bottom: $space;
 }
 .popupSubContent{width: $popupModalWidth;}
 .popup{
+  min-width: 300px;
+  min-height: 250px;
   position:relative;
   z-index:9999;
   width: $popupModalWidth;
   margin:-1000px auto 0 auto;
   background-color:#f4f4f4;
-  padding:$space 0;
+  padding-bottom:$space;
   background-image:url($contentPatternUrl);
   @include transition(margin 0.4s ease-in-out);
   @include border-radius($radius);
@@ -340,6 +340,21 @@ fieldset{
   }
 
   .button{margin-left:3px;}
+}
+.ui-resizable .popupScroll{
+  overflow: auto;
+  @include absolute(70px 0 $space*3 0);
+}
+.ui-resizable-se{
+  font-size: 16px;
+  @extend .icon;
+  @include absolute('' 3px -3px '');
+  @include transform(rotate(45deg));
+  cursor: default;
+  &:before{
+    content: "\f054";
+    display: block;
+  }
 }
 
 /* ------------------------------------------------- TABS */
@@ -401,6 +416,32 @@ fieldset{
     }
     @include border-bottom-radius($radius);
     @include box-shadow(0px 0px 8px rgba(0, 0, 0, 0.1));
+
+    &.active{display:block;}
+  }
+}
+
+.tabContainerAlt{
+  .tab{
+    display: inline-block;
+    @extend .button;
+
+    &.active{
+      cursor:default;
+      background-color:darken(#6fb536, 10%);
+      color:$lightFontColor;
+      @include box-shadow(0 0 6px rgba(0,0,0,0.1),
+                        inset 0 -10px 10px darken(#5fa229, 8%));
+    }
+  }
+  .container{
+    border-top:dashed 1px $thirdColor;
+    margin-top:$space;
+    clear:left;
+    display:none;
+    padding:$space;
+    z-index:20;
+    position:relative;
 
     &.active{display:block;}
   }

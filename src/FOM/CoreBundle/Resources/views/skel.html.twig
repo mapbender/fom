@@ -1,13 +1,13 @@
 <!doctype html>
-<html class="no-js" lang="{#{ app.session.locale }#}">
+<html class="no-js" lang="{{ app.request.locale }}">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Mapbender3 - {% block title %}{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="Mapbender 3">
     <meta name="viewport" content="width=device-width">
-    <link rel="shortcut icon" href="{{ asset('favicon.png') }}" />
+    <link rel="shortcut icon" href="{% block favicon %}{% endblock %}" />
     {% block css %}{% endblock %}
   </head>
   <body class="{% if app.debug %}debug{% endif %}">
@@ -15,7 +15,7 @@
 
     <script src="{{ asset('bundles/fomcore/js/jquery-1.9.1.min.js')}}"></script>
     <script src="{{ asset('bundles/fomcore/js/jquery-ui.min.js')}}"></script>
-    
+    {% block trans %}{% endblock %}
     {% block js %}{% endblock %}
   </body>
 </html>

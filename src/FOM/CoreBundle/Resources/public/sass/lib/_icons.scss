@@ -14,6 +14,7 @@
 .icon{
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
+  font-family: FontAwesome;
 
   // some resets
   cursor: pointer;
@@ -30,27 +31,42 @@
   }
 }
 
-// 
+@-webkit-keyframes spin{
+  0%{-webkit-transform:rotate(0deg)}
+  100%{-webkit-transform:rotate(359deg)}
+}
+@-moz-keyframes spin{
+  0%{-moz-transform:rotate(0deg)}
+  100%{-moz-transform:rotate(359deg)}
+}
+@keyframes spin{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(359deg)}
+}
+
+//
 // WATCHOUT:
 // firefox doesn't like the above 'icon' class selector.
 // So we choose here the ugly way...
 // What what in the butt... XD
-// 
-.iconCheckboxActive, .iconCheckboxHalf, .iconCheckbox, 
-.iconRadio, .iconRadioActive, .iconView, .iconHelp, 
-.iconLinkButton, .iconDown, .iconRight, .iconLeft, 
-.iconTop, .iconExpand, .iconExpandClosed, .iconMove, 
-.iconAbout, .iconPrint, .iconGps, .iconLayertree, 
-.iconLegend, .iconInfo, .iconInfoActive, .iconSearch, 
-.iconWms, .iconOpen, .iconClose, .iconActivity, 
-.iconCoordinates, .iconPrev, .iconNext, .iconZoomSelect, 
-.iconZoomMin, .iconZoomIn, .iconZoomOut, .iconZoomLevel, 
-.iconZoomLevelSelected, .iconAreaRuler, .iconFolder, 
-.iconFolderActive, .iconTarget, .iconGroup, .iconAdd, 
-.iconRemove, .iconOk, .iconEdit, .iconPublish, 
-.iconPublishActive, .iconAppDefault, .iconCancel, 
-.iconThumbsUp, .iconThumbsDown, .iconGroup, .iconUser, 
-.iconSettings, .iconSignOut, .iconSignIn, .iconMore, .iconCopy, .iconKey{
+//
+.iconCheckboxActive, .iconCheckboxHalf, .iconCheckbox,
+.iconRadio, .iconRadioActive, .iconView, .iconHelp,
+.iconLinkButton, .iconDown, .iconRight, .iconLeft,
+.iconTop, .iconExpand, .iconExpandClosed, .iconMove,
+.iconAbout, .iconPrint, .iconGps, .iconLayertree,
+.iconLegend, .iconInfo, .iconInfoActive, .iconSearch,
+.iconWms, .iconOpen, .iconClose, .iconActivity,
+.iconCoordinates, .iconPrev, .iconNext, .iconZoomSelect,
+.iconZoomMin, .iconZoomIn, .iconZoomOut, .iconZoomLevel,
+.iconZoomLevelSelected, .iconAreaRuler, .iconFolder,
+.iconFolderActive, .iconTarget, .iconGroup, .iconAdd,
+.iconRemove, .iconOk, .iconEdit, .iconPublish,
+.iconPublishActive, .iconAppDefault, .iconCancel,
+.iconThumbsUp, .iconThumbsDown, .iconGroup, .iconUser,
+.iconSettings, .iconSignOut, .iconSignIn, .iconMore,
+.iconCopy, .iconKey, .iconWarning, .iconEmail, .iconTwitter,
+.iconFacebook, .iconGooglePlus{
   &:before{font-family: FontAwesome;}
 }
 
@@ -99,6 +115,13 @@
 .iconFolder:before{content:"\f07b";}
 .iconFolderActive:before{content:"\f07c";}
 .iconTarget:before{content:"\f05b";}
+.iconPoi:before{content:"\f08d";}
+.iconImageExport:before{content:"\f030";}
+.iconWarning:before{content:"\f071";}
+.iconEmail:before {content: "\f0e0";}
+.iconTwitter:before {content: "\f081";}
+.iconFacebook:before {content: "\f082";}
+.iconGooglePlus:before {content: "\f0d4";}
 
 // only backend
 .iconGroup:before{content: "\f0c0";}
@@ -120,3 +143,5 @@
 .iconMore:before{content:"\f141";}
 .iconCopy:before{content:"\f0c5";}
 .iconKey:before{content:"\f084";}
+.iconTab:before{content:"\f114";}
+.iconTabActive:before{content:"\f07b" !important;}

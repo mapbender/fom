@@ -1,6 +1,6 @@
 $(function() {
     // init tabcontainers --------------------------------------------------------------------
-    $(".tabContainer").on('click', '.tab', function() {
+    $(".tabContainer, .tabContainerAlt").on('click', '.tab', function() {
         var me = $(this);
         me.parent().parent().find(".active").removeClass("active");
         me.addClass("active");

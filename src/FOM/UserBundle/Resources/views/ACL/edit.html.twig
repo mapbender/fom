@@ -1,6 +1,6 @@
 {% extends "FOMManagerBundle::manager.html.twig" %}
 
-{% block title %}{{ "Edit Class ACL for %name%" | trans({'%name%': class_name}) }}{% endblock %}
+{% block title %}{{ "fom.user.acl.edit.edit_class_acl" | trans({'%name%': class_name}) }}{% endblock %}
 
 {% block manager_js %}
     {{parent()}}
@@ -13,10 +13,10 @@
 <form action="{{ path('fom_user_acl_update', { 'class': class }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} data-aclsid="{{ form.get('widget_control_group_attr') }}" novalidate="novalidate">
     <div id="aclTabContainer" class="tabContainer aclTabContainer">
         <ul class="tabs">
-            <li id="tabSecurity" class="tab active">{{"Security" | trans }}</li>
+            <li id="tabSecurity" class="tab active">{{"fom.user.acl.edit.security" | trans }}</li>
         </ul>
         <div id="containerSecurity" class="container containerSecurity active">
-            <a id="addPermission" href="{{path('fom_user_acl_overview')}}" class="iconAdd iconBig right" title="{{'Add users and groups'|trans}}"></a>
+            <a id="addPermission" href="{{path('fom_user_acl_overview')}}" class="iconAdd iconBig right" title="{{'fom.user.acl.edit.add_users_groups'|trans}}"></a>
             {{ form_widget(form) }}
         </div>
 
@@ -25,8 +25,8 @@
     </div>
 
     <div class="right">
-      <input type="submit" value="{{ 'Save' | trans }}" class="button"/>
-      <a href="{{ url('fom_user_acl_index') }}" class="button critical">{{ 'Cancel' | trans}}</a>
+      <input type="submit" value="{{ 'fom.user.acl.edit.save' | trans }}" class="button"/>
+      <a href="{{ url('fom_user_acl_index') }}" class="button critical">{{ 'fom.user.acl.edit.cancel' | trans}}</a>
     </div>
 </form>
 

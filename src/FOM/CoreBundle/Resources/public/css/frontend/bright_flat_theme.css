@@ -565,6 +565,9 @@ table {
 
 .iconAreaRuler:before {
   content: "\f125"; }
+  
+.iconSketch:before {
+  content: "\f10c"; }
 
 .iconFolder:before {
   content: "\f07b"; }
