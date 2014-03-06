@@ -242,7 +242,8 @@ p, pre, dl, menu, ol, ul {
 .iconThumbsUp:before,
 .flashBox.success:before, .iconThumbsDown:before, .flashBox.error:before, .iconGroup:before, .iconUser:before,
 .iconSettings:before, .iconSignOut:before, .iconSignIn:before, .iconMore:before,
-.iconCopy:before, .iconKey:before, .iconWarning:before {
+.iconCopy:before, .iconKey:before, .iconWarning:before, .iconEmail:before, .iconTwitter:before,
+.iconFacebook:before, .iconGooglePlus:before {
   font-family: FontAwesome; }
 
 .iconCheckboxActive:before {
@@ -379,6 +380,18 @@ p, pre, dl, menu, ol, ul {
 
 .iconWarning:before {
   content: "\f071"; }
+
+.iconEmail:before {
+  content: "\f0e0"; }
+
+.iconTwitter:before {
+  content: "\f081"; }
+
+.iconFacebook:before {
+  content: "\f082"; }
+
+.iconGooglePlus:before {
+  content: "\f0d4"; }
 
 .iconGroup:before {
   content: "\f0c0"; }
@@ -1250,11 +1263,11 @@ fieldset {
 
 body {
   background-image: url("../../images/body.png");
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(100px, rgba(255, 255, 255, 0.3)), color-stop(100%, rgba(255, 255, 255, 0))) fixed, url('../../images/body.png?1392212836');
-  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1392212836');
-  background: -moz-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1392212836');
-  background: -o-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1392212836');
-  background: linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1392212836'); }
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(100px, rgba(255, 255, 255, 0.3)), color-stop(100%, rgba(255, 255, 255, 0))) fixed, url('../../images/body.png?1392798819');
+  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1392798819');
+  background: -moz-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1392798819');
+  background: -o-linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1392798819');
+  background: linear-gradient(rgba(255, 255, 255, 0.3) 100px, rgba(255, 255, 255, 0)) fixed, url('../../images/body.png?1392798819'); }
 
 .page {
   position: relative;
@@ -1268,11 +1281,11 @@ body {
   min-width: 1000px;
   border-top: solid 5px #272727;
   background-image: url("../../images/head.png");
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0))), url('../../images/head.png?1392212836');
-  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1392212836');
-  background: -moz-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1392212836');
-  background: -o-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1392212836');
-  background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1392212836');
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(100%, rgba(255, 255, 255, 0))), url('../../images/head.png?1392798819');
+  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1392798819');
+  background: -moz-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1392798819');
+  background: -o-linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1392798819');
+  background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), url('../../images/head.png?1392798819');
   -webkit-box-shadow: inset #333333 0px 1px 0px;
   -moz-box-shadow: inset #333333 0px 1px 0px;
   box-shadow: inset #333333 0px 1px 0px; }

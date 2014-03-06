@@ -240,7 +240,8 @@ p, pre, dl, menu, ol, ul {
 .iconPublishActive:before, .iconAppDefault:before, .iconCancel:before,
 .iconThumbsUp:before, .iconThumbsDown:before, .iconGroup:before, .iconUser:before,
 .iconSettings:before, .iconSignOut:before, .iconSignIn:before, .iconMore:before,
-.iconCopy:before, .iconKey:before, .iconWarning:before, .mb-element-layertree [data-state="error"]:before {
+.iconCopy:before, .iconKey:before, .iconWarning:before, .mb-element-layertree [data-state="error"]:before, .iconEmail:before, .iconTwitter:before,
+.iconFacebook:before, .iconGooglePlus:before {
   font-family: FontAwesome; }
 
 .iconCheckboxActive:before {
@@ -377,6 +378,18 @@ p, pre, dl, menu, ol, ul {
 
 .iconWarning:before, .mb-element-layertree [data-state="error"]:before {
   content: "\f071"; }
+
+.iconEmail:before {
+  content: "\f0e0"; }
+
+.iconTwitter:before {
+  content: "\f081"; }
+
+.iconFacebook:before {
+  content: "\f082"; }
+
+.iconGooglePlus:before {
+  content: "\f0d4"; }
 
 .iconGroup:before {
   content: "\f0c0"; }
