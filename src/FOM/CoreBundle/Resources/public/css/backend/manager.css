@@ -767,7 +767,7 @@ fieldset {
   margin-bottom: 20px; }
 
 .popupSubContent {
-  width: 460px; }
+  width: 100%; }
 
 .popup {
   min-width: 300px;
