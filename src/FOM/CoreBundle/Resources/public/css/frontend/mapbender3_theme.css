@@ -715,7 +715,6 @@ fieldset {
     padding-left: 5px;
     color: #858585;
     border: none;
-    width: 100%;
     line-height: 29px;
     cursor: pointer; }
     .dropdown .dropdownValue.iconDown:before {
@@ -1091,7 +1090,6 @@ fieldset {
 /* ----------------------------------------------- ELEMENTS */
 .dropdown {
   text-align: left;
-  min-width: 200px;
   text-shadow: none; }
 
 .hiddenDropdown {
@@ -1332,7 +1330,7 @@ fieldset {
   .mb-element-printclient .labelInput, .mb-element-printclient .popupSubTitle {
     width: 60px; }
   .mb-element-printclient .input, .mb-element-printclient .dropdown {
-    width: 190px;
+    min-width: 190px;
     margin-bottom: 10px;
     min-width: 0px; }
 
@@ -1463,7 +1461,7 @@ fieldset {
     width: 290px;
     margin-bottom: 20px; }
   .mb-element-searchrouter .dropdown {
-    width: 290px; }
+    min-width: 290px; }
   .mb-element-searchrouter .ui-helper-hidden-accessible {
     display: none; }
   .mb-element-searchrouter .search-results {

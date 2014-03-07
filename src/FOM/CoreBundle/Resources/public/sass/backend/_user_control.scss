@@ -52,8 +52,8 @@
       float:left;
       display: block;
       margin-bottom: $space/2;
-    } 
-    .input, .dropdown{width:250px;}
+    }
+    .input, .dropdown{min-width:250px;}
     textarea{height:150px;}
   }
 }
@@ -87,7 +87,7 @@
   }
   .containerLayout{
     .dropdown{
-      width:270px;
+      min-width:270px;
       margin-left:$space;
     }
   }
