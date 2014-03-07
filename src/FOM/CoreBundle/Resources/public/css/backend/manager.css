@@ -1529,7 +1529,7 @@ body {
     right: 20px; }
 
 .popup .popupSubContent {
-  width: 440px;
+  width: 100%;
   overflow: visible; }
   .popup .popupSubContent .labelInput, .popup .popupSubContent .popupSubTitle, .popup .popupSubContent .input {
     float: left; }
