@@ -2,6 +2,14 @@
 
 {% set title %}{% block title %}{% endblock %}{% endset %}
 
+{% block css %}
+  {% stylesheets filter="compass,cssrewrite"
+    "bundles/mapbendermanager/sass/manager/manager.scss"
+  %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+  {% endstylesheets %}
+{% endblock %}
+
 {% block favicon %}{{ asset('favicon.png') }}{% endblock %}
 
 {% block backend_content %}
@@ -40,9 +48,6 @@
 
         <div class="contentPane">
           <div id="version" class="mapbenderVersion smallText">v. {{ fom.server_version }}</div>
-          {% if app.user != "" %}
-            {% render "FOMManagerBundle:Manager:bread" with { "request": app.request } %}
-          {% endif %}
           <div class="content shadowBox">
             <h1 class="contentTitle">{{ title|trans }}</h1>
 
