@@ -39,18 +39,11 @@
       display: block;
       margin-bottom: $space/2;
     }
-    textarea, input, .dropdown{width: 300px;}
+    textarea, input, .dropdown{min-width: 300px;}
     textarea{height:100px;}
     .messageBox{
       width:270px;
       @include pos($space,$space,'','');
-    }
-  }
-  .containerLayout{
-    .dropdown{
-      width:200px;
-      margin-bottom:$space;
-      margin-left:$space;
     }
   }
 
@@ -135,30 +128,30 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
 .defaultForm{
   $label:70px;
   .labelInput{width:$label;}
-  .input, .dropdown{width:$elementPopupWidth - $label}
+  .input, .dropdown{min-width:$elementPopupWidth - $label}
 }
 .elementFormGps{
   $label:100px;
   .labelInput{width:$label;}
-  .input, .dropdown{width:$elementPopupWidth - $label;}
+  .input, .dropdown{min-width:$elementPopupWidth - $label;}
   .labelCheck{margin-right:$space;}
 }
 .elementFormCopyright, .elementFormActivity{
   $label:100px;
   .labelInput{width:$label;}
-  .dropdown, .input{width:$elementPopupWidth - $label;}
+  .dropdown, .input{min-width:$elementPopupWidth - $label;}
 }
 .elementFormLegend{
   $label:90px;
   .labelInput{width:$label;}
-  .dropdown, .input{width:$elementPopupWidth - $label;}
+  .dropdown, .input{min-width:$elementPopupWidth - $label;}
   .checkWrapper{margin-bottom:$space/2;}
   .labelCheck{margin-right:$space;}
 }
 .elementFormFeatureInfo{
   $label:60px;
   .labelInput{width:$label;}
-  .dropdown, .input{width:$elementPopupWidth - $label;}
+  .dropdown, .input{min-width:$elementPopupWidth - $label;}
   .checkWrapper{margin-bottom:$space/2;}
   .labelCheck{margin-right:$space;}
 }
@@ -166,7 +159,7 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
   $label:100px;
   .labelInput{width:$label;}
   .checkWrapper{margin-bottom:$space/2;}
-  .dropdown, .input{width:$elementPopupWidth - $label - $space;}
+  .dropdown, .input{min-width:$elementPopupWidth - $label - $space;}
   .singleRow{
     float:right;
     width:$elementPopupWidth - $label - $space;
@@ -184,7 +177,7 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
 .elementFormLayerTree{
   $label:100px;
   .labelInput{width:$label;}
-  .dropdown, .input{width:$elementPopupWidth - $label;}
+  .dropdown, .input{min-width:$elementPopupWidth - $label;}
   .checkWrapper{margin-bottom:$space/2;}
   .labelCheck{margin-right:$space;}
 }
@@ -193,7 +186,7 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
   .labelInput{width:$label;}
   .checkWrapper{margin-bottom:$space/2;}
   .labelCheck{margin-right:$space;}
-  .dropdown, .input{width:$elementPopupWidth - $label;}
+  .dropdown, .input{min-width:$elementPopupWidth - $label;}
   .singleRow{
     .labelInput, & > .input{float:left;}
     .labelInput{
@@ -245,19 +238,19 @@ $elementPopupWidth: $popupModalWidth - ($space * 3);
 .elementFormYaml{
   $label:90px;
   .labelInput{width:$label;}
-  .dropdown, .input{width:$elementPopupWidth - $label;}
+  .dropdown, .input{min-width:$elementPopupWidth - $label;}
 }
 .elementFormWmsLoader{
   $label:110px;
   .labelInput{width:$label;}
-  .dropdown, .input{width:$elementPopupWidth - $label;}
+  .dropdown, .input{min-width:$elementPopupWidth - $label;}
   .checkWrapper{margin-bottom:$space/2;}
   .labelCheck{margin-right:$space;}
 }
 .elementFormPrintClient{
   $label:110px;
   .labelInput{width:$label;}
-  .dropdown, .input{width:$elementPopupWidth - $label  - $space;}
+  .dropdown, .input{min-width:$elementPopupWidth - $label  - $space;}
   .checkWrapper{margin-bottom:$space/2;}
   .labelCheck{margin-right:$space;}
   .singleRow{

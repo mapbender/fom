@@ -21,12 +21,12 @@
   $inputWidth:300px;
 
   width:$labelWidth + $inputWidth + $space*2 + 2; // + border
-  margin-right:$space;  
+  margin-right:$space;
 
   .labelInput{width:$labelWidth;}
   .input{
-    margin-bottom:$space/2;  
-    width: $inputWidth; 
+    margin-bottom:$space/2;
+    width: $inputWidth;
   }
 }
 
@@ -36,21 +36,21 @@
 
 
 // --------------------------------------------------------- VIEW SERVICE
-.serviceContainer{ 
+.serviceContainer{
   .labelText{float:left;}
   .metaText{@extend .smallText;}
   margin-bottom:$space;
 }
-.serviceMetaContainer{ 
-  $labelWidth:120px; 
- 
-  .labelText{width:$labelWidth;} 
+.serviceMetaContainer{
+  $labelWidth:120px;
+
+  .labelText{width:$labelWidth;}
   .metaText{margin-left:$labelWidth + $space/2;}
   .metaUrl{word-wrap: break-word;}
 }
-.serviceContactContainer{ 
+.serviceContactContainer{
   $labelWidth:90px;
-   
+
   .labelText{width:$labelWidth; }
   .metaText{margin-left:$labelWidth + $space/2; }
 }
@@ -61,7 +61,7 @@
   .metaText{margin-left:$labelWidth + $space/2; }
   .metaFormats{line-height:1em;margin-top:0.6em;}
 }
-.serviceLayersContainer{ 
+.serviceLayersContainer{
   $labeText:85px;
 
   .list, li{clear:both;}
@@ -120,7 +120,7 @@
     display: inline-block;
   }
   .dropdown{
-    width:250px;
+    min-width:250px;
     margin-bottom:$space/2;
   }
   .checkWrapper, .labelCheck{
@@ -140,7 +140,7 @@
 
   thead .checkboxColumn{padding:0px;}
   tbody{
-    .input, .dropdown{width:100%;}
+    .input, .dropdown{min-width:100%;}
     .titleColumn{width:220px;}
     .minScaleColumn, .maxScaleColumn, .styleColumn{width:90px;}
     .checkboxColumn{padding:5px 3px 5px 3px;}
@@ -205,6 +205,6 @@
     display:inline-block;
   }
   .dropdown{
-    width:130px !important;
+    min-width:130px !important;
   }
 }

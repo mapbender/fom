@@ -705,7 +705,6 @@ fieldset {
     padding-left: 5px;
     color: #858585;
     border: none;
-    width: 100%;
     line-height: 29px;
     cursor: pointer; }
     .dropdown .dropdownValue.iconDown:before {
@@ -768,7 +767,7 @@ fieldset {
   margin-bottom: 20px; }
 
 .popupSubContent {
-  width: 460px; }
+  width: 100%; }
 
 .popup {
   min-width: 300px;
@@ -1520,7 +1519,7 @@ body {
     display: block;
     margin-bottom: 10px; }
   .applicationTabContainer .containerBaseData textarea, .applicationTabContainer .containerBaseData input, .applicationTabContainer .containerBaseData .dropdown {
-    width: 300px; }
+    min-width: 300px; }
   .applicationTabContainer .containerBaseData textarea {
     height: 100px; }
   .applicationTabContainer .containerBaseData .messageBox {
@@ -1528,10 +1527,6 @@ body {
     position: absolute;
     top: 20px;
     right: 20px; }
-  .applicationTabContainer .containerLayout .dropdown {
-    width: 200px;
-    margin-bottom: 20px;
-    margin-left: 20px; }
 
 .popup .popupSubContent {
   width: 440px;
@@ -1607,24 +1602,24 @@ body {
 .defaultForm .labelInput, .defaultForm .popupSubTitle {
   width: 70px; }
 .defaultForm .input, .defaultForm .dropdown {
-  width: 330px; }
+  min-width: 330px; }
 
 .elementFormGps .labelInput, .elementFormGps .popupSubTitle {
   width: 100px; }
 .elementFormGps .input, .elementFormGps .dropdown {
-  width: 300px; }
+  min-width: 300px; }
 .elementFormGps .labelCheck {
   margin-right: 20px; }
 
 .elementFormCopyright .labelInput, .elementFormCopyright .popupSubTitle, .elementFormActivity .labelInput, .elementFormActivity .popupSubTitle {
   width: 100px; }
 .elementFormCopyright .dropdown, .elementFormCopyright .input, .elementFormActivity .dropdown, .elementFormActivity .input {
-  width: 300px; }
+  min-width: 300px; }
 
 .elementFormLegend .labelInput, .elementFormLegend .popupSubTitle {
   width: 90px; }
 .elementFormLegend .dropdown, .elementFormLegend .input {
-  width: 310px; }
+  min-width: 310px; }
 .elementFormLegend .checkWrapper {
   margin-bottom: 10px; }
 .elementFormLegend .labelCheck {
@@ -1633,7 +1628,7 @@ body {
 .elementFormFeatureInfo .labelInput, .elementFormFeatureInfo .popupSubTitle {
   width: 60px; }
 .elementFormFeatureInfo .dropdown, .elementFormFeatureInfo .input {
-  width: 340px; }
+  min-width: 340px; }
 .elementFormFeatureInfo .checkWrapper {
   margin-bottom: 10px; }
 .elementFormFeatureInfo .labelCheck {
@@ -1644,7 +1639,7 @@ body {
 .elementFormMap .checkWrapper {
   margin-bottom: 10px; }
 .elementFormMap .dropdown, .elementFormMap .input {
-  width: 280px; }
+  min-width: 280px; }
 .elementFormMap .singleRow {
   float: right;
   width: 280px; }
@@ -1661,7 +1656,7 @@ body {
 .elementFormLayerTree .labelInput, .elementFormLayerTree .popupSubTitle {
   width: 100px; }
 .elementFormLayerTree .dropdown, .elementFormLayerTree .input {
-  width: 300px; }
+  min-width: 300px; }
 .elementFormLayerTree .checkWrapper {
   margin-bottom: 10px; }
 .elementFormLayerTree .labelCheck {
@@ -1674,7 +1669,7 @@ body {
 .elementFormOverview .labelCheck {
   margin-right: 20px; }
 .elementFormOverview .dropdown, .elementFormOverview .input {
-  width: 330px; }
+  min-width: 330px; }
 .elementFormOverview .singleRow .labelInput, .elementFormOverview .singleRow .popupSubTitle, .elementFormOverview .singleRow > .input {
   float: left; }
 .elementFormOverview .singleRow .labelInput, .elementFormOverview .singleRow .popupSubTitle {
@@ -1724,12 +1719,12 @@ body {
 .elementFormYaml .labelInput, .elementFormYaml .popupSubTitle {
   width: 90px; }
 .elementFormYaml .dropdown, .elementFormYaml .input {
-  width: 310px; }
+  min-width: 310px; }
 
 .elementFormWmsLoader .labelInput, .elementFormWmsLoader .popupSubTitle {
   width: 110px; }
 .elementFormWmsLoader .dropdown, .elementFormWmsLoader .input {
-  width: 290px; }
+  min-width: 290px; }
 .elementFormWmsLoader .checkWrapper {
   margin-bottom: 10px; }
 .elementFormWmsLoader .labelCheck {
@@ -1738,7 +1733,7 @@ body {
 .elementFormPrintClient .labelInput, .elementFormPrintClient .popupSubTitle {
   width: 110px; }
 .elementFormPrintClient .dropdown, .elementFormPrintClient .input {
-  width: 270px; }
+  min-width: 270px; }
 .elementFormPrintClient .checkWrapper {
   margin-bottom: 10px; }
 .elementFormPrintClient .labelCheck {
@@ -1870,7 +1865,7 @@ body {
   width: 100px;
   display: inline-block; }
 .instanceContainer .dropdown {
-  width: 250px;
+  min-width: 250px;
   margin-bottom: 10px; }
 .instanceContainer .checkWrapper, .instanceContainer .labelCheck {
   display: inline-block;
@@ -1891,7 +1886,7 @@ body {
   .instanceTable thead .checkboxColumn {
     padding: 0px; }
   .instanceTable tbody .input, .instanceTable tbody .dropdown {
-    width: 100%; }
+    min-width: 100%; }
   .instanceTable tbody .titleColumn {
     width: 220px; }
   .instanceTable tbody .minScaleColumn, .instanceTable tbody .maxScaleColumn, .instanceTable tbody .styleColumn {
@@ -1963,7 +1958,7 @@ body {
     width: 100px;
     display: inline-block; }
   .infoMsgBox .dropdown {
-    width: 130px !important; }
+    min-width: 130px !important; }
 
 /* ------------------------------------------------------- USER CONTROL */
 .tableUserGroups {
@@ -2019,7 +2014,7 @@ body {
     display: block;
     margin-bottom: 10px; }
   .userGroupTabContainer .containerBaseData .input, .userGroupTabContainer .containerBaseData .dropdown, .userGroupTabContainer .containerProfile .input, .userGroupTabContainer .containerProfile .dropdown {
-    width: 250px; }
+    min-width: 250px; }
   .userGroupTabContainer .containerBaseData textarea, .userGroupTabContainer .containerProfile textarea {
     height: 150px; }
 
@@ -2048,5 +2043,5 @@ body {
     top: 20px;
     right: 20px; }
   .aclTabContainer .containerLayout .dropdown {
-    width: 270px;
+    min-width: 270px;
     margin-left: 20px; }

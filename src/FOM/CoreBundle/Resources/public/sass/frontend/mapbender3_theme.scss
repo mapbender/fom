@@ -156,7 +156,6 @@
 /* ----------------------------------------------- ELEMENTS */
 .dropdown{
   text-align: left;
-  min-width: 200px;
   @include text-shadow(none);
 }
 .hiddenDropdown{display:none;}
@@ -327,7 +326,7 @@
 
   .labelInput{width:60px;}
   .input, .dropdown{
-    width:190px;
+    min-width:190px;
     margin-bottom:$space/2;
     min-width: 0px;
   }
@@ -470,7 +469,7 @@ $searchRouterInputWidth: 290px;
     width:$searchRouterInputWidth;
     margin-bottom: $space;
   }
-  .dropdown{width:$searchRouterInputWidth;}
+  .dropdown{min-width:$searchRouterInputWidth;}
   .ui-helper-hidden-accessible{display: none;}
   .search-results{
     max-height:200px;
