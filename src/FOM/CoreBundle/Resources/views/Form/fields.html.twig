@@ -134,7 +134,7 @@
             {% set selectedValue = empty_value|trans({}, translation_domain) %}
           {% endif %}
 
-          {% for choice in choices|sort %}
+          {% for choice in choices %}
 
             {% if loop.index == 1 %}
               {% set firstValue = choice.label %}
@@ -163,7 +163,7 @@
           {% if empty_value is defined and empty_value is not none %}
             <li class="item-0" value="">{{ empty_value|trans({}, translation_domain) }}</li>
           {% endif %}
-          {% for choice in choices|sort %}
+          {% for choice in choices %}
             <li class="item-{{ loop.index }}">{{ choice.label|trans({}, translation_domain) }}</li>
           {% endfor %}
         </ul>
