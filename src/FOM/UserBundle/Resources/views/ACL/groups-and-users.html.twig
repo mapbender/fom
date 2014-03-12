@@ -19,7 +19,7 @@
               <div class="checkWrapper iconCheckbox"><input class="checkbox" type="checkbox"/></div>
             </div>
           </td>
-        </tr> 
+        </tr>
       {% endfor %}
       {% for group in groups %}
         <tr class="filterItem">
@@ -32,6 +32,17 @@
           </td>
         </tr>
       {% endfor %}
+        {# Extra item for anonymous role #}
+        <tr class="filterItem">
+          <td>
+            <div class="tdContentWrapper iconGroup">
+              <label class="labelInput">{{ 'IS_AUTHENTICATED_ANONYMOUSLY' | trans }}</label>
+              <span class="hide">r:IS_AUTHENTICATED_ANONYMOUSLY</span>
+              <div class="checkWrapper iconCheckbox"><input class="checkbox" type="checkbox"/></div>
+            </div>
+          </td>
+        </tr>
+        {# End Anonymous Group #}
     </tbody>
   </table>
 {% else %}

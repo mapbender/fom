@@ -180,5 +180,4 @@ class ACLType extends AbstractType
                 '" is not a valid standard permission set identifier');
         }
     }
-
 }
