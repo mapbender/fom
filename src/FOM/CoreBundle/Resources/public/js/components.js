@@ -1,4 +1,13 @@
 $(function() {
+    //
+    // Add manually a string trim function for IE8 support
+    //
+    if(typeof String.prototype.trim !== 'function') {
+      String.prototype.trim = function() {
+        return this.replace(/^\s+|\s+$/g, '');
+      }
+    }
+
     // init tabcontainers --------------------------------------------------------------------
     $(".tabContainer").find(".tab").bind("click", function(){
         var me = $(this);
@@ -23,7 +32,7 @@ $(function() {
             $.each(items, function(i, e){
                 item = $(e);
                 if(!item.hasClass("doNotFilter")){
-                    (item.text().toUpperCase().indexOf(val.toUpperCase()) >= 0) ? item.show() 
+                    (item.text().toUpperCase().indexOf(val.toUpperCase()) >= 0) ? item.show()
                                                                                 : item.hide();
                 }
             });
@@ -31,6 +40,7 @@ $(function() {
             items.show();
         }
     });
+
 
 
 
@@ -111,7 +121,7 @@ $(function() {
         $(this).find(".headTagWrapper").each(function(){
             setPermissionsRootState($(this).attr("id"));
             $(this).bind("click", toggleAllPermissions);
-        });    
+        });
     }
     $("#permissionsHead").one("load", initPermissionRoot).load();
 
@@ -148,7 +158,7 @@ $(function() {
 
                                 groupUserItem = $(e);
                                 groupUserType = (groupUserItem.find(".tdContentWrapper")
-                                                              .hasClass("iconGroup") ? "iconGroup" 
+                                                              .hasClass("iconGroup") ? "iconGroup"
                                                                                      : "iconUser");
                                 $("#permissionsBody").find(".labelInput").each(function(i, e){
                                     me = $(e);
