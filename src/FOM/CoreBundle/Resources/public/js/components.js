@@ -56,7 +56,7 @@ $(function() {
 
 
     // kill some flashes ---------------------------------------------------------------------
-    setTimeout(function(){$(".flashBox").addClass("kill");}, 2000);
+    setTimeout(function(){$(".flashBox.success").addClass("kill");}, 2000);
 
 
 
