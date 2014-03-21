@@ -43,9 +43,9 @@ class ACEDataTransformer implements DataTransformerInterface
             $sidPrefix = 'u';
             $sidName = $sid->getUsername();
             $sidClass = $sid->getClass();
-            $sidString = sprintf('%s:%s', $sidPrefix, $sidName);
+            $sidString = sprintf('%s:%s:%s', $sidPrefix, $sidName, $sidClass);
         }
-        
+
         for($i = 1; $i <= 30; $i++) {
                 $key = 1 << ($i-1);
                 if($mask & $key) {
@@ -54,7 +54,7 @@ class ACEDataTransformer implements DataTransformerInterface
                     $permissions[$i] = false;
                 }
         }
-        
+
         return array(
             'sid' => $sidString,
             'permissions' => $permissions);
@@ -72,16 +72,17 @@ class ACEDataTransformer implements DataTransformerInterface
         if(strtoupper($sidParts[0]) == 'R') {
             $sid = new RoleSecurityIdentity($sidParts[1]);
         } else {
-            $sid = new UserSecurityIdentity($sidParts[1], 'FOM\UserBundle\Entity\User');
+            $class = (3 == count($sidParts)) ? $sidParts[2] : 'FOM\UserBundle\Entity\User';
+            $sid = new UserSecurityIdentity($sidParts[1], $class);
         }
-        
+
         $maskBuilder = new MaskBuilder();
         foreach($data['permissions'] as $bit => $permission) {
             if(true === $permission) {
                 $maskBuilder->add(1 << ($bit - 1));
             }
         }
-        
+
         return array(
             'sid' => $sid,
             'mask' => $maskBuilder->get());

@@ -23,5 +23,11 @@
         <service id="fom.acl.manager" class="FOM\UserBundle\Component\ACLManager">
             <argument type="service" id="security.acl.provider" />
         </service>
+
+        <service id="fom.identities.provider" class="%fom.identities.provider.class%">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
     </services>
 </container>

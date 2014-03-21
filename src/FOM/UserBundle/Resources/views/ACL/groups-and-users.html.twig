@@ -15,7 +15,7 @@
           <td>
             <div class="tdContentWrapper iconUser">
               <label class="labelInput">{{user.getUsername}}</label>
-              <span class="hide">u:{{user.getUsername}}</span>
+              <span class="hide">u:{{user.getUsername}}{% if user.getClass is defined %}:{{ user.getClass }}{% endif %}</span>
               <div class="checkWrapper iconCheckbox"><input class="checkbox" type="checkbox"/></div>
             </div>
           </td>

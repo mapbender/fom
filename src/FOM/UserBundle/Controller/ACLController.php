@@ -97,8 +97,9 @@ class ACLController extends Controller
      * @Template("FOMUserBundle:ACL:groups-and-users.html.twig")
      */
     public function overviewAction(){
-        $groups = $this->getAllGroups();
-        $users  = $this->getAllUsers();
+        $idProvider = $this->get('fom.identities.provider');
+        $groups = $idProvider->getAllGroups();
+        $users  = $idProvider->getAllUsers();
         return array('groups' => $groups, 'users' => $users);
     }
 
@@ -126,88 +127,26 @@ class ACLController extends Controller
     {
         $query = $this->get('request')->get('query');
         $response = array();
+        $idProvider = $this->get('fom.identities.provider');
 
         if($query !== null) {
             switch(substr($query, 0, 2)) {
                 case 'u:':
-                    $response = $this->getUsers(substr($query, 3));
+                    $response = $idProvider->getUsers(substr($query, 2));
                     break;
                 case 'r:':
-                    $response = $this->getRoles(substr($query, 3));
+                    $response = $idProvider->getRoles(substr($query, 2));
                     break;
                 default:
                     $response = array_merge(
-                        $this->getUsers(substr($query, 3)),
-                        $this->getRoles(substr($query, 3)));
+                        $idProvider->getUsers(substr($query, 3)),
+                        $idProvider->getRoles(substr($query, 3)));
             }
         }
 
         return new Response(json_encode($response), 200, array(
             'Content-Type' => 'application/json'));
     }
-
-    /**
-     * Get user security identifiers for given query.
-     *
-     * @param  string $search Query string
-     * @return array         Array of user security identifiers
-     */
-    protected function getUsers($search)
-    {
-        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:User');
-        $qb = $repo->createQueryBuilder('u');
-
-        $query = $qb->where($qb->expr()->like('LOWER(u.username)', ':search'))
-            ->setParameter(':search', '%' . strtolower($search) . '%')
-            ->orderBy('u.username', 'ASC')
-            ->getQuery();
-
-        $result = array();
-        foreach($query->getResult() as $user) {
-            $result[] = 'u:' . $user->getUsername();
-        }
-        return $result;
-    }
-
-    /**
-     * @return array Array of role security identifiers
-     */
-    protected function getRoles() {
-        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:Group');
-        $groups = $repo->findAll();
-
-        $roles = array();
-        foreach($groups as $group) {
-            $roles[] = 'r:' . $group->getAsRole();
-        }
-
-        return $roles;
-    }
-
-    protected function getAllGroups(){
-        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:Group');
-        $groups = $repo->findAll();
-
-        $all = array();
-        foreach($groups as $group) {
-            $all[] = $group;
-        }
-
-        return $all;
-    }
-
-    protected function getAllUsers(){
-        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:User');
-        $users = $repo->findAll();
-
-        $all = array();
-        foreach($users as $user) {
-            $all[] = $user;
-        }
-
-        return $all;
-    }
-
 
     protected function getACLClasses()
     {
