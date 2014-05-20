@@ -23,6 +23,7 @@
  * Events available on the element which you can get with .getElement:
  *   - open    - before opening the dialog
  *   - opened  - after the dialog has fully openend
+ *   - focus   - after the dialog becomes an focus
  *   - close   - before closing the dialog
  *   - closed  - after the dialog has been fully closed
  *   - destroy - just before the popup is destroyed. Last dance, anyone?
@@ -37,7 +38,7 @@
  */
 var Mapbender = (function($, Mapbender) {
     var counter = 0;
-
+    var currentZindex = 10000;
     /**
      * Popup constructor.
      *
@@ -63,6 +64,9 @@ var Mapbender = (function($, Mapbender) {
 
             self.option(key, value);
         });
+
+        // focused on popup click
+        self.$element.on("click", $.proxy(self.focus, self));
 
         // Open if required
         if(this.options.autoOpen) {
@@ -205,9 +209,23 @@ var Mapbender = (function($, Mapbender) {
             selfElement.appendTo(this.$container);
             window.setTimeout(function() {
                 selfElement.addClass("show");
+                self.focus();
             }, 100);
 
             selfElement.trigger('openend');
+        },
+
+        /**
+         * Focus the popup.
+         * This will show popup on top.
+         *
+         * @fires "focus"
+         */
+        focus: function () {
+          var self = this;
+          var selfElement = this.$element;
+          selfElement.css("z-index",++currentZindex);
+          selfElement.trigger('focus');
         },
 
         /**
