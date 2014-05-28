@@ -17,13 +17,14 @@ $(document).on('click', '.collectionAdd', function(event) {
     // Gather all needed information, like
     //  collection we're handling right now...
     var collection = $(event.target).parent(),
+        count = $('.collectionItem', collection).length,
         // The prototype text for the new item...
         prototype = collection.data('prototype'),
         // And finally parse the prototype into a new clean item for insertion.
         item = $($.parseHTML(prototype
             .trim()
             .replace(/__name__label__/g, '')
-            .replace(/__name__/g, guid()))[0])
+            .replace(/__name__/g, count + '-' + guid()))[0])
             .addClass('collectionItem');
 
     // Now let's enter that item...
