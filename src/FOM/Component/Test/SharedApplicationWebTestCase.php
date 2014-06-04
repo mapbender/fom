@@ -10,9 +10,11 @@ class SharedApplicationWebTestCase extends WebTestCase
 {
     protected static $client;
     protected static $application;
+    protected static $options = array();
 
     public static function setUpBeforeClass()
     {
+        self::runCommand('doctrine:database:drop --force');
         self::runCommand('doctrine:database:create');
         self::runCommand('doctrine:schema:create');
         self::runCommand('doctrine:fixtures:load --fixtures=./mapbender/src/Mapbender/CoreBundle/DataFixtures/ORM/Epsg/ --append');
@@ -25,13 +27,14 @@ class SharedApplicationWebTestCase extends WebTestCase
 
 
     protected static function getApplication() {
-        if(!self::$application) {
-            self::$client = static::createClient();
+        if(!static::$application) {
+            $options = static::$options;
+            static::$client = static::createClient($options);
 
-            self::$application = new Application(self::$client->getKernel());
-            self::$application->setAutoExit(false);
+            static::$application = new Application(static::$client->getKernel());
+            static::$application->setAutoExit(false);
         }
 
-        return self::$application;
+        return static::$application;
     }
 }
