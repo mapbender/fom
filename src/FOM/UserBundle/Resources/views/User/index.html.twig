@@ -70,3 +70,8 @@
 {% endif %}
 <div class="clearContainer"></div>
 {% endblock %}
+
+{% block js %}
+  {{parent()}}
+  <script type="text/javascript" src="{{ asset('bundles/mapbendermanager/js/user-control.js') }}"></script>
+{% endblock %}
