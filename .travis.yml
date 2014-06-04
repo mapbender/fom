@@ -14,7 +14,7 @@ before_script:
   - composer update --dev
   - rm -rf fom
   - ln -s ../../fom
-script: phpunit -c app/
+script: phpunit -c app/ --coverage-clover ../../testresults/clover.xml
 after_script:
   - php bin/coveralls -v
   - wget https://scrutinizer-ci.com/ocular.phar
