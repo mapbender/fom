@@ -116,7 +116,7 @@ class UserController extends Controller {
             'acl_permission' => $securityContext->isGranted('OWNER', $oid),
         ));
 
-        $form->bindRequest($this->get('request'));
+        $form->bind($this->get('request'));
 
         if($form->isValid()) {
             // Set encrypted password and create new salt

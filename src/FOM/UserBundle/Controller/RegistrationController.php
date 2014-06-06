@@ -79,7 +79,7 @@ class RegistrationController extends Controller
     {
         $user = new User();
         $form = $this->createForm(new UserRegistrationType(), $user);
-        $form->bindRequest($this->get('request'));
+        $form->bind($this->get('request'));
 
         //@TODO: Check if username and email are unique
 
@@ -232,4 +232,3 @@ class RegistrationController extends Controller
        $mailer->send($message);
     }
 }
-

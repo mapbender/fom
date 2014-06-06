@@ -30,7 +30,7 @@
         {# flash me baby #}
         {% for key, flash in app.session.bag('flashes') %}
           <div class="flashBox {{ key }}">
-            {{ flash | trans }}
+            {{ flash | first }}
           </div>
         {% endfor %}
 

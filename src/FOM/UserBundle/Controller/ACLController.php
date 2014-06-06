@@ -73,7 +73,7 @@ class ACLController extends Controller
 
         $form = $this->getClassACLForm($class);
         $request = $this->getRequest();
-        $form->bindRequest($request);
+        $form->bind($request);
         if($form->isValid()) {
             $aclManager = $this->get('fom.acl.manager');
             $aclManager->setClassACLFromForm($class, $form, 'object');
