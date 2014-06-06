@@ -26,7 +26,7 @@ class Group
     /**
      * @ORM\Column(type="string", unique=true)
      * @Assert\NotBlank()
-     * @Assert\MinLength(3)
+     * @Assert\Length(min=3)
      */
     protected $title;
 

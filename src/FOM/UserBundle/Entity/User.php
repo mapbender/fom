@@ -41,7 +41,7 @@ class User implements AdvancedUserInterface {
     /**
      * @ORM\Column(type="string", nullable=false, length=255, unique=true)
      * @Assert\NotBlank()
-     * @Assert\MinLength(3)
+     * @Assert\Length(min=3)
      */
     protected $username;
 
@@ -55,7 +55,7 @@ class User implements AdvancedUserInterface {
     /**
      * @ORM\Column
      * @Assert\NotBlank()
-     * @Assert\MinLength(8)
+     * @Assert\Length(min=8)
      */
     protected $password;
 
