@@ -332,11 +332,11 @@
 
 {% block form_row %}
   {% spaceless %}
-    <div {% if 'collection' in form.parent.get('block_prefixes') %}class="collectionItem"{% endif %}>
+    <div {% if 'collection' in form.parent.vars['block_prefixes'] %}class="collectionItem"{% endif %}>
       {{ form_label(form) }}
       {{ form_errors(form) }}
       {{ form_widget(form) }}
-      {% if form.parent.get('allow_delete') %}
+      {% if 'allow_delete' in form.parent.vars | keys and form.parent.vars['allow_delete'] %}
       <a href="#delete" class="collectionRemove iconSmall iconRemove"></a>
       {% endif %}
     </div>

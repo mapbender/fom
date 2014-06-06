@@ -110,7 +110,7 @@ class ACLType extends AbstractType
             'allow_delete' => true,
             'prototype' => true,
             'options' => array ('available_permissions' => $permissions['show']),
-            'property_path' => false,
+            'mapped' => false,
             'data' => $aces);
 
         $builder->add('ace', 'collection', $aceOptions);

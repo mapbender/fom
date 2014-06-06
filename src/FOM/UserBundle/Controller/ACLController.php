@@ -108,7 +108,7 @@ class ACLController extends Controller
             $this->get('security.context'),
             $this->get('security.acl.provider'),
             $this->get('router')), array(), array(
-                'property_path' => false,
+                'mapped' => false,
                 'class' => $class,
                 'permissions' => 'standard::class',
                 'create_standard_permissions' => false
