@@ -1,9 +1,7 @@
 $(function() {
-    var sidePane = $(".toggleSideBar").closest("div.sidePane");
-    var isOpened = true;
-
-    sidePane.find(".toggleSideBar").bind("click", function(e){
-        sidePane.css("margin-left",isOpened? "-"+sidePane.width()+"px":"0px");
-        isOpened = !isOpened;
-    });
+    // init sidebar toggle -------------------------------------------------------------------
+    var sideBarToggle = function(){
+        $('#templateWrapper').toggleClass("sidePaneOpened");
+    };
+    $(".toggleSideBar").bind("click", sideBarToggle);
 });
