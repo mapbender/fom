@@ -170,7 +170,7 @@ class UserController extends Controller {
                 throw $e;
             }
 
-            $this->get('session')->setFlash('success',
+            $this->get('session')->getFlashBag()->set('success',
                 'The user has been saved.');
 
             return $this->redirect(
@@ -286,7 +286,7 @@ class UserController extends Controller {
             }
             $em->flush();
 
-            $this->get('session')->setFlash('success', 'The user has been updated.');
+            $this->get('session')->getFlashBag()->set('success', 'The user has been updated.');
 
             return $this->redirect($this->generateUrl('fom_user_user_index'));
 
@@ -340,10 +340,10 @@ class UserController extends Controller {
             }
             $em->flush();
 
-            $this->get('session')->setFlash('success',
+            $this->get('session')->getFlashBag()->set('success',
                 'The user has been deleted.');
         } catch(Exception $e) {
-            $this->get('session')->setFlash('error',
+            $this->get('session')->getFlashBag()->set('error',
                 'The user couldn\'t be deleted.');
         }
         return new Response();

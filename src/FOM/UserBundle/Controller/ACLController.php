@@ -81,7 +81,7 @@ class ACLController extends Controller
             return $this->redirect($this->generateUrl('fom_user_acl_index'));
         }
 
-        $this->get('session')->setFlash('error',
+        $this->get('session')->getFlashBag()->set('error',
             'Your form has errors, please review them below.');
 
         return array(

@@ -207,7 +207,7 @@ class GroupController extends Controller {
 
             $em->flush();
 
-            $this->get('session')->setFlash('success',
+            $this->get('session')->getFlashBag()->set('success',
                 'The group has been updated.');
 
             return $this->redirect(
@@ -250,7 +250,7 @@ class GroupController extends Controller {
             $em->flush();
 
         } catch(Exception $e) {
-            $this->get('session')->setFlash('error',
+            $this->get('session')->getFlashBag()->set('error',
                 'The group couldn\'t be deleted.');
         }
         return new Response();
