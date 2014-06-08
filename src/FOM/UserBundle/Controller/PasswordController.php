@@ -214,7 +214,7 @@ class PasswordController extends Controller
         $form = $this->createForm(new UserResetPassType(), $user);
         $form->bind($this->get('request'));
         if($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $user->setResetToken(null);
 
             $helper = new UserHelper($this->container);
@@ -275,7 +275,7 @@ class PasswordController extends Controller
             ->addPart($html, 'text/html');
         $mailer->send($message);
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->flush();
     }
 }

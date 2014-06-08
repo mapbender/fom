@@ -33,7 +33,7 @@ class GroupController extends Controller {
         $securityContext = $this->get('security.context');
         $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
 
-        $query = $this->getDoctrine()->getEntityManager()->createQuery('SELECT g FROM FOMUserBundle:Group g');
+        $query = $this->getDoctrine()->getManager()->createQuery('SELECT g FROM FOMUserBundle:Group g');
         $groups = $query->getResult();
         $allowed_groups = array();
         // ACL access check
@@ -99,7 +99,7 @@ class GroupController extends Controller {
         $form->bind($this->get('request'));
 
         if($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($group);
 
             // See method documentation for Doctrine weirdness
@@ -195,7 +195,7 @@ class GroupController extends Controller {
         $form->bind($this->get('request'));
 
         if($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
 
             // See method documentation for Doctrine weirdness
             foreach($old_users as $user) {
@@ -245,7 +245,7 @@ class GroupController extends Controller {
                 throw new AccessDeniedException();
             }
 
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->remove($group);
             $em->flush();
 

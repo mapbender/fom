@@ -38,7 +38,7 @@ class UserController extends Controller {
         $securityContext = $this->get('security.context');
         $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
 
-        $query = $this->getDoctrine()->getEntityManager()->createQuery('SELECT r FROM FOMUserBundle:User r');
+        $query = $this->getDoctrine()->getManager()->createQuery('SELECT r FROM FOMUserBundle:User r');
         $users = $query->getResult();
         $allowed_users = array();
         // ACL access check
@@ -126,7 +126,7 @@ class UserController extends Controller {
 
             $user->setRegistrationTime(new \DateTime());
 
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->getConnection()->beginTransaction();
 
             try {
@@ -272,7 +272,7 @@ class UserController extends Controller {
                 $helper->setPassword($user, $user->getPassword());
             }
 
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
 
             // This is the same check as abote in createForm for acl_permission
             if($securityContext->isGranted('OWNER', $user)) {
@@ -332,7 +332,7 @@ class UserController extends Controller {
         $request = $this->getRequest();
 
         try {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
 
             $em->remove($user);
             if($user->getProfile()) {
