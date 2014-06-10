@@ -83,6 +83,7 @@ class ACLType extends AbstractType
                 $ownerAccess = array (
                     'sid' => UserSecurityIdentity::fromAccount($owner),
                     'mask' => MaskBuilder::MASK_OWNER);
+
                 $aces[] = $ownerAccess;
 
                 if ($options['standard_anon_access']) {

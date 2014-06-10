@@ -19,7 +19,7 @@ class SharedApplicationWebTestCase extends WebTestCase
         self::runCommand('doctrine:database:drop --force');
         self::runCommand('doctrine:database:create');
         self::runCommand('doctrine:schema:create');
-        self::runCommand('fom:user:reset --username=root --password=root --email=root@example.com --silent');
+        self::runCommand('fom:user:resetroot --username=root --password=root --email=root@example.com --silent');
         self::runCommand('doctrine:fixtures:load --fixtures=./mapbender/src/Mapbender/CoreBundle/DataFixtures/ORM/Epsg/ --append');
     }
 
