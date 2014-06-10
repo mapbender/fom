@@ -9,7 +9,7 @@ before_script:
   - git clone https://github.com/mapbender/mapbender-starter
   - cd mapbender-starter
   - git checkout feature/testing
-  - git checkout $TRAVIS_BRANCH
+  - if (test $TRAVIS_PULL_REQUEST = false) then git checkout $TRAVIS_BRANCH; fi
   - git submodule update --init --recursive
   - cd application
   - cp app/config/parameters.yml.dist app/config/parameters.yml
@@ -17,7 +17,7 @@ before_script:
   - rm -rf fom
   - ln -s ../../fom
   - sudo pip install selenium
-script: phpunit -c app/ --coverage-clover ../../testresults/clover.xml
+script: phpunit -c app/ --coverage-clover ../testresults/clover.xml
 after_script:
   - php bin/coveralls -v
   - wget https://scrutinizer-ci.com/ocular.phar
