@@ -28,4 +28,5 @@ after_script:
   - cd mapbender
   - export MYREV=$(git rev-parse HEAD)
   - cd ..
+  - cat /tmp/weblog
   - php ocular.phar code-coverage:upload --repository g/mapbender/mapbender --format=php-clover ../testresults/clover.xml --revision $MYREV
