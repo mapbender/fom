@@ -221,11 +221,14 @@ var Mapbender = (function($, Mapbender) {
          *
          * @fires "focus"
          */
-        focus: function () {
+        focus: function (event) {
           var self = this;
           var selfElement = this.$element;
           selfElement.css("z-index",++currentZindex);
-          selfElement.trigger('focus');
+          if(!event) {
+            // Only trigger event this method was called programmatically.
+            selfElement.trigger('focus');
+          }
         },
 
         /**
