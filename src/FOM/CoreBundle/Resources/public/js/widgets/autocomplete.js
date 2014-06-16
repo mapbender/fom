@@ -5,7 +5,7 @@ var Mapbender = (function($, Mapbender) {
         for(name in options){
             if(name === 'url'){
                 this.options[name] = options[name];
-            }else if(this.options[name]){ // replace options attribute
+            }else if('undefined' !== typeof this.options[name]){ // replace options attribute
                 this.options[name] = options[name];
             }else if(typeof this[name] == 'function'){ // replace function
                 this[name] = options[name];
@@ -46,13 +46,20 @@ var Mapbender = (function($, Mapbender) {
             requestValueMaxresults: 10,
             dataType: "json",
             dataIdx: 'idx',
-            dataTitle: 'title'
+            dataTitle: 'title',
+            preProcessor: null
         },
         find: function(term){
             var self = this;
             var data = {};
+
+            var _term = term;
+            if('function' == typeof this.options.preProcessor) {
+                _term = this.options.preProcessor(term);
+            }
+
             data[this.options.requestParamMaxresults] = this.options.requestValueMaxresults;
-            data[this.options.requestParamTerm] = term;
+            data[this.options.requestParamTerm] = _term;
             $.ajax({
                 url: this.options.url,
                 type: this.options.requestType,
