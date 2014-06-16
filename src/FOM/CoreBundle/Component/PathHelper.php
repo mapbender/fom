@@ -62,16 +62,22 @@ class PathHelper
      *
      * @return string Relative Path
      */
-    private function getBundleRelativePath()
-    {
+    private function getBundleRelativePath() {
         /**
          * @var $request           Request
-         * @var $templateReference TemplateReference
          */
-        $request           = $this->container->get("request");
-        $templateReference = $request->attributes->get('_template');
-        $bundleName        = $templateReference->get('bundle');
-        $bundlePath        = preg_replace('/bundle$/', '', strtolower(str_replace('\\', '', $bundleName)));
+        $request = $this->container->get("request");
+        preg_match_all('/[^\\\\]+/', $request->attributes->get('_controller'), $matches);
+
+        if (is_array($matches)) {
+            $names      = & $matches[0];
+            $bundleName = $names[0] . $names[1];
+        } else {
+            $bundleName = str_replace('\\', '', $request->attributes->get('_template')->get('bundle'));
+        }
+
+        $bundlePath = strtolower(preg_replace('/Bundle$/', '', $bundleName));
+
         return "bundles/" . $bundlePath;
     }
 
@@ -83,9 +89,9 @@ class PathHelper
         /** @var  $kernel Kernel */
 
         $kernel = $this->container->get('kernel');
-        $path   = $kernel->getRootDir() . $path . self::getBundleRelativePath($container) . $uri;
+        $path   = $kernel->getRootDir() . $path . $this->getBundleRelativePath($this->container) . $uri;
         if ($create && !is_dir($path)) {
-            mkdir($path, 0777, true);
+            mkdir($path, 0770, true);
         }
         return $path;
     }
