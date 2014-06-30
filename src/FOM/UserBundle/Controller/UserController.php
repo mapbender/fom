@@ -356,24 +356,6 @@ class UserController extends Controller {
         $profileFormType = $container->getParameter('fom_user.profile_formtype');
         $profileTemplate = $container->getParameter('fom_user.profile_template');
 
-        if($profileEntity !== null && $profileFormType !== null) {
-            if($user->getId()) {
-                $profile = $this->getDoctrine()->getRepository($profileEntity)
-                    ->find($user->getId());
-                if(!$profile) {
-                $profile = new $profileEntity();
-                }
-            } else {
-                $profile = new $profileEntity();
-            }
-
-            $user->setProfile($profile);
-
-        } else {
-            $profileFormType = null;
-            $profileTemplate = null;
-        }
-
         return array(
             'formtype' => $profileFormType,
             'template' => $profileTemplate

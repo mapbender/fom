@@ -380,6 +380,9 @@ class User implements AdvancedUserInterface {
 
     public function isEnabled()
     {
+        if($this->profile && method_exists($this->profile, 'isEnabled')) {
+            return $this->profile->isEnabled();
+        }
         return $this->registrationToken === null;
     }
 
