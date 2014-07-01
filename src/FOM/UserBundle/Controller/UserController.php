@@ -152,11 +152,12 @@ class UserController extends Controller {
                 $maskBuilder = new MaskBuilder();
 
                 $usid = UserSecurityIdentity::fromAccount($user);
-                $uoid = ObjectIdentity::fromDomainObject($user);
-                $umask = $maskBuilder
-                    ->add('VIEW')
-                    ->add('EDIT')
-                    ->get();
+                $uoid = ObjectIdentity::fromDomainObject($user);                
+                foreach($container->getParameter("fom_user.user_own_permissions") as $permission) {
+                    $maskBuilder->add($permission);
+                }
+                $umask = $maskBuilder->get();
+                
                 try {
                     $acl = $aclProvider->findAcl($uoid);
                 } catch(\Exception $e) {

@@ -56,6 +56,10 @@ class Configuration implements ConfigurationInterface {
                 ->scalarNode('trust_sspi')
                     ->defaultFalse()
                 ->end()
+                ->arrayNode('user_own_permissions')
+                    ->prototype('scalar')->end()
+                    ->defaultValue(array('VIEW', 'EDIT'))
+                ->end()
             ->end();
 
         return $treeBuilder;

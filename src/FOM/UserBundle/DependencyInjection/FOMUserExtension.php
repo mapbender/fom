@@ -24,6 +24,7 @@ class FOMUserExtension extends Extension {
         $container->setParameter("fom_user.profile_template", $config["profile_template"]);
 
         $container->setParameter("fom_user.self_registration_groups", $config["self_registration_groups"]);
+        $container->setParameter("fom_user.user_own_permissions", $config["user_own_permissions"]);
 
         $container->setParameter('fom_user.use_sspi', $config['use_sspi']);
         $container->setParameter('fom_user.trust_sspi', $config['trust_sspi']);
