@@ -51,15 +51,19 @@ $(function() {
       $(this).siblings(".validationMsgBox").addClass("hide");
     });
 
-
-
-
-
-    // kill some flashes ---------------------------------------------------------------------
-    setTimeout(function(){$(".flashBox.success").addClass("kill");}, 2000);
-
-
-
+    var flashboxes = $(".flashBox").addClass("kill");
+    // kill all flashes ---------------------------------------------------------------------
+    flashboxes.each(function(idx, item){
+        if(idx === 0){
+            $(item).removeClass("kill");
+        }
+        setTimeout(function(){
+            $(item).addClass("kill");
+            if(flashboxes.length - idx !== 1){
+                $(flashboxes.get(idx + 1)).removeClass("kill");
+            }
+        }, (idx + 1) * 2000);
+    });
 
 
     // init user box -------------------------------------------------------------------------
