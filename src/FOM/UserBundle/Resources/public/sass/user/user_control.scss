@@ -1,4 +1,9 @@
+@import "libs/variables";
+@import "libs/mixins";
+@import "libs/icons";
+
 // --------------------------------------------------------- USER/GROUP
+.userControlTable{margin-top:$space;}
 .tableUserGroups{
   width:300px;
   .description{
@@ -19,7 +24,6 @@
   td{
     cursor:pointer;
     padding:0px;
-    @include transition(all 0.2s ease-in-out);
     &:hover{
       .checkWrapper{@include opacity(0.4);}
       .checkWrapper.iconCheckboxActive{@include opacity(1);}
@@ -39,7 +43,6 @@
     width: 100%;
     @include opacity(0);
     @include pos(0,0,'','');
-    @include transition(all 0.2s ease-in-out);
 
     &.iconCheckboxActive{@include opacity(1);}
   }
@@ -52,8 +55,8 @@
       float:left;
       display: block;
       margin-bottom: $space/2;
-    } 
-    .input, .dropdown{width:250px;}
+    }
+    .input, .dropdown{min-width:250px;}
     textarea{height:150px;}
   }
 }
@@ -87,7 +90,7 @@
   }
   .containerLayout{
     .dropdown{
-      width:270px;
+      min-width:270px;
       margin-left:$space;
     }
   }

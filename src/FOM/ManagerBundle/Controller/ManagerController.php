@@ -63,15 +63,6 @@ class ManagerController extends Controller
         return $return;
     }
 
-    /**
-     * Renders the breadcrumb menu
-     *
-     * @Template
-     */
-    public function breadAction($request){
-        return $this->menuAction($request);
-    }
-
     protected function pruneSubroutes(&$container)
     {
         $securityContext = $this->get('security.context');

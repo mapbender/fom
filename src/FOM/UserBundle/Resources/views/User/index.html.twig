@@ -2,9 +2,13 @@
 
 {% block title %}{{ 'fom.user.user.index.title' | trans }}{% endblock %}
 
-{% block js %}
-    {{parent()}}
-    <script type="text/javascript" src="{{ asset('bundles/mapbendermanager/js/user-control.js') }}"></script>
+{% block css %}
+  {{parent()}}
+  {% stylesheets filter="compass,cssrewrite"
+    "bundles/fomuser/sass/user/user_control.scss"
+  %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+  {% endstylesheets %}
 {% endblock %}
 
 {% block manager_content %}
@@ -65,4 +69,9 @@
   <p class="description left">{{"fom.user.user.index.no_users_available"|trans}}</p>
 {% endif %}
 <div class="clearContainer"></div>
+{% endblock %}
+
+{% block js %}
+  {{parent()}}
+  <script type="text/javascript" src="{{ asset('bundles/mapbendermanager/js/user-control.js') }}"></script>
 {% endblock %}
