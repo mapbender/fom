@@ -134,7 +134,7 @@
             {% set selectedValue = empty_value|trans({}, translation_domain) %}
           {% endif %}
 
-          {% for choice in choices|sort %}
+          {% for choice in choices %}
 
             {% if loop.index == 1 %}
               {% set firstValue = choice.label %}
@@ -163,7 +163,7 @@
           {% if empty_value is defined and empty_value is not none %}
             <li class="item-0" value="">{{ empty_value|trans({}, translation_domain) }}</li>
           {% endif %}
-          {% for choice in choices|sort %}
+          {% for choice in choices %}
             <li class="item-{{ loop.index }}">{{ choice.label|trans({}, translation_domain) }}</li>
           {% endfor %}
         </ul>
@@ -415,6 +415,33 @@
     {% if form.ace|length == 0 %}
       <p id="permissionsDescription" class="description left">{{"fom.core.fields.no_user_group_defined"|trans}}</p>
     {% endif %}
+    <div class="clearContainer"></div>
+  {% endspaceless %}
+{% endblock %}
+
+{% block aclElement_widget %}
+  {% spaceless %}
+
+    {% set prototype = form_widget(form.ace.vars.prototype) %}
+    <table class="clear permissionsElementTable tableCore {% if form.ace|length == 0 %}hidePermissions{% endif %}">
+      <thead id="permissionsElementHead" data-prototype="{{ prototype }}">
+        <tr>
+          {% for child in form.ace.vars.prototype %}
+            {% if child.vars.attr.class is defined %}
+              <th>
+                <div id="{{ child.vars.attr.class }}" class="headTagWrapper smallText {{ child.vars.attr.class }}">{{ child.vars.attr.class }}</div>
+              </th>
+            {% endif %}
+          {% endfor %}
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="permissionsElementBody">
+        {% for ace in form.ace %}
+          {{ form_widget(ace) }}
+        {% endfor %}
+      </tbody>
+    </table>
     <div class="clearContainer"></div>
   {% endspaceless %}
 {% endblock %}

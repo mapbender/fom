@@ -23,6 +23,7 @@
  * Events available on the element which you can get with .getElement:
  *   - open    - before opening the dialog
  *   - opened  - after the dialog has fully openend
+ *   - focus   - after the dialog becomes an focus
  *   - close   - before closing the dialog
  *   - closed  - after the dialog has been fully closed
  *   - destroy - just before the popup is destroyed. Last dance, anyone?
@@ -36,27 +37,8 @@
  *     - ajaxFailed content
  */
 var Mapbender = (function($, Mapbender) {
-
-    // Figure which CSS transition end event we need to listen to
-    var transitionEvent = (function() {
-        var t;
-        var el = document.createElement('fakeelement');
-        var transitions = {
-          'transition':'transitionend',
-          'OTransition':'oTransitionEnd',
-          'MozTransition':'transitionend',
-          'WebkitTransition':'webkitTransitionEnd'
-        };
-
-        for(t in transitions){
-            if( el.style[t] !== undefined ){
-                return transitions[t];
-            }
-        }
-    })();
-
     var counter = 0;
-
+    var currentZindex = 10000;
     /**
      * Popup constructor.
      *
@@ -82,6 +64,9 @@ var Mapbender = (function($, Mapbender) {
 
             self.option(key, value);
         });
+
+        // focused on popup click
+        self.$element.on("click", $.proxy(self.focus, self));
 
         // Open if required
         if(this.options.autoOpen) {
@@ -224,11 +209,26 @@ var Mapbender = (function($, Mapbender) {
             selfElement.appendTo(this.$container);
             window.setTimeout(function() {
                 selfElement.addClass("show");
+                self.focus();
             }, 100);
 
-            selfElement.one(transitionEvent, function(){
-                selfElement.trigger('openend');
-            });
+            selfElement.trigger('openend');
+        },
+
+        /**
+         * Focus the popup.
+         * This will show popup on top.
+         *
+         * @fires "focus"
+         */
+        focus: function (event) {
+          var self = this;
+          var selfElement = this.$element;
+          selfElement.css("z-index",++currentZindex);
+          if(!event) {
+            // Only trigger event this method was called programmatically.
+            selfElement.trigger('focus');
+          }
         },
 
         /**
@@ -239,9 +239,7 @@ var Mapbender = (function($, Mapbender) {
 
             selfElement.trigger('close');
             selfElement.removeClass("show");
-            selfElement.one(transitionEvent, function(){
-                selfElement.detach();
-            });
+            selfElement.detach();
             if(this.options.destroyOnClose) {
                 this.destroy();
             }
