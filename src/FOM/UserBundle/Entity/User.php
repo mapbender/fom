@@ -340,6 +340,9 @@ class User implements AdvancedUserInterface {
 
     public function isAccountNonExpired()
     {
+        if($this->profile && method_exists($this->profile, 'isAccountNonExpired')) {
+            return $this->profile->isAccountNonExpired();
+        }
         return true;
     }
 

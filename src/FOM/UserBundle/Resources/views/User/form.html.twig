@@ -15,6 +15,9 @@
   %}
     <link rel="stylesheet" href="{{ asset_url }}" />
   {% endstylesheets %}
+  {% for url in profile_assets.css %}
+    <link rel="stylesheet" href="{{ asset(url) }}" />
+  {% endfor %}
 {% endblock %}
 
 {% block js %}
@@ -22,6 +25,9 @@
   <script type="application/javascript" src="{{ asset('bundles/fomuser/js/acl-form.js') }}"></script>
   <script type="application/javascript" src="{{ asset('bundles/fommanager/js/form.js') }}"></script>
   <script type="application/javascript" src="{{ asset('bundles/mapbendermanager/js/user-control.js') }}"></script>
+  {% for url in profile_assets.js %}
+    <script type="application/javascript" src="{{ asset(url) }}"></script>
+  {% endfor %}
 {% endblock %}
 
 {% block manager_content %}
