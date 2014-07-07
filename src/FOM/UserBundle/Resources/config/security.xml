@@ -40,7 +40,8 @@
         </service>
 
         <service id="sspi.security.authentication.provider" class="FOM\UserBundle\Security\Authentication\Provider\SspiAuthenticationProvider" public="false">
-            <argument />
+            <argument/>
+            <argument type="service" id="security.user_checker"/>
         </service>
 
         <service id="fom.security.failed_login_listener" class="%fom_user.failed_login_listener.class%">
