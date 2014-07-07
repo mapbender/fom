@@ -340,6 +340,9 @@ class User implements AdvancedUserInterface {
 
     public function isAccountNonExpired()
     {
+        if($this->profile && method_exists($this->profile, 'isAccountNonExpired')) {
+            return $this->profile->isAccountNonExpired();
+        }
         return true;
     }
 
@@ -380,6 +383,9 @@ class User implements AdvancedUserInterface {
 
     public function isEnabled()
     {
+        if($this->profile && method_exists($this->profile, 'isEnabled')) {
+            return $this->profile->isEnabled();
+        }
         return $this->registrationToken === null;
     }
 

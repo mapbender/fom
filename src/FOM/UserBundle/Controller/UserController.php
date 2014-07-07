@@ -84,7 +84,8 @@ class UserController extends Controller {
             'form' => $form->createView(),
             'form_name' => $form->getName(),
             'edit' => false,
-            'profile_template' => $profile['template']);
+            'profile_template' => $profile['template'],
+            'profile_assets' => $profile['assets']);
     }
 
     /**
@@ -152,11 +153,12 @@ class UserController extends Controller {
                 $maskBuilder = new MaskBuilder();
 
                 $usid = UserSecurityIdentity::fromAccount($user);
-                $uoid = ObjectIdentity::fromDomainObject($user);
-                $umask = $maskBuilder
-                    ->add('VIEW')
-                    ->add('EDIT')
-                    ->get();
+                $uoid = ObjectIdentity::fromDomainObject($user);                
+                foreach($this->container->getParameter("fom_user.user_own_permissions") as $permission) {
+                    $maskBuilder->add($permission);
+                }
+                $umask = $maskBuilder->get();
+                
                 try {
                     $acl = $aclProvider->findAcl($uoid);
                 } catch(\Exception $e) {
@@ -182,7 +184,8 @@ class UserController extends Controller {
             'form' => $form->createView(),
             'form_name' => $form->getName(),
             'edit' => false,
-            'profile_template' => $profile['template']);
+            'profile_template' => $profile['template'],
+            'profile_assets' => $profile['assets']);
     }
 
     /**
@@ -220,7 +223,8 @@ class UserController extends Controller {
             'form' => $form->createView(),
             'form_name' => $form->getName(),
             'edit' => true,
-            'profile_template' => $profile['template']);
+            'profile_template' => $profile['template'],
+            'profile_assets' => $profile['assets']);
     }
 
     /**
@@ -297,7 +301,8 @@ class UserController extends Controller {
             'form' => $form->createView(),
             'form_name' => $form->getName(),
             'edit' => true,
-            'profile_template' => $profile['template']);
+            'profile_template' => $profile['template'],
+            'profile_assets' => $profile['assets']);
     }
 
     /**
@@ -355,28 +360,12 @@ class UserController extends Controller {
         $profileEntity = $container->getParameter('fom_user.profile_entity');
         $profileFormType = $container->getParameter('fom_user.profile_formtype');
         $profileTemplate = $container->getParameter('fom_user.profile_template');
-
-        if($profileEntity !== null && $profileFormType !== null) {
-            if($user->getId()) {
-                $profile = $this->getDoctrine()->getRepository($profileEntity)
-                    ->find($user->getId());
-                if(!$profile) {
-                $profile = new $profileEntity();
-                }
-            } else {
-                $profile = new $profileEntity();
-            }
-
-            $user->setProfile($profile);
-
-        } else {
-            $profileFormType = null;
-            $profileTemplate = null;
-        }
+        $profileAssets = $container->getParameter('fom_user.profile_assets');
 
         return array(
             'formtype' => $profileFormType,
-            'template' => $profileTemplate
+            'template' => $profileTemplate,
+            'assets' => $profileAssets
         );
     }
 }

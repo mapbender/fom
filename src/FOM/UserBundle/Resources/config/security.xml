@@ -7,6 +7,7 @@
         <parameter key="fom_user.ldap.user_provider.class">FOM\UserBundle\Security\User\LdapUserProvider</parameter>
         <parameter key="fom_user.ldap.authentication_provider.class">FOM\UserBundle\Security\Authentication\Provider\LdapAuthenticationProvider</parameter>
         <parameter key="fom_user.failed_login_listener.class">FOM\UserBundle\EventListener\FailedLoginListener</parameter>
+        <parameter key="fom_user.user_profile_listener.class">FOM\UserBundle\EventListener\UserProfileListener</parameter>
     </parameters>
 
     <services>
@@ -39,7 +40,8 @@
         </service>
 
         <service id="sspi.security.authentication.provider" class="FOM\UserBundle\Security\Authentication\Provider\SspiAuthenticationProvider" public="false">
-            <argument />
+            <argument/>
+            <argument type="service" id="security.user_checker"/>
         </service>
 
         <service id="fom.security.failed_login_listener" class="%fom_user.failed_login_listener.class%">
@@ -48,5 +50,9 @@
             <tag name="kernel.event_listener" event="security.authentication.success" method="onLoginSuccess" />
         </service>
 
+        <service id="fom.security.user_profile_listener" class="%fom_user.user_profile_listener.class%">
+            <argument type="service" id="service_container" />
+            <tag name="doctrine.event_subscriber" connection="default" />
+        </service>
     </services>
 </container>
