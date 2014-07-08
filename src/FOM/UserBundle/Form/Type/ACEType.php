@@ -31,7 +31,7 @@ class ACEType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $transformer = new ACEDataTransformer();
-        $builder->prependNormTransformer($transformer);
+        $builder->addModelTransformer($transformer);
 
         $builder->add('sid', 'text', array(
             'required' => true,

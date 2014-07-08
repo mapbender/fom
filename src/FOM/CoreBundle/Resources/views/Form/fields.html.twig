@@ -332,11 +332,11 @@
 
 {% block form_row %}
   {% spaceless %}
-    <div {% if 'collection' in form.parent.get('block_prefixes') %}class="collectionItem"{% endif %}>
+    <div {% if 'collection' in form.parent.vars['block_prefixes'] %}class="collectionItem"{% endif %}>
       {{ form_label(form) }}
       {{ form_errors(form) }}
       {{ form_widget(form) }}
-      {% if form.parent.get('allow_delete') %}
+      {% if 'allow_delete' in form.parent.vars | keys and form.parent.vars['allow_delete'] %}
       <a href="#delete" class="collectionRemove iconSmall iconRemove"></a>
       {% endif %}
     </div>
@@ -460,9 +460,9 @@
     <tr class="filterItem" {{ block('widget_container_attributes') }}>
       {% for child in form %}
         <td>
-          {% if child.vars.block_prefixes.2 == "text" %}
-            <div class="{% if child.vars.value|slice(0, 1) == "u" %}iconUser {% else %} iconGroup{% endif %} userType">
-              <span class="labelInput">{{ child.vars.value|slice(2) }}</span>
+          {% if child.vars.block_prefixes.1 == "text" %}
+              <div class="{% if child.vars.value|slice(0, 1) == "u" %}iconUser {% else %} iconGroup{% endif %} userType">
+              <span class="labelInput">{{ child.vars.value }}</span>
             </div>
             {{ form_widget(child) }}
           {% else %}
