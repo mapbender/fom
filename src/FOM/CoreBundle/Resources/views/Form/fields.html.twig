@@ -42,7 +42,7 @@
 {% block form_widget_compound %}
   {% spaceless %}
     <div {{ block('widget_container_attributes') }}>
-      {% if form.get('allow_add') and form.get('prototype') %}
+      {% if form.offsetExists('allow_add') and form.offsetExists('prototype') %}
       <a href="#add" class="collectionAdd iconAdd iconSmall"></a>
       {% endif %}
       {% if form.parent is empty %}
