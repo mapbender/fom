@@ -56,9 +56,6 @@ class Configuration implements ConfigurationInterface {
                 ->scalarNode('trust_sspi')
                     ->defaultFalse()
                 ->end()
-                ->scalarNode('identities_provider')
-                    ->defaultValue('FOM\UserBundle\Component\FOMIdentitiesProvider')
-                ->end()
             ->end();
 
         return $treeBuilder;

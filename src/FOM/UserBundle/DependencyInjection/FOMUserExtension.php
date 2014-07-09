@@ -28,8 +28,6 @@ class FOMUserExtension extends Extension {
         $container->setParameter('fom_user.use_sspi', $config['use_sspi']);
         $container->setParameter('fom_user.trust_sspi', $config['trust_sspi']);
 
-        $container->setParameter('fom.identities.provider.class', $config['identities_provider']);
-
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('security.xml');
         $loader->load('services.xml');
