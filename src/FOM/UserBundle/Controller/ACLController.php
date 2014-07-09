@@ -73,7 +73,7 @@ class ACLController extends Controller
 
         $form = $this->getClassACLForm($class);
         $request = $this->getRequest();
-        $form->bindRequest($request);
+        $form->bind($request);
         if($form->isValid()) {
             $aclManager = $this->get('fom.acl.manager');
             $aclManager->setClassACLFromForm($class, $form, 'object');
@@ -81,7 +81,7 @@ class ACLController extends Controller
             return $this->redirect($this->generateUrl('fom_user_acl_index'));
         }
 
-        $this->get('session')->setFlash('error',
+        $this->get('session')->getFlashBag()->set('error',
             'Your form has errors, please review them below.');
 
         return array(
@@ -108,7 +108,7 @@ class ACLController extends Controller
             $this->get('security.context'),
             $this->get('security.acl.provider'),
             $this->get('router')), array(), array(
-                'property_path' => false,
+                'mapped' => false,
                 'class' => $class,
                 'permissions' => 'standard::class',
                 'create_standard_permissions' => false

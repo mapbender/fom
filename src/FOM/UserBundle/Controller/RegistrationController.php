@@ -79,7 +79,7 @@ class RegistrationController extends Controller
     {
         $user = new User();
         $form = $this->createForm(new UserRegistrationType(), $user);
-        $form->bindRequest($this->get('request'));
+        $form->bind($this->get('request'));
 
         //@TODO: Check if username and email are unique
 
@@ -106,7 +106,7 @@ class RegistrationController extends Controller
 
             $this->sendEmail($user);
 
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
@@ -151,7 +151,7 @@ class RegistrationController extends Controller
         }
 
         // Unset token
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $user->setRegistrationToken(null);
         $em->flush();
 
@@ -185,7 +185,7 @@ class RegistrationController extends Controller
 
         $this->sendEmail($user);
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
 
@@ -232,4 +232,3 @@ class RegistrationController extends Controller
        $mailer->send($message);
     }
 }
-

@@ -233,11 +233,19 @@ var Mapbender = (function($, Mapbender) {
 
         /**
          * Close the popup, removing it from the container.
+         * If the token passed with the close event returns
+         * true for the cancel property, closing the popup
+         * will be aborted.
          */
         close: function() {
             var selfElement = this.$element;
 
-            selfElement.trigger('close');
+            var token = { cancel: false };
+            selfElement.trigger('close', token);
+            if(token.cancel) {
+              return;
+            }
+
             selfElement.removeClass("show");
             selfElement.detach();
             if(this.options.destroyOnClose) {

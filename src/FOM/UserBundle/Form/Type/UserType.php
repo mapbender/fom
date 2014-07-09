@@ -46,7 +46,7 @@ class UserType extends AbstractType
         if(true === $options['acl_permission']) {
             $builder
                 ->add('acl', 'acl', array(
-                    'property_path' => false,
+                    'mapped' => false,
                     'data' => $options['data'],
                     'permissions' => 'standard::object',
                     'standard_anon_access' => false));
@@ -68,4 +68,3 @@ class UserType extends AbstractType
         ));
     }
 }
-

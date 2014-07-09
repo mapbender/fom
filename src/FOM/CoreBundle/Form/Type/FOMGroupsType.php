@@ -10,13 +10,13 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * 
+ *
  */
 class FOMGroupsType extends AbstractType
 {
     /**
      *
-     * @var type 
+     * @var type
      */
     protected $container;
     /**
@@ -52,7 +52,7 @@ class FOMGroupsType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        
+
         $type = $this;
         $resolver->setDefaults(array(
             'user_groups' => False,
@@ -84,7 +84,7 @@ class FOMGroupsType extends AbstractType
     {
         if($options['return_entity'] === false)
         {
-            $entityManager = $this->container->get('doctrine')->getEntityManager();
+            $entityManager = $this->container->get('doctrine')->getManager();
             $transformer = new GroupIdTransformer($entityManager);
             $builder->addModelTransformer($transformer);
         }

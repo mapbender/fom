@@ -95,7 +95,7 @@ class PasswordController extends Controller
     public function requestAction()
     {
         $form = $this->createForm(new UserForgotPassType());
-        $form->bindRequest($this->get('request'));
+        $form->bind($this->get('request'));
         $obj = $form->getData();
 
         $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->findOneByUsername($obj['search']);
@@ -212,9 +212,9 @@ class PasswordController extends Controller
         }
 
         $form = $this->createForm(new UserResetPassType(), $user);
-        $form->bindRequest($this->get('request'));
+        $form->bind($this->get('request'));
         if($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $user->setResetToken(null);
 
             $helper = new UserHelper($this->container);
@@ -275,8 +275,7 @@ class PasswordController extends Controller
             ->addPart($html, 'text/html');
         $mailer->send($message);
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->flush();
     }
 }
-

@@ -33,7 +33,7 @@ class GroupController extends Controller {
         $securityContext = $this->get('security.context');
         $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
 
-        $query = $this->getDoctrine()->getEntityManager()->createQuery('SELECT g FROM FOMUserBundle:Group g');
+        $query = $this->getDoctrine()->getManager()->createQuery('SELECT g FROM FOMUserBundle:Group g');
         $groups = $query->getResult();
         $allowed_groups = array();
         // ACL access check
@@ -96,10 +96,10 @@ class GroupController extends Controller {
         $form = $this->createForm(new GroupType(), $group, array(
             'available_roles' => $available_roles));
 
-        $form->bindRequest($this->get('request'));
+        $form->bind($this->get('request'));
 
         if($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($group);
 
             // See method documentation for Doctrine weirdness
@@ -122,7 +122,7 @@ class GroupController extends Controller {
             $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
             $aclProvider->updateAcl($acl);
 
-            $this->get('session')->setFlash('success',
+            $this->get('session')->getFlashBag()->set('success',
                 'The group has been saved.');
 
             return $this->redirect(
@@ -192,10 +192,10 @@ class GroupController extends Controller {
         $available_roles = $this->get('fom_roles')->getAll();
         $form = $this->createForm(new GroupType(), $group, array(
             'available_roles' => $available_roles));
-        $form->bindRequest($this->get('request'));
+        $form->bind($this->get('request'));
 
         if($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
 
             // See method documentation for Doctrine weirdness
             foreach($old_users as $user) {
@@ -207,7 +207,7 @@ class GroupController extends Controller {
 
             $em->flush();
 
-            $this->get('session')->setFlash('success',
+            $this->get('session')->getFlashBag()->set('success',
                 'The group has been updated.');
 
             return $this->redirect(
@@ -233,11 +233,11 @@ class GroupController extends Controller {
         if($group === null) {
             throw new NotFoundHttpException('The group does not exist');
         }
-        
+
         $aclProvider = $this->get('security.acl.provider');
         $oid = ObjectIdentity::fromDomainObject($group);
         $aclProvider->deleteAcl($oid);
-        
+
         try {
             // ACL access check
             $securityContext = $this->get('security.context');
@@ -245,15 +245,14 @@ class GroupController extends Controller {
                 throw new AccessDeniedException();
             }
 
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->remove($group);
             $em->flush();
 
         } catch(Exception $e) {
-            $this->get('session')->setFlash('error',
+            $this->get('session')->getFlashBag()->set('error',
                 'The group couldn\'t be deleted.');
         }
         return new Response();
     }
 }
-
