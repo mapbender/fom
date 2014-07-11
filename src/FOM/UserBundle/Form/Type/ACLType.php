@@ -109,6 +109,7 @@ class ACLType extends AbstractType
             'label' => 'Permissions',
             'allow_add' => true,
             'allow_delete' => true,
+            'auto_initialize' => false,
             'prototype' => true,
             'options' => array ('available_permissions' => $permissions['show']),
             'mapped' => false,
