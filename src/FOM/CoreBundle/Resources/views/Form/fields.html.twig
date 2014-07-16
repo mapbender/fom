@@ -174,7 +174,7 @@
 
 {% block checkbox_widget %}
   {% spaceless %}
-    <div class="checkWrapper left iconCheckbox{% if checked %} iconCheckboxActive{% endif %} {% if disabled %} checkboxDisabled{% endif %}">
+    <div class="checkWrapper left iconCheckbox{% if checked %} iconCheckboxActive{% endif %} {% if disabled %} checkboxDisabled{% endif %}" data-icon="iconCheckbox">
       <input class="checkbox" type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
     </div>
   {% endspaceless %}
@@ -182,7 +182,7 @@
 
 {% block radio_widget %}
   {% spaceless %}
-    <div class="radioWrapper">
+    <div class="radioWrapper left iconRadio{% if checked %} iconRadioActive{% endif %} {% if disabled %} radioboxDisabled{% endif %}" data-icon="iconRadio">
       <input class="radiobox" type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
     </div>
   {% endspaceless %}
