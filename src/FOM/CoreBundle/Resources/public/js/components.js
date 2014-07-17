@@ -281,6 +281,6 @@ $(function() {
     $(".openCloseTitle").bind("click", toggleTree);
     $('.regionProperties .radiobox').each(function() {
         $(this).parent(".radioWrapper").attr('data-icon')
-        initRadioButton.call(this, true, $(this).parent(".radioWrapper").attr('data-icon') + $(this).val());
+        initRadioButton.call(this, false, $(this).parent(".radioWrapper").attr('data-icon') + $(this).val());
     });
 });
