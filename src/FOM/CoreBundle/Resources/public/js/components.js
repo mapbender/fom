@@ -11,9 +11,10 @@ $(function() {
     // init tabcontainers --------------------------------------------------------------------
     $(".tabContainer").find(".tab").bind("click", function(){
         var me = $(this);
-        me.parent().parent().find(".active").removeClass("active");
+        var tabcont = me.parent().parent();
+        tabcont.find(".active").removeClass("active");
         me.addClass("active");
-        $("#" + me.attr("id").replace("tab", "container")).addClass("active");
+        $("#" + me.attr("id").replace("tab", "container"), tabcont).addClass("active");
     });
 
 
