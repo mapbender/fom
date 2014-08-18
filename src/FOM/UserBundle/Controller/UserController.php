@@ -317,10 +317,6 @@ class UserController extends Controller {
             throw new NotFoundHttpException('The root user can not be deleted');
         }
 
-        $aclProvider = $this->get('security.acl.provider');
-        $oid = ObjectIdentity::fromDomainObject($user);
-        $aclProvider->deleteAcl($oid);
-
         // ACL access check
         $securityContext = $this->get('security.context');
         if(false === $securityContext->isGranted('DELETE', $user)) {
@@ -333,16 +329,23 @@ class UserController extends Controller {
 
         try {
             $em = $this->getDoctrine()->getEntityManager();
+            $em->getConnection()->beginTransaction();
+
+            $aclProvider = $this->get('security.acl.provider');
+            $oid = ObjectIdentity::fromDomainObject($user);
+            $aclProvider->deleteAcl($oid);
 
             $em->remove($user);
             if($user->getProfile()) {
                 $em->remove($user->getProfile());
             }
             $em->flush();
+            $em->getConnection()->commit();
 
             $this->get('session')->setFlash('success',
                 'The user has been deleted.');
         } catch(Exception $e) {
+            $em->getConnection()->rollback();
             $this->get('session')->setFlash('error',
                 'The user couldn\'t be deleted.');
         }
