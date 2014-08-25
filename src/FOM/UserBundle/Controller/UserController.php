@@ -153,12 +153,12 @@ class UserController extends Controller {
                 $maskBuilder = new MaskBuilder();
 
                 $usid = UserSecurityIdentity::fromAccount($user);
-                $uoid = ObjectIdentity::fromDomainObject($user);                
+                $uoid = ObjectIdentity::fromDomainObject($user);
                 foreach($this->container->getParameter("fom_user.user_own_permissions") as $permission) {
                     $maskBuilder->add($permission);
                 }
                 $umask = $maskBuilder->get();
-                
+
                 try {
                     $acl = $aclProvider->findAcl($uoid);
                 } catch(\Exception $e) {
@@ -322,10 +322,6 @@ class UserController extends Controller {
             throw new NotFoundHttpException('The root user can not be deleted');
         }
 
-        $aclProvider = $this->get('security.acl.provider');
-        $oid = ObjectIdentity::fromDomainObject($user);
-        $aclProvider->deleteAcl($oid);
-
         // ACL access check
         $securityContext = $this->get('security.context');
         if(false === $securityContext->isGranted('DELETE', $user)) {
@@ -337,17 +333,24 @@ class UserController extends Controller {
         $request = $this->getRequest();
 
         try {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->getConnection()->beginTransaction();
+
+            $aclProvider = $this->get('security.acl.provider');
+            $oid = ObjectIdentity::fromDomainObject($user);
+            $aclProvider->deleteAcl($oid);
 
             $em->remove($user);
             if($user->getProfile()) {
                 $em->remove($user->getProfile());
             }
             $em->flush();
+            $em->getConnection()->commit();
 
             $this->get('session')->getFlashBag()->set('success',
                 'The user has been deleted.');
         } catch(Exception $e) {
+            $em->getConnection()->rollback();
             $this->get('session')->getFlashBag()->set('error',
                 'The user couldn\'t be deleted.');
         }
