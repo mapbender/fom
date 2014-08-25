@@ -2,6 +2,9 @@
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="fom.identities.provider.class">FOM\UserBundle\Component\FOMIdentitiesProvider</parameter>
+    </parameters>
     <services>
         <service id="fom_roles" class="FOM\UserBundle\Component\RolesService">
             <argument type="service" id="kernel" />
@@ -22,6 +25,12 @@
 
         <service id="fom.acl.manager" class="FOM\UserBundle\Component\ACLManager">
             <argument type="service" id="security.acl.provider" />
+        </service>
+
+        <service id="fom.identities.provider" class="%fom.identities.provider.class%">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
         </service>
     </services>
 </container>

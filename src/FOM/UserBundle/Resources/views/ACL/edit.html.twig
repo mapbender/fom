@@ -10,7 +10,7 @@
 
 {% block manager_content %}
 
-{% if 'widget_control_group_attr' in form.vars | keys %}
+{% if 'widget_control_group_attr' in form.vars | keys  and form.vars['widget_control_group_attr']|length %}
     <form action="{{ path('fom_user_acl_update', { 'class': class }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} data-aclsid="{{ form.vars['widget_control_group_attr'] }}" novalidate="novalidate">
 {% else %}
     <form action="{{ path('fom_user_acl_update', { 'class': class }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} data-aclsid="null" novalidate="novalidate">
