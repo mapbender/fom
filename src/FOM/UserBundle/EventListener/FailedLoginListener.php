@@ -27,7 +27,7 @@ class FailedLoginListener
             $user->setLoginFailCount(null);
             $user->setLoginFailed(null);
 
-            $this->container->get('doctrine')->getEntityManager()->flush();
+            $this->container->get('doctrine')->getManager()->flush();
         }
     }
 
@@ -35,7 +35,7 @@ class FailedLoginListener
     {
         $username = $this->container->get('request')->get('_username');
         $doctrine = $this->container->get('doctrine');
-        $em = $doctrine->getEntityManager();
+        $em = $doctrine->getManager();
         $repository = $doctrine->getRepository('FOMUserBundle:User');
         $user = $repository->findOneByUsername($username);
 

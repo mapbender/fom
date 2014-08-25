@@ -38,7 +38,7 @@ class UserController extends Controller {
         $securityContext = $this->get('security.context');
         $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
 
-        $query = $this->getDoctrine()->getEntityManager()->createQuery('SELECT r FROM FOMUserBundle:User r');
+        $query = $this->getDoctrine()->getManager()->createQuery('SELECT r FROM FOMUserBundle:User r');
         $users = $query->getResult();
         $allowed_users = array();
         // ACL access check
@@ -117,7 +117,7 @@ class UserController extends Controller {
             'acl_permission' => $securityContext->isGranted('OWNER', $oid),
         ));
 
-        $form->bindRequest($this->get('request'));
+        $form->bind($this->get('request'));
 
         if($form->isValid()) {
             // Set encrypted password and create new salt
@@ -127,7 +127,7 @@ class UserController extends Controller {
 
             $user->setRegistrationTime(new \DateTime());
 
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->getConnection()->beginTransaction();
 
             try {
@@ -172,7 +172,7 @@ class UserController extends Controller {
                 throw $e;
             }
 
-            $this->get('session')->setFlash('success',
+            $this->get('session')->getFlashBag()->set('success',
                 'The user has been saved.');
 
             return $this->redirect(
@@ -276,7 +276,7 @@ class UserController extends Controller {
                 $helper->setPassword($user, $user->getPassword());
             }
 
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
 
             // This is the same check as abote in createForm for acl_permission
             if($securityContext->isGranted('OWNER', $user)) {
@@ -290,7 +290,7 @@ class UserController extends Controller {
             }
             $em->flush();
 
-            $this->get('session')->setFlash('success', 'The user has been updated.');
+            $this->get('session')->getFlashBag()->set('success', 'The user has been updated.');
 
             return $this->redirect($this->generateUrl('fom_user_user_index'));
 
@@ -337,7 +337,7 @@ class UserController extends Controller {
         $request = $this->getRequest();
 
         try {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
 
             $em->remove($user);
             if($user->getProfile()) {
@@ -345,10 +345,10 @@ class UserController extends Controller {
             }
             $em->flush();
 
-            $this->get('session')->setFlash('success',
+            $this->get('session')->getFlashBag()->set('success',
                 'The user has been deleted.');
         } catch(Exception $e) {
-            $this->get('session')->setFlash('error',
+            $this->get('session')->getFlashBag()->set('error',
                 'The user couldn\'t be deleted.');
         }
         return new Response();

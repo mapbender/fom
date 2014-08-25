@@ -10,7 +10,11 @@
 
 {% block manager_content %}
 
-<form action="{{ path('fom_user_acl_update', { 'class': class }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} data-aclsid="{{ form.get('widget_control_group_attr') }}" novalidate="novalidate">
+{% if 'widget_control_group_attr' in form.vars | keys %}
+    <form action="{{ path('fom_user_acl_update', { 'class': class }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} data-aclsid="{{ form.vars['widget_control_group_attr'] }}" novalidate="novalidate">
+{% else %}
+    <form action="{{ path('fom_user_acl_update', { 'class': class }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} data-aclsid="null" novalidate="novalidate">
+{% endif %}
     <div id="aclTabContainer" class="tabContainer aclTabContainer">
         <ul class="tabs">
             <li id="tabSecurity" class="tab active">{{"fom.user.acl.edit.security" | trans }}</li>
@@ -31,4 +35,3 @@
 </form>
 
 {% endblock %}
-

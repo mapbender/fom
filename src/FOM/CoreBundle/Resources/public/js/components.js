@@ -11,9 +11,10 @@ $(function() {
     // init tabcontainers --------------------------------------------------------------------
     $(".tabContainer").find(".tab").bind("click", function(){
         var me = $(this);
-        me.parent().parent().find(".active").removeClass("active");
+        var tabcont = me.parent().parent();
+        tabcont.find(".active").removeClass("active");
         me.addClass("active");
-        $("#" + me.attr("id").replace("tab", "container")).addClass("active");
+        $("#" + me.attr("id").replace("tab", "container"), tabcont).addClass("active");
     });
 
 
@@ -279,4 +280,8 @@ $(function() {
         }
     }
     $(".openCloseTitle").bind("click", toggleTree);
+    $('.regionProperties .radiobox').each(function() {
+        $(this).parent(".radioWrapper").attr('data-icon')
+        initRadioButton.call(this, false, $(this).parent(".radioWrapper").attr('data-icon') + $(this).val());
+    });
 });
