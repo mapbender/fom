@@ -28,7 +28,7 @@ class Session
     protected $session_value;
 
     /**
-     * @ORM\Column(type="datetime",nullable=false)
+     * @ORM\Column(type="integer",nullable=false)
      */
     protected $session_time;
 
