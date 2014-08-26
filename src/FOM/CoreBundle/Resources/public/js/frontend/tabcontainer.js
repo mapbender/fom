@@ -1,12 +1,7 @@
 var initTabContainer = function($context){
-    $(".tabContainer, .tabContainerAlt", $context).on('click', '.tab,.accordion', function() {
+    $(".tabContainer, .tabContainerAlt", $context).on('click', '.tab,.accordion', function(event) {
         var me = $(this);
-        var tabcont;
-        if(me.parent().hasClass('tabContainerAlt')){
-            tabcont = me.parent();
-        } else if(me.parent().parent().hasClass('tabContainer')){
-            tabcont = me.parent().parent();
-        }
+        var tabcont = $(event.delegateTarget)
         tabcont.find(".active").removeClass("active");
         me.addClass("active");
         if (me.hasClass('tab')) {

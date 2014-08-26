@@ -27,7 +27,7 @@ $(function() {
     var toggleRadioBox = function() {
         var me = $(this);
         var radiobox = me.find(".radiobox");
-        $('input[type="radio"][name="' + radiobox.attr('name') + '"').each(function() {
+        $('input[type="radio"][name="' + radiobox.attr('name') + '"]').each(function() {
             var rdb = $(this);
             var rbgwrp = rdb.parents('.radioWrapper:first');
             var nullable = rbgwrp.attr("data-nullable");
