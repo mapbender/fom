@@ -2,9 +2,8 @@
 
 namespace FOM\UserBundle\EventListener;
 
-use FOM\UserBundle\Entity\User;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 
 /**
  * Event listener for adding user profile on the fly
@@ -23,26 +22,32 @@ class UserProfileListener implements EventSubscriber
     public function getSubscribedEvents()
     {
         return array(
-            'postLoad',
+            'loadClassMetadata'
         );
     }
 
-    public function postLoad(LifecycleEventArgs $args)
+    public function loadClassMetadata(LoadClassMetadataEventArgs $args)
     {
-        $user = $args->getEntity();
+        $metadata = $args->getClassMetadata();
+        $user = 'FOM\UserBundle\Entity\User';
+        $profile = $this->container->getParameter('fom_user.profile_entity');
 
-        if(!$user instanceof User) return;
+        if($profile !== $metadata->getName()) return;
 
-        $em = $args->getEntityManager();
-        $profileEntity = $this->container->getParameter('fom_user.profile_entity');
+        if($user == $metadata->getName()) {
+            $metadata->mapOneToOne(array(
+                'targetEntity' => $profile,
+                'mappedBy' => 'uid'
+            ));
+        }
 
-        if($user->getId() && $profileEntity !== null) {
-            $profile = $this->container->get('doctrine')->getRepository($profileEntity)
-                ->find($user->getId());
-            if(!$profile) {
-                $profile = new $profileEntity();
-            }
-            $user->setProfile($profile);
+        if($profile == $metadata->getName()) {
+            $metadata->setIdentifier(array('uid'));
+            $metadata->mapOneToOne(array(
+                'fieldName' => 'uid',
+                'targetEntity' => $user,
+                'inversedBy' => 'profile',
+            ));
         }
     }
 }
