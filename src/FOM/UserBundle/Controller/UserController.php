@@ -143,6 +143,7 @@ class UserController extends Controller {
                 // Check and persists profile if exists
                 $profile = $user->getProfile();
                 if($profile) {
+                    $profile->setUid($user);
                     $em->persist($profile);
                 }
 

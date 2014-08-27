@@ -409,9 +409,8 @@ class User implements AdvancedUserInterface {
     public function setProfile($profile)
     {
         $this->profile = $profile;
-        if($profile) {
-            $this->profile->setUid($this);
-        }
+
+        return $this;
     }
 
     public function getProfile()

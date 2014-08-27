@@ -26,8 +26,9 @@ class BasicProfile
     const ORG_ROLE_USER =                  'user';
 
     /**
-     * @ORM\Id
-     * @ORM\OneToOne(targetEntity="FOM\UserBundle\Entity\User")
+     * No annotations here, the Doctrine metadata is added dynamically in the
+     * loadClassMetadata event in
+     * FOM\UserBundle\EventListener\UserProfileListener
      */
     protected $uid;
 
