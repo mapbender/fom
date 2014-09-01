@@ -32,12 +32,12 @@ class UserProfileListener implements EventSubscriber
         $user = 'FOM\UserBundle\Entity\User';
         $profile = $this->container->getParameter('fom_user.profile_entity');
 
-        if($profile !== $metadata->getName()) return;
-
         if($user == $metadata->getName()) {
             $metadata->mapOneToOne(array(
+                'fieldName' => 'profile',
                 'targetEntity' => $profile,
-                'mappedBy' => 'uid'
+                'mappedBy' => 'uid',
+                'cascade' => array('persist'),
             ));
         }
 
@@ -47,6 +47,10 @@ class UserProfileListener implements EventSubscriber
                 'fieldName' => 'uid',
                 'targetEntity' => $user,
                 'inversedBy' => 'profile',
+                'id' => true,
+                'joinColumns' => array(array(
+                    'name' => 'uid',
+                    'referencedColumnName' => 'id'))
             ));
         }
     }

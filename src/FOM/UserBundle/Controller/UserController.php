@@ -96,8 +96,6 @@ class UserController extends Controller {
     public function createAction() {
         $user = new User();
 
-
-
         // ACL access check
         $securityContext = $this->get('security.context');
         $oid = new ObjectIdentity('class', get_class($user));
@@ -131,20 +129,26 @@ class UserController extends Controller {
             $em->getConnection()->beginTransaction();
 
             try {
+                $em->getConnection()->beginTransaction();
+
+                $profile = $user->getProfile();
+                $user->setProfile(null);
                 $em->persist($user);
+
+                // Check and persists profile if exists
+                if($profile) {
+                    $profile->setUid($user);
+                    $em->persist($profile);
+                }
+
                 $em->flush();
+
+                $em->getConnection()->commit();
 
                 if($form->has('acl')) {
                     $aclManager = $this->get('fom.acl.manager');
                     $aclManager->setObjectACLFromForm($user, $form->get('acl'),
                                                       'object');
-                }
-
-                // Check and persists profile if exists
-                $profile = $user->getProfile();
-                if($profile) {
-                    $profile->setUid($user);
-                    $em->persist($profile);
                 }
 
                 $em->flush();
@@ -286,9 +290,6 @@ class UserController extends Controller {
                     'object');
             }
 
-            if($user->getProfile()) {
-                $em->persist($user->getProfile());
-            }
             $em->flush();
 
             $this->get('session')->getFlashBag()->set('success', 'The user has been updated.');
