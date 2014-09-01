@@ -135,6 +135,9 @@ class UserController extends Controller {
                 $user->setProfile(null);
                 $em->persist($user);
 
+                // SQLite needs a flush here
+                $em->flush();
+
                 // Check and persists profile if exists
                 if($profile) {
                     $profile->setUid($user);
