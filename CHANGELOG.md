@@ -1,5 +1,5 @@
 # Changelog
-* **v3.0.4.0** - Work in progress
+* **v3.0.4.0**
     - added session entity
     - delete ACL with delete
     - region properties (tabs/accordion)
