@@ -1,5 +1,6 @@
 # Changelog
 * **v3.0.4.0**
+    - Switched to MIT license
     - added session entity
     - delete ACL with delete
     - region properties (tabs/accordion)
