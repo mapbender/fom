@@ -321,7 +321,7 @@
       </trans-unit>
       <trans-unit id="1b09066b0fb3977196f0d580f20217d2" resname="fom.user.user.container.no_goups_defined.">
         <source>fom.user.user.container.no_goups_defined.</source>
-        <target>No goups defined.</target>
+        <target>No groups defined.</target>
       </trans-unit>
       <trans-unit id="414b080311e903094e01a6d810d5b702" resname="fom.user.user.container.manage_not_allowed">
         <source>fom.user.user.container.manage_not_allowed</source>
@@ -385,7 +385,7 @@
       </trans-unit>
       <trans-unit id="216fe12bb8ae642c4c7ad3f131a4397a" resname="fom.user.acl.groups_users.no_goups_users">
         <source>fom.user.acl.groups_users.no_goups_users</source>
-        <target>No goups and users defined.</target>
+        <target>No groups and users defined.</target>
       </trans-unit>
       <trans-unit id="c2dd3a91aa1dbb6d29654af01b23eebf" resname="fom.user.password.email_body_html">
         <source>fom.user.password.email_body_html</source>
