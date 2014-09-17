@@ -37,7 +37,7 @@ class CsvResponse extends Response
      * @param string $delimiter      Delimiter
      * @param bool   $enableDownload Enable download
      */
-    public function __construct(array $data = null, $fileName = 'export.csv', $encodingFrom = 'UTF-8', $enclosure = '"', $delimiter = ';', $enableDownload = true)
+    public function __construct(array $data = null, $fileName = 'export.csv', $encodingFrom = 'UTF-8', $enclosure = '"', $delimiter = ',', $enableDownload = true)
     {
         parent::__construct('',
             200,
@@ -71,6 +71,7 @@ class CsvResponse extends Response
      * Set data
      *
      * @param array $data
+     * @param bool  $detectHead
      */
     public function setData(array $data, $detectHead = true)
     {
