@@ -83,7 +83,7 @@ class CsvResponse extends Response
             fputcsv($handle, $row, $this->delimiter, $this->enclosure);
         }
         rewind($handle);
-        $output = chr(255) . chr(254) . mb_convert_encoding(stream_get_contents($handle),self::UTF_16_LE,$this->encodingFrom);
+        $output = chr(255) . chr(254) . mb_convert_encoding('sep=' . $this->delimiter . "\n" . stream_get_contents($handle),self::UTF_16_LE,$this->encodingFrom);
         $this->headers->add(array('Content-Length' => strlen($output)));
         $this->setContent($output);
         fclose($handle);
