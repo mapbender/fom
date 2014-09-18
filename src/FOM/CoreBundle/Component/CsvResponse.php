@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @package   FOM\CoreBundle\Component
  * @author    Andriy Oblivantsev <eslider@gmail.com>
  * @copyright 2014 by WhereGroup GmbH & Co. KG
+ * @deprecated
  */
 class CsvResponse extends Response
 {
