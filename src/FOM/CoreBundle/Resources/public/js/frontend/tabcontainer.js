@@ -7,7 +7,9 @@ var initTabContainer = function($context){
         if(me.hasClass('accordion')) {
             if(wasActive) {
                 me.removeClass('active');
+                me.parents(".tabContainer:first,.tabContainerAlt:first").addClass('noActive');
             } else {
+                me.parents(".tabContainer:first,.tabContainerAlt:first").removeClass('noActive');
                 me.addClass('active');
                 $("#" + me.attr("id").replace("accordion", "container"), tabcont).addClass("active");
             }
