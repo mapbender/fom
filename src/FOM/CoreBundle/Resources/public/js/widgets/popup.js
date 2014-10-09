@@ -113,6 +113,7 @@ var Mapbender = (function($, Mapbender) {
 
             autoOpen: true,
             closeOnESC: true,
+            detachOnClose: true,
             closeOnOutsideClick: false,
             closeOnPopupCloseClick: true,
             destroyOnClose: false,
@@ -179,6 +180,14 @@ var Mapbender = (function($, Mapbender) {
                     }
                 break;
 
+                case 'detachOnClose':
+                  if(undefined === value) {
+                    return this.options[key];
+                  } else {
+                    this.options[key] = value;
+                  }
+                break;
+
                 default:
                     var fct = this[key];
                     if(typeof fct == 'function') {
@@ -206,7 +215,9 @@ var Mapbender = (function($, Mapbender) {
             }
 
             selfElement.trigger('open');
-            selfElement.appendTo(this.$container);
+            if(!this.options.detachOnClose) {
+              selfElement.appendTo(this.$container);
+            }
             window.setTimeout(function() {
                 selfElement.addClass("show");
                 self.focus();
@@ -247,7 +258,9 @@ var Mapbender = (function($, Mapbender) {
             }
 
             selfElement.removeClass("show");
-            selfElement.detach();
+            if(this.options.detachOnClose || this.options.destroyOnClose) {
+              selfElement.detach();
+            }
             if(this.options.destroyOnClose) {
                 this.destroy();
             }
