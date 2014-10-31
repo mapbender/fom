@@ -292,7 +292,8 @@ class UserController extends Controller {
                 $aclManager->setObjectACLFromForm($user, $form->get('acl'),
                     'object');
             }
-
+            
+            $user->getProfile()->setUid($user);
             $em->flush();
 
             $this->get('session')->getFlashBag()->set('success', 'The user has been updated.');
