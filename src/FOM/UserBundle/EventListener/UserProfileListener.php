@@ -4,6 +4,7 @@ namespace FOM\UserBundle\EventListener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
+use Doctrine\ORM\Id\AssignedGenerator;
 
 /**
  * Event listener for adding user profile on the fly
@@ -43,6 +44,7 @@ class UserProfileListener implements EventSubscriber
 
         if($profile == $metadata->getName()) {
             $metadata->setIdentifier(array('uid'));
+            $metadata->setIdGenerator(new AssignedGenerator());
             $metadata->mapOneToOne(array(
                 'fieldName' => 'uid',
                 'targetEntity' => $user,

@@ -30,7 +30,7 @@ class RegistrationController extends Controller
      * setContainer is called after controller creation is used to deny access to controller if self registration has
      * been disabled.
      */
-    public function setContainer(ContainerInterface $container = null)
+    public function setContainer(ContainerInterface $container = NULL)
     {
         parent::setContainer($container);
 

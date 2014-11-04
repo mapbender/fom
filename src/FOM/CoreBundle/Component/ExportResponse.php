@@ -53,7 +53,7 @@ class ExportResponse extends Response
      * @param string $delimiter      Delimiter
      * @param bool   $enableDownload Enable download
      */
-    public function __construct(array $data = null, $fileName = 'export',  $type = self::TYPE_CSV, $encodingFrom = 'UTF-8', $enclosure = '"', $delimiter = ',', $enableDownload = true)
+    public function __construct(array $data = NULL, $fileName = 'export',  $type = self::TYPE_CSV, $encodingFrom = 'UTF-8', $enclosure = '"', $delimiter = ',', $enableDownload = true)
     {
         parent::__construct();
         $this->setEncodingFrom($encodingFrom);
