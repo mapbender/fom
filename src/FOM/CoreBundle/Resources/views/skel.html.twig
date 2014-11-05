@@ -12,9 +12,10 @@
   </head>
   <body class="{% if app.debug %}debug{% endif %}">
     {% block content %}{% endblock %}
-
-    <script src="{{ asset('bundles/fomcore/js/jquery-1.9.1.min.js')}}"></script>
-    <script src="{{ asset('bundles/fomcore/js/jquery-ui.min.js')}}"></script>
+    <script src="{{ asset('bundles/mapbendercore/regional/vendor/jquery/jquery-1.11.1.min.js')}}"></script>
+    <script src="{{ asset('bundles/mapbendercore/regional/vendor/jquery/jquery-ui-1.11.1.custom/jquery-ui.min.js')}}"></script>
+     {#<script src="{{ asset('bundles/fomcore/js/jquery-1.9.1.min.js')}}"></script>#}
+     {#<script src="{{ asset('bundles/fomcore/js/jquery-ui.min.js')}}"></script>#}
     {% block trans %}{% endblock %}
     {% block js %}{% endblock %}
   </body>
