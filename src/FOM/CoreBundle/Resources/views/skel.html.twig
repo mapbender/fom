@@ -8,12 +8,29 @@
     <meta name="description" content="Mapbender 3">
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="{% block favicon %}{% endblock %}" />
+
+    <!--[if lt IE 9]>
+    {# This script is the defacto way to enable use of HTML5 sectioning elements in legacy Internet Explorer. #}
+    <script src="{{ asset('bundles/mapbendercore/regional/vendor/ie-hacks/html5shiv.3.7.2.min.js') }}" type="text/javascript"></script>
+
+    {# A fast & lightweight polyfill for min/max-width CSS3 Media Queries (for IE 6-8, and more) #}
+    <script src="{{ asset('bundles/mapbendercore/regional/vendor/ie-hacks/respond.1.4.2.min.js') }}" type="text/javascript"></script>
+
+    {# Placeholders.js is a JavaScript polyfill for the HTML5 placeholder attribute.
+    It's lightweight, has zero dependencies and works in pretty much any browser you can imagine. #}
+    <script src="{{ asset('bundles/mapbendercore/regional/vendor/ie-hacks/placeholders.3.0.2.min.js') }}" type="text/javascript"></script>
+
+    {# HTML5 Canvas for Internet Explorer. Use: window.initCanvas(canvasDomElement) #}
+    <script src="{{ asset('bundles/mapbendercore/regional/vendor/ie-hacks/excanvas.r3.min.js') }}" type="text/javascript"></script>
+    <![endif]-->
+
     {% block css %}{% endblock %}
   </head>
   <body class="{% if app.debug %}debug{% endif %}">
     {% block content %}{% endblock %}
     <script src="{{ asset('bundles/mapbendercore/regional/vendor/jquery/jquery-1.11.1.min.js')}}"></script>
     <script src="{{ asset('bundles/mapbendercore/regional/vendor/jquery/jquery-ui-1.11.1.custom/jquery-ui.min.js')}}"></script>
+
      {#<script src="{{ asset('bundles/fomcore/js/jquery-1.9.1.min.js')}}"></script>#}
      {#<script src="{{ asset('bundles/fomcore/js/jquery-ui.min.js')}}"></script>#}
     {% block trans %}{% endblock %}
