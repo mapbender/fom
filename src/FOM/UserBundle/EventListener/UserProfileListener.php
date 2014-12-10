@@ -51,7 +51,7 @@ class UserProfileListener implements EventSubscriber
                 'inversedBy' => 'profile',
                 'id' => true,
                 'joinColumns' => array(array(
-                    'name' => 'uid',
+                    'name' => '"UID"',
                     'referencedColumnName' => 'id'))
             ));
         }
