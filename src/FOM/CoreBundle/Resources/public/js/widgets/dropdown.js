@@ -11,7 +11,7 @@ var initDropdown = function () {
     me.find(".dropdownValue").text(me.find('option[value="'+select+'"]').text())
 
     if (me.css("minWidth").replace("px", "") == "0") {
-        me.width(dropdownList.width());
+        me.width(dropdownList.width() + 60);
     }
 };
 $(function () {
