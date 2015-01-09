@@ -88,7 +88,11 @@
 {% block choice_widget %}
   {% spaceless %}
     {% if expanded %}
-     {{ block('choice_widget_expanded') }}
+      {% if form.vars.attr is defined and form.vars.attr['data-sortable'] is defined %}
+        {{ block('choice_widget_expanded_sortable') }}
+      {% else %}
+        {{ block('choice_widget_expanded') }}
+      {% endif %}
     {% else %}
       {{ block('choice_widget_collapsed') }}
     {% endif %}
@@ -105,6 +109,19 @@
   </div>
   {% endspaceless %}
 {% endblock choice_widget_expanded %}
+
+{% block choice_widget_expanded_sortable %}
+  {% spaceless %}
+  <div class="{{ form.vars.attr['data-sortable'] }}" {{ block('widget_container_attributes') }}>
+    {% for child in form %}
+      <div class="sortableItem">
+        {{ form_widget(child) }}
+        {{ form_label(child) }}
+      </div>
+    {% endfor %}
+  </div>
+  {% endspaceless %}
+{% endblock choice_widget_expanded_sortable %}
 
 {% block choice_widget_collapsed %}
   {% spaceless %}
