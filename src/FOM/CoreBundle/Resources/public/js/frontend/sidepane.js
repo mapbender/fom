@@ -16,18 +16,29 @@ $(function() {
 	'transition': 'none !important'
     });
 
+    if(sidePane.data('closed')){
+        sidePane.data('isOpened', false);
+        sidePane.find('.sideContent').css('display','none');
+        sidePane.css({
+            'transition': 'none'
+        });
+        sidePane.css({right: (sidePane.outerWidth(true)*-1) + "px"});
+    } 
+    
+    sidePane.show(0);
+
     switchButton.on('click', function() {
         var isOpened = sidePane.data('isOpened');
         var align = sidePane.hasClass('right') ? 'right' : 'left';
         if(isOpened) {
             animation[align] =  "-" + sidePane.outerWidth(true) + "px"; //, "swing"];
             sidePane.animate(animation,speed, function() {
-                //templateWrapper.removeClass("sidePaneOpened");
+                templateWrapper.removeClass("sidePaneOpened");
                 sidePane.data('isOpened', !isOpened);
 		sidePane.find('.sideContent').css('display','none');
             });
         } else {
-            //templateWrapper.addClass("sidePaneOpened");
+            templateWrapper.addClass("sidePaneOpened");
             animation[align] = "0px";
 	    sidePane.find(".sideContent").css('display','block');
             sidePane.animate(animation, speed, function() {
