@@ -26,8 +26,8 @@ $(function() {
             'transition': 'none'
         });
         sidePane.css({right: (sidePane.outerWidth(true)*-1) + "px"});
-    } 
-    
+    }
+    sidePane.width(sidePane.width());
     sidePane.show(0);
 
     switchButton.on('click', function() {
