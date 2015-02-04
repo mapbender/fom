@@ -1,41 +1,32 @@
-var initDropdown = function(){
+var initDropdown = function () {
     var me = $(this);
     var dropdownList = me.find(".dropdownList");
-    var childCount = dropdownList.children().length;
-
-    if(childCount == 0){
-        var newElement, select;
-
-        me.find("option").each(function(i, e){
+    if (dropdownList.children().length === 0) {
+        me.find("option").each(function (i, e) {
             $(e).addClass("opt-" + i);
-            newElement = $('<li class="item-' + i + '">' + $(e).text() + '</li>');
-            dropdownList.append(newElement);
+            dropdownList.append($('<li class="item-' + i + '">' + $(e).text() + '</li>'));
         });
     }
+    var select = me.find("select").val();
+    me.find(".dropdownValue").text(me.find('option[value="'+select+'"]').text())
 
-    select = (me.find("option[selected=selected]").length > 0) ? "option[selected=selected]"
-        : "option:first";
-
-    me.find(".dropdownValue").text(me.find(select).text())
-
-    if(me.css("minWidth").replace("px", "") == "0"){
-        width = dropdownList.width();
-        me.width(width + 60); // space * 3
+    if (me.css("minWidth").replace("px", "") == "0") {
+        me.width(dropdownList.width() + 60);
     }
 };
-$(function(){
+$(function () {
     // init dropdown list --------------------------------------------------------------------
 
-    var toggleList = function(){
+    var toggleList = function () {
         var me = $(this);
         var list = me.find(".dropdownList");
         var opts = me.find(".hiddenDropdown");
-        if(list.css("display") == "block"){
+        if (list.css("display") == "block") {
             list.hide();
-        }else{
+        } else {
             $(".dropdownList").hide();
             list.show();
-            list.find("li").one("click", function(event){
+            list.find("li").one("click", function (event) {
                 event.stopPropagation();
                 list.hide().find("li").off("click");
                 var me2 = $(this);
@@ -47,12 +38,12 @@ $(function(){
             })
         }
 
-        $(document).one("click", function(){
+        $(document).one("click", function () {
             list.hide().find("li").off("mouseout").off("click");
         });
         return false;
     }
-    $('.dropdown').each(function(){
+    $('.dropdown').each(function () {
         initDropdown.call(this);
     });
     $(document).on("click", ".dropdown", toggleList);
