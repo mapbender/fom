@@ -43,7 +43,7 @@ class UserProfileListener implements EventSubscriber
             ));
         }
 
-		$connection = $args->getManager()->getConnection();
+		$connection = $args->getEntityManager()->getConnection();
 		$platform = $connection->getDatabasePlatform();
 		$uidColname = $connection->quoteIdentifier('uid');
 		if($platform instanceof OraclePlatform) {
