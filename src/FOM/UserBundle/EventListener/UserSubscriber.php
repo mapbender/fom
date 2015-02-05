@@ -21,7 +21,7 @@ class UserSubscriber implements EventSubscriber
     public function preUpdate(PreUpdateEventArgs $args)
     {
         $entity = $args->getEntity();
-        $entityManager = $args->getEntityManager();
+        $entityManager = $args->getManager();
 
         if (! $entity instanceof User) {
             return;
