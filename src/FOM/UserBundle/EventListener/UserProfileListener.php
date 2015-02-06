@@ -5,6 +5,7 @@ namespace FOM\UserBundle\EventListener;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Id\AssignedGenerator;
+use Doctrine\DBAL\Platforms\OraclePlatform;
 
 /**
  * Event listener for adding user profile on the fly
@@ -42,6 +43,13 @@ class UserProfileListener implements EventSubscriber
             ));
         }
 
+		$connection = $args->getEntityManager()->getConnection();
+		$platform = $connection->getDatabasePlatform();
+		$uidColname = $connection->quoteIdentifier('uid');
+		if($platform instanceof OraclePlatform) {
+			$uidColname = strtoupper($uidColname);
+		}
+
         if($profile == $metadata->getName()) {
             $metadata->setIdentifier(array('uid'));
             $metadata->setIdGenerator(new AssignedGenerator());
@@ -51,7 +59,7 @@ class UserProfileListener implements EventSubscriber
                 'inversedBy' => 'profile',
                 'id' => true,
                 'joinColumns' => array(array(
-                    'name' => 'uid',
+                    'name' => $uidColname,
                     'referencedColumnName' => 'id'))
             ));
         }

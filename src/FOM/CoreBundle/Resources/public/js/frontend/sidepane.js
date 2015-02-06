@@ -9,12 +9,15 @@ $(function() {
     sidePane.data('isOpened', true);
 
     sidePane.css({
-	'-webkit-transition': 'none !important',
-	'-moz-transition': 'none !important',
-	'-o-transition': 'none !important',
-	'-ms-transition': 'none !important',
-	'transition': 'none !important'
+        '-webkit-transition': 'none !important',
+        '-moz-transition':    'none !important',
+        '-o-transition':      'none !important',
+        '-ms-transition':     'none !important',
+        'transition':         'none !important'
     });
+
+    // closing bugfix
+    sidePane.width(sidePane.width());
 
     if(sidePane.data('closed')){
         sidePane.data('isOpened', false);
@@ -35,12 +38,12 @@ $(function() {
             sidePane.animate(animation,speed, function() {
                 templateWrapper.removeClass("sidePaneOpened");
                 sidePane.data('isOpened', !isOpened);
-		sidePane.find('.sideContent').css('display','none');
+                sidePane.find('.sideContent').css('display','none');
             });
         } else {
             templateWrapper.addClass("sidePaneOpened");
             animation[align] = "0px";
-	    sidePane.find(".sideContent").css('display','block');
+            sidePane.find(".sideContent").css('display','block');
             sidePane.animate(animation, speed, function() {
                 sidePane.data('isOpened', !isOpened);
             });

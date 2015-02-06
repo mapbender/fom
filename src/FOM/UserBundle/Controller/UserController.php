@@ -339,7 +339,7 @@ class UserController extends Controller {
         $request = $this->getRequest();
 
         try {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->getConnection()->beginTransaction();
 
             $aclProvider = $this->get('security.acl.provider');
