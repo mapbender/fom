@@ -1,13 +1,8 @@
 {% extends "FOMManagerBundle::backend.html.twig" %}
 
 {% set title %}{% block title %}{% endblock %}{% endset %}
-
 {% block css %}
-  {% stylesheets filter="compass,cssrewrite"
-    "bundles/mapbendermanager/sass/manager/manager.scss"
-  %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
-  {% endstylesheets %}
+  <link rel="stylesheet" href="{{ path('mapbender_core_application_assets', {'slug': 'manager','type': 'css'}) }}"/>
 {% endblock %}
 
 {% block favicon %}{{ asset('favicon.png') }}{% endblock %}
