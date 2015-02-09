@@ -10,14 +10,6 @@
 
 {% block css %}
   {{parent()}}
-  {% stylesheets filter="compass,cssrewrite"
-    "bundles/fomuser/sass/user/user_control.scss"
-  %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
-  {% endstylesheets %}
-  {% for url in profile_assets.css %}
-    <link rel="stylesheet" href="{{ asset(url) }}" />
-  {% endfor %}
 {% endblock %}
 
 {% block js %}
