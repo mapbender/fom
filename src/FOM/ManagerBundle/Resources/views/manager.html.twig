@@ -33,7 +33,7 @@
           {% if app.user != "" %}
             <ul id="accountMenu" class="accountMenu">
                 <li id="accountOpen" class="iconDown smallText">{{ "fom.core.manager.logged_as"|trans}}: {{ app.user.username }}<span class="openedIcon"></span></li>
-                {% if app is defined and app.user is defined and app.user.id is defined %} <li><a class="linkButton iconSettings" href="{{ url('fom_user_user_edit', {'id': app.user.id}) }}">{{ "fom.core.manager.you_account"|trans }}</a></li>{% endif %}
+                {% if app.user.password != "" %} <li><a class="linkButton iconSettings" href="{{ url('fom_user_user_edit', {'id': app.user.id}) }}">{{ "fom.core.manager.you_account"|trans }}</a></li>{% endif %}
                 <li><a class="linkButton iconSignOut" href="{{ url('fom_user_login_logout') }}">{{ "fom.core.manager.btn.logout"|trans }}</a></li>
             </ul>
           {% else %}

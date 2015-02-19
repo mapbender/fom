@@ -26,6 +26,7 @@ use IMAG\LdapBundle\User\LdapUser as IMAGLdapUser;
  * @author Christian Wygoda
  * @author apour
  * @author Paul Schmidt
+ * @author Arne Schubert
  *
  * @ORM\Entity
  * @UniqueEntity("username")
