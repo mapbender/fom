@@ -32,5 +32,9 @@
                 <argument type="service" id="service_container" />
             </call>
         </service>
+
+        <service id="fom.user.subscriber" class="FOM\UserBundle\EventListener\UserSubscriber">
+            <tag name="doctrine.event_subscriber" connection="default" />
+        </service>
     </services>
 </container>

@@ -1,3 +1,5 @@
+//$rootPath: "../../../mapbendercore/";
+
 @import "libs/variables";
 @import "libs/mixins";
 @import "libs/icons";
@@ -10,7 +12,7 @@
     width:150px;
     text-align: right;
     padding:0px;
-  }
+  }     
   .iconCheckboxActive, .iconCheckbox{
     @extend .iconOk;
     @extend .iconBig;
