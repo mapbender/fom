@@ -485,4 +485,11 @@ class User implements AdvancedUserInterface {
     {
         $this->groups->removeElement($groups);
     }
+
+    /**
+     * @return bool
+     */
+    public function isAnonymous(){
+        return $this->getUsername() == "anon." && !$this->getId();
+    }
 }
