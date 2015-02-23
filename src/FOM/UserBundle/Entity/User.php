@@ -492,4 +492,12 @@ class User implements AdvancedUserInterface {
     public function isAnonymous(){
         return $this->getUsername() == "anon." && !$this->getId();
     }
+
+    /**
+     * @return bool
+     */
+    public function hasProfile()
+    {
+        return $this->getProfile() != null;
+    }
 }
