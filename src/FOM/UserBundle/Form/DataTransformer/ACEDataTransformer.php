@@ -8,9 +8,15 @@ use Symfony\Component\Security\Acl\Domain\Entry;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\DependencyInjection\Container;
 
 class ACEDataTransformer implements DataTransformerInterface
 {
+    protected $container;
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
     /**
      * Transforms an single ACE to an object suitable for ACEType
      *
@@ -72,7 +78,15 @@ class ACEDataTransformer implements DataTransformerInterface
         if(strtoupper($sidParts[0]) == 'R') {
             $sid = new RoleSecurityIdentity($sidParts[1]);
         } else {
-            $class = (3 == count($sidParts)) ? $sidParts[2] : 'FOM\UserBundle\Entity\User';
+            if(3 == count($sidParts)) {
+                $class = $sidParts[2];
+            } else {
+                if($this->isLdapUser($sidParts[1])) {
+                  $class = 'FOM\UserBundle\Entity\LdapUser';
+                } else {
+                  $class = 'FOM\UserBundle\Entity\User';
+                }
+            }
             $sid = new UserSecurityIdentity($sidParts[1], $class);
         }
 
@@ -86,5 +100,28 @@ class ACEDataTransformer implements DataTransformerInterface
         return array(
             'sid' => $sid,
             'mask' => $maskBuilder->get());
+    }
+    public function isLdapUser($username)
+    {
+        $ldapHostname = $this->container->getParameter("ldap_host");
+        $ldapPort = $this->container->getParameter("ldap_port");
+        $ldapVersion = $this->container->getParameter("ldap_version");
+        $baseDn = $this->container->getParameter("ldap_user_base_dn");
+        $nameAttribute = $this->container->getParameter("ldap_user_name_attribute");
+        $filter = "(" . $nameAttribute . "=*)";
+
+        $connection = @ldap_connect($ldapHostname, $ldapPort);
+        ldap_set_option($connection, LDAP_OPT_PROTOCOL_VERSION, $ldapVersion);
+
+        $ldapListRequest = ldap_list($connection, $baseDn, $filter); // or throw exeption('Unable to list. LdapError: ' . ldap_error($ldapConnection));
+
+        $ldapUserList = ldap_get_entries($connection, $ldapListRequest);
+
+        foreach($ldapUserList as $ldapUser) {
+            if ($ldapUser[$nameAttribute][0] == $username) {
+                return true;
+            }
+        }
+        return false;
     }
 }
