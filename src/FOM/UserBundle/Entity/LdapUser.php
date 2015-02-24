@@ -138,6 +138,7 @@ class LdapUser extends IMAGLdapUser implements AdvancedUserInterface {
      * Set username
      *
      * @param string $username
+     * @return $this
      */
     public function setUsername($username) {
         $this->username = $username;
@@ -157,6 +158,7 @@ class LdapUser extends IMAGLdapUser implements AdvancedUserInterface {
      * Set email
      *
      * @param string $email
+     * @return $this
      */
     public function setEmail($email) {
         $this->email = $email;
@@ -176,6 +178,7 @@ class LdapUser extends IMAGLdapUser implements AdvancedUserInterface {
      * Set password
      *
      * @param string $password
+     * @return $this
      */
     public function setPassword($password) {
         $this->password = $password;
@@ -204,6 +207,7 @@ class LdapUser extends IMAGLdapUser implements AdvancedUserInterface {
      * Get salt
      *
      * @param string
+     * @return null|string
      */
     public function getSalt() {
         return $this->salt;
@@ -292,7 +296,8 @@ class LdapUser extends IMAGLdapUser implements AdvancedUserInterface {
     /**
      * Add groups
      *
-     * @param FOM\UserBundle\Entity\Group $groups
+     * @param Group $group
+     * @return $this
      */
     public function addGroups(Group $group) {
         $this->groups[] = $group;
@@ -302,7 +307,7 @@ class LdapUser extends IMAGLdapUser implements AdvancedUserInterface {
     /**
      * Get groups
      *
-     * @return Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getGroups() {
         return $this->groups;
@@ -335,6 +340,7 @@ class LdapUser extends IMAGLdapUser implements AdvancedUserInterface {
      * username property. If you'r needs differ, use a subclass.
      *
      * @param UserInterface $user The user to compare
+     * @return bool
      */
     public function equals(UserInterface $user) {
         return (get_class() === get_class($user)
@@ -397,6 +403,7 @@ class LdapUser extends IMAGLdapUser implements AdvancedUserInterface {
      * if type is omitted)
      *
      * @param string $type Type of admin to check
+     * @return bool
      */
     public function isAdmin($type = null)
     {
