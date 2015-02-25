@@ -14,6 +14,12 @@
         <service id="fom.pathhelper" class="%fom.pathhelper.class%">
             <argument type="service" id="service_container"/>
         </service>
+
+        <!-- GEO Converter -->
+        <service id="geo.converter" class="FOM\CoreBundle\Component\GeoConverterComponent">
+            <argument type="service" id="service_container"/>
+        </service>
+
     </services>
 </container>
 

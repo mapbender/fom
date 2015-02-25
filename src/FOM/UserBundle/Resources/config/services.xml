@@ -20,6 +20,7 @@
         <service id="form.fom.ace" class="FOM\UserBundle\Form\Type\ACEType">
             <argument type="service" id="security.context" />
             <argument type="service" id="security.acl.provider" />
+            <argument type="service" id="service_container" />
             <tag name="form.type" alias="ace" />
         </service>
 

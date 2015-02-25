@@ -11,7 +11,7 @@ var initTabContainer = function ($context) {
         hasOutsideScroll: function() {
             return this.parent().height() < this.height();
         },
-        updateHeight:       function() { 
+        updateHeight:       function() {
             var contentCells = $("> .container-accordion > .accordion-cell", this);
             var tabCells = $("> .accordion", this);
             var tabCellsHeight = this.parent().height();
@@ -22,7 +22,7 @@ var initTabContainer = function ($context) {
             });
             contentCells.height(tabCellsHeight);
         }
-});
+    });
 
     // IE Scroll BugFix
     if(accordion.hasOutsideScroll()){
@@ -39,7 +39,9 @@ var initTabContainer = function ($context) {
             return;
         }
 
-        tab.find(".active").removeClass("active");
+        var previous = tab.find(".active");
+        previous.removeClass("active");
+
         if(me.hasClass('accordion')) {
             if(isActive) {
                 me.removeClass('active');
@@ -51,7 +53,20 @@ var initTabContainer = function ($context) {
             me.addClass("active");
             $("#" + me.attr("id").replace("tab", "container"), tab).addClass("active");
         }
+
+        me.trigger('selected', {
+            current:    me,
+            currentTab: tab,
+            previous:   previous
+        });
     });
+
+    accordion.bind('select', function(e, title) {
+        return $(e.currentTarget).find('.accordion > .tablecell:contains("' + title + '")').trigger('click');
+    });
+
+    accordion.data('ready',true);
+    accordion.trigger('ready');
 };
 
 $(function () {

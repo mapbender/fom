@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
+use Symfony\Component\DependencyInjection\Container;
 use FOM\ManagerBundle\Form\Type\TagboxType;
 
 use FOM\UserBundle\Form\DataTransformer\ACEDataTransformer;
@@ -15,12 +16,14 @@ class ACEType extends AbstractType
 {
     protected $securityContext;
     protected $aclProvider;
+    protected $container;
 
     public function __construct(SecurityContext $securityContext,
-        AclProviderInterface $aclProvider)
+        AclProviderInterface $aclProvider, Container $container)
     {
         $this->securityContext = $securityContext;
         $this->aclProvider = $aclProvider;
+        $this->container = $container;
     }
 
     public function getName()
@@ -30,7 +33,7 @@ class ACEType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $transformer = new ACEDataTransformer();
+        $transformer = new ACEDataTransformer($this->container);
         $builder->addModelTransformer($transformer);
 
         $builder->add('sid', 'text', array(

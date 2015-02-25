@@ -14,6 +14,8 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+use IMAG\LdapBundle\User\LdapUser as IMAGLdapUser;
+
 /**
  * User entity.
  *
@@ -24,13 +26,14 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @author Christian Wygoda
  * @author apour
  * @author Paul Schmidt
+ * @author Arne Schubert
  *
  * @ORM\Entity
  * @UniqueEntity("username")
  * @UniqueEntity("email")
  * @ORM\Table(name="fom_user")
  */
-class User implements AdvancedUserInterface {
+class LdapUser extends IMAGLdapUser implements AdvancedUserInterface {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -135,6 +138,7 @@ class User implements AdvancedUserInterface {
      * Set username
      *
      * @param string $username
+     * @return $this
      */
     public function setUsername($username) {
         $this->username = $username;
@@ -154,6 +158,7 @@ class User implements AdvancedUserInterface {
      * Set email
      *
      * @param string $email
+     * @return $this
      */
     public function setEmail($email) {
         $this->email = $email;
@@ -173,6 +178,7 @@ class User implements AdvancedUserInterface {
      * Set password
      *
      * @param string $password
+     * @return $this
      */
     public function setPassword($password) {
         $this->password = $password;
@@ -201,6 +207,7 @@ class User implements AdvancedUserInterface {
      * Get salt
      *
      * @param string
+     * @return null|string
      */
     public function getSalt() {
         return $this->salt;
@@ -289,7 +296,8 @@ class User implements AdvancedUserInterface {
     /**
      * Add groups
      *
-     * @param FOM\UserBundle\Entity\Group $groups
+     * @param Group $group
+     * @return $this
      */
     public function addGroups(Group $group) {
         $this->groups[] = $group;
@@ -299,7 +307,7 @@ class User implements AdvancedUserInterface {
     /**
      * Get groups
      *
-     * @return Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getGroups() {
         return $this->groups;
@@ -332,6 +340,7 @@ class User implements AdvancedUserInterface {
      * username property. If you'r needs differ, use a subclass.
      *
      * @param UserInterface $user The user to compare
+     * @return bool
      */
     public function equals(UserInterface $user) {
         return (get_class() === get_class($user)
@@ -394,6 +403,7 @@ class User implements AdvancedUserInterface {
      * if type is omitted)
      *
      * @param string $type Type of admin to check
+     * @return bool
      */
     public function isAdmin($type = null)
     {
@@ -485,19 +495,10 @@ class User implements AdvancedUserInterface {
     {
         $this->groups->removeElement($groups);
     }
-
-    /**
-     * @return bool
-     */
-    public function isAnonymous(){
-        return $this->getUsername() == "anon." && !$this->getId();
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasProfile()
-    {
-        return $this->getProfile() != null;
+    public function isEqualTo(UserInterface $user){
+        if($this->username == $user->getUsername()){
+            return true;
+        }
+        return false;
     }
 }
