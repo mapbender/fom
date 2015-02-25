@@ -243,12 +243,25 @@ class ExportResponse extends Response
         /* write head */
         if($detectHead && count($data)> 0){
             $colNum = 0;
-            foreach ( array_keys($data[0]) as $key => $value) {
-                $l = strlen($value);
-                fputs($handle,pack("ssssss", self::XLS_STRING_TYPE, 8 + $l, $rowNum, $colNum, 0x0, $l) . $value);
-                $colNum++;
+            $keys = array_keys($data[0]);
+            $hasKeys = false;
+            
+            /* check if has some key names */
+            foreach ($keys as $keyName){
+                if(!is_numeric($keyName)){
+                    $hasKeys = true;
+                    break;
+                }
             }
-            $rowNum++;
+            
+            if ($hasKeys) {
+                foreach ($keys as $key => $value) {
+                    $l = strlen($value);
+                    fputs($handle, pack("ssssss", self::XLS_STRING_TYPE, 8 + $l, $rowNum, $colNum, 0x0, $l) . $value);
+                    $colNum++;
+                }
+                $rowNum++;
+            }
         }
 
         /* write list */
