@@ -70,4 +70,21 @@ class GeoConverterComponent implements ContainerAwareInterface
                      'geometry'   => json_decode(\geoPHP::load($wkt, 'wkt')->out('json'), true
                      ));
     }
+
+    public function wktResultsToFeatureCollection(&$rows, $properties = array(), $jsonEncode = false, $key = "GEOM")
+    {
+        foreach ($rows as &$row) {
+            $row = $this->wktToGeoJson($row, $key);
+        }
+
+        $featureCollectionJson = array("properties" => $properties,
+                                       "type"       => "FeatureCollection",
+                                       "features"   => $rows);
+        if ($jsonEncode) {
+            $featureCollectionJson = json_encode($featureCollectionJson);
+        }
+
+        return $featureCollectionJson;
+
+    }
 }
