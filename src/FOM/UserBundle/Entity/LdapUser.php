@@ -28,10 +28,8 @@ use IMAG\LdapBundle\User\LdapUser as IMAGLdapUser;
  * @author Paul Schmidt
  * @author Arne Schubert
  *
- * @ORM\Entity
  * @UniqueEntity("username")
  * @UniqueEntity("email")
- * @ORM\Table(name="fom_user")
  */
 class LdapUser extends IMAGLdapUser implements AdvancedUserInterface {
     /**
