@@ -7,14 +7,13 @@
  */
 
 namespace FOM\UserBundle\Entity;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use Doctrine\ORM\Mapping as ORM;
 use IMAG\LdapBundle\User\LdapUser as IMAGLdapUser;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User entity.
@@ -101,7 +100,7 @@ class LdapUser extends IMAGLdapUser implements AdvancedUserInterface {
 
     /**
      * @ORM\ManyToMany(targetEntity="Group", inversedBy="users")
-     * @ORM\JoinTable(name="fom_users_groups")
+     * @ORM\JoinTable(name="fom_ldap_users_groups")
      */
     protected $groups;
 
