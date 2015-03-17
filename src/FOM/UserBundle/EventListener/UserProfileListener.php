@@ -50,7 +50,7 @@ class UserProfileListener implements EventSubscriber
 			$uidColname = strtoupper($uidColname);
 		}
 
-        if($profile == $metadata->getName()) {
+        if($profile == $metadata->getName() || $metadata->getName() == 'FOM\UserBundle\Entity\BasicProfile') {
             $metadata->setIdentifier(array('uid'));
             $metadata->setIdGenerator(new AssignedGenerator());
             $metadata->mapOneToOne(array(
