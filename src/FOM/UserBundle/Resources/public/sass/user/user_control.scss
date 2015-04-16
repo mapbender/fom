@@ -7,7 +7,7 @@
 // --------------------------------------------------------- USER/GROUP
 .userControlTable{margin-top:$space;}
 .tableUserGroups{
-  width:300px;
+//  width:300px;
   .description{
     width:150px;
     text-align: right;
@@ -17,9 +17,17 @@
     @extend .iconOk;
     @extend .iconBig;
     &:before{
-      float:right;
-      margin-top:7px;
-      margin-right:$space/2;
+//      float:right;
+      margin-top:0px;
+//      margin-right:$space/2;
+      display: block;
+      width: 100%;
+      text-align: right;
+      margin-right: 25px;
+      height: 27px;
+      padding-top: 7px;
+      position: relative;
+//      padding-right: 15px;
     }
   }
 
