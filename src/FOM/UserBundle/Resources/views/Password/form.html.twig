@@ -9,7 +9,8 @@
     <h2 class="contentTitle">{{ 'fom.user.password.form.caption' | trans}}</h2>
     <form action="{{ path('fom_user_password_request') }}" method="post" {{ form_enctype(form)}} autocomplete="off" novalidate="novalidate">
 
-      {% if form_errors(form) %}
+        <p class='labelText'>{{ 'fom.user.password.form.message' | trans }}</p>
+      {% if form_errors(form) | trim | length > 0 %}
         <div class="messageBox error">{{ form_errors(form) }}</div>
       {% endif %}
 
@@ -25,5 +26,5 @@
  <script type="text/javascript">
     var Mapbender = Mapbender || {};
     Mapbender.configuration = {elements:{}};
-  </script>      
+  </script>
 {% endblock %}

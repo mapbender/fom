@@ -5,10 +5,10 @@
 {% block content %}
 <h1>{{ 'fom.user.password.reset.caption' | trans}}</h1>
 <form action="{{ url('fom_user_password_password', {"token": app.request.get("token")}) }}" method="post" {{ form_enctype(form)}} autocomplete="off">
-    {% if form_errors(form) %}
-    <div>
-        {{ form_errors(form) }}
-    </div>
+    {% if form_errors(form) | length > 0 %}
+        <div>
+            {{ form_errors(form) }}
+        </div>
     {% endif %}
 
     {{ form_row(form._token) }}

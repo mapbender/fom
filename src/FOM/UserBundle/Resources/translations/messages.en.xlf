@@ -424,6 +424,10 @@
         <source>fom.user.password.reset.btn</source>
         <target>Reset password</target>
       </trans-unit>
+      <trans-unit id='manual1' resname="fom.user.password.form.message">
+        <source>fom.user.password.form.message</source>
+        <target>To reset your password please provide your username or your e-mail address.</target>
+      </trans-unit>
       <trans-unit id="bd9c4c31f46a10086b47386ddf5ab9cd" resname="fom.user.password.form.title">
         <source>fom.user.password.form.title</source>
         <target>Forgot password</target>
