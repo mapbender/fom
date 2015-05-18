@@ -7,10 +7,10 @@
   <div id="containerBaseData" class="container active containerBaseData">
     {{ form_label(form.title) }}
     {{ form_widget(form.title) }}
-    <div class="clearContainer"></div> 
+    <div class="clearContainer"></div>
     {{ form_label(form.description) }}
     {{ form_widget(form.description) }}
-    <div class="clearContainer"></div> 
+    <div class="clearContainer"></div>
   </div>
   <div id="containerUsers" class="container containerUsers">
 
@@ -25,7 +25,7 @@
         <thead>
           <tr class="doNotFilter">
             <th>Name</th>
-            <th class="description"><span id="selectedUsersGroups">{{group.users | length}}</span>{{ 'fom.user.group.container.users_of_selected' | trans ({'%users_count%': form.users|length }) }}</th>
+            <th class="description"><span id="selectedUsersGroups">{{group.users | length}}</span> {{ 'fom.user.group.container.users_of_selected' | trans ({'%users_count%': form.users|length }) }}</th>
           </tr>
         </thead>
         <tbody>

@@ -398,7 +398,7 @@
       </trans-unit>
       <trans-unit id="c64e6ae7261a99ed96d7754802424890" resname="fom.user.user.container.users_of_selected">
         <source>fom.user.user.container.users_of_selected</source>
-        <target>usuarios de %users_count% seleccionados</target>
+        <target>grupos de %users_count% seleccionados</target>
       </trans-unit>
       <trans-unit id="1b09066b0fb3977196f0d580f20217d2" resname="fom.user.user.container.no_goups_defined.">
         <source>fom.user.user.container.no_goups_defined.</source>
