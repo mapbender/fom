@@ -10,7 +10,7 @@
 
   <div id="containerBaseData" class="container active containerBaseData">
     {{ form_label(form.username) }}
-    {{ form_widget(form.username) }}
+    {{ form_widget(form.username, { 'disabled': (form.groups is not defined) }) }}
     <div class="clearContainer"></div>
     {{ form_label(form.email) }}
     {{ form_widget(form.email) }}

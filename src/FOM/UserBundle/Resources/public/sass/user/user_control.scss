@@ -62,6 +62,10 @@
     .input, .dropdown{min-width:250px;}
     textarea{height:150px;}
   }
+
+  .validationInput[disabled] {
+    background: #eeeeee;
+  }
 }
 .groupTabContainer .containerBaseData .labelInput{width:90px;}
 .userTabContainer{
