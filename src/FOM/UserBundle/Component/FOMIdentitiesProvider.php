@@ -54,19 +54,21 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
 
     public function getAllUsers(){
         // Settings for LDAP
-        $ldapHostname = $this->container->getParameter("ldap_host");
-        $ldapPort = $this->container->getParameter("ldap_port");
-        $ldapVersion = $this->container->getParameter("ldap_version");
-        $baseDn = $this->container->getParameter("ldap_user_base_dn");
-        $nameAttribute = $this->container->getParameter("ldap_user_name_attribute");
-        $filter = "(" . $nameAttribute . "=*)";
+        if($this->container->hasParameter('ldap_host')) {
+            $ldapHostname = $this->container->getParameter("ldap_host");
+            $ldapPort = $this->container->getParameter("ldap_port");
+            $ldapVersion = $this->container->getParameter("ldap_version");
+            $baseDn = $this->container->getParameter("ldap_user_base_dn");
+            $nameAttribute = $this->container->getParameter("ldap_user_name_attribute");
+            $filter = "(" . $nameAttribute . "=*)";
 
-        $connection = @ldap_connect($ldapHostname, $ldapPort);
-        ldap_set_option($connection, LDAP_OPT_PROTOCOL_VERSION, $ldapVersion);
+            $connection = @ldap_connect($ldapHostname, $ldapPort);
+            ldap_set_option($connection, LDAP_OPT_PROTOCOL_VERSION, $ldapVersion);
 
-        $ldapListRequest = ldap_list($connection, $baseDn, $filter); // or throw exeption('Unable to list. LdapError: ' . ldap_error($ldapConnection));
+            $ldapListRequest = ldap_list($connection, $baseDn, $filter); // or throw exeption('Unable to list. LdapError: ' . ldap_error($ldapConnection));
 
-        $ldapUserList = ldap_get_entries($connection, $ldapListRequest);
+            $ldapUserList = ldap_get_entries($connection, $ldapListRequest);
+        }
 
         // Settings for local user database
         $repo = $this->getDoctrine()->getRepository('FOMUserBundle:User');
@@ -74,12 +76,13 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
 
         $all = array();
 
-        // Add Users from LDAP
-
-        foreach($ldapUserList as $ldapUser) {
-            $user = new \stdClass;
-            $user->getUsername = $ldapUser[$nameAttribute][0];
-            $all[] = $user;
+        if($this->container->hasParameter('ldap_host')) {
+            // Add Users from LDAP
+            foreach($ldapUserList as $ldapUser) {
+                $user = new \stdClass;
+                $user->getUsername = $ldapUser[$nameAttribute][0];
+                $all[] = $user;
+            }
         }
         // Add Mapbenderusers from database
         foreach($users as $user) {

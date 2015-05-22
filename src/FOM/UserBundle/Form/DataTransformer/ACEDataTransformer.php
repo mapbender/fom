@@ -103,6 +103,10 @@ class ACEDataTransformer implements DataTransformerInterface
     }
     public function isLdapUser($username)
     {
+        if(!$this->container->hasParameter('ldap_host')) {
+            return false;
+        }
+
         $ldapHostname = $this->container->getParameter("ldap_host");
         $ldapPort = $this->container->getParameter("ldap_port");
         $ldapVersion = $this->container->getParameter("ldap_version");
