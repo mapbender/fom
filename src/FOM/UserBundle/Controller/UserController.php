@@ -247,6 +247,9 @@ class UserController extends Controller {
 
             $keepPassword = true;
         }
+        if(!array_key_exists('username', $userData)) {
+            $userData['username'] = $user->getUsername();
+        }
 
         $groupPermission = $securityContext
                 ->isGranted('EDIT', new ObjectIdentity('class','FOM\UserBundle\Entity\Group')) ||
