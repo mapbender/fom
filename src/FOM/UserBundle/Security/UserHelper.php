@@ -3,6 +3,9 @@
 namespace FOM\UserBundle\Security;
 
 use FOM\UserBundle\Entity\User;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 
 /**
  * Helper for user related stuff
@@ -58,5 +61,28 @@ class UserHelper
 
         return $salt;
     }
-}
 
+    /**
+     * Gives a user the right to edit himself.
+     */
+    public function giveOwnRights($user) {
+        $aclProvider = $this->container->get('security.acl.provider');
+        $maskBuilder = new MaskBuilder();
+
+        $usid = UserSecurityIdentity::fromAccount($user);
+        $uoid = ObjectIdentity::fromDomainObject($user);
+        foreach($this->container->getParameter("fom_user.user_own_permissions") as $permission) {
+            $maskBuilder->add($permission);
+        }
+        $umask = $maskBuilder->get();
+
+        try {
+            $acl = $aclProvider->findAcl($uoid);
+        } catch(\Exception $e) {
+            $acl = $aclProvider->createAcl($uoid);
+        }
+        $acl->insertObjectAce($usid, $umask);
+        $aclProvider->updateAcl($acl);
+    }
+
+}

@@ -110,6 +110,8 @@ class RegistrationController extends Controller
             $em->persist($user);
             $em->flush();
 
+            $helper->giveOwnRights($user);
+
             return $this->redirect($this->generateUrl('fom_user_registration_send'));
         }
 

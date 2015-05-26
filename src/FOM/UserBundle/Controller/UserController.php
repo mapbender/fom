@@ -157,23 +157,8 @@ class UserController extends Controller {
                 $em->flush();
 
                 // Make sure, the new user has VIEW & EDIT permissions
-                $aclProvider = $this->get('security.acl.provider');
-                $maskBuilder = new MaskBuilder();
+                $helper->giveOwnRights($user);
 
-                $usid = UserSecurityIdentity::fromAccount($user);
-                $uoid = ObjectIdentity::fromDomainObject($user);
-                foreach($this->container->getParameter("fom_user.user_own_permissions") as $permission) {
-                    $maskBuilder->add($permission);
-                }
-                $umask = $maskBuilder->get();
-
-                try {
-                    $acl = $aclProvider->findAcl($uoid);
-                } catch(\Exception $e) {
-                    $acl = $aclProvider->createAcl($uoid);
-                }
-                $acl->insertObjectAce($usid, $umask);
-                $aclProvider->updateAcl($acl);
                 $em->getConnection()->commit();
             } catch (\Exception $e) {
                 $em->getConnection()->rollback();
@@ -292,7 +277,7 @@ class UserController extends Controller {
                 $aclManager->setObjectACLFromForm($user, $form->get('acl'),
                     'object');
             }
-            
+
             $user->getProfile()->setUid($user);
             $em->flush();
 
