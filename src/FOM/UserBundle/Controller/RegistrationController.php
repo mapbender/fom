@@ -137,9 +137,9 @@ class RegistrationController extends Controller
         // Lookup token
         $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneByRegistrationToken($token);
         if(!$user) {
-            //@TODO: Get site email from configuration
+            $mail = $this->container->getParameter('fom_user.mail_from_address');
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
-                'site_email' => 'FOFO'));
+                'site_email' => $mail));
         }
 
         // Check token age

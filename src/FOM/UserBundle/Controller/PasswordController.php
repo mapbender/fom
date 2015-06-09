@@ -135,9 +135,9 @@ class PasswordController extends Controller
 
         $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneByResetToken($token);
         if(!$user) {
-            //@TODO: Get site email from configuration
+            $mail = $this->container->getParameter('fom_user.mail_from_address');
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
-                'site_email' => 'FOFO'));
+                'site_email' => $mail));
         }
 
         $this->setResetToken($user);
@@ -161,9 +161,9 @@ class PasswordController extends Controller
 
         $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneByResetToken($token);
         if(!$user) {
-            //@TODO: Get site email from configuration
+            $mail = $this->container->getParameter('fom_user.mail_from_address');
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
-                'site_email' => 'FOFO'));
+                'site_email' => $mail));
         }
 
         $max_token_age = $this->container->getParameter("fom_user.max_reset_time");
@@ -197,9 +197,9 @@ class PasswordController extends Controller
 
         $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneByResetToken($token);
         if(!$user) {
-            //@TODO: Get site email
+            $mail = $this->container->getParameter('fom_user.mail_from_address');
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
-                'site_email' => 'FOFO'));
+                'site_email' => $mail));
         }
 
         $max_token_age = $this->container->getParameter("fom_user.max_reset_time");
