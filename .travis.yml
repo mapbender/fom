@@ -15,7 +15,7 @@ before_script:
   - git submodule update --init --recursive
   - cd application
   - cp app/config/parameters.yml.dist app/config/parameters.yml
-  - composer update --dev
+  - composer update
   - rm -rf fom
   - ln -s ../../fom
   - sudo pip install selenium
