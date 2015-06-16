@@ -33,6 +33,7 @@ class UserProfileListener implements EventSubscriber
     {
         $metadata = $args->getClassMetadata();
         $user = 'FOM\UserBundle\Entity\User';
+        $basicProfile = 'FOM\UserBundle\Entity\BasicProfile';
         $profile = $this->container->getParameter('fom_user.profile_entity');
 
         if ($user == $metadata->getName()) {
@@ -52,7 +53,9 @@ class UserProfileListener implements EventSubscriber
             $uidColname = 'uid';
         }
 
-        if ($profile == $metadata->getName()) {
+        // need to add metadata for the basic profile, else doctrine
+        // will whine in many situations
+        if($profile == $metadata->getName() || $basicProfile == $metadata->getName()) {
             $metadata->setIdentifier(array('uid'));
             $metadata->setIdGenerator(new AssignedGenerator());
             $metadata->mapOneToOne(array(
