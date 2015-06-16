@@ -5,6 +5,7 @@ namespace FOM\UserBundle\EventListener;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Id\AssignedGenerator;
+use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Platforms\OraclePlatform;
 
 /**
@@ -34,7 +35,7 @@ class UserProfileListener implements EventSubscriber
         $user = 'FOM\UserBundle\Entity\User';
         $profile = $this->container->getParameter('fom_user.profile_entity');
 
-        if($user == $metadata->getName()) {
+        if ($user == $metadata->getName()) {
             $metadata->mapOneToOne(array(
                 'fieldName' => 'profile',
                 'targetEntity' => $profile,
@@ -42,15 +43,16 @@ class UserProfileListener implements EventSubscriber
                 'cascade' => array('persist'),
             ));
         }
+        $connection = $args->getEntityManager()->getConnection();
+        $platform = $connection->getDatabasePlatform();
+        $uidColname = $connection->quoteIdentifier('uid');
+        if ($platform instanceof OraclePlatform) {
+            $uidColname = strtoupper($uidColname);
+        } elseif ($platform instanceof MySqlPlatform) {
+            $uidColname = 'uid';
+        }
 
-		$connection = $args->getEntityManager()->getConnection();
-		$platform = $connection->getDatabasePlatform();
-		$uidColname = $connection->quoteIdentifier('uid');
-		if($platform instanceof OraclePlatform) {
-			$uidColname = strtoupper($uidColname);
-		}
-
-        if($profile == $metadata->getName()) {
+        if ($profile == $metadata->getName()) {
             $metadata->setIdentifier(array('uid'));
             $metadata->setIdGenerator(new AssignedGenerator());
             $metadata->mapOneToOne(array(
