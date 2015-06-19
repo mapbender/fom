@@ -23,7 +23,7 @@ class AclManager
     {
         $this->aclProvider = $aclProvider;
     }
-     
+
     /**
      * Update ACEs from a form of class FOM\UserBundle\Form\Type\ACLType
      * (commonly 'acl')
@@ -64,7 +64,6 @@ class AclManager
         foreach(array_reverse(array_keys($oldAces)) as $idx) {
             $acl->$deleteMethod(intval($idx));
         }
-        
         $this->aclProvider->updateAcl($acl);
         // Add new ACEs
         foreach(array_reverse($aces) as $idx => $ace) {
