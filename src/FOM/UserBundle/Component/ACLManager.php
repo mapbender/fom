@@ -65,6 +65,8 @@ class AclManager
             $acl->$deleteMethod(intval($idx));
         }
 
+        $this->aclProvider->updateAcl($acl);
+
         // Add new ACEs
         foreach(array_reverse($aces) as $idx => $ace) {
             // If no mask is given, we might as well not insert the ACE
