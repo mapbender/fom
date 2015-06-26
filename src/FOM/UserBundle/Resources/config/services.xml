@@ -24,7 +24,7 @@
             <tag name="form.type" alias="ace" />
         </service>
 
-        <service id="fom.acl.manager" class="FOM\UserBundle\Component\ACLManager">
+        <service id="fom.acl.manager" class="FOM\UserBundle\Component\AclManager">
             <argument type="service" id="security.acl.provider" />
         </service>
 
