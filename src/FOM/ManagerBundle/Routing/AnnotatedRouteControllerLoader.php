@@ -33,8 +33,7 @@ class AnnotatedRouteControllerLoader extends BaseLoader
     {
         parent::configureRoute($route, $class, $method, $annot);
         if(is_a($annot, 'FOM\ManagerBundle\Configuration\Route')) {
-            $route->setPattern($this->prefix . $route->getPattern());
+            $route->setPath($this->prefix . $route->getPath());
         }
     }
 }
-
