@@ -321,6 +321,10 @@ class UserController extends Controller {
         if(false === $securityContext->isGranted('DELETE', $user)) {
             throw new AccessDeniedException();
         }
+		
+		$aclProvider = $this->get('security.acl.provider');
+        $oid = ObjectIdentity::fromDomainObject($user);
+        $aclProvider->deleteAcl($oid);
 
         $this->addProfileForm($user);
         $profile = $user->getProfile();
