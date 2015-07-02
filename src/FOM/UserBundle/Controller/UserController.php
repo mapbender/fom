@@ -317,15 +317,15 @@ class UserController extends Controller {
             throw new NotFoundHttpException('The root user can not be deleted');
         }
 
-        $aclProvider = $this->get('security.acl.provider');
-        $oid = ObjectIdentity::fromDomainObject($user);
-        $aclProvider->deleteAcl($oid);
-
         // ACL access check
         $securityContext = $this->get('security.context');
         if(false === $securityContext->isGranted('DELETE', $user)) {
             throw new AccessDeniedException();
         }
+		
+		$aclProvider = $this->get('security.acl.provider');
+        $oid = ObjectIdentity::fromDomainObject($user);
+        $aclProvider->deleteAcl($oid);
 
         $this->addProfileForm($user);
         $profile = $user->getProfile();
