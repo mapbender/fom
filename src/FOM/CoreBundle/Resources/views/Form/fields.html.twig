@@ -351,7 +351,6 @@
   {% spaceless %}
     <div {% if 'collection' in form.parent.vars['block_prefixes'] %}class="collectionItem"{% endif %}>
       {{ form_label(form) }}
-      {{ form_errors(form) }}
       {{ form_widget(form) }}
       {% if 'allow_delete' in form.parent.vars | keys and form.parent.vars['allow_delete'] %}
       <a href="#delete" class="collectionRemove iconSmall iconRemove"></a>
@@ -364,9 +363,6 @@
   {{ form_widget(form) }}
 {% endblock hidden_row %}
 
-
-
-
 {# Misc #}
 
 {% block form_enctype %}
@@ -374,22 +370,6 @@
     {% if multipart %}enctype="multipart/form-data"{% endif %}
   {% endspaceless %}
 {% endblock form_enctype %}
-
-{% block form_errors %}
-  {% spaceless %}
-    {% if errors|length > 0 %}
-      <ul>
-        {% for error in errors %}
-        <li>{{
-          error.messagePluralization is null
-          ? error.messageTemplate|trans(error.messageParameters, 'validators')
-          : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
-        }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  {% endspaceless %}
-{% endblock form_errors %}
 
 {% block form_rest %}
   {% spaceless %}

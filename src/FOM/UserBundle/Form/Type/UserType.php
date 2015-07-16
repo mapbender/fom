@@ -63,7 +63,8 @@ class UserType extends AbstractType
             'requirePassword' => true,
             'profile_formtype' => null,
             'group_permission' => false,
-            'acl_permission' => false
+            'acl_permission' => false,
+            'cascade_validation' => true
         ));
     }
 }
