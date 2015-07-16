@@ -177,6 +177,8 @@ class UserController extends Controller {
                 $this->generateUrl('fom_user_user_index'));
         }
 
+        $this->get('session')->setFlash('error', 'There field validation errors.');
+
         return array(
             'user' => $user,
             'form' => $form->createView(),
@@ -322,7 +324,7 @@ class UserController extends Controller {
         if(false === $securityContext->isGranted('DELETE', $user)) {
             throw new AccessDeniedException();
         }
-		
+
 		$aclProvider = $this->get('security.acl.provider');
         $oid = ObjectIdentity::fromDomainObject($user);
         $aclProvider->deleteAcl($oid);
