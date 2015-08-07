@@ -8,7 +8,8 @@
     {{ form_label(form.title) }}
     {{ form_widget(form.title) }}
     <div class="clearContainer"></div>
-    {{ form_label(form.description) }}
+{#    {{ form_label(form.description) }}#}
+    <label class="left labelInput" for="{{ form.description.vars.id }}">{{"fom.user.user.container.description" | trans}}:</label>
     {{ form_widget(form.description) }}
     <div class="clearContainer"></div>
   </div>

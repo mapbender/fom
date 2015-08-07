@@ -9,7 +9,8 @@
   </ul>
 
   <div id="containerBaseData" class="container active containerBaseData">
-    {{ form_label(form.username) }}
+    {#{{ form_label(form.username) }}#}
+    <label class="left labelInput" for="{{ form.username.vars.id }}">{{"fom.user.user.container.username" | trans}}:<span class="required">*</span></label>
     {{ form_widget(form.username, { 'disabled': (form.groups is not defined) }) }}
     <div class="clearContainer"></div>
     {{ form_label(form.email) }}

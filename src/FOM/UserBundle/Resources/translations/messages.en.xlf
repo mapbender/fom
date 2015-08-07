@@ -4,7 +4,7 @@
     <body>
       <trans-unit id="ef2802b65627d5d062664fbf8200674f" resname="fom.user.registration.email_body_html">
         <source>fom.user.registration.email_body_html</source>
-        <target>&lt;p&gt;Hallo %user_username%,&lt;/p&gt;&lt;p&gt;You have just recently registered.To conclude your registration, please, click please &lt;a href="%url%"&gt;here&lt;/a&gt;.&lt;/p&gt;</target>
+        <target><![CDATA[<p>Hallo %user_username%,</p><p>You have just recently registered.To conclude your registration, please, click please <a href="%url%">here</a>.</p>]]></target>
       </trans-unit>
       <trans-unit id="16aedf1aba17d3e32708607f6574d3af" resname="fom.user.registration.done.title">
         <source>fom.user.registration.done.title</source>
@@ -389,8 +389,8 @@
       </trans-unit>
       <trans-unit id="c2dd3a91aa1dbb6d29654af01b23eebf" resname="fom.user.password.email_body_html">
         <source>fom.user.password.email_body_html</source>
-        <target>&amp;lt;p&amp;gt;Hello %user_username%,&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;You have requested a new password.
-&amp;lt;br /&amp;gt;Click please &amp;lt;a href="%url%"&amp;gt;here&amp;lt;/a&amp;gt;.</target>
+        <target><![CDATA[&lt;p&gt;Hello %user_username%,&lt;/p&gt;&lt;p&gt;You have requested a new password.
+&lt;br /&gt;Click please &lt;a href="%url%"&gt;here&lt;/a&gt;.]]></target>
       </trans-unit>
       <trans-unit id="d160ecbaff18ffa6372d34ae92839db9" resname="fom.user.password.request_error_no_user">
         <source>fom.user.password.request_error_no_user</source>
@@ -424,7 +424,7 @@
         <source>fom.user.password.reset.btn</source>
         <target>Reset password</target>
       </trans-unit>
-      <trans-unit id='manual1' resname="fom.user.password.form.message">
+      <trans-unit id="2181005c35fad81e73d1b8d77e80d4b4" resname="fom.user.password.form.message">
         <source>fom.user.password.form.message</source>
         <target>To reset your password please provide your username or your e-mail address.</target>
       </trans-unit>
@@ -519,6 +519,58 @@
       <trans-unit id="94f12c2a219f99cc1e5bcd8eb42f3315" resname="fom.user.userbundle.roles.user_admin">
         <source>fom.user.userbundle.roles.user_admin</source>
         <target>Can administrate users and groups</target>
+      </trans-unit>
+      <trans-unit id="346eeb8b7857e2d0e9a551fff9cfb4a6" resname="fom.user.user.container.username">
+        <source>fom.user.user.container.username</source>
+        <target>Username</target>
+      </trans-unit>
+      <trans-unit id="32b138b1f3a0106f404ef74cbe959a20" resname="IS_AUTHENTICATED_ANONYMOUSLY">
+        <source>IS_AUTHENTICATED_ANONYMOUSLY</source>
+        <target>IS_AUTHENTICATED_ANONYMOUSLY</target>
+      </trans-unit>
+      <trans-unit id="d6a05695456b81902881934656adf0d0" resname="fom.user.user.container.description">
+        <source>fom.user.user.container.description</source>
+        <target>Description</target>
+      </trans-unit>
+      <trans-unit id="3ddbd3270e5b6994817c38bf306275a8" resname="form.profile.basic.firstname">
+        <source>form.profile.basic.firstname</source>
+        <target>First name</target>
+      </trans-unit>
+      <trans-unit id="f37518fa4e8faa61adf98a8d69e75b03" resname="form.profile.basic.lastName">
+        <source>form.profile.basic.lastName</source>
+        <target>Last name</target>
+      </trans-unit>
+      <trans-unit id="cd866fed5a8ff89dca1904c181f8d0e7" resname="form.profile.basic.notes">
+        <source>form.profile.basic.notes</source>
+        <target>Notes</target>
+      </trans-unit>
+      <trans-unit id="1bff66268e8c97a39c936d5ec9fb8915" resname="form.profile.basic.phone">
+        <source>form.profile.basic.phone</source>
+        <target>Phone</target>
+      </trans-unit>
+      <trans-unit id="ddb3f56896e705f614a170a4005c4204" resname="form.profile.basic.organizationName">
+        <source>form.profile.basic.organizationName</source>
+        <target>Organization</target>
+      </trans-unit>
+      <trans-unit id="5a48689e9bf6c94ba5d1d824a2ec302c" resname="form.profile.basic.organizationRole">
+        <source>form.profile.basic.organizationRole</source>
+        <target>Role</target>
+      </trans-unit>
+      <trans-unit id="36b7bfc52a53c31a34f9f81124060b07" resname="form.profile.basic.street">
+        <source>form.profile.basic.street</source>
+        <target>Street</target>
+      </trans-unit>
+      <trans-unit id="df0a1aee2e1a39b00bed97682418a831" resname="form.profile.basic.zipCode">
+        <source>form.profile.basic.zipCode</source>
+        <target>Zip code</target>
+      </trans-unit>
+      <trans-unit id="50d2f7f1517293e98b1e680e7de083be" resname="form.profile.basic.city">
+        <source>form.profile.basic.city</source>
+        <target>City</target>
+      </trans-unit>
+      <trans-unit id="17194ebbd13db2a85cdd9df10b041f5b" resname="form.profile.basic.country">
+        <source>form.profile.basic.country</source>
+        <target>Country</target>
       </trans-unit>
     </body>
   </file>
