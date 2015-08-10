@@ -17,8 +17,7 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', 'text', array(
-                'label' => 'Username'))
+            ->add('username', 'text')
             ->add('email', 'email', array(
                 'label' => 'E-Mail'))
             ->add('password', 'repeated', array(
@@ -28,11 +27,11 @@ class UserType extends AbstractType
                 'options' => array(
                     'label' => 'Password')));
 
-        if(true === $options['group_permission']) {
+        if (true === $options['group_permission']) {
             $builder
                 ->add('groups', 'entity', array(
                     'class' =>  'FOMUserBundle:Group',
-                    'query_builder' => function(EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) {
                         $qb = $er->createQueryBuilder('r')
                             ->add('orderBy', 'r.title ASC');
                         return $qb;
@@ -43,7 +42,7 @@ class UserType extends AbstractType
                     'label' => 'Groups'));
         }
 
-        if(true === $options['acl_permission']) {
+        if (true === $options['acl_permission']) {
             $builder
                 ->add('acl', 'acl', array(
                     'mapped' => false,
@@ -52,7 +51,7 @@ class UserType extends AbstractType
                     'standard_anon_access' => false));
         }
 
-        if($options['profile_formtype']) {
+        if ($options['profile_formtype']) {
             $formType = $options['profile_formtype'];
             $builder->add('profile', new $formType());
         }

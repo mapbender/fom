@@ -7,7 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use FOM\UserBundle\Entity\BasicProfile;
 
-
 class BasicProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -16,37 +15,27 @@ class BasicProfileType extends AbstractType
 
         $builder
             ->add('firstName', 'text', array(
-                'required' => false,
-                'label' => 'First name'))
+                'required' => false))
             ->add('lastName', 'text', array(
-                'required' => false,
-                'label' => 'Last name'))
+                'required' => false))
             ->add('notes', 'text', array(
-                'required' => false,
-                'label' => 'Notes'))
+                'required' => false))
             ->add('phone', 'text', array(
-                'required' => false,
-                'label' => 'Phone'))
+                'required' => false))
             ->add('street', 'text', array(
-                'required' => false,
-                'label' => 'Street'))
+                'required' => false))
             ->add('zipCode', 'text', array(
-                'required' => false,
-                'label' => 'Zip code'))
+                'required' => false))
             ->add('city', 'text', array(
-                'required' => false,
-                'label' => 'City'))
+                'required' => false))
             ->add('country', 'text', array(
-                'required' => false,
-                'label' => 'Country'))
+                'required' => false))
             ->add('organizationName', 'text', array(
-                'required' => false,
-                'label' => 'Organization'))
+                'required' => false))
             ->add('organizationRole', 'choice', array(
                 'choices' => $roles,
                 'empty_value' => 'Choose an option...',
-                'required' => false,
-                'label' => 'Role'));
+                'required' => false));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
