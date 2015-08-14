@@ -29,13 +29,7 @@
     <form action="{{ path('fom_user_user_create') }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} autocomplete="off" novalidate="novalidate">
   {% endif %}
 
-    {% if form_errors(form) %}
-    <div>
-      {{ form_errors(form) }}
-    </div>
-    {% endif %}
-
-    {% include 'FOMUserBundle:User:container.html.twig' %}
+   {% include 'FOMUserBundle:User:container.html.twig' %}
 
     {{ form_row(form._token) }}
 

@@ -40,7 +40,7 @@
           <td>
             <ul>
               {% for group in user.groups %}
-              <li><a class="linkButton" href="{{ path('fom_user_group_edit', { 'id': group.id }) }}" title="{{ 'fom.user.user.index.edit_group' | trans }} {{group.title}}">{{ group.title }}</a></li>
+              <li class='doNotFilter'><a class="linkButton" href="{{ path('fom_user_group_edit', { 'id': group.id }) }}" title="{{ 'fom.user.user.index.edit_group' | trans }} {{group.title}}">{{ group.title }}</a></li>
               {% endfor %}
             </ul>
           </td>
