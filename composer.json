@@ -6,8 +6,10 @@
     "type": "library",
     "license": "MIT",
     "authors": [
+        {"name": "Andreas Schmitz"},
         {"name": "Andriy Oblivansev"},
         {"name": "Paul Schmidt"},
+        {"name": "Stefan Winkelmann"}
     ],
     "require": {
         "php": ">=5.3.0",
