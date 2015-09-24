@@ -2,7 +2,6 @@
 
 namespace FOM\UserBundle\Controller;
 
-
 use FOM\ManagerBundle\Configuration\Route as ManagerRoute;
 use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\UserType;
@@ -20,13 +19,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
-
 /**
  * User management controller
  *
  * @author Christian Wygoda
  */
-class UserController extends Controller {
+class UserController extends Controller
+{
     /**
      * Renders user list.
      *
@@ -34,7 +33,8 @@ class UserController extends Controller {
      * @Method({ "GET" })
      * @Template
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $securityContext = $this->get('security.context');
         $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
 
@@ -42,8 +42,8 @@ class UserController extends Controller {
         $users = $query->getResult();
         $allowed_users = array();
         // ACL access check
-        foreach($users as $index => $user) {
-            if($securityContext->isGranted('VIEW', $user)) {
+        foreach ($users as $index => $user) {
+            if ($securityContext->isGranted('VIEW', $user)) {
                 $allowed_users[] = $user;
             }
         }
@@ -58,19 +58,19 @@ class UserController extends Controller {
      * @Method({ "GET" })
      * @Template("FOMUserBundle:User:form.html.twig")
      */
-    public function newAction() {
+    public function newAction()
+    {
         $user = new User();
-
         // ACL access check
         $securityContext = $this->get('security.context');
         $oid = new ObjectIdentity('class', get_class($user));
-        if(false === $securityContext->isGranted('CREATE', $oid)) {
+        if (false === $securityContext->isGranted('CREATE', $oid)) {
             throw new AccessDeniedException();
         }
 
-        $groupPermission = $securityContext
-                ->isGranted('EDIT', new ObjectIdentity('class','FOM\UserBundle\Entity\Group')) ||
-                $securityContext->isGranted('OWNER', $oid);
+        $groupPermission =
+            $securityContext->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
+            || $securityContext->isGranted('OWNER', $oid);
 
         $profile = $this->addProfileForm($user);
         $form = $this->createForm(new UserType(), $user, array(
@@ -93,19 +93,20 @@ class UserController extends Controller {
      * @Method({ "POST" })
      * @Template("FOMUserBundle:User:form.html.twig")
      */
-    public function createAction() {
+    public function createAction()
+    {
         $user = new User();
 
         // ACL access check
         $securityContext = $this->get('security.context');
         $oid = new ObjectIdentity('class', get_class($user));
-        if(false === $securityContext->isGranted('CREATE', $oid)) {
+        if (false === $securityContext->isGranted('CREATE', $oid)) {
             throw new AccessDeniedException();
         }
 
-        $groupPermission = $securityContext
-                ->isGranted('EDIT', new ObjectIdentity('class','FOM\UserBundle\Entity\Group')) ||
-                $securityContext->isGranted('OWNER', $oid);
+        $groupPermission =
+            $securityContext->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
+            || $securityContext->isGranted('OWNER', $oid);
 
 
         $profile = $this->addProfileForm($user);
@@ -117,7 +118,7 @@ class UserController extends Controller {
 
         $form->bind($this->get('request'));
 
-        if($form->isValid()) {
+        if ($form->isValid()) {
             // Set encrypted password and create new salt
             // The unencrypted password is already set on the user!
             $helper = new UserHelper($this->container);
@@ -137,21 +138,17 @@ class UserController extends Controller {
 
                 // SQLite needs a flush here
                 $em->flush();
-
                 // Check and persists profile if exists
-                if($profile) {
+                if ($profile) {
                     $profile->setUid($user);
                     $em->persist($profile);
                 }
-
                 $em->flush();
-
                 $em->getConnection()->commit();
 
-                if($form->has('acl')) {
+                if ($form->has('acl')) {
                     $aclManager = $this->get('fom.acl.manager');
-                    $aclManager->setObjectACLFromForm($user, $form->get('acl'),
-                                                      'object');
+                    $aclManager->setObjectACLFromForm($user, $form->get('acl'), 'object');
                 }
 
                 $em->flush();
@@ -165,14 +162,12 @@ class UserController extends Controller {
                 throw $e;
             }
 
-            $this->get('session')->getFlashBag()->set('success',
-                'The user has been saved.');
+            $this->get('session')->getFlashBag()->set('success', 'The user has been saved.');
 
-            return $this->redirect(
-                $this->generateUrl('fom_user_user_index'));
+            return $this->redirect($this->generateUrl('fom_user_user_index'));
         }
 
-        $this->get('session')->setFlash('error', 'There field validation errors.');
+        $this->get('session')->getFlashBag()->set('error', 'Your application has been saved.');
 
         return array(
             'user' => $user,
@@ -188,21 +183,22 @@ class UserController extends Controller {
      * @Method({ "GET" })
      * @Template("FOMUserBundle:User:form.html.twig")
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->find($id);
-        if($user === null) {
+        if ($user === null) {
             throw new NotFoundHttpException('The user does not exist');
         }
 
         // ACL access check
         $securityContext = $this->get('security.context');
-        if(false === $securityContext->isGranted('EDIT', $user)) {
+        if (false === $securityContext->isGranted('EDIT', $user)) {
             throw new AccessDeniedException();
         }
 
-        $groupPermission = $securityContext
-                ->isGranted('EDIT', new ObjectIdentity('class','FOM\UserBundle\Entity\Group')) ||
-                $securityContext->isGranted('OWNER', $user);
+        $groupPermission =
+            $securityContext->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
+            || $securityContext->isGranted('OWNER', $user);
 
         $profile = $this->addProfileForm($user);
         $form = $this->createForm(new UserType(), $user, array(
@@ -227,35 +223,36 @@ class UserController extends Controller {
      * @Method({ "POST" })
      * @Template("FOMUserBundle:User:form.html.twig")
      */
-    public function updateAction($id) {
+    public function updateAction($id)
+    {
         $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->find($id);
-        if($user === null) {
+        if ($user === null) {
             throw new NotFoundHttpException('The user does not exist');
         }
 
         // ACL access check
         $securityContext = $this->get('security.context');
-        if(false === $securityContext->isGranted('EDIT', $user)) {
+        if (false === $securityContext->isGranted('EDIT', $user)) {
             throw new AccessDeniedException();
         }
         // If no password is given, we'll recycle the old one
         $request = $this->get('request');
         $userData = $request->get('user');
         $keepPassword = false;
-        if($userData['password']['first'] === '' && $userData['password']['second'] === '') {
+        if ($userData['password']['first'] === '' && $userData['password']['second'] === '') {
             $userData['password'] = array(
                 'first' => $user->getPassword(),
                 'second' => $user->getPassword());
 
             $keepPassword = true;
         }
-        if(!array_key_exists('username', $userData)) {
+        if (!array_key_exists('username', $userData)) {
             $userData['username'] = $user->getUsername();
         }
 
-        $groupPermission = $securityContext
-                ->isGranted('EDIT', new ObjectIdentity('class','FOM\UserBundle\Entity\Group')) ||
-                $securityContext->isGranted('OWNER', $user);
+        $groupPermission =
+            $securityContext->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
+            || $securityContext->isGranted('OWNER', $user);
 
         $profile = $this->addProfileForm($user);
         $form = $this->createForm(new UserType(), $user, array(
@@ -266,8 +263,8 @@ class UserController extends Controller {
         ));
         $form->bind($userData);
 
-        if($form->isValid()) {
-            if(!$keepPassword) {
+        if ($form->isValid()) {
+            if (!$keepPassword) {
                 // Set encrypted password and create new salt
                 // The unencrypted password is already set on the user!
                 $helper = new UserHelper($this->container);
@@ -277,10 +274,9 @@ class UserController extends Controller {
             $em = $this->getDoctrine()->getManager();
 
             // This is the same check as abote in createForm for acl_permission
-            if($securityContext->isGranted('OWNER', $user)) {
+            if ($securityContext->isGranted('OWNER', $user)) {
                 $aclManager = $this->get('fom.acl.manager');
-                $aclManager->setObjectACLFromForm($user, $form->get('acl'),
-                    'object');
+                $aclManager->setObjectACLFromForm($user, $form->get('acl'), 'object');
             }
 
             $user->getProfile()->setUid($user);
@@ -307,24 +303,22 @@ class UserController extends Controller {
      *
      * @todo : Delete ACEs for given user
      */
-    public function deleteAction($id) {
-        $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')
-            ->find($id);
-
-        if($user === null) {
+    public function deleteAction($id)
+    {
+        $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->find($id);
+        if ($user === null) {
             throw new NotFoundHttpException('The user does not exist');
         }
-        if($user->getId() === 1) {
+        if ($user->getId() === 1) {
             throw new NotFoundHttpException('The root user can not be deleted');
         }
-
         // ACL access check
         $securityContext = $this->get('security.context');
-        if(false === $securityContext->isGranted('DELETE', $user)) {
+        if (false === $securityContext->isGranted('DELETE', $user)) {
             throw new AccessDeniedException();
         }
 
-		$aclProvider = $this->get('security.acl.provider');
+	$aclProvider = $this->get('security.acl.provider');
         $oid = ObjectIdentity::fromDomainObject($user);
         $aclProvider->deleteAcl($oid);
 
@@ -341,18 +335,16 @@ class UserController extends Controller {
             $aclProvider->deleteAcl($oid);
 
             $em->remove($user);
-            if($user->getProfile()) {
+            if ($user->getProfile()) {
                 $em->remove($user->getProfile());
             }
             $em->flush();
             $em->getConnection()->commit();
 
-            $this->get('session')->getFlashBag()->set('success',
-                'The user has been deleted.');
-        } catch(Exception $e) {
+            $this->get('session')->getFlashBag()->set('success', 'The user has been deleted.');
+        } catch (Exception $e) {
             $em->getConnection()->rollback();
-            $this->get('session')->getFlashBag()->set('error',
-                'The user couldn\'t be deleted.');
+            $this->get('session')->getFlashBag()->set('error', 'The user couldn\'t be deleted.');
         }
         return new Response();
     }
