@@ -170,7 +170,7 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('fom_user_user_index'));
         }
 
-        $this->get('session')->getFlashBag()->set('error', 'There field validation errors.');
+        $this->get('session')->getFlashBag()->set('error', 'There are field validation errors.');
 
         return array(
             'user'             => $user,
