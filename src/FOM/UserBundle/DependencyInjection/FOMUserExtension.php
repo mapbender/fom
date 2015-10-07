@@ -30,6 +30,11 @@ class FOMUserExtension extends Extension {
         $container->setParameter('fom_user.use_sspi', $config['use_sspi']);
         $container->setParameter('fom_user.trust_sspi', $config['trust_sspi']);
 
+        $container->setParameter("fom_user.auto_create_log_table", $config["auto_create_log_table"]);
+        $container->setParameter("fom_user.login_check_log_time", $config["login_check_log_time"]);
+        $container->setParameter("fom_user.login_attempts_before_delay", $config["login_attempts_before_delay"]);
+        $container->setParameter("fom_user.login_delay_after_fail", $config["login_delay_after_fail"]);
+
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('security.xml');
         $loader->load('services.xml');

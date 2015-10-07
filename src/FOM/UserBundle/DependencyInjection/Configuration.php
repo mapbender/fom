@@ -19,6 +19,18 @@ class Configuration implements ConfigurationInterface {
 
         $rootNode
             ->children()
+                ->scalarNode('auto_create_log_table')
+                    ->defaultTrue()
+                ->end()
+                ->scalarNode('login_check_log_time')
+                    ->defaultValue("-5 minutes")
+                ->end()
+                ->scalarNode('login_attempts_before_delay')
+                    ->defaultValue(3)
+                ->end()
+                ->scalarNode('login_delay_after_fail')
+                    ->defaultValue(2)
+                ->end()
                 ->scalarNode('selfregister')
                     ->defaultFalse()
                 ->end()

@@ -1,12 +1,7 @@
 <?php
-
-/**
- * TODO: Validation
- * TODO: Basic user data
- * TODO: User profiles
- */
-
 namespace FOM\UserBundle\Entity;
+
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -29,8 +24,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("username")
  * @UniqueEntity("email")
  * @ORM\Table(name="fom_user")
+ *
+ * TODO: Validation
+ * TODO: Basic user data
+ * TODO: User profiles
  */
-class User implements AdvancedUserInterface {
+class User implements AdvancedUserInterface
+{
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -65,38 +65,24 @@ class User implements AdvancedUserInterface {
     protected $salt;
 
     /**
-     *
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $registrationTime;
 
     /**
-     *
      * @ORM\Column(type="string", nullable=true, length=50)
      */
     protected $registrationToken;
 
     /**
-     *
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $resetTime;
 
     /**
-     *
      * @ORM\Column(type="string", nullable=true, length=50)
      */
     protected $resetToken;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    protected $loginFailed;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected $loginFailCount;
 
     /**
      * @ORM\ManyToMany(targetEntity="Group", inversedBy="users")
@@ -109,7 +95,11 @@ class User implements AdvancedUserInterface {
      */
     protected $profile;
 
-    public function __construct() {
+    /**
+     *  Constructor
+     */
+    public function __construct()
+    {
         $this->groups = new ArrayCollection();
     }
 
@@ -118,7 +108,8 @@ class User implements AdvancedUserInterface {
      *
      * @param integer $id
      */
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
@@ -127,7 +118,8 @@ class User implements AdvancedUserInterface {
      *
      * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -135,8 +127,10 @@ class User implements AdvancedUserInterface {
      * Set username
      *
      * @param string $username
+     * @return $this
      */
-    public function setUsername($username) {
+    public function setUsername($username)
+    {
         $this->username = $username;
         return $this;
     }
@@ -146,7 +140,8 @@ class User implements AdvancedUserInterface {
      *
      * @return string
      */
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->username;
     }
 
@@ -154,8 +149,10 @@ class User implements AdvancedUserInterface {
      * Set email
      *
      * @param string $email
+     * @return $this
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
         return $this;
     }
@@ -165,7 +162,8 @@ class User implements AdvancedUserInterface {
      *
      * @return string
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
@@ -173,8 +171,10 @@ class User implements AdvancedUserInterface {
      * Set password
      *
      * @param string $password
+     * @return $this
      */
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->password = $password;
         return $this;
     }
@@ -184,7 +184,8 @@ class User implements AdvancedUserInterface {
      *
      * @return string
      */
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
@@ -193,7 +194,8 @@ class User implements AdvancedUserInterface {
      *
      * @param string $salt
      */
-    public function setSalt($salt) {
+    public function setSalt($salt)
+    {
         $this->salt = $salt;
     }
 
@@ -201,15 +203,17 @@ class User implements AdvancedUserInterface {
      * Get salt
      *
      * @param string
+     * @return null|string
      */
-    public function getSalt() {
+    public function getSalt()
+    {
         return $this->salt;
     }
 
     /**
      * Set registrationTime
      *
-     * @param text $registrationTime
+     * @param string $registrationTime
      */
     public function setRegistrationTime($registrationTime)
     {
@@ -219,7 +223,7 @@ class User implements AdvancedUserInterface {
     /**
      * Get registrationTime
      *
-     * @return text
+     * @return string
      */
     public function getRegistrationTime()
     {
@@ -229,7 +233,7 @@ class User implements AdvancedUserInterface {
     /**
      * Set registrationToken
      *
-     * @param text $registrationToken
+     * @param string $registrationToken
      */
     public function setRegistrationToken($registrationToken)
     {
@@ -249,7 +253,7 @@ class User implements AdvancedUserInterface {
     /**
      * Set resetTime
      *
-     * @param text $resetTime
+     * @param string $resetTime
      */
     public function setResetTime($resetTime)
     {
@@ -259,7 +263,7 @@ class User implements AdvancedUserInterface {
     /**
      * Get resetTime
      *
-     * @return text
+     * @return string
      */
     public function getResetTime()
     {
@@ -269,7 +273,7 @@ class User implements AdvancedUserInterface {
     /**
      * Set resetToken
      *
-     * @param text $resetToken
+     * @param string $resetToken
      */
     public function setResetToken($resetToken)
     {
@@ -289,9 +293,11 @@ class User implements AdvancedUserInterface {
     /**
      * Add groups
      *
-     * @param FOM\UserBundle\Entity\Group $groups
+     * @param Group $group
+     * @return $this
      */
-    public function addGroups(Group $group) {
+    public function addGroups(Group $group)
+    {
         $this->groups[] = $group;
         return $this;
     }
@@ -299,9 +305,10 @@ class User implements AdvancedUserInterface {
     /**
      * Get groups
      *
-     * @return Doctrine\Common\Collections\Collection
+     * @return Collection
      */
-    public function getGroups() {
+    public function getGroups()
+    {
         return $this->groups;
     }
 
@@ -310,9 +317,10 @@ class User implements AdvancedUserInterface {
      *
      * @return array
      */
-    public function getRoles() {
+    public function getRoles()
+    {
         $roles = array();
-        foreach($this->groups as $group) {
+        foreach ($this->groups as $group) {
             $roles[] = $group->getAsRole();
         }
         $roles[] = 'ROLE_USER';
@@ -322,7 +330,8 @@ class User implements AdvancedUserInterface {
     /**
      * Erase sensitive data like plain password. Don't fiddle with persisted data in here!
      */
-    public function eraseCredentials() {
+    public function eraseCredentials()
+    {
     }
 
     /**
@@ -332,58 +341,39 @@ class User implements AdvancedUserInterface {
      * username property. If you'r needs differ, use a subclass.
      *
      * @param UserInterface $user The user to compare
+     * @return bool
      */
-    public function equals(UserInterface $user) {
+    public function equals(UserInterface $user)
+    {
         return (get_class() === get_class($user)
             && $this->getUsername() === $user->getUsername());
     }
 
+    /**
+     * @return bool
+     */
     public function isAccountNonExpired()
     {
-        if($this->profile && method_exists($this->profile, 'isAccountNonExpired')) {
+        if ($this->profile && method_exists($this->profile, 'isAccountNonExpired')) {
             return $this->profile->isAccountNonExpired();
         }
         return true;
     }
 
     /**
-     * Upon failed logins, the account will be locked for a certain time.
-     * The lock duration grows exponentially (2s^(n-1)) to divert brute
-     * force attacks while still allowing to log in if the password was
-     * forgotten, but remembered later.
-     *
-     * @return boolean
+     * @return bool
      */
-    public function isAccountNonLocked()
-    {
-        $unLocked = true;
-        if(($this->getLoginFailed() && $this->getLoginFailCount())) {
-            if($this->getLoginFailCount() >= 13) {
-                // Lock for at max one hour
-                $lockSeconds = 3600;
-            } else {
-                $lockSeconds = pow(2, $this->getLoginFailCount() - 1);
-            }
-
-            $lockInterval = new \DateInterval('PT' . $lockSeconds . 'S');
-            $lockEnd = clone $this->getLoginFailed();
-            $lockEnd->add($lockInterval);
-
-            $now = new \DateTime();
-            $unLocked = $now > $lockEnd;
-        }
-
-        return $unLocked;
-    }
-
     public function isCredentialsNonExpired()
     {
         return true;
     }
 
+    /**
+     * @return bool
+     */
     public function isEnabled()
     {
-        if($this->profile && method_exists($this->profile, 'isEnabled')) {
+        if ($this->profile && method_exists($this->profile, 'isEnabled')) {
             return $this->profile->isEnabled();
         }
         return $this->registrationToken === null;
@@ -394,10 +384,11 @@ class User implements AdvancedUserInterface {
      * if type is omitted)
      *
      * @param string $type Type of admin to check
+     * @return bool
      */
     public function isAdmin($type = null)
     {
-        if($this->getId() === 1) {
+        if ($this->getId() === 1) {
             return true;
         }
 
@@ -406,6 +397,10 @@ class User implements AdvancedUserInterface {
         return false;
     }
 
+    /**
+     * @param $profile
+     * @return $this
+     */
     public function setProfile($profile)
     {
         $this->profile = $profile;
@@ -418,58 +413,12 @@ class User implements AdvancedUserInterface {
     }
 
     /**
-     * Set loginFailed
-     *
-     * @param \DateTime $loginFailed
-     * @return User
-     */
-    public function setLoginFailed($loginFailed)
-    {
-        $this->loginFailed = $loginFailed;
-
-        return $this;
-    }
-
-    /**
-     * Get loginFailed
-     *
-     * @return \DateTime
-     */
-    public function getLoginFailed()
-    {
-        return $this->loginFailed;
-    }
-
-    /**
-     * Set loginFailCount
-     *
-     * @param integer $loginFailCount
-     * @return User
-     */
-    public function setLoginFailCount($loginFailCount)
-    {
-        $this->loginFailCount = $loginFailCount;
-
-        return $this;
-    }
-
-    /**
-     * Get loginFailCount
-     *
-     * @return integer
-     */
-    public function getLoginFailCount()
-    {
-        return $this->loginFailCount;
-    }
-
-    /**
      * Add groups
      *
-     * @param \FOM\UserBundle\Entity\Group $groups
+     * @param Group $groups
      * @return User
      */
-    public function addGroup(\FOM\UserBundle\Entity\Group $groups)
+    public function addGroup(Group $groups)
     {
         $this->groups[] = $groups;
 
@@ -479,9 +428,9 @@ class User implements AdvancedUserInterface {
     /**
      * Remove groups
      *
-     * @param \FOM\UserBundle\Entity\Group $groups
+     * @param Group $groups
      */
-    public function removeGroup(\FOM\UserBundle\Entity\Group $groups)
+    public function removeGroup(Group $groups)
     {
         $this->groups->removeElement($groups);
     }
@@ -489,7 +438,8 @@ class User implements AdvancedUserInterface {
     /**
      * @return bool
      */
-    public function isAnonymous(){
+    public function isAnonymous()
+    {
         return $this->getUsername() == "anon." && !$this->getId();
     }
 
@@ -499,5 +449,20 @@ class User implements AdvancedUserInterface {
     public function hasProfile()
     {
         return $this->getProfile() != null;
+    }
+
+    /**
+     * Checks whether the user is locked.
+     *
+     * Internally, if this method returns false, the authentication system
+     * will throw a LockedException and prevent login.
+     *
+     * @return bool true if the user is not locked, false otherwise
+     *
+     * @see LockedException
+     */
+    public function isAccountNonLocked()
+    {
+        return true;
     }
 }
