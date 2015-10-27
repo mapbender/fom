@@ -7,10 +7,17 @@
 
 {% block box_content %}
   <div class="loginBox login">
-    <h2 class="contentTitle">{{ 'fom.user.login.login.caption' | trans}}</h2>
+    <h2 class="contentTitle">{{ 'fom.user.login.login.caption' | trans }}</h2>
+
     <form action="{{ path("fom_user_login_logincheck") }}" method="post" id="login" novalidate="novalidate">
       {% if error %}
-        <div class="messageBox error">{{ error.message }}</div>
+        <div class="messageBox error">
+          {% if error.message == "Bad credentials" %}
+            {{ 'fom.user.login.errors.bad-credentials' | trans }}
+          {% else %}
+            {{ error.message | trans }}
+          {% endif %}
+        </div>
       {% endif %}
 
       <label class="left labelInput" for="username">{{ 'fom.user.login.login.username' | trans}}:</label>

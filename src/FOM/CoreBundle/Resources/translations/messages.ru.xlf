@@ -36,7 +36,7 @@
       </trans-unit>
       <trans-unit id="9bb04ab703cc6046b9cb27dc8fa4ba50" resname="fom.core.fields.no_user_group_defined">
         <source>fom.core.fields.no_user_group_defined</source>
-        <target>Нет пользователя или группыcd .</target>
+        <target>Группа пользователя не установлена</target>
       </trans-unit>
     </body>
   </file>

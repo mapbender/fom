@@ -572,6 +572,10 @@
         <source>form.profile.basic.country</source>
         <target>Country</target>
       </trans-unit>
+      <trans-unit id="fa79e6576af41618e338bb0770639524" resname="fom.user.login.errors.bad-credentials">
+        <source>fom.user.login.errors.bad-credentials</source>
+        <target>Bad credentials</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
