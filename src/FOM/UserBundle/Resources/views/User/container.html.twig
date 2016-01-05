@@ -25,7 +25,8 @@
       {% endif %}
       {{ form_widget(pw) }}
     {% endfor %}
-
+    {{ form_widget(form.activated) }}<label for="{{form.activated.vars.id}}" class="labelCheck">{{"fom.user.user.container.activated"|trans}}</label>
+    <div class="clearContainer"></div>
   </div>
   {% if form.profile is defined %}
   <div id="containerProfile" class="container containerProfile">
