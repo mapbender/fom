@@ -576,7 +576,7 @@
       </trans-unit>
       <trans-unit id="15a81cc81721a159e6e91890c5141aed" resname="fom.user.user.container.activated">
         <source>fom.user.user.container.activated</source>
-        <target>aktivativiert</target>
+        <target>aktiviert</target>
       </trans-unit>
     </body>
   </file>
