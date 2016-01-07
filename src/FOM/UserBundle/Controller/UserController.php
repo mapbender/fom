@@ -208,7 +208,8 @@ class UserController extends Controller
             'requirePassword'  => false,
             'profile_formtype' => $profile['formtype'],
             'group_permission' => $groupPermission,
-            'acl_permission'   => $securityContext->isGranted('OWNER', $user)
+            'acl_permission'   => $securityContext->isGranted('OWNER', $user),
+            'currentUser' => $securityContext->getToken()->getUser()
         ));
 
         return array(
@@ -261,7 +262,8 @@ class UserController extends Controller
             'requirePassword'  => false,
             'profile_formtype' => $profile['formtype'],
             'group_permission' => $groupPermission,
-            'acl_permission'   => $securityContext->isGranted('OWNER', $user)
+            'acl_permission'   => $securityContext->isGranted('OWNER', $user),
+            'currentUser' => $securityContext->getToken()->getUser()
         ));
         $form->bind($userData);
 

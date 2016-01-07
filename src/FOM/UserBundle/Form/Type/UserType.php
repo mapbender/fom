@@ -2,6 +2,7 @@
 
 namespace FOM\UserBundle\Form\Type;
 
+use FOM\UserBundle\Form\EventListener\UserSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityRepository;
@@ -16,6 +17,8 @@ class UserType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $a = $options['currentUser'];
+        $builder->addEventSubscriber(new UserSubscriber($builder->getFormFactory(), $options['currentUser']));
         $builder
             ->add('username', 'text')
             ->add('email', 'email', array(
@@ -64,7 +67,8 @@ class UserType extends AbstractType
             'profile_formtype' => null,
             'group_permission' => false,
             'acl_permission' => false,
-            'cascade_validation' => true
+            'cascade_validation' => true,
+            'currentUser' => null
         ));
     }
 }
