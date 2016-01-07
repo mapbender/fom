@@ -6,6 +6,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
+use FOM\UserBundle\Entity\User;
 
 /**
  *
@@ -21,11 +22,18 @@ class UserSubscriber implements EventSubscriberInterface
     private $factory;
 
     /**
+     *
+     * @var FOM\UserBundle\Entity\User
+     */
+    private $currentUser;
+
+    /**
      * @inheritdoc
      */
-    public function __construct(FormFactoryInterface $factory)
+    public function __construct(FormFactoryInterface $factory, User $currentUser = null)
     {
         $this->factory = $factory;
+        $this->currentUser = $currentUser;
     }
 
     /**
@@ -51,9 +59,8 @@ class UserSubscriber implements EventSubscriberInterface
         if (null === $user) {
             return;
         }
-        $form = $event->getForm();
-        if ($form->has('activated')) {
-            $activated = $form->get('activated')->getData();
+        if ($this->currentUser !== null && $this->currentUser !== $user && $event->getForm()->has('activated')) {
+            $activated = $event->getForm()->get('activated')->getData();
             if ($activated && $user->getRegistrationToken()) {
                 $user->setRegistrationToken(null);
             } elseif (!$activated && !$user->getRegistrationToken()) {
@@ -73,12 +80,13 @@ class UserSubscriber implements EventSubscriberInterface
         if (null === $user) {
             return;
         }
-        $form = $event->getForm();
-        $form->add($this->factory->createNamed('activated', 'checkbox', null, array(
-            'data' => $user->getRegistrationToken() ? false : true,
-            'auto_initialize' => false,
-            'label' => 'Activated',
-            'required' => false,
-            'mapped' => false)));
+        if($this->currentUser !== null && $this->currentUser !== $user) {
+            $event->getForm()->add($this->factory->createNamed('activated', 'checkbox', null, array(
+                'data' => $user->getRegistrationToken() ? false : true,
+                'auto_initialize' => false,
+                'label' => 'Activated',
+                'required' => false,
+                'mapped' => false)));
+        }
     }
 }
