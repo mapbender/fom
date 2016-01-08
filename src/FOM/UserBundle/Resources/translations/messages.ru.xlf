@@ -388,8 +388,10 @@
       </trans-unit>
       <trans-unit id="c2dd3a91aa1dbb6d29654af01b23eebf" resname="fom.user.password.email_body_html">
         <source>fom.user.password.email_body_html</source>
-        <target><![CDATA[&lt;p&gt;Hello %user_username%,&lt;/p&gt;&lt;p&gt;Вы запросили новый пароль.
-&lt;br /&gt;Нажмите, пожалуйста, &lt;a href="%url%"&gt;сюда&lt;/a&gt;.]]></target>
+        <target><![CDATA[
+          <p>Привет, %user_username%.</p><p>Вы запросили новый пароль.
+          <br/>Нажмите, пожалуйста, <a href="%url%">сюда</a>.
+        ]]></target>
       </trans-unit>
       <trans-unit id="d160ecbaff18ffa6372d34ae92839db9" resname="fom.user.password.request_error_no_user">
         <source>fom.user.password.request_error_no_user</source>
