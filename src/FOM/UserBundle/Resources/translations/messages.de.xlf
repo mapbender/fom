@@ -388,7 +388,7 @@
       </trans-unit>
       <trans-unit id="c2dd3a91aa1dbb6d29654af01b23eebf" resname="fom.user.password.email_body_html">
         <source>fom.user.password.email_body_html</source>
-        <target><![CDATA[&lt;p&gt;Hallo %user_username%,&lt;/p&gt;&lt;p&gt;Sie haben ein neues Passwort angefordert. &lt;br /&gt;Klicken Sie bitte &lt;a href="%url%"&gt;hier&lt;/a&gt;.]]></target>
+        <target><![CDATA[<p>Hallo %user_username%,</p><p>Sie haben ein neues Mapbender3 Passwort angefordert. <p>Klicken Sie bitte <a href="%url%">hier</a>, um Ihr Passwort zu ändern.</p>]]></target>
       </trans-unit>
       <trans-unit id="d160ecbaff18ffa6372d34ae92839db9" resname="fom.user.password.request_error_no_user">
         <source>fom.user.password.request_error_no_user</source>
@@ -576,7 +576,7 @@
       </trans-unit>
       <trans-unit id="15a81cc81721a159e6e91890c5141aed" resname="fom.user.user.container.activated">
         <source>fom.user.user.container.activated</source>
-        <target>aktivativiert</target>
+        <target>aktiviert</target>
       </trans-unit>
     </body>
   </file>

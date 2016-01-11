@@ -4,7 +4,7 @@
     <body>
       <trans-unit id="ef2802b65627d5d062664fbf8200674f" resname="fom.user.registration.email_body_html">
         <source>fom.user.registration.email_body_html</source>
-        <target><![CDATA[<p>Hallo %user_username%,</p><p>You have just recently registered.To conclude your registration, please, click please <a href="%url%">here</a>.</p>]]></target>
+        <target><![CDATA[<p>Hello %user_username%,</p><p>You have just recently registered to the Mapbender3 instance. To conclude your registration, please, click please <a href="%url%">here</a>.</p>]]></target>
       </trans-unit>
       <trans-unit id="16aedf1aba17d3e32708607f6574d3af" resname="fom.user.registration.done.title">
         <source>fom.user.registration.done.title</source>
@@ -77,7 +77,7 @@
       </trans-unit>
       <trans-unit id="77294a9ed86037d2480940e78b4e4797" resname="fom.user.registration.email_body_text">
         <source>fom.user.registration.email_body_text</source>
-        <target>Hallo %user_username%, You have just recently registered. To conclude your registration, please, call in your browser the link %url%.</target>
+        <target>Hello %user_username%, You have just recently registered to the Mapbender3 instance. To conclude your registration, please, call in your browser the link %url%.</target>
       </trans-unit>
       <trans-unit id="16f6c2959610a4555dc745eab58bdec2" resname="fom.user.group.index.groups">
         <source>fom.user.group.index.groups</source>
@@ -389,8 +389,7 @@
       </trans-unit>
       <trans-unit id="c2dd3a91aa1dbb6d29654af01b23eebf" resname="fom.user.password.email_body_html">
         <source>fom.user.password.email_body_html</source>
-        <target><![CDATA[&lt;p&gt;Hello %user_username%,&lt;/p&gt;&lt;p&gt;You have requested a new password.
-&lt;br /&gt;Click please &lt;a href="%url%"&gt;here&lt;/a&gt;.]]></target>
+        <target><![CDATA[<p>Hello %user_username%,</p><p>You have requested a new password for your Mapbender3 account. Please click <a href="%url%"> here to change it.</p>]]></target>
       </trans-unit>
       <trans-unit id="d160ecbaff18ffa6372d34ae92839db9" resname="fom.user.password.request_error_no_user">
         <source>fom.user.password.request_error_no_user</source>
@@ -474,7 +473,7 @@
       </trans-unit>
       <trans-unit id="d6d0b6344c51305d3f403f46c9e361a9" resname="fom.user.password.email_body_text">
         <source>fom.user.password.email_body_text</source>
-        <target>Hello %user_username%, You have requested a new password. Call in your browser the link "%url%".</target>
+        <target>Hello %user_username%, You have requested a new password for your Mapbender3 account. Please follow this link to change it: "%url%".</target>
       </trans-unit>
       <trans-unit id="a3d21fdd612642cde6e9fb017a5ab722" resname="fom.user.userbundle.user_control">
         <source>fom.user.userbundle.user_control</source>
