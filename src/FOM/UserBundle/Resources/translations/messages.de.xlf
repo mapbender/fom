@@ -578,6 +578,22 @@
         <source>fom.user.user.container.activated</source>
         <target>aktiviert</target>
       </trans-unit>
+      <trans-unit id="6cf67002310ad2668e1791ed59470e80" resname="User account is locked.">
+        <source>User account is locked.</source>
+        <target>Benutzeraccount ist gesperrt.</target>
+      </trans-unit>
+      <trans-unit id="a2e3811a3713a404cdb23abf512db362" resname="User account is disabled.">
+        <source>User account is disabled.</source>
+        <target>Benutzeraccount ist deaktiviert.</target>
+      </trans-unit>
+      <trans-unit id="23d48526bdbf2023ad7bdae13ec7f879" resname="User account has expired.">
+        <source>User account has expired.</source>
+        <target>Benutzeraccount ist abgelaufen.</target>
+      </trans-unit>
+      <trans-unit id="2d3eef069b32aacbd940b100195e1e17" resname="User credentials have expired.">
+        <source>User credentials have expired.</source>
+        <target>Anmeldedaten sind abgelaufen.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

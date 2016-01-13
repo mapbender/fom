@@ -25,7 +25,8 @@ use FOM\UserBundle\Entity\User;
  * @author Christian Wygoda
  * @author Paul Schmidt
  */
-class LoginController extends Controller {
+class LoginController extends Controller
+{
     /**
      * User login
      *
@@ -33,7 +34,8 @@ class LoginController extends Controller {
      * @Template()
      * @Method("GET")
      */
-    public function loginAction() {
+    public function loginAction()
+    {
         $request = $this->get('request');
         /*
         if($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
@@ -71,14 +73,16 @@ class LoginController extends Controller {
     /**
      * @Route("/user/login/check")
      */
-    public function loginCheckAction() {
+    public function loginCheckAction()
+    {
         //Don't worry, this is actually intercepted by the security layer.
     }
 
     /**
      * @Route("/user/logout")
      */
-    public function logoutAction() {
+    public function logoutAction()
+    {
         //Don't worry, this is actually intercepted by the security layer.
     }
 }
