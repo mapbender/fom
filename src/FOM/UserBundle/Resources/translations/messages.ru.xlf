@@ -583,19 +583,19 @@
       </trans-unit>
       <trans-unit id="6cf67002310ad2668e1791ed59470e80" resname="User account is locked.">
         <source>User account is locked.</source>
-        <target>Аккаунт пользователя заблокирован.</target>
+        <target>Учетная запись заблокирована.</target>
       </trans-unit>
       <trans-unit id="a2e3811a3713a404cdb23abf512db362" resname="User account is disabled.">
         <source>User account is disabled.</source>
-        <target>Аккаунт пользователя деактивирован.</target>
+        <target>Учетная запись деактивирована.</target>
       </trans-unit>
       <trans-unit id="23d48526bdbf2023ad7bdae13ec7f879" resname="User account has expired.">
         <source>User account has expired.</source>
-        <target>Срок действия учетной записи пользователя истек.</target>
+        <target>Срок действия учетной записи истёк.</target>
       </trans-unit>
       <trans-unit id="2d3eef069b32aacbd940b100195e1e17" resname="User credentials have expired.">
         <source>User credentials have expired.</source>
-        <target>Срок действия учетных данных пользователя истек.</target>
+        <target>Срок действия пароля истёк.</target>
       </trans-unit>
     </body>
   </file>
