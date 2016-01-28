@@ -157,20 +157,26 @@ $(function() {
                     $.ajax({
                         url: url,
                         complete: function() {
-                            var groupUserItem, text, me, groupUserType;
+                            var groupUserItem, roleName, me, groupUserType, groupName;
 
                             $("#listFilterGroupsAndUsers").find(".filterItem").each(function(i, e){
-
                                 groupUserItem = $(e);
                                 groupUserType = (groupUserItem.find(".tdContentWrapper")
                                                               .hasClass("iconGroup") ? "iconGroup"
                                                                                      : "iconUser");
-                                $("#permissionsBody").find(".labelInput").each(function(i, e){
+                                $("#permissionsBody").find(".labelInput").each(function(i, e) {
                                     me = $(e);
-                                    text = me.text().trim();
-                                    if((groupUserItem.text().trim().toUpperCase().indexOf(text.toUpperCase()) >= 0) &&
-                                       (me.parent().hasClass(groupUserType))){
-                                        groupUserItem.remove();
+                                    roleName = me.text().trim().toUpperCase();
+                                    if(roleName.indexOf("ROLE_GROUP_") === 0) {
+                                        groupName = $(".labelInput", groupUserItem).text().toUpperCase();
+                                        if(roleName == "ROLE_GROUP_" + groupName) {
+                                            groupUserItem.remove();
+                                        }
+                                    } else {
+                                        groupName = groupUserItem.text().trim().toUpperCase();
+                                        if((groupName.indexOf(roleName) >= 0) && (me.parent().hasClass(groupUserType))) {
+                                            groupUserItem.remove();
+                                        }
                                     }
                                 });
                             });
