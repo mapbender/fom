@@ -1,19 +1,30 @@
-{% extends "FOMManagerBundle::backend.html.twig" %}
+{% set application = {'slug': 'manager'} %}
+
+{% extends "FOMUserBundle:Login:box.html.twig" %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ path('mapbender_core_application_assets', {'slug': 'mb3-login', 'type': 'css'}) }}"/>
+{% endblock %}
 
 {% block title %} {{ 'fom.user.password.reset.title' | trans}} {% endblock %}
 
-{% block content %}
-<h1>{{ 'fom.user.password.reset.caption' | trans}}</h1>
-<form action="{{ url('fom_user_password_password', {"token": app.request.get("token")}) }}" method="post" {{ form_enctype(form)}} autocomplete="off">
-    {% if form_errors(form) | length > 0 %}
-        <div>
-            {{ form_errors(form) }}
-        </div>
-    {% endif %}
-
-    {{ form_row(form._token) }}
-    {{ form_row(form.password) }}
-
-    <button class="button">{{ 'fom.user.password.reset.btn' | trans}}</button>
-</form>
+{% block box_content %}
+    <div class="loginBox login">
+        <h1>{{ 'fom.user.password.reset.caption' | trans }}</h1>
+        <form action="{{ url('fom_user_password_password', {"token": app.request.get("token")}) }}"
+              method="post" {{ form_enctype(form) }} autocomplete="off">
+            {% if form_errors(form) | length > 0 %}
+                <div>
+                    {{ form_errors(form) }}
+                </div>
+            {% endif %}
+            {{ form_row(form._token) }}
+            {{ form_row(form.password) }}
+            <button class="button">{{ 'fom.user.password.reset.btn' | trans }}</button>
+        </form>
+    </div>
+    <script type="text/javascript">
+        var Mapbender = Mapbender || {};
+        Mapbender.configuration = {elements:{}};
+    </script>
 {% endblock %}
