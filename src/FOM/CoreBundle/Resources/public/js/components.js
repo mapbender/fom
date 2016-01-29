@@ -167,16 +167,15 @@ $(function() {
                                 $("#permissionsBody").find(".labelInput").each(function(i, e) {
                                     me = $(e);
                                     roleName = me.text().trim().toUpperCase();
+                                    groupName = $(".labelInput", groupUserItem).text().toUpperCase();
+                                    var isUserType = (me.parent().hasClass(groupUserType));
+
                                     if(roleName.indexOf("ROLE_GROUP_") === 0) {
-                                        groupName = $(".labelInput", groupUserItem).text().toUpperCase();
-                                        if(roleName == "ROLE_GROUP_" + groupName) {
-                                            groupUserItem.remove();
-                                        }
-                                    } else {
-                                        groupName = groupUserItem.text().trim().toUpperCase();
-                                        if((groupName.indexOf(roleName) >= 0) && (me.parent().hasClass(groupUserType))) {
-                                            groupUserItem.remove();
-                                        }
+                                        groupName = "ROLE_GROUP_" + groupName;
+                                    }
+
+                                    if(groupName == roleName && isUserType) {
+                                        groupUserItem.remove();
                                     }
                                 });
                             });
