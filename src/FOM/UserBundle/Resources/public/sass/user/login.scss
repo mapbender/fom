@@ -67,4 +67,9 @@ $boxWidth:340px;
     .labelInput{width:$labelWidth;}
     .input{width:$boxWidth - $labelWidth - $space*3;}
   }
+
+  &.resetBox .labelInput{
+    width: 68px;
+    display: inline-block;
+  }
 }
