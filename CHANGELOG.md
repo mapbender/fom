@@ -1,5 +1,28 @@
 # Changelog
 
+* **v.3.0.5.3** - 2016-02-04
+    - Improve reset form styles
+    - Fix reset password page styling
+    - Fix add user group with same prefix
+    - Fix select element
+    - Fix add group with same prefix in security tab
+    - Fix select element global listener
+    - Improve scale and srs selector styles
+    - Fix FOM composer.json error
+    - Merge pull request #18 from mapbender/hotfix/user-activate
+    - Update messages.ru.xlf
+    - add 'de' translations
+    - translate default fos messages, reformate code
+    - Merge branch 'release/3.0.5' into hotfix/user-activate
+    - Fix reset password email body text
+    - 5190 change format of forgot password mail
+    - translation typo de
+    - Merge branch 'hotfix/user-activate' into release/3.0.5
+    - fix activate/deactivate only other users
+    - add aktivate a self registrated user
+    - Merge pull request #17 from mapbender/hotfix/changelog-5489
+    - added changelog.md information
+
 * **v.3.0.5.2** - 2015-10-27
     - Add missed 'Bad credentials' translations for ES, NL, PT #5009
     - Add 'Bad credentials' translating and fix some erroneous russian translations #5009
