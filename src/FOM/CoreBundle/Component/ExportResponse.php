@@ -256,6 +256,7 @@ class ExportResponse extends Response
             
             if ($hasKeys) {
                 foreach ($keys as $key => $value) {
+                    $value = utf8_decode($value);
                     $l = strlen($value);
                     fputs($handle, pack("ssssss", self::XLS_STRING_TYPE, 8 + $l, $rowNum, $colNum, 0x0, $l) . $value);
                     $colNum++;
