@@ -41,7 +41,11 @@
       <div class="clearContainer"></div>
     </form>
   </div>
- <script type="text/javascript">
+  <script type="text/javascript">
+    if(top != window) {
+      top.location.href = location.href;
+      top.location.reload();
+    }
     var Mapbender = Mapbender || {};
     Mapbender.configuration = {elements:{}};
   </script>      
