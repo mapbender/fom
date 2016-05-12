@@ -4,7 +4,7 @@
     {% set attr %}
     {% if v.attr is defined %}{% for k,v in v.attr %} {{k}}="{{v}}"{% endfor %}{% endif %}
     {% endset %}
-    <a id="action-{{ k }}" href="{{ v.url }}"{{ attr }} title="{{ v.title | trans }}"></a>
+    <a id="action-{{ k }}" href="{{ v.url }}"{{ attr }} title="{{ v.title | trans }}" tabindex="-1"></a>
     {% endif %}
     {% endfor %}
 {% endif %}
