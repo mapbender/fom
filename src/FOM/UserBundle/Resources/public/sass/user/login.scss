@@ -49,6 +49,7 @@ $boxWidth:340px;
     left: solid 1px $thirdColor;
     right: solid 1px $thirdColor;
     bottom: solid 5px $thirdColor;
+    radius: 15px;
   }
   @include relative(-260px '' '' '');
 
