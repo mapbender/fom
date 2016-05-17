@@ -2,16 +2,27 @@
 
 namespace FOM\UserBundle\Component;
 
-use Mapbender\CoreBundle\Entity\AclEntry;
+use FOM\UserBundle\Entity\AclEntry;
 use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
 use Symfony\Component\Security\Acl\Domain\Acl;
 use Symfony\Component\Security\Acl\Domain\Entry;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
 
 /**
  * ACL Manager service implementation
  *
  * This manager is available as a service called 'fom.acl.manager' and is meant
+ * to be used with a form and will delete/update/add ACEs.
+ *
+ * @author     Christian Wygoda
+ * @author     Andriy Oblivantsev
+ * @deprecated Use <\Mapbender\CoreBundle\Component\AclManager> instead.
+ */
+/**
+ * ACL Manager service implementation
+ *
+ * This manager is available as a service called 'mapbender.acl' and is meant
  * to be used with a form and will delete/update/add ACEs.
  *
  * @author Christian Wygoda
@@ -146,9 +157,9 @@ class AclManager
             $oid = ObjectIdentity::fromDomainObject($entity);
         }
 
-        $acl = $this->aclProvider->findAcl($oid);
-
-        if (!count($acl)) {
+        try {
+            $acl = $this->aclProvider->findAcl($oid);
+        } catch (AclNotFoundException $e) {
             $acl = $this->aclProvider->createAcl($oid);
         }
 
