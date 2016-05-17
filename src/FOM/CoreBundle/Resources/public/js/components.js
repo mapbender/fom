@@ -3,13 +3,19 @@ $(function() {
     // Add manually a string trim function for IE8 support
     //
     if(typeof String.prototype.trim !== 'function') {
-      String.prototype.trim = function() {
-        return this.replace(/^\s+|\s+$/g, '');
-      }
+        String.prototype.trim = function() {
+            return this.replace(/^\s+|\s+$/g, '');
+        }
     }
 
     // init tabcontainers --------------------------------------------------------------------
-    $(".tabContainer").find(".tab").bind("click", function(){
+    var tabs = $(".tabContainer").find(".tab");
+    tabs.attr("tabindex", 0);
+    tabs.bind("click keypress", function(e) {
+        if(e.type == "keypress" && e.keyCode != 13) {
+            return;
+        }
+
         var me = $(this);
         var tabcont = me.parent().parent();
         tabcont.find(".active").removeClass("active");
