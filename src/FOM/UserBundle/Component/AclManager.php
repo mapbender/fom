@@ -2,6 +2,7 @@
 
 namespace FOM\UserBundle\Component;
 
+use Mapbender\CoreBundle\Entity\AclEntry;
 use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
 use Symfony\Component\Security\Acl\Domain\Acl;
 use Symfony\Component\Security\Acl\Domain\Entry;
@@ -145,10 +146,10 @@ class AclManager
             $oid = ObjectIdentity::fromDomainObject($entity);
         }
 
-        try {
+        $acl = $this->aclProvider->findAcl($oid);
+
+        if (!count($acl)) {
             $acl = $this->aclProvider->createAcl($oid);
-        } catch (\Exception $e) {
-            $acl = $this->aclProvider->findAcl($oid);
         }
 
         return $acl;
@@ -176,5 +177,21 @@ class AclManager
     public function hasObjectAclEntries($entity)
     {
         return count($this->getObjectAclEntries($entity)) > 0;
+    }
+
+
+    /**
+     * Consolidate object ACL entries to an <AclEntry> array.
+     *
+     * @param $entity
+     * @return AclEntry[]
+     */
+    public function getObjectAclEntriesAsArray($entity)
+    {
+        $result = array();
+        foreach ($this->getObjectAclEntries($entity) as $aclEntry) {
+            $result[] = new AclEntry($aclEntry->getSecurityIdentity());
+        }
+        return $result;
     }
 }
