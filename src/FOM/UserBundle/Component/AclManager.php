@@ -8,6 +8,8 @@ use Symfony\Component\Security\Acl\Domain\Acl;
 use Symfony\Component\Security\Acl\Domain\Entry;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
+use Symfony\Component\Security\Acl\Exception\NotAllAclsFoundException;
+use Symfony\Component\Security\Acl\Model\AclInterface;
 
 /**
  * ACL Manager service implementation
@@ -60,37 +62,29 @@ class AclManager
      * Update ACEs for entity
      * @param object $entity Entity to update ACL for
      * @param array  $aces   Array with ACEs (not Entry objects!)
-     * @param string $type   ACE type to update (object or class)
+     * @param string $type ACE type to update (object or class)
      */
     public function setObjectACL($entity, $aces, $type)
     {
-        switch($type) {
-            case 'object':
-                $deleteMethod = 'deleteObjectAce';
-                $insertMethod = 'insertObjectAce';
-                break;
-            default:
-                throw new \RuntimeException('ACEs of type ' . $type
-                    . ' are not supported.');
+        if ($type != "object") {
+            throw new \RuntimeException('ACEs of type ' . $type . ' are not supported.');
         }
-        $acl = $this->getAcl($entity);
+
+        $acl     = $this->getAcl($entity);
         $oldAces = $acl->getObjectAces();
 
-        // @TODO: This is a naive implementation, we should update where
-        // possible instead of deleting all old ones and adding all new ones...
-
         // Delete old ACEs
-        foreach(array_reverse(array_keys($oldAces)) as $idx) {
-            $acl->$deleteMethod(intval($idx));
+        foreach (array_reverse(array_keys($oldAces)) as $idx) {
+            $acl->deleteObjectAce(intval($idx));
         }
         $this->aclProvider->updateAcl($acl);
         // Add new ACEs
-        foreach(array_reverse($aces) as $idx => $ace) {
+        foreach (array_reverse($aces) as $idx => $ace) {
             // If no mask is given, we might as well not insert the ACE
-            if($ace['mask'] === 0) {
+            if ($ace['mask'] === 0) {
                 continue;
             }
-            $acl->$insertMethod($ace['sid'], $ace['mask']);
+            $acl->insertObjectAce($ace['sid'], $ace['mask']);
         }
 
         $this->aclProvider->updateAcl($acl);
@@ -118,7 +112,7 @@ class AclManager
      */
     protected function setClassACL($class, $aces)
     {
-        $acl = $this->getAcl($class);
+        $acl     = $this->getAcl($class);
         $oldAces = $acl->getClassAces();
 
         // @TODO: This is a naive implementation, we should update where
@@ -145,22 +139,24 @@ class AclManager
     /**
      * Get ACL object manager.
      *
-     * @param $entity
-     * @return mixed
-     * @throws \Symfony\Component\Security\Acl\Exception\InvalidDomainObjectException
+     * @param      $entity
+     * @param bool $create
+     * @return Acl | null
+     * @throws \Exception
+     * @throws \Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException
      */
-    public function getACL($entity)
+    public function getACL($entity, $create = true)
     {
-        if (is_string($entity) && class_exists($entity)) {
-            $oid = new ObjectIdentity('class', $entity);
-        } else {
-            $oid = ObjectIdentity::fromDomainObject($entity);
-        }
-
+        $acl = null;
+        $oid = $this->getEntityObjectId($entity);
         try {
             $acl = $this->aclProvider->findAcl($oid);
+        } catch (NotAllAclsFoundException $e) {
+            $acl = $e->getPartialResult();
         } catch (AclNotFoundException $e) {
-            $acl = $this->aclProvider->createAcl($oid);
+            if($create){
+                $acl = $this->aclProvider->createAcl($oid);
+            }
         }
 
         return $acl;
@@ -174,9 +170,7 @@ class AclManager
      */
     public function getObjectAclEntries($entity)
     {
-        /** @var Acl $acl */
-        $acl = $this->getACL($entity);
-        return $acl->getObjectAces();
+        return $this->getACL($entity)->getObjectAces();
     }
 
     /**
@@ -204,5 +198,20 @@ class AclManager
             $result[] = new AclEntry($aclEntry->getSecurityIdentity());
         }
         return $result;
+    }
+
+    /**
+     * @param $entity
+     * @return \Symfony\Component\Security\Acl\Domain\ObjectIdentity
+     * @throws \Symfony\Component\Security\Acl\Exception\InvalidDomainObjectException
+     */
+    public function getEntityObjectId($entity)
+    {
+        if (is_string($entity) && class_exists($entity)) {
+            $oid = new ObjectIdentity('class', $entity);
+        } else {
+            $oid = ObjectIdentity::fromDomainObject($entity);
+        }
+        return $oid;
     }
 }

@@ -4,13 +4,27 @@ namespace FOM\UserBundle\Component;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 
+/**
+ * Managed users
+ *
+ * @alias UserManager
+ * @alias User Manager
+ *d
+ */
 class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProviderInterface
 {
+    /**
+     * @return \Doctrine\Bundle\DoctrineBundle\Registry
+     */
     protected function getDoctrine()
     {
         return $this->container->get('doctrine');
     }
 
+    /**
+     * @param string $search
+     * @return array
+     */
     public function getUsers($search)
     {
         $repo = $this->getDoctrine()->getRepository('FOMUserBundle:User');
