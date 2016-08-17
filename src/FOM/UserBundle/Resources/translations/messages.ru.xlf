@@ -180,7 +180,7 @@
       </trans-unit>
       <trans-unit id="bd60e3bfdde2f9ad9cd9f40d3913cc28" resname="fom.user.login.login.username">
         <source>fom.user.login.login.username</source>
-        <target>Имя пользователя</target>
+        <target>Имя</target>
       </trans-unit>
       <trans-unit id="6e6c6488c2d50480c4daa4fdfa0d8032" resname="fom.user.login.login.password">
         <source>fom.user.login.login.password</source>
