@@ -4,7 +4,9 @@ var initDropdown = function () {
     if (dropdownList.children().length === 0) {
         me.find("option").each(function (i, e) {
             $(e).addClass("opt-" + i);
-            dropdownList.append($('<li class="item-' + i + '">' + $(e).text() + '</li>'));
+            var node = $('<li class="item-' + i + '"></li>');
+            dropdownList.append(node);
+            node.text($(e).text());
         });
     }
     var select = me.find("select").val();
