@@ -219,11 +219,9 @@ var Mapbender = (function($, Mapbender) {
                 selfElement.appendTo(this.$container);
             }
             window.setTimeout(function() {
-                selfElement.addClass("show");
                 self.focus();
+                selfElement.trigger('openend');
             }, 100);
-
-            selfElement.trigger('openend');
         },
 
         /**
@@ -474,17 +472,30 @@ var Mapbender = (function($, Mapbender) {
          * @return {boolean}
          */
         draggable: function(state) {
-            if(undefined === state) {
-                return this.options.draggable;
+            var widget = this;
+            var options = widget.options;
+            var element = widget.$element;
+
+            if(!state) {
+                return options.draggable;
             }
 
-            if(state){
-                this.$element.draggable({
-                  handle: $('.popupHead', this.$element)
+            element.on('openend', function() {
+                var marginLeft = 100;
+                var marginTop = 80;
+                var popupContainer = $(">.popup", element);
+                var document = $("body");
+                element.draggable({
+                    handle:      $('.popupHead', element),//, //,
+                    containment: [
+                        -marginLeft,
+                        -marginTop,
+                        document.width() - popupContainer.width() - marginLeft,
+                        document.height() - popupContainer.height() - marginTop]
                 });
-            }
+            });
 
-            this.options.draggable = state;
+            options.draggable = state;
         },
 
         /**
