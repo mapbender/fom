@@ -1,5 +1,23 @@
 # Changelog
 
+* **v.3.0.5.4** - 2016-09-xx
+    - Restrict move popups outside of visible area application
+    - Merge pull request #19 from mapbender/hotfix/stored-xss
+    - fixed dropdown part of vulnerability
+    - Merge hotfix/fix-travis-ci
+    - Short user name russian translation
+    - Deprecate FOM SharedApplicationWebTestCase
+    - Improve tab navigation to use keyboard (TAB)
+    - Fix find object ACL (add try-catch block)
+    - Add ability to see which security permissions are set for an element (or some other object)
+    - Extract administration border radius variables
+    - Add new ACL has and get methods
+    - Improve login box screen
+    - Improve application list navigation
+    - Fix embedded login screen if session time is out
+    - Improve DoctrineHelper to get create tables for new entities if connection is sqlite
+    - Fix xls ExportResponse decode utf-8
+
 * **v.3.0.5.3** - 2016-02-04
     - Improve reset form styles
     - Fix reset password page styling
