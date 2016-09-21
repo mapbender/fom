@@ -1,14 +1,21 @@
-{% extends "FOMManagerBundle::backend.html.twig" %}
+{% extends "FOMCoreBundle::skel.html.twig" %}
 
 {% set title %}{% block title %}{% endblock %}{% endset %}
-{% block css %}
-  <link rel="stylesheet" href="{{ asset('components/font-awesome/css/font-awesome.min.css') }}"/>
-  <link rel="stylesheet" href="{{ path('mapbender_core_application_assets', {'slug': 'manager','type': 'css'}) }}"/>
-{% endblock %}
 
 {% block favicon %}{{ asset('favicon.png') }}{% endblock %}
 
-{% block backend_content %}
+{% block css %}
+  <link rel="stylesheet" href="{{ path('mapbender_core_application_assets', {'slug': 'manager','type': 'css'}) }}"/>
+{% endblock %}
+
+{% block js %}
+  {{parent()}}
+  <script type="text/javascript" src="{{ path('mapbender_core_application_assets', {'slug': 'manager','type': 'js'}) }}"></script>
+  <script type="text/javascript" src="{{ path('mapbender_core_application_assets', {'slug': 'manager','type': 'trans'}) }}"></script>
+  <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+{% endblock %}
+
+{% block content %}
   <div class="head"><hr class="dekoSeperator"></div>
     <div id="wrapper" class="page">
 
@@ -41,7 +48,6 @@
             <a class="linkButton iconSignIn" href="{{ path('fom_user_login_login') }}">{{ "fom.core.manager.btn.login"|trans}}</a>
           {% endif %}
         </div>
-
         <div class="contentPane">
           <div id="version" class="mapbenderVersion smallText">v. {{ fom.server_version }}</div>
           <div class="content shadowBox">
@@ -52,10 +58,4 @@
         </div>
       </div>
     </div>
-{% endblock %}
-
-{% block js %}
-  {{parent()}}
-  <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-  <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 {% endblock %}
