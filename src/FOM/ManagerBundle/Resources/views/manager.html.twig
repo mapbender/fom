@@ -1,6 +1,6 @@
 {% extends "FOMCoreBundle::skel.html.twig" %}
 
-{% set title %}{% block title %}{% endblock %}{% endset %}
+{% set title %}{% block title %}{{ title|default('') }}{% endblock %}{% endset %}
 
 {% block favicon %}{{ asset('favicon.png') }}{% endblock %}
 
