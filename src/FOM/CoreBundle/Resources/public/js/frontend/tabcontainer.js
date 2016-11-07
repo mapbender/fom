@@ -39,7 +39,7 @@ var initTabContainer = function ($context) {
             return;
         }
 
-        var previous = tab.find(".active");
+        var previous = tab.find("> .active");
         previous.removeClass("active");
 
         if(me.hasClass('accordion')) {
