@@ -15,6 +15,7 @@ class ACLController extends Controller
 {
     /**
      * @Route("/acl")
+     * @Route("/acl", name="fom_user_acl")
      * @Template
      */
     public function indexAction()
@@ -23,7 +24,7 @@ class ACLController extends Controller
     }
 
     /**
-     * @Route("/acl/edit")
+     * @Route("/acl/edit", name="fom_user_acl_edit_get")
      * @Method("GET")
      * @Template
      */
@@ -52,7 +53,7 @@ class ACLController extends Controller
     }
 
     /**
-     * @Route("/acl/edit")
+     * @Route("/acl/edit", name="fom_user_acl_edit_post")
      * @Method("POST")
      * @Template
      */
@@ -92,7 +93,7 @@ class ACLController extends Controller
     }
 
     /**
-     * @Route("/acl/overview")
+     * @Route("/acl/overview", name="fom_user_acl_overview")
      * @Method({ "GET" })
      * @Template("FOMUserBundle:ACL:groups-and-users.html.twig")
      */
@@ -121,7 +122,7 @@ class ACLController extends Controller
      * If query starts with 'u:', look for user, if it starts with 'r:', look
      * for role, otherwise look for both.
      *
-     * @Route("/acl/sid")
+     * @Route("/acl/sid", name="fom_user_acl_sid")
      */
     public function aclsidAction()
     {
