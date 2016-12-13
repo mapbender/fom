@@ -2,12 +2,12 @@
 
 namespace FOM\UserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOM\ManagerBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use FOM\UserBundle\Form\Type\ACLType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -15,7 +15,6 @@ class ACLController extends Controller
 {
     /**
      * @Route("/acl")
-     * @Route("/acl", name="fom_user_acl")
      * @Template
      */
     public function indexAction()
@@ -24,7 +23,7 @@ class ACLController extends Controller
     }
 
     /**
-     * @Route("/acl/edit", name="fom_user_acl_edit_get")
+     * @Route("/acl/edit")
      * @Method("GET")
      * @Template
      */
@@ -53,7 +52,7 @@ class ACLController extends Controller
     }
 
     /**
-     * @Route("/acl/edit", name="fom_user_acl_edit_post")
+     * @Route("/acl/edit")
      * @Method("POST")
      * @Template
      */
@@ -93,7 +92,7 @@ class ACLController extends Controller
     }
 
     /**
-     * @Route("/acl/overview", name="fom_user_acl_overview")
+     * @Route("/acl/overview")
      * @Method({ "GET" })
      * @Template("FOMUserBundle:ACL:groups-and-users.html.twig")
      */
@@ -110,11 +109,11 @@ class ACLController extends Controller
             $this->get('security.context'),
             $this->get('security.acl.provider'),
             $this->get('router')), array(), array(
-                'mapped' => false,
-                'class' => $class,
-                'permissions' => 'standard::class',
-                'create_standard_permissions' => false
-            ));
+            'mapped' => false,
+            'class' => $class,
+            'permissions' => 'standard::class',
+            'create_standard_permissions' => false
+        ));
     }
 
     /**
@@ -122,7 +121,7 @@ class ACLController extends Controller
      * If query starts with 'u:', look for user, if it starts with 'r:', look
      * for role, otherwise look for both.
      *
-     * @Route("/acl/sid", name="fom_user_acl_sid")
+     * @Route("/acl/sid")
      */
     public function aclsidAction()
     {
