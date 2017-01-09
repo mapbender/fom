@@ -21,7 +21,7 @@ class SspiAuthenticationProvider implements AuthenticationProviderInterface
         $user = $this->provider->loadUserByUsername($token->getUsername());
 
         if($user) {
-            $this->checker->checkPostAuth($user);
+            $this->checker->checkPreAuth($user);
             $authToken = new SspiUserToken(true, $user->getRoles());
             $authToken->setUser($user);
             return $authToken;
