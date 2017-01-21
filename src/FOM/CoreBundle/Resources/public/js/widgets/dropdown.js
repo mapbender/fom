@@ -45,4 +45,25 @@ $(function () {
         initDropdown.call(this);
     });
     $(document).on("click", ".dropdown", toggleList);
+    $(document).on('mousewheel scroll DOMMouseScroll', '.dropdownList', function(e) {
+        var delta = e.originalEvent.detail;
+        var height = this.scrollTopMax;
+        var atTop = this.scrollTop === 0;
+        var atBottom = this.scrollTop === this.scrollTopMax;
+
+        if (!this.scrollTopMax) {
+            atBottom = this.scrollHeight === this.clientHeight + this.scrollTop;
+        }
+        if (e.originalEvent.deltaY) {
+            delta = e.originalEvent.deltaY;
+        }
+        if (e.originalEvent.wheelDelta) {
+            delta = -e.originalEvent.wheelDelta;
+        }
+        if (atTop && delta < 0 || atBottom && delta > 0) {
+            return false;
+        }
+        return undefined;
+    });
+
 });
