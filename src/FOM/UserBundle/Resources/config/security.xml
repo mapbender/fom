@@ -4,8 +4,6 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
         <parameter key="fom_user.security.access.rootaccount.voter.class">FOM\UserBundle\Security\Authorization\Voter\RootAccountVoter</parameter>
-        <parameter key="fom_user.ldap.user_provider.class">FOM\UserBundle\Security\User\LdapUserProvider</parameter>
-        <parameter key="fom_user.ldap.authentication_provider.class">FOM\UserBundle\Security\Authentication\Provider\LdapAuthenticationProvider</parameter>
         <parameter key="fom_user.failed_login_listener.class">FOM\UserBundle\EventListener\FailedLoginListener</parameter>
         <parameter key="fom_user.user_profile_listener.class">FOM\UserBundle\EventListener\UserProfileListener</parameter>
     </parameters>
@@ -15,23 +13,6 @@
         <service id="security.access.rootaccount.voter" class="%fom_user.security.access.rootaccount.voter.class%">
             <argument type="service" id="service_container" strict="false" />
             <tag name="security.voter" />
-        </service>
-
-        <!-- LDAP User Provider: Needs parameter array fom.ldap -->
-        <service id="fom.ldap.user_provider" class="%fom_user.ldap.user_provider.class%">
-            <argument>%fom%</argument>
-            <argument type="service" id="logger" />
-        </service>
-
-        <!-- LDAP Authentication Provider: Needs parameter array fom.ldap -->
-        <service id="fom.ldap.authentication_provider" class="%fom_user.ldap.authentication_provider.class%" abstract="true" public="false">
-            <argument>%fom%</argument>
-            <argument /> <!-- User Provider -->
-            <argument type="service" id="security.user_checker" />
-            <argument /> <!-- Provider-shared Key -->
-            <argument type="service" id="security.encoder_factory" />
-            <argument>%security.authentication.hide_user_not_found%</argument>
-            <argument type="service" id="logger" />
         </service>
 
         <service id="sspi.security.authentication.listener" class="FOM\UserBundle\Security\Firewall\SspiListener" public="false">
