@@ -82,7 +82,7 @@ class ACEDataTransformer implements DataTransformerInterface
                 $class = $sidParts[2];
             } else {
                 if($this->isLdapUser($sidParts[1])) {
-                  $class = 'FOM\UserBundle\Entity\LdapUser';
+                  $class = 'Mapbender\LdapIntegrationBundle\Entity\LdapUser';
                 } else {
                   $class = 'FOM\UserBundle\Entity\User';
                 }
