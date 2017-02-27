@@ -3,34 +3,59 @@
 namespace FOM\UserBundle\Component;
 
 use FOM\ManagerBundle\Component\ManagerBundle;
+use Mapbender\CoreBundle\MapbenderCoreBundle;
 
+/**
+ * Roles service class
+ * registered as "fom_roles" symfony service
+ * in FOM/UserBundle/Resources/config/services.xml
+ *
+ * @package FOM\UserBundle\Component
+ */
 class RolesService
 {
     protected $kernel;
-    protected $roles;
 
+    /**
+     * RolesService constructor.
+     *
+     * @param \AppKernel $kernel
+     */
     public function __construct(\AppKernel $kernel)
     {
         $this->kernel = $kernel;
     }
 
-    protected function loadRoles()
+    /**
+     * @return MapbenderCoreBundle[]|ManagerBundle[]|null
+     */
+    protected function getRoles()
     {
-        $this->roles = array();
-        foreach($this->kernel->getBundles() as $bundle) {
-            if(is_subclass_of($bundle, 'FOM\ManagerBundle\Component\ManagerBundle')) {
-                $bundle_roles = $bundle->getRoles();
-                $this->roles = array_merge($this->roles, $bundle_roles);
+        /** @var ManagerBundle $bundle */
+        $roles = array();
+        foreach ($this->kernel->getBundles() as $bundle) {
+            if (!is_subclass_of($bundle, 'FOM\ManagerBundle\Component\ManagerBundle')) {
+                continue;
             }
+            $roles = array_merge($roles, $bundle->getRoles());
         }
+        return $roles;
     }
+
+    /**
+     * Get roles
+     *
+     * @return MapbenderCoreBundle[]|ManagerBundle[]|null
+     */
 
     public function getAll()
     {
-        if($this->roles === null) {
-            $this->loadRoles();
+        static $roles;
+
+        if ($roles === null) {
+            $roles = $this->getRoles();
         }
 
-        return $this->roles;
+        return $roles;
     }
 }
