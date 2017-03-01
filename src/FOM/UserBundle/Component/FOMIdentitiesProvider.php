@@ -4,27 +4,13 @@ namespace FOM\UserBundle\Component;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 
-/**
- * Managed users
- *
- * @alias UserManager
- * @alias User Manager
- *d
- */
 class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProviderInterface
 {
-    /**
-     * @return \Doctrine\Bundle\DoctrineBundle\Registry
-     */
     protected function getDoctrine()
     {
         return $this->container->get('doctrine');
     }
 
-    /**
-     * @param string $search
-     * @return array
-     */
     public function getUsers($search)
     {
         $repo = $this->getDoctrine()->getRepository('FOMUserBundle:User');
@@ -74,10 +60,18 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
             $ldapVersion = $this->container->getParameter("ldap_version");
             $baseDn = $this->container->getParameter("ldap_user_base_dn");
             $nameAttribute = $this->container->getParameter("ldap_user_name_attribute");
+            $bindDn = $this->container->getParameter("ldap_bind_dn");
+            $bindPasswd = $this->container->getParameter("ldap_bind_pwd");
             $filter = "(" . $nameAttribute . "=*)";
 
             $connection = @ldap_connect($ldapHostname, $ldapPort);
             ldap_set_option($connection, LDAP_OPT_PROTOCOL_VERSION, $ldapVersion);
+
+            if (strlen($bindDn) !== 0 && strlen($bindPasswd) !== 0) {
+                if (!ldap_bind($connection, $bindDn, $bindPasswd)) {
+                    throw new \Exception('Unable to bind LDAP to DN: ' . $bindDn);
+                }
+            }
 
             $ldapListRequest = ldap_list($connection, $baseDn, $filter); // or throw exeption('Unable to list. LdapError: ' . ldap_error($ldapConnection));
 
