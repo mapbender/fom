@@ -76,15 +76,19 @@ class ACEDataTransformer implements DataTransformerInterface
     {
         $sidParts = explode(':', $data['sid']);
         if(strtoupper($sidParts[0]) == 'R') {
+            /* is rolebased */
             $sid = new RoleSecurityIdentity($sidParts[1]);
         } else {
             if(3 == count($sidParts)) {
+                /* has 3 sidParts */
                 $class = $sidParts[2];
             } else {
                 if($this->isLdapUser($sidParts[1])) {
-                  $class = 'FOM\UserBundle\Entity\LdapUser';
+                    /* is LDAP user*/
+                    $class = 'Mapbender\LdapIntegrationBundle\Entity\LdapUser';
                 } else {
-                  $class = 'FOM\UserBundle\Entity\User';
+                    /* is not a LDAP user*/
+                    $class = 'FOM\UserBundle\Entity\User';
                 }
             }
             $sid = new UserSecurityIdentity($sidParts[1], $class);
@@ -104,6 +108,7 @@ class ACEDataTransformer implements DataTransformerInterface
     public function isLdapUser($username)
     {
         if(!$this->container->hasParameter('ldap_host')) {
+            /* LDAP not configured. Has no ldap_host. */
             return false;
         }
 
@@ -112,10 +117,18 @@ class ACEDataTransformer implements DataTransformerInterface
         $ldapVersion = $this->container->getParameter("ldap_version");
         $baseDn = $this->container->getParameter("ldap_user_base_dn");
         $nameAttribute = $this->container->getParameter("ldap_user_name_attribute");
+        $bindDn = $this->container->getParameter("ldap_bind_dn");
+        $bindPasswd = $this->container->getParameter("ldap_bind_pwd");
         $filter = "(" . $nameAttribute . "=*)";
 
         $connection = @ldap_connect($ldapHostname, $ldapPort);
         ldap_set_option($connection, LDAP_OPT_PROTOCOL_VERSION, $ldapVersion);
+
+        if (strlen($bindDn) !== 0 && strlen($bindPasswd) !== 0) {
+            if (!ldap_bind($connection, $bindDn, $bindPasswd)) {
+                throw new \Exception('Unable to bind LDAP to DN: ' . $bindDn);
+            }
+        }
 
         $ldapListRequest = ldap_list($connection, $baseDn, $filter); // or throw exeption('Unable to list. LdapError: ' . ldap_error($ldapConnection));
 
