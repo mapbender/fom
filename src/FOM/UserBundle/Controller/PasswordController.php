@@ -1,20 +1,17 @@
 <?php
-
 namespace FOM\UserBundle\Controller;
-
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use JMS\SecurityExtraBundle\Annotation\Secure;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\UserForgotPassType;
 use FOM\UserBundle\Form\Type\UserResetPassType;
 use FOM\UserBundle\Security\UserHelper;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Password reset controller.
