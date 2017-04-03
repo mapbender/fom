@@ -266,8 +266,7 @@ var Mapbender = (function($, Mapbender) {
         },
 
         /**
-         * Destructor. *BANG*
-         * @todo: How to do it right
+         * Destructor.
          */
         destroy: function() {
             if(this.$element){

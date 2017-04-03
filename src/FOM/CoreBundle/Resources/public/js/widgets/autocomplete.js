@@ -2,7 +2,7 @@ var Mapbender = (function($, Mapbender) {
     var Autocomplete = function(input, options){
         var self = this;
         this.input = $(input);
-        for(name in options){
+        for(var name in options){
             if(name === 'url'){
                 this.options[name] = options[name];
             }else if('undefined' !== typeof this.options[name]){ // replace options attribute
@@ -108,6 +108,7 @@ var Mapbender = (function($, Mapbender) {
     return Mapbender;
 })(jQuery, Mapbender || {});
 
+// TODO: why it's here?
 $('body').delegate(':input', 'keyup', function(event){
     event.stopPropagation();
 });
