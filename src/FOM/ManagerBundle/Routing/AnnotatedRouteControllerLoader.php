@@ -36,9 +36,8 @@ class AnnotatedRouteControllerLoader extends BaseLoader
     protected function configureRoute(Route $route, \ReflectionClass $class, \ReflectionMethod $method, $annot)
     {
         parent::configureRoute($route, $class, $method, $annot);
-        if (is_a($annot, 'FOM\ManagerBundle\Configuration\Route')) {
+        if(is_a($annot, 'FOM\ManagerBundle\Configuration\Route')) {
             $route->setPath($this->prefix . $route->getPath());
         }
     }
 }
-

@@ -1,25 +1,34 @@
 <?php
-
 namespace FOM\UserBundle\Form\Type;
 
+use Mapbender\CoreBundle\Component\SecurityContext;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\DependencyInjection\Container;
 use FOM\ManagerBundle\Form\Type\TagboxType;
 
 use FOM\UserBundle\Form\DataTransformer\ACEDataTransformer;
 
+/**
+ * Class ACEType
+ *
+ */
 class ACEType extends AbstractType
 {
+    /** @var SecurityContext  */
     protected $securityContext;
+
+    /** @var AclProviderInterface  */
     protected $aclProvider;
+
+    /** @var Container  */
     protected $container;
 
     public function __construct(SecurityContext $securityContext,
-        AclProviderInterface $aclProvider, Container $container)
+        AclProviderInterface $aclProvider,
+        Container $container)
     {
         $this->securityContext = $securityContext;
         $this->aclProvider = $aclProvider;

@@ -1,10 +1,11 @@
 <?php
 namespace FOM\UserBundle\Form\Type;
 
+use Mapbender\CoreBundle\Component\SecurityContext;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
@@ -29,16 +30,30 @@ use Symfony\Component\Security\Acl\Exception\InvalidDomainObjectException;
  */
 class ACLType extends AbstractType
 {
+    /** @var SecurityContext */
     protected $securityContext;
+
+    /** @var AclProviderInterface */
     protected $aclProvider;
+
+    /** @var RouterInterface */
     protected $router;
 
-    public function __construct(SecurityContext $securityContext,
-        AclProviderInterface $aclProvider, $router)
+    /**
+     * ACLType constructor.
+     *
+     * @param SecurityContext      $securityContext
+     * @param AclProviderInterface $aclProvider
+     * @param RouterInterface      $router
+     */
+    public function __construct(
+        SecurityContext $securityContext,
+        AclProviderInterface $aclProvider,
+        RouterInterface $router)
     {
         $this->securityContext = $securityContext;
-        $this->aclProvider = $aclProvider;
-        $this->router = $router;
+        $this->aclProvider     = $aclProvider;
+        $this->router          = $router;
     }
 
     /**
