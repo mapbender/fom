@@ -1,6 +1,43 @@
 # Changelog
 
-* **v.3.0.5.4** - 2016-09-xx
+* **v.3.0.6.0** - 2017-05-02
+    - Merge feature/symfony-upgrade-2.8
+    - Merge release/3.0.5
+    - Clean up popup.js documentation
+    - Fix autocomplete.js get local name variable instead of global one
+    - Fix use SecurityContext by ACEType and ACLType
+    - Merge @hwbllmnn symfony 2.7 upgrade branch
+    - Merge remote-tracking branch 'composer/feature/symfony2.7' into release/3.0.6
+    - Add fullscreen template region "align" and "closed" properties
+    - Clean up LoginController, PasswordController and UserController
+    - Remove IE 6-10 template support
+    - Remove jquery-1.7.1.js and jquery-ui-1.8.16.min.js
+    - Remove ACLSIDHelper
+    - Remove old binded jquery libraries
+    - Remove and refactor LoginController, PasswordController and UserController imports
+    - Added back comments
+    - Added LDAP Binding for requests. Added some comments and fixed indentation.
+    - Refactor and describe RolesService
+    - Merge pull request #26 from mapbender/hotfix/ldap_integration_bundle
+    - Fix for LDAP user autorization. Rename to correct entity class.
+    - Remove LDAP components to Mapbender/Ldap Bundle as composer 'mapbender/ldap' module
+    - Merge pull request #24 from mapbender/hotfix/dropdown-scrolls-background
+    - Merge pull request #25 from mapbender/fix/acl-handling
+    - Remove and unregister LDAP from FOM
+    - Fix internal issue #7093
+    - Merge pull request #22 from mapbender/hotfix/sspi_authentication_fix
+    - Merge pull request #23 from mapbender/fix/route-name
+    - Add names for ACL-routes in ACLController
+    - Make login, register, forgot password and restore password screens responsive
+    - Fixed Sspi-User Authentication
+    - Merge pull request #21 from mapbender/hotfix/accordion-in-accordion
+    - Fix 'active' by accordion in accordion
+    - Fix set admin page title default
+    - Merge pull request #20 from mapbender/hotfix/changelog
+    - Intergrate bootstrap and refactor/fix administration SCSS files
+    - Fix/Remove displaying pasword resend confirmation screen
+    - Fix and refactor login and manager template
+    - Fix deprecated call by AnnotatedRouteControllerLoader route  configuring
     - Restrict move popups outside of visible area application
     - Merge pull request #19 from mapbender/hotfix/stored-xss
     - fixed dropdown part of vulnerability
