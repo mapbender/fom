@@ -1,6 +1,6 @@
 # Changelog
 
-* **v.3.0.6.0** - 2017-05-02
+* **v.3.0.6.0** - 2017-05-05
     - Merge feature/symfony-upgrade-2.8
     - Merge release/3.0.5
     - Clean up popup.js documentation
