@@ -4,6 +4,8 @@
 
 {% block css %}
   {{parent()}}
+  <link rel="stylesheet" href="/components/datatables/datatables-built.css" />
+  <link rel="stylesheet" href="/bundles/fomuser/css/userlist.datatables.css" />
 {% endblock %}
 
 {% block manager_content %}
@@ -12,61 +14,84 @@
 <a class="iconAdd iconBig right" href="{{path('fom_user_user_new')}}" title="{{"fom.user.user.index.add_new_user"|trans}}"></a>
 {% endif %}
 
-{% if users|length > 0 %}
-  <label for="inputFilterUsers" class="labelInput left">{{"fom.user.user.index.filter"|trans}}</label>
-  <input id="inputFilterUsers" type="text" class="input left listFilterInput"/>
+<div class="clearContainer"></div>
 
-  <div class="clearContainer"></div>
-  <table id="listFilterUsers" class="table userControlTable listFilterContainer">
-    <thead id="usersHead">
-      <tr class="doNotFilter">
-        <th>{{ "fom.user.user.index.name" | trans }}</th>
-        <th>{{ "fom.user.user.index.email" | trans }}</th>
-        <th>{{ "fom.user.user.index.groups" | trans }}</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody id="usersBody">
-      {% for user in users %}
-        <tr id="app-{{ user.id }}" class="filterItem">
-          <td>
-            {% if is_granted('EDIT', user) %}
-            <a class="labelText" href="{{ path('fom_user_user_edit', {'id': user.id}) }}" title="{{ 'fom.user.user.index.edit_user' | trans }} {{ user.username }}">{{ user.username }}</a>
-            {% else %}
-            {{ user.username }}
-            {% endif %}
-          </td>
-          <td><a class="linkButton" href="mailto:{{ user.email }}" title="{{ 'fom.user.user.index.contact_user' | trans }}">{{ user.email }}</a></td>
-          <td>
-            <ul>
-              {% for group in user.groups %}
-              <li class='doNotFilter'><a class="linkButton" href="{{ path('fom_user_group_edit', { 'id': group.id }) }}" title="{{ 'fom.user.user.index.edit_group' | trans }} {{group.title}}">{{ group.title }}</a></li>
-              {% endfor %}
-            </ul>
-          </td>
-          <td class="iconColumn">
-            {% if is_granted('EDIT', user) %}
-              <a class="iconEdit iconSmall" href="{{ path('fom_user_user_edit',  {'id': user.id }) }}" title="{{ 'fom.user.user.index.edit_user' | trans }} {{ user.username }}"></a>
-            {% endif %}
-            {% if user.id != 1 and is_granted('DELETE', user) %}
-              <span class="iconRemove iconSmall"
-                title="{{"fom.user.user.index.delete_user"|trans}} {{ user.username }}"
-                data-url="{{ path('fom_user_user_delete', { 'id': user.id}) }}"
-                data-id="{{ user.id }}"
-              ></span>
-            {% endif %}
-          </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-{% else %}
-  <p class="description left">{{"fom.user.user.index.no_users_available"|trans}}</p>
-{% endif %}
+<table id="listFilterGroups" class="table userControlTable">
+  <thead id="usersHead">
+    <tr>
+      <th>{{ "fom.user.user.index.name" | trans }}</th>
+      <th>{{ "fom.user.user.index.email" | trans }}</th>
+      <th>{{ "fom.user.user.index.groups" | trans }}</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+</table>
 <div class="clearContainer"></div>
 {% endblock %}
 
 {% block js %}
   {{parent()}}
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+      try {
+        $('#listFilterGroups').DataTable( {
+          "serverSide": true,
+          "ajax": "/app_dev.php/manager/user/search",
+          "ordering": false,
+          "info":     true,
+          "pagingType" : "full_numbers",
+          "language": {
+            "decimal":        "",
+            "emptyTable":     "{{ "fom.user.user.index.datatable.emptytable" | trans }}",
+            "info":           "{{ "fom.user.user.index.datatable.info" | trans }}",
+            "infoEmpty":      "{{ "fom.user.user.index.datatable.infoempty" | trans }}",
+            "infoFiltered":   "",
+            "infoPostFix":    "",
+            "thousands":      ",",
+            "lengthMenu":     "{{ "fom.user.user.index.datatable.lenghtmenu" | trans }}",
+            "loadingRecords": "{{ "fom.user.user.index.datatable.loadingrecords" | trans }}",
+            "processing":     "{{ "fom.user.user.index.datatable.processing" | trans }}",
+            "search":         "{{ "fom.user.user.index.datatable.search" | trans }}",
+            "zeroRecords":    "{{ "fom.user.user.index.datatable.zerorecords" | trans }}",
+            "paginate": {
+              "first":      "{{ "fom.user.user.index.datatable.paginate.first" | trans }}",
+              "last":       "{{ "fom.user.user.index.datatable.paginate.last" | trans }}",
+              "next":       "{{ "fom.user.user.index.datatable.paginate.next" | trans }}",
+              "previous":   "{{ "fom.user.user.index.datatable.paginate.previous" | trans }}"
+            }
+          },
+          "columns": [
+            { "data": "username" },
+            { "data": "email" },
+            { "data": "groups", render: "[, ].title" },
+            {
+              "data":      null,
+              "className": "tdsmall",
+              render:      function(data, type, row) {
+                return (data.editPath != '')
+                  ? '<a class="iconEdit iconSmall" href="' + data.editPath + '" title="' +
+                    'data: edit translated' + '' + data.username + '"></a>'
+                  : ''
+              }
+            },
+            {
+              "data": null,
+              "className":"tdsmall",
+              render: function ( data, type, row ) {
+                return (data.deletePath != '')
+                  ? '<span class="iconRemove iconSmall" title="delete '+'username'+'" ' +
+                    'data-url="' + data.deletePath + '" data-id="' + data.id + '"></span>'
+                  : '';
+              }
+            }
+          ]
+        });
+      } catch(err) {
+          // in case the login times out we want the user be redirected to login screen...
+          document.location.href='/';
+      }
+    });
+  </script>
   <script type="text/javascript" src="{{ asset('bundles/mapbendermanager/js/user-control.js') }}"></script>
 {% endblock %}

@@ -8,10 +8,13 @@ use FOM\UserBundle\Security\UserHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * User management controller
@@ -30,21 +33,71 @@ class UserController extends Controller
     public function indexAction()
     {
         $securityContext = $this->get('security.context');
-        $oid             = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
+        $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
+        return array(
+            'users'             => array(''),
+            'create_permission' => $securityContext->isGranted('CREATE', $oid));
+    }
 
-        $query         = $this->getDoctrine()->getManager()->createQuery('SELECT r FROM FOMUserBundle:User r');
-        $users         = $query->getResult();
-        $allowed_users = array();
-        // ACL access check
-        foreach ($users as $index => $user) {
+    /**
+     * Renders user list.
+     *
+     * @ManagerRoute("/user/search")
+     * @Method({ "POST","GET" })
+     */
+    public function searchAction()
+    {
+        $securityContext = $this->get('security.context');
+        $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
+        $request = Request::createFromGlobals();
+        $start = $request->query->get('start');
+        $length = $request->query->get('length');
+        $search = $request->query->get('search');
+        $dql = "SELECT r FROM FOMUserBundle:User r LEFT JOIN r.groups g WHERE
+            (g.title IS NULL AND r.username LIKE :username)
+            OR 
+            (g.title IS NULL AND r.email LIKE :email)
+            OR 
+            g.title LIKE :group";
+        $query = $this->getDoctrine()->getManager()->createQuery($dql)
+            ->setParameter('username','%'.$search['value'].'%')
+            ->setParameter('email','%'.$search['value'].'%')
+            ->setParameter('group','%'.$search['value'].'%')
+            ->setFirstResult($start)
+            ->setMaxResults($length);
+        $paginator = new Paginator($query, $fetchJoinCollection = true);
+        $data = array();
+        $maxDataCount = count($paginator);
+        foreach ($paginator as $index => $user) {
             if ($securityContext->isGranted('VIEW', $user)) {
-                $allowed_users[] = $user;
+                $groups = $user->getGroups();
+                $row = new \stdClass();
+                $row->username = $user->getUsername();
+                $row->email = $user->getEmail();
+                $row->groups = array();
+                $row->id = $user->getId();
+                foreach($groups as $group) {
+                    $row->groups[] = array('title' => $group->getTitle());
+                }
+                $row->editPath = '';
+                $row->deletePath = '';
+                if ($user->getId() != 1) {
+                    $editPath = $this->generateUrl('fom_user_user_edit', array('id' => $user->getId()));
+                    $deletePath = $this->generateUrl('fom_user_user_delete', array('id' => $user->getId()));
+                    $row->editPath   = $securityContext->isGranted('CREATE', $oid) ? $editPath : '';
+                    $row->deletePath = $securityContext->isGranted('DELETE', $oid) ? $deletePath : '';
+                }
+                $data[] = $row;
             }
         }
+        return new JsonResponse(
+            array(
+                'draw' => time(),
+                'recordsFiltered' => $maxDataCount,
+                'data' => $data
 
-        return array(
-            'users'             => $allowed_users,
-            'create_permission' => $securityContext->isGranted('CREATE', $oid));
+            )
+        );
     }
 
     /**

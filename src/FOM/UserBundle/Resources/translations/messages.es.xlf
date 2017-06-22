@@ -548,6 +548,57 @@
         <source>User credentials have expired.</source>
         <target>User credentials have expired.</target>
       </trans-unit>
+
+
+        <trans-unit id="fom.user.user.index.datatable.emptytable">
+            <source>fom.user.user.index.datatable.emptytable</source>
+            <target>No se encontraron datos</target>
+        </trans-unit>
+        <trans-unit id="fom.user.user.index.datatable.info">
+            <source>fom.user.user.index.datatable.info</source>
+            <target>Ver _START_ a _END_ de _TOTAL_ datos total</target>
+        </trans-unit>
+        <trans-unit id="fom.user.user.index.datatable.infoempty">
+            <source>fom.user.user.index.datatable.infoempty</source>
+            <target>0 resultados</target>
+        </trans-unit>
+        <trans-unit id="fom.user.user.index.datatable.lenghtmenu">
+            <source>fom.user.user.index.datatable.lenghtmenu</source>
+            <target>Ver _MENU_ resultados por página</target>
+        </trans-unit>
+        <trans-unit id="fom.user.user.index.datatable.loadingrecords">
+            <source>fom.user.user.index.datatable.loadingrecords</source>
+            <target>los datos se cargan</target>
+        </trans-unit>
+        <trans-unit id="fom.user.user.index.datatable.processing">
+            <source>fom.user.user.index.datatable.processing</source>
+            <target>los datos se procesan</target>
+        </trans-unit>
+        <trans-unit id="fom.user.user.index.datatable.search">
+            <source>fom.user.user.index.datatable.search</source>
+            <target>buscar:</target>
+        </trans-unit>
+        <trans-unit id="fom.user.user.index.datatable.zerorecords">
+            <source>fom.user.user.index.datatable.zerorecords</source>
+            <target>no había resultados que se encuentran</target>
+        </trans-unit>
+        <trans-unit id="fom.user.user.index.datatable.paginate.first">
+            <source>fom.user.user.index.datatable.paginate.first</source>
+            <target>principio</target>
+        </trans-unit>
+        <trans-unit id="fom.user.user.index.datatable.paginate.last">
+            <source>fom.user.user.index.datatable.paginate.last</source>
+            <target>último</target>
+        </trans-unit>
+        <trans-unit id="fom.user.user.index.datatable.paginate.next">
+            <source>fom.user.user.index.datatable.paginate.next</source>
+            <target>siguiente</target>
+        </trans-unit>
+        <trans-unit id="fom.user.user.index.datatable.paginate.previous">
+            <source>fom.user.user.index.datatable.paginate.previous</source>
+            <target>previo</target>
+        </trans-unit>
+
     </body>
   </file>
 </xliff>
