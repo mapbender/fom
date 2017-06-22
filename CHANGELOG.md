@@ -1,7 +1,7 @@
 # Changelog
 
 * **v.3.0.6.1** - 2017-05-24
-    - no changes.
+    - Replace user listing with jquery datatable
 
 * **v.3.0.6.0** - 2017-05-05
     - Merge feature/symfony-upgrade-2.8
