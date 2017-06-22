@@ -597,6 +597,54 @@
         <source>User credentials have expired.</source>
         <target>Срок действия пароля истёк.</target>
       </trans-unit>
+      <trans-unit id="fom.user.user.index.datatable.emptytable">
+        <source>fom.user.user.index.datatable.emptytable</source>
+        <target>Нет данных</target>
+      </trans-unit>
+      <trans-unit id="fom.user.user.index.datatable.info">
+        <source>fom.user.user.index.datatable.info</source>
+        <target>Записи с _START_ до _END_ из _TOTAL_ записей</target>
+      </trans-unit>
+      <trans-unit id="fom.user.user.index.datatable.infoempty">
+        <source>fom.user.user.index.datatable.infoempty</source>
+        <target>0 данных</target>
+      </trans-unit>
+      <trans-unit id="fom.user.user.index.datatable.lenghtmenu">
+        <source>fom.user.user.index.datatable.lenghtmenu</source>
+        <target>Показать _MENU_ записей на страницу</target>
+      </trans-unit>
+      <trans-unit id="fom.user.user.index.datatable.loadingrecords">
+        <source>fom.user.user.index.datatable.loadingrecords</source>
+        <target>Данные загружаются...</target>
+      </trans-unit>
+      <trans-unit id="fom.user.user.index.datatable.processing">
+        <source>fom.user.user.index.datatable.processing</source>
+        <target>Данные обрабатываются...</target>
+      </trans-unit>
+      <trans-unit id="fom.user.user.index.datatable.search">
+        <source>fom.user.user.index.datatable.search</source>
+        <target>Поиск:</target>
+      </trans-unit>
+      <trans-unit id="fom.user.user.index.datatable.zerorecords">
+        <source>fom.user.user.index.datatable.zerorecords</source>
+        <target>В таблице отсутствуют данные</target>
+      </trans-unit>
+      <trans-unit id="fom.user.user.index.datatable.paginate.first">
+        <source>fom.user.user.index.datatable.paginate.first</source>
+        <target>Первая</target>
+      </trans-unit>
+      <trans-unit id="fom.user.user.index.datatable.paginate.last">
+        <source>fom.user.user.index.datatable.paginate.last</source>
+        <target>Последняя</target>
+      </trans-unit>
+      <trans-unit id="fom.user.user.index.datatable.paginate.next">
+        <source>fom.user.user.index.datatable.paginate.next</source>
+        <target>Следующая</target>
+      </trans-unit>
+      <trans-unit id="fom.user.user.index.datatable.paginate.previous">
+        <source>fom.user.user.index.datatable.paginate.previous</source>
+        <target>Предыдущая</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

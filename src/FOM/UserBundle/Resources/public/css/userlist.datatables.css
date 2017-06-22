@@ -1,0 +1,86 @@
+.dataTables_filter label input {
+  border-radius: 3px;
+  border: solid 1px #c8c8c8;
+  line-height: 21px;
+  height: 28px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.tdsmall  {
+  padding:0px !important;
+  width:20px !important;
+  text-align:center !important;
+  vertical-align:middle !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button,
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  padding: 5px 10px !important;
+  height: 24px !important;
+  line-height: 11px !important;
+  display: inline-block !important;
+  margin: 3px !important;
+  text-decoration: none !important;
+  border: 1px solid #538e24 !important;
+  color: #fff !important;
+  background: #6fb536 !important;
+  -webkit-transition: all, 0.3s, ease-in-out !important;
+  -moz-transition: all, 0.3s, ease-in-out !important;
+  -o-transition: all, 0.3s, ease-in-out !important;
+  transition: all, 0.3s, ease-in-out !important;
+  outline: none !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  border: 1px solid #000000 !important;
+  color: #fff !important;
+  background: #6FB536 !important;
+  font-weight:bold;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+  border: 1px solid #ccc !important;
+  color: #ddd !important;
+  background: #999 !important;
+}
+
+.dataTables_wrapper {
+  position: relative !important;
+  clear: both !important;
+  zoom: 1 !important;
+  top:55px !important;
+}
+
+.dataTables_wrapper .dataTables_filter {
+  padding-top: 0.25em;
+  position: absolute;
+  top: -50px;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+  text-align: right;
+  padding-top: 0.25em;
+  position: absolute;
+  top: -12px;
+  right: 0px;
+}
+
+.dataTables_wrapper .dataTables_length {
+  padding-top: 0.25em;
+  position: absolute;
+  top: -8px;
+  left: 0px;
+}
+
+.dataTable {
+  position:relative;
+  top:25px;
+}
+
+.dataTables_info {
+  position:relative;
+  top:25px;
+}
