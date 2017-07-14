@@ -102,6 +102,8 @@ fom:
         manage_not_allowed: 'U bent niet gemachtigd om groepen aan te passen of aan te maken.'
         add_users_groups: 'Voeg gebruikers en groepen toe'
         manage_not_allowed_security: 'U bent niet gemachtigd om de beveiliging aan te passen.'
+        username: Username
+        description: Description
         activated: activated
     acl:
       index:
@@ -133,6 +135,7 @@ fom:
         caption: 'Reset wachtwoord'
         btn: 'Reset wachtwoord'
       form:
+        message: 'To reset your password please provide your username or your e-mail address.'
         title: 'Wachtwoord vergeten'
         caption: 'Wachtwoord vergeten'
         username_email: 'Gebruikersnaam of email adres'
@@ -161,6 +164,20 @@ fom:
       roles:
         super_admin: 'Alles kan aangepast worden(super admin)'
         user_admin: 'Gebruikers en groepen kunnen geadministreerd worden'
+IS_AUTHENTICATED_ANONYMOUSLY: IS_AUTHENTICATED_ANONYMOUSLY
+form:
+  profile:
+    basic:
+      firstname: 'First name'
+      lastName: 'Last name'
+      notes: Notes
+      phone: Phone
+      organizationName: Organization
+      organizationRole: Role
+      street: Street
+      zipCode: 'Zip code'
+      city: City
+      country: Country
 'User account is locked':
   '': 'User account is locked.'
 'User account is disabled':

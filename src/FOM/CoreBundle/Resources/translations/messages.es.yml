@@ -1,8 +1,5 @@
 fom:
   core:
-    fields:
-      filter: Filtro
-      no_user_group_defined: 'No definido grupo de usuario.'
     components:
       popup:
         add_user_group:
@@ -16,3 +13,6 @@ fom:
           btn:
             cancel: Cancelar
             ok: Acpetar
+    fields:
+      filter: Filtro
+      no_user_group_defined: 'No definido grupo de usuario.'

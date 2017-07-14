@@ -102,6 +102,8 @@ fom:
         manage_not_allowed: 'Você não tem autorização para gerenciar grupos.'
         add_users_groups: 'Adicionar usuários e grupos'
         manage_not_allowed_security: 'Você não tem autorização para gerenciar segurança.'
+        username: Username
+        description: Description
         activated: activated
     acl:
       index:
@@ -162,6 +164,20 @@ fom:
       roles:
         super_admin: 'Pode adminstrar tudo (super admin)'
         user_admin: 'Pode administrar usuários e grupos'
+IS_AUTHENTICATED_ANONYMOUSLY: IS_AUTHENTICATED_ANONYMOUSLY
+form:
+  profile:
+    basic:
+      firstname: 'First name'
+      lastName: 'Last name'
+      notes: Notes
+      phone: Phone
+      organizationName: Organization
+      organizationRole: Role
+      street: Street
+      zipCode: 'Zip code'
+      city: City
+      country: Country
 'User account is locked':
   '': 'User account is locked.'
 'User account is disabled':
