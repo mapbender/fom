@@ -1,5 +1,11 @@
 # Changelog
 
+* **v.3.0.6.2** - 2017-07-20
+    - no changes.
+
+* **v.3.0.6.1** - 2017-05-24
+    - no changes.
+
 * **v.3.0.6.0** - 2017-05-05
     - Merge feature/symfony-upgrade-2.8
     - Merge release/3.0.5
