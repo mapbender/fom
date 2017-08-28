@@ -6,7 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityRepository;
 use FOM\CoreBundle\Doctrine\DoctrineHelper;
 use FOM\UserBundle\Entity\UserLogEntry;
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Event\AuthenticationEvent;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
@@ -17,8 +17,10 @@ use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
  * @author Christian Wygoda
  * @author Andriy Oblivantsev
  */
-class FailedLoginListener extends ContainerAware
+class FailedLoginListener
 {
+    use ContainerAwareTrait;
+
     /**
      * @param ContainerInterface $container
      */
