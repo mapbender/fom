@@ -1,11 +1,12 @@
 {% extends "FOMManagerBundle::manager.html.twig" %}
 
+
 {% block title %}{{ 'fom.user.user.index.title' | trans }}{% endblock %}
 
 {% block css %}
   {{parent()}}
-  <link rel="stylesheet" href="/components/datatables/datatables-built.css" />
-  <link rel="stylesheet" href="/bundles/fomuser/css/userlist.datatables.css" />
+  <link rel="stylesheet" href={{ asset('components/datatables/datatables-built.css') }}/>
+  <link rel="stylesheet" href={{ asset('bundles/fomuser/css/userlist.datatables.css')}} />
 {% endblock %}
 
 {% block manager_content %}
