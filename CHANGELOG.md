@@ -1,5 +1,13 @@
 # Changelog
 
+* **v.3.0.6.4** - 2018-01-10
+    - Fix SSPI not working anymore
+    - Fix second entity manager definition in mapbender not working anymore
+    - Fix authentication against OracleDB not working
+    - Fix deprecation in FailedLoginListener    
+
+
+
 * **v.3.0.6.3** - 2017-07-27
     - no changes.
 
