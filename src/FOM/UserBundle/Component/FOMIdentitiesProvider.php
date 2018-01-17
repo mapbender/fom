@@ -61,7 +61,7 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
     public function getAllGroups()
     {
         $all = array();
-        if ($this->container->hasParameter('ldap_host')) {
+        if ($this->container->hasParameter('ldap.host')) {
             $groupDn        = $this->container->getParameter('ldap.group.query');
             $groupFilter        = $this->container->getParameter('ldap.group.filter');
             $ldapClient   = $this->getLdapClient();
@@ -92,7 +92,7 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
     {
         // Settings for LDAP
         $all = array();
-        if ($this->container->hasParameter('ldap_host')) {
+        if ($this->container->hasParameter('ldap.host')) {
             $nameAttribute = $this->container->getParameter('ldap.user.nameAttribut');
             $userDn        = $this->container->getParameter('ldap.user.baseDn');
             $userQuery        = $this->container->getParameter('ldap.user.query');
@@ -133,8 +133,8 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
 
 
         $ldapClient = $this->container->get('ldapClient');
-        $bindDn     = $this->container->getParameter("ldap_bind_dn");
-        $bindPasswd = $this->container->getParameter("ldap_bind_pwd");
+        $bindDn     = $this->container->getParameter("ldap.bind.dn");
+        $bindPasswd = $this->container->getParameter("ldap.bind.password	");
         $ldapClient->bind($bindDn, $bindPasswd);
 
         return $ldapClient;
