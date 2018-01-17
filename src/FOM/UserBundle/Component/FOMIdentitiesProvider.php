@@ -62,9 +62,10 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
     {
         $all = array();
         if ($this->container->hasParameter('ldap_host')) {
-            $groupDn        = $this->container->getParameter('ldap_group_dn');
+            $groupDn        = $this->container->getParameter('ldap.group.query');
+            $groupFilter        = $this->container->getParameter('ldap.group.filter');
             $ldapClient   = $this->getLdapClient();
-            $ldapGroupList = $ldapClient->find($groupDn, '(objectClass=top)');
+            $ldapGroupList = $ldapClient->find($groupDn, $groupFilter);
             if ($ldapGroupList != null) {
                 foreach (array_slice($ldapGroupList, 2) as $ldapGroup) {
                     $group =    new Group();
@@ -92,16 +93,18 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
         // Settings for LDAP
         $all = array();
         if ($this->container->hasParameter('ldap_host')) {
-            $nameAttribute = $this->container->getParameter('ldap_group_name_attribute');
-            $userDn        = $this->container->getParameter('ldap_user_base_dn');
+            $nameAttribute = $this->container->getParameter('ldap.user.nameAttribut');
+            $userDn        = $this->container->getParameter('ldap.user.baseDn');
+            $userQuery        = $this->container->getParameter('ldap.user.query');
+
 
             $ldapClient   = $this->getLdapClient();
-            $ldapUserList = $ldapClient->find($userDn, '(objectclass=top)');
+            $ldapUserList = $ldapClient->find($userDn, $userQuery);
             if ($ldapUserList !=  null) {
                 unset($ldapUserList[0]);
                 foreach (array_slice($ldapUserList, 1) as $ldapUser) {
 
-                    $userName = $ldapUser[ $nameAttribute ][0];
+
                     $user     = new \stdClass();
                     $user->getUsername = $ldapUser[ $nameAttribute ][0];
                     $all[] = $user;
