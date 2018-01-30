@@ -62,8 +62,8 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
     {
         $all = array();
         if ($this->container->hasParameter('ldap.host')) {
-            $groupDn        = $this->container->getParameter('ldap.group.query');
-            $groupFilter        = $this->container->getParameter('ldap.group.filter');
+            $groupDn        = $this->container->getParameter('ldap.group.baseDn');
+            $groupFilter        = $this->container->getParameter('ldap.group.adminFilter');
             $ldapClient   = $this->getLdapClient();
             $ldapGroupList = $ldapClient->find($groupDn, $groupFilter);
             if ($ldapGroupList != null) {
@@ -88,18 +88,19 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
         return $all;
     }
 
-    public function getAllUsers()
+    public  function getAllUsers()
     {
         // Settings for LDAP
         $all = array();
         if ($this->container->hasParameter('ldap.host')) {
-            $nameAttribute = $this->container->getParameter('ldap.user.nameAttribut');
+            $nameAttribute = $this->container->getParameter('ldap.user.nameAttribute');
             $userDn        = $this->container->getParameter('ldap.user.baseDn');
-            $userQuery        = $this->container->getParameter('ldap.user.query');
+            $userQuery        = $this->container->getParameter('ldap.user.adminFilter');
 
 
             $ldapClient   = $this->getLdapClient();
             $ldapUserList = $ldapClient->find($userDn, $userQuery);
+
             if ($ldapUserList !=  null) {
                 unset($ldapUserList[0]);
                 foreach (array_slice($ldapUserList, 1) as $ldapUser) {
@@ -134,8 +135,8 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
 
         $ldapClient = $this->container->get('ldapClient');
         $bindDn     = $this->container->getParameter("ldap.bind.dn");
-        $bindPasswd = $this->container->getParameter("ldap.bind.password	");
-        $ldapClient->bind($bindDn, $bindPasswd);
+        $bindPwd = $this->container->getParameter("ldap.bind.pwd");
+        $ldapClient->bind($bindDn, $bindPwd);
 
         return $ldapClient;
     }
