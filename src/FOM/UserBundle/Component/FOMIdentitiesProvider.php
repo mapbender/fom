@@ -58,6 +58,9 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
         return $roles;
     }
 
+    /**
+     * @return array
+     */
     public function getAllGroups()
     {
         $all = array();
@@ -88,6 +91,9 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
         return $all;
     }
 
+    /**
+     * @return array
+     */
     public  function getAllUsers()
     {
         // Settings for LDAP
@@ -102,10 +108,7 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
             $ldapUserList = $ldapClient->find($userDn, $userQuery);
 
             if ($ldapUserList !=  null) {
-                unset($ldapUserList[0]);
-                foreach (array_slice($ldapUserList, 1) as $ldapUser) {
-
-
+                foreach (array_slice($ldapUserList, 2) as $ldapUser) {
                     $user     = new \stdClass();
                     $user->getUsername = $ldapUser[ $nameAttribute ][0];
                     $all[] = $user;
@@ -135,6 +138,7 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
 
         $ldapClient = $this->container->get('ldapClient');
         $bindDn     = $this->container->getParameter("ldap.bind.dn");
+
         $bindPwd = $this->container->getParameter("ldap.bind.pwd");
         $ldapClient->bind($bindDn, $bindPwd);
 
