@@ -3,7 +3,7 @@
 namespace FOM\UserBundle\Component;
 
 use FOM\UserBundle\Entity\AclEntry;
-use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
+use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\Security\Acl\Domain\Acl;
 use Symfony\Component\Security\Acl\Domain\Entry;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
@@ -32,7 +32,7 @@ use Symfony\Component\Security\Acl\Model\AclInterface;
  */
 class AclManager
 {
-    /** @var MutableAclProvider  */
+    /** @var AclProviderInterface  */
     protected $aclProvider;
 
     /**
@@ -40,7 +40,7 @@ class AclManager
      *
      * @param MutableAclProvider $aclProvider
      */
-    public function __construct(MutableAclProvider $aclProvider)
+    public function __construct(AclProviderInterface $aclProvider)
     {
         $this->aclProvider = $aclProvider;
     }
