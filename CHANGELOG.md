@@ -1,6 +1,18 @@
 # Changelog
 
-* **v.3.0.5.4** - 2016-09-xx
+* **v.3.0.5.4** - 2018-02-20
+    - Improve ACL handling
+    - Improve LDAP user authentication
+    - Fix autocomplete.js behavior
+    - Make login, register, forgot password and restore password screens responsive
+    - Fix and refactor login and manager template to use mapbender asset pipeline
+    - Fix pasword resend confirmation view
+    - Merge pull request #24 from mapbender/hotfix/dropdown-scrolls-background
+    - Merge pull request #22 from mapbender/hotfix/sspi_authentication_fix
+    - Merge pull request #28 from mapbender/hotfix/fix-visual-form-bugs
+    - Merge pull request #44 from mapbender/hotfix/OracleACLListener305
+    - Intergrate bootstrap and refactor/fix administration SCSS files
+    - Fix deprecated call by AnnotatedRouteControllerLoader route configuring
     - Restrict move popups outside of visible area application
     - Merge pull request #19 from mapbender/hotfix/stored-xss
     - fixed dropdown part of vulnerability
@@ -8,10 +20,8 @@
     - Short user name russian translation
     - Deprecate FOM SharedApplicationWebTestCase
     - Improve tab navigation to use keyboard (TAB)
-    - Fix find object ACL (add try-catch block)
     - Add ability to see which security permissions are set for an element (or some other object)
     - Extract administration border radius variables
-    - Add new ACL has and get methods
     - Improve login box screen
     - Improve application list navigation
     - Fix embedded login screen if session time is out
