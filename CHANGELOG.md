@@ -1,6 +1,6 @@
 # Changelog
 
-* **v.3.0.6.1**
+* **v.3.0.6.1** - 2018-02-26
     - Fix SSPI not working anymore
     - Fix second entity manager definition in mapbender not working anymore
     - Fix authentication against OracleDB not working
