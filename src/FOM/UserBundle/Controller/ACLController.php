@@ -2,6 +2,7 @@
 
 namespace FOM\UserBundle\Controller;
 
+use FOM\ManagerBundle\Component\ManagerBundle;
 use FOM\ManagerBundle\Configuration\Route;
 use FOM\UserBundle\Form\Type\ACLType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -152,7 +153,7 @@ class ACLController extends Controller
     {
         $acl_classes = array();
         foreach($this->get('kernel')->getBundles() as $bundle) {
-            if(is_subclass_of($bundle, 'FOM\ManagerBundle\Component\ManagerBundle')) {
+            if ($bundle instanceof ManagerBundle) {
                 $classes = $bundle->getACLClasses();
                 if($classes) {
                     $acl_classes = array_merge($acl_classes, $classes);
