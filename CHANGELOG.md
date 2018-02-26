@@ -1,6 +1,7 @@
 # Changelog
 
-* **v.3.0.5.4** - 2018-02-20
+* **v.3.0.5.4**
+    - Fix twig errors when using Form/fields template in frontend (e.g. SearchRouter)
     - Improve ACL handling
     - Improve LDAP user authentication
     - Fix autocomplete.js behavior
