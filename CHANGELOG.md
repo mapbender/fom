@@ -5,6 +5,14 @@
     - Fix second entity manager definition in mapbender not working anymore
     - Fix authentication against OracleDB not working
     - Fix deprecation in FailedLoginListener    
+    - Fix twig errors when using Form/fields template in frontend (e.g. SearchRouter)
+    - Improve ACL handling
+    - Improve LDAP user authentication
+    - Fix autocomplete.js behavior
+    - Fix pasword resend confirmation view
+    - Merge pull request #24 from mapbender/hotfix/dropdown-scrolls-background
+    - Merge pull request #22 from mapbender/hotfix/sspi_authentication_fix
+    - Merge pull request #28 from mapbender/hotfix/fix-visual-form-bugs
 
 * **v.3.0.6.0** - 2017-05-05
     - Merge feature/symfony-upgrade-2.8
