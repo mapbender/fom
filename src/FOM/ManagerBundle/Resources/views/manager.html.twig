@@ -1,4 +1,4 @@
-{% extends "FOMCoreBundle::skel.html.twig" %}
+{% extends "MapbenderCoreBundle::index.html.twig" %}
 
 {% set title %}{% block title %}{{ title|default('') }}{% endblock %}{% endset %}
 
@@ -22,7 +22,9 @@
       <div class="leftPane">
         <div class="logoContainer">
           <a href="{{ path('mapbender_core_welcome_list') }}"><img class="logo" alt="Mapbender 3 Manager" src="{{ asset(fom.server_logo)}}" /></a>
+
         </div>
+          <div id="version" class="mapbenderVersion">Mapbender v. {{ fom.server_version }}</div>
         {% if app.user != "" %}
           {% render controller("FOMManagerBundle:Manager:menu", { "request": app.request }) %}
         {% endif %}
@@ -49,7 +51,7 @@
           {% endif %}
         </div>
         <div class="contentPane">
-          <div id="version" class="mapbenderVersion smallText">v. {{ fom.server_version }}</div>
+
           <div class="content shadowBox">
             <h1 class="contentTitle">{{ title|trans }}</h1>
 
