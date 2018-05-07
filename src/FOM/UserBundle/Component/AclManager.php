@@ -55,6 +55,7 @@ class AclManager
     public function setObjectACLFromForm($entity, $form, $type)
     {
         $aces = $form->get('ace')->getData();
+        //var_export($aces);die;
         $this->setObjectACL($entity, $aces, $type);
     }
 
@@ -161,6 +162,24 @@ class AclManager
 
         return $acl;
     }
+
+
+    /**
+     * @param array $oids
+     * @return \SplObjectStorage
+     */
+    public function getACLs(Array $oids)
+    {
+        try {
+            $acl = $this->aclProvider->findAcls($oids);
+        } catch (NotAllAclsFoundException $e) {
+            $acl = $e->getPartialResult();
+       }
+
+
+        return $acl;
+    }
+
 
     /**
      * Get object ACL entries

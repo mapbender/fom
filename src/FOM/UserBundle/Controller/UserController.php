@@ -32,10 +32,18 @@ class UserController extends Controller
         $securityContext = $this->get('security.context');
         $oid             = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
 
-        $query         = $this->getDoctrine()->getManager()->createQuery('SELECT r FROM FOMUserBundle:User r');
-        $users         = $query->getResult();
+        $users         = $this->getDoctrine()->getRepository('FOMUserBundle:User')->findAll();
+        //$users         = $query->getResult();
         $allowed_users = array();
         // ACL access check
+        foreach ($users as $index => $user) {
+            //var_dump($user->getUsername());
+            $oids[] = ObjectIdentity::fromDomainObject($user);
+        }
+        $this->get('fom.acl.manager')->getACLs($oids);
+
+
+
         foreach ($users as $index => $user) {
             if ($securityContext->isGranted('VIEW', $user)) {
                 $allowed_users[] = $user;
