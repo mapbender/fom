@@ -5,13 +5,13 @@ namespace FOM\UserBundle\Security\Firewall;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Http\Firewall\ListenerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
 use FOM\UserBundle\Security\Authentication\Token\SspiUserToken;
+use Mapbender\CoreBundle\Component\SecurityContext;
 
 class SspiListener implements ListenerInterface {
 
-    public function __construct(SecurityContextInterface $context, AuthenticationManagerInterface $manager) {
+    public function __construct(SecurityContext $context, AuthenticationManagerInterface $manager) {
         $this->context = $context;
         $this->manager = $manager;
     }
