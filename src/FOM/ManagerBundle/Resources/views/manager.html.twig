@@ -1,4 +1,4 @@
-{% extends "FOMCoreBundle::skel.html.twig" %}
+{% extends "MapbenderCoreBundle::index.html.twig" %}
 
 {% set title %}{% block title %}{{ title|default('') }}{% endblock %}{% endset %}
 
@@ -55,7 +55,9 @@
 
             {% block manager_content %}{% endblock %}
           </div>
+           
         </div>
       </div>
     </div>
+
 {% endblock %}
