@@ -1,10 +1,11 @@
 # Changelog
 
 * **dev-release/3.0.6**
-  - Added contributed translations for French locale, thanks to Patrice Pineault
-  - Updated NL locale translations, thanks to Just van den Broecke
+  - [Translation] Added contributed FR translations; thanks to Patrice Pineault!
+  - [Translation] Updated NL locale translations; thanks to Just van den Broecke!
   - Converted translation catalogs from XLIFF to Yaml
   - Add cookie consent support to login form
+  - [Framework] Avoid replacing existing Mapbender-namespace widgets (Autocomplete, Popup2; see [9fd9622](https://github.com/mapbender/fom/commit/9fd96228335f075d2cf3733688ccc0b975b351e1))
 
 * **v.3.0.6.1** - 2018-02-26
     - Fix SSPI not working anymore

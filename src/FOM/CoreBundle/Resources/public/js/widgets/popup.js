@@ -1,6 +1,9 @@
 /**
- * Mapbender Popup
- * ===============
+ * FOM Popup
+ * Deprecated. Does not work without Mapbender CSS and is used exclusively in Mapbender.
+ *
+ * Mapbender will receive its own popup widget implementation so the multitude of interdependent
+ * markup-vs-css issues can be fixed in one place.
  *
  * This popup is not a jQuery UI widget, as thus would require to have the DOM
  * setup before. Instead you call the Mapbender.Popup constructor with a options
