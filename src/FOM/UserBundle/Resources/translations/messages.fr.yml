@@ -178,11 +178,3 @@ form:
       zipCode: 'Code postal'
       city: Ville
       country: Pays
-'User account is locked':
-  '': 'User account is locked.'
-'User account is disabled':
-  '': 'User account is disabled.'
-'User account has expired':
-  '': 'User account has expired.'
-'User credentials have expired':
-  '': 'User credentials have expired.'
