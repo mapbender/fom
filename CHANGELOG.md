@@ -1,15 +1,27 @@
 # Changelog
 
-* **v.3.0.6.3** - 2017-07-27
-    - no changes.
+* **dev-release/3.0.6**
+  - [Translation] Added contributed FR translations; thanks to Patrice Pineault!
+  - [Translation] Updated NL locale translations; thanks to Just van den Broecke!
+  - Converted translation catalogs from XLIFF to Yaml
+  - Add cookie consent support to login form
+  - [Framework] Avoid replacing existing Mapbender-namespace widgets (Autocomplete, Popup2; see [9fd9622](https://github.com/mapbender/fom/commit/9fd96228335f075d2cf3733688ccc0b975b351e1))
 
-* **v.3.0.6.2** - 2017-07-20
-    - no changes.
+* **v3.0.6.1** - 2018-02-26
+    - Fix SSPI not working anymore
+    - Fix second entity manager definition in mapbender not working anymore
+    - Fix authentication against OracleDB not working
+    - Fix deprecation in FailedLoginListener    
+    - Fix twig errors when using Form/fields template in frontend (e.g. SearchRouter)
+    - Improve ACL handling
+    - Improve LDAP user authentication
+    - Fix autocomplete.js behavior
+    - Fix pasword resend confirmation view
+    - Merge pull request #24 from mapbender/hotfix/dropdown-scrolls-background
+    - Merge pull request #22 from mapbender/hotfix/sspi_authentication_fix
+    - Merge pull request #28 from mapbender/hotfix/fix-visual-form-bugs
 
-* **v.3.0.6.1** - 2017-05-24
-    - no changes.
-
-* **v.3.0.6.0** - 2017-05-05
+* **v3.0.6.0** - 2017-05-05
     - Merge feature/symfony-upgrade-2.8
     - Merge release/3.0.5
     - Clean up popup.js documentation
@@ -47,6 +59,21 @@
     - Fix/Remove displaying pasword resend confirmation screen
     - Fix and refactor login and manager template
     - Fix deprecated call by AnnotatedRouteControllerLoader route  configuring
+
+* **v3.0.5.4**
+    - Fix twig errors when using Form/fields template in frontend (e.g. SearchRouter)
+    - Improve ACL handling
+    - Improve LDAP user authentication
+    - Fix autocomplete.js behavior
+    - Make login, register, forgot password and restore password screens responsive
+    - Fix and refactor login and manager template to use mapbender asset pipeline
+    - Fix pasword resend confirmation view
+    - Merge pull request #24 from mapbender/hotfix/dropdown-scrolls-background
+    - Merge pull request #22 from mapbender/hotfix/sspi_authentication_fix
+    - Merge pull request #28 from mapbender/hotfix/fix-visual-form-bugs
+    - Merge pull request #44 from mapbender/hotfix/OracleACLListener305
+    - Intergrate bootstrap and refactor/fix administration SCSS files
+    - Fix deprecated call by AnnotatedRouteControllerLoader route configuring
     - Restrict move popups outside of visible area application
     - Merge pull request #19 from mapbender/hotfix/stored-xss
     - fixed dropdown part of vulnerability
@@ -54,17 +81,15 @@
     - Short user name russian translation
     - Deprecate FOM SharedApplicationWebTestCase
     - Improve tab navigation to use keyboard (TAB)
-    - Fix find object ACL (add try-catch block)
     - Add ability to see which security permissions are set for an element (or some other object)
     - Extract administration border radius variables
-    - Add new ACL has and get methods
     - Improve login box screen
     - Improve application list navigation
     - Fix embedded login screen if session time is out
     - Improve DoctrineHelper to get create tables for new entities if connection is sqlite
     - Fix xls ExportResponse decode utf-8
 
-* **v.3.0.5.3** - 2016-02-04
+* **v3.0.5.3** - 2016-02-04
     - Improve reset form styles
     - Fix reset password page styling
     - Fix add user group with same prefix
@@ -87,7 +112,7 @@
     - Merge pull request #17 from mapbender/hotfix/changelog-5489
     - added changelog.md information
 
-* **v.3.0.5.2** - 2015-10-27
+* **v3.0.5.2** - 2015-10-27
     - Add missed 'Bad credentials' translations for ES, NL, PT #5009
     - Add 'Bad credentials' translating and fix some erroneous russian translations #5009
     - change message
@@ -98,7 +123,7 @@
     - Fix authors
     - Add composer.json file
 
-* **v.3.0.5.1** - 2015-08-26
+* **v3.0.5.1** - 2015-08-26
     - fixed removing of groups
     - fixed filtering of users to keep group info visible
     - added profile form validation
@@ -107,7 +132,7 @@
     - github #307 update some missing german translations
     - add fom  ru translations
 
-* **v.3.0.5.0** - 2015-07-01
+* **v3.0.5.0** - 2015-07-01
     -  fixed aclmanager reference
     -  fixed file name wrt class name
     -  removed deprecated composer option from .travis.yml
@@ -154,7 +179,7 @@
     -  fix side pane
     -  Check DB platform for profile uid column name
 
-* **v.3.0.4.1** - 2015-01-23
+* **v3.0.4.1** - 2015-01-23
     - fix closing sidepane.js
     - add sortable expanded choice
     - add sidepane ability to define as closed on start

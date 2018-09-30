@@ -1,6 +1,9 @@
 /**
- * Mapbender Popup
- * ===============
+ * FOM Popup
+ * Deprecated. Does not work without Mapbender CSS and is used exclusively in Mapbender.
+ *
+ * Mapbender will receive its own popup widget implementation so the multitude of interdependent
+ * markup-vs-css issues can be fixed in one place.
  *
  * This popup is not a jQuery UI widget, as thus would require to have the DOM
  * setup before. Instead you call the Mapbender.Popup constructor with a options
@@ -36,14 +39,14 @@
  *     - ajaxWaiting content
  *     - ajaxFailed content
  */
-var Mapbender = (function($, Mapbender) {
+(function($) {
     var counter = 0;
     var currentZindex = 10000;
     /**
      * Popup constructor.
      *
      * @param  {Object} options   Non-Default Options
-     * @return {Mapbender.Popup}  Popup instance
+     * @return {Popup}  Popup instance
      */
     var Popup = function(options) {
         var self = this;
@@ -638,7 +641,10 @@ var Mapbender = (function($, Mapbender) {
         }
     };
 
-    Mapbender.Popup2 = Popup;
-
-    return Mapbender;
-})(jQuery, Mapbender || {});
+    window.FOM = window.FOM || {};
+    window.FOM.Popup2 = Popup;
+    if (!window.Mapbender || !window.Mapbender.Popup2) {
+        window.Mapbender = window.Mapbender || {};
+        window.Mapbender.Popup2 = FOM.Popup2;
+    }
+})(jQuery);

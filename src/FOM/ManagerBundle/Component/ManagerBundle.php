@@ -31,7 +31,7 @@ class ManagerBundle extends Bundle
      *      )
      *  );
      *
-     * @return array
+     * @return array[]
      */
     public function getManagerControllers()
     {
@@ -41,17 +41,22 @@ class ManagerBundle extends Bundle
     /**
      * Getter for all available roles a bundles defines.
      *
-     * The list must be an array with:
-     *     name: String, must start with ROLE_, e.g. ROLE_USER_ADMIN
-     *     title: String, human readable, e.g. "Can administrate users"
+     * The returned array must be a mapping of role id strings (e.g. "ROLE_USER_ADMIN") to displayable
+     * role descriptions (e.g. "Can administrate users")
      *
-     * @return array roles
+     * @return string[] roles
      */
     public function getRoles()
     {
         return array();
     }
 
+    /**
+     * Return a mapping of acl class names to displayable descriptions. E.g.
+     * "FOM\UserBundle\Entity\Group" => "Groups"
+     *
+     * @return string[]
+     */
     public function getACLClasses()
     {
         return array();

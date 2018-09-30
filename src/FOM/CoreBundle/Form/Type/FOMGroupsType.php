@@ -15,19 +15,17 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class FOMGroupsType extends AbstractType
 {
     /**
-     *
-     * @var type
+     * @var ContainerInterface
      */
     protected $container;
-    /**
-     * @inheritdoc
-     */
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
+
     /**
-     * @inheritdoc
+     * @return ContainerInterface
      */
     public function getContainer()
     {

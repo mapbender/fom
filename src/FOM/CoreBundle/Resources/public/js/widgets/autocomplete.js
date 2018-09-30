@@ -1,4 +1,4 @@
-var Mapbender = (function($, Mapbender) {
+(function($) {
     var Autocomplete = function(input, options){
         var self = this;
         this.input = $(input);
@@ -103,10 +103,13 @@ var Mapbender = (function($, Mapbender) {
             this.autocompleteList.html('').hide();
         }
     };
-    Mapbender.Autocomplete = Autocomplete;
-
-    return Mapbender;
-})(jQuery, Mapbender || {});
+    window.FOM = window.FOM || {};
+    window.FOM.Autocomplete = Autocomplete;
+    if (!window.Mapbender || !window.Mapbender.Autocomplete) {
+        window.Mapbender = window.Mapbender || {};
+        window.Mapbender.Autocomplete = FOM.Autocomplete;
+    }
+})(jQuery);
 
 // TODO: why it's here?
 $('body').delegate(':input', 'keyup', function(event){
