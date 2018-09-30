@@ -1,5 +1,11 @@
 # Changelog
 
+* **dev-release/3.0.6**
+  - Added contributed translations for French locale, thanks to Patrice Pineault
+  - Updated NL locale translations, thanks to Just van den Broecke
+  - Converted translation catalogs from XLIFF to Yaml
+  - Add cookie consent support to login form
+
 * **v.3.0.6.1** - 2018-02-26
     - Fix SSPI not working anymore
     - Fix second entity manager definition in mapbender not working anymore
