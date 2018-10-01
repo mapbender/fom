@@ -90,8 +90,8 @@
          */
         defaults: {
             template: [
-                '<div class="popupContainer">',
-                '  <div class="popup">',
+                '<div class="popupContainer fom-popup-container">',
+                '  <div class="popup fom-popup">',
                 '    <div class="popupHead">',
                 '      <span class="popupTitle"></span>',
                 '      <span class="popupSubTitle"></span>',
