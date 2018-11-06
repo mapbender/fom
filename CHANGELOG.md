@@ -1,10 +1,10 @@
 # Changelog
 
-* **dev-release/3.0.6**
+* **v3.0.6.2** - 2018-10-01
   - [Translation] Added contributed FR translations; thanks to Patrice Pineault!
   - [Translation] Updated NL locale translations; thanks to Just van den Broecke!
   - Converted translation catalogs from XLIFF to Yaml
-  - Add cookie consent support to login form
+  - Add cookie consent support to login form ([PR#46](https://github.com/mapbender/fom/pull/46))
   - [Framework] Avoid replacing existing Mapbender-namespace widgets (Autocomplete, Popup2; see [9fd9622](https://github.com/mapbender/fom/commit/9fd96228335f075d2cf3733688ccc0b975b351e1))
 
 * **v3.0.6.1** - 2018-02-26
