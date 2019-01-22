@@ -5,8 +5,9 @@
 {% block box_content %}
   <div class="loginBox register">
     <h2 class="contentTitle">{{ 'fom.user.registration.form.caption' | trans}}</h2>
-    <form action="{{ path('fom_user_registration_register') }}" method="post" {{ form_enctype(form) }} autocomplete="off" novalidate="novalidate">
-
+      {{ form_start(form, { 'action': path('fom_user_registration_register'), 'method': 'POST', 'attr': {
+          novalidate: 'novalidate', autocomplete: 'off'
+      }}) }}
         <label class="left labelInput" for="{{ form.username.vars['id'] }}">{{"fom.user.registration.form.username" | trans}}:<span class="required">*</span></label>
         {{ form_widget(form.username) }}
         <div class="clearContainer"></div>
@@ -29,7 +30,7 @@
 
         <a class="left linkButton iconLinkButton" href="{{ path('fom_user_login_login') }}">{{ "fom.user.registration.form.back_to_login"|trans}}</a>
         <button class="right button">{{ 'fom.user.registration.form.register' | trans }}</button>
-    </form>
+    {{ form_end(form) }}
     <div class="clearContainer"></div>
   </div>
 {% endblock %}
