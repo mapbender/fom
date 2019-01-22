@@ -3,27 +3,41 @@
 namespace FOM\UserBundle\Form\Type;
 
 use FOM\UserBundle\Form\EventListener\UserSubscriber;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Class UserType
+ * @package FOM\UserBundle\Form\Type
+ */
 class UserType extends AbstractType
 {
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'user';
     }
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $a = $options['currentUser'];
         $builder->addEventSubscriber(new UserSubscriber($builder->getFormFactory(), $options['currentUser']));
         $builder
-            ->add('username', 'text')
-            ->add('email', 'email', array(
+            ->add('username', TextType::class)
+            ->add('email', EmailType::class, array(
                 'label' => 'E-Mail'))
-            ->add('password', 'repeated', array(
+            ->add('password', RepeatedType::class, array(
                 'type' => 'password',
                 'invalid_message' => 'The password fields must match.',
                 'required' => $options['requirePassword'],
@@ -32,7 +46,7 @@ class UserType extends AbstractType
 
         if (true === $options['group_permission']) {
             $builder
-                ->add('groups', 'entity', array(
+                ->add('groups', EntityType::class, array(
                     'class' =>  'FOMUserBundle:Group',
                     'query_builder' => function (EntityRepository $er) {
                         $qb = $er->createQueryBuilder('r')
@@ -47,7 +61,7 @@ class UserType extends AbstractType
 
         if (true === $options['acl_permission']) {
             $builder
-                ->add('acl', 'acl', array(
+                ->add('acl', ACLType::class, array(
                     'mapped' => false,
                     'data' => $options['data'],
                     'permissions' => 'standard::object',
@@ -60,6 +74,9 @@ class UserType extends AbstractType
         }
     }
 
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(

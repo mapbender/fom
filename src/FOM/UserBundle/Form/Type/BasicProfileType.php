@@ -3,10 +3,16 @@
 namespace FOM\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use FOM\UserBundle\Entity\BasicProfile;
 
+/**
+ * Class BasicProfileType
+ * @package FOM\UserBundle\Form\Type
+ */
 class BasicProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -14,30 +20,33 @@ class BasicProfileType extends AbstractType
         $roles = BasicProfile::getOrganizationRoleChoices();
 
         $builder
-            ->add('firstName', 'text', array(
+            ->add('firstName', TextType::class, array(
                 'required' => false))
-            ->add('lastName', 'text', array(
+            ->add('lastName', TextType::class, array(
                 'required' => false))
-            ->add('notes', 'text', array(
+            ->add('notes', TextType::class, array(
                 'required' => false))
-            ->add('phone', 'text', array(
+            ->add('phone', TextType::class, array(
                 'required' => false))
-            ->add('street', 'text', array(
+            ->add('street', TextType::class, array(
                 'required' => false))
-            ->add('zipCode', 'text', array(
+            ->add('zipCode', TextType::class, array(
                 'required' => false))
-            ->add('city', 'text', array(
+            ->add('city', TextType::class, array(
                 'required' => false))
-            ->add('country', 'text', array(
+            ->add('country', TextType::class, array(
                 'required' => false))
-            ->add('organizationName', 'text', array(
+            ->add('organizationName', TextType::class, array(
                 'required' => false))
-            ->add('organizationRole', 'choice', array(
+            ->add('organizationRole', ChoiceType::class, array(
                 'choices' => $roles,
                 'empty_value' => 'Choose an option...',
                 'required' => false));
     }
 
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
@@ -45,6 +54,9 @@ class BasicProfileType extends AbstractType
         ));
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'profile';

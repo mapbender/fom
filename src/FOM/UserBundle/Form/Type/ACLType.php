@@ -3,6 +3,7 @@ namespace FOM\UserBundle\Form\Type;
 
 use Mapbender\CoreBundle\Component\SecurityContext;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -11,7 +12,6 @@ use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Symfony\Component\Security\Acl\Exception\InvalidDomainObjectException;
 
 /**
  * ACL form type
@@ -130,7 +130,7 @@ class ACLType extends AbstractType
             'mapped' => false,
             'data' => $aces);
 
-        $builder->add('ace', 'collection', $aceOptions);
+        $builder->add('ace', CollectionType::class, $aceOptions);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
