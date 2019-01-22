@@ -66,7 +66,7 @@ class PathHelper
         /**
          * @var $request           Request
          */
-        $request = $this->container->get("request");
+        $request = $this->container->get('request_stack')->getCurrentRequest();
         preg_match_all('/[^\\\\]+/', $request->attributes->get('_controller'), $matches);
 
         if (is_array($matches)) {

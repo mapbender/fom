@@ -92,7 +92,7 @@ class PasswordController extends Controller
     public function requestAction()
     {
         $form = $this->createForm(new UserForgotPassType());
-        $form->bind($this->get('request'));
+        $form->bind($this->get('request_stack')->getCurrentRequest());
         $obj = $form->getData();
 
         $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->findOneByUsername($obj['search']);
@@ -126,7 +126,7 @@ class PasswordController extends Controller
      */
     public function tokenResetAction()
     {
-        $token = $this->get('request')->get('token');
+        $token = $this->get('request_stack')->getCurrentRequest()->get('token');
         if (!$token) {
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }
@@ -152,7 +152,7 @@ class PasswordController extends Controller
      */
     public function resetAction()
     {
-        $token = $this->get('request')->get('token');
+        $token = $this->get('request_stack')->getCurrentRequest()->get('token');
         if (!$token) {
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }
@@ -188,7 +188,7 @@ class PasswordController extends Controller
      */
     public function passwordAction()
     {
-        $token = $this->get('request')->get('token');
+        $token = $this->get('request_stack')->getCurrentRequest()->get('token');
         if (!$token) {
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }
@@ -210,7 +210,7 @@ class PasswordController extends Controller
         }
 
         $form = $this->createForm(new UserResetPassType(), $user);
-        $form->bind($this->get('request'));
+        $form->bind($this->get('request_stack')->getCurrentRequest());
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $user->setResetToken(null);

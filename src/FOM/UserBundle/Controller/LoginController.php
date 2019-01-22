@@ -25,7 +25,7 @@ class LoginController extends Controller
      */
     public function loginAction()
     {
-        $request = $this->get('request');
+        $request = $this->get('request_stack')->getCurrentRequest();
         /*
         if($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);

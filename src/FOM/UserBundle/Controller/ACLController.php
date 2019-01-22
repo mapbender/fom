@@ -37,7 +37,7 @@ class ACLController extends Controller
             throw new AccessDeniedException();
         }
 
-        $class = $this->get('request')->get('class');
+        $class = $this->get('request_stack')->getCurrentRequest()->get('class');
         $acl_classes = $this->getACLClasses();
         if(!array_key_exists($class, $acl_classes)) {
             throw $this->createNotFoundException('No manageable class given.');
@@ -66,7 +66,7 @@ class ACLController extends Controller
             throw new AccessDeniedException();
         }
 
-        $class = $this->get('request')->get('class');
+        $class = $this->get('request_stack')->getCurrentRequest()->get('class');
         $acl_classes = $this->getACLClasses();
         if(!array_key_exists($class, $acl_classes)) {
             throw $this->createNotFoundException('No manageable class given.');
@@ -126,7 +126,7 @@ class ACLController extends Controller
      */
     public function aclsidAction()
     {
-        $query = $this->get('request')->get('query');
+        $query = $this->get('request_stack')->getCurrentRequest()->get('query');
         $response = array();
         $idProvider = $this->get('fom.identities.provider');
 
