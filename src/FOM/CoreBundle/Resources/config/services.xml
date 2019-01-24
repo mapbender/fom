@@ -7,7 +7,8 @@
     </parameters>
     <services>
         <service id="fom_groups" class="FOM\CoreBundle\Form\Type\FOMGroupsType">
-            <argument type="service" id="service_container" />
+            <argument type="service" id="security.token_storage" />
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
             <tag name="form.type" alias="fom_groups"/>
         </service>
 

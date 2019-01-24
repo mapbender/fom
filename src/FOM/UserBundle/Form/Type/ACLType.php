@@ -1,7 +1,7 @@
 <?php
 namespace FOM\UserBundle\Form\Type;
 
-use Mapbender\CoreBundle\Component\SecurityContext;
+use FOM\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,6 +12,8 @@ use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * ACL form type
@@ -30,8 +32,11 @@ use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
  */
 class ACLType extends AbstractType
 {
-    /** @var SecurityContext */
-    protected $securityContext;
+    /** @var AuthorizationCheckerInterface */
+    protected $authorizationChecker;
+
+    /** @var TokenStorageInterface */
+    protected $tokenStorage;
 
     /** @var AclProviderInterface */
     protected $aclProvider;
@@ -42,18 +47,21 @@ class ACLType extends AbstractType
     /**
      * ACLType constructor.
      *
-     * @param SecurityContext      $securityContext
+     * @param AuthorizationCheckerInterface $authorizationChecker
+     * @param TokenStorageInterface $tokenStorage
      * @param AclProviderInterface $aclProvider
-     * @param RouterInterface      $router
+     * @param RouterInterface $router
      */
     public function __construct(
-        SecurityContext $securityContext,
+        AuthorizationCheckerInterface $authorizationChecker,
+        TokenStorageInterface $tokenStorage,
         AclProviderInterface $aclProvider,
         RouterInterface $router)
     {
-        $this->securityContext = $securityContext;
-        $this->aclProvider     = $aclProvider;
-        $this->router          = $router;
+        $this->authorizationChecker = $authorizationChecker;
+        $this->tokenStorage = $tokenStorage;
+        $this->aclProvider = $aclProvider;
+        $this->router = $router;
     }
 
     /**
@@ -80,8 +88,8 @@ class ACLType extends AbstractType
                 $aces = $acl->getObjectAces();
             }
 
-            $isMaster = $this->securityContext->isGranted('MASTER');
-            $isOwner = $this->securityContext->isGranted('OWNER');
+            $isMaster = $this->authorizationChecker->isGranted('MASTER');
+            $isOwner = $this->authorizationChecker->isGranted('OWNER');
         } catch (\Exception $e) {
             $isMaster = true;
             $isOwner = true;
@@ -94,7 +102,8 @@ class ACLType extends AbstractType
                 $oid = null;
                 $aces = array ();
 
-                $owner = $this->securityContext->getToken()->getUser();
+                /** @var User $owner */
+                $owner = $this->tokenStorage->getToken()->getUser();
                 $ownerAccess = array (
                     'sid' => UserSecurityIdentity::fromAccount($owner),
                     'mask' => MaskBuilder::MASK_OWNER);

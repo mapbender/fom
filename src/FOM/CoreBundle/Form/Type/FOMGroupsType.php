@@ -7,50 +7,56 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
- *
+ * Class FOMGroupsType
+ * @package FOM\CoreBundle\Form\Type
  */
 class FOMGroupsType extends AbstractType
 {
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
+    /** @var TokenStorageInterface */
+    protected $tokenStorage;
 
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
+
+    /** @var EntityManagerInterface */
+    protected $entityManager;
+
+    /**
+     * FOMGroupsType constructor.
+     * @param TokenStorageInterface $tokenStorage
+     * @param EntityManagerInterface $entityManager
+     */
+    public function __construct(
+        TokenStorageInterface $tokenStorage,
+        EntityManagerInterface $entityManager
+    ) {
+        $this->tokenStorage = $tokenStorage;
+        $this->entityManager = $entityManager;
     }
 
     /**
-     * @return ContainerInterface
-     */
-    public function getContainer()
-    {
-        return $this->container;
-    }
-    /**
-     * @inheritdoc
+     * @return string
      */
     public function getName()
     {
         return 'fom_groups';
     }
+
     /**
-     * @inheritdoc
+     * @return string|\Symfony\Component\Form\FormTypeInterface|null
      */
     public function getParent()
     {
         return 'entity';
     }
+
     /**
-     * @inheritdoc
+     * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-
         $type = $this;
         $resolver->setDefaults(array(
             'user_groups' => False,
@@ -60,12 +66,11 @@ class FOMGroupsType extends AbstractType
             'property' => 'title',
             'query_builder' => function(Options $options) use ($type) {
                 $builderName = preg_replace("/[^\w]/", "", $options['property_path']);
-                $repository = $type->getContainer()->get('doctrine')->getRepository("FOMUserBundle:Group");
+                $repository = $type->entityManager->getRepository("FOMUserBundle:Group");
                 $qb = $repository->createQueryBuilder($builderName);
-                if($options['user_groups'])
-                {
-                    $securityContext = $type->getContainer()->get('security.context');
-                    $user = $securityContext->getToken()->getUser();
+
+                if($options['user_groups']) {
+                    $user = $this->tokenStorage->getToken()->getUser();
                     if(is_object($user)) {
                         $qb->join($builderName . '.users', 'u', 'WITH', 'u.id = :uid')
                             ->setParameter('uid', $user->getId());
@@ -75,15 +80,15 @@ class FOMGroupsType extends AbstractType
             }
         ));
     }
+
     /**
-     * @inheritdoc
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if($options['return_entity'] === false)
-        {
-            $entityManager = $this->container->get('doctrine')->getManager();
-            $transformer = new GroupIdTransformer($entityManager);
+        if($options['return_entity'] === false) {
+            $transformer = new GroupIdTransformer($this->entityManager);
             $builder->addModelTransformer($transformer);
         }
     }
