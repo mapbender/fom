@@ -2,12 +2,6 @@
 
 {% block title %}{{ "fom.user.acl.edit.edit_class_acl" | trans({'%name%': class_name}) }}{% endblock %}
 
-{% block manager_js %}
-    {{parent()}}
-    <script type="application/javascript" src="{{ asset('bundles/fomuser/js/acl-form.js') }}"></script>
-    <script type="application/javascript" src="{{ asset('bundles/fommanager/js/form.js') }}"></script>
-{% endblock %}
-
 {% block manager_content %}
 
 {% if 'widget_control_group_attr' in form.vars | keys  and form.vars['widget_control_group_attr']|length %}
