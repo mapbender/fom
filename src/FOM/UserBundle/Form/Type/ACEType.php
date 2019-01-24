@@ -1,7 +1,6 @@
 <?php
 namespace FOM\UserBundle\Form\Type;
 
-use Mapbender\CoreBundle\Component\SecurityContext;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -17,20 +16,19 @@ use FOM\UserBundle\Form\DataTransformer\ACEDataTransformer;
  */
 class ACEType extends AbstractType
 {
-    /** @var SecurityContext  */
-    protected $securityContext;
-
     /** @var AclProviderInterface  */
     protected $aclProvider;
 
     /** @var Container  */
     protected $container;
 
-    public function __construct(SecurityContext $securityContext,
-        AclProviderInterface $aclProvider,
-        Container $container)
+    /**
+     * ACEType constructor.
+     * @param AclProviderInterface $aclProvider
+     * @param Container $container
+     */
+    public function __construct(AclProviderInterface $aclProvider, Container $container)
     {
-        $this->securityContext = $securityContext;
         $this->aclProvider = $aclProvider;
         $this->container = $container;
     }
