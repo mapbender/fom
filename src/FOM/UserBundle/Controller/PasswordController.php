@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
@@ -88,11 +89,16 @@ class PasswordController extends Controller
      * @Route("/user/password")
      * @Method("POST")
      * @Template("FOMUserBundle:Password:form.html.twig")
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function requestAction()
+    public function requestAction(Request $request)
     {
-        $form = $this->createForm(new UserForgotPassType());
-        $form->bind($this->get('request_stack')->getCurrentRequest());
+        $form = $this
+            ->createForm(new UserForgotPassType())
+            ->handleRequest($request)
+        ;
+
         $obj = $form->getData();
 
         $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->findOneByUsername($obj['search']);
@@ -186,7 +192,7 @@ class PasswordController extends Controller
      * @Method("POST")
      * @Template("FOMUserBundle:Password:reset.html.twig")
      */
-    public function passwordAction()
+    public function passwordAction(Request $request)
     {
         $token = $this->get('request_stack')->getCurrentRequest()->get('token');
         if (!$token) {
@@ -209,9 +215,9 @@ class PasswordController extends Controller
             ));
         }
 
-        $form = $this->createForm(new UserResetPassType(), $user);
-        $form->bind($this->get('request_stack')->getCurrentRequest());
-        if ($form->isValid()) {
+        $form = $this->createForm(new UserResetPassType(), $user)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $user->setResetToken(null);
 
