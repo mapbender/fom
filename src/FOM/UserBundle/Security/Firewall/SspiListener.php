@@ -6,16 +6,33 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Http\Firewall\ListenerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use FOM\UserBundle\Security\Authentication\Token\SspiUserToken;
-use Mapbender\CoreBundle\Component\SecurityContext;
 
+/**
+ * Class SspiListener
+ * @package FOM\UserBundle\Security\Firewall
+ */
 class SspiListener implements ListenerInterface {
+    /** @var TokenStorageInterface */
+    protected $tokenStorage;
 
-    public function __construct(SecurityContext $context, AuthenticationManagerInterface $manager) {
-        $this->context = $context;
+    /** @var AuthenticationManagerInterface */
+    protected $manager;
+
+    /**
+     * SspiListener constructor.
+     * @param TokenStorageInterface $tokenStorage
+     * @param AuthenticationManagerInterface $manager
+     */
+    public function __construct(TokenStorageInterface $tokenStorage, AuthenticationManagerInterface $manager) {
+        $this->tokenStorage = $tokenStorage;
         $this->manager = $manager;
     }
 
+    /**
+     * @param GetResponseEvent $evt
+     */
     public function handle(GetResponseEvent $evt) {
         $request = $evt->getRequest();
 
@@ -25,7 +42,7 @@ class SspiListener implements ListenerInterface {
         }
 
         // check if another token exists, then skip
-        if($this->context->getToken() && (!$this->context->getToken() instanceof SspiUserToken)) {
+        if($this->tokenStorage->getToken() && (!$this->tokenStorage->getToken() instanceof SspiUserToken)) {
             return;
         }
 
@@ -47,12 +64,11 @@ class SspiListener implements ListenerInterface {
 
         try {
             $token = $this->manager->authenticate($token);
-            $this->context->setToken($token);
+            $this->tokenStorage->setToken($token);
             return;
         } catch(AuthenticationException $failed) {
-            $this->context->setToken(null);
+            $this->tokenStorage->setToken(null);
             return;
         }
     }
-
 }

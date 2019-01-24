@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOM\ManagerBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Generic Manager interface controller.
@@ -32,8 +33,10 @@ class ManagerController extends Controller
      * Renders the navigation menu
      *
      * @Template
+     * @param Request $request
+     * @return array
      */
-    public function menuAction($request)
+    public function menuAction(Request $request)
     {
         $current_route = $request->attributes->get('_route');
         $menu          = $this->getManagerControllersDefinition();
@@ -43,6 +46,11 @@ class ManagerController extends Controller
         return array('menu' => $menu);
     }
 
+    /**
+     * @param $routes
+     * @param $currentRoute
+     * @return bool
+     */
     private function setActive(&$routes, $currentRoute) {
         if(empty($routes)) return false;
 
@@ -63,14 +71,16 @@ class ManagerController extends Controller
         return $return;
     }
 
+    /**
+     * @param $container
+     */
     protected function pruneSubroutes(&$container)
     {
-        $securityContext = $this->get('security.context');
         if(is_array($container) && array_key_exists('subroutes', $container)) {
             foreach($container['subroutes'] as $idx2 => &$route) {
                 if(array_key_exists('enabled', $route)) {
                     $closure = $route['enabled'];
-                    if(!$closure($securityContext)) {
+                    if(!$closure($this->get('security.authorization_checker'))) {
                         unset($container['subroutes'][$idx2]);
                         continue;
                     }
@@ -80,10 +90,12 @@ class ManagerController extends Controller
         }
     }
 
+    /**
+     * @return array
+     */
     protected function getManagerControllersDefinition()
     {
         $manager_controllers = array();
-        $securityContext = $this->get('security.context');
         foreach($this->get('kernel')->getBundles() as $bundle) {
             if(is_subclass_of($bundle, 'FOM\ManagerBundle\Component\ManagerBundle')) {
                 $controllers = $bundle->getManagerControllers();
@@ -92,7 +104,7 @@ class ManagerController extends Controller
                         // Remove disabled main routes
                         if(array_key_exists('enabled', $controller)) {
                             $closure = $controller['enabled'];
-                            if(!$closure($securityContext)) {
+                            if(!$closure($this->get('security.authorization_checker'))) {
                                 unset($controllers[$idx]);
                                 continue;
                             }
