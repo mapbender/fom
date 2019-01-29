@@ -9,7 +9,8 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
+use Symfony\Component\Console\Question\Question;
+
 
 /**
  * Reset root account.
@@ -47,7 +48,8 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $dialog = $this->getDialogHelper();
+        /** @var Question $dialog */
+        $dialog = $this->getHelper('question');
         $root = $this->getRoot();
 
         if($root === null) {
@@ -101,12 +103,11 @@ EOT
 
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        $dialog = $this->getDialogHelper();
+        $dialog = $this->getHelper('question');
         $root = $this->getRoot();
         $silent = $input->getOption('silent');
 
-        $dialog->writeSection($output, 'Welcome to the Mapbender3 root account management command');
-
+        $output->writeln('Welcome to the Mapbender3 root account management command');
 
         if(!$silent || $input->getOption('username') === null) {
             $output->writeln(array(
@@ -156,15 +157,5 @@ EOT
             ->find(1);
 
         return $root;
-    }
-
-    protected function getDialogHelper()
-    {
-        $dialog = $this->getHelperSet()->get('dialog');
-        if(!$dialog || get_class($dialog) !== 'Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper') {
-            $this->getHelperSet()->set($dialog = new DialogHelper());
-        }
-
-        return $dialog;
     }
 }
