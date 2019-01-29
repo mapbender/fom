@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table(
  *   name="fom_user_log",
- *   indexes={@ORM\Index(name="ipNamedRequestDate", columns={"ipAddress", "userName", "creationDate", "userId"})}
+ *   indexes={@ORM\Index(name="ipNamedRequestDate", columns={"ip_address", "user_name", "creation_date", "user_id"})}
  * )
  * @ORM\HasLifecycleCallbacks()
  */
