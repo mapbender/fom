@@ -1,4 +1,8 @@
 # Changelog
+* **dev-master @ 1587f2a **
+  - Removed legacy component `PathHelper` (service id `fom.pathhelper`)
+  - Removed legacy component `GeoConverter` (serivce id `geo.converter`)
+
 * **v3.0.6.3** - 2019-03-15
   - Implement `__toString-Method` for FOM/User ([PR#51](https://github.com/mapbender/fom/pull/51))
   - Change URL generation for improved reverse-proxy compatibility ([PR#49](https://github.com/mapbender/fom/pull/49))
