@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use FOM\UserBundle\Entity\User;
@@ -75,15 +76,17 @@ class RegistrationController extends Controller
      * @Method("POST")
      * @Template("FOMUserBundle:Registration:form.html.twig")
      */
-    public function register()
+    public function register(Request $request)
     {
         $user = new User();
-        $form = $this->createForm(new UserRegistrationType(), $user);
-        $form->bind($this->get('request'));
+        $form = $this
+            ->createForm(new UserRegistrationType(), $user)
+            ->handleRequest($request)
+        ;
 
         //@TODO: Check if username and email are unique
 
-        if($form->isValid()) {
+        if($form->isSubmitted() && $form->isValid()) {
             $helper = new UserHelper($this->container);
             $helper->setPassword($user, $user->getPassword());
 
@@ -129,7 +132,7 @@ class RegistrationController extends Controller
      */
     public function confirmAction()
     {
-        $token = $this->get('request')->get('token');
+        $token = $this->get('request_stack')->getCurrentRequest()->get('token');
         if(!$token) {
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }
@@ -170,7 +173,7 @@ class RegistrationController extends Controller
     public function reset()
     {
         // Lookup token
-        $token = $this->get('request')->get('token');
+        $token = $this->get('request_stack')->getCurrentRequest()->get('token');
         if(!$token) {
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }

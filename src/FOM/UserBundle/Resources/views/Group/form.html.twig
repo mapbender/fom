@@ -18,29 +18,26 @@
 {% endblock %}
 
 {% block manager_content %}
-
-  {% if edit %}
-    <form action="{{ path('fom_user_group_update', { 'id': group.id }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} novalidate="novalidate">
-  {% else %}
-    <form action="{{ path('fom_user_group_create') }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} novalidate="novalidate">
-  {% endif %}
+    {% if edit %}
+        {{ form_start(form, { 'action': path('fom_user_group_update', { 'id': group.id }), 'method': 'POST', 'attr': {
+            novalidate: 'novalidate', autocomplete: 'off', name: form_name
+        }}) }}
+    {% else %}
+        {{ form_start(form, { 'action': path('fom_user_group_create'), 'method': 'POST', 'attr': {
+            novalidate: 'novalidate', autocomplete: 'off', name: form_name
+        }}) }}
+    {% endif %}
 
     {% if form_errors(form) %}
-    <div>
-      {{ form_errors(form) }}
-    </div>
+        <div>{{ form_errors(form) }}</div>
     {% endif %}
 
     {% include 'FOMUserBundle:Group:container.html.twig' %}
-
     {{ form_row(form._token) }}
-
     <div class="right">
       <input class="button" type="submit" value="{% if edit %}{{ 'fom.user.group.form.save' | trans }}{% else %}{{ 'fom.user.group.form.create' | trans }}{% endif %}"/>
-      <a class="button critical" href="{{ url('fom_user_group_index') }}">{{ 'fom.user.group.form.cancel' | trans}}</a>
+      <a class="button critical" href="{{ path('fom_user_group_index') }}">{{ 'fom.user.group.form.cancel' | trans}}</a>
     </div>
-  </form>
-
-<div class="clearContainer"></div>
-
+    {{ form_end(form) }}
+    <div class="clearContainer"></div>
 {% endblock %}

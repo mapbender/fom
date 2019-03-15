@@ -4,7 +4,7 @@ namespace FOM\UserBundle\Controller;
 
 use FOM\UserBundle\Entity\Group;
 use FOM\UserBundle\Form\Type\GroupType;
-
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOM\ManagerBundle\Configuration\Route;
@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Group management controller
@@ -30,7 +29,6 @@ class GroupController extends Controller {
      * @Template
      */
     public function indexAction() {
-        $securityContext = $this->get('security.context');
         $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
 
         $query = $this->getDoctrine()->getManager()->createQuery('SELECT g FROM FOMUserBundle:Group g');
@@ -38,14 +36,15 @@ class GroupController extends Controller {
         $allowed_groups = array();
         // ACL access check
         foreach($groups as $index => $group) {
-            if($securityContext->isGranted('VIEW', $group)) {
+            if($this->get('security.authorization_checker')->isGranted('VIEW', $group)) {
                 $allowed_groups[] = $group;
             }
         }
 
         return array(
             'groups' => $allowed_groups,
-            'create_permission' => $securityContext->isGranted('CREATE', $oid));
+            'create_permission' => $this->get('security.authorization_checker')->isGranted('CREATE', $oid)
+        );
     }
 
     /**
@@ -57,20 +56,18 @@ class GroupController extends Controller {
         $group = new Group();
 
         // ACL access check
-        $securityContext = $this->get('security.context');
         $oid = new ObjectIdentity('class', get_class($group));
-        if(false === $securityContext->isGranted('CREATE', $oid)) {
-            throw new AccessDeniedException();
-        }
 
-        $available_roles = $this->get('fom_roles')->getAll();
+        $this->denyAccessUnlessGranted('CREATE', $oid);
+
         $form = $this->createForm(new GroupType(), $group);
 
         return array(
             'group' => $group,
             'form' => $form->createView(),
             'form_name' => $form->getName(),
-            'edit' => false);
+            'edit' => false
+        );
     }
 
     /**
@@ -81,24 +78,24 @@ class GroupController extends Controller {
      * There is one weirdness when storing groups: In Doctrine Many-to-Many
      * associations, updates are only written, when the owning side changes.
      * For the User-Group association, the user is the owner part.
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Exception
      */
-    public function createAction() {
+    public function createAction(Request $request) {
         $group = new Group();
 
         // ACL access check
-        $securityContext = $this->get('security.context');
         $oid = new ObjectIdentity('class', get_class($group));
-        if(false === $securityContext->isGranted('CREATE', $oid)) {
-            throw new AccessDeniedException();
-        }
+
+        $this->denyAccessUnlessGranted('CREATE', $oid);
 
         $available_roles = $this->get('fom_roles')->getAll();
-        $form = $this->createForm(new GroupType(), $group, array(
-            'available_roles' => $available_roles));
+        $form = $this
+            ->createForm(new GroupType(), $group, array('available_roles' => $available_roles))
+            ->handleRequest($request);
 
-        $form->bind($this->get('request'));
-
-        if($form->isValid()) {
+        if($form->isValid() && $form->isSubmitted()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($group);
 
@@ -115,9 +112,7 @@ class GroupController extends Controller {
             $acl = $aclProvider->createAcl($objectIdentity);
 
             // retrieving the security identity of the currently logged-in user
-            $securityContext = $this->get('security.context');
-            $user = $securityContext->getToken()->getUser();
-            $securityIdentity = UserSecurityIdentity::fromAccount($user);
+            $securityIdentity = UserSecurityIdentity::fromAccount($this->getUser());
 
             $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
             $aclProvider->updateAcl($acl);
@@ -126,7 +121,8 @@ class GroupController extends Controller {
                 'The group has been saved.');
 
             return $this->redirect(
-                $this->generateUrl('fom_user_group_index'));
+                $this->generateUrl('fom_user_group_index')
+            );
         }
 
         return array(
@@ -144,24 +140,22 @@ class GroupController extends Controller {
     public function editAction($id) {
         $group = $this->getDoctrine()->getRepository('FOMUserBundle:Group')
             ->find($id);
+
         if($group === null) {
             throw new NotFoundHttpException('The group does not exist');
         }
 
         // ACL access check
-        $securityContext = $this->get('security.context');
-        if(false === $securityContext->isGranted('EDIT', $group)) {
-            throw new AccessDeniedException();
-        }
+        $this->denyAccessUnlessGranted('EDIT', $group);
 
-        $available_roles = $this->get('fom_roles')->getAll();
         $form = $this->createForm(new GroupType(), $group);
 
         return array(
             'group' => $group,
             'form' => $form->createView(),
             'form_name' => $form->getName(),
-            'edit' => true);
+            'edit' => true
+        );
     }
 
     /**
@@ -172,8 +166,11 @@ class GroupController extends Controller {
      * There is one weirdness when storing groups: In Doctrine Many-to-Many
      * associations, updates are only written, when the owning side changes.
      * For the User-Group association, the user is the owner part.
+     * @param $id
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function updateAction($id) {
+    public function updateAction($id, Request $request) {
         $group = $this->getDoctrine()->getRepository('FOMUserBundle:Group')
             ->find($id);
         if($group === null) {
@@ -181,18 +178,14 @@ class GroupController extends Controller {
         }
 
         // ACL access check
-        $securityContext = $this->get('security.context');
-        if(false === $securityContext->isGranted('EDIT', $group)) {
-            throw new AccessDeniedException();
-        }
+        $this->denyAccessUnlessGranted('EDIT', $group);
 
         // See method documentation for Doctrine weirdness
         $old_users = clone $group->getUsers();
 
-        $available_roles = $this->get('fom_roles')->getAll();
-        $form = $this->createForm(new GroupType(), $group, array(
-            'available_roles' => $available_roles));
-        $form->bind($this->get('request'));
+        $form = $this
+            ->createForm(new GroupType(), $group, array('available_roles' => $this->get('fom_roles')->getAll()))
+            ->handleRequest($request);
 
         if($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -201,25 +194,26 @@ class GroupController extends Controller {
             foreach($old_users as $user) {
                 $user->getGroups()->removeElement($group);
             }
+
             foreach($group->getUsers() as $user) {
                 $user->addGroups($group);
             }
 
             $em->flush();
 
-            $this->get('session')->getFlashBag()->set('success',
-                'The group has been updated.');
+            $this->get('session')->getFlashBag()->set('success', 'The group has been updated.');
 
             return $this->redirect(
-                $this->generateUrl('fom_user_group_index'));
-
+                $this->generateUrl('fom_user_group_index')
+            );
         }
 
         return array(
             'group' => $group,
             'form' => $form->createView(),
             'form_name' => $form->getName(),
-            'edit' => true);
+            'edit' => true
+        );
     }
 
     /**
@@ -236,10 +230,7 @@ class GroupController extends Controller {
 
         try {
             // ACL access check
-            $securityContext = $this->get('security.context');
-            if(false === $securityContext->isGranted('DELETE', $group)) {
-                throw new AccessDeniedException();
-            }
+            $this->denyAccessUnlessGranted('DELETE', $group);
 
             $em = $this->getDoctrine()->getManager();
             $em->remove($group);
@@ -250,7 +241,7 @@ class GroupController extends Controller {
 
             $em->flush();
 
-        } catch(Exception $e) {
+        } catch(\Exception $e) {
             $this->get('session')->getFlashBag()->set('error',
                 'The group couldn\'t be deleted.');
         }

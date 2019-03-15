@@ -4,14 +4,17 @@ namespace FOM\UserBundle\Controller;
 
 use FOM\ManagerBundle\Component\ManagerBundle;
 use FOM\ManagerBundle\Configuration\Route;
-use FOM\UserBundle\Form\Type\ACLType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+/**
+ * Class ACLController
+ * @package FOM\UserBundle\Controller
+ */
 class ACLController extends Controller
 {
     /**
@@ -31,13 +34,11 @@ class ACLController extends Controller
     public function editAction()
     {
         // ACL access check
-        $securityContext = $this->get('security.context');
         $oid = new ObjectIdentity('class', 'Symfony\Component\Security\Acl\Domain\Acl');
-        if(false === $securityContext->isGranted('EDIT', $oid)) {
-            throw new AccessDeniedException();
-        }
 
-        $class = $this->get('request')->get('class');
+        $this->denyAccessUnlessGranted('EDIT', $oid);
+
+        $class = $this->get('request_stack')->getCurrentRequest()->get('class');
         $acl_classes = $this->getACLClasses();
         if(!array_key_exists($class, $acl_classes)) {
             throw $this->createNotFoundException('No manageable class given.');
@@ -56,26 +57,26 @@ class ACLController extends Controller
      * @Route("/acl/edit")
      * @Method("POST")
      * @Template
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function updateAction()
+    public function updateAction(Request $request)
     {
         // ACL access check
-        $securityContext = $this->get('security.context');
         $oid = new ObjectIdentity('class', 'Symfony\Component\Security\Acl\Domain\Acl');
-        if(false === $securityContext->isGranted('EDIT', $oid)) {
-            throw new AccessDeniedException();
-        }
 
-        $class = $this->get('request')->get('class');
+        $this->denyAccessUnlessGranted('EDIT', $oid);
+
+        $class = $this->get('request_stack')->getCurrentRequest()->get('class');
         $acl_classes = $this->getACLClasses();
         if(!array_key_exists($class, $acl_classes)) {
             throw $this->createNotFoundException('No manageable class given.');
         }
 
         $form = $this->getClassACLForm($class);
-        $request = $this->getRequest();
-        $form->bind($request);
-        if($form->isValid()) {
+        $form->submit($request);
+
+        if($form->isValid() && $form->isSubmitted()) {
             $aclManager = $this->get('fom.acl.manager');
             $aclManager->setClassACLFromForm($class, $form, 'object');
 
@@ -89,7 +90,8 @@ class ACLController extends Controller
             'class' => $class,
             'class_name' => $acl_classes[$class],
             'form' => $form,
-            'form_name' => $form->getName());
+            'form_name' => $form->getName()
+        );
     }
 
     /**
@@ -104,12 +106,13 @@ class ACLController extends Controller
         return array('groups' => $groups, 'users' => $users);
     }
 
+    /**
+     * @param $class
+     * @return \Symfony\Component\Form\Form
+     */
     public function getClassACLForm($class)
     {
-        return $this->createForm(new ACLType(
-            $this->get('security.context'),
-            $this->get('security.acl.provider'),
-            $this->get('router')), array(), array(
+        return $this->createForm('acl', array(), array(
             'mapped' => false,
             'class' => $class,
             'permissions' => 'standard::class',
@@ -126,7 +129,7 @@ class ACLController extends Controller
      */
     public function aclsidAction()
     {
-        $query = $this->get('request')->get('query');
+        $query = $this->get('request_stack')->getCurrentRequest()->get('query');
         $response = array();
         $idProvider = $this->get('fom.identities.provider');
 

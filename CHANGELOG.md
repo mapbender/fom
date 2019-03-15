@@ -1,4 +1,10 @@
 # Changelog
+* **v3.0.6.3** - 2019-03-15
+  - Implement `__toString-Method` for FOM/User ([PR#51](https://github.com/mapbender/fom/pull/51))
+  - Change URL generation for improved reverse-proxy compatibility ([PR#49](https://github.com/mapbender/fom/pull/49))
+  - Fix dropdown value error on Safari ([PR#48](https://github.com/mapbender/fom/pull/48))
+  - Add Italian translations ([PR#47](https://github.com/mapbender/fom/pull/47))
+  - Misc Symfony deprecation cleanups
 
 * **v3.0.6.2** - 2018-10-01
   - [Translation] Added contributed FR translations; thanks to Patrice Pineault!
