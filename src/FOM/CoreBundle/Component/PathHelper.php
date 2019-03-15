@@ -85,7 +85,7 @@ class PathHelper
         $kernel = $this->container->get('kernel');
         $path   = $kernel->getRootDir() . $path . $this->getBundleRelativePath($this->container) . $uri;
         if ($create && !is_dir($path)) {
-            mkdir($path, 0770, true);
+            mkdir($path, 0777, true);
         }
         return $path;
     }
