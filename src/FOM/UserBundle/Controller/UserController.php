@@ -110,7 +110,7 @@ class UserController extends Controller
             'acl_permission'   => $securityContext->isGranted('OWNER', $oid),
         ));
 
-        $form->bind($this->get('request'));
+        $form->bind($this->get('request_stack')->getCurrentRequest());
 
         if ($form->isValid()) {
             // Set encrypted password and create new salt
@@ -233,7 +233,7 @@ class UserController extends Controller
             throw new AccessDeniedException();
         }
         // If no password is given, we'll recycle the old one
-        $request      = $this->get('request');
+        $request      = $this->get('request_stack')->getCurrentRequest();
         $userData     = $request->get('user');
         $keepPassword = false;
         if ($userData['password']['first'] === '' && $userData['password']['second'] === '') {

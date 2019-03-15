@@ -96,7 +96,7 @@ class GroupController extends Controller {
         $form = $this->createForm(new GroupType(), $group, array(
             'available_roles' => $available_roles));
 
-        $form->bind($this->get('request'));
+        $form->bind($this->get('request_stack')->getCurrentRequest());
 
         if($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -192,7 +192,7 @@ class GroupController extends Controller {
         $available_roles = $this->get('fom_roles')->getAll();
         $form = $this->createForm(new GroupType(), $group, array(
             'available_roles' => $available_roles));
-        $form->bind($this->get('request'));
+        $form->bind($this->get('request_stack')->getCurrentRequest());
 
         if($form->isValid()) {
             $em = $this->getDoctrine()->getManager();

@@ -79,7 +79,7 @@ class RegistrationController extends Controller
     {
         $user = new User();
         $form = $this->createForm(new UserRegistrationType(), $user);
-        $form->bind($this->get('request'));
+        $form->bind($this->get('request_stack')->getCurrentRequest());
 
         //@TODO: Check if username and email are unique
 
@@ -129,7 +129,7 @@ class RegistrationController extends Controller
      */
     public function confirmAction()
     {
-        $token = $this->get('request')->get('token');
+        $token = $this->get('request_stack')->getCurrentRequest()->get('token');
         if(!$token) {
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }
@@ -170,7 +170,7 @@ class RegistrationController extends Controller
     public function reset()
     {
         // Lookup token
-        $token = $this->get('request')->get('token');
+        $token = $this->get('request_stack')->getCurrentRequest()->get('token');
         if(!$token) {
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }

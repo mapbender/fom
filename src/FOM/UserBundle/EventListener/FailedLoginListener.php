@@ -49,7 +49,7 @@ class FailedLoginListener
         $container  = $this->container;
         $doctrine   = $container->get('doctrine');
         $className  = 'FOMUserBundle:UserLogEntry';
-        $userName   = $container->get('request')->get('_username');
+        $userName   = $container->get('request_stack')->getCurrentRequest()->get('_username');
         $ipAddress  = $_SERVER["REMOTE_ADDR"];
         $repository = $doctrine->getRepository($className);
         $userInfo   = array('userName'  => $userName,
