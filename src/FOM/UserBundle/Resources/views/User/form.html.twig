@@ -23,22 +23,24 @@
 {% endblock %}
 
 {% block manager_content %}
-  {% if edit %}
-    <form action="{{ path('fom_user_user_update', { 'id': user.id }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} novalidate="novalidate">
-  {% else %}
-    <form action="{{ path('fom_user_user_create') }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} autocomplete="off" novalidate="novalidate">
-  {% endif %}
+    {% if edit %}
+        {{ form_start(form, { 'action': path('fom_user_user_update', { 'id': user.id }), 'method': 'POST', 'attr': {
+            novalidate: 'novalidate', autocomplete: 'off', name: form_name
+        }}) }}
+    {% else %}
+        {{ form_start(form, { 'action': path('fom_user_user_create'), 'method': 'POST', 'attr': {
+          novalidate: 'novalidate', autocomplete: 'off', name: form_name
+        }}) }}
+    {% endif %}
 
-   {% include 'FOMUserBundle:User:container.html.twig' %}
+    {% include 'FOMUserBundle:User:container.html.twig' %}
 
     {{ form_row(form._token) }}
 
     <div class="right">
-      <input class="button" type="submit" value="{% if edit %}{{ 'fom.user.user.form.save' | trans }}{% else %}{{ 'fom.user.user.form.create' | trans }}{% endif %}"/>
-      <a class="button critical" href="{{ url('fom_user_user_index') }}">{{ 'fom.user.user.form.cancel' | trans}}</a>
+        <input class="button" type="submit" value="{% if edit %}{{ 'fom.user.user.form.save' | trans }}{% else %}{{ 'fom.user.user.form.create' | trans }}{% endif %}"/>
+        <a class="button critical" href="{{ url('fom_user_user_index') }}">{{ 'fom.user.user.form.cancel' | trans}}</a>
     </div>
-  </form>
-
+    {{ form_end(form) }}
 <div class="clearContainer"></div>
-
 {% endblock %}

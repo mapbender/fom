@@ -5,9 +5,13 @@
 {% block manager_content %}
 
 {% if 'widget_control_group_attr' in form.vars | keys  and form.vars['widget_control_group_attr']|length %}
-    <form action="{{ path('fom_user_acl_update', { 'class': class }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} data-aclsid="{{ form.vars['widget_control_group_attr'] }}" novalidate="novalidate">
+    {{ form_start(form, { 'action': path('fom_user_acl_update', { 'class': class }), 'method': 'POST', 'attr': {
+        novalidate: 'novalidate', autocomplete: 'off', name: form_name, data-aclsid: form.vars['widget_control_group_attr']
+    }}) }}
 {% else %}
-    <form action="{{ path('fom_user_acl_update', { 'class': class }) }}" method="post" name="{{ form_name }}" {{ form_enctype(form)}} data-aclsid="null" novalidate="novalidate">
+    {{ form_start(form, { 'action': path('fom_user_acl_update', { 'class': class }), 'method': 'POST', 'attr': {
+        novalidate: 'novalidate', autocomplete: 'off', name: form_name, data-aclsid: 'null'
+    }}) }}
 {% endif %}
     <div id="aclTabContainer" class="tabContainer aclTabContainer">
         <ul class="tabs">
@@ -26,6 +30,5 @@
       <input type="submit" value="{{ 'fom.user.acl.edit.save' | trans }}" class="button"/>
       <a href="{{ url('fom_user_acl_index') }}" class="button critical">{{ 'fom.user.acl.edit.cancel' | trans}}</a>
     </div>
-</form>
-
+{{ form_end(form) }}
 {% endblock %}
