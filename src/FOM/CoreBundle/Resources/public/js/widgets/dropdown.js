@@ -30,8 +30,7 @@ $(function () {
                 var me2 = $(this);
                 var opt = me2.attr("class").replace("item", "opt");
                 me.find(".dropdownValue").text(me2.text());
-                opts.find("[selected=selected]").removeAttr("selected");
-                var val = opts.find("." + opt).attr("selected", "selected").val();
+                var val = opts.find("." + opt).prop("selected", true).val();
                 opts.val(val).trigger('change');
             })
         }
