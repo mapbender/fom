@@ -1,4 +1,7 @@
 # Changelog
+* **v3.0.6.3** - 2019-03-15
+  - Implement `__toString-Method` for FOM/User ([PR#51](https://github.com/mapbender/fom/pull/51))
+  - Misc Symfony deprecation cleanups
 
 * **v3.0.6.2** - 2018-10-01
   - [Translation] Added contributed FR translations; thanks to Patrice Pineault!
