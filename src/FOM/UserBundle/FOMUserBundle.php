@@ -2,10 +2,12 @@
 
 namespace FOM\UserBundle;
 
+use Symfony\Bundle\SecurityBundle\DependencyInjection\SecurityExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use FOM\UserBundle\DependencyInjection\Factory\SspiFactory;
 use FOM\ManagerBundle\Component\ManagerBundle;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * FOMUserBundle - provides user management
@@ -16,6 +18,7 @@ class FOMUserBundle extends ManagerBundle
 {
     public function build(ContainerBuilder $container)
     {
+        /** @var SecurityExtension $extension */
         $extension = $container->getExtension('security');
         $extension->addSecurityListenerFactory(new SspiFactory());
     }
@@ -44,6 +47,7 @@ class FOMUserBundle extends ManagerBundle
                                       'title'=>$trans->trans("fom.user.userbundle.new_user"),
                                       'route'=>'fom_user_user_new',
                                       'enabled' => function($securityContext) {
+                                          /** @var AuthorizationCheckerInterface $securityContext */
                                           $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
                                           return $securityContext->isGranted('CREATE', $oid);
                                       })
@@ -56,6 +60,7 @@ class FOMUserBundle extends ManagerBundle
                                       'title'=>$trans->trans("fom.user.userbundle.new_group"),
                                       'route'=>'fom_user_group_new',
                                       'enabled' => function($securityContext) {
+                                          /** @var AuthorizationCheckerInterface $securityContext */
                                           $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
                                           return $securityContext->isGranted('CREATE', $oid);
                                       })
