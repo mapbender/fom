@@ -2,7 +2,7 @@
 
 namespace FOM\UserBundle\Component;
 
-use FOM\ManagerBundle\Component\ManagerBundle;
+use Mapbender\ManagerBundle\Component\ManagerBundle;
 use Symfony\Component\HttpKernel\Kernel;
 
 /**

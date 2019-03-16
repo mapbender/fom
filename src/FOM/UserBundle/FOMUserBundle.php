@@ -5,7 +5,7 @@ namespace FOM\UserBundle;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\SecurityExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use FOM\UserBundle\DependencyInjection\Factory\SspiFactory;
-use FOM\ManagerBundle\Component\ManagerBundle;
+use Mapbender\ManagerBundle\Component\ManagerBundle;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
