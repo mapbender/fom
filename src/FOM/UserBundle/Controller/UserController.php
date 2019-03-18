@@ -34,7 +34,7 @@ class UserController extends Controller
 
         // ACL access check
         foreach ($users as $index => $user) {
-            if ($this->get('security.authorization_checker')->isGranted('VIEW', $user)) {
+            if ($this->isGranted('VIEW', $user)) {
                 $allowed_users[] = $user;
             }
         }
@@ -43,7 +43,7 @@ class UserController extends Controller
 
         return array(
             'users'             => $allowed_users,
-            'create_permission' => $this->get('security.authorization_checker')->isGranted('CREATE', $oid)
+            'create_permission' => $this->isGranted('CREATE', $oid)
         );
     }
 
@@ -63,15 +63,14 @@ class UserController extends Controller
 
         $groupPermission =
             $this
-                ->get('security.authorization_checker')
                 ->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
-            || $this->get('security.authorization_checker')->isGranted('OWNER', $oid);
+            || $this->isGranted('OWNER', $oid);
 
         $profile = $this->addProfileForm($user);
         $form    = $this->createForm(new UserType(), $user, array(
             'profile_formtype' => $profile['formtype'],
             'group_permission' => $groupPermission,
-            'acl_permission'   => $this->get('security.authorization_checker')->isGranted('OWNER', $oid),
+            'acl_permission'   => $this->isGranted('OWNER', $oid),
         ));
 
         return array(
@@ -101,15 +100,15 @@ class UserController extends Controller
         $this->denyAccessUnlessGranted('CREATE', $oid);
 
         $groupPermission =
-            $this->get('security.authorization_checker')->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
-            || $this->get('security.authorization_checker')->isGranted('OWNER', $oid);
+            $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
+            || $this->isGranted('OWNER', $oid);
 
         $profile = $this->addProfileForm($user);
 
         $form = $this->createForm(new UserType(), $user, array(
             'profile_formtype' => $profile['formtype'],
             'group_permission' => $groupPermission,
-            'acl_permission'   => $this->get('security.authorization_checker')->isGranted('OWNER', $oid),
+            'acl_permission'   => $this->isGranted('OWNER', $oid),
         ));
 
         $form->submit($request);
@@ -193,16 +192,16 @@ class UserController extends Controller
         $this->denyAccessUnlessGranted('EDIT', $user);
 
         $groupPermission =
-            $this->get('security.authorization_checker')->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
-            || $this->get('security.authorization_checker')->isGranted('OWNER', $user);
+            $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
+            || $this->isGranted('OWNER', $user);
 
         $profile = $this->addProfileForm($user);
         $form    = $this->createForm(new UserType(), $user, array(
             'requirePassword'  => false,
             'profile_formtype' => $profile['formtype'],
             'group_permission' => $groupPermission,
-            'acl_permission'   => $this->get('security.authorization_checker')->isGranted('OWNER', $user),
-            'currentUser' => $this->get('security.authorization_checker')->getToken()->getUser()
+            'acl_permission'   => $this->isGranted('OWNER', $user),
+            'currentUser' => $this->getUser(),
         ));
 
         return array(
@@ -245,16 +244,16 @@ class UserController extends Controller
         }
 
         $groupPermission =
-            $this->get('security.authorization_checker')->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
-            || $this->get('security.authorization_checker')->isGranted('OWNER', $user);
+            $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
+            || $this->isGranted('OWNER', $user);
 
         $profile = $this->addProfileForm($user);
         $form    = $this->createForm(new UserType(), $user, array(
             'requirePassword'  => false,
             'profile_formtype' => $profile['formtype'],
             'group_permission' => $groupPermission,
-            'acl_permission'   => $this->get('security.authorization_checker')->isGranted('OWNER', $user),
-            'currentUser' => $this->get('security.authorization_checker')->getToken()->getUser()
+            'acl_permission'   => $this->isGranted('OWNER', $user),
+            'currentUser' => $this->getUser(),
         ));
 
         $form->submit($userData);
@@ -270,7 +269,7 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             // This is the same check as abote in createForm for acl_permission
-            if ($this->get('security.authorization_checker')->isGranted('OWNER', $user)) {
+            if ($this->isGranted('OWNER', $user)) {
                 $aclManager = $this->get('fom.acl.manager');
                 $aclManager->setObjectACLFromForm($user, $form->get('acl'), 'object');
             }
