@@ -2,34 +2,43 @@
 
 namespace FOM\UserBundle\Component;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use FOM\UserBundle\Entity\Group;
+use FOM\UserBundle\Entity\User;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Bundle\DoctrineBundle\Registry;
 
 /**
  * Managed users
  *
  * @alias UserManager
  * @alias User Manager
- *d
+ *
  */
-class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProviderInterface
+class FOMIdentitiesProvider implements IdentitiesProviderInterface, ContainerAwareInterface
 {
-
+    use ContainerAwareTrait;
+    
     /**
-     * @return \Doctrine\Bundle\DoctrineBundle\Registry
+     * @return Registry
      */
     protected function getDoctrine()
     {
+        
         return $this->container->get('doctrine');
     }
 
     /**
      * @param string $search
-     * @return array
+     * @return string[]
+     *
      */
     public function getUsers($search)
     {
-        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:User');
-        $qb = $repo->createQueryBuilder('u');
+        $qb = $this->getUserRepository()->createQueryBuilder('u');
+        
 
         $query = $qb->where($qb->expr()->like('LOWER(u.username)', ':search'))
             ->setParameter(':search', '%' . strtolower($search) . '%')
@@ -37,15 +46,18 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
             ->getQuery();
 
         $result = array();
+        /** @var  $user UserInterface */
         foreach($query->getResult() as $user) {
+            
             $result[] = 'u:' . $user->getUsername();
         }
         return $result;
     }
 
     public function getRoles() {
-        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:Group');
-        $groups = $repo->findAll();
+        
+        
+        $groups = $this->getAllGroups();
 
         $roles = array();
         foreach($groups as $group) {
@@ -54,63 +66,34 @@ class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProvider
 
         return $roles;
     }
-
+    
+    /**
+     * @return array
+     */
     public function getAllGroups(){
-        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:Group');
-        $groups = $repo->findAll();
-
-        $all = array();
-        foreach($groups as $group) {
-            $all[] = $group;
-        }
-
-        return $all;
+        return $this->getGroupRepository()->findAll();
+        
     }
+    
+    /**
+     * @return UserInterface[]
+     */
 
     public function getAllUsers(){
-        // Settings for LDAP
-        if($this->container->hasParameter('ldap_host')) {
-            $ldapHostname = $this->container->getParameter("ldap_host");
-            $ldapPort = $this->container->getParameter("ldap_port");
-            $ldapVersion = $this->container->getParameter("ldap_version");
-            $baseDn = $this->container->getParameter("ldap_user_base_dn");
-            $nameAttribute = $this->container->getParameter("ldap_user_name_attribute");
-            $bindDn = $this->container->getParameter("ldap_bind_dn");
-            $bindPasswd = $this->container->getParameter("ldap_bind_pwd");
-            $filter = "(" . $nameAttribute . "=*)";
-
-            $connection = @ldap_connect($ldapHostname, $ldapPort);
-            ldap_set_option($connection, LDAP_OPT_PROTOCOL_VERSION, $ldapVersion);
-
-            if (strlen($bindDn) !== 0 && strlen($bindPasswd) !== 0) {
-                if (!ldap_bind($connection, $bindDn, $bindPasswd)) {
-                    throw new \Exception('Unable to bind LDAP to DN: ' . $bindDn);
-                }
-            }
-
-            $ldapListRequest = ldap_list($connection, $baseDn, $filter); // or throw exeption('Unable to list. LdapError: ' . ldap_error($ldapConnection));
-
-            $ldapUserList = ldap_get_entries($connection, $ldapListRequest);
-        }
-
-        // Settings for local user database
-        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:User');
-        $users = $repo->findAll();
-
-        $all = array();
-
-        if($this->container->hasParameter('ldap_host')) {
-            // Add Users from LDAP
-            foreach($ldapUserList as $ldapUser) {
-                $user = new \stdClass;
-                $user->getUsername = $ldapUser[$nameAttribute][0];
-                $all[] = $user;
-            }
-        }
-        // Add Mapbenderusers from database
-        foreach($users as $user) {
-            $all[] = $user;
-        }
-        return $all;
+        return $this->getUserRepository()->findAll();
+        
+        
+    }
+    
+    /** @return EntityRepository */
+    public function getUserRepository(){
+        
+        return $this->getDoctrine()->getRepository(User::class);
+    }
+    
+    /** @return EntityRepository */
+    public function getGroupRepository(){
+        
+        return $this->getDoctrine()->getRepository(Group::class);
     }
 }
