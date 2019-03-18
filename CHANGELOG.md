@@ -1,4 +1,7 @@
 # Changelog
+* **v3.0.6.4** - 2019-03-18
+  - [Regression] fix broken user privilege editing
+
 * **v3.0.6.3** - 2019-03-15
   - Implement `__toString-Method` for FOM/User ([PR#51](https://github.com/mapbender/fom/pull/51))
   - Change URL generation for improved reverse-proxy compatibility ([PR#49](https://github.com/mapbender/fom/pull/49))
