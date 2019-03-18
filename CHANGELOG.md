@@ -1,5 +1,5 @@
 # Changelog
-* ##### dev-master @ 1587f2a
+* ##### dev-master @ cba794e
   - Removed legacy component `PathHelper` (service id `fom.pathhelper`)
   - Removed legacy component `GeoConverter` (serivce id `geo.converter`)
 
