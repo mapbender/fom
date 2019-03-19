@@ -11,6 +11,9 @@
     "autoload": {
         "psr-4": {"FOM\\": "src/FOM"}
     },
+    "conflict": {
+        "mapbender/mapbender": "<3.0.8"
+    },
     "extra": {
         "branch-alias": {
             "dev-release/3.0.5": "3.0.5.x-dev",
