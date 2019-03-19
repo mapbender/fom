@@ -2,7 +2,7 @@
 
 namespace FOM\UserBundle\Controller;
 
-use FOM\ManagerBundle\Component\ManagerBundle;
+use Mapbender\ManagerBundle\Component\ManagerBundle;
 use FOM\ManagerBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
