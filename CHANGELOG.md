@@ -1,7 +1,8 @@
 # Changelog
-* ##### dev-master @ cba794e
+* **v3.1.0** - 2019-03-19
   - Removed legacy component `PathHelper` (service id `fom.pathhelper`)
   - Removed legacy component `GeoConverter` (serivce id `geo.converter`)
+  - Remove Controller, Components, views and JavaScript assets now absorbed into Mapbender ([PR#52](https://github.com/mapbender/fom/pull/52))
 
 * **v3.0.6.4** - 2019-03-18
   - [Regression] fix broken user privilege editing
