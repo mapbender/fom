@@ -4,8 +4,8 @@ namespace FOM\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use FOM\UserBundle\Entity\BasicProfile;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BasicProfileType extends AbstractType
 {
@@ -38,7 +38,7 @@ class BasicProfileType extends AbstractType
                 'required' => false));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'FOM\UserBundle\Entity\BasicProfile',

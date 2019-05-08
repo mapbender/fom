@@ -6,7 +6,7 @@ use FOM\CoreBundle\Form\DataTransformer\GroupIdTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -52,15 +52,12 @@ class FOMGroupsType extends AbstractType
         return 'entity';
     }
 
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $type = $this;
         $resolver->setDefaults(array(
-            'user_groups' => False,
-            'return_entity' => False,
+            'user_groups' => false,
+            'return_entity' => false,
             'compound' => false,
             'class' => 'FOMUserBundle:Group',
             'property' => 'title',
@@ -70,7 +67,7 @@ class FOMGroupsType extends AbstractType
                 $qb = $repository->createQueryBuilder($builderName);
 
                 if($options['user_groups']) {
-                    $user = $this->tokenStorage->getToken()->getUser();
+                    $user = $type->tokenStorage->getToken()->getUser();
                     if(is_object($user)) {
                         $qb->join($builderName . '.users', 'u', 'WITH', 'u.id = :uid')
                             ->setParameter('uid', $user->getId());

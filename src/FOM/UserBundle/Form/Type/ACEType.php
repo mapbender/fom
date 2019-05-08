@@ -3,7 +3,7 @@ namespace FOM\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\DependencyInjection\Container;
 use FOM\ManagerBundle\Form\Type\TagboxType;
@@ -60,9 +60,10 @@ class ACEType extends AbstractType
         }
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'available_permissions' => array()));
+            'available_permissions' => array(),
+        ));
     }
 }

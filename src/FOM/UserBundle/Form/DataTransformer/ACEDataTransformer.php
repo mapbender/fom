@@ -3,7 +3,6 @@
 namespace FOM\UserBundle\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Security\Acl\Domain\Entry;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
@@ -20,16 +19,14 @@ class ACEDataTransformer implements DataTransformerInterface
     /**
      * Transforms an single ACE to an object suitable for ACEType
      *
-     * @param ace $ace
-     * @return object
+     * @param Entry|array $ace
+     * @return array
      */
     public function transform($ace)
     {
         $sid = null;
         $mask = null;
 
-        $sidPrefix = '';
-        $sidName = '';
         $permissions = array();
 
         if($ace instanceof Entry) {
@@ -70,7 +67,7 @@ class ACEDataTransformer implements DataTransformerInterface
      * Transforms an ACEType result into an ACE
      *
      * @param object $data
-     * @return ace
+     * @return array
      */
     public function reverseTransform($data)
     {

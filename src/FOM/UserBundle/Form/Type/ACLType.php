@@ -4,7 +4,7 @@ namespace FOM\UserBundle\Form\Type;
 use FOM\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
@@ -112,15 +112,10 @@ class ACLType extends AbstractType
 
                 if ($options['standard_anon_access']) {
                     $anon = new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY');
-                    $anonAccess = array (
+                    $aces[] = array(
                         'sid' => $anon,
-                        'mask' => MaskBuilder::MASK_VIEW);
-
-                    $user = new RoleSecurityIdentity('ROLE_USER');
-                    $userAccess = array (
-                        'sid' => $anon,
-                        'mask' => MaskBuilder::MASK_VIEW);
-                    $aces[] = $anonAccess;
+                        'mask' => MaskBuilder::MASK_VIEW,
+                    );
                 }
             }
         }
@@ -142,7 +137,7 @@ class ACLType extends AbstractType
         $builder->add('ace', 'collection', $aceOptions);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array (
             'permissions' => array (),
@@ -163,9 +158,9 @@ class ACLType extends AbstractType
      * but uneditable) (['disable']).
      *
      * @param  array  $options Form options
-     * @param  [type] $master  is master permission assumed?
-     * @param  [type] $owner   is owner permission assumed?
-     * @return [type]          Array with permissions to show and disable
+     * @param bool $master is master permission assumed?
+     * @param bool $owner is owner permission assumed?
+     * @return string[] Array with permissions to show and disable
      */
     protected function getStandardPermissions(array $options, $master, $owner)
     {
