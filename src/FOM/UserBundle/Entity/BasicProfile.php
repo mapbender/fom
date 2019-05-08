@@ -86,7 +86,7 @@ class BasicProfile
      * Set organizationName
      *
      * @param string $organizationName
-     * @return BasicProfile
+     * @return $this
      */
     public function setOrganizationName($organizationName)
     {
@@ -109,9 +109,9 @@ class BasicProfile
      * Set uid
      *
      * @param \FOM\UserBundle\Entity\User $uid
-     * @return BasicProfile
+     * @return $this
      */
-    public function setUid(\FOM\UserBundle\Entity\User $uid)
+    public function setUid(User $uid)
     {
         $this->uid = $uid;
 
@@ -132,7 +132,7 @@ class BasicProfile
      * Set organizationRole
      *
      * @param string $organizationRole
-     * @return BasicProfile
+     * @return $this
      */
     public function setOrganizationRole($organizationRole)
     {
@@ -176,7 +176,7 @@ class BasicProfile
      * Set firstName
      *
      * @param string $firstName
-     * @return BasicProfile
+     * @return $this
      */
     public function setFirstName($firstName)
     {
@@ -199,7 +199,7 @@ class BasicProfile
      * Set lastName
      *
      * @param string $lastName
-     * @return BasicProfile
+     * @return $this
      */
     public function setLastName($lastName)
     {
@@ -222,7 +222,7 @@ class BasicProfile
      * Set notes
      *
      * @param string $notes
-     * @return BasicProfile
+     * @return $this
      */
     public function setNotes($notes)
     {
@@ -245,7 +245,7 @@ class BasicProfile
      * Set phone
      *
      * @param string $phone
-     * @return BasicProfile
+     * @return $this
      */
     public function setPhone($phone)
     {
@@ -268,7 +268,7 @@ class BasicProfile
      * Set street
      *
      * @param string $street
-     * @return BasicProfile
+     * @return $this
      */
     public function setStreet($street)
     {
@@ -291,7 +291,7 @@ class BasicProfile
      * Set zipCode
      *
      * @param string $zipCode
-     * @return BasicProfile
+     * @return $this
      */
     public function setZipCode($zipCode)
     {
@@ -314,7 +314,7 @@ class BasicProfile
      * Set city
      *
      * @param string $city
-     * @return BasicProfile
+     * @return $this
      */
     public function setCity($city)
     {
@@ -337,7 +337,7 @@ class BasicProfile
      * Set country
      *
      * @param string $country
-     * @return BasicProfile
+     * @return $this
      */
     public function setCountry($country)
     {

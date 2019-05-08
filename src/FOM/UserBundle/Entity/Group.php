@@ -59,7 +59,7 @@ class Group
      * Set title
      *
      * @param string $title
-     * @return Group
+     * @return $this
      */
     public function setTitle($title)
     {
@@ -82,7 +82,7 @@ class Group
      * Set description
      *
      * @param string $description
-     * @return Group
+     * @return $this
      */
     public function setDescription($description)
     {
@@ -104,10 +104,10 @@ class Group
     /**
      * Add users
      *
-     * @param FOM\UserBundle\Entity\User $users
-     * @return Group
+     * @param User $user
+     * @return $this
      */
-    public function addUser(\FOM\UserBundle\Entity\User $user)
+    public function addUser(User $user)
     {
         $this->users[] = $user;
         $user->addGroup($this);
@@ -117,17 +117,17 @@ class Group
     /**
      * Remove users
      *
-     * @param FOM\UserBundle\Entity\User $users
+     * @param User $user
      */
-    public function removeUser(\FOM\UserBundle\Entity\User $user)
+    public function removeUser(User $user)
     {
-        $this->users->removeElement($users);
+        $this->users->removeElement($user);
     }
 
     /**
      * Get users
      *
-     * @return Doctrine\Common\Collections\Collection
+     * @return User[]|ArrayCollection
      */
     public function getUsers()
     {
