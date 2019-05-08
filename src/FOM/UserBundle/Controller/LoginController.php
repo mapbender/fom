@@ -1,11 +1,10 @@
 <?php
 namespace FOM\UserBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
 
 /**
@@ -19,21 +18,12 @@ class LoginController extends Controller
     /**
      * User login
      *
-     * @Route("/user/login")
-     * @Template()
-     * @Method("GET")
+     * @Route("/user/login", methods={"GET"})
+     * @param Request $request
+     * @return Response
      */
-    public function loginAction()
+    public function loginAction(Request $request)
     {
-        $request = $this->get('request_stack')->getCurrentRequest();
-        /*
-        if($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-        } else {
-            $error = $request->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
-        }
-        */
-
         $session = $request->getSession();
 
         // get the login error if there is one
@@ -51,12 +41,12 @@ class LoginController extends Controller
         // last username entered by the user
         $lastUsername = (null === $session) ? '' : $session->get(Security::LAST_USERNAME);
 
-        return array(
+        return $this->render('@FOMUser/Login/login.html.twig', array(
             'last_username' => $lastUsername,
             'error' => $error,
             'selfregister' => $this->container->getParameter("fom_user.selfregister"),
-            'reset_password' => $this->container->getParameter("fom_user.reset_password")
-        );
+            'reset_password' => $this->container->getParameter("fom_user.reset_password"),
+        ));
     }
 
     /**
