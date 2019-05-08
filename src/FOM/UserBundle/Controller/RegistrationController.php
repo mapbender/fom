@@ -2,18 +2,18 @@
 
 namespace FOM\UserBundle\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
+use FOM\UserBundle\Entity\Group;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\UserRegistrationType;
-use FOM\UserBundle\Form\Type\UserForgotPassType;
 use FOM\UserBundle\Security\UserHelper;
 
 /**
@@ -42,39 +42,38 @@ class RegistrationController extends Controller
     /**
      * Registration step 3: Show instruction page that email has been sent
      *
-     * @Route("/user/registration/send")
-     * @Method("GET")
-     * @Template
+     * @Route("/user/registration/send", methods={"GET"})
+     * @return Response
      */
     public function sendAction()
     {
-        return array();
+        return $this->render('@FOMUser/Registration/send.html.twig');
     }
 
     /**
      * Registration step 1: Registration form
      *
-     * @Route("/user/registration")
-     * @Method("GET")
-     * @Template
+     * @Route("/user/registration", methods={"GET"})
+     * @return Response
      */
     public function formAction()
     {
         $user = new User();
         $form = $this->createForm(new UserRegistrationType(), $user);
 
-        return array(
+        return $this->render('@FOMUser/Registration/form.html.twig', array(
             'user' => $user,
             'form' => $form->createView(),
-            'form_name' => $form->getName());
+            'form_name' => $form->getName(),
+        ));
     }
 
     /**
      * Registration step 2: Create user and set registration token
      *
-     * @Route("/user/registration")
-     * @Method("POST")
-     * @Template("FOMUserBundle:Registration:form.html.twig")
+     * @Route("/user/registration", methods={"POST"})
+     * @param Request $request
+     * @return Response
      */
     public function register(Request $request)
     {
@@ -95,14 +94,19 @@ class RegistrationController extends Controller
 
             $groupRepository = $this->getDoctrine()->getRepository('FOMUserBundle:Group');
             foreach($this->container->getParameter('fom_user.self_registration_groups') as $groupTitle) {
-                $group = $groupRepository->findOneByTitle($groupTitle);
+                $group = $groupRepository->findOneBy(array(
+                    'title' => $groupTitle,
+                ));
                 if($group) {
+                    /** @var Group $group */
                     $user->addGroups($group);
                 } else {
                     $msg = sprintf('Self-registration group "%s" not found for user "%s"',
                         $groupTitle,
                         $user->getUsername());
-                    $this->get('logger')->err($msg);
+                    /** @var LoggerInterface $logger */
+                    $logger = $this->get('logger');
+                    $logger->error($msg);
                 }
 
             }
@@ -118,33 +122,38 @@ class RegistrationController extends Controller
             return $this->redirect($this->generateUrl('fom_user_registration_send'));
         }
 
-        return array(
+        return $this->render('@FOMUser/Registration/form.html.twig', array(
             'user' => $user,
             'form' => $form->createView(),
-            'form_name' => $form->getName());
+            'form_name' => $form->getName(),
+        ));
     }
 
     /**
      * Registration step 4: Activate account by token
      *
-     * @Route("/user/activate")
-     * @Method("GET")
+     * @Route("/user/activate", methods={"GET"})
+     * @param Request $request
+     * @return Response
      */
-    public function confirmAction()
+    public function confirmAction(Request $request)
     {
-        $token = $this->get('request_stack')->getCurrentRequest()->get('token');
+        $token = $request->get('token');
         if(!$token) {
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }
 
         // Lookup token
-        $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneByRegistrationToken($token);
+        $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
+            'registrationToken' => $token,
+        ));
         if(!$user) {
             $mail = $this->container->getParameter('fom_user.mail_from_address');
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
                 'site_email' => $mail));
         }
 
+        /** @var User $user */
         // Check token age
         $max_registration_age = $this->container->getParameter("fom_user.max_registration_time");
         if(!$this->checkTimeInterval($user->getRegistrationTime(), $max_registration_age)) {
@@ -167,24 +176,27 @@ class RegistrationController extends Controller
     /**
      * Registration step 4a: Reset token (if expired)
      *
-     * @Route("/user/registration/reset")
-     * @Method("POST")
+     * @Route("/user/registration/reset", methods={"POST"})
+     * @param Request $request
+     * @return Response
      */
-    public function reset()
+    public function reset(Request $request)
     {
         // Lookup token
-        $token = $this->get('request_stack')->getCurrentRequest()->get('token');
+        $token = $request->get('token');
         if(!$token) {
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }
 
-        $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneByRegistrationToken($token);
+        $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
+            'registrationToken' => $token,
+        ));
         if(!$user) {
             //@TODO: Get site email from configuration
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
                 'site_email' => 'FOFO'));
         }
-
+        /** @var User $user */
         $user->setRegistrationToken(hash("sha1",rand()));
         $user->setRegistrationTime(new \DateTime());
 
@@ -200,13 +212,12 @@ class RegistrationController extends Controller
     /**
      * Registration step 5: Welcome new user
      *
-     * @Route("/user/registration/done")
-     * @Method("GET")
-     * @Template
+     * @Route("/user/registration/done", methods={"GET"})
+     * @return Response
      */
     public function doneAction()
     {
-        return array();
+        return $this->render('@FOMUser/Registration/done.html.twig');
     }
 
     protected function checkTimeInterval($startTime, $timeInterval){
@@ -219,21 +230,35 @@ class RegistrationController extends Controller
         }
     }
 
+    /**
+     * @param User $user
+     */
     protected function sendEmail($user)
     {
        $fromName = $this->container->getParameter("fom_user.mail_from_name");
        $fromEmail = $this->container->getParameter("fom_user.mail_from_address");
        $mailFrom = array($fromEmail => $fromName);
+       /** @var \Swift_Mailer $mailer */
        $mailer = $this->get('mailer');
-       $text = $this->get("templating")->render('FOMUserBundle:Registration:email-body.text.twig', array("user" => $user));
-       $html = $this->get("templating")->render('FOMUserBundle:Registration:email-body.html.twig', array("user" => $user));
+       $text = $this->renderView('FOMUserBundle:Registration:email-body.text.twig', array("user" => $user));
+       $html = $this->renderView('FOMUserBundle:Registration:email-body.html.twig', array("user" => $user));
        $message = \Swift_Message::newInstance()
-           ->setSubject($this->get("templating")->render('FOMUserBundle:Registration:email-subject.text.twig'))
+           ->setSubject($this->renderView('FOMUserBundle:Registration:email-subject.text.twig'))
            ->setFrom($mailFrom)
            ->setTo($user->getEmail())
            ->setBody($text)
            ->addPart($html, 'text/html');
 
        $mailer->send($message);
+    }
+
+    /**
+     * @return EntityManagerInterface
+     */
+    protected function getEntityManager()
+    {
+        /** @var EntityManagerInterface $em */
+        $em = $this->getDoctrine()->getManager();
+        return $em;
     }
 }
