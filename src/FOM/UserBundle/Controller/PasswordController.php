@@ -5,13 +5,12 @@ use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\UserForgotPassType;
 use FOM\UserBundle\Form\Type\UserResetPassType;
 use FOM\UserBundle\Security\UserHelper;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
@@ -61,36 +60,33 @@ class PasswordController extends Controller
     /**
      * Password reset step 3: Show instruction page that email has been sent
      *
-     * @Route("/user/password/send")
-     * @Method("GET")
-     * @Template
+     * @Route("/user/password/send", methods={"GET"})
+     * @return Response
      */
     public function sendAction()
     {
-        return array();
+        return $this->render('@FOMUser/Password/send.html.twig');
     }
 
     /**
      * Password reset step 1: Request reset token
      *
-     * @Route("/user/password")
-     * @Method("GET")
-     * @Template
+     * @Route("/user/password", methods={"GET"})
      */
     public function formAction()
     {
         $form = $this->createForm(new UserForgotPassType());
-        return array('form' => $form->createView());
+        return $this->render('@FOMUser/Password/form.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     /**
      * Password reset step 2: Create reset token and send email
      *
-     * @Route("/user/password")
-     * @Method("POST")
-     * @Template("FOMUserBundle:Password:form.html.twig")
+     * @Route("/user/password", methods={"POST"})
      * @param Request $request
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Response
      */
     public function requestAction(Request $request)
     {
@@ -100,23 +96,29 @@ class PasswordController extends Controller
         ;
 
         $obj = $form->getData();
-
-        $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->findOneByUsername($obj['search']);
-        if ($user === null) {
-            $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->findOneByEmail($obj['search']);
+        $userRepository = $this->getDoctrine()->getRepository('FOMUserBundle:User');
+        /** @var User|null $user */
+        $user = $userRepository->findOneBy(array(
+            'userName' => $obj['search'],
+        ));
+        if (!$user) {
+            $user = $userRepository->findOneBy(array(
+                'email' => $obj['search'],
+            ));
         }
 
         if (!$user) {
-            $form->addError(new FormError($this->get("templating")->render(
-                'FOMUserBundle:Password:request-error-nosuchuser.html.twig',
-                array("search" => $obj))));
-            return array('form' => $form->createView());
+            $message = $this->renderView('FOMUserBundle:Password:request-error-nosuchuser.html.twig');
+            $form->addError(new FormError($message));
+            return $this->render('@FOMUser/Password/form.html.twig', array(
+                'form' => $form->createView(),
+            ));
         } elseif ($user->getRegistrationToken()) {
-            $form->addError(new FormError($this->get("templating")->render(
-                'FOMUserBundle:Password:request-error-userinactive.html.twig', array("user" => $user))));
-            return array(
-                'user' => $user,
-                'form' => $form->createView());
+            $message = $this->renderView('FOMUserBundle:Password:request-error-userinactive.html.twig');
+            $form->addError(new FormError($message));
+            return $this->render('@FOMUser/Password/form.html.twig', array(
+                'form' => $form->createView(),
+            ));
         }
 
         $this->setResetToken($user);
@@ -127,17 +129,20 @@ class PasswordController extends Controller
     /**
      * Password reset step 4a: Reset the reset token (pun intended...)
      *
-     * @Route("/user/reset/reset")
-     * @Method("POST")
+     * @Route("/user/reset/reset", methods={"POST"})
+     * @param Request $request
+     * @return Response
      */
-    public function tokenResetAction()
+    public function tokenResetAction(Request $request)
     {
-        $token = $this->get('request_stack')->getCurrentRequest()->get('token');
+        $token = $request->get('token');
         if (!$token) {
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }
-
-        $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneByResetToken($token);
+        /** @var User|null $user */
+        $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
+            'resetToken' => $token,
+        ));
         if (!$user) {
             $mail = $this->container->getParameter('fom_user.mail_from_address');
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
@@ -152,18 +157,20 @@ class PasswordController extends Controller
     /**
      * Password reset step 4: Show password reset form
      *
-     * @Route("/user/reset")
-     * @Method("GET")
-     * @Template
+     * @Route("/user/reset", methods={"GET"})
+     * @param Request $request
+     * @return Response
      */
-    public function resetAction()
+    public function resetAction(Request $request)
     {
-        $token = $this->get('request_stack')->getCurrentRequest()->get('token');
+        $token = $request->get('token');
         if (!$token) {
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }
 
-        $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneByResetToken($token);
+        $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
+            'resetToken' => $token,
+        ));
         if (!$user) {
             $mail = $this->container->getParameter('fom_user.mail_from_address');
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
@@ -180,26 +187,30 @@ class PasswordController extends Controller
         }
 
         $form = $this->createForm(new UserResetPassType(), $user);
-        return array(
+        return $this->render('@FOMUser/Password/reset.html.twig', array(
             'user' => $user,
-            'form' => $form->createView());
+            'form' => $form->createView(),
+        ));
     }
 
     /**
      * Password reset step 5: reset password
      *
-     * @Route("/user/reset")
-     * @Method("POST")
-     * @Template("FOMUserBundle:Password:reset.html.twig")
+     * @Route("/user/reset", methods={"POST"})
+     * @param Request $request
+     * @return Response
      */
     public function passwordAction(Request $request)
     {
-        $token = $this->get('request_stack')->getCurrentRequest()->get('token');
+        $token = $request->get('token');
         if (!$token) {
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
         }
 
-        $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneByResetToken($token);
+        /** @var User|null $user */
+        $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
+            'resetToken' => $token,
+        ));
         if (!$user) {
             $mail = $this->container->getParameter('fom_user.mail_from_address');
             return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
@@ -229,21 +240,21 @@ class PasswordController extends Controller
             return $this->redirect($this->generateUrl('fom_user_password_done'));
         }
 
-        return array(
+        return $this->render('@FOMUser/Password/reset.html.twig', array(
             'user' => $user,
-            'form' => $form->createView());
+            'form' => $form->createView(),
+        ));
     }
 
     /**
      * Password reset step 6: All done message
      *
-     * @Route("/user/reset/done")
-     * @Method("GET")
-     * @Template
+     * @Route("/user/reset/done", methods={"GET"})
+     * @return Response
      */
     public function doneAction()
     {
-        return array();
+        return $this->render('@FOMUser/Password/done.html.twig');
     }
 
     protected function checkTimeInterval($startTime, $timeInterval)
@@ -257,6 +268,10 @@ class PasswordController extends Controller
         }
     }
 
+    /**
+     * @param User $user
+     * @throws \Exception
+     */
     protected function setResetToken($user)
     {
         $user->setResetToken(hash("sha1", rand()));
