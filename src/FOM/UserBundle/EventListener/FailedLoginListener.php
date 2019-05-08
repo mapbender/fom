@@ -34,7 +34,6 @@ class FailedLoginListener
      */
     public function onLoginSuccess(AuthenticationEvent $event)
     {
-        $user = $event->getAuthenticationToken()->getUser();
     }
 
     /**
@@ -49,7 +48,7 @@ class FailedLoginListener
         $container  = $this->container;
         $doctrine   = $container->get('doctrine');
         $className  = 'FOMUserBundle:UserLogEntry';
-        $userName   = $container->get('request_stack')->getCurrentRequest()->get('_username');
+        $userName = $event->getAuthenticationToken()->getUsername();
         $ipAddress  = $_SERVER["REMOTE_ADDR"];
         $repository = $doctrine->getRepository($className);
         $userInfo   = array('userName'  => $userName,
