@@ -2,13 +2,15 @@
 
 namespace FOM\UserBundle\Component;
 
+use FOM\UserBundle\Entity\Group;
+
 interface IdentitiesProviderInterface
 {
     /**
      * Get user security identifiers for given query.
      *
      * @param  string $search Query string
-     * @return array         Array of user security identifiers
+     * @return string[]
      */
     public function getUsers($search);
 
@@ -16,19 +18,19 @@ interface IdentitiesProviderInterface
     /**
      * Get role identifiers
      *
-     * @return array Array of role security identifiers
+     * @return string[]
      */
     public function getRoles();
 
     /**
      * Get all group objects
-     * @return array Array of group objects
+     * @return Group[]
      */
     public function getAllGroups();
 
     /**
      * Get all user objects
-     * @return array Array of user objects
+     * @return object[]
      */
     public function getAllUsers();
 }

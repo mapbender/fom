@@ -2,6 +2,8 @@
 
 namespace FOM\UserBundle\Controller;
 
+use FOM\UserBundle\Component\AclManager;
+use FOM\UserBundle\Component\IdentitiesProviderInterface;
 use Mapbender\ManagerBundle\Component\ManagerBundle;
 use FOM\ManagerBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -77,14 +79,14 @@ class ACLController extends Controller
         $form->submit($request);
 
         if($form->isValid() && $form->isSubmitted()) {
+            /** @var AclManager $aclManager */
             $aclManager = $this->get('fom.acl.manager');
-            $aclManager->setClassACLFromForm($class, $form, 'object');
+            $aclManager->setClassACLFromForm($class, $form);
 
             return $this->redirect($this->generateUrl('fom_user_acl_index'));
         }
 
-        $this->get('session')->getFlashBag()->set('error',
-            'Your form has errors, please review them below.');
+        $this->addFlash('error', 'Your form has errors, please review them below.');
 
         return $this->render('@FOMUser/ACL/edit.html.twig', array(
             'class' => $class,
@@ -100,6 +102,7 @@ class ACLController extends Controller
      */
     public function overviewAction()
     {
+        /** @var IdentitiesProviderInterface $idProvider */
         $idProvider = $this->get('fom.identities.provider');
         $groups = $idProvider->getAllGroups();
         $users  = $idProvider->getAllUsers();
@@ -136,6 +139,7 @@ class ACLController extends Controller
     {
         $query = $request->get('query');
         $response = array();
+        /** @var IdentitiesProviderInterface $idProvider */
         $idProvider = $this->get('fom.identities.provider');
 
         if($query !== null) {
@@ -144,12 +148,12 @@ class ACLController extends Controller
                     $response = $idProvider->getUsers(substr($query, 2));
                     break;
                 case 'r:':
-                    $response = $idProvider->getRoles(substr($query, 2));
+                    $response = $idProvider->getRoles();
                     break;
                 default:
                     $response = array_merge(
                         $idProvider->getUsers(substr($query, 3)),
-                        $idProvider->getRoles(substr($query, 3)));
+                        $idProvider->getRoles());
             }
         }
 

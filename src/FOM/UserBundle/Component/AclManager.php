@@ -9,7 +9,6 @@ use Symfony\Component\Security\Acl\Domain\Entry;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
 use Symfony\Component\Security\Acl\Exception\NotAllAclsFoundException;
-use Symfony\Component\Security\Acl\Model\AclInterface;
 
 /**
  * ACL Manager service implementation
@@ -139,7 +138,7 @@ class AclManager
     /**
      * Get ACL object manager.
      *
-     * @param      $entity
+     * @param object|string $entity or class name
      * @param bool $create
      * @return Acl | null
      * @throws \Exception
@@ -201,7 +200,7 @@ class AclManager
     }
 
     /**
-     * @param $entity
+     * @param object|string $entity
      * @return \Symfony\Component\Security\Acl\Domain\ObjectIdentity
      * @throws \Symfony\Component\Security\Acl\Exception\InvalidDomainObjectException
      */
