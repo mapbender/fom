@@ -4,9 +4,8 @@ namespace FOM\UserBundle\Controller;
 
 use Mapbender\ManagerBundle\Component\ManagerBundle;
 use FOM\ManagerBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
@@ -19,26 +18,28 @@ class ACLController extends Controller
 {
     /**
      * @Route("/acl")
-     * @Template
+     * @return Response
      */
     public function indexAction()
     {
-        return array('classes' => $this->getACLClasses());
+        return $this->render('@FOMUser/ACL/index.html.twig', array(
+            'classes' => $this->getACLClasses(),
+        ));
     }
 
     /**
-     * @Route("/acl/edit")
-     * @Method("GET")
-     * @Template
+     * @Route("/acl/edit", methods={"GET"})
+     * @param Request $request
+     * @return Response
      */
-    public function editAction()
+    public function editAction(Request $request)
     {
         // ACL access check
         $oid = new ObjectIdentity('class', 'Symfony\Component\Security\Acl\Domain\Acl');
 
         $this->denyAccessUnlessGranted('EDIT', $oid);
 
-        $class = $this->get('request_stack')->getCurrentRequest()->get('class');
+        $class = $request->get('class');
         $acl_classes = $this->getACLClasses();
         if(!array_key_exists($class, $acl_classes)) {
             throw $this->createNotFoundException('No manageable class given.');
@@ -46,19 +47,18 @@ class ACLController extends Controller
 
         $form = $this->getClassACLForm($class);
 
-        return array(
+        return $this->render('@FOMUser/ACL/edit.html.twig', array(
             'class' => $class,
             'class_name' => $acl_classes[$class],
             'form' => $form->createView(),
-            'form_name' => $form->getName());
+            'form_name' => $form->getName(),
+        ));
     }
 
     /**
-     * @Route("/acl/edit")
-     * @Method("POST")
-     * @Template
+     * @Route("/acl/edit", methods={"POST"})
      * @param Request $request
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Response
      */
     public function updateAction(Request $request)
     {
@@ -67,7 +67,7 @@ class ACLController extends Controller
 
         $this->denyAccessUnlessGranted('EDIT', $oid);
 
-        $class = $this->get('request_stack')->getCurrentRequest()->get('class');
+        $class = $request->get('class');
         $acl_classes = $this->getACLClasses();
         if(!array_key_exists($class, $acl_classes)) {
             throw $this->createNotFoundException('No manageable class given.');
@@ -86,28 +86,31 @@ class ACLController extends Controller
         $this->get('session')->getFlashBag()->set('error',
             'Your form has errors, please review them below.');
 
-        return array(
+        return $this->render('@FOMUser/ACL/edit.html.twig', array(
             'class' => $class,
             'class_name' => $acl_classes[$class],
-            'form' => $form,
-            'form_name' => $form->getName()
-        );
+            'form' => $form->createView(),
+            'form_name' => $form->getName(),
+        ));
     }
 
     /**
-     * @Route("/acl/overview")
-     * @Method({ "GET" })
-     * @Template("FOMUserBundle:ACL:groups-and-users.html.twig")
+     * @Route("/acl/overview", methods={"GET"})
+     * @return Response
      */
-    public function overviewAction(){
+    public function overviewAction()
+    {
         $idProvider = $this->get('fom.identities.provider');
         $groups = $idProvider->getAllGroups();
         $users  = $idProvider->getAllUsers();
-        return array('groups' => $groups, 'users' => $users);
+        return $this->render('@FOMUser/ACL/groups-and-users.html.twig', array(
+            'groups' => $groups,
+            'users' => $users,
+        ));
     }
 
     /**
-     * @param $class
+     * @param string $class
      * @return \Symfony\Component\Form\Form
      */
     public function getClassACLForm($class)
@@ -126,10 +129,12 @@ class ACLController extends Controller
      * for role, otherwise look for both.
      *
      * @Route("/acl/sid")
+     * @param Request $request
+     * @return Response
      */
-    public function aclsidAction()
+    public function aclsidAction(Request $request)
     {
-        $query = $this->get('request_stack')->getCurrentRequest()->get('query');
+        $query = $request->get('query');
         $response = array();
         $idProvider = $this->get('fom.identities.provider');
 
@@ -148,8 +153,7 @@ class ACLController extends Controller
             }
         }
 
-        return new Response(json_encode($response), 200, array(
-            'Content-Type' => 'application/json'));
+        return new JsonResponse($response);
     }
 
     protected function getACLClasses()
