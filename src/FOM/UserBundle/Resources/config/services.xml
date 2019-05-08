@@ -29,9 +29,7 @@
         </service>
 
         <service id="fom.identities.provider" class="%fom.identities.provider.class%">
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
+            <argument type="service" id="service_container" />
         </service>
 
         <service id="fom.user.subscriber" class="FOM\UserBundle\EventListener\UserSubscriber">

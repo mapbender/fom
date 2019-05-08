@@ -2,7 +2,7 @@
 
 namespace FOM\UserBundle\Component;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Managed users
@@ -11,8 +11,18 @@ use Symfony\Component\DependencyInjection\ContainerAware;
  * @alias User Manager
  *d
  */
-class FOMIdentitiesProvider extends ContainerAware implements IdentitiesProviderInterface
+class FOMIdentitiesProvider implements IdentitiesProviderInterface
 {
+    /** @var ContainerInterface */
+    protected $container;
+
+    /**
+     * @param ContainerInterface $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
 
     /**
      * @return \Doctrine\Bundle\DoctrineBundle\Registry
