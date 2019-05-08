@@ -2,6 +2,9 @@
 
 namespace FOM\UserBundle\Component;
 
+use Doctrine\ORM\EntityRepository;
+use FOM\UserBundle\Entity\Group;
+use FOM\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -33,12 +36,21 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     }
 
     /**
+     * @param $entityName
+     * @return EntityRepository
+     */
+    protected function getRepository($entityName)
+    {
+        return $this->getDoctrine()->getRepository($entityName);
+    }
+
+    /**
      * @param string $search
      * @return array
      */
     public function getUsers($search)
     {
-        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:User');
+        $repo = $this->getRepository('FOMUserBundle:User');
         $qb = $repo->createQueryBuilder('u');
 
         $query = $qb->where($qb->expr()->like('LOWER(u.username)', ':search'))
@@ -48,33 +60,32 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
 
         $result = array();
         foreach($query->getResult() as $user) {
+            /** @var User $user */
             $result[] = 'u:' . $user->getUsername();
         }
         return $result;
     }
 
-    public function getRoles() {
-        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:Group');
-        $groups = $repo->findAll();
-
+    /**
+     * @return string[]
+     */
+    public function getRoles()
+    {
         $roles = array();
-        foreach($groups as $group) {
+        foreach ($this->getAllGroups() as $group) {
             $roles[] = 'r:' . $group->getAsRole();
         }
 
         return $roles;
     }
 
-    public function getAllGroups(){
-        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:Group');
-        $groups = $repo->findAll();
-
-        $all = array();
-        foreach($groups as $group) {
-            $all[] = $group;
-        }
-
-        return $all;
+    /**
+     * @return Group[]
+     */
+    public function getAllGroups()
+    {
+        $repo = $this->getRepository('FOMUserBundle:Group');
+        return $repo->findAll();
     }
 
     public function getAllUsers(){
