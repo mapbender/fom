@@ -2,12 +2,9 @@
 
 namespace FOM\UserBundle\EventListener;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use FOM\CoreBundle\Doctrine\DoctrineHelper;
 use FOM\UserBundle\Entity\UserLogEntry;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Event\AuthenticationEvent;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 
@@ -19,14 +16,28 @@ use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
  */
 class FailedLoginListener
 {
-    use ContainerAwareTrait;
+    /** @var EntityManagerInterface */
+    protected $entityManager;
+    /** @var int */
+    protected $maxAttempts;
+    /** @var int */
+    protected $delayTime;
+    /** @var string */
+    protected $checkInterval;
 
     /**
-     * @param ContainerInterface $container
+     * @param EntityManagerInterface $entityManager
+     * @param int $maxAttempts before login is artificially slowed down
+     * @param int $delayTime in seconds
+     * @param string $checkInterval DateTimeInterval spec for $maxAttempts time window
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(EntityManagerInterface $entityManager,
+                                $maxAttempts, $delayTime, $checkInterval)
     {
-        $this->setContainer($container);
+        $this->entityManager = $entityManager;
+        $this->maxAttempts = $maxAttempts;
+        $this->delayTime = $delayTime;
+        $this->checkInterval = $checkInterval;
     }
 
     /**
@@ -41,30 +52,26 @@ class FailedLoginListener
      */
     public function onLoginFailure(AuthenticationFailureEvent $event)
     {
-        /** @var Registry $doctrine */
-        /** @var ContainerInterface $container */
         /** @var EntityRepository $repository */
 
-        $container  = $this->container;
-        $doctrine   = $container->get('doctrine');
+        $em = $this->entityManager;
         $className  = 'FOMUserBundle:UserLogEntry';
         $userName = $event->getAuthenticationToken()->getUsername();
         $ipAddress  = $_SERVER["REMOTE_ADDR"];
-        $repository = $doctrine->getRepository($className);
-        $userInfo   = array('userName'  => $userName,
-                            'ipAddress' => $ipAddress,
-                            'action'    => 'login',
-                            'status'    => 'fail');
-        $em         = $doctrine->getManager();
-
-        if ($container->getParameter('fom_user.auto_create_log_table')) {
-            DoctrineHelper::checkAndCreateTableByEntityName($container, $className);
-        }
-
+        $repository = $em->getRepository($className);
+        $userInfo = array(
+            'userName' => $userName,
+            'ipAddress' => $ipAddress,
+            'action' => 'login',
+            'status' => 'fail',
+        );
         // Log failed login attempt
-        $em->persist(new UserLogEntry(array_merge(array(
-            'context' => array('userAgent' => $_SERVER["HTTP_USER_AGENT"]),
-        ), $userInfo)));
+        $entry = new UserLogEntry(array_merge($userInfo, array(
+            'context' => array(
+                'userAgent' => $_SERVER["HTTP_USER_AGENT"],
+            ),
+        )));
+        $em->persist($entry);
         $em->flush();
 
         $failedLoginCount = $repository->createQueryBuilder('p')->select('count(p.id)')
@@ -73,14 +80,13 @@ class FailedLoginListener
             ->andWhere('p.status = :status')
             ->andWhere('p.action = :action')
             ->andWhere('p.creationDate > :creationDate')
-            ->setParameters(array_merge(array(
-                "creationDate" => new \DateTime($container->getParameter("fom_user.login_check_log_time"))
-            ), $userInfo))
+            ->setParameters($userInfo)
+            ->setParameter('creationDate', new \DateTime($this->checkInterval))
             ->getQuery()
             ->getSingleScalarResult();
 
-        if ($failedLoginCount >= $container->getParameter("fom_user.login_attempts_before_delay")) {
-            sleep($container->getParameter("fom_user.login_delay_after_fail"));
+        if ($failedLoginCount >= $this->maxAttempts) {
+            sleep($this->delayTime);
         }
 
         // Garbage collection for log entries
@@ -88,9 +94,7 @@ class FailedLoginListener
         $repository->createQueryBuilder('p')
             ->delete()
             ->where('p.creationDate < :gcDate')
-            ->setParameters(array(
-                "gcDate" => new \DateTime("-2 days")
-            ))
+            ->setParameter('gcDate', new \DateTime("-2 days"))
             ->getQuery()
             ->getSingleScalarResult();
     }
