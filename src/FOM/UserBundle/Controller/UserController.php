@@ -2,16 +2,16 @@
 namespace FOM\UserBundle\Controller;
 
 use FOM\ManagerBundle\Configuration\Route as ManagerRoute;
+use FOM\UserBundle\Component\AclManager;
 use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\UserType;
 use FOM\UserBundle\Security\UserHelper;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 
 /**
  * User management controller
@@ -23,9 +23,8 @@ class UserController extends Controller
     /**
      * Renders user list.
      *
-     * @ManagerRoute("/user")
-     * @Method({ "GET" })
-     * @Template
+     * @ManagerRoute("/user", methods={"GET"})
+     * @return Response
      */
     public function indexAction()
     {
@@ -41,16 +40,15 @@ class UserController extends Controller
 
         $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
 
-        return array(
+        return $this->render('@FOMUser/User/index.html.twig', array(
             'users'             => $allowed_users,
-            'create_permission' => $this->isGranted('CREATE', $oid)
-        );
+            'create_permission' => $this->isGranted('CREATE', $oid),
+        ));
     }
 
     /**
-     * @ManagerRoute("/user/new")
-     * @Method({ "GET" })
-     * @Template("FOMUserBundle:User:form.html.twig")
+     * @ManagerRoute("/user/new", methods={"GET"})
+     * @return Response
      */
     public function newAction()
     {
@@ -66,29 +64,26 @@ class UserController extends Controller
                 ->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
             || $this->isGranted('OWNER', $oid);
 
-        $profile = $this->addProfileForm($user);
         $form    = $this->createForm(new UserType(), $user, array(
-            'profile_formtype' => $profile['formtype'],
+            'profile_formtype' => $this->getProfileFormType(),
             'group_permission' => $groupPermission,
             'acl_permission'   => $this->isGranted('OWNER', $oid),
         ));
 
-        return array(
+        return $this->render('@FOMUser/User/form.html.twig', array(
             'user'             => $user,
             'form'             => $form->createView(),
             'form_name'        => $form->getName(),
             'edit'             => false,
-            'profile_template' => $profile['template'],
-            'profile_assets'   => $profile['assets']
-        );
+            'profile_template' => $this->getProfileTemplate(),
+            'profile_assets'   => $this->getProfileAssets(),
+        ));
     }
 
     /**
-     * @ManagerRoute("/user")
-     * @Method({ "POST" })
-     * @Template("FOMUserBundle:User:form.html.twig")
+     * @ManagerRoute("/user", methods={"POST"})
      * @param Request $request
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Response
      * @throws \Exception
      */
     public function createAction(Request $request)
@@ -103,10 +98,8 @@ class UserController extends Controller
             $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
             || $this->isGranted('OWNER', $oid);
 
-        $profile = $this->addProfileForm($user);
-
         $form = $this->createForm(new UserType(), $user, array(
-            'profile_formtype' => $profile['formtype'],
+            'profile_formtype' => $this->getProfileFormType(),
             'group_permission' => $groupPermission,
             'acl_permission'   => $this->isGranted('OWNER', $oid),
         ));
@@ -145,6 +138,7 @@ class UserController extends Controller
                 $em->getConnection()->commit();
 
                 if ($form->has('acl')) {
+                    /** @var AclManager $aclManager */
                     $aclManager = $this->get('fom.acl.manager');
                     $aclManager->setObjectACLFromForm($user, $form->get('acl'), 'object');
                 }
@@ -159,27 +153,26 @@ class UserController extends Controller
                 $em->getConnection()->rollback();
                 throw $e;
             }
-
-            $this->get('session')->getFlashBag()->set('success', 'The user has been saved.');
+            $this->addFlash('success', 'The user has been saved.');
 
             return $this->redirect($this->generateUrl('fom_user_user_index'));
         }
+        $this->addFlash('error', 'There are field validation errors.');
 
-        $this->get('session')->getFlashBag()->set('error', 'There are field validation errors.');
-
-        return array(
+        return $this->render('@FOMUser/User/form.html.twig', array(
             'user'             => $user,
             'form'             => $form->createView(),
             'form_name'        => $form->getName(),
             'edit'             => false,
-            'profile_template' => $profile['template'],
-            'profile_assets'   => $profile['assets']);
+            'profile_template' => $this->getProfileTemplate(),
+            'profile_assets'   => $this->getProfileAssets(),
+        ));
     }
 
     /**
-     * @ManagerRoute("/user/{id}/edit")
-     * @Method({ "GET" })
-     * @Template("FOMUserBundle:User:form.html.twig")
+     * @ManagerRoute("/user/{id}/edit", methods={"GET"})
+     * @param string $id
+     * @return Response
      */
     public function editAction($id)
     {
@@ -187,49 +180,49 @@ class UserController extends Controller
         if ($user === null) {
             throw new NotFoundHttpException('The user does not exist');
         }
-
-        // ACL access check
+        /** @var User $user */
         $this->denyAccessUnlessGranted('EDIT', $user);
 
         $groupPermission =
             $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
             || $this->isGranted('OWNER', $user);
 
-        $profile = $this->addProfileForm($user);
         $form    = $this->createForm(new UserType(), $user, array(
             'requirePassword'  => false,
-            'profile_formtype' => $profile['formtype'],
+            'profile_formtype' => $this->getProfileFormType(),
             'group_permission' => $groupPermission,
             'acl_permission'   => $this->isGranted('OWNER', $user),
             'currentUser' => $this->getUser(),
         ));
 
-        return array(
+        return $this->render('@FOMUser/User/form.html.twig', array(
             'user'             => $user,
             'form'             => $form->createView(),
             'form_name'        => $form->getName(),
             'edit'             => true,
-            'profile_template' => $profile['template'],
-            'profile_assets'   => $profile['assets']);
+            'profile_template' => $this->getProfileTemplate(),
+            'profile_assets'   => $this->getProfileAssets(),
+        ));
     }
 
     /**
-     * @ManagerRoute("/user/{id}/update")
-     * @Method({ "POST" })
-     * @Template("FOMUserBundle:User:form.html.twig")
+     * @ManagerRoute("/user/{id}/update", methods={"POST"})
+     * @param Request $request
+     * @param string $id
+     * @return Response
      */
-    public function updateAction($id)
+    public function updateAction(Request $request, $id)
     {
         $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->find($id);
         if ($user === null) {
             throw new NotFoundHttpException('The user does not exist');
         }
+        /** @var User $user */
 
         // ACL access check
         $this->denyAccessUnlessGranted('EDIT', $user);
 
         // If no password is given, we'll recycle the old one
-        $request      = $this->get('request_stack')->getCurrentRequest();
         $userData     = $request->get('user');
         $keepPassword = false;
         if ($userData['password']['first'] === '' && $userData['password']['second'] === '') {
@@ -247,10 +240,9 @@ class UserController extends Controller
             $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
             || $this->isGranted('OWNER', $user);
 
-        $profile = $this->addProfileForm($user);
         $form    = $this->createForm(new UserType(), $user, array(
             'requirePassword'  => false,
-            'profile_formtype' => $profile['formtype'],
+            'profile_formtype' => $this->getProfileFormType(),
             'group_permission' => $groupPermission,
             'acl_permission'   => $this->isGranted('OWNER', $user),
             'currentUser' => $this->getUser(),
@@ -270,32 +262,33 @@ class UserController extends Controller
 
             // This is the same check as abote in createForm for acl_permission
             if ($this->isGranted('OWNER', $user)) {
+                /** @var AclManager $aclManager */
                 $aclManager = $this->get('fom.acl.manager');
                 $aclManager->setObjectACLFromForm($user, $form->get('acl'), 'object');
             }
 
             $user->getProfile()->setUid($user);
             $em->flush();
-
-            $this->get('session')->getFlashBag()->set('success', 'The user has been updated.');
+            $this->addFlash('success', 'The user has been updated.');
 
             return $this->redirect($this->generateUrl('fom_user_user_index'));
 
         }
 
-        return array(
+        return $this->render('@FOMUser/User/form.html.twig', array(
             'user'             => $user,
             'form'             => $form->createView(),
             'form_name'        => $form->getName(),
             'edit'             => true,
-            'profile_template' => $profile['template'],
-            'profile_assets'   => $profile['assets']
-        );
+            'profile_template' => $this->getProfileTemplate(),
+            'profile_assets'   => $this->getProfileAssets(),
+        ));
     }
 
     /**
-     * @ManagerRoute("/user/{id}/delete")
-     * @Method({ "POST" })
+     * @ManagerRoute("/user/{id}/delete", methods={"POST"})
+     * @param string $id
+     * @return Response
      *
      * @todo : Delete ACEs for given user
      */
@@ -306,6 +299,7 @@ class UserController extends Controller
         if ($user === null) {
             throw new NotFoundHttpException('The user does not exist');
         }
+        /** @var User $user */
         if ($user->getId() === 1) {
             throw new NotFoundHttpException('The root user can not be deleted');
         }
@@ -313,17 +307,15 @@ class UserController extends Controller
         // ACL access check
         $this->denyAccessUnlessGranted('DELETE', $user);
 
+        /** @var MutableAclProviderInterface $aclProvider */
         $aclProvider = $this->get('security.acl.provider');
         $oid         = ObjectIdentity::fromDomainObject($user);
         $aclProvider->deleteAcl($oid);
-
-        $this->addProfileForm($user);
 
         $em = $this->getDoctrine()->getManager();
         $em->getConnection()->beginTransaction();
 
         try {
-            $aclProvider = $this->get('security.acl.provider');
             $oid         = ObjectIdentity::fromDomainObject($user);
             $aclProvider->deleteAcl($oid);
 
@@ -333,31 +325,37 @@ class UserController extends Controller
             }
             $em->flush();
             $em->getConnection()->commit();
-
-            $this->get('session')->getFlashBag()->set('success', 'The user has been deleted.');
+            $this->addFlash('success', 'The user has been deleted.');
         } catch (\Exception $e) {
             $em->getConnection()->rollback();
-            $this->get('session')->getFlashBag()->set('error', "The user couldn't be deleted.");
+            $this->addFlash('error', "The user couldn't be deleted.");
         }
 
         return new Response();
     }
 
     /**
-     * @param User $user
-     * @return array
+     * @return string
      */
-    private function addProfileForm(User $user)
+    protected function getProfileFormType()
     {
-        $container       = $this->container;
-        $profileFormType = $container->getParameter('fom_user.profile_formtype');
-        $profileTemplate = $container->getParameter('fom_user.profile_template');
-        $profileAssets   = $container->getParameter('fom_user.profile_assets');
-
-        return array(
-            'formtype' => $profileFormType,
-            'template' => $profileTemplate,
-            'assets'   => $profileAssets
-        );
+        return $this->getParameter('fom_user.profile_formtype');
     }
+
+    /**
+     * @return string
+     */
+    protected function getProfileTemplate()
+    {
+        return $this->getParameter('fom_user.profile_template');
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getProfileAssets()
+    {
+        return $this->getParameter('fom_user.profile_assets');
+    }
+
 }

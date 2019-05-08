@@ -407,6 +407,9 @@ class User implements AdvancedUserInterface
         return $this;
     }
 
+    /**
+     * @return BasicProfile|null
+     */
     public function getProfile()
     {
         return $this->profile;
