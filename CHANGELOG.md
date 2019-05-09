@@ -1,4 +1,7 @@
-# Changelog
+* **dev-master @ dcd7c0c**
+  - Hotfix layouts of registration / forgotten password sections
+  - Misc deprecation cleanups
+
 * **v3.1.0** - 2019-03-19
   - Removed legacy component `PathHelper` (service id `fom.pathhelper`)
   - Removed legacy component `GeoConverter` (serivce id `geo.converter`)
