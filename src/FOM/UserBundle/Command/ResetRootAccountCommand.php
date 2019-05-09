@@ -5,6 +5,7 @@ namespace FOM\UserBundle\Command;
 use Doctrine\ORM\EntityManagerInterface;
 use FOM\UserBundle\Component\UserHelperService;
 use FOM\UserBundle\Entity\User;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -44,48 +45,35 @@ EOT
     {
         parent::initialize($input, $output);
         $this->userHelper = $this->getContainer()->get('fom.user_helper.service');
+        if ($input->getOption('silent')) {
+            $input->setInteractive(false);
+        }
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var Question $dialog */
-        $dialog = $this->getHelper('question');
         $root = $this->getRoot();
 
-        if($root === null) {
-            foreach(array('username', 'email', 'password') as $option) {
-                if($input->getOption($option) === null) {
+        if (!$root) {
+            $root = new User();
+            $root->setId(1);
+            $mode = 'created';
+            foreach (array('username', 'email', 'password') as $option) {
+                if (!$input->getOption($option)) {
                     throw new \RuntimeException(
                         sprintf('The %s option must be provided.', $option));
                 }
             }
+        } else {
+            $mode = 'updated';
         }
-
-        $action = ($root ? 'reset' : 'creation');
-        if($input->isInteractive() && !$input->getOption('silent')) {
-            if(!$dialog->askConfirmation($output, $dialog->getQuestion(
-                'Do you confirm ' . $action, 'yes', '?'), true)) {
-                return 1;
-            }
-        }
-
-        if(!$root) {
-            $root = new User();
-            $root->setId(1);
-        }
-
-        if($input->getOption('username') !== null) {
-            //TODO: Validate, use same validator as in the askAndValidate below
+        if ($input->getOption('username')) {
             $root->setUsername($input->getOption('username'));
         }
-
-        if($input->getOption('email') !== null) {
-            //TODO: Validate, use same validator as in the askAndValidate below
+        if ($input->getOption('email')) {
             $root->setEmail($input->getOption('email'));
         }
-
-        if($input->getOption('email') !== null) {
-            //TODO: Validate, use same validator as in the askAndValidate below
+        if ($input->getOption('password')) {
             $this->userHelper->setPassword($root, $input->getOption('password'));
         }
 
@@ -94,56 +82,29 @@ EOT
         $em->persist($root);
         $em->flush();
 
-        $output->writeln(array(
-            '',
-            'The root is now usable. Have fun!',
-            ''));
+        $output->writeln("User {$root->getUsername()} {$mode}.");
         return null;
     }
 
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        $dialog = $this->getHelper('question');
+        /** @var QuestionHelper $questionHelper */
+        $questionHelper = $this->getHelper('question');
         $root = $this->getRoot();
-        $silent = $input->getOption('silent');
 
-        $output->writeln('Welcome to the Mapbender3 root account management command');
-
-        if(!$silent || $input->getOption('username') === null) {
-            $output->writeln(array(
-                '',
-                'Enter the username to use for the root account.',
-                ''));
-
-            // @TODO: Validate (askAndValidate())
-            $username = ($root ? $root->getUsername() : $input->getOption('username'));
-            $username = $dialog->ask($output, $dialog->getQuestion('Username', $username), $username);
-            $input->setOption('username', $username);
+        if (!$input->getOption('username')) {
+            $default = $root ? $root->getUsername() : 'root';
+            $question = new Question("Enter the username to use for the root account [{$default}]: ", $default);
+            $input->setOption('username', $questionHelper->ask($input, $output, $question));
         }
-
-
-        if(!$silent || $input->getOption('email') === null) {
-            $output->writeln(array(
-                '',
-                'Enter the e-mail adress to use for the root account.',
-                ''));
-
-            // @TODO: Validate (askAndValidate())
-            $email = ($root ? $root->getEmail() : '');
-            $email = $dialog->ask($output, $dialog->getQuestion('E-Mail', $email), $email);
-            $input->setOption('email', $email);
+        if (!$input->getOption('email')) {
+            $default = $root ? $root->getEmail() : '';
+            $question = new Question("Enter the e-mail adress to use for the root account [{$default}]: ", $default);
+            $input->setOption('email', $questionHelper->ask($input, $output, $question));
         }
-
-
-        if(!$silent || $input->getOption('password') === null) {
-            $output->writeln(array(
-                '',
-                'Enter the password to use for the root account.',
-                ''));
-
-            // @TODO: Validate (askAndValidate())
-            $password = $dialog->ask($output, $dialog->getQuestion('Password', ''), '');
-            $input->setOption('password', $password);
+        if (!$input->getOption('password')) {
+            $question = new Question('Enter the password to use for the root account: ', null);
+            $input->setOption('password', $questionHelper->ask($input, $output, $question));
         }
     }
 
