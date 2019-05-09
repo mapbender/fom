@@ -1,4 +1,4 @@
-## dev-master @ dcd7c0c
+## v3.1.1
 - Hotfix layouts of registration / forgotten password sections
 - Misc deprecation cleanups
 
