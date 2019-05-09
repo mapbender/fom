@@ -2,12 +2,12 @@
 
 namespace FOM\UserBundle\Command;
 
+use Doctrine\ORM\EntityManagerInterface;
+use FOM\UserBundle\Component\UserHelperService;
 use FOM\UserBundle\Entity\User;
-use FOM\UserBundle\Security\UserHelper;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\Output;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
 
@@ -18,6 +18,9 @@ use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
  */
 class ResetRootAccountCommand extends ContainerAwareCommand
 {
+    /** @var UserHelperService */
+    protected $userHelper;
+
     protected function configure()
     {
         $this
@@ -34,6 +37,12 @@ and password can be set.
 EOT
             )
             ->setName('fom:user:resetroot');
+    }
+
+    protected function initialize(InputInterface $input, OutputInterface $output)
+    {
+        parent::initialize($input, $output);
+        $this->userHelper = $this->getContainer()->get('fom.user_helper.service');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -75,10 +84,10 @@ EOT
 
         if($input->getOption('email') !== null) {
             //TODO: Validate, use same validator as in the askAndValidate below
-            $helper = new UserHelper($this->getContainer());
-            $helper->setPassword($root, $input->getOption('password'));
+            $this->userHelper->setPassword($root, $input->getOption('password'));
         }
 
+        /** @var EntityManagerInterface $em */
         $em = $this->getContainer()->get('doctrine')->getManager();
         $em->persist($root);
         $em->flush();
@@ -87,6 +96,7 @@ EOT
             '',
             'The root is now usable. Have fun!',
             ''));
+        return null;
     }
 
     protected function interact(InputInterface $input, OutputInterface $output)
@@ -136,6 +146,9 @@ EOT
         }
     }
 
+    /**
+     * @return User|null
+     */
     protected function getRoot()
     {
         $root = $this->getContainer()->get('doctrine')
