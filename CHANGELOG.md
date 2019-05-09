@@ -1,3 +1,6 @@
+## v3.2.0
+- Remove LoginController and related templates (migrated to Mapbender)
+
 ## v3.1.1
 - Hotfix layouts of registration / forgotten password sections
 - Misc deprecation cleanups
