@@ -54,8 +54,7 @@ class UserType extends AbstractType
         }
 
         if ($options['profile_formtype']) {
-            $formType = $options['profile_formtype'];
-            $builder->add('profile', new $formType());
+            $builder->add('profile', $options['profile_formtype']);
         }
     }
 
