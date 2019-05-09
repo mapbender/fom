@@ -2,23 +2,28 @@
 
 namespace FOM\UserBundle\Security;
 
+use FOM\UserBundle\Component\UserHelperService;
 use FOM\UserBundle\Entity\User;
-use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
-use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Helper for user related stuff
  *
  * @author Christian Wygoda
+ * @deprecated use the service fom.user_helper.service
  */
 class UserHelper
 {
-    protected $container;
+    /** @var UserHelperService */
+    protected $service;
 
+    /**
+     * UserHelper constructor.
+     * @param ContainerInterface $container
+     */
     public function __construct($container)
     {
-        $this->container = $container;
+        $this->service = $container->get('fom.user_helper.service');
     }
 
     /**
@@ -29,60 +34,14 @@ class UserHelper
      */
     public function setPassword(User $user, $password)
     {
-        $encoder = $this->container->get('security.encoder_factory')
-            ->getEncoder($user);
-
-        $salt = $this->createSalt();
-
-        $encryptedPassword = $encoder->encodePassword($password, $salt);
-
-        $user
-            ->setPassword($encryptedPassword)
-            ->setSalt($salt);
-    }
-
-    /**
-     * Generate a salt for storing the encrypted password
-     *
-     * Taken from http://code.activestate.com/recipes/576894-generate-a-salt/
-     *
-     * @param int $max Length of salt
-     * @return string
-     */
-    private function createSalt($max = 15)
-    {
-        $characterList = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        $i = 0;
-        $salt = "";
-        do {
-            $salt .= $characterList{mt_rand(0,strlen($characterList)-1)};
-            $i++;
-        } while ($i < $max);
-
-        return $salt;
+        return $this->service->setPassword($user, $password);
     }
 
     /**
      * Gives a user the right to edit himself.
      */
-    public function giveOwnRights($user) {
-        $aclProvider = $this->container->get('security.acl.provider');
-        $maskBuilder = new MaskBuilder();
-
-        $usid = UserSecurityIdentity::fromAccount($user);
-        $uoid = ObjectIdentity::fromDomainObject($user);
-        foreach($this->container->getParameter("fom_user.user_own_permissions") as $permission) {
-            $maskBuilder->add($permission);
-        }
-        $umask = $maskBuilder->get();
-
-        try {
-            $acl = $aclProvider->findAcl($uoid);
-        } catch(\Exception $e) {
-            $acl = $aclProvider->createAcl($uoid);
-        }
-        $acl->insertObjectAce($usid, $umask);
-        $aclProvider->updateAcl($acl);
+    public function giveOwnRights($user)
+    {
+        return $this->service->giveOwnRights($user);
     }
-
 }
