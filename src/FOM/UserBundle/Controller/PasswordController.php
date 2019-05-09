@@ -1,10 +1,10 @@
 <?php
 namespace FOM\UserBundle\Controller;
 
+use FOM\UserBundle\Component\UserHelperService;
 use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\UserForgotPassType;
 use FOM\UserBundle\Form\Type\UserResetPassType;
-use FOM\UserBundle\Security\UserHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -232,8 +232,9 @@ class PasswordController extends Controller
             $em = $this->getDoctrine()->getManager();
             $user->setResetToken(null);
 
-            $helper = new UserHelper($this->container);
-            $helper->setPassword($user, $user->getPassword());
+            /** @var UserHelperService $helperService */
+            $helperService = $this->get('fom.user_helper.service');
+            $helperService->setPassword($user, $user->getPassword());
 
             $em->flush();
 

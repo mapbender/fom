@@ -3,6 +3,7 @@
 namespace FOM\UserBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use FOM\UserBundle\Component\UserHelperService;
 use FOM\UserBundle\Entity\Group;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -14,7 +15,6 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\UserRegistrationType;
-use FOM\UserBundle\Security\UserHelper;
 
 /**
  * Self registration controller.
@@ -86,8 +86,9 @@ class RegistrationController extends Controller
         //@TODO: Check if username and email are unique
 
         if($form->isSubmitted() && $form->isValid()) {
-            $helper = new UserHelper($this->container);
-            $helper->setPassword($user, $user->getPassword());
+            /** @var UserHelperService $helperService */
+            $helperService = $this->get('fom.user_helper.service');
+            $helperService->setPassword($user, $user->getPassword());
 
             $user->setRegistrationToken(hash("sha1",rand()));
             $user->setRegistrationTime(new \DateTime());
@@ -117,7 +118,7 @@ class RegistrationController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $helper->giveOwnRights($user);
+            $helperService->giveOwnRights($user);
 
             return $this->redirect($this->generateUrl('fom_user_registration_send'));
         }

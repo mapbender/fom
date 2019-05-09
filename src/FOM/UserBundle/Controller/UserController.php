@@ -3,9 +3,9 @@ namespace FOM\UserBundle\Controller;
 
 use FOM\ManagerBundle\Configuration\Route as ManagerRoute;
 use FOM\UserBundle\Component\AclManager;
+use FOM\UserBundle\Component\UserHelperService;
 use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\UserType;
-use FOM\UserBundle\Security\UserHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -109,8 +109,9 @@ class UserController extends Controller
         if ($form->isValid() && $form->isSubmitted()) {
             // Set encrypted password and create new salt
             // The unencrypted password is already set on the user!
-            $helper = new UserHelper($this->container);
-            $helper->setPassword($user, $user->getPassword());
+            /** @var UserHelperService $helperService */
+            $helperService = $this->get('fom.user_helper.service');
+            $helperService->setPassword($user, $user->getPassword());
 
             $user->setRegistrationTime(new \DateTime());
 
@@ -146,7 +147,7 @@ class UserController extends Controller
                 $em->flush();
 
                 // Make sure, the new user has VIEW & EDIT permissions
-                $helper->giveOwnRights($user);
+                $helperService->giveOwnRights($user);
 
                 $em->getConnection()->commit();
             } catch (\Exception $e) {
@@ -254,8 +255,9 @@ class UserController extends Controller
             if (!$keepPassword) {
                 // Set encrypted password and create new salt
                 // The unencrypted password is already set on the user!
-                $helper = new UserHelper($this->container);
-                $helper->setPassword($user, $user->getPassword());
+                /** @var UserHelperService $helperService */
+                $helperService = $this->get('fom.user_helper.service');
+                $helperService->setPassword($user, $user->getPassword());
             }
 
             $em = $this->getDoctrine()->getManager();
