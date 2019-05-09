@@ -12,7 +12,7 @@
             {{ form_widget(form) }}
             <button class="right button">{{'fom.user.login.error_tockenexp.request_new_token'| trans}}</button>
         </form>
-        <a class="left iconLinkButton linkButton" href="{{ path('fom_user_login_login') }}">{{ "fom.user.login.error_tockenexp.back_to_login"|trans}}</a>
+        <a class="left iconLinkButton linkButton" href="{{ path('mapbender_core_login_login') }}">{{ "fom.user.login.error_tockenexp.back_to_login"|trans}}</a>
         <div class="clearContainer"></div>
     </div>
 {% endblock %}
