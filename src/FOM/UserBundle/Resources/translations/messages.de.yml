@@ -1,7 +1,7 @@
 fom:
   user:
     registration:
-      email_body_html: '<p>Hallo %user_username%,</p><p>Sie haben sich kürzlich registiert. Um die Registrierung abzuschließen, klicken Sie bitte <a href="%url%">hier</a>.</p>'
+      email_body_html: '<p>Hallo %user_username%,</p><p>Sie haben sich kürzlich registriert. Um die Registrierung abzuschließen, klicken Sie bitte <a href="%url%">hier</a>.</p>'
       done:
         title: Registrierung
         congratulations: 'Herzlichen Glückwunsch!'
@@ -22,7 +22,7 @@ fom:
         caption: Registrierung
         account_created: 'Ihr Account wurde erstellt. Eine E-Mail mit Ihrem Freischaltungs-Code und -Link ist Ihnen mit Ihrer bereitgestellten Adresse gesendet worden.'
         back_to_login: 'Zurück zum Login'
-      email_body_text: 'Hallo %user_username%, Sie haben sich kürzlich registiert. Um die Registrierung abzuschließen, rufen Sie bitte folgenden Link in Ihrem Browser auf %url%.'
+      email_body_text: 'Hallo %user_username%, Sie haben sich kürzlich registriert. Um die Registrierung abzuschließen, rufen Sie bitte folgenden Link in Ihrem Browser auf %url%.'
     group:
       index:
         groups: Gruppen
@@ -63,7 +63,7 @@ fom:
       error_notocken:
         password_reset: 'Passwort zurücksetzen'
         sorry: Sorry!
-        no_such_tocken: 'Token nicht gefunden. Wenn Sie denken, dass dies ein Fehler ist, bitte kontaktieren Sie die Seite Administrator.'
+        no_such_tocken: 'Token nicht gefunden. Wenn Sie denken, dass dies ein Fehler ist, bitte kontaktieren Sie Ihren Administrator.'
         contact: 'Kontakt Administrator'
         back_to_login: 'Zurück zur Anmeldung'
       errors:
@@ -123,7 +123,7 @@ fom:
         name: Name
         no_goups_users: 'Keine Gruppen/Benutzer definiert.'
     password:
-      email_body_html: '<p>Hallo %user_username%,</p><p>Sie haben ein neues Mapbender3 Passwort angefordert. <p>Klicken Sie bitte <a href="%url%">hier</a>, um Ihr Passwort zu ändern.</p>'
+      email_body_html: '<p>Hallo %user_username%,</p><p>Sie haben ein neues Mapbender Passwort angefordert. <p>Klicken Sie bitte <a href="%url%">hier</a>, um Ihr Passwort zu ändern.</p>'
       request_error_no_user: 'Der Benutzer wurde nicht gefunden.'
       done:
         password_reset: 'Passwort zurücksetzen'
@@ -145,7 +145,7 @@ fom:
       send:
         title: 'Passwort zurücksetzen'
         caption: 'Passwort zurücksetzen'
-        email_been_sent: 'Eine E-Mail mit Ihrem zurückgesetzten Code und Link ist Ihnen mit Ihrer bereitgestellten Adresse gesendet worden.'
+        email_been_sent: 'Eine E-Mail mit Ihrem zurückgesetzten Code und Link ist Ihnen zu Ihrer bereitgestellten Adresse gesendet worden.'
         back_to_login: 'Zurück zur Anmeldung'
       request:
         user_inactive: 'Dieser Benutzer ist inaktiv. Bitte aktivieren Sie ihn zuerst.'
@@ -179,10 +179,10 @@ form:
       city: Stadt
       country: Land
 'User account is locked':
-  '': 'Benutzeraccount ist gesperrt.'
+  '': 'Benutzerkonto ist gesperrt.'
 'User account is disabled':
-  '': 'Benutzeraccount ist deaktiviert.'
+  '': 'Benutzerkonto ist deaktiviert.'
 'User account has expired':
-  '': 'Benutzeraccount ist abgelaufen.'
+  '': 'Benutzerkonto ist abgelaufen.'
 'User credentials have expired':
   '': 'Anmeldedaten sind abgelaufen.'
