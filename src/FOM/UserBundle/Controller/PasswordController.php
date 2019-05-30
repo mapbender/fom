@@ -99,7 +99,7 @@ class PasswordController extends Controller
         $userRepository = $this->getDoctrine()->getRepository('FOMUserBundle:User');
         /** @var User|null $user */
         $user = $userRepository->findOneBy(array(
-            'userName' => $obj['search'],
+            'username' => $obj['search'],
         ));
         if (!$user) {
             $user = $userRepository->findOneBy(array(
