@@ -12,7 +12,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-
 use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\UserRegistrationType;
 
@@ -185,19 +184,20 @@ class RegistrationController extends Controller
     {
         // Lookup token
         $token = $request->get('token');
-        if(!$token) {
-            return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
+        if ($token) {
+            /** @var User|null $user */
+            $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
+                'registrationToken' => $token,
+            ));
+        } else {
+            $user = null;
+        }
+        if (!$token || !$user) {
+            return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
+                'site_email' => $this->getEmailFromAdress(),
+            ));
         }
 
-        $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
-            'registrationToken' => $token,
-        ));
-        if(!$user) {
-            //@TODO: Get site email from configuration
-            return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
-                'site_email' => 'FOFO'));
-        }
-        /** @var User $user */
         $user->setRegistrationToken(hash("sha1",rand()));
         $user->setRegistrationTime(new \DateTime());
 
@@ -261,5 +261,13 @@ class RegistrationController extends Controller
         /** @var EntityManagerInterface $em */
         $em = $this->getDoctrine()->getManager();
         return $em;
+    }
+
+    /**
+     * @return string|null
+     */
+    protected function getEmailFromAdress()
+    {
+        return $this->container->getParameter('fom_user.mail_from_address');
     }
 }
