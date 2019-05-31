@@ -2,23 +2,20 @@
 namespace FOM\UserBundle\Controller;
 
 use FOM\ManagerBundle\Configuration\Route as ManagerRoute;
-use FOM\UserBundle\Component\AclManager;
 use FOM\UserBundle\Component\UserHelperService;
 use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\UserType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 
 /**
  * User management controller
  *
  * @author Christian Wygoda
  */
-class UserController extends Controller
+class UserController extends UserControllerBase
 {
     /**
      * Renders user list.
@@ -109,8 +106,7 @@ class UserController extends Controller
         if ($form->isValid() && $form->isSubmitted()) {
             // Set encrypted password and create new salt
             // The unencrypted password is already set on the user!
-            /** @var UserHelperService $helperService */
-            $helperService = $this->get('fom.user_helper.service');
+            $helperService = $this->getUserHelper();
             $helperService->setPassword($user, $user->getPassword());
 
             $user->setRegistrationTime(new \DateTime());
@@ -139,9 +135,8 @@ class UserController extends Controller
                 $em->getConnection()->commit();
 
                 if ($form->has('acl')) {
-                    /** @var AclManager $aclManager */
-                    $aclManager = $this->get('fom.acl.manager');
-                    $aclManager->setObjectACLFromForm($user, $form->get('acl'), 'object');
+                    $aces = $form->get('acl')->get('ace')->getData();
+                    $this->getAclManager()->setObjectACEs($user, $aces);
                 }
 
                 $em->flush();
@@ -264,9 +259,8 @@ class UserController extends Controller
 
             // This is the same check as abote in createForm for acl_permission
             if ($this->isGranted('OWNER', $user)) {
-                /** @var AclManager $aclManager */
-                $aclManager = $this->get('fom.acl.manager');
-                $aclManager->setObjectACLFromForm($user, $form->get('acl'), 'object');
+                $aces = $form->get('acl')->get('ace')->getData();
+                $this->getAclManager()->setObjectACEs($user, $aces);
             }
 
             $user->getProfile()->setUid($user);
@@ -306,11 +300,9 @@ class UserController extends Controller
             throw new NotFoundHttpException('The root user can not be deleted');
         }
 
-        // ACL access check
         $this->denyAccessUnlessGranted('DELETE', $user);
 
-        /** @var MutableAclProviderInterface $aclProvider */
-        $aclProvider = $this->get('security.acl.provider');
+        $aclProvider = $this->getAclProvider();
         $oid         = ObjectIdentity::fromDomainObject($user);
         $aclProvider->deleteAcl($oid);
 

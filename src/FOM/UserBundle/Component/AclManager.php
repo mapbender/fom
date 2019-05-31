@@ -49,27 +49,35 @@ class AclManager
      * (commonly 'acl')
      * @param object $entity Entity to update ACL for
      * @param object $form   ACLType form object
-     * @param string $type   ACE type to update (object or class)
+     * @param mixed $ignored
+     * @deprecated for misleading naming and form type interaction magic, use setObjectACEs
      */
-    public function setObjectACLFromForm($entity, $form, $type)
+    public function setObjectACLFromForm($entity, $form, $ignored = null)
     {
-        $aces = $form->get('ace')->getData();
-        $this->setObjectACL($entity, $aces, $type);
+        $this->setObjectACEs($entity, $form->get('ace')->getData());
     }
 
     /**
      * Update ACEs for entity
      * @param object $entity Entity to update ACL for
-     * @param array  $aces   Array with ACEs (not Entry objects!)
-     * @param string $type ACE type to update (object or class)
+     * @param array $aces   Array with ACEs (not Entry objects!)
+     * @param mixed $ignored
+     * @deprecated for misleading naming, use setObjectACEs
      */
-    public function setObjectACL($entity, $aces, $type)
+    public function setObjectACL($entity, $aces, $ignored = null)
     {
-        if ($type != "object") {
-            throw new \RuntimeException('ACEs of type ' . $type . ' are not supported.');
-        }
+        $this->setObjectACEs($entity, $aces);
+    }
 
-        $acl     = $this->getAcl($entity);
+    /**
+     * Replace entity ACEs
+     * @param object $entity
+     * @param array $aces
+     * @throws \Exception
+     */
+    public function setObjectACEs($entity, $aces)
+    {
+        $acl = $this->getAcl($entity);
         $oldAces = $acl->getObjectAces();
 
         // Delete old ACEs
@@ -95,21 +103,19 @@ class AclManager
      *
      * @param        $class
      * @param object $form ACLType form object
-     * @internal param object $entity Entity to update ACL for
-     * @internal param string $type ACE type to update (object or class)
+     * @deprecated for misleading naming and form type interaction magic, use setClassACEs
      */
     public function setClassACLFromForm($class, $form)
     {
-        $aces = $form->get('ace')->getData();
-        $this->setClassACL($class, $aces);
+        $this->setClassACEs($class, $form->get('ace')->getData());
     }
 
     /**
      * @param $class
-     * @param $aces
+     * @param array[] $aces
      * @throws \Exception
      */
-    protected function setClassACL($class, $aces)
+    public function setClassACEs($class, $aces)
     {
         $acl     = $this->getAcl($class);
         $oldAces = $acl->getClassAces();
@@ -118,18 +124,17 @@ class AclManager
         // possible instead of deleting all old ones and adding all new ones...
 
         // Delete old ACEs
-        foreach(array_reverse(array_keys($oldAces)) as $idx) {
-            $acl->deleteClassAce(intval($idx));
+        foreach (array_reverse(array_keys($oldAces)) as $idx) {
+            $acl->deleteObjectAce(intval($idx));
         }
-
         $this->aclProvider->updateAcl($acl);
         // Add new ACEs
-        foreach(array_reverse($aces) as $idx => $ace) {
+        foreach (array_reverse($aces) as $idx => $ace) {
             // If no mask is given, we might as well not insert the ACE
-            if($ace['mask'] === 0) {
+            if ($ace['mask'] === 0) {
                 continue;
             }
-            $acl->insertClassAce($ace['sid'], $ace['mask']);
+            $acl->insertObjectAce($ace['sid'], $ace['mask']);
         }
 
         $this->aclProvider->updateAcl($acl);

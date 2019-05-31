@@ -81,7 +81,7 @@ class ACLController extends Controller
         if($form->isValid() && $form->isSubmitted()) {
             /** @var AclManager $aclManager */
             $aclManager = $this->get('fom.acl.manager');
-            $aclManager->setClassACLFromForm($class, $form);
+            $aclManager->setClassACEs($class, $form->get('ace')->getData());
 
             return $this->redirect($this->generateUrl('fom_user_acl_index'));
         }

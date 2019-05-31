@@ -1,12 +1,10 @@
 <?php
 namespace FOM\UserBundle\Controller;
 
-use FOM\UserBundle\Component\UserHelperService;
 use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\UserForgotPassType;
 use FOM\UserBundle\Form\Type\UserResetPassType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,13 +38,15 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
  * @author Christian Wygoda
  * @author Paul Schmidt
  */
-class PasswordController extends Controller
+class PasswordController extends UserControllerBase
 {
     /**
      * Check if password reset is allowed.
      *
      * setContainer is called after controller creation is used to deny access to controller if password reset has
      * been disabled.
+     * @param ContainerInterface $container
+     * @throws AccessDeniedHttpException
      */
     public function setContainer(ContainerInterface $container = null)
     {
@@ -99,7 +99,7 @@ class PasswordController extends Controller
         $userRepository = $this->getDoctrine()->getRepository('FOMUserBundle:User');
         /** @var User|null $user */
         $user = $userRepository->findOneBy(array(
-            'userName' => $obj['search'],
+            'username' => $obj['search'],
         ));
         if (!$user) {
             $user = $userRepository->findOneBy(array(
@@ -107,14 +107,12 @@ class PasswordController extends Controller
             ));
         }
 
-        if (!$user) {
-            $message = $this->renderView('FOMUserBundle:Password:request-error-nosuchuser.html.twig');
-            $form->addError(new FormError($message));
-            return $this->render('@FOMUser/Password/form.html.twig', array(
-                'form' => $form->createView(),
-            ));
-        } elseif ($user->getRegistrationToken()) {
-            $message = $this->renderView('FOMUserBundle:Password:request-error-userinactive.html.twig');
+        if (!$user || $user->getRegistrationToken()) {
+            if ($user) {
+                $message = $this->renderView('FOMUserBundle:Password:request-error-userinactive.html.twig');
+            } else {
+                $message = $this->renderView('FOMUserBundle:Password:request-error-nosuchuser.html.twig');
+            }
             $form->addError(new FormError($message));
             return $this->render('@FOMUser/Password/form.html.twig', array(
                 'form' => $form->createView(),
@@ -123,11 +121,11 @@ class PasswordController extends Controller
 
         $this->setResetToken($user);
 
-        return $this->redirect($this->generateUrl('fom_user_password_send'));
+        return $this->redirectToRoute('fom_user_password_send');
     }
 
     /**
-     * Password reset step 4a: Reset the reset token (pun intended...)
+     * Password reset step 4a: Reset the reset token
      *
      * @Route("/user/reset/reset", methods={"POST"})
      * @param Request $request
@@ -135,23 +133,16 @@ class PasswordController extends Controller
      */
     public function tokenResetAction(Request $request)
     {
-        $token = $request->get('token');
-        if (!$token) {
-            return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
-        }
-        /** @var User|null $user */
-        $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
-            'resetToken' => $token,
-        ));
+        $user = $this->getUserFromResetToken($request);
         if (!$user) {
-            $mail = $this->container->getParameter('fom_user.mail_from_address');
-            return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
-                'site_email' => $mail));
+            return $this->render('@FOMUser/Login/error-notoken.html.twig', array(
+                'site_email' => $this->getEmailFromAdress(),
+            ));
         }
 
         $this->setResetToken($user);
 
-        return $this->redirect($this->generateUrl('fom_user_password_send'));
+        return $this->redirectToRoute('fom_user_password_send');
     }
 
     /**
@@ -163,24 +154,17 @@ class PasswordController extends Controller
      */
     public function resetAction(Request $request)
     {
-        $token = $request->get('token');
-        if (!$token) {
-            return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
-        }
-
-        $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
-            'resetToken' => $token,
-        ));
+        $user = $this->getUserFromResetToken($request);
         if (!$user) {
-            $mail = $this->container->getParameter('fom_user.mail_from_address');
-            return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
-                'site_email' => $mail));
+            return $this->render('@FOMUser/Login/error-notoken.html.twig', array(
+                'site_email' => $this->getEmailFromAdress(),
+            ));
         }
 
         $max_token_age = $this->container->getParameter("fom_user.max_reset_time");
         if (!$this->checkTimeInterval($user->getResetTime(), $max_token_age)) {
             $form = $this->createForm('form');
-            return $this->render('FOMUserBundle:Login:error-tokenexpired.html.twig', array(
+            return $this->render('@FOMUser/Login/error-tokenexpired.html.twig', array(
                 'user' => $user,
                 'form' => $form->createView()
             ));
@@ -202,27 +186,19 @@ class PasswordController extends Controller
      */
     public function passwordAction(Request $request)
     {
-        $token = $request->get('token');
-        if (!$token) {
-            return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
-        }
-
-        /** @var User|null $user */
-        $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
-            'resetToken' => $token,
-        ));
+        $user = $this->getUserFromResetToken($request);
         if (!$user) {
-            $mail = $this->container->getParameter('fom_user.mail_from_address');
-            return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
-                'site_email' => $mail));
+            return $this->render('@FOMUser/Login/error-notoken.html.twig', array(
+                'site_email' => $this->getEmailFromAdress(),
+            ));
         }
 
         $max_token_age = $this->container->getParameter("fom_user.max_reset_time");
         if (!$this->checkTimeInterval($user->getResetTime(), $max_token_age)) {
             $form = $this->createForm('form');
-            return $this->render('FOMUserBundle:Login:error-tokenexpired.html.twig', array(
+            return $this->render('@FOMUser/Login/error-tokenexpired.html.twig', array(
                 'user' => $user,
-                'form' => $form->createView()
+                'form' => $form->createView(),
             ));
         }
 
@@ -231,14 +207,12 @@ class PasswordController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $user->setResetToken(null);
-
-            /** @var UserHelperService $helperService */
-            $helperService = $this->get('fom.user_helper.service');
+            $helperService = $this->getUserHelper();
             $helperService->setPassword($user, $user->getPassword());
 
             $em->flush();
 
-            return $this->redirect($this->generateUrl('fom_user_password_done'));
+            return $this->redirectToRoute('fom_user_password_done');
         }
 
         return $this->render('@FOMUser/Password/reset.html.twig', array(
@@ -258,17 +232,6 @@ class PasswordController extends Controller
         return $this->render('@FOMUser/Password/done.html.twig');
     }
 
-    protected function checkTimeInterval($startTime, $timeInterval)
-    {
-        $checktime = new \DateTime();
-        $checktime->sub(new \DateInterval(sprintf("PT%dH", $timeInterval)));
-        if ($startTime < $checktime) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     /**
      * @param User $user
      * @throws \Exception
@@ -279,15 +242,15 @@ class PasswordController extends Controller
         $user->setResetTime(new \DateTime());
 
         //send email
-        $fromName = $this->container->getParameter("fom_user.mail_from_name");
-        $fromEmail = $this->container->getParameter("fom_user.mail_from_address");
+        $fromName = $this->getEmailFromAdress();
+        $fromEmail = $this->getEmailFromAdress();
         $mailFrom = array($fromEmail => $fromName);
         $mailer = $this->get('mailer');
 
-        $text = $this->get("templating")->render('FOMUserBundle:Password:email-body.text.twig', array("user" => $user));
-        $html = $this->get("templating")->render('FOMUserBundle:Password:email-body.html.twig', array("user" => $user));
+        $text = $this->renderView('@FOMUser/Password/email-body.text.twig', array("user" => $user));
+        $html = $this->renderView('@FOMUser/Password/email-body.html.twig', array("user" => $user));
         $message = \Swift_Message::newInstance()
-            ->setSubject($this->get("templating")->render('FOMUserBundle:Password:email-subject.text.twig'))
+            ->setSubject($this->renderView('@FOMUser/Password/email-subject.text.twig'))
             ->setFrom($mailFrom)
             ->setTo($user->getEmail())
             ->setBody($text)
@@ -296,5 +259,23 @@ class PasswordController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $em->flush();
+    }
+
+    /**
+     * @param Request $request
+     * @return User|null
+     */
+    protected function getUserFromResetToken(Request $request)
+    {
+        $token = $request->get('token');
+        if ($token) {
+            /** @var User|null $user */
+            $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
+                'resetToken' => $token,
+            ));
+            return $user;
+        } else {
+            return null;
+        }
     }
 }

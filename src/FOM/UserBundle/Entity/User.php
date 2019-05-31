@@ -223,7 +223,7 @@ class User implements AdvancedUserInterface
     /**
      * Get registrationTime
      *
-     * @return string
+     * @return \DateTime
      */
     public function getRegistrationTime()
     {
@@ -263,7 +263,7 @@ class User implements AdvancedUserInterface
     /**
      * Get resetTime
      *
-     * @return string
+     * @return \DateTime
      */
     public function getResetTime()
     {

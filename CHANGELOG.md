@@ -1,6 +1,13 @@
 ## v3.2.0
 - Remove LoginController and related templates (migrated to Mapbender)
 
+## dev-release/3.1 @ 3962222
+- Fix error in password reset process ([mapbender #1174](https://github.com/mapbender/mapbender/issues/1174))
+- Typo fixes ([PR#53](https://github.com/mapbender/fom/pull/53))
+- Replace dummy administrator email placeholder in registration reset action with configured sender adress
+- Add missing administrator email to all registration and password reset actions
+- Misc deprecations and deprecation cleanups
+
 ## v3.1.1
 - Hotfix layouts of registration / forgotten password sections
 - Misc deprecation cleanups
