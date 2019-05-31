@@ -37,43 +37,50 @@ class FOMUserBundle extends ManagerBundle
                 'routes' => array(
                     'fom_user_user',
                     'fom_user_group',
-                    'fom_user_acl'
+                    'fom_user_acl',
                 ),
                 'subroutes' => array(
-                    0 => array('title'=>$trans->trans("fom.user.userbundle.users"),
-                               'route'=>'fom_user_user_index',
-                               'subroutes' => array(
-                                    0 => array(
-                                      'title'=>$trans->trans("fom.user.userbundle.new_user"),
-                                      'route'=>'fom_user_user_new',
-                                      'enabled' => function($securityContext) {
-                                          /** @var AuthorizationCheckerInterface $securityContext */
-                                          $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
-                                          return $securityContext->isGranted('CREATE', $oid);
-                                      })
-                                )
-                              ),
-                    1 => array('title'=>$trans->trans("fom.user.userbundle.groups"),
-                               'route'=>'fom_user_group_index',
-                               'subroutes' => array(
-                                    0 => array(
-                                      'title'=>$trans->trans("fom.user.userbundle.new_group"),
-                                      'route'=>'fom_user_group_new',
-                                      'enabled' => function($securityContext) {
-                                          /** @var AuthorizationCheckerInterface $securityContext */
-                                          $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
-                                          return $securityContext->isGranted('CREATE', $oid);
-                                      })
-                                )
-                               ),
-                    2 => array('title'=>$trans->trans("fom.user.userbundle.acls"),
-                               'route'=>'fom_user_acl_index',
+                    0 => array(
+                        'title'=>$trans->trans("fom.user.userbundle.users"),
+                        'route'=>'fom_user_user_index',
+                        'subroutes' => array(
+                            0 => array(
+                                'title'=>$trans->trans("fom.user.userbundle.new_user"),
+                                'route'=>'fom_user_user_new',
                                 'enabled' => function($securityContext) {
-                                    $oid = new ObjectIdentity('class', 'Symfony\Component\Security\Acl\Domain\Acl');
-                                    return $securityContext->isGranted('CREATE', $oid) || $securityContext->isGranted('EDIT', $oid);
-                                })
-                )
-            )
+                                    /** @var AuthorizationCheckerInterface $securityContext */
+                                    $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
+                                    return $securityContext->isGranted('CREATE', $oid);
+                                },
+                            )
+                        ),
+                    ),
+                    1 => array(
+                        'title'=>$trans->trans("fom.user.userbundle.groups"),
+                        'route'=>'fom_user_group_index',
+                        'subroutes' => array(
+                            0 => array(
+                                'title'=>$trans->trans("fom.user.userbundle.new_group"),
+                                'route'=>'fom_user_group_new',
+                                'enabled' => function($securityContext) {
+                                    /** @var AuthorizationCheckerInterface $securityContext */
+                                    $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
+                                    return $securityContext->isGranted('CREATE', $oid);
+                                },
+                            ),
+                        ),
+                    ),
+                    2 => array(
+                        'title'=>$trans->trans("fom.user.userbundle.acls"),
+                        'route'=>'fom_user_acl_index',
+                        'enabled' => function($securityContext) {
+                            /** @var AuthorizationCheckerInterface $securityContext */
+                            $oid = new ObjectIdentity('class', 'Symfony\Component\Security\Acl\Domain\Acl');
+                            return $securityContext->isGranted('CREATE', $oid) || $securityContext->isGranted('EDIT', $oid);
+                        },
+                    ),
+                ),
+            ),
         );
     }
 
@@ -82,7 +89,8 @@ class FOMUserBundle extends ManagerBundle
         $trans = $this->container->get('translator');
         return array(
             'ROLE_SUPER_ADMIN' => $trans->trans("fom.user.userbundle.roles.super_admin"),
-            'ROLE_USER_ADMIN' => $trans->trans("fom.user.userbundle.roles.user_admin"));
+            'ROLE_USER_ADMIN' => $trans->trans("fom.user.userbundle.roles.user_admin"),
+        );
     }
 
     public function getACLClasses()
@@ -91,6 +99,7 @@ class FOMUserBundle extends ManagerBundle
         return array(
             'Symfony\Component\Security\Acl\Domain\Acl' => $trans->trans("fom.user.userbundle.classes.acls"),
             'FOM\UserBundle\Entity\User' => $trans->trans("fom.user.userbundle.classes.users"),
-            'FOM\UserBundle\Entity\Group' => $trans->trans("fom.user.userbundle.classes.groups"));
+            'FOM\UserBundle\Entity\Group' => $trans->trans("fom.user.userbundle.classes.groups"),
+        );
     }
 }
