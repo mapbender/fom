@@ -1,4 +1,4 @@
-## dev-release/3.1 @ 3962222
+## v3.1.2
 - Fix error in password reset process ([mapbender #1174](https://github.com/mapbender/mapbender/issues/1174))
 - Typo fixes ([PR#53](https://github.com/mapbender/fom/pull/53))
 - Replace dummy administrator email placeholder in registration reset action with configured sender adress
