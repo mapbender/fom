@@ -2,12 +2,9 @@
 
 namespace FOM\UserBundle\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
-use FOM\UserBundle\Component\UserHelperService;
 use FOM\UserBundle\Entity\Group;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,19 +19,21 @@ use FOM\UserBundle\Form\Type\UserRegistrationType;
  * @author Paul Schmidt
  */
 
-class RegistrationController extends Controller
+class RegistrationController extends UserControllerBase
 {
     /**
      * Check if self registration is allowed.
      *
      * setContainer is called after controller creation is used to deny access to controller if self registration has
      * been disabled.
+     * @param ContainerInterface $container
+     * @throws AccessDeniedHttpException
      */
     public function setContainer(ContainerInterface $container = NULL)
     {
         parent::setContainer($container);
 
-        if(!$this->container->getParameter('fom_user.selfregister'))
+        if(false && !$this->container->getParameter('fom_user.selfregister'))
             throw new AccessDeniedHttpException();
     }
 
@@ -74,7 +73,7 @@ class RegistrationController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function register(Request $request)
+    public function registerAction(Request $request)
     {
         $user = new User();
         $form = $this
@@ -85,8 +84,7 @@ class RegistrationController extends Controller
         //@TODO: Check if username and email are unique
 
         if($form->isSubmitted() && $form->isValid()) {
-            /** @var UserHelperService $helperService */
-            $helperService = $this->get('fom.user_helper.service');
+            $helperService = $this->getUserHelper();
             $helperService->setPassword($user, $user->getPassword());
 
             $user->setRegistrationToken(hash("sha1",rand()));
@@ -119,7 +117,7 @@ class RegistrationController extends Controller
 
             $helperService->giveOwnRights($user);
 
-            return $this->redirect($this->generateUrl('fom_user_registration_send'));
+            return $this->redirectToRoute('fom_user_registration_send');
         }
 
         return $this->render('@FOMUser/Registration/form.html.twig', array(
@@ -138,19 +136,11 @@ class RegistrationController extends Controller
      */
     public function confirmAction(Request $request)
     {
-        $token = $request->get('token');
-        if(!$token) {
-            return $this->render('FOMUserBundle:Login:error-notoken.html.twig');
-        }
-
-        // Lookup token
-        $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
-            'registrationToken' => $token,
-        ));
+        $user = $this->getUserFromRegistrationToken($request);
         if(!$user) {
-            $mail = $this->container->getParameter('fom_user.mail_from_address');
-            return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
-                'site_email' => $mail));
+            return $this->render('@FOMUser/Login/error-notoken.html.twig', array(
+                'site_email' => $this->getEmailFromAdress(),
+            ));
         }
 
         /** @var User $user */
@@ -158,7 +148,7 @@ class RegistrationController extends Controller
         $max_registration_age = $this->container->getParameter("fom_user.max_registration_time");
         if(!$this->checkTimeInterval($user->getRegistrationTime(), $max_registration_age)) {
             $form = $this->createForm('form');
-            return $this->render('FOMUserBundle:Login:error-tokenexpired.html.twig', array(
+            return $this->render('@FOMUser/Login/error-tokenexpired.html.twig', array(
                 'user' => $user,
                 'form' => $form->createView()
             ));
@@ -180,20 +170,11 @@ class RegistrationController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function reset(Request $request)
+    public function resetAction(Request $request)
     {
-        // Lookup token
-        $token = $request->get('token');
-        if ($token) {
-            /** @var User|null $user */
-            $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
-                'registrationToken' => $token,
-            ));
-        } else {
-            $user = null;
-        }
-        if (!$token || !$user) {
-            return $this->render('FOMUserBundle:Login:error-notoken.html.twig', array(
+        $user = $this->getUserFromRegistrationToken($request);
+        if(!$user) {
+            return $this->render('@FOMUser/Login/error-notoken.html.twig', array(
                 'site_email' => $this->getEmailFromAdress(),
             ));
         }
@@ -221,23 +202,13 @@ class RegistrationController extends Controller
         return $this->render('@FOMUser/Registration/done.html.twig');
     }
 
-    protected function checkTimeInterval($startTime, $timeInterval){
-        $checktime = new \DateTime();
-        $checktime->sub(new \DateInterval(sprintf("PT%dH",$timeInterval)));
-        if($startTime < $checktime) {
-            return false;
-        } else{
-            return true;
-        }
-    }
-
     /**
      * @param User $user
      */
     protected function sendEmail($user)
     {
        $fromName = $this->container->getParameter("fom_user.mail_from_name");
-       $fromEmail = $this->container->getParameter("fom_user.mail_from_address");
+       $fromEmail = $this->getEmailFromAdress();
        $mailFrom = array($fromEmail => $fromName);
        /** @var \Swift_Mailer $mailer */
        $mailer = $this->get('mailer');
@@ -254,20 +225,20 @@ class RegistrationController extends Controller
     }
 
     /**
-     * @return EntityManagerInterface
+     * @param Request $request
+     * @return User|null
      */
-    protected function getEntityManager()
+    protected function getUserFromRegistrationToken(Request $request)
     {
-        /** @var EntityManagerInterface $em */
-        $em = $this->getDoctrine()->getManager();
-        return $em;
-    }
-
-    /**
-     * @return string|null
-     */
-    protected function getEmailFromAdress()
-    {
-        return $this->container->getParameter('fom_user.mail_from_address');
+        $token = $request->get('token');
+        if ($token) {
+            /** @var User|null $user */
+            $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
+                'resetToken' => $token,
+            ));
+            return $user;
+        } else {
+            return null;
+        }
     }
 }

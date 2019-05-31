@@ -9,11 +9,9 @@ use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\GroupType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOM\ManagerBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
-use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 
@@ -22,7 +20,7 @@ use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
  *
  * @author Christian Wygoda
  */
-class GroupController extends Controller
+class GroupController extends UserControllerBase
 {
     /**
      * Renders group list.
@@ -108,8 +106,7 @@ class GroupController extends Controller
             $em->flush();
 
             // creating the ACL
-            /** @var MutableAclProviderInterface $aclProvider */
-            $aclProvider = $this->get('security.acl.provider');
+            $aclProvider = $this->getAclProvider();
             $objectIdentity = ObjectIdentity::fromDomainObject($group);
             $acl = $aclProvider->createAcl($objectIdentity);
 
@@ -236,10 +233,9 @@ class GroupController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $em->remove($group);
-            /** @var MutableAclProviderInterface $aclProvider */
-            $aclProvider = $this->get('security.acl.provider');
+
             $oid = ObjectIdentity::fromDomainObject($group);
-            $aclProvider->deleteAcl($oid);
+            $this->getAclProvider()->deleteAcl($oid);
 
             $em->flush();
 
