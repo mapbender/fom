@@ -1,3 +1,6 @@
+## v3.2.2
+- Remove redundant css asset block overrides from password reset / registration templates
+
 ## v3.2.1
 - Fix error in password reset process ([mapbender #1174](https://github.com/mapbender/mapbender/issues/1174))
 - Typo fixes ([PR#53](https://github.com/mapbender/fom/pull/53))
