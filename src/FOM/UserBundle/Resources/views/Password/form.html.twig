@@ -1,9 +1,6 @@
 {% extends "MapbenderCoreBundle:Login:box.html.twig" %}
 
 {% block title %} {{ 'fom.user.password.form.title' | trans}} {% endblock %}
-{% block css %}
-  <link rel="stylesheet" href="{{ path('mapbender_core_application_assets', {'slug': 'mb3-login', 'type': 'css'}) }}"/>
-{% endblock %}
 {% block box_content %}
   <div class="loginBox forgot">
     <h2 class="contentTitle">{{ 'fom.user.password.form.caption' | trans}}</h2>
