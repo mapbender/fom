@@ -1,5 +1,6 @@
 ## v3.2.2
 - Remove redundant css asset block overrides from password reset / registration templates
+- Fix regression saving class ACEs
 
 ## v3.2.1
 - Fix error in password reset process ([mapbender #1174](https://github.com/mapbender/mapbender/issues/1174))
@@ -10,6 +11,9 @@
 
 ## v3.2.0
 - Remove LoginController and related templates (migrated to Mapbender)
+
+## v3.1.3
+- Fix regression saving class ACEs
 
 ## v3.1.2
 - Fix error in password reset process ([mapbender #1174](https://github.com/mapbender/mapbender/issues/1174))

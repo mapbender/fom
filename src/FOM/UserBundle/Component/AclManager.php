@@ -125,7 +125,7 @@ class AclManager
 
         // Delete old ACEs
         foreach (array_reverse(array_keys($oldAces)) as $idx) {
-            $acl->deleteObjectAce(intval($idx));
+            $acl->deleteClassAce($idx);
         }
         $this->aclProvider->updateAcl($acl);
         // Add new ACEs
@@ -134,7 +134,7 @@ class AclManager
             if ($ace['mask'] === 0) {
                 continue;
             }
-            $acl->insertObjectAce($ace['sid'], $ace['mask']);
+            $acl->insertClassAce($ace['sid'], $ace['mask']);
         }
 
         $this->aclProvider->updateAcl($acl);
