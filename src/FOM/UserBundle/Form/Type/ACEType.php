@@ -47,8 +47,10 @@ class ACEType extends AbstractType
             'required' => true,
             'label' => 'Role or user',
             'attr' => array(
-                'data-provide' => 'typeahead',
-                'autocomplete' => 'off')));
+                'autocomplete' => 'off',
+                'readonly' => true,
+            ),
+        ));
 
         $permissions = $options['available_permissions'];
 
