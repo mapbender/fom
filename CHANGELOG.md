@@ -1,3 +1,6 @@
+## v3.1.3
+- Fix regression saving class ACEs
+
 ## v3.1.2
 - Fix error in password reset process ([mapbender #1174](https://github.com/mapbender/mapbender/issues/1174))
 - Typo fixes ([PR#53](https://github.com/mapbender/fom/pull/53))
