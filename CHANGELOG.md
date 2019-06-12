@@ -1,3 +1,7 @@
+## v3.1.4
+- Remove dangling nonfunctional collection item add icon under ACL widgets with empty ACE content
+
+
 ## v3.1.3
 - Fix regression saving class ACEs
 
