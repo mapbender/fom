@@ -1,3 +1,6 @@
+## v3.2.3
+- Remove dangling nonfunctional collection item add icon under ACL widgets with empty ACE content
+
 ## v3.2.2
 - Remove redundant css asset block overrides from password reset / registration templates
 - Fix regression saving class ACEs
@@ -11,6 +14,9 @@
 
 ## v3.2.0
 - Remove LoginController and related templates (migrated to Mapbender)
+
+## v3.1.4
+- Remove dangling nonfunctional collection item add icon under ACL widgets with empty ACE content
 
 ## v3.1.3
 - Fix regression saving class ACEs

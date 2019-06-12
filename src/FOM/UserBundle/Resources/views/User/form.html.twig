@@ -14,7 +14,6 @@
 
 {% block js %}
   {{parent()}}
-  <script type="application/javascript" src="{{ asset('bundles/fomuser/js/acl-form.js') }}"></script>
   <script type="application/javascript" src="{{ asset('bundles/fommanager/js/form.js') }}"></script>
   <script type="application/javascript" src="{{ asset('bundles/mapbendermanager/js/user-control.js') }}"></script>
   {% for url in profile_assets.js %}

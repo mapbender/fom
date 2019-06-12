@@ -126,40 +126,6 @@ class ACLController extends Controller
         ));
     }
 
-    /**
-     * ACL Security Identity typeahead callback
-     * If query starts with 'u:', look for user, if it starts with 'r:', look
-     * for role, otherwise look for both.
-     *
-     * @Route("/acl/sid")
-     * @param Request $request
-     * @return Response
-     */
-    public function aclsidAction(Request $request)
-    {
-        $query = $request->get('query');
-        $response = array();
-        /** @var IdentitiesProviderInterface $idProvider */
-        $idProvider = $this->get('fom.identities.provider');
-
-        if($query !== null) {
-            switch(substr($query, 0, 2)) {
-                case 'u:':
-                    $response = $idProvider->getUsers(substr($query, 2));
-                    break;
-                case 'r:':
-                    $response = $idProvider->getRoles();
-                    break;
-                default:
-                    $response = array_merge(
-                        $idProvider->getUsers(substr($query, 3)),
-                        $idProvider->getRoles());
-            }
-        }
-
-        return new JsonResponse($response);
-    }
-
     protected function getACLClasses()
     {
         $acl_classes = array();
