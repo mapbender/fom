@@ -4,9 +4,8 @@ namespace FOM\UserBundle\EventListener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
-use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
-use Symfony\Component\Security\Core\Util\ClassUtils;
 use FOM\UserBundle\Entity\User;
+use Symfony\Component\Security\Acl\Util\ClassUtils;
 
 
 class UserSubscriber implements EventSubscriber
