@@ -17,7 +17,7 @@ class UserType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventSubscriber(new UserSubscriber($builder->getFormFactory(), $options['currentUser']));
+        $builder->addEventSubscriber(new UserSubscriber($options['currentUser']));
         $builder
             ->add('username', 'text', array(
                 'label' => 'fom.user.user.container.username',
@@ -32,9 +32,7 @@ class UserType extends AbstractType
                 'type' => 'password',
                 'invalid_message' => 'The password fields must match.',
                 'required' => $options['requirePassword'],
-                'options' => array(
-                    'label' => 'Password',
-                ),
+                'mapped' => false,
                 'first_options' => array(
                     'label' => 'fom.user.user.container.choose_password',
                 ),

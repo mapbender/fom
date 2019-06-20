@@ -132,72 +132,20 @@ class UserController extends UserControllerBase
     }
 
     /**
-     * @ManagerRoute("/user/{id}/edit", methods={"GET"})
-     * @param string $id
-     * @return Response
-     */
-    public function editAction($id)
-    {
-        $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->find($id);
-        if ($user === null) {
-            throw new NotFoundHttpException('The user does not exist');
-        }
-        /** @var User $user */
-        $this->denyAccessUnlessGranted('EDIT', $user);
-
-        $groupPermission =
-            $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
-            || $this->isGranted('OWNER', $user);
-
-        $form    = $this->createForm(new UserType(), $user, array(
-            'requirePassword'  => false,
-            'profile_formtype' => $this->getProfileFormType(),
-            'group_permission' => $groupPermission,
-            'acl_permission'   => $this->isGranted('OWNER', $user),
-            'currentUser' => $this->getUser(),
-        ));
-
-        return $this->render('@FOMUser/User/form.html.twig', array(
-            'user'             => $user,
-            'form'             => $form->createView(),
-            'form_name'        => $form->getName(),
-            'edit'             => true,
-            'profile_template' => $this->getProfileTemplate(),
-            'profile_assets'   => $this->getProfileAssets(),
-            'title' => 'fom.user.user.form.edit_user',
-        ));
-    }
-
-    /**
-     * @ManagerRoute("/user/{id}/update", methods={"POST"})
+     * @ManagerRoute("/user/{id}/edit", methods={"GET", "POST"})
      * @param Request $request
      * @param string $id
      * @return Response
      */
-    public function updateAction(Request $request, $id)
+    public function editAction(Request $request, $id)
     {
+        /** @var User|null $user */
         $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->find($id);
         if ($user === null) {
             throw new NotFoundHttpException('The user does not exist');
         }
-        /** @var User $user */
 
-        // ACL access check
         $this->denyAccessUnlessGranted('EDIT', $user);
-
-        // If no password is given, we'll recycle the old one
-        $userData     = $request->get('user');
-        $keepPassword = false;
-        if ($userData['password']['first'] === '' && $userData['password']['second'] === '') {
-            $userData['password'] = array(
-                'first'  => $user->getPassword(),
-                'second' => $user->getPassword());
-
-            $keepPassword = true;
-        }
-        if (!array_key_exists('username', $userData)) {
-            $userData['username'] = $user->getUsername();
-        }
 
         $groupPermission =
             $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
@@ -211,15 +159,16 @@ class UserController extends UserControllerBase
             'currentUser' => $this->getUser(),
         ));
 
-        $form->submit($userData);
+        $form->handleRequest($request);
 
-        if ($form->isValid() && $form->isSubmitted()) {
-            if (!$keepPassword) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            // extract submitted password (not mapped)
+            $password = $form->get('password')->get('first')->getViewData();
+            if ($password) {
                 // Set encrypted password and create new salt
-                // The unencrypted password is already set on the user!
                 /** @var UserHelperService $helperService */
                 $helperService = $this->get('fom.user_helper.service');
-                $helperService->setPassword($user, $user->getPassword());
+                $helperService->setPassword($user, $password);
             }
 
             $em = $this->getDoctrine()->getManager();

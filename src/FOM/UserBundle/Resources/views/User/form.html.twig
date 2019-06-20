@@ -9,15 +9,7 @@
 {% endblock %}
 
 {% block manager_content %}
-    {% if edit %}
-        {{ form_start(form, { 'action': path('fom_user_user_update', { 'id': user.id }), 'method': 'POST', 'attr': {
-            novalidate: 'novalidate', autocomplete: 'off', name: form_name
-        }}) }}
-    {% else %}
-        {{ form_start(form, { 'action': path('fom_user_user_create'), 'method': 'POST', 'attr': {
-          novalidate: 'novalidate', autocomplete: 'off', name: form_name
-        }}) }}
-    {% endif %}
+    {{ form_start(form, {'attr': {novalidate: 'novalidate', autocomplete: 'off', name: form_name}}) }}
 
     {% include 'FOMUserBundle:User:container.html.twig' %}
 
