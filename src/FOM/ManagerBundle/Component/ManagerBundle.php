@@ -9,7 +9,7 @@ namespace FOM\ManagerBundle\Component;
  *
  * @author Christian Wygoda
  *
- * @deprecated absorbed into Mapbender repository
+ * @deprecated remove in FOM v3.3; absorbed into Mapbender repository
  */
 class ManagerBundle extends \Mapbender\ManagerBundle\Component\ManagerBundle
 {

@@ -44,41 +44,7 @@ class UserController extends UserControllerBase
     }
 
     /**
-     * @ManagerRoute("/user/new", methods={"GET"})
-     * @return Response
-     */
-    public function newAction()
-    {
-        $user = new User();
-
-        // ACL access check
-        $oid = new ObjectIdentity('class', get_class($user));
-
-        $this->denyAccessUnlessGranted('CREATE', $oid);
-
-        $groupPermission =
-            $this
-                ->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
-            || $this->isGranted('OWNER', $oid);
-
-        $form    = $this->createForm(new UserType(), $user, array(
-            'profile_formtype' => $this->getProfileFormType(),
-            'group_permission' => $groupPermission,
-            'acl_permission'   => $this->isGranted('OWNER', $oid),
-        ));
-
-        return $this->render('@FOMUser/User/form.html.twig', array(
-            'user'             => $user,
-            'form'             => $form->createView(),
-            'form_name'        => $form->getName(),
-            'edit'             => false,
-            'profile_template' => $this->getProfileTemplate(),
-            'profile_assets'   => $this->getProfileAssets(),
-        ));
-    }
-
-    /**
-     * @ManagerRoute("/user", methods={"POST"})
+     * @ManagerRoute("/user/new", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      * @throws \Exception
@@ -101,9 +67,9 @@ class UserController extends UserControllerBase
             'acl_permission'   => $this->isGranted('OWNER', $oid),
         ));
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
-        if ($form->isValid() && $form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             // Set encrypted password and create new salt
             // The unencrypted password is already set on the user!
             $helperService = $this->getUserHelper();
@@ -153,8 +119,6 @@ class UserController extends UserControllerBase
 
             return $this->redirect($this->generateUrl('fom_user_user_index'));
         }
-        $this->addFlash('error', 'There are field validation errors.');
-
         return $this->render('@FOMUser/User/form.html.twig', array(
             'user'             => $user,
             'form'             => $form->createView(),
