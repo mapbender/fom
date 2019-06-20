@@ -7,7 +7,6 @@ use FOM\UserBundle\Component\IdentitiesProviderInterface;
 use Mapbender\ManagerBundle\Component\ManagerBundle;
 use FOM\ManagerBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
@@ -53,7 +52,6 @@ class ACLController extends Controller
             'class' => $class,
             'class_name' => $acl_classes[$class],
             'form' => $form->createView(),
-            'form_name' => $form->getName(),
         ));
     }
 
@@ -76,14 +74,14 @@ class ACLController extends Controller
         }
 
         $form = $this->getClassACLForm($class);
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if($form->isValid() && $form->isSubmitted()) {
             /** @var AclManager $aclManager */
             $aclManager = $this->get('fom.acl.manager');
             $aclManager->setClassACEs($class, $form->get('ace')->getData());
 
-            return $this->redirect($this->generateUrl('fom_user_acl_index'));
+            return $this->redirectToRoute('fom_user_acl_index');
         }
 
         $this->addFlash('error', 'Your form has errors, please review them below.');
@@ -92,7 +90,6 @@ class ACLController extends Controller
             'class' => $class,
             'class_name' => $acl_classes[$class],
             'form' => $form->createView(),
-            'form_name' => $form->getName(),
         ));
     }
 

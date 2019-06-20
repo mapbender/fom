@@ -29,7 +29,7 @@ class DoctrineHelper
         /** @var ClassMetadata $classMetadata */
         $doctrine      = $container->get('doctrine');
         $manager       = $doctrine->getManager();
-        $schemaTool    = new SchemaTool($doctrine->getManager());
+        $schemaTool    = new SchemaTool($manager);
         $connection    = $doctrine->getConnection();
         $schemaManager = $connection->getSchemaManager();
         $classMetadata = $manager->getClassMetadata($className);

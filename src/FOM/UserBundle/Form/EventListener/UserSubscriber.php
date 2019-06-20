@@ -67,7 +67,7 @@ class UserSubscriber implements EventSubscriberInterface
         if (null === $user) {
             return;
         }
-        if ($this->currentUser !== null && $this->currentUser !== $user) {
+        if ($user->getId() && $this->currentUser !== null && $this->currentUser !== $user) {
             $event->getForm()->add('activated', 'checkbox', array(
                 'data' => $user->getRegistrationToken() ? false : true,
                 'auto_initialize' => false,

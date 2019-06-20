@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block manager_content %}
-    {{ form_start(form, {'attr': {novalidate: 'novalidate', autocomplete: 'off', name: form_name}}) }}
+    {{ form_start(form, {'attr': {novalidate: 'novalidate', autocomplete: 'off'}}) }}
 
     {% include 'FOMUserBundle:User:container.html.twig' %}
 

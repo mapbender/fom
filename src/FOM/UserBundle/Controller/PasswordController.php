@@ -205,7 +205,7 @@ class PasswordController extends UserControllerBase
         $form = $this->createForm(new UserResetPassType(), $user)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getEntityManager();
             $user->setResetToken(null);
             $helperService = $this->getUserHelper();
             $helperService->setPassword($user, $user->getPassword());
@@ -245,6 +245,7 @@ class PasswordController extends UserControllerBase
         $fromName = $this->getEmailFromAdress();
         $fromEmail = $this->getEmailFromAdress();
         $mailFrom = array($fromEmail => $fromName);
+        /** @var \Swift_Mailer $mailer */
         $mailer = $this->get('mailer');
 
         $text = $this->renderView('@FOMUser/Password/email-body.text.twig', array("user" => $user));
@@ -257,7 +258,7 @@ class PasswordController extends UserControllerBase
             ->addPart($html, 'text/html');
         $mailer->send($message);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEntityManager();
         $em->flush();
     }
 

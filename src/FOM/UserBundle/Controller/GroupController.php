@@ -2,8 +2,6 @@
 
 namespace FOM\UserBundle\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
-use FOM\UserBundle\Component\RolesService;
 use FOM\UserBundle\Entity\Group;
 use FOM\UserBundle\Form\Type\GroupType;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,7 +69,7 @@ class GroupController extends UserControllerBase
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getEntityManager();
             $em->persist($group);
 
             // See method documentation for Doctrine weirdness
@@ -167,7 +165,7 @@ class GroupController extends UserControllerBase
             // ACL access check
             $this->denyAccessUnlessGranted('DELETE', $group);
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getEntityManager();
             $em->remove($group);
 
             $oid = ObjectIdentity::fromDomainObject($group);
@@ -179,15 +177,5 @@ class GroupController extends UserControllerBase
             $this->addFlash('error', "The group couldn't be deleted.");
         }
         return new Response();
-    }
-
-    /**
-     * @return EntityManagerInterface
-     */
-    protected function getEntityManager()
-    {
-        /** @var EntityManagerInterface $em */
-        $em = $this->getDoctrine()->getManager();
-        return $em;
     }
 }

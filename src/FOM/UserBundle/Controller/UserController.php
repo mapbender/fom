@@ -25,8 +25,8 @@ class UserController extends UserControllerBase
      */
     public function indexAction()
     {
+        $users = $this->getEntityManager()->getRepository('FOMUserBundle:User')->findAll();
         $allowed_users = array();
-        $users = $this->getDoctrine()->getManager()->createQuery('SELECT r FROM FOMUserBundle:User r')->getResult();
 
         // ACL access check
         foreach ($users as $index => $user) {
@@ -65,7 +65,8 @@ class UserController extends UserControllerBase
         $form = $this->createForm(new UserType(), $user, array(
             'profile_formtype' => $this->getProfileFormType(),
             'group_permission' => $groupPermission,
-            'acl_permission'   => $this->isGranted('OWNER', $oid),
+            'acl_permission'   => $this->isGranted('OWNER', $user),
+            'currentUser' => $this->getUser(),
         ));
 
         $form->handleRequest($request);
@@ -78,11 +79,11 @@ class UserController extends UserControllerBase
 
             $user->setRegistrationTime(new \DateTime());
 
-            $em = $this->getDoctrine()->getManager();
-            $em->getConnection()->beginTransaction();
+            $em = $this->getEntityManager();
+            $em->beginTransaction();
 
             try {
-                $em->getConnection()->beginTransaction();
+                $em->beginTransaction();
 
                 $profile = $user->getProfile();
                 $user->setProfile(null);
@@ -99,7 +100,7 @@ class UserController extends UserControllerBase
 
                 $em->flush();
 
-                $em->getConnection()->commit();
+                $em->commit();
 
                 if ($form->has('acl')) {
                     $aces = $form->get('acl')->get('ace')->getData();
@@ -111,23 +112,22 @@ class UserController extends UserControllerBase
                 // Make sure, the new user has VIEW & EDIT permissions
                 $helperService->giveOwnRights($user);
 
-                $em->getConnection()->commit();
+                $em->commit();
             } catch (\Exception $e) {
-                $em->getConnection()->rollback();
+                $em->rollback();
                 throw $e;
             }
             $this->addFlash('success', 'The user has been saved.');
 
-            return $this->redirect($this->generateUrl('fom_user_user_index'));
+            return $this->redirectToRoute('fom_user_user_index');
         }
         return $this->render('@FOMUser/User/form.html.twig', array(
             'user'             => $user,
             'form'             => $form->createView(),
-            'form_name'        => $form->getName(),
             'edit'             => false,
             'profile_template' => $this->getProfileTemplate(),
             'profile_assets'   => $this->getProfileAssets(),
-            'title' => 'fom.user.user.form.new_user',
+            'title' => $this->translate('fom.user.user.form.new_user'),
         ));
     }
 
@@ -171,7 +171,7 @@ class UserController extends UserControllerBase
                 $helperService->setPassword($user, $password);
             }
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getEntityManager();
 
             // This is the same check as abote in createForm for acl_permission
             if ($this->isGranted('OWNER', $user)) {
@@ -183,18 +183,17 @@ class UserController extends UserControllerBase
             $em->flush();
             $this->addFlash('success', 'The user has been updated.');
 
-            return $this->redirect($this->generateUrl('fom_user_user_index'));
+            return $this->redirectToRoute('fom_user_user_index');
 
         }
 
         return $this->render('@FOMUser/User/form.html.twig', array(
             'user'             => $user,
             'form'             => $form->createView(),
-            'form_name'        => $form->getName(),
             'edit'             => true,
             'profile_template' => $this->getProfileTemplate(),
             'profile_assets'   => $this->getProfileAssets(),
-            'title' => 'fom.user.user.form.edit_user',
+            'title' => $this->translate('fom.user.user.form.edit_user'),
         ));
     }
 
@@ -223,8 +222,8 @@ class UserController extends UserControllerBase
         $oid         = ObjectIdentity::fromDomainObject($user);
         $aclProvider->deleteAcl($oid);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->getConnection()->beginTransaction();
+        $em = $this->getEntityManager();
+        $em->beginTransaction();
 
         try {
             $oid         = ObjectIdentity::fromDomainObject($user);
@@ -235,10 +234,10 @@ class UserController extends UserControllerBase
                 $em->remove($user->getProfile());
             }
             $em->flush();
-            $em->getConnection()->commit();
+            $em->commit();
             $this->addFlash('success', 'The user has been deleted.');
         } catch (\Exception $e) {
-            $em->getConnection()->rollback();
+            $em->rollback();
             $this->addFlash('error', "The user couldn't be deleted.");
         }
 

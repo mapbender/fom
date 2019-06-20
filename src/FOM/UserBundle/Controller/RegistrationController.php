@@ -62,7 +62,6 @@ class RegistrationController extends UserControllerBase
         return $this->render('@FOMUser/Registration/form.html.twig', array(
             'user' => $user,
             'form' => $form->createView(),
-            'form_name' => $form->getName(),
         ));
     }
 
@@ -111,7 +110,7 @@ class RegistrationController extends UserControllerBase
 
             $this->sendEmail($user);
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getEntityManager();
             $em->persist($user);
             $em->flush();
 
@@ -123,7 +122,6 @@ class RegistrationController extends UserControllerBase
         return $this->render('@FOMUser/Registration/form.html.twig', array(
             'user' => $user,
             'form' => $form->createView(),
-            'form_name' => $form->getName(),
         ));
     }
 
@@ -155,12 +153,12 @@ class RegistrationController extends UserControllerBase
         }
 
         // Unset token
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEntityManager();
         $user->setRegistrationToken(null);
         $em->flush();
 
         // Forward to final page
-        return $this->redirect($this->generateUrl('fom_user_registration_done'));
+        return $this->redirectToRoute('fom_user_registration_done');
     }
 
     /**
@@ -184,11 +182,11 @@ class RegistrationController extends UserControllerBase
 
         $this->sendEmail($user);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEntityManager();
         $em->persist($user);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('fom_user_registration_send'));
+        return $this->redirectToRoute('fom_user_registration_send');
     }
 
     /**
