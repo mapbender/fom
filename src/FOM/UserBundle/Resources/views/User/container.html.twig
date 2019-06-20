@@ -9,25 +9,13 @@
   </ul>
 
   <div id="containerBaseData" class="container active containerBaseData">
-    {#{{ form_label(form.username) }}#}
-    <label class="left labelInput" for="{{ form.username.vars.id }}">{{"fom.user.user.container.username" | trans}}:<span class="required">*</span></label>
-    {{ form_widget(form.username, { 'disabled': (form.groups is not defined) }) }}
-    <div class="clearContainer"></div>
-    {{ form_label(form.email) }}
-    {{ form_widget(form.email) }}
-    <div class="clearContainer"></div>
+      {{ form_row(form.username, {'widget_attr': {'disabled': (form.groups is not defined)}}) }}
+      {{ form_row(form.email) }}
+      {{ form_row(form.password) }}
 
-    {% for pw in form.password %}
-      {% if pw.vars['name'] == 'first' %}
-        <label class="left labelInput" for="{{ pw.vars['id'] }}">{{"fom.user.user.container.choose_password" | trans}}:<span class="required">*</span></label>
-      {% else %}
-        <label class="left labelInput" for="{{ pw.vars['id'] }}">{{"fom.user.user.container.confirm_password" | trans}}:<span class="required">*</span></label>
-      {% endif %}
-      {{ form_widget(pw) }}
-    {% endfor %}
     {% if form.activated is defined %}
-    {{ form_widget(form.activated) }}<label for="{{form.activated.vars.id}}" class="labelCheck">{{"fom.user.user.container.activated"|trans}}</label>
-    <div class="clearContainer"></div>
+        {{ form_row(form.activated) }}
+        <div class="clearContainer"></div>
     {% endif %}
   </div>
   {% if form.profile is defined %}
@@ -43,8 +31,6 @@
   <div id="containerGroups" class="container containerGroups">
   {% if form.groups is defined %}
     {% if form.groups|length > 0 %}
-
-      {% set group_count = '<span>' ~ user.groups | length ~ '</span>' %}
 
       <label for="inputFilterUsers" class="labelInput left">{{"fom.user.user.container.filter"|trans}}</label>
       <input id="inputFilterUsers" type="text" class="input left listFilterInput"/>

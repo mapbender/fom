@@ -80,11 +80,11 @@ class UserSubscriber implements EventSubscriberInterface
         if (null === $user) {
             return;
         }
-        if($this->currentUser !== null && $this->currentUser !== $user) {
+        if ($this->currentUser !== null && $this->currentUser !== $user) {
             $event->getForm()->add($this->factory->createNamed('activated', 'checkbox', null, array(
                 'data' => $user->getRegistrationToken() ? false : true,
                 'auto_initialize' => false,
-                'label' => 'Activated',
+                'label' => 'fom.user.user.container.activated',
                 'required' => false,
                 'mapped' => false)));
         }

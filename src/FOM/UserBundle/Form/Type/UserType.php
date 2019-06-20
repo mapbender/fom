@@ -19,15 +19,30 @@ class UserType extends AbstractType
     {
         $builder->addEventSubscriber(new UserSubscriber($builder->getFormFactory(), $options['currentUser']));
         $builder
-            ->add('username', 'text')
+            ->add('username', 'text', array(
+                'label' => 'fom.user.user.container.username',
+                'attr' => array(
+                    'autofocus' => true,
+                ),
+            ))
             ->add('email', 'email', array(
-                'label' => 'E-Mail'))
+                'label' => 'E-Mail',
+            ))
             ->add('password', 'repeated', array(
                 'type' => 'password',
                 'invalid_message' => 'The password fields must match.',
                 'required' => $options['requirePassword'],
                 'options' => array(
-                    'label' => 'Password')));
+                    'label' => 'Password',
+                ),
+                'first_options' => array(
+                    'label' => 'fom.user.user.container.choose_password',
+                ),
+                'second_options' => array(
+                    'label' => 'fom.user.user.container.confirm_password',
+                ),
+            ))
+        ;
 
         if (true === $options['group_permission']) {
             $builder
