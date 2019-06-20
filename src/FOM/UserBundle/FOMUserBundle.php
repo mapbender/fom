@@ -36,7 +36,7 @@ class FOMUserBundle extends ManagerBundle
             ->addChildren(array(
                 MenuItem::create('fom.user.userbundle.users', 'fom_user_user_index')
                     ->addChildren(array(
-                        MenuItem::create('fom.user.userbundle.new_user', 'fom_user_user_new')
+                        MenuItem::create('fom.user.userbundle.new_user', 'fom_user_user_create')
                             ->requireEntityGrant('FOM\UserBundle\Entity\User', 'CREATE'),
                     )),
                 MenuItem::create('fom.user.userbundle.groups', 'fom_user_group_index')
@@ -77,7 +77,7 @@ class FOMUserBundle extends ManagerBundle
                         'subroutes' => array(
                            array(
                                 'title' => "fom.user.userbundle.new_user",
-                                'route'=>'fom_user_user_new',
+                                'route'=>'fom_user_user_create',
                                 'enabled' => function($securityContext) {
                                     /** @var AuthorizationCheckerInterface $securityContext */
                                     $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
