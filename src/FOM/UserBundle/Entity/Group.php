@@ -121,6 +121,7 @@ class Group
      */
     public function removeUser(User $user)
     {
+        $user->getGroups()->removeElement($this);
         $this->users->removeElement($user);
     }
 

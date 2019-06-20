@@ -6,15 +6,7 @@
 {% endblock %}
 
 {% block manager_content %}
-    {% if edit %}
-        {{ form_start(form, { 'action': path('fom_user_group_update', { 'id': group.id }), 'method': 'POST', 'attr': {
-            novalidate: 'novalidate', autocomplete: 'off'
-        }}) }}
-    {% else %}
-        {{ form_start(form, { 'action': path('fom_user_group_create'), 'method': 'POST', 'attr': {
-            novalidate: 'novalidate', autocomplete: 'off'
-        }}) }}
-    {% endif %}
+    {{ form_start(form, {'attr': { novalidate: 'novalidate', autocomplete: 'off'}}) }}
 
     {% if form_errors(form) %}
         <div>{{ form_errors(form) }}</div>

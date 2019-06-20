@@ -5,7 +5,6 @@ namespace FOM\UserBundle\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use FOM\UserBundle\Component\RolesService;
 use FOM\UserBundle\Entity\Group;
-use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\GroupType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -77,8 +76,7 @@ class GroupController extends UserControllerBase
 
             // See method documentation for Doctrine weirdness
             foreach($group->getUsers() as $user) {
-                /** @var User $user */
-                $user->addGroups($group);
+                $user->addGroup($group);
             }
 
             $em->flush();
@@ -101,89 +99,52 @@ class GroupController extends UserControllerBase
 
         return $this->render('@FOMUser/Group/form.html.twig', array(
             'group' => $group,
-            'form' => $form->createView(),
             'edit' => false,
+            'form' => $form->createView(),
             'title' => $this->translate('fom.user.group.form.new_group'),
         ));
     }
 
     /**
-     * @Route("/group/{id}/edit", methods={"GET"})
-     * @param string $id
-     * @return Response
-     */
-    public function editAction($id)
-    {
-        $group = $this->getDoctrine()->getRepository('FOMUserBundle:Group')
-            ->find($id);
-
-        if($group === null) {
-            throw new NotFoundHttpException('The group does not exist');
-        }
-
-        // ACL access check
-        $this->denyAccessUnlessGranted('EDIT', $group);
-
-        $form = $this->createForm(new GroupType(), $group);
-
-        return $this->render('@FOMUser/Group/form.html.twig', array(
-            'group' => $group,
-            'form' => $form->createView(),
-            'edit' => true,
-            'title' => $this->translate('fom.user.group.form.edit_group'),
-        ));
-    }
-
-    /**
-     * @Route("/group/{id}/update", methods={"POST"})
-     *
-     * There is one weirdness when storing groups: In Doctrine Many-to-Many
-     * associations, updates are only written, when the owning side changes.
-     * For the User-Group association, the user is the owner part.
+     * @Route("/group/{id}/edit", methods={"GET", "POST"})
      * @param Request $request
      * @param string $id
      * @return Response
      */
-    public function updateAction(Request $request, $id)
+    public function editAction(Request $request, $id)
     {
         $em = $this->getEntityManager();
+        /** @var Group|null $group */
         $group = $em->getRepository('FOMUserBundle:Group')->find($id);
-        if($group === null) {
+        if (!$group) {
             throw new NotFoundHttpException('The group does not exist');
         }
-        /** @var Group $group */
-
         $this->denyAccessUnlessGranted('EDIT', $group);
 
-        // See method documentation for Doctrine weirdness
-        $old_users = clone $group->getUsers();
-
         $form = $this->createForm(new GroupType(), $group);
+
+        // see https://afilina.com/doctrine-not-saving-manytomany
+        foreach ($group->getUsers() as $previousUser) {
+            $previousUser->getGroups()->removeElement($group);
+            $em->persist($previousUser);
+        }
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            // See method documentation for Doctrine weirdness
-            foreach($old_users as $user) {
-                /** @var User $user */
-                $user->getGroups()->removeElement($group);
+            foreach ($group->getUsers() as $currentUser) {
+                $em->persist($currentUser);
+                $currentUser->getGroups()->add($group);
             }
-
-            foreach($group->getUsers() as $user) {
-                $user->addGroups($group);
-            }
-
             $em->flush();
 
             $this->addFlash('success', 'The group has been updated.');
-
             return $this->redirectToRoute('fom_user_group_index');
         }
 
         return $this->render('@FOMUser/Group/form.html.twig', array(
             'group' => $group,
-            'form' => $form->createView(),
             'edit' => true,
+            'form' => $form->createView(),
             'title' => $this->translate('fom.user.group.form.edit_group'),
         ));
     }

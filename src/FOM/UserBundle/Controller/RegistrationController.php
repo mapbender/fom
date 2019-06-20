@@ -92,12 +92,12 @@ class RegistrationController extends UserControllerBase
 
             $groupRepository = $this->getDoctrine()->getRepository('FOMUserBundle:Group');
             foreach($this->container->getParameter('fom_user.self_registration_groups') as $groupTitle) {
+                /** @var Group|null $group */
                 $group = $groupRepository->findOneBy(array(
                     'title' => $groupTitle,
                 ));
-                if($group) {
-                    /** @var Group $group */
-                    $user->addGroups($group);
+                if ($group) {
+                    $user->addGroup($group);
                 } else {
                     $msg = sprintf('Self-registration group "%s" not found for user "%s"',
                         $groupTitle,
