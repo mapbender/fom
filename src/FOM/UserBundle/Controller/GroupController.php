@@ -50,29 +50,7 @@ class GroupController extends UserControllerBase
     }
 
     /**
-     * @Route("/group/new", methods={"GET"})
-     * @return Response
-     */
-    public function newAction() {
-        $group = new Group();
-
-        // ACL access check
-        $oid = new ObjectIdentity('class', get_class($group));
-
-        $this->denyAccessUnlessGranted('CREATE', $oid);
-
-        $form = $this->createForm(new GroupType(), $group);
-
-        return $this->render('@FOMUser/Group/form.html.twig', array(
-            'group' => $group,
-            'form' => $form->createView(),
-            'edit' => false,
-            'title' => $this->translate('fom.user.group.form.new_group'),
-        ));
-    }
-
-    /**
-     * @Route("/group", methods={"POST"})
+     * @Route("/group/new", methods={"GET", "POST"})
      *
      * There is one weirdness when storing groups: In Doctrine Many-to-Many
      * associations, updates are only written, when the owning side changes.
@@ -90,12 +68,10 @@ class GroupController extends UserControllerBase
 
         $this->denyAccessUnlessGranted('CREATE', $oid);
 
-        $available_roles = $this->getRolesService()->getAll();
-        $form = $this
-            ->createForm(new GroupType(), $group, array('available_roles' => $available_roles))
-            ->handleRequest($request);
+        $form = $this->createForm(new GroupType(), $group);
+        $form->handleRequest($request);
 
-        if($form->isValid() && $form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($group);
 
@@ -120,9 +96,7 @@ class GroupController extends UserControllerBase
 
             $this->addFlash('success', 'The group has been saved.');
 
-            return $this->redirect(
-                $this->generateUrl('fom_user_group_index')
-            );
+            return $this->redirectToRoute('fom_user_group_index');
         }
 
         return $this->render('@FOMUser/Group/form.html.twig', array(
@@ -184,12 +158,10 @@ class GroupController extends UserControllerBase
         // See method documentation for Doctrine weirdness
         $old_users = clone $group->getUsers();
 
-        $form = $this->createForm(new GroupType(), $group, array(
-            'available_roles' => $this->getRolesService()->getAll(),
-        ));
+        $form = $this->createForm(new GroupType(), $group);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             // See method documentation for Doctrine weirdness
             foreach($old_users as $user) {
@@ -205,9 +177,7 @@ class GroupController extends UserControllerBase
 
             $this->addFlash('success', 'The group has been updated.');
 
-            return $this->redirect(
-                $this->generateUrl('fom_user_group_index')
-            );
+            return $this->redirectToRoute('fom_user_group_index');
         }
 
         return $this->render('@FOMUser/Group/form.html.twig', array(
