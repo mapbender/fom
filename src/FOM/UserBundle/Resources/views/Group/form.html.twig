@@ -1,17 +1,5 @@
 {% extends "MapbenderManagerBundle::manager.html.twig" %}
 
-{% block title %}
-  {% if edit %}
-    {{ "fom.user.group.form.edit_group" | trans}}
-  {% else %}
-    {{ "fom.user.group.form.new_group" | trans}}
-  {% endif %}
-{% endblock %}
-
-{% block css %}
-  {{parent()}}
-{% endblock %}
-
 {% block js %}
   {{parent()}}
   <script type="application/javascript" src="{{ asset('bundles/mapbendermanager/js/user-control.js') }}"></script>

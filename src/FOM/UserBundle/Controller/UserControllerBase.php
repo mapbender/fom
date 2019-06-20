@@ -8,6 +8,7 @@ use FOM\UserBundle\Component\AclManager;
 use FOM\UserBundle\Component\UserHelperService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 abstract class UserControllerBase extends Controller
 {
@@ -60,5 +61,12 @@ abstract class UserControllerBase extends Controller
         $endTime = new \DateTime();
         $endTime->sub(new \DateInterval(sprintf("PT%dH", $timeInterval)));
         return !($startTime < $endTime);
+    }
+
+    protected function translate($x)
+    {
+        /** @var TranslatorInterface $translator */
+        $translator = $this->container->get('translator');
+        return $translator->trans($x);
     }
 }

@@ -40,6 +40,7 @@ class UserController extends UserControllerBase
         return $this->render('@FOMUser/User/index.html.twig', array(
             'users'             => $allowed_users,
             'create_permission' => $this->isGranted('CREATE', $oid),
+            'title' => $this->translate('fom.user.user.index.title'),
         ));
     }
 
@@ -126,6 +127,7 @@ class UserController extends UserControllerBase
             'edit'             => false,
             'profile_template' => $this->getProfileTemplate(),
             'profile_assets'   => $this->getProfileAssets(),
+            'title' => 'fom.user.user.form.new_user',
         ));
     }
 
@@ -162,6 +164,7 @@ class UserController extends UserControllerBase
             'edit'             => true,
             'profile_template' => $this->getProfileTemplate(),
             'profile_assets'   => $this->getProfileAssets(),
+            'title' => 'fom.user.user.form.edit_user',
         ));
     }
 
@@ -242,6 +245,7 @@ class UserController extends UserControllerBase
             'edit'             => true,
             'profile_template' => $this->getProfileTemplate(),
             'profile_assets'   => $this->getProfileAssets(),
+            'title' => 'fom.user.user.form.edit_user',
         ));
     }
 

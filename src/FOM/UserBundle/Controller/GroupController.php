@@ -45,6 +45,7 @@ class GroupController extends UserControllerBase
         return $this->render('@FOMUser/Group/index.html.twig', array(
             'groups' => $allowed_groups,
             'create_permission' => $this->isGranted('CREATE', $oid),
+            'title' => $this->translate('fom.user.group.index.groups'),
         ));
     }
 
@@ -66,6 +67,7 @@ class GroupController extends UserControllerBase
             'group' => $group,
             'form' => $form->createView(),
             'edit' => false,
+            'title' => $this->translate('fom.user.group.form.new_group'),
         ));
     }
 
@@ -127,6 +129,7 @@ class GroupController extends UserControllerBase
             'group' => $group,
             'form' => $form->createView(),
             'edit' => false,
+            'title' => $this->translate('fom.user.group.form.new_group'),
         ));
     }
 
@@ -153,6 +156,7 @@ class GroupController extends UserControllerBase
             'group' => $group,
             'form' => $form->createView(),
             'edit' => true,
+            'title' => $this->translate('fom.user.group.form.edit_group'),
         ));
     }
 
@@ -210,6 +214,7 @@ class GroupController extends UserControllerBase
             'group' => $group,
             'form' => $form->createView(),
             'edit' => true,
+            'title' => $this->translate('fom.user.group.form.edit_group'),
         ));
     }
 
