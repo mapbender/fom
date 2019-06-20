@@ -8,7 +8,6 @@
     </parameters>
     <services>
         <service id="fom_roles" class="FOM\UserBundle\Component\RolesService">
-            <argument type="service" id="kernel" />
         </service>
         <service id="fom.user_helper.service" class="%fom.user_helper.service.class%">
             <argument type="service" id="security.acl.provider" />

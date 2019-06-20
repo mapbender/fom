@@ -229,14 +229,4 @@ class GroupController extends UserControllerBase
         $em = $this->getDoctrine()->getManager();
         return $em;
     }
-
-    /**
-     * @return RolesService
-     */
-    protected function getRolesService()
-    {
-        /** @var RolesService $service */
-        $service = $this->get('fom_roles');
-        return $service;
-    }
 }
