@@ -2,6 +2,8 @@
 
 namespace FOM\UserBundle;
 
+use Mapbender\ManagerBundle\Component\Menu\MenuItem;
+use Mapbender\ManagerBundle\Component\Menu\RegisterMenuRoutesPass;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\SecurityExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use FOM\UserBundle\DependencyInjection\Factory\SspiFactory;
@@ -21,31 +23,60 @@ class FOMUserBundle extends ManagerBundle
         /** @var SecurityExtension $extension */
         $extension = $container->getExtension('security');
         $extension->addSecurityListenerFactory(new SspiFactory());
+        if (class_exists('\Mapbender\ManagerBundle\Component\Menu\MenuItem')) {
+            // Mapbender >= 3.0.8.2
+            $this->addMenu($container);
+        }
+    }
+
+    protected function addMenu(ContainerBuilder $container)
+    {
+        $userItem = MenuItem::create('fom.user.userbundle.user_control', 'fom_user_user_index')
+            ->setWeight(100)
+            ->addChildren(array(
+                MenuItem::create('fom.user.userbundle.users', 'fom_user_user_index')
+                    ->addChildren(array(
+                        MenuItem::create('fom.user.userbundle.new_user', 'fom_user_user_new')
+                            ->requireEntityGrant('FOM\UserBundle\Entity\User', 'CREATE'),
+                    )),
+                MenuItem::create('fom.user.userbundle.groups', 'fom_user_group_index')
+                    ->requireEntityGrant('FOM\UserBundle\Entity\Group', 'CREATE')
+                    ->addChildren(array(
+                        MenuItem::create('fom.user.userbundle.new_group', 'fom_user_group_new')
+                            ->requireEntityGrant('FOM\UserBundle\Entity\Group', 'CREATE'),
+                    )),
+                MenuItem::create('fom.user.userbundle.acls', 'fom_user_acl_index')
+                    ->requireEntityGrant('Symfony\Component\Security\Acl\Domain\Acl', array(
+                        'CREATE',
+                        'EDIT',
+                    )),
+            ))
+        ;
+        $container->addCompilerPass(new RegisterMenuRoutesPass($userItem));
     }
 
     /**
      * @inheritdoc
+     * @deprecated remove in FOM v3.3, require Mapbender >=3.0.8.2
      */
     public function getManagerControllers()
     {
-        $trans = $this->container->get('translator');
+        if (class_exists('\Mapbender\ManagerBundle\Component\Menu\MenuItem')) {
+            // Mapbender >= 3.0.8.2
+            return array();
+        }
         return array(
             array(
-                'title' => $trans->trans("fom.user.userbundle.user_control"),
+                'title' => "fom.user.userbundle.user_control",
                 'weight' => 100,
                 'route' => 'fom_user_user_index',
-                'routes' => array(
-                    'fom_user_user',
-                    'fom_user_group',
-                    'fom_user_acl',
-                ),
                 'subroutes' => array(
-                    0 => array(
-                        'title'=>$trans->trans("fom.user.userbundle.users"),
+                    array(
+                        'title' => "fom.user.userbundle.users",
                         'route'=>'fom_user_user_index',
                         'subroutes' => array(
-                            0 => array(
-                                'title'=>$trans->trans("fom.user.userbundle.new_user"),
+                           array(
+                                'title' => "fom.user.userbundle.new_user",
                                 'route'=>'fom_user_user_new',
                                 'enabled' => function($securityContext) {
                                     /** @var AuthorizationCheckerInterface $securityContext */
@@ -55,12 +86,12 @@ class FOMUserBundle extends ManagerBundle
                             )
                         ),
                     ),
-                    1 => array(
-                        'title'=>$trans->trans("fom.user.userbundle.groups"),
+                    array(
+                        'title' => "fom.user.userbundle.groups",
                         'route'=>'fom_user_group_index',
                         'subroutes' => array(
-                            0 => array(
-                                'title'=>$trans->trans("fom.user.userbundle.new_group"),
+                            array(
+                                'title' => "fom.user.userbundle.new_group",
                                 'route'=>'fom_user_group_new',
                                 'enabled' => function($securityContext) {
                                     /** @var AuthorizationCheckerInterface $securityContext */
@@ -70,8 +101,8 @@ class FOMUserBundle extends ManagerBundle
                             ),
                         ),
                     ),
-                    2 => array(
-                        'title'=>$trans->trans("fom.user.userbundle.acls"),
+                    array(
+                        'title' => "fom.user.userbundle.acls",
                         'route'=>'fom_user_acl_index',
                         'enabled' => function($securityContext) {
                             /** @var AuthorizationCheckerInterface $securityContext */
