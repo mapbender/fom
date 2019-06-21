@@ -41,6 +41,7 @@ class UserType extends AbstractType
                 ),
             ))
         ;
+        $builder->get('password')->setMapped($options['requirePassword']);
 
         if (true === $options['group_permission']) {
             $builder

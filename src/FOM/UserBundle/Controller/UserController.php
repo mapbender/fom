@@ -83,24 +83,13 @@ class UserController extends UserControllerBase
             $em->beginTransaction();
 
             try {
-                $em->beginTransaction();
-
+                // Nuke profile to generate user id, then set profile again :\
+                // @todo: invert bad relation direction user => profile (currently the profile owns the user)
                 $profile = $user->getProfile();
                 $user->setProfile(null);
                 $em->persist($user);
-
-                // SQLite needs a flush here
                 $em->flush();
-
-                // Check and persists profile if exists
-                if ($profile) {
-                    $profile->setUid($user);
-                    $em->persist($profile);
-                }
-
-                $em->flush();
-
-                $em->commit();
+                $user->setProfile($profile);
 
                 if ($form->has('acl')) {
                     $aces = $form->get('acl')->get('ace')->getData();

@@ -399,11 +399,14 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @param $profile
+     * @param BasicProfile|null $profile
      * @return $this
      */
     public function setProfile($profile)
     {
+        if ($profile && \method_exists($profile, 'setUid')) {
+            $profile->setUid($this);
+        }
         $this->profile = $profile;
         return $this;
     }

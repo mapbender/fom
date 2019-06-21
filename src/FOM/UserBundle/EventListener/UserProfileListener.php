@@ -7,6 +7,7 @@ use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Id\AssignedGenerator;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Platforms\OraclePlatform;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Event listener for adding user profile on the fly
@@ -15,8 +16,12 @@ use Doctrine\DBAL\Platforms\OraclePlatform;
  */
 class UserProfileListener implements EventSubscriber
 {
+    /** @var ContainerInterface */
     protected $container;
 
+    /**
+     * @param ContainerInterface $container
+     */
     public function __construct($container)
     {
         $this->container = $container;
@@ -25,7 +30,7 @@ class UserProfileListener implements EventSubscriber
     public function getSubscribedEvents()
     {
         return array(
-            'loadClassMetadata'
+            'loadClassMetadata',
         );
     }
 
@@ -44,18 +49,18 @@ class UserProfileListener implements EventSubscriber
                 'cascade' => array('persist'),
             ));
         }
-        $connection = $args->getEntityManager()->getConnection();
-        $platform = $connection->getDatabasePlatform();
-        $uidColname = $connection->quoteIdentifier('uid');
-        if ($platform instanceof OraclePlatform) {
-            $uidColname = strtoupper($uidColname);
-        } elseif ($platform instanceof MySqlPlatform) {
-            $uidColname = 'uid';
-        }
 
         // need to add metadata for the basic profile, else doctrine
         // will whine in many situations
         if($profile == $metadata->getName() || $basicProfile == $metadata->getName()) {
+            $connection = $args->getEntityManager()->getConnection();
+            $platform = $connection->getDatabasePlatform();
+            $uidColname = $connection->quoteIdentifier('uid');
+            if ($platform instanceof OraclePlatform) {
+                $uidColname = strtoupper($uidColname);
+            } elseif ($platform instanceof MySqlPlatform) {
+                $uidColname = 'uid';
+            }
             $metadata->setIdentifier(array('uid'));
             $metadata->setIdGenerator(new AssignedGenerator());
             $metadata->mapOneToOne(array(
@@ -63,9 +68,12 @@ class UserProfileListener implements EventSubscriber
                 'targetEntity' => $user,
                 'inversedBy' => 'profile',
                 'id' => true,
-                'joinColumns' => array(array(
-                    'name' => $uidColname,
-                    'referencedColumnName' => 'id'))
+                'joinColumns' => array(
+                    array(
+                        'name' => $uidColname,
+                        'referencedColumnName' => 'id',
+                    ),
+                ),
             ));
         }
     }
