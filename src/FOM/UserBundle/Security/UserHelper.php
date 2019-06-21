@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Helper for user related stuff
  *
  * @author Christian Wygoda
- * @deprecated use the service fom.user_helper.service
+ * @deprecated use the service fom.user_helper.service; remove in FOM v3.3
  */
 class UserHelper
 {

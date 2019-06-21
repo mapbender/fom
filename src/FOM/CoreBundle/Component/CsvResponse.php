@@ -4,9 +4,6 @@ namespace FOM\CoreBundle\Component;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class CsvResponse
- *
- * @package   FOM\CoreBundle\Component
  * @author    Andriy Oblivantsev <eslider@gmail.com>
  * @copyright 2014 by WhereGroup GmbH & Co. KG
  * @deprecated

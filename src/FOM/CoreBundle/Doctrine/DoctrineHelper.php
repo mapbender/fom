@@ -9,8 +9,6 @@ use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class DoctrineHelper
- *
  * @author Andriy Oblivantsev <eslider@gmail.com>
  */
 class DoctrineHelper

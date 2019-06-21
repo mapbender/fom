@@ -6,8 +6,6 @@ use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Model\SecurityIdentityInterface;
 
 /**
- * Class AclEntry
- *
  * @author  Andriy Oblivantsev <eslider@gmail.com>
  */
 class AclEntry

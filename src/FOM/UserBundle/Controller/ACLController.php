@@ -11,10 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 
-/**
- * Class ACLController
- * @package FOM\UserBundle\Controller
- */
 class ACLController extends Controller
 {
     /**

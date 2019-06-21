@@ -9,10 +9,6 @@ use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterfac
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use FOM\UserBundle\Security\Authentication\Token\SspiUserToken;
 
-/**
- * Class SspiListener
- * @package FOM\UserBundle\Security\Firewall
- */
 class SspiListener implements ListenerInterface {
     /** @var TokenStorageInterface */
     protected $tokenStorage;
