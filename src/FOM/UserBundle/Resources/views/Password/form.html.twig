@@ -23,8 +23,8 @@
         <p class='labelText'>{{ 'fom.user.password.form.message' | trans }}</p>
       {{ form_widget(form) }}
 
-      <a class="left iconLinkButton linkButton" href="{{ path('fom_user_login_login') }}">{{ "fom.user.password.form.back_to_login"|trans}}</a>
       <button class="button right">{{ 'fom.user.password.form.require_password' | trans}}</button>
+      <a class="iconLinkButton linkButton" href="{{ path('fom_user_login_login') }}">{{ "fom.user.password.form.back_to_login"|trans}}</a>
       {{ form_end(form) }}
     <div class="clearContainer"></div>
   </div>
