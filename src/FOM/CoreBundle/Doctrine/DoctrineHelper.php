@@ -2,13 +2,13 @@
 namespace FOM\CoreBundle\Doctrine;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\DBAL\Connection;
-use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @author Andriy Oblivantsev <eslider@gmail.com>
+ * @deprecated remove in FOM v3.3; never update your schema in a live session. Always use app/console doctrine:schema:update.
  */
 class DoctrineHelper
 {
@@ -22,15 +22,13 @@ class DoctrineHelper
     public static function checkAndCreateTableByEntityName(ContainerInterface $container, $className, $force = false)
     {
         /** @var Registry $doctrine */
-        /** @var Connection $connection */
-        /** @var ClassMetadata $classMetadata */
         $doctrine      = $container->get('doctrine');
+        /** @var EntityManagerInterface $manager */
         $manager       = $doctrine->getManager();
         $schemaTool    = new SchemaTool($manager);
-        $connection    = $doctrine->getConnection();
-        $schemaManager = $connection->getSchemaManager();
+        $schemaManager = $manager->getConnection()->getSchemaManager();
         $classMetadata = $manager->getClassMetadata($className);
-        if ($force || !$schemaManager->tablesExist($classMetadata->getTableName())) {
+        if ($force || !$schemaManager->tablesExist(array($classMetadata->getTableName()))) {
             $schemaTool->updateSchema(array($classMetadata), true);
         }
     }
