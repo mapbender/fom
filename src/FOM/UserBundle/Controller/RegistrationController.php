@@ -232,7 +232,7 @@ class RegistrationController extends UserControllerBase
         if ($token) {
             /** @var User|null $user */
             $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
-                'resetToken' => $token,
+                'registrationToken' => $token,
             ));
             return $user;
         } else {
