@@ -28,7 +28,7 @@ class BasicProfile
     /**
      * No annotations here, the Doctrine metadata is added dynamically in the
      * loadClassMetadata event in
-     * FOM\UserBundle\EventListener\UserProfileListener
+     * @see \FOM\UserBundle\EventListener\UserProfileListener::loadClassMetadata()
      */
     protected $uid;
 

@@ -7,7 +7,6 @@ use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Id\AssignedGenerator;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Platforms\OraclePlatform;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Event listener for adding user profile on the fly
@@ -16,15 +15,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class UserProfileListener implements EventSubscriber
 {
-    /** @var ContainerInterface */
-    protected $container;
+    /** @var string */
+    protected $profileEntityName;
 
     /**
-     * @param ContainerInterface $container
+     * @param string $profileEntityName
      */
-    public function __construct($container)
+    public function __construct($profileEntityName)
     {
-        $this->container = $container;
+        $this->profileEntityName = $profileEntityName;
     }
 
     public function getSubscribedEvents()
@@ -39,12 +38,11 @@ class UserProfileListener implements EventSubscriber
         $metadata = $args->getClassMetadata();
         $user = 'FOM\UserBundle\Entity\User';
         $basicProfile = 'FOM\UserBundle\Entity\BasicProfile';
-        $profile = $this->container->getParameter('fom_user.profile_entity');
 
         if ($user == $metadata->getName()) {
             $metadata->mapOneToOne(array(
                 'fieldName' => 'profile',
-                'targetEntity' => $profile,
+                'targetEntity' => $this->profileEntityName,
                 'mappedBy' => 'uid',
                 'cascade' => array('persist'),
             ));
@@ -52,7 +50,7 @@ class UserProfileListener implements EventSubscriber
 
         // need to add metadata for the basic profile, else doctrine
         // will whine in many situations
-        if($profile == $metadata->getName() || $basicProfile == $metadata->getName()) {
+        if ($this->profileEntityName == $metadata->getName() || $basicProfile == $metadata->getName()) {
             $connection = $args->getEntityManager()->getConnection();
             $platform = $connection->getDatabasePlatform();
             $uidColname = $connection->quoteIdentifier('uid');
