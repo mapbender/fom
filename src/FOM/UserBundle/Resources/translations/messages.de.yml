@@ -1,5 +1,11 @@
 fom:
   user:
+    dialog:
+      title: Löschen bestätigen
+      user: Nutzer
+      group: Gruppe
+      confirm: Okay
+      cancel: Abbrechen
     registration:
       email_body_html: '<p>Hallo %user_username%,</p><p>Sie haben sich kürzlich registiert. Um die Registrierung abzuschließen, klicken Sie bitte <a href="%url%">hier</a>.</p>'
       done:

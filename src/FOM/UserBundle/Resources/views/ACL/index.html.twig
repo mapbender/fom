@@ -3,7 +3,7 @@
 {% block title %}{{ 'fom.user.acl.index.access_control_lists' | trans }}{% endblock %}
 
 {% block manager_content %}
-<table class="table userControlTable">
+<table class="table table-striped">
   <thead>
     <tr>
       <th>{{ "fom.user.acl.index.name" | trans }}</th>
@@ -15,11 +15,11 @@
     {% for class, name in classes|sort %}
       <tr id="app-{{ class|lower }}">
         <td>
-          <a class="labelText" href="{{ path('fom_user_acl_edit', {'class': class}) }}" title="{{ 'fom.user.acl.index.edit' | trans }}">{{ name }}</a>
+          <a  href="{{ path('fom_user_acl_edit', {'class': class}) }}" title="{{ 'fom.user.acl.index.edit' | trans }}">{{ name }}</a>
         </td>
-        <td class="description">{{ class }}</td>
-        <td class="iconColumn">
-          <a class="iconEdit iconSmall" href="{{ path('fom_user_acl_edit', {'class': class}) }}" title="{{ 'fom.user.acl.index.edit' | trans }}"></a>
+        <td >{{ class }}</td>
+        <td >
+          <a  href="{{ path('fom_user_acl_edit', {'class': class}) }}" title="{{ 'fom.user.acl.index.edit' | trans }}"><i class="fa  fa-pencil"></i></a>
         </td>
       </tr>
     {% endfor %}
