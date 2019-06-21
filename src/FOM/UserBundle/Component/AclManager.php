@@ -11,23 +11,13 @@ use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
 use Symfony\Component\Security\Acl\Exception\NotAllAclsFoundException;
 
 /**
- * ACL Manager service implementation
+ * ACL utility service; registered as 'fom.acl.manager'
  *
  * This manager is available as a service called 'fom.acl.manager' and is meant
  * to be used with a form and will delete/update/add ACEs.
  *
  * @author     Christian Wygoda
  * @author     Andriy Oblivantsev
- * @deprecated Use <\Mapbender\CoreBundle\Component\AclManager> instead.
- */
-/**
- * ACL Manager service implementation
- *
- * This manager is available as a service called 'mapbender.acl' and is meant
- * to be used with a form and will delete/update/add ACEs.
- *
- * @author Christian Wygoda
- * @author Andriy Oblivantsev
  */
 class AclManager
 {
@@ -50,7 +40,7 @@ class AclManager
      * @param object $entity Entity to update ACL for
      * @param object $form   ACLType form object
      * @param mixed $ignored
-     * @deprecated for misleading naming and form type interaction magic, use setObjectACEs
+     * @deprecated for misleading naming and form type interaction magic, use setObjectACEs; remove in FOM v3.3
      */
     public function setObjectACLFromForm($entity, $form, $ignored = null)
     {
@@ -62,7 +52,7 @@ class AclManager
      * @param object $entity Entity to update ACL for
      * @param array $aces   Array with ACEs (not Entry objects!)
      * @param mixed $ignored
-     * @deprecated for misleading naming, use setObjectACEs
+     * @deprecated for misleading naming, use setObjectACEs; remove in FOM v3.3
      */
     public function setObjectACL($entity, $aces, $ignored = null)
     {
@@ -103,7 +93,7 @@ class AclManager
      *
      * @param        $class
      * @param object $form ACLType form object
-     * @deprecated for misleading naming and form type interaction magic, use setClassACEs
+     * @deprecated for misleading naming and form type interaction magic, use setClassACEs; remove in FOM v3.3
      */
     public function setClassACLFromForm($class, $form)
     {

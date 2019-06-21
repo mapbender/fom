@@ -4,7 +4,6 @@ namespace FOM\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GroupType extends AbstractType
 {
@@ -17,20 +16,18 @@ class GroupType extends AbstractType
     {
         $builder
             ->add('title', 'text', array(
-                'label' => 'Name'))
-            ->add('description', 'textarea', array('required' => false))
+                'label' => 'Name',
+            ))
+            ->add('description', 'textarea', array(
+                'required' => false,
+                'label' => 'fom.user.user.container.description',
+            ))
             ->add('users', 'entity', array(
                 'class' =>  'FOMUserBundle:User',
                 'expanded' => true,
                 'multiple' => true,
                 'property' => 'username',
-                'label' => 'Users'));
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'available_roles' => array()
-        ));
+                'label' => 'Users',
+            ));
     }
 }

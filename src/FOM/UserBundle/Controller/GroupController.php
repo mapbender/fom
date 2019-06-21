@@ -2,10 +2,7 @@
 
 namespace FOM\UserBundle\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
-use FOM\UserBundle\Component\RolesService;
 use FOM\UserBundle\Entity\Group;
-use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\GroupType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -45,32 +42,12 @@ class GroupController extends UserControllerBase
         return $this->render('@FOMUser/Group/index.html.twig', array(
             'groups' => $allowed_groups,
             'create_permission' => $this->isGranted('CREATE', $oid),
+            'title' => $this->translate('fom.user.group.index.groups'),
         ));
     }
 
     /**
-     * @Route("/group/new", methods={"GET"})
-     * @return Response
-     */
-    public function newAction() {
-        $group = new Group();
-
-        // ACL access check
-        $oid = new ObjectIdentity('class', get_class($group));
-
-        $this->denyAccessUnlessGranted('CREATE', $oid);
-
-        $form = $this->createForm(new GroupType(), $group);
-
-        return $this->render('@FOMUser/Group/form.html.twig', array(
-            'group' => $group,
-            'form' => $form->createView(),
-            'edit' => false,
-        ));
-    }
-
-    /**
-     * @Route("/group", methods={"POST"})
+     * @Route("/group/new", methods={"GET", "POST"})
      *
      * There is one weirdness when storing groups: In Doctrine Many-to-Many
      * associations, updates are only written, when the owning side changes.
@@ -88,19 +65,16 @@ class GroupController extends UserControllerBase
 
         $this->denyAccessUnlessGranted('CREATE', $oid);
 
-        $available_roles = $this->getRolesService()->getAll();
-        $form = $this
-            ->createForm(new GroupType(), $group, array('available_roles' => $available_roles))
-            ->handleRequest($request);
+        $form = $this->createForm(new GroupType(), $group);
+        $form->handleRequest($request);
 
-        if($form->isValid() && $form->isSubmitted()) {
-            $em = $this->getDoctrine()->getManager();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getEntityManager();
             $em->persist($group);
 
             // See method documentation for Doctrine weirdness
             foreach($group->getUsers() as $user) {
-                /** @var User $user */
-                $user->addGroups($group);
+                $user->addGroup($group);
             }
 
             $em->flush();
@@ -118,98 +92,58 @@ class GroupController extends UserControllerBase
 
             $this->addFlash('success', 'The group has been saved.');
 
-            return $this->redirect(
-                $this->generateUrl('fom_user_group_index')
-            );
+            return $this->redirectToRoute('fom_user_group_index');
         }
 
         return $this->render('@FOMUser/Group/form.html.twig', array(
             'group' => $group,
-            'form' => $form->createView(),
             'edit' => false,
-        ));
-    }
-
-    /**
-     * @Route("/group/{id}/edit", methods={"GET"})
-     * @param string $id
-     * @return Response
-     */
-    public function editAction($id)
-    {
-        $group = $this->getDoctrine()->getRepository('FOMUserBundle:Group')
-            ->find($id);
-
-        if($group === null) {
-            throw new NotFoundHttpException('The group does not exist');
-        }
-
-        // ACL access check
-        $this->denyAccessUnlessGranted('EDIT', $group);
-
-        $form = $this->createForm(new GroupType(), $group);
-
-        return $this->render('@FOMUser/Group/form.html.twig', array(
-            'group' => $group,
             'form' => $form->createView(),
-            'edit' => true,
+            'title' => $this->translate('fom.user.group.form.new_group'),
         ));
     }
 
     /**
-     * @Route("/group/{id}/update", methods={"POST"})
-     *
-     * There is one weirdness when storing groups: In Doctrine Many-to-Many
-     * associations, updates are only written, when the owning side changes.
-     * For the User-Group association, the user is the owner part.
+     * @Route("/group/{id}/edit", methods={"GET", "POST"})
      * @param Request $request
      * @param string $id
      * @return Response
      */
-    public function updateAction(Request $request, $id)
+    public function editAction(Request $request, $id)
     {
         $em = $this->getEntityManager();
+        /** @var Group|null $group */
         $group = $em->getRepository('FOMUserBundle:Group')->find($id);
-        if($group === null) {
+        if (!$group) {
             throw new NotFoundHttpException('The group does not exist');
         }
-        /** @var Group $group */
-
         $this->denyAccessUnlessGranted('EDIT', $group);
 
-        // See method documentation for Doctrine weirdness
-        $old_users = clone $group->getUsers();
+        $form = $this->createForm(new GroupType(), $group);
 
-        $form = $this->createForm(new GroupType(), $group, array(
-            'available_roles' => $this->getRolesService()->getAll(),
-        ));
+        // see https://afilina.com/doctrine-not-saving-manytomany
+        foreach ($group->getUsers() as $previousUser) {
+            $previousUser->getGroups()->removeElement($group);
+            $em->persist($previousUser);
+        }
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-
-            // See method documentation for Doctrine weirdness
-            foreach($old_users as $user) {
-                /** @var User $user */
-                $user->getGroups()->removeElement($group);
+        if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($group->getUsers() as $currentUser) {
+                $em->persist($currentUser);
+                $currentUser->getGroups()->add($group);
             }
-
-            foreach($group->getUsers() as $user) {
-                $user->addGroups($group);
-            }
-
             $em->flush();
 
             $this->addFlash('success', 'The group has been updated.');
-
-            return $this->redirect(
-                $this->generateUrl('fom_user_group_index')
-            );
+            return $this->redirectToRoute('fom_user_group_index');
         }
 
         return $this->render('@FOMUser/Group/form.html.twig', array(
             'group' => $group,
-            'form' => $form->createView(),
             'edit' => true,
+            'form' => $form->createView(),
+            'title' => $this->translate('fom.user.group.form.edit_group'),
         ));
     }
 
@@ -231,7 +165,7 @@ class GroupController extends UserControllerBase
             // ACL access check
             $this->denyAccessUnlessGranted('DELETE', $group);
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getEntityManager();
             $em->remove($group);
 
             $oid = ObjectIdentity::fromDomainObject($group);
@@ -243,25 +177,5 @@ class GroupController extends UserControllerBase
             $this->addFlash('error', "The group couldn't be deleted.");
         }
         return new Response();
-    }
-
-    /**
-     * @return EntityManagerInterface
-     */
-    protected function getEntityManager()
-    {
-        /** @var EntityManagerInterface $em */
-        $em = $this->getDoctrine()->getManager();
-        return $em;
-    }
-
-    /**
-     * @return RolesService
-     */
-    protected function getRolesService()
-    {
-        /** @var RolesService $service */
-        $service = $this->get('fom_roles');
-        return $service;
     }
 }

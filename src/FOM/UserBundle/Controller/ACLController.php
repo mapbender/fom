@@ -7,15 +7,10 @@ use FOM\UserBundle\Component\IdentitiesProviderInterface;
 use Mapbender\ManagerBundle\Component\ManagerBundle;
 use FOM\ManagerBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 
-/**
- * Class ACLController
- * @package FOM\UserBundle\Controller
- */
 class ACLController extends Controller
 {
     /**
@@ -30,7 +25,7 @@ class ACLController extends Controller
     }
 
     /**
-     * @Route("/acl/edit", methods={"GET"})
+     * @Route("/acl/edit", methods={"GET", "POST"})
      * @param Request $request
      * @return Response
      */
@@ -41,7 +36,7 @@ class ACLController extends Controller
 
         $this->denyAccessUnlessGranted('EDIT', $oid);
 
-        $class = $request->get('class');
+        $class = $request->query->get('class');
         $acl_classes = $this->getACLClasses();
         if(!array_key_exists($class, $acl_classes)) {
             throw $this->createNotFoundException('No manageable class given.');
@@ -49,50 +44,22 @@ class ACLController extends Controller
 
         $form = $this->getClassACLForm($class);
 
-        return $this->render('@FOMUser/ACL/edit.html.twig', array(
-            'class' => $class,
-            'class_name' => $acl_classes[$class],
-            'form' => $form->createView(),
-            'form_name' => $form->getName(),
-        ));
-    }
+        $form->handleRequest($request);
 
-    /**
-     * @Route("/acl/edit", methods={"POST"})
-     * @param Request $request
-     * @return Response
-     */
-    public function updateAction(Request $request)
-    {
-        // ACL access check
-        $oid = new ObjectIdentity('class', 'Symfony\Component\Security\Acl\Domain\Acl');
-
-        $this->denyAccessUnlessGranted('EDIT', $oid);
-
-        $class = $request->get('class');
-        $acl_classes = $this->getACLClasses();
-        if(!array_key_exists($class, $acl_classes)) {
-            throw $this->createNotFoundException('No manageable class given.');
-        }
-
-        $form = $this->getClassACLForm($class);
-        $form->submit($request);
-
-        if($form->isValid() && $form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             /** @var AclManager $aclManager */
             $aclManager = $this->get('fom.acl.manager');
             $aclManager->setClassACEs($class, $form->get('ace')->getData());
 
-            return $this->redirect($this->generateUrl('fom_user_acl_index'));
+            return $this->redirectToRoute('fom_user_acl_index');
+        } elseif ($form->isSubmitted()) {
+            $this->addFlash('error', 'Your form has errors, please review them below.');
         }
-
-        $this->addFlash('error', 'Your form has errors, please review them below.');
 
         return $this->render('@FOMUser/ACL/edit.html.twig', array(
             'class' => $class,
             'class_name' => $acl_classes[$class],
             'form' => $form->createView(),
-            'form_name' => $form->getName(),
         ));
     }
 

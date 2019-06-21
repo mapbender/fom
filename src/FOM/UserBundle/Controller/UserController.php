@@ -25,8 +25,8 @@ class UserController extends UserControllerBase
      */
     public function indexAction()
     {
+        $users = $this->getEntityManager()->getRepository('FOMUserBundle:User')->findAll();
         $allowed_users = array();
-        $users = $this->getDoctrine()->getManager()->createQuery('SELECT r FROM FOMUserBundle:User r')->getResult();
 
         // ACL access check
         foreach ($users as $index => $user) {
@@ -40,6 +40,7 @@ class UserController extends UserControllerBase
         return $this->render('@FOMUser/User/index.html.twig', array(
             'users'             => $allowed_users,
             'create_permission' => $this->isGranted('CREATE', $oid),
+            'title' => $this->translate('fom.user.user.index.title'),
         ));
     }
 
@@ -64,7 +65,8 @@ class UserController extends UserControllerBase
         $form = $this->createForm(new UserType(), $user, array(
             'profile_formtype' => $this->getProfileFormType(),
             'group_permission' => $groupPermission,
-            'acl_permission'   => $this->isGranted('OWNER', $oid),
+            'acl_permission'   => $this->isGranted('OWNER', $user),
+            'currentUser' => $this->getUser(),
         ));
 
         $form->handleRequest($request);
@@ -77,28 +79,17 @@ class UserController extends UserControllerBase
 
             $user->setRegistrationTime(new \DateTime());
 
-            $em = $this->getDoctrine()->getManager();
-            $em->getConnection()->beginTransaction();
+            $em = $this->getEntityManager();
+            $em->beginTransaction();
 
             try {
-                $em->getConnection()->beginTransaction();
-
+                // Nuke profile to generate user id, then set profile again :\
+                // @todo: invert bad relation direction user => profile (currently the profile owns the user)
                 $profile = $user->getProfile();
                 $user->setProfile(null);
                 $em->persist($user);
-
-                // SQLite needs a flush here
                 $em->flush();
-
-                // Check and persists profile if exists
-                if ($profile) {
-                    $profile->setUid($user);
-                    $em->persist($profile);
-                }
-
-                $em->flush();
-
-                $em->getConnection()->commit();
+                $user->setProfile($profile);
 
                 if ($form->has('acl')) {
                     $aces = $form->get('acl')->get('ace')->getData();
@@ -110,91 +101,40 @@ class UserController extends UserControllerBase
                 // Make sure, the new user has VIEW & EDIT permissions
                 $helperService->giveOwnRights($user);
 
-                $em->getConnection()->commit();
+                $em->commit();
             } catch (\Exception $e) {
-                $em->getConnection()->rollback();
+                $em->rollback();
                 throw $e;
             }
             $this->addFlash('success', 'The user has been saved.');
 
-            return $this->redirect($this->generateUrl('fom_user_user_index'));
+            return $this->redirectToRoute('fom_user_user_index');
         }
         return $this->render('@FOMUser/User/form.html.twig', array(
             'user'             => $user,
             'form'             => $form->createView(),
-            'form_name'        => $form->getName(),
             'edit'             => false,
             'profile_template' => $this->getProfileTemplate(),
             'profile_assets'   => $this->getProfileAssets(),
+            'title' => $this->translate('fom.user.user.form.new_user'),
         ));
     }
 
     /**
-     * @ManagerRoute("/user/{id}/edit", methods={"GET"})
-     * @param string $id
-     * @return Response
-     */
-    public function editAction($id)
-    {
-        $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->find($id);
-        if ($user === null) {
-            throw new NotFoundHttpException('The user does not exist');
-        }
-        /** @var User $user */
-        $this->denyAccessUnlessGranted('EDIT', $user);
-
-        $groupPermission =
-            $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
-            || $this->isGranted('OWNER', $user);
-
-        $form    = $this->createForm(new UserType(), $user, array(
-            'requirePassword'  => false,
-            'profile_formtype' => $this->getProfileFormType(),
-            'group_permission' => $groupPermission,
-            'acl_permission'   => $this->isGranted('OWNER', $user),
-            'currentUser' => $this->getUser(),
-        ));
-
-        return $this->render('@FOMUser/User/form.html.twig', array(
-            'user'             => $user,
-            'form'             => $form->createView(),
-            'form_name'        => $form->getName(),
-            'edit'             => true,
-            'profile_template' => $this->getProfileTemplate(),
-            'profile_assets'   => $this->getProfileAssets(),
-        ));
-    }
-
-    /**
-     * @ManagerRoute("/user/{id}/update", methods={"POST"})
+     * @ManagerRoute("/user/{id}/edit", methods={"GET", "POST"})
      * @param Request $request
      * @param string $id
      * @return Response
      */
-    public function updateAction(Request $request, $id)
+    public function editAction(Request $request, $id)
     {
+        /** @var User|null $user */
         $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->find($id);
         if ($user === null) {
             throw new NotFoundHttpException('The user does not exist');
         }
-        /** @var User $user */
 
-        // ACL access check
         $this->denyAccessUnlessGranted('EDIT', $user);
-
-        // If no password is given, we'll recycle the old one
-        $userData     = $request->get('user');
-        $keepPassword = false;
-        if ($userData['password']['first'] === '' && $userData['password']['second'] === '') {
-            $userData['password'] = array(
-                'first'  => $user->getPassword(),
-                'second' => $user->getPassword());
-
-            $keepPassword = true;
-        }
-        if (!array_key_exists('username', $userData)) {
-            $userData['username'] = $user->getUsername();
-        }
 
         $groupPermission =
             $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
@@ -208,18 +148,19 @@ class UserController extends UserControllerBase
             'currentUser' => $this->getUser(),
         ));
 
-        $form->submit($userData);
+        $form->handleRequest($request);
 
-        if ($form->isValid() && $form->isSubmitted()) {
-            if (!$keepPassword) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            // extract submitted password (not mapped)
+            $password = $form->get('password')->get('first')->getViewData();
+            if ($password) {
                 // Set encrypted password and create new salt
-                // The unencrypted password is already set on the user!
                 /** @var UserHelperService $helperService */
                 $helperService = $this->get('fom.user_helper.service');
-                $helperService->setPassword($user, $user->getPassword());
+                $helperService->setPassword($user, $password);
             }
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getEntityManager();
 
             // This is the same check as abote in createForm for acl_permission
             if ($this->isGranted('OWNER', $user)) {
@@ -231,17 +172,17 @@ class UserController extends UserControllerBase
             $em->flush();
             $this->addFlash('success', 'The user has been updated.');
 
-            return $this->redirect($this->generateUrl('fom_user_user_index'));
+            return $this->redirectToRoute('fom_user_user_index');
 
         }
 
         return $this->render('@FOMUser/User/form.html.twig', array(
             'user'             => $user,
             'form'             => $form->createView(),
-            'form_name'        => $form->getName(),
             'edit'             => true,
             'profile_template' => $this->getProfileTemplate(),
             'profile_assets'   => $this->getProfileAssets(),
+            'title' => $this->translate('fom.user.user.form.edit_user'),
         ));
     }
 
@@ -270,8 +211,8 @@ class UserController extends UserControllerBase
         $oid         = ObjectIdentity::fromDomainObject($user);
         $aclProvider->deleteAcl($oid);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->getConnection()->beginTransaction();
+        $em = $this->getEntityManager();
+        $em->beginTransaction();
 
         try {
             $oid         = ObjectIdentity::fromDomainObject($user);
@@ -282,10 +223,10 @@ class UserController extends UserControllerBase
                 $em->remove($user->getProfile());
             }
             $em->flush();
-            $em->getConnection()->commit();
+            $em->commit();
             $this->addFlash('success', 'The user has been deleted.');
         } catch (\Exception $e) {
-            $em->getConnection()->rollback();
+            $em->rollback();
             $this->addFlash('error', "The user couldn't be deleted.");
         }
 

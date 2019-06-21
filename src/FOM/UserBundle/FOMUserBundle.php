@@ -42,7 +42,7 @@ class FOMUserBundle extends ManagerBundle
                 MenuItem::create('fom.user.userbundle.groups', 'fom_user_group_index')
                     ->requireEntityGrant('FOM\UserBundle\Entity\Group', 'CREATE')
                     ->addChildren(array(
-                        MenuItem::create('fom.user.userbundle.new_group', 'fom_user_group_new')
+                        MenuItem::create('fom.user.userbundle.new_group', 'fom_user_group_create')
                             ->requireEntityGrant('FOM\UserBundle\Entity\Group', 'CREATE'),
                     )),
                 MenuItem::create('fom.user.userbundle.acls', 'fom_user_acl_index')
@@ -92,7 +92,7 @@ class FOMUserBundle extends ManagerBundle
                         'subroutes' => array(
                             array(
                                 'title' => "fom.user.userbundle.new_group",
-                                'route'=>'fom_user_group_new',
+                                'route'=>'fom_user_group_create',
                                 'enabled' => function($securityContext) {
                                     /** @var AuthorizationCheckerInterface $securityContext */
                                     $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
@@ -112,15 +112,6 @@ class FOMUserBundle extends ManagerBundle
                     ),
                 ),
             ),
-        );
-    }
-
-    public function getRoles()
-    {
-        $trans = $this->container->get('translator');
-        return array(
-            'ROLE_SUPER_ADMIN' => $trans->trans("fom.user.userbundle.roles.super_admin"),
-            'ROLE_USER_ADMIN' => $trans->trans("fom.user.userbundle.roles.user_admin"),
         );
     }
 

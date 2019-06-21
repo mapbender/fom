@@ -291,14 +291,15 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * Add groups
+     * Add to group
      *
      * @param Group $group
-     * @return $this
+     * @return User
      */
-    public function addGroups(Group $group)
+    public function addGroup(Group $group)
     {
         $this->groups[] = $group;
+
         return $this;
     }
 
@@ -398,11 +399,14 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @param $profile
+     * @param BasicProfile|null $profile
      * @return $this
      */
     public function setProfile($profile)
     {
+        if ($profile && \method_exists($profile, 'setUid')) {
+            $profile->setUid($this);
+        }
         $this->profile = $profile;
         return $this;
     }
@@ -416,19 +420,6 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * Add groups
-     *
-     * @param Group $groups
-     * @return User
-     */
-    public function addGroup(Group $groups)
-    {
-        $this->groups[] = $groups;
-
-        return $this;
-    }
-
-    /**
      * Remove groups
      *
      * @param Group $groups
@@ -436,14 +427,6 @@ class User implements AdvancedUserInterface
     public function removeGroup(Group $groups)
     {
         $this->groups->removeElement($groups);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isAnonymous()
-    {
-        return $this->getUsername() == "anon." && !$this->getId();
     }
 
     /**

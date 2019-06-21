@@ -15,20 +15,19 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
  * Password reset controller.
  *
  * Workflow is as follows:
- *   1) GET fom_user_password_form /password/forgot form.html.twig
+ *   1) GET fom_user_password_form
  *      Form with username / email field for lookup
- *   2) POST fom_user_password_request /password/forgot form.html.twig
+ *   2) POST fom_user_password_form
  *      Lookup user, set form error if not found or not activated
  *      Set reset token
  *      Send email
  *      Forward to send page
  *   3) GET fom_user_password_send /password/send send.html.twig
  *      Show instructions
- *   4) GET fom_user_password_resetform /password/reset/{token} resetform.html.twig, resetform-error-*.html.twig
+ *   4) GET fom_user_password_reset /user/reset?token=...
  *      Lookup token, show error if not found or expired
  *      Show form with password field
- *   5) POST fom_user_password_reset /password/reset/{token} reset-error-*.html.twig
- *      Lookup token, show error if not found or expired
+ *   5) POST fom_user_password_password /user/reset?token=...
  *      Set new password
  *      Remove reset token
  *      Forward to confirm page
@@ -69,59 +68,45 @@ class PasswordController extends UserControllerBase
     }
 
     /**
-     * Password reset step 1: Request reset token
+     * Password reset steps 1 / 2: Request reset token
      *
-     * @Route("/user/password", methods={"GET"})
+     * @Route("/user/password", methods={"GET", "POST"})
+     * @param Request $request
+     * @return Response
+     *
      */
-    public function formAction()
+    public function formAction(Request $request)
     {
         $form = $this->createForm(new UserForgotPassType());
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $searchValue = $form->get('search')->getData();
+            $userRepository = $this->getDoctrine()->getRepository('FOMUserBundle:User');
+            /** @var User|null $user */
+            $user = $userRepository->findOneBy(array(
+                'username' => $searchValue,
+            ));
+            if (!$user) {
+                $user = $userRepository->findOneBy(array(
+                    'email' => $searchValue,
+                ));
+            }
+            if (!$user || $user->getRegistrationToken()) {
+                if ($user) {
+                    $message = $this->renderView('FOMUserBundle:Password:request-error-userinactive.html.twig');
+                } else {
+                    $message = $this->renderView('FOMUserBundle:Password:request-error-nosuchuser.html.twig');
+                }
+                $form->addError(new FormError($message));
+            } else {
+                $this->setResetToken($user);
+                return $this->redirectToRoute('fom_user_password_send');
+            }
+        }
+
         return $this->render('@FOMUser/Password/form.html.twig', array(
             'form' => $form->createView(),
         ));
-    }
-
-    /**
-     * Password reset step 2: Create reset token and send email
-     *
-     * @Route("/user/password", methods={"POST"})
-     * @param Request $request
-     * @return Response
-     */
-    public function requestAction(Request $request)
-    {
-        $form = $this
-            ->createForm(new UserForgotPassType())
-            ->handleRequest($request)
-        ;
-
-        $obj = $form->getData();
-        $userRepository = $this->getDoctrine()->getRepository('FOMUserBundle:User');
-        /** @var User|null $user */
-        $user = $userRepository->findOneBy(array(
-            'username' => $obj['search'],
-        ));
-        if (!$user) {
-            $user = $userRepository->findOneBy(array(
-                'email' => $obj['search'],
-            ));
-        }
-
-        if (!$user || $user->getRegistrationToken()) {
-            if ($user) {
-                $message = $this->renderView('FOMUserBundle:Password:request-error-userinactive.html.twig');
-            } else {
-                $message = $this->renderView('FOMUserBundle:Password:request-error-nosuchuser.html.twig');
-            }
-            $form->addError(new FormError($message));
-            return $this->render('@FOMUser/Password/form.html.twig', array(
-                'form' => $form->createView(),
-            ));
-        }
-
-        $this->setResetToken($user);
-
-        return $this->redirectToRoute('fom_user_password_send');
     }
 
     /**
@@ -171,6 +156,19 @@ class PasswordController extends UserControllerBase
         }
 
         $form = $this->createForm(new UserResetPassType(), $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getEntityManager();
+            $user->setResetToken(null);
+            $helperService = $this->getUserHelper();
+            $helperService->setPassword($user, $user->getPassword());
+
+            $em->flush();
+
+            return $this->redirectToRoute('fom_user_password_done');
+        }
+
         return $this->render('@FOMUser/Password/reset.html.twig', array(
             'user' => $user,
             'form' => $form->createView(),
@@ -186,39 +184,7 @@ class PasswordController extends UserControllerBase
      */
     public function passwordAction(Request $request)
     {
-        $user = $this->getUserFromResetToken($request);
-        if (!$user) {
-            return $this->render('@FOMUser/Login/error-notoken.html.twig', array(
-                'site_email' => $this->getEmailFromAdress(),
-            ));
-        }
-
-        $max_token_age = $this->container->getParameter("fom_user.max_reset_time");
-        if (!$this->checkTimeInterval($user->getResetTime(), $max_token_age)) {
-            $form = $this->createForm('form');
-            return $this->render('@FOMUser/Login/error-tokenexpired.html.twig', array(
-                'user' => $user,
-                'form' => $form->createView(),
-            ));
-        }
-
-        $form = $this->createForm(new UserResetPassType(), $user)->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $user->setResetToken(null);
-            $helperService = $this->getUserHelper();
-            $helperService->setPassword($user, $user->getPassword());
-
-            $em->flush();
-
-            return $this->redirectToRoute('fom_user_password_done');
-        }
-
-        return $this->render('@FOMUser/Password/reset.html.twig', array(
-            'user' => $user,
-            'form' => $form->createView(),
-        ));
+        return $this->resetAction($request);
     }
 
     /**
@@ -245,6 +211,7 @@ class PasswordController extends UserControllerBase
         $fromName = $this->getEmailFromAdress();
         $fromEmail = $this->getEmailFromAdress();
         $mailFrom = array($fromEmail => $fromName);
+        /** @var \Swift_Mailer $mailer */
         $mailer = $this->get('mailer');
 
         $text = $this->renderView('@FOMUser/Password/email-body.text.twig', array("user" => $user));
@@ -257,7 +224,7 @@ class PasswordController extends UserControllerBase
             ->addPart($html, 'text/html');
         $mailer->send($message);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEntityManager();
         $em->flush();
     }
 

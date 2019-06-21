@@ -5,9 +5,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class UserLogEntry
- *
- * @package FOM\UserBundle\Entity
  * @author  Andriy Oblivantsev <eslider@gmail.com>
  * @ORM\Entity
  * @ORM\Table(

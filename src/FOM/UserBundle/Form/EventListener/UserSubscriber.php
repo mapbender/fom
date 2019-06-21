@@ -3,7 +3,6 @@
 namespace FOM\UserBundle\Form\EventListener;
 
 use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
 use FOM\UserBundle\Entity\User;
@@ -15,24 +14,16 @@ class UserSubscriber implements EventSubscriberInterface
 {
 
     /**
-     * A FormFactoryInterface 's Factory
      *
-     * @var \Symfony\Component\Form\FormFactoryInterface
-     */
-    private $factory;
-
-    /**
-     *
-     * @var FOM\UserBundle\Entity\User
+     * @var User
      */
     private $currentUser;
 
     /**
      * @inheritdoc
      */
-    public function __construct(FormFactoryInterface $factory, User $currentUser = null)
+    public function __construct(User $currentUser = null)
     {
-        $this->factory = $factory;
         $this->currentUser = $currentUser;
     }
 
@@ -49,8 +40,6 @@ class UserSubscriber implements EventSubscriberInterface
 
 
     /**
-     * Checkt form fields by SUBMIT FormEvent
-     *
      * @param FormEvent $event
      */
     public function submit(FormEvent $event)
@@ -70,8 +59,6 @@ class UserSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Checkt form fields by PRE_SET_DATA FormEvent
-     *
      * @param FormEvent $event
      */
     public function preSetData(FormEvent $event)
@@ -80,13 +67,14 @@ class UserSubscriber implements EventSubscriberInterface
         if (null === $user) {
             return;
         }
-        if($this->currentUser !== null && $this->currentUser !== $user) {
-            $event->getForm()->add($this->factory->createNamed('activated', 'checkbox', null, array(
+        if ($user->getId() && $this->currentUser !== null && $this->currentUser !== $user) {
+            $event->getForm()->add('activated', 'checkbox', array(
                 'data' => $user->getRegistrationToken() ? false : true,
                 'auto_initialize' => false,
-                'label' => 'Activated',
+                'label' => 'fom.user.user.container.activated',
                 'required' => false,
-                'mapped' => false)));
+                'mapped' => false,
+            ));
         }
     }
 }

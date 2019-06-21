@@ -1,32 +1,12 @@
 {% extends "MapbenderManagerBundle::manager.html.twig" %}
 
-{% block title %}
-  {% if edit %}
-    {{ "fom.user.group.form.edit_group" | trans}}
-  {% else %}
-    {{ "fom.user.group.form.new_group" | trans}}
-  {% endif %}
-{% endblock %}
-
-{% block css %}
-  {{parent()}}
-{% endblock %}
-
 {% block js %}
   {{parent()}}
   <script type="application/javascript" src="{{ asset('bundles/mapbendermanager/js/user-control.js') }}"></script>
 {% endblock %}
 
 {% block manager_content %}
-    {% if edit %}
-        {{ form_start(form, { 'action': path('fom_user_group_update', { 'id': group.id }), 'method': 'POST', 'attr': {
-            novalidate: 'novalidate', autocomplete: 'off'
-        }}) }}
-    {% else %}
-        {{ form_start(form, { 'action': path('fom_user_group_create'), 'method': 'POST', 'attr': {
-            novalidate: 'novalidate', autocomplete: 'off'
-        }}) }}
-    {% endif %}
+    {{ form_start(form, {'attr': { novalidate: 'novalidate', autocomplete: 'off'}}) }}
 
     {% if form_errors(form) %}
         <div>{{ form_errors(form) }}</div>

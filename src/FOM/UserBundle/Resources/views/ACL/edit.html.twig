@@ -4,9 +4,7 @@
 
 {% block manager_content %}
 
-{{ form_start(form, { 'action': path('fom_user_acl_update', { 'class': class }), 'method': 'POST', 'attr': {
-    novalidate: 'novalidate', autocomplete: 'off', name: form_name
-}}) }}
+{{ form_start(form, { 'attr': {novalidate: 'novalidate', autocomplete: 'off'}}) }}
     <div id="aclTabContainer" class="tabContainer aclTabContainer">
         <ul class="tabs">
             <li id="tabSecurity" class="tab active">{{"fom.user.acl.edit.security" | trans }}</li>

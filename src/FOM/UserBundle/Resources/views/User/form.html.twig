@@ -1,20 +1,7 @@
 {% extends "MapbenderManagerBundle::manager.html.twig" %}
 
-{% block title %}
-  {% if edit %}
-    {{ "fom.user.user.form.edit_user" | trans}}
-  {% else %}
-    {{ "fom.user.user.form.new_user" | trans}}
-  {% endif %}
-{% endblock %}
-
-{% block css %}
-  {{parent()}}
-{% endblock %}
-
 {% block js %}
   {{parent()}}
-  <script type="application/javascript" src="{{ asset('bundles/fommanager/js/form.js') }}"></script>
   <script type="application/javascript" src="{{ asset('bundles/mapbendermanager/js/user-control.js') }}"></script>
   {% for url in profile_assets.js %}
     <script type="application/javascript" src="{{ asset(url) }}"></script>
@@ -22,15 +9,7 @@
 {% endblock %}
 
 {% block manager_content %}
-    {% if edit %}
-        {{ form_start(form, { 'action': path('fom_user_user_update', { 'id': user.id }), 'method': 'POST', 'attr': {
-            novalidate: 'novalidate', autocomplete: 'off', name: form_name
-        }}) }}
-    {% else %}
-        {{ form_start(form, { 'action': path('fom_user_user_create'), 'method': 'POST', 'attr': {
-          novalidate: 'novalidate', autocomplete: 'off', name: form_name
-        }}) }}
-    {% endif %}
+    {{ form_start(form, {'attr': {novalidate: 'novalidate', autocomplete: 'off'}}) }}
 
     {% include 'FOMUserBundle:User:container.html.twig' %}
 

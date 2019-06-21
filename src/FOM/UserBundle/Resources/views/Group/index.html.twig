@@ -1,11 +1,5 @@
 {% extends "MapbenderManagerBundle::manager.html.twig" %}
 
-{% block title %}{{ "fom.user.group.index.groups" | trans }}{% endblock %}
-
-{% block css %}
-  {{parent()}}
-{% endblock %}
-
 {% block js %}
   {{parent()}}
   <script type="application/javascript" src="{{ asset('bundles/mapbendermanager/js/user-control.js') }}"></script>
@@ -14,7 +8,7 @@
 {% block manager_content %}
 
 {% if create_permission %}
-<a class="iconAdd iconBig right" href="{{path('fom_user_group_new')}}" title="{{"fom.user.group.index.add_new_group"|trans}}"></a>
+<a class="iconAdd iconBig right" href="{{path('fom_user_group_create')}}" title="{{"fom.user.group.index.add_new_group"|trans}}"></a>
 {% endif %}
 
 {% if groups|length > 0 %}
@@ -27,12 +21,12 @@
       <tr class="doNotFilter">
         <th>{{ "fom.user.group.index.title" | trans }}</th>
         <th>{{ "fom.user.group.index.description" | trans }}</th>
-        <th class="iconColumn"></th>
+        <th></th>
       </tr>
     </thead>
     <tbody id="groupsBody">
       {% for group in groups %}
-      <tr id="app-{{ group.id }}" class="filterItem">
+      <tr class="filterItem">
         <td>
           <a class="labelText" href="{{ path('fom_user_group_edit', {'id': group.id}) }}" title="{{ 'fom.user.group.index.edit_group' | trans }} {{ group.title }}">{{ group.title }}</a>
         </td>

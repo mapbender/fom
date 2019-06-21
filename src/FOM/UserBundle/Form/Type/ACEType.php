@@ -10,10 +10,6 @@ use FOM\ManagerBundle\Form\Type\TagboxType;
 
 use FOM\UserBundle\Form\DataTransformer\ACEDataTransformer;
 
-/**
- * Class ACEType
- *
- */
 class ACEType extends AbstractType
 {
     /** @var AclProviderInterface  */

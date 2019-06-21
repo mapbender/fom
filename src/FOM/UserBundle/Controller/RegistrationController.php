@@ -62,7 +62,6 @@ class RegistrationController extends UserControllerBase
         return $this->render('@FOMUser/Registration/form.html.twig', array(
             'user' => $user,
             'form' => $form->createView(),
-            'form_name' => $form->getName(),
         ));
     }
 
@@ -92,12 +91,12 @@ class RegistrationController extends UserControllerBase
 
             $groupRepository = $this->getDoctrine()->getRepository('FOMUserBundle:Group');
             foreach($this->container->getParameter('fom_user.self_registration_groups') as $groupTitle) {
+                /** @var Group|null $group */
                 $group = $groupRepository->findOneBy(array(
                     'title' => $groupTitle,
                 ));
-                if($group) {
-                    /** @var Group $group */
-                    $user->addGroups($group);
+                if ($group) {
+                    $user->addGroup($group);
                 } else {
                     $msg = sprintf('Self-registration group "%s" not found for user "%s"',
                         $groupTitle,
@@ -111,7 +110,7 @@ class RegistrationController extends UserControllerBase
 
             $this->sendEmail($user);
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getEntityManager();
             $em->persist($user);
             $em->flush();
 
@@ -123,7 +122,6 @@ class RegistrationController extends UserControllerBase
         return $this->render('@FOMUser/Registration/form.html.twig', array(
             'user' => $user,
             'form' => $form->createView(),
-            'form_name' => $form->getName(),
         ));
     }
 
@@ -155,12 +153,12 @@ class RegistrationController extends UserControllerBase
         }
 
         // Unset token
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEntityManager();
         $user->setRegistrationToken(null);
         $em->flush();
 
         // Forward to final page
-        return $this->redirect($this->generateUrl('fom_user_registration_done'));
+        return $this->redirectToRoute('fom_user_registration_done');
     }
 
     /**
@@ -184,11 +182,11 @@ class RegistrationController extends UserControllerBase
 
         $this->sendEmail($user);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getEntityManager();
         $em->persist($user);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('fom_user_registration_send'));
+        return $this->redirectToRoute('fom_user_registration_send');
     }
 
     /**
@@ -234,7 +232,7 @@ class RegistrationController extends UserControllerBase
         if ($token) {
             /** @var User|null $user */
             $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
-                'resetToken' => $token,
+                'registrationToken' => $token,
             ));
             return $user;
         } else {
