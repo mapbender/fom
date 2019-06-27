@@ -1,6 +1,12 @@
+## dev-release/3.1 @ eb43412
+- Fix registration process token lookup
+- Use translated labels for password reset form fields
+- ACLType: support standard_anon_access=true option even with create_standard_permissions=false
+- ACLType: support new `aces` option to pass in desired ACE data explicitly
+- Remove some identically copy&pasted css block overrides for easier twig customization
+
 ## v3.1.4
 - Remove dangling nonfunctional collection item add icon under ACL widgets with empty ACE content
-
 
 ## v3.1.3
 - Fix regression saving class ACEs
