@@ -5,32 +5,11 @@
 {% block box_content %}
   <div class="loginBox register">
     <h2 class="contentTitle">{{ 'fom.user.registration.form.caption' | trans}}</h2>
-      {{ form_start(form, { 'action': path('fom_user_registration_register'), 'method': 'POST', 'attr': {
-          novalidate: 'novalidate', autocomplete: 'off'
-      }}) }}
-        <label class="left labelInput" for="{{ form.username.vars['id'] }}">{{"fom.user.registration.form.username" | trans}}:<span class="required">*</span></label>
-        {{ form_widget(form.username) }}
-        <div class="clearContainer"></div>
-
-        {% for pw in form.password %}
-          {% if pw.vars['name'] == 'first' %}
-            <label class="left labelInput" for="{{ pw.vars['id'] }}">{{"fom.user.registration.form.choose_password" | trans}}:<span class="required">*</span></label>
-          {% else %}
-            <label class="left labelInput" for="{{ pw.vars['id'] }}">{{"fom.user.registration.form.confirm_password" | trans}}:<span class="required">*</span></label>
-          {% endif %}
-
-          {{ form_widget(pw) }}
-        {% endfor %}
-
-        <label class="left labelInput" for="{{ form.email.vars['id'] }}">{{"fom.user.registration.form.email" | trans}}:<span class="required">*</span></label>
-        {{ form_widget(form.email) }}
-        <div class="clearContainer"></div>
-
-        {{ form_row(form._token) }}
-
-        <a class="left linkButton iconLinkButton" href="{{ path('fom_user_login_login') }}">{{ "fom.user.registration.form.back_to_login"|trans}}</a>
+      {{ form_start(form, {'attr': {novalidate: 'novalidate', autocomplete: 'off'}}) }}
+      {{ form_widget(form) }}
         <button class="right button">{{ 'fom.user.registration.form.register' | trans }}</button>
+        <a class="linkButton iconLinkButton" href="{{ path('fom_user_login_login') }}">{{ "fom.user.registration.form.back_to_login"|trans}}</a>
+        <div class="clearContainer"></div>
     {{ form_end(form) }}
-    <div class="clearContainer"></div>
   </div>
 {% endblock %}

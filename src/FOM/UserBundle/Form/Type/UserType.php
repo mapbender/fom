@@ -59,13 +59,15 @@ class UserType extends AbstractType
                     'label' => 'Groups'));
         }
 
-        if (true === $options['acl_permission']) {
+        if ($options['acl_permission']) {
             $builder
                 ->add('acl', 'acl', array(
                     'mapped' => false,
                     'data' => $options['data'],
                     'permissions' => 'standard::object',
-                    'standard_anon_access' => false));
+                    'standard_anon_access' => false,
+                ))
+            ;
         }
 
         if ($options['profile_formtype']) {

@@ -29,38 +29,39 @@ class ACEDataTransformer implements DataTransformerInterface
 
         $permissions = array();
 
-        if($ace instanceof Entry) {
+        if ($ace instanceof Entry) {
             $sid = $ace->getSecurityIdentity();
             $mask = $ace->getMask();
-        } elseif(is_array($ace)) {
+        } elseif (is_array($ace)) {
             $sid = $ace['sid'];
             $mask = $ace['mask'];
         }
 
         $sidString = '';
-        if($sid instanceof RoleSecurityIdentity) {
+        if ($sid instanceof RoleSecurityIdentity) {
             $sidPrefix = 'r';
             $sidName = $sid->getRole();
             $sidString = sprintf('%s:%s', $sidPrefix, $sidName);
-        } elseif($sid instanceof UserSecurityIdentity) {
+        } elseif ($sid instanceof UserSecurityIdentity) {
             $sidPrefix = 'u';
             $sidName = $sid->getUsername();
             $sidClass = $sid->getClass();
             $sidString = sprintf('%s:%s:%s', $sidPrefix, $sidName, $sidClass);
         }
 
-        for($i = 1; $i <= 30; $i++) {
-                $key = 1 << ($i-1);
-                if($mask & $key) {
-                    $permissions[$i] = true;
-                } else {
-                    $permissions[$i] = false;
-                }
+        for ($i = 1; $i <= 30; $i++) {
+            $key = 1 << ($i-1);
+            if($mask & $key) {
+                $permissions[$i] = true;
+            } else {
+                $permissions[$i] = false;
+            }
         }
 
         return array(
             'sid' => $sidString,
-            'permissions' => $permissions);
+            'permissions' => $permissions,
+        );
     }
 
     /**
@@ -100,7 +101,8 @@ class ACEDataTransformer implements DataTransformerInterface
 
         return array(
             'sid' => $sid,
-            'mask' => $maskBuilder->get());
+            'mask' => $maskBuilder->get(),
+        );
     }
     public function isLdapUser($username)
     {
