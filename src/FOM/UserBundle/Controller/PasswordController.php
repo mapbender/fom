@@ -148,11 +148,7 @@ class PasswordController extends UserControllerBase
 
         $max_token_age = $this->container->getParameter("fom_user.max_reset_time");
         if (!$this->checkTimeInterval($user->getResetTime(), $max_token_age)) {
-            $form = $this->createForm('form');
-            return $this->render('@FOMUser/Login/error-tokenexpired.html.twig', array(
-                'user' => $user,
-                'form' => $form->createView()
-            ));
+            return $this->tokenExpired($user);
         }
 
         $form = $this->createForm(new UserResetPassType(), $user);

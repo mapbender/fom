@@ -82,6 +82,7 @@ class UserType extends AbstractType
             'profile_formtype' => null,
             'group_permission' => false,
             'acl_permission' => false,
+            // @deprecated remove in FOM v3.3 (no longer valid in Symfony 3)
             'cascade_validation' => true,
             'currentUser' => null
         ));

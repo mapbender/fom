@@ -51,38 +51,18 @@ class RegistrationController extends UserControllerBase
     /**
      * Registration step 1: Registration form
      *
-     * @Route("/user/registration", methods={"GET"})
+     * @Route("/user/registration", methods={"GET", "POST"})
+     * @param Request $request
      * @return Response
      */
-    public function formAction()
+    public function formAction(Request $request)
     {
         $user = new User();
         $form = $this->createForm(new UserRegistrationType(), $user);
 
-        return $this->render('@FOMUser/Registration/form.html.twig', array(
-            'user' => $user,
-            'form' => $form->createView(),
-        ));
-    }
+        $form->handleRequest($request);
 
-    /**
-     * Registration step 2: Create user and set registration token
-     *
-     * @Route("/user/registration", methods={"POST"})
-     * @param Request $request
-     * @return Response
-     */
-    public function registerAction(Request $request)
-    {
-        $user = new User();
-        $form = $this
-            ->createForm(new UserRegistrationType(), $user)
-            ->handleRequest($request)
-        ;
-
-        //@TODO: Check if username and email are unique
-
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $helperService = $this->getUserHelper();
             $helperService->setPassword($user, $user->getPassword());
 
@@ -120,7 +100,6 @@ class RegistrationController extends UserControllerBase
         }
 
         return $this->render('@FOMUser/Registration/form.html.twig', array(
-            'user' => $user,
             'form' => $form->createView(),
         ));
     }
@@ -135,7 +114,7 @@ class RegistrationController extends UserControllerBase
     public function confirmAction(Request $request)
     {
         $user = $this->getUserFromRegistrationToken($request);
-        if(!$user) {
+        if (!$user) {
             return $this->render('@FOMUser/Login/error-notoken.html.twig', array(
                 'site_email' => $this->getEmailFromAdress(),
             ));
@@ -145,11 +124,7 @@ class RegistrationController extends UserControllerBase
         // Check token age
         $max_registration_age = $this->container->getParameter("fom_user.max_registration_time");
         if(!$this->checkTimeInterval($user->getRegistrationTime(), $max_registration_age)) {
-            $form = $this->createForm('form');
-            return $this->render('@FOMUser/Login/error-tokenexpired.html.twig', array(
-                'user' => $user,
-                'form' => $form->createView()
-            ));
+            return $this->tokenExpired($user);
         }
 
         // Unset token
