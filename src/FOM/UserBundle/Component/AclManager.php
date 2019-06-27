@@ -184,6 +184,7 @@ class AclManager
      *
      * @param $entity
      * @return AclEntry[]
+     * @deprecated remove in FOM v3.3; use the plain old framework aces provided by getObjectAclEntries
      */
     public function getObjectAclEntriesAsArray($entity)
     {
