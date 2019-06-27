@@ -5,7 +5,6 @@ use FOM\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
@@ -41,27 +40,21 @@ class ACLType extends AbstractType
     /** @var AclProviderInterface */
     protected $aclProvider;
 
-    /** @var RouterInterface */
-    protected $router;
-
     /**
      * ACLType constructor.
      *
      * @param AuthorizationCheckerInterface $authorizationChecker
      * @param TokenStorageInterface $tokenStorage
      * @param AclProviderInterface $aclProvider
-     * @param RouterInterface $router
      */
     public function __construct(
         AuthorizationCheckerInterface $authorizationChecker,
         TokenStorageInterface $tokenStorage,
-        AclProviderInterface $aclProvider,
-        RouterInterface $router)
+        AclProviderInterface $aclProvider)
     {
         $this->authorizationChecker = $authorizationChecker;
         $this->tokenStorage = $tokenStorage;
         $this->aclProvider = $aclProvider;
-        $this->router = $router;
     }
 
     /**
@@ -94,7 +87,7 @@ class ACLType extends AbstractType
             $isMaster = true;
             $isOwner = true;
             $aces = array ();
-            if (true === $options['create_standard_permissions']) {
+            if ($options['create_standard_permissions']) {
                 // for unsaved entities, fake three standard permissions:
                 // - Owner access for current user
                 // - View access for anonymous users
@@ -109,14 +102,13 @@ class ACLType extends AbstractType
                     'mask' => MaskBuilder::MASK_OWNER);
 
                 $aces[] = $ownerAccess;
-
-                if ($options['standard_anon_access']) {
-                    $anon = new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY');
-                    $aces[] = array(
-                        'sid' => $anon,
-                        'mask' => MaskBuilder::MASK_VIEW,
-                    );
-                }
+            }
+            if ($options['standard_anon_access'] || ($options['standard_anon_access'] === null && $options['create_standard_permissions'])) {
+                $anon = new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY');
+                $aces[] = array(
+                    'sid' => $anon,
+                    'mask' => MaskBuilder::MASK_VIEW,
+                );
             }
         }
 
@@ -130,9 +122,12 @@ class ACLType extends AbstractType
             'allow_delete' => true,
             'auto_initialize' => false,
             'prototype' => true,
-            'options' => array ('available_permissions' => $permissions['show']),
+            'options' => array(
+                'available_permissions' => $permissions['show'],
+            ),
             'mapped' => false,
-            'data' => $aces);
+            'data' => $aces,
+        );
 
         $builder->add('ace', 'collection', $aceOptions);
     }
@@ -143,7 +138,7 @@ class ACLType extends AbstractType
             'permissions' => array (),
             'class' => null,
             'create_standard_permissions' => true,
-            'standard_anon_access' => true,
+            'standard_anon_access' => null,
             'user' => null,
             'force_master' => false,
             'force_owner' => false

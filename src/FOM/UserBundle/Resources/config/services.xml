@@ -18,7 +18,6 @@
             <argument type="service" id="security.authorization_checker" />
             <argument type="service" id="security.token_storage" />
             <argument type="service" id="security.acl.provider" />
-            <argument type="service" id="router" />
             <tag name="form.type" alias="acl" />
         </service>
 
