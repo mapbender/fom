@@ -2,12 +2,12 @@
 
 namespace FOM\ManagerBundle\Configuration;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route as BaseRoute;
+use Symfony\Component\Routing\Annotation\Route as BaseRoute;
 
 /**
  * Route annotation for Manager Controllers.
  *
- * This is just an subclass of the FrameworkExtraBundle's route annotation.
+ * This is a trivial subclass of the regular Symfony Route annotation
  * All the magic with route prefixing happens in FOM\ManagerBundle\Routing\AnnotatedRouteControllerLoader.
  *
  * @Annotation

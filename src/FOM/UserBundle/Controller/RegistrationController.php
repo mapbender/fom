@@ -5,12 +5,12 @@ namespace FOM\UserBundle\Controller;
 use FOM\UserBundle\Entity\Group;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\UserRegistrationType;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Self registration controller.

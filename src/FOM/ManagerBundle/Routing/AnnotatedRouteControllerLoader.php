@@ -2,7 +2,6 @@
 
 namespace FOM\ManagerBundle\Routing;
 
-use Symfony\Component\Routing\Loader\AnnotationClassLoader;
 use Symfony\Component\Routing\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Routing\AnnotatedRouteControllerLoader as BaseLoader;
 use Doctrine\Common\Annotations\Reader;
