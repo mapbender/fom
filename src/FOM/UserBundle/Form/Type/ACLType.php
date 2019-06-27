@@ -58,6 +58,17 @@ class ACLType extends AbstractType
         return 'acl';
     }
 
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'permissions' => array(),
+            'class' => null,
+            'create_standard_permissions' => true,
+            'standard_anon_access' => null,
+            'aces' => null,
+        ));
+    }
+
     protected function loadAces($options)
     {
         if ($options['class'] && class_exists($options['class'])) {
@@ -83,9 +94,10 @@ class ACLType extends AbstractType
 
             /** @var User $owner */
             $owner = $this->tokenStorage->getToken()->getUser();
-            $ownerAccess = array (
+            $ownerAccess = array(
                 'sid' => UserSecurityIdentity::fromAccount($owner),
-                'mask' => MaskBuilder::MASK_OWNER);
+                'mask' => MaskBuilder::MASK_OWNER,
+            );
 
             $aces[] = $ownerAccess;
         }
@@ -104,15 +116,19 @@ class ACLType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        try {
-            $aces = $this->loadAces($options);
-        } catch (\Symfony\Component\Security\Acl\Exception\Exception $e) {
-            $aces = $this->buildAces($options);
+        if (is_array($options['aces'])) {
+            $aces = $options['aces'];
+        } else {
+            try {
+                $aces = $this->loadAces($options);
+            } catch (\Symfony\Component\Security\Acl\Exception\Exception $e) {
+                $aces = $this->buildAces($options);
+            }
         }
 
         $permissions = is_string($options['permissions']) ? $this->getStandardPermissions($options['permissions']) : $options['permissions'];
 
-        $aceOptions = array (
+        $aceOptions = array(
             'type' => 'ace',
             'label' => 'Permissions',
             'allow_add' => true,
@@ -129,19 +145,6 @@ class ACLType extends AbstractType
         $builder->add('ace', 'collection', $aceOptions);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array (
-            'permissions' => array (),
-            'class' => null,
-            'create_standard_permissions' => true,
-            'standard_anon_access' => null,
-            'user' => null,
-            'force_master' => false,
-            'force_owner' => false
-        ));
-    }
-
     /**
      * Get standard permission sets for provided string identifier.
      *
@@ -154,6 +157,10 @@ class ACLType extends AbstractType
             case 'standard::object':
             case 'standard::class':
                 $permissions = array(
+                    /**
+                     * Keys are bit positions
+                     * @see MaskBuilder
+                     */
                     1 => 'View',
                     2 => 'Create',
                     3 => 'Edit',
