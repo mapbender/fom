@@ -1,4 +1,4 @@
-## dev-release/3.1 @ 1932bbb
+## v3.1.5
 - Fix registration process token lookup
 - Use translated labels for password reset form fields
 - ACLType: support standard_anon_access=true option even with create_standard_permissions=false
