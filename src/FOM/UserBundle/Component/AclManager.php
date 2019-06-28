@@ -157,6 +157,19 @@ class AclManager
     }
 
     /**
+     * @param array $oids
+     * @return \SplObjectStorage
+     */
+    public function getACLs(Array $oids)
+    {
+        try {
+            return $this->aclProvider->findAcls($oids);
+        } catch (NotAllAclsFoundException $e) {
+            return $e->getPartialResult();
+       }
+    }
+
+    /**
      * Get object ACL entries
      *
      * @param $entity
@@ -184,6 +197,7 @@ class AclManager
      *
      * @param $entity
      * @return AclEntry[]
+     * @deprecated remove in FOM v3.3; use the plain old framework aces provided by getObjectAclEntries
      */
     public function getObjectAclEntriesAsArray($entity)
     {

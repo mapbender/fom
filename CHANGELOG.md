@@ -15,6 +15,14 @@
 ## v3.2.0
 - Remove LoginController and related templates (migrated to Mapbender)
 
+## v3.1.5
+- Fix registration process token lookup
+- Use translated labels for password reset form fields
+- ACLType: support standard_anon_access=true option even with create_standard_permissions=false
+- ACLType: support new `aces` option to pass in desired ACE data explicitly
+- Optimize grants check performance on large user lists
+- Remove some identically copy&pasted css block overrides for easier twig customization
+
 ## v3.1.4
 - Remove dangling nonfunctional collection item add icon under ACL widgets with empty ACE content
 

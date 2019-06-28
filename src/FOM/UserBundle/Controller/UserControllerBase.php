@@ -7,7 +7,9 @@ namespace FOM\UserBundle\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use FOM\UserBundle\Component\AclManager;
 use FOM\UserBundle\Component\UserHelperService;
+use FOM\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -79,5 +81,22 @@ abstract class UserControllerBase extends Controller
         /** @var TranslatorInterface $translator */
         $translator = $this->container->get('translator');
         return $translator->trans($x);
+    }
+
+    /**
+     * @param User $user
+     * @return Response
+     */
+    protected function tokenExpired($user)
+    {
+        $form = $this->createForm('form', null, array(
+            'action' => $this->generateUrl('fom_user_password_tokenreset', array(
+                'token' => $user->getResetToken(),
+            )),
+        ));
+        return $this->render('@FOMUser/Login/error-tokenexpired.html.twig', array(
+            'user' => $user,
+            'form' => $form->createView(),
+        ));
     }
 }

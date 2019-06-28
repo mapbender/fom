@@ -7,6 +7,7 @@ use Symfony\Component\Security\Acl\Model\SecurityIdentityInterface;
 
 /**
  * @author  Andriy Oblivantsev <eslider@gmail.com>
+ * @deprecated remove in FOM v3.3
  */
 class AclEntry
 {

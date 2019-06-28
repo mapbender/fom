@@ -15,10 +15,8 @@
             <argument>%fom_user.user_own_permissions%</argument>
         </service>
         <service id="form.fom.acl" class="FOM\UserBundle\Form\Type\ACLType">
-            <argument type="service" id="security.authorization_checker" />
             <argument type="service" id="security.token_storage" />
             <argument type="service" id="security.acl.provider" />
-            <argument type="service" id="router" />
             <tag name="form.type" alias="acl" />
         </service>
 

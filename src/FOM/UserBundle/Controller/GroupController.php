@@ -28,9 +28,7 @@ class GroupController extends UserControllerBase
     public function indexAction()
     {
         $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
-
-        $query = $this->getEntityManager()->createQuery('SELECT g FROM FOMUserBundle:Group g');
-        $groups = $query->getResult();
+        $groups = $this->getEntityManager()->getRepository('FOMUserBundle:Group')->findAll();
         $allowed_groups = array();
         // ACL access check
         foreach($groups as $index => $group) {

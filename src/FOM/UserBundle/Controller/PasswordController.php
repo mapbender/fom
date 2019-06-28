@@ -4,12 +4,12 @@ namespace FOM\UserBundle\Controller;
 use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Form\Type\UserForgotPassType;
 use FOM\UserBundle\Form\Type\UserResetPassType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Password reset controller.
@@ -148,11 +148,7 @@ class PasswordController extends UserControllerBase
 
         $max_token_age = $this->container->getParameter("fom_user.max_reset_time");
         if (!$this->checkTimeInterval($user->getResetTime(), $max_token_age)) {
-            $form = $this->createForm('form');
-            return $this->render('@FOMUser/Login/error-tokenexpired.html.twig', array(
-                'user' => $user,
-                'form' => $form->createView()
-            ));
+            return $this->tokenExpired($user);
         }
 
         $form = $this->createForm(new UserResetPassType(), $user);

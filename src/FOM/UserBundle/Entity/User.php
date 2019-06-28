@@ -392,9 +392,6 @@ class User implements AdvancedUserInterface
         if ($this->getId() === 1) {
             return true;
         }
-
-        //$role = ($type !== null ? 'ROLE_ADMIN_' .$type : 'ROLE_ADMIN');
-
         return false;
     }
 

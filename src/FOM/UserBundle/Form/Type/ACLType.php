@@ -5,14 +5,12 @@ use FOM\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 
 /**
@@ -32,36 +30,24 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class ACLType extends AbstractType
 {
-    /** @var AuthorizationCheckerInterface */
-    protected $authorizationChecker;
-
     /** @var TokenStorageInterface */
     protected $tokenStorage;
 
     /** @var AclProviderInterface */
     protected $aclProvider;
 
-    /** @var RouterInterface */
-    protected $router;
-
     /**
      * ACLType constructor.
      *
-     * @param AuthorizationCheckerInterface $authorizationChecker
      * @param TokenStorageInterface $tokenStorage
      * @param AclProviderInterface $aclProvider
-     * @param RouterInterface $router
      */
     public function __construct(
-        AuthorizationCheckerInterface $authorizationChecker,
         TokenStorageInterface $tokenStorage,
-        AclProviderInterface $aclProvider,
-        RouterInterface $router)
+        AclProviderInterface $aclProvider)
     {
-        $this->authorizationChecker = $authorizationChecker;
         $this->tokenStorage = $tokenStorage;
         $this->aclProvider = $aclProvider;
-        $this->router = $router;
     }
 
     /**
@@ -72,133 +58,124 @@ class ACLType extends AbstractType
         return 'acl';
     }
 
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'permissions' => array(),
+            'class' => null,
+            'create_standard_permissions' => true,
+            'standard_anon_access' => null,
+            'aces' => null,
+        ));
+    }
+
+    protected function loadAces($options)
+    {
+        if ($options['class'] && class_exists($options['class'])) {
+            $oid = new ObjectIdentity('class', $options['class']);
+            $acl = $this->aclProvider->findAcl($oid);
+            return $acl->getClassAces();
+        } else {
+            $oid = ObjectIdentity::fromDomainObject($options['data']);
+            $acl = $this->aclProvider->findAcl($oid);
+            return $acl->getObjectAces();
+        }
+    }
+
+    protected function buildAces($options)
+    {
+        $aces = array();
+        if ($options['create_standard_permissions']) {
+            // for unsaved entities, fake three standard permissions:
+            // - Owner access for current user
+            // - View access for anonymous users
+            // - View access for logged in users
+            $aces = array();
+
+            /** @var User $owner */
+            $owner = $this->tokenStorage->getToken()->getUser();
+            $ownerAccess = array(
+                'sid' => UserSecurityIdentity::fromAccount($owner),
+                'mask' => MaskBuilder::MASK_OWNER,
+            );
+
+            $aces[] = $ownerAccess;
+        }
+        if ($options['standard_anon_access'] || ($options['standard_anon_access'] === null && $options['create_standard_permissions'])) {
+            $anon = new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY');
+            $aces[] = array(
+                'sid' => $anon,
+                'mask' => MaskBuilder::MASK_VIEW,
+            );
+        }
+        return $aces;
+    }
+
     /**
      * @inheritdoc
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        try {
-            if ($options['class'] && class_exists($options['class'])) {
-                $oid = new ObjectIdentity('class', $options['class']);
-                $acl = $this->aclProvider->findAcl($oid);
-                $aces = $acl->getClassAces();
-            } else {
-                $oid = ObjectIdentity::fromDomainObject($options['data']);
-                $acl = $this->aclProvider->findAcl($oid);
-                $aces = $acl->getObjectAces();
-            }
-
-            $isMaster = $this->authorizationChecker->isGranted('MASTER');
-            $isOwner = $this->authorizationChecker->isGranted('OWNER');
-        } catch (\Exception $e) {
-            $isMaster = true;
-            $isOwner = true;
-            $aces = array ();
-            if (true === $options['create_standard_permissions']) {
-                // for unsaved entities, fake three standard permissions:
-                // - Owner access for current user
-                // - View access for anonymous users
-                // - View access for logged in users
-                $oid = null;
-                $aces = array ();
-
-                /** @var User $owner */
-                $owner = $this->tokenStorage->getToken()->getUser();
-                $ownerAccess = array (
-                    'sid' => UserSecurityIdentity::fromAccount($owner),
-                    'mask' => MaskBuilder::MASK_OWNER);
-
-                $aces[] = $ownerAccess;
-
-                if ($options['standard_anon_access']) {
-                    $anon = new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY');
-                    $aces[] = array(
-                        'sid' => $anon,
-                        'mask' => MaskBuilder::MASK_VIEW,
-                    );
-                }
+        if (is_array($options['aces'])) {
+            $aces = $options['aces'];
+        } else {
+            try {
+                $aces = $this->loadAces($options);
+            } catch (\Symfony\Component\Security\Acl\Exception\Exception $e) {
+                $aces = $this->buildAces($options);
             }
         }
 
-        $permissions = is_string($options['permissions']) ? $this->getStandardPermissions($options,
-                $isMaster, $isOwner) : array ('show' => $options['permissions']);
+        $permissions = is_string($options['permissions']) ? $this->getStandardPermissions($options['permissions']) : $options['permissions'];
 
-        $aceOptions = array (
+        $aceOptions = array(
             'type' => 'ace',
             'label' => 'Permissions',
             'allow_add' => true,
             'allow_delete' => true,
             'auto_initialize' => false,
             'prototype' => true,
-            'options' => array ('available_permissions' => $permissions['show']),
+            'options' => array(
+                'available_permissions' => $permissions,
+            ),
             'mapped' => false,
-            'data' => $aces);
+            'data' => $aces,
+        );
 
         $builder->add('ace', 'collection', $aceOptions);
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array (
-            'permissions' => array (),
-            'class' => null,
-            'create_standard_permissions' => true,
-            'standard_anon_access' => true,
-            'user' => null,
-            'force_master' => false,
-            'force_owner' => false
-        ));
     }
 
     /**
      * Get standard permission sets for provided string identifier.
      *
-     * Returns an array with an array of permissions to show (['show']) and an
-     * array with permissions which should be disabled (that means, still shown,
-     * but uneditable) (['disable']).
-     *
-     * @param  array  $options Form options
-     * @param bool $master is master permission assumed?
-     * @param bool $owner is owner permission assumed?
-     * @return string[] Array with permissions to show and disable
+     * @param string $type
+     * @return string[]
      */
-    protected function getStandardPermissions(array $options, $master, $owner)
+    protected function getStandardPermissions($type)
     {
-        switch ($options['permissions']) {
+        switch ($type) {
             case 'standard::object':
-                $disable = array ();
-                // if not owner or master, disable all permissions
-                if (!$master && !$owner) {
-                    $disable = array (1, 3, 4, 6, 7, 8);
-                }
-                // if not master, disable
-                // 5 -> undelete is not used
-                return array (
-                    'show' => array (
-                        1 => 'View',
-                        3 => 'Edit',
-                        4 => 'Delete',
-                        6 => 'Operator',
-                        7 => 'Master',
-                        8 => 'Owner'
-                    ),
-                    'disable' => $disable);
-                break;
             case 'standard::class':
-                return array (
-                    'show' => array (
-                        1 => 'View',
-                        2 => 'Create',
-                        3 => 'Edit',
-                        4 => 'Delete',
-                        6 => 'Operator',
-                        7 => 'Master',
-                        8 => 'Owner'
-                ));
-                break;
+                $permissions = array(
+                    /**
+                     * Keys are bit positions
+                     * @see MaskBuilder
+                     */
+                    1 => 'View',
+                    2 => 'Create',
+                    3 => 'Edit',
+                    4 => 'Delete',
+                    6 => 'Operator',
+                    7 => 'Master',
+                    8 => 'Owner',
+                );
+                if ($type !== 'standard::class') {
+                    // suppress redundant create permission on concrete objects
+                    unset($permissions[2]);
+                }
+                return $permissions;
             default:
-                throw new \RuntimeException('"' . $options['permissions'] .
-                '" is not a valid standard permission set identifier');
+                throw new \RuntimeException(var_export($type, true) . ' is not a valid standard permission set identifier');
         }
     }
 }

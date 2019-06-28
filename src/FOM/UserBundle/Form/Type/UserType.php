@@ -59,13 +59,15 @@ class UserType extends AbstractType
                     'label' => 'Groups'));
         }
 
-        if (true === $options['acl_permission']) {
+        if ($options['acl_permission']) {
             $builder
                 ->add('acl', 'acl', array(
                     'mapped' => false,
                     'data' => $options['data'],
                     'permissions' => 'standard::object',
-                    'standard_anon_access' => false));
+                    'standard_anon_access' => false,
+                ))
+            ;
         }
 
         if ($options['profile_formtype']) {
@@ -80,6 +82,7 @@ class UserType extends AbstractType
             'profile_formtype' => null,
             'group_permission' => false,
             'acl_permission' => false,
+            // @deprecated remove in FOM v3.3 (no longer valid in Symfony 3)
             'cascade_validation' => true,
             'currentUser' => null
         ));
