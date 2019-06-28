@@ -28,7 +28,13 @@ class UserController extends UserControllerBase
         $users = $this->getEntityManager()->getRepository('FOMUserBundle:User')->findAll();
         $allowed_users = array();
 
-        // ACL access check
+        // Bulk-prefetch ACLs for all User entities into AclProvider's internal cache
+        $oids = array();
+        foreach ($users as $index => $user) {
+            $oids[] = ObjectIdentity::fromDomainObject($user);
+        }
+        $this->getAclManager()->getACLs($oids);
+
         foreach ($users as $index => $user) {
             if ($this->isGranted('VIEW', $user)) {
                 $allowed_users[] = $user;

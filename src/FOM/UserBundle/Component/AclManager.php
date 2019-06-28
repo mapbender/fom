@@ -157,6 +157,19 @@ class AclManager
     }
 
     /**
+     * @param array $oids
+     * @return \SplObjectStorage
+     */
+    public function getACLs(Array $oids)
+    {
+        try {
+            return $this->aclProvider->findAcls($oids);
+        } catch (NotAllAclsFoundException $e) {
+            return $e->getPartialResult();
+       }
+    }
+
+    /**
      * Get object ACL entries
      *
      * @param $entity
