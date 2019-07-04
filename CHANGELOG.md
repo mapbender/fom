@@ -1,3 +1,6 @@
+## v3.1.6
+- Fix ACL prefetching error when no users have any assigned ACLs yet
+
 ## v3.1.5
 - Fix registration process token lookup
 - Use translated labels for password reset form fields
