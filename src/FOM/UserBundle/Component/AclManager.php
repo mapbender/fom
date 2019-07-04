@@ -9,6 +9,7 @@ use Symfony\Component\Security\Acl\Domain\Entry;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
 use Symfony\Component\Security\Acl\Exception\NotAllAclsFoundException;
+use Symfony\Component\Security\Acl\Model\ObjectIdentityInterface;
 
 /**
  * ACL utility service; registered as 'fom.acl.manager'
@@ -157,16 +158,18 @@ class AclManager
     }
 
     /**
-     * @param array $oids
+     * @param ObjectIdentityInterface[]
      * @return \SplObjectStorage
      */
-    public function getACLs(Array $oids)
+    public function getACLs(array $oids)
     {
         try {
             return $this->aclProvider->findAcls($oids);
         } catch (NotAllAclsFoundException $e) {
             return $e->getPartialResult();
-       }
+       } catch (\Symfony\Component\Security\Acl\Exception\Exception $e) {
+            return new \SplObjectStorage();
+        }
     }
 
     /**
