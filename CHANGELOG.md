@@ -1,3 +1,6 @@
+## v3.2.6
+- [v3.2.4 regression] fix backlinks to login action generated in forgotten password / registration areas
+
 ## v3.2.5
 - Fix ACL prefetching error when no users have any assigned ACLs yet
 
