@@ -48,4 +48,15 @@ class UserProvider
         }
         return $users;
     }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function userExists($name)
+    {
+        // NOTE: ldap_escape implementation is provided by symfony/polyfill-php56 even on older PHP versions
+        $pattern = \ldap_escape($name, null, LDAP_ESCAPE_FILTER);
+        return !empty($this->getUsers($pattern));
+    }
 }

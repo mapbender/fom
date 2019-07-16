@@ -12,14 +12,11 @@ use Symfony\Component\DependencyInjection\Container;
 
 class ACEDataTransformer implements DataTransformerInterface
 {
-    protected $container;
-
     /** @var Ldap\UserProvider */
     protected $ldapUserProvider;
 
     public function __construct(Container $container)
     {
-        $this->container = $container;
         $this->ldapUserProvider = $container->get('fom.ldap_user_provider');
     }
 
@@ -118,12 +115,6 @@ class ACEDataTransformer implements DataTransformerInterface
      */
     public function isLdapUser($username)
     {
-        $nameAttribute = $this->container->getParameter("ldap_user_name_attribute");
-        foreach ($this->ldapUserProvider->getUsers('*') as $ldapUser) {
-            if ($ldapUser[$nameAttribute][0] == $username) {
-                return true;
-            }
-        }
-        return false;
+        return $this->ldapUserProvider->userExists($username);
     }
 }
