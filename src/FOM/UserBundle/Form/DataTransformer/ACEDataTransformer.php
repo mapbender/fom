@@ -2,6 +2,7 @@
 
 namespace FOM\UserBundle\Form\DataTransformer;
 
+use FOM\UserBundle\Component\Ldap;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Security\Acl\Domain\Entry;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
@@ -12,8 +13,13 @@ use Symfony\Component\DependencyInjection\Container;
 class ACEDataTransformer implements DataTransformerInterface
 {
     protected $container;
+
+    /** @var Ldap\Client */
+    protected $ldapClient;
+
     public function __construct(Container $container)
     {
+        $this->ldapClient = $container->get("fom.ldap_client");
         $this->container = $container;
     }
     /**
@@ -104,34 +110,22 @@ class ACEDataTransformer implements DataTransformerInterface
             'mask' => $maskBuilder->get(),
         );
     }
+
+    /**
+     * @param $username
+     * @return bool
+     */
     public function isLdapUser($username)
     {
-        if(!$this->container->hasParameter('ldap_host')) {
-            /* LDAP not configured. Has no ldap_host. */
+        if (!$this->ldapClient->bind()) {
             return false;
         }
 
-        $ldapHostname = $this->container->getParameter("ldap_host");
-        $ldapPort = $this->container->getParameter("ldap_port");
-        $ldapVersion = $this->container->getParameter("ldap_version");
+        /** @todo: expose + reuse ldap user lookup implementation from FOMIdentitiesProvider */
         $baseDn = $this->container->getParameter("ldap_user_base_dn");
         $nameAttribute = $this->container->getParameter("ldap_user_name_attribute");
-        $bindDn = $this->container->getParameter("ldap_bind_dn");
-        $bindPasswd = $this->container->getParameter("ldap_bind_pwd");
-        $filter = "(" . $nameAttribute . "=*)";
-
-        $connection = @ldap_connect($ldapHostname, $ldapPort);
-        ldap_set_option($connection, LDAP_OPT_PROTOCOL_VERSION, $ldapVersion);
-
-        if (strlen($bindDn) !== 0 && strlen($bindPasswd) !== 0) {
-            if (!ldap_bind($connection, $bindDn, $bindPasswd)) {
-                throw new \Exception('Unable to bind LDAP to DN: ' . $bindDn);
-            }
-        }
-
-        $ldapListRequest = ldap_list($connection, $baseDn, $filter); // or throw exeption('Unable to list. LdapError: ' . ldap_error($ldapConnection));
-
-        $ldapUserList = ldap_get_entries($connection, $ldapListRequest);
+        $filter = sprintf($this->container->getParameter('ldap_user_filter'), '*');
+        $ldapUserList = $this->ldapClient->getObjects($baseDn, $filter);
 
         foreach($ldapUserList as $ldapUser) {
             if ($ldapUser[$nameAttribute][0] == $username) {
