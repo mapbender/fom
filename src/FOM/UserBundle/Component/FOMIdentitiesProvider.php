@@ -3,6 +3,7 @@
 namespace FOM\UserBundle\Component;
 
 use Doctrine\ORM\EntityRepository;
+use FOM\UserBundle\Component\Ldap;
 use FOM\UserBundle\Entity\Group;
 use FOM\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -18,6 +19,8 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
 {
     /** @var ContainerInterface */
     protected $container;
+    /** @var Ldap\Client */
+    protected $client;
 
     /**
      * @param ContainerInterface $container
@@ -25,6 +28,7 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+        $this->client = $container->get('fom.ldap_client');
     }
 
     /**
@@ -88,50 +92,31 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
         return $repo->findAll();
     }
 
-    public function getAllUsers(){
-        // Settings for LDAP
-        if($this->container->hasParameter('ldap_host')) {
-            $ldapHostname = $this->container->getParameter("ldap_host");
-            $ldapPort = $this->container->getParameter("ldap_port");
-            $ldapVersion = $this->container->getParameter("ldap_version");
-            $baseDn = $this->container->getParameter("ldap_user_base_dn");
-            $nameAttribute = $this->container->getParameter("ldap_user_name_attribute");
-            $bindDn = $this->container->getParameter("ldap_bind_dn");
-            $bindPasswd = $this->container->getParameter("ldap_bind_pwd");
-            $filter = "(" . $nameAttribute . "=*)";
-
-            $connection = @ldap_connect($ldapHostname, $ldapPort);
-            ldap_set_option($connection, LDAP_OPT_PROTOCOL_VERSION, $ldapVersion);
-
-            if (strlen($bindDn) !== 0 && strlen($bindPasswd) !== 0) {
-                if (!ldap_bind($connection, $bindDn, $bindPasswd)) {
-                    throw new \Exception('Unable to bind LDAP to DN: ' . $bindDn);
-                }
-            }
-
-            $ldapListRequest = ldap_list($connection, $baseDn, $filter); // or throw exeption('Unable to list. LdapError: ' . ldap_error($ldapConnection));
-
-            $ldapUserList = ldap_get_entries($connection, $ldapListRequest);
+    public function getLdapUsers()
+    {
+        $users = array();
+        $baseDn = $this->container->getParameter('ldap_user_base_dn');
+        $nameAttribute = $this->container->getParameter('ldap_user_name_attribute');
+        $filter = "(" . $nameAttribute . "=*)";
+        foreach ($this->client->getObjects($baseDn, $filter) as $userRecord) {
+            $u = new \stdClass();
+            $u->getUsername = $userRecord[$nameAttribute][0];
+            $users[] = $u;
         }
+        return $users;
+    }
 
-        // Settings for local user database
+    /**
+     * @return User[]
+     */
+    public function getDatabaseUsers()
+    {
         $repo = $this->getDoctrine()->getRepository('FOMUserBundle:User');
-        $users = $repo->findAll();
+        return $repo->findAll();
+    }
 
-        $all = array();
-
-        if($this->container->hasParameter('ldap_host')) {
-            // Add Users from LDAP
-            foreach($ldapUserList as $ldapUser) {
-                $user = new \stdClass;
-                $user->getUsername = $ldapUser[$nameAttribute][0];
-                $all[] = $user;
-            }
-        }
-        // Add Mapbenderusers from database
-        foreach($users as $user) {
-            $all[] = $user;
-        }
-        return $all;
+    public function getAllUsers()
+    {
+        return array_merge($this->getLdapUsers(), $this->getDatabaseUsers());
     }
 }

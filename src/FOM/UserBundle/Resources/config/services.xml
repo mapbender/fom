@@ -5,6 +5,17 @@
     <parameters>
         <parameter key="fom.identities.provider.class">FOM\UserBundle\Component\FOMIdentitiesProvider</parameter>
         <parameter key="fom.user_helper.service.class">FOM\UserBundle\Component\UserHelperService</parameter>
+        <parameter key="fom.ldap_client.class">FOM\UserBundle\Component\Ldap\Client</parameter>
+        <!-- LDAP parameters used in fom.ldap_client, and (indirectly) fom.identities_provider and ACE transformation -->
+        <!-- any emptyish value for ldap_host will effectively disable ldap integration -->
+        <parameter key="ldap_host">null</parameter>
+        <!-- use null for default port (389 for non-TLS LDAP) or an integer -->
+        <parameter key="ldap_port">null</parameter>
+        <parameter key="ldap_version">3</parameter>
+        <parameter key="ldap_bind_dn">null</parameter>
+        <parameter key="ldap_bind_pwd">null</parameter>
+        <parameter key="ldap_user_base_dn">null</parameter>
+        <parameter key="ldap_user_name_attribute">cn</parameter>
     </parameters>
     <services>
         <service id="fom_roles" class="FOM\UserBundle\Component\RolesService">
@@ -33,7 +44,16 @@
         <service id="fom.identities.provider" class="%fom.identities.provider.class%">
             <argument type="service" id="service_container" />
         </service>
-
+        <service id="fom.ldap_client" class="%fom.ldap_client.class%">
+            <argument>%ldap_host%</argument>
+            <argument>%ldap_port%</argument>
+            <argument>%ldap_version%</argument>
+            <argument>%ldap_bind_dn%</argument>
+            <argument>%ldap_bind_pwd%</argument>
+            <!-- <argument>%ldap_user_base_dn%</argument>
+            <argument>%ldap_user_name_attribute%</argument>
+            <argument>%ldap_user_filter%</argument> -->
+        </service>
         <service id="fom.user.subscriber" class="FOM\UserBundle\EventListener\UserSubscriber">
             <tag name="doctrine.event_subscriber" connection="default" />
         </service>
