@@ -6,6 +6,9 @@ namespace FOM\UserBundle\Component\Ldap;
 /**
  * Simple ldap client
  * Service registered as fom.ldap_client
+ *
+ * @since v3.1.7
+ * @since v3.2.7
  */
 class Client
 {
