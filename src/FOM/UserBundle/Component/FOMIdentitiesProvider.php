@@ -96,11 +96,12 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     {
         $users = array();
         $baseDn = $this->container->getParameter('ldap_user_base_dn');
-        $nameAttribute = $this->container->getParameter('ldap_user_name_attribute');
-        $filter = "(" . $nameAttribute . "=*)";
+        $nameAttrib = $this->container->getParameter('ldap_user_name_attribute');
+        $userPattern = '*';
+        $filter = sprintf($this->container->getParameter('ldap_user_filter'), $userPattern);
         foreach ($this->client->getObjects($baseDn, $filter) as $userRecord) {
             $u = new \stdClass();
-            $u->getUsername = $userRecord[$nameAttribute][0];
+            $u->getUsername = $userRecord[$nameAttrib][0];
             $users[] = $u;
         }
         return $users;

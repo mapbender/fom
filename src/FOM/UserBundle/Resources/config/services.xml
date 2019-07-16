@@ -16,6 +16,8 @@
         <parameter key="ldap_bind_pwd">null</parameter>
         <parameter key="ldap_user_base_dn">null</parameter>
         <parameter key="ldap_user_name_attribute">cn</parameter>
+        <!-- placeholder in ldap_user_filter will be filled with sprintf -->
+        <parameter key="ldap_user_filter">(%ldap_user_name_attribute%=%%s)</parameter>
     </parameters>
     <services>
         <service id="fom_roles" class="FOM\UserBundle\Component\RolesService">
