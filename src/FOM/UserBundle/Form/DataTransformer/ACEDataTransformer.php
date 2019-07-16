@@ -14,14 +14,15 @@ class ACEDataTransformer implements DataTransformerInterface
 {
     protected $container;
 
-    /** @var Ldap\Client */
-    protected $ldapClient;
+    /** @var Ldap\UserProvider */
+    protected $ldapUserProvider;
 
     public function __construct(Container $container)
     {
-        $this->ldapClient = $container->get("fom.ldap_client");
         $this->container = $container;
+        $this->ldapUserProvider = $container->get('fom.ldap_user_provider');
     }
+
     /**
      * Transforms an single ACE to an object suitable for ACEType
      *
@@ -117,17 +118,8 @@ class ACEDataTransformer implements DataTransformerInterface
      */
     public function isLdapUser($username)
     {
-        if (!$this->ldapClient->bind()) {
-            return false;
-        }
-
-        /** @todo: expose + reuse ldap user lookup implementation from FOMIdentitiesProvider */
-        $baseDn = $this->container->getParameter("ldap_user_base_dn");
         $nameAttribute = $this->container->getParameter("ldap_user_name_attribute");
-        $filter = sprintf($this->container->getParameter('ldap_user_filter'), '*');
-        $ldapUserList = $this->ldapClient->getObjects($baseDn, $filter);
-
-        foreach($ldapUserList as $ldapUser) {
+        foreach ($this->ldapUserProvider->getUsers('*') as $ldapUser) {
             if ($ldapUser[$nameAttribute][0] == $username) {
                 return true;
             }

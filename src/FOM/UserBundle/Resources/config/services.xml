@@ -6,6 +6,7 @@
         <parameter key="fom.identities.provider.class">FOM\UserBundle\Component\FOMIdentitiesProvider</parameter>
         <parameter key="fom.user_helper.service.class">FOM\UserBundle\Component\UserHelperService</parameter>
         <parameter key="fom.ldap_client.class">FOM\UserBundle\Component\Ldap\Client</parameter>
+        <parameter key="fom.ldap_user_provider.class">FOM\UserBundle\Component\Ldap\UserProvider</parameter>
         <!-- LDAP parameters used in fom.ldap_client, and (indirectly) fom.identities_provider and ACE transformation -->
         <!-- any emptyish value for ldap_host will effectively disable ldap integration -->
         <parameter key="ldap_host">null</parameter>
@@ -45,6 +46,12 @@
 
         <service id="fom.identities.provider" class="%fom.identities.provider.class%">
             <argument type="service" id="service_container" />
+        </service>
+        <service id="fom.ldap_user_provider" class="%fom.ldap_user_provider.class%">
+            <argument type="service" id="fom.ldap_client" />
+            <argument>%ldap_user_base_dn%</argument>
+            <argument>%ldap_user_name_attribute%</argument>
+            <argument>%ldap_user_filter%</argument>
         </service>
         <service id="fom.ldap_client" class="%fom.ldap_client.class%">
             <argument>%ldap_host%</argument>

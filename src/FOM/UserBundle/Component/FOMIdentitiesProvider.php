@@ -16,8 +16,8 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
 {
     /** @var ContainerInterface */
     protected $container;
-    /** @var Ldap\Client */
-    protected $client;
+    /** @var Ldap\UserProvider */
+    protected $ldapUserProvider;
 
     /**
      * @param ContainerInterface $container
@@ -25,7 +25,7 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-        $this->client = $container->get('fom.ldap_client');
+        $this->ldapUserProvider = $container->get('fom.ldap_user_provider');
     }
 
     /**
@@ -97,17 +97,7 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
 
     public function getLdapUsers()
     {
-        $users = array();
-        $baseDn = $this->container->getParameter('ldap_user_base_dn');
-        $nameAttrib = $this->container->getParameter('ldap_user_name_attribute');
-        $userPattern = '*';
-        $filter = sprintf($this->container->getParameter('ldap_user_filter'), $userPattern);
-        foreach ($this->client->getObjects($baseDn, $filter) as $userRecord) {
-            $u = new \stdClass();
-            $u->getUsername = $userRecord[$nameAttrib][0];
-            $users[] = $u;
-        }
-        return $users;
+        return $this->ldapUserProvider->getUsers('*');
     }
 
     /**
