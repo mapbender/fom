@@ -7,22 +7,6 @@ use FOM\UserBundle\Entity\Group;
 interface IdentitiesProviderInterface
 {
     /**
-     * Get user security identifiers for given query.
-     *
-     * @param  string $search Query string
-     * @return string[]
-     */
-    public function getUsers($search);
-
-
-    /**
-     * Get role identifiers
-     *
-     * @return string[]
-     */
-    public function getRoles();
-
-    /**
      * Get all group objects
      * @return Group[]
      */

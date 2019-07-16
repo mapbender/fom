@@ -9,11 +9,8 @@ use FOM\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Managed users
- *
- * @alias UserManager
- * @alias User Manager
- *d
+ * Provides user and group identities available for ACL assignments
+ * Service registered as fom.identities.provider
  */
 class FOMIdentitiesProvider implements IdentitiesProviderInterface
 {
@@ -49,8 +46,11 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     }
 
     /**
-     * @param string $search
-     * @return array
+     * Get user security identifiers for given query.
+     *
+     * @param string $search Query string
+     * @return string[]
+     * @deprecated remove in FOM v3.3 (no invocations)
      */
     public function getUsers($search)
     {
@@ -71,7 +71,10 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     }
 
     /**
+     * Get role identifiers
+     *
      * @return string[]
+     * @deprecated remove in FOM v3.3 (no invocations)
      */
     public function getRoles()
     {
