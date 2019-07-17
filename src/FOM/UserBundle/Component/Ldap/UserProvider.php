@@ -16,7 +16,7 @@ class UserProvider
     protected $baseDn;
     /** @var string */
     protected $nameAttribute;
-    /** @var string|null */
+    /** @var string */
     protected $filter;
 
     /**
@@ -30,7 +30,8 @@ class UserProvider
         $this->client = $client;
         $this->baseDn = $baseDn;
         $this->nameAttribute = $nameAttribute;
-        $this->filter = ltrim(rtrim($filter ?: '', ')'), '(') ?: null;
+        // remove optional enclosing brackets around filter (at most one level);
+        $this->filter = preg_replace('/(^\()|(\)$)/', '', $filter ?: '');
     }
 
     /**
