@@ -8,16 +8,15 @@ use Symfony\Component\Security\Acl\Domain\Entry;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
-use Symfony\Component\DependencyInjection\Container;
 
 class ACEDataTransformer implements DataTransformerInterface
 {
     /** @var Ldap\UserProvider */
     protected $ldapUserProvider;
 
-    public function __construct(Container $container)
+    public function __construct(Ldap\UserProvider $ldapUserProvider)
     {
-        $this->ldapUserProvider = $container->get('fom.ldap_user_provider');
+        $this->ldapUserProvider = $ldapUserProvider;
     }
 
     /**

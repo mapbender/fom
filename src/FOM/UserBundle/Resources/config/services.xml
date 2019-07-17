@@ -36,7 +36,7 @@
 
         <service id="form.fom.ace" class="FOM\UserBundle\Form\Type\ACEType">
             <argument type="service" id="security.acl.provider" />
-            <argument type="service" id="service_container" />
+            <argument type="service" id="fom.ldap_user_provider" />
             <tag name="form.type" alias="ace" />
         </service>
 
