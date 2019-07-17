@@ -16,21 +16,21 @@ class UserProvider
     protected $baseDn;
     /** @var string */
     protected $nameAttribute;
-    /** @var string */
-    protected $filterTemplate;
+    /** @var string|null */
+    protected $filter;
 
     /**
      * @param Client $client
      * @param string $baseDn
      * @param string $nameAttribute
-     * @param string $filterTemplate pattern inserted via sprintf (should contain single '%s' placeholder)
+     * @param string|null $filter extra LDAP filter
      */
-    public function __construct(Client $client, $baseDn, $nameAttribute, $filterTemplate)
+    public function __construct(Client $client, $baseDn, $nameAttribute, $filter)
     {
         $this->client = $client;
         $this->baseDn = $baseDn;
         $this->nameAttribute = $nameAttribute;
-        $this->filterTemplate = $filterTemplate;
+        $this->filter = ltrim(rtrim($filter ?: '', ')'), '(') ?: null;
     }
 
     /**
@@ -39,8 +39,8 @@ class UserProvider
      */
     public function getUsers($pattern = '*')
     {
+        $filter = $this->getFilterString($pattern);
         $users = array();
-        $filter = sprintf($this->filterTemplate, $pattern);
         foreach ($this->client->getObjects($this->baseDn, $filter) as $userRecord) {
             $u = new \stdClass();
             $u->getUsername = $userRecord[$this->nameAttribute][0];
@@ -58,5 +58,19 @@ class UserProvider
         // NOTE: ldap_escape implementation is provided by symfony/polyfill-php56 even on older PHP versions
         $pattern = \ldap_escape($name, null, LDAP_ESCAPE_FILTER);
         return !empty($this->getUsers($pattern));
+    }
+
+    /**
+     * @param string $namePattern
+     * @return string
+     */
+    protected function getFilterString($namePattern)
+    {
+        $baseFilter = "({$this->nameAttribute}={$namePattern})";
+        if ($this->filter) {
+            return "(&{$baseFilter}({$this->filter}))";
+        } else {
+            return $baseFilter;
+        }
     }
 }

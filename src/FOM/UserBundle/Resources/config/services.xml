@@ -17,8 +17,8 @@
         <parameter key="ldap_bind_pwd">null</parameter>
         <parameter key="ldap_user_base_dn">null</parameter>
         <parameter key="ldap_user_name_attribute">cn</parameter>
-        <!-- placeholder in ldap_user_filter will be filled with sprintf -->
-        <parameter key="ldap_user_filter">(%ldap_user_name_attribute%=%%s)</parameter>
+        <!-- optional ext-ldap-syntax filter for user objects, e.g. '(|(objectclass=user)(objectclass=person))' -->
+        <parameter key="ldap_user_filter">null</parameter>
     </parameters>
     <services>
         <service id="fom_roles" class="FOM\UserBundle\Component\RolesService">
@@ -59,9 +59,6 @@
             <argument>%ldap_version%</argument>
             <argument>%ldap_bind_dn%</argument>
             <argument>%ldap_bind_pwd%</argument>
-            <!-- <argument>%ldap_user_base_dn%</argument>
-            <argument>%ldap_user_name_attribute%</argument>
-            <argument>%ldap_user_filter%</argument> -->
         </service>
         <service id="fom.user.subscriber" class="FOM\UserBundle\EventListener\UserSubscriber">
             <tag name="doctrine.event_subscriber" connection="default" />
