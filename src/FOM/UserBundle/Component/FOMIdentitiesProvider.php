@@ -80,7 +80,7 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     {
         $roles = array();
         foreach ($this->getAllGroups() as $group) {
-            $roles[] = 'r:' . $group->getAsRole();
+            $roles[] = 'r:' . $group->getRole();
         }
 
         return $roles;
