@@ -3,21 +3,21 @@
 namespace FOM\UserBundle\Component;
 
 use Doctrine\ORM\EntityRepository;
+use FOM\UserBundle\Component\Ldap;
 use FOM\UserBundle\Entity\Group;
 use FOM\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Managed users
- *
- * @alias UserManager
- * @alias User Manager
- *d
+ * Provides user and group identities available for ACL assignments
+ * Service registered as fom.identities.provider
  */
 class FOMIdentitiesProvider implements IdentitiesProviderInterface
 {
     /** @var ContainerInterface */
     protected $container;
+    /** @var Ldap\UserProvider */
+    protected $ldapUserIdentitiesProvider;
 
     /**
      * @param ContainerInterface $container
@@ -25,6 +25,7 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+        $this->ldapUserIdentitiesProvider = $container->get('fom.ldap_user_identities_provider');
     }
 
     /**
@@ -45,8 +46,11 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     }
 
     /**
-     * @param string $search
-     * @return array
+     * Get user security identifiers for given query.
+     *
+     * @param string $search Query string
+     * @return string[]
+     * @deprecated remove in FOM v3.3 (no invocations)
      */
     public function getUsers($search)
     {
@@ -67,7 +71,10 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     }
 
     /**
+     * Get role identifiers
+     *
      * @return string[]
+     * @deprecated remove in FOM v3.3 (no invocations)
      */
     public function getRoles()
     {
@@ -88,50 +95,22 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
         return $repo->findAll();
     }
 
-    public function getAllUsers(){
-        // Settings for LDAP
-        if($this->container->hasParameter('ldap_host')) {
-            $ldapHostname = $this->container->getParameter("ldap_host");
-            $ldapPort = $this->container->getParameter("ldap_port");
-            $ldapVersion = $this->container->getParameter("ldap_version");
-            $baseDn = $this->container->getParameter("ldap_user_base_dn");
-            $nameAttribute = $this->container->getParameter("ldap_user_name_attribute");
-            $bindDn = $this->container->getParameter("ldap_bind_dn");
-            $bindPasswd = $this->container->getParameter("ldap_bind_pwd");
-            $filter = "(" . $nameAttribute . "=*)";
+    public function getLdapUsers()
+    {
+        return $this->ldapUserIdentitiesProvider->getIdentities('*');
+    }
 
-            $connection = @ldap_connect($ldapHostname, $ldapPort);
-            ldap_set_option($connection, LDAP_OPT_PROTOCOL_VERSION, $ldapVersion);
-
-            if (strlen($bindDn) !== 0 && strlen($bindPasswd) !== 0) {
-                if (!ldap_bind($connection, $bindDn, $bindPasswd)) {
-                    throw new \Exception('Unable to bind LDAP to DN: ' . $bindDn);
-                }
-            }
-
-            $ldapListRequest = ldap_list($connection, $baseDn, $filter); // or throw exeption('Unable to list. LdapError: ' . ldap_error($ldapConnection));
-
-            $ldapUserList = ldap_get_entries($connection, $ldapListRequest);
-        }
-
-        // Settings for local user database
+    /**
+     * @return User[]
+     */
+    public function getDatabaseUsers()
+    {
         $repo = $this->getDoctrine()->getRepository('FOMUserBundle:User');
-        $users = $repo->findAll();
+        return $repo->findAll();
+    }
 
-        $all = array();
-
-        if($this->container->hasParameter('ldap_host')) {
-            // Add Users from LDAP
-            foreach($ldapUserList as $ldapUser) {
-                $user = new \stdClass;
-                $user->getUsername = $ldapUser[$nameAttribute][0];
-                $all[] = $user;
-            }
-        }
-        // Add Mapbenderusers from database
-        foreach($users as $user) {
-            $all[] = $user;
-        }
-        return $all;
+    public function getAllUsers()
+    {
+        return array_merge($this->getLdapUsers(), $this->getDatabaseUsers());
     }
 }
