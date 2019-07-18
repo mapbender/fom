@@ -9,6 +9,11 @@ use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 
+/**
+ * Service registered as form.ace.model_transformer
+ * If you rewire fom.identities.provider to produce different types of users / groups for ACE assignments,
+ * you should also rewire this service so it can process the new types properly.
+ */
 class ACEDataTransformer implements DataTransformerInterface
 {
     /** @var Ldap\UserProvider */

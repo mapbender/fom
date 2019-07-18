@@ -43,9 +43,7 @@ class UserProvider
         $filter = $this->getFilterString($pattern);
         $users = array();
         foreach ($this->client->getObjects($this->baseDn, $filter) as $userRecord) {
-            $u = new \stdClass();
-            $u->getUsername = $userRecord[$this->nameAttribute][0];
-            $users[] = $u;
+            $users[] = $this->transformUserRecord($userRecord);
         }
         return $users;
     }
@@ -59,6 +57,17 @@ class UserProvider
         // NOTE: ldap_escape implementation is provided by symfony/polyfill-php56 even on older PHP versions
         $pattern = \ldap_escape($name, null, LDAP_ESCAPE_FILTER);
         return !empty($this->getUsers($pattern));
+    }
+
+    /**
+     * @param array[] $record
+     * @return object
+     */
+    protected function transformUserRecord($record)
+    {
+        $u = new \stdClass();
+        $u->getUsername = $record[$this->nameAttribute][0];
+        return $u;
     }
 
     /**
