@@ -46,47 +46,6 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     }
 
     /**
-     * Get user security identifiers for given query.
-     *
-     * @param string $search Query string
-     * @return string[]
-     * @deprecated remove in FOM v3.3 (no invocations)
-     */
-    public function getUsers($search)
-    {
-        $repo = $this->getRepository('FOMUserBundle:User');
-        $qb = $repo->createQueryBuilder('u');
-
-        $query = $qb->where($qb->expr()->like('LOWER(u.username)', ':search'))
-            ->setParameter(':search', '%' . strtolower($search) . '%')
-            ->orderBy('u.username', 'ASC')
-            ->getQuery();
-
-        $result = array();
-        foreach($query->getResult() as $user) {
-            /** @var User $user */
-            $result[] = 'u:' . $user->getUsername();
-        }
-        return $result;
-    }
-
-    /**
-     * Get role identifiers
-     *
-     * @return string[]
-     * @deprecated remove in FOM v3.3 (no invocations)
-     */
-    public function getRoles()
-    {
-        $roles = array();
-        foreach ($this->getAllGroups() as $group) {
-            $roles[] = 'r:' . $group->getRole();
-        }
-
-        return $roles;
-    }
-
-    /**
      * @return Group[]
      */
     public function getAllGroups()
