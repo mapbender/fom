@@ -18,10 +18,17 @@ class ACEDataTransformer implements DataTransformerInterface
 {
     /** @var Ldap\UserProvider */
     protected $ldapUserProvider;
+    /** @var string */
+    protected $defaultLdapUserClass;
 
-    public function __construct(Ldap\UserProvider $ldapUserProvider)
+    /**
+     * @param Ldap\UserProvider $ldapUserProvider
+     * @param string $defaultLdapUserClass
+     */
+    public function __construct(Ldap\UserProvider $ldapUserProvider, $defaultLdapUserClass)
     {
         $this->ldapUserProvider = $ldapUserProvider;
+        $this->defaultLdapUserClass = $defaultLdapUserClass;
     }
 
     /**
@@ -90,8 +97,7 @@ class ACEDataTransformer implements DataTransformerInterface
                 $class = $sidParts[2];
             } else {
                 if($this->isLdapUser($sidParts[1])) {
-                    /* is LDAP user*/
-                    $class = 'Mapbender\LdapIntegrationBundle\Entity\LdapUser';
+                    $class = $this->defaultLdapUserClass;
                 } else {
                     /* is not a LDAP user*/
                     $class = 'FOM\UserBundle\Entity\User';
