@@ -3,6 +3,8 @@
 
 namespace FOM\UserBundle\Component\Ldap;
 
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+
 /**
  * Service registered as fom.ldap_user_provider
  * @since v3.1.7
@@ -13,6 +15,8 @@ class UserProvider
     /** @var Client */
     protected $client;
     /** @var string */
+    protected $userClass;
+    /** @var string */
     protected $baseDn;
     /** @var string */
     protected $nameAttribute;
@@ -21,13 +25,15 @@ class UserProvider
 
     /**
      * @param Client $client
+     * @param string $userClass for generated UserSecurityIdentity objects
      * @param string $baseDn
      * @param string $nameAttribute
      * @param string|null $filter extra LDAP filter
      */
-    public function __construct(Client $client, $baseDn, $nameAttribute, $filter)
+    public function __construct(Client $client, $userClass, $baseDn, $nameAttribute, $filter)
     {
         $this->client = $client;
+        $this->userClass = $userClass;
         $this->baseDn = $baseDn;
         $this->nameAttribute = $nameAttribute;
         // remove optional enclosing brackets around filter (at most one level);
@@ -65,9 +71,7 @@ class UserProvider
      */
     protected function transformUserRecord($record)
     {
-        $u = new \stdClass();
-        $u->getUsername = $record[$this->nameAttribute][0];
-        return $u;
+        return new UserSecurityIdentity($record[$this->nameAttribute][0], $this->userClass);
     }
 
     /**
