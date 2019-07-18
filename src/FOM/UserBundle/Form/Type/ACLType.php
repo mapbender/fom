@@ -1,7 +1,6 @@
 <?php
 namespace FOM\UserBundle\Form\Type;
 
-use FOM\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -92,14 +91,14 @@ class ACLType extends AbstractType
             // - View access for logged in users
             $aces = array();
 
-            /** @var User $owner */
-            $owner = $this->tokenStorage->getToken()->getUser();
-            $ownerAccess = array(
-                'sid' => UserSecurityIdentity::fromAccount($owner),
-                'mask' => MaskBuilder::MASK_OWNER,
-            );
-
-            $aces[] = $ownerAccess;
+            $token = $this->tokenStorage->getToken();
+            if ($token) {
+                $ownerAccess = array(
+                    'sid' => UserSecurityIdentity::fromToken($token),
+                    'mask' => MaskBuilder::MASK_OWNER,
+                );
+                $aces[] = $ownerAccess;
+            }
         }
         if ($options['standard_anon_access'] || ($options['standard_anon_access'] === null && $options['create_standard_permissions'])) {
             $anon = new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY');
