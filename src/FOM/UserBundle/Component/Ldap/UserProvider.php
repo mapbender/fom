@@ -22,6 +22,10 @@ class UserProvider
     protected $nameAttribute;
     /** @var string */
     protected $filter;
+    /** @var int */
+    protected $preloadCountdown = 1;
+    /** @var array|null */
+    protected $preloadData;
 
     /**
      * @param Client $client
@@ -60,9 +64,17 @@ class UserProvider
      */
     public function userExists($name)
     {
-        // NOTE: ldap_escape implementation is provided by symfony/polyfill-php56 even on older PHP versions
-        $pattern = \ldap_escape($name, null, LDAP_ESCAPE_FILTER);
-        return !empty($this->getUsers($pattern));
+        if ($this->preloadCountdown) {
+            --$this->preloadCountdown;
+            // NOTE: ldap_escape implementation is provided by symfony/polyfill-php56 even on older PHP versions
+            $pattern = \ldap_escape($name, null, LDAP_ESCAPE_FILTER);
+            return !empty($this->getIdentities($pattern));
+        } else {
+            if ($this->preloadData === null) {
+                $this->initPreload();
+            }
+            return !empty($this->preloadData[$name]);
+        }
     }
 
     /**
@@ -85,6 +97,28 @@ class UserProvider
             return "(&{$baseFilter}({$this->filter}))";
         } else {
             return $baseFilter;
+        }
+    }
+
+    protected function initPreload()
+    {
+        $this->preloadData = array();
+        foreach ($this->getIdentities('*') as $ident) {
+            if ($ident instanceof UserSecurityIdentity) {
+                $name = $ident->getUsername();
+            } elseif (is_object($ident) && method_exists($ident, 'getUsername')) {
+                $name = $ident->getUsername();
+            } elseif (is_object($ident) && property_exists($ident, 'getUsername')) {
+                // support legacy stdClass with lambda property
+                $name = $ident->getUsername;
+                if ($name instanceof \Closure) {
+                    $name = $name();
+                }
+            } else {
+                $t = is_object($ident) ? get_class($ident) : gettype($ident);
+                throw new \RuntimeException("Cannot find user name on type {$t} user identity");
+            }
+            $this->preloadData[$name] = $ident;
         }
     }
 }
