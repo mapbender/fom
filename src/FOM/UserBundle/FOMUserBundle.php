@@ -8,8 +8,6 @@ use Symfony\Bundle\SecurityBundle\DependencyInjection\SecurityExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use FOM\UserBundle\DependencyInjection\Factory\SspiFactory;
 use Mapbender\ManagerBundle\Component\ManagerBundle;
-use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * FOMUserBundle - provides user management
@@ -23,10 +21,7 @@ class FOMUserBundle extends ManagerBundle
         /** @var SecurityExtension $extension */
         $extension = $container->getExtension('security');
         $extension->addSecurityListenerFactory(new SspiFactory());
-        if (class_exists('\Mapbender\ManagerBundle\Component\Menu\MenuItem')) {
-            // Mapbender >= 3.0.8.2
-            $this->addMenu($container);
-        }
+        $this->addMenu($container);
     }
 
     protected function addMenu(ContainerBuilder $container)
@@ -53,66 +48,6 @@ class FOMUserBundle extends ManagerBundle
             ))
         ;
         $container->addCompilerPass(new RegisterMenuRoutesPass($userItem));
-    }
-
-    /**
-     * @inheritdoc
-     * @deprecated remove in FOM v3.3, require Mapbender >=3.0.8.2
-     */
-    public function getManagerControllers()
-    {
-        if (class_exists('\Mapbender\ManagerBundle\Component\Menu\MenuItem')) {
-            // Mapbender >= 3.0.8.2
-            return array();
-        }
-        return array(
-            array(
-                'title' => "fom.user.userbundle.user_control",
-                'weight' => 100,
-                'route' => 'fom_user_user_index',
-                'subroutes' => array(
-                    array(
-                        'title' => "fom.user.userbundle.users",
-                        'route'=>'fom_user_user_index',
-                        'subroutes' => array(
-                           array(
-                                'title' => "fom.user.userbundle.new_user",
-                                'route'=>'fom_user_user_create',
-                                'enabled' => function($securityContext) {
-                                    /** @var AuthorizationCheckerInterface $securityContext */
-                                    $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
-                                    return $securityContext->isGranted('CREATE', $oid);
-                                },
-                            )
-                        ),
-                    ),
-                    array(
-                        'title' => "fom.user.userbundle.groups",
-                        'route'=>'fom_user_group_index',
-                        'subroutes' => array(
-                            array(
-                                'title' => "fom.user.userbundle.new_group",
-                                'route'=>'fom_user_group_create',
-                                'enabled' => function($securityContext) {
-                                    /** @var AuthorizationCheckerInterface $securityContext */
-                                    $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
-                                    return $securityContext->isGranted('CREATE', $oid);
-                                },
-                            ),
-                        ),
-                    ),
-                    array(
-                        'title' => "fom.user.userbundle.acls",
-                        'route'=>'fom_user_acl_index',
-                        'enabled' => function($securityContext) {
-                            /** @var AuthorizationCheckerInterface $securityContext */
-                            $oid = new ObjectIdentity('class', 'Symfony\Component\Security\Acl\Domain\Acl');
-                            return $securityContext->isGranted('CREATE', $oid) || $securityContext->isGranted('EDIT', $oid);
-                        },
-                    ),
-                ),
-            ),
-        );
     }
 
     public function getACLClasses()
