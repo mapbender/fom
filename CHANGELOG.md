@@ -1,3 +1,8 @@
+## v3.2.7
+- Added `ldap_user_filter` parameter and other configurability related to ACLs and LDAP (see [PR#54](https://github.com/mapbender/fom/pull/54))
+- Guard against empty tokens when initializing owner ACE
+- Group entity now implements standard RoleInterface
+
 ## v3.2.6
 - [v3.2.4 regression] fix backlinks to login action generated in forgotten password / registration areas
 
@@ -28,6 +33,11 @@
 
 ## v3.2.0
 - Remove LoginController and related templates (migrated to Mapbender)
+
+## v3.1.7
+- Added `ldap_user_filter` parameter and other configurability related to ACLs and LDAP (see [PR#54](https://github.com/mapbender/fom/pull/54))
+- Guard against empty tokens when initializing owner ACE
+- Group entity now implements standard RoleInterface
 
 ## v3.1.6
 - Fix ACL prefetching error when no users have any assigned ACLs yet

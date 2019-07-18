@@ -306,7 +306,7 @@ class User implements AdvancedUserInterface
     /**
      * Get groups
      *
-     * @return Collection
+     * @return Collection|Group[]
      */
     public function getGroups()
     {
@@ -321,8 +321,8 @@ class User implements AdvancedUserInterface
     public function getRoles()
     {
         $roles = array();
-        foreach ($this->groups as $group) {
-            $roles[] = $group->getAsRole();
+        foreach ($this->getGroups() as $group) {
+            $roles[] = $group->getRole();
         }
         $roles[] = 'ROLE_USER';
         return $roles;

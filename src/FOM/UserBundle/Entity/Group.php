@@ -2,6 +2,7 @@
 
 namespace FOM\UserBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\Role\RoleInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -14,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("title")
  * @ORM\Table(name="fom_group")
  */
-class Group
+class Group implements RoleInterface
 {
     /**
      * @ORM\Id
@@ -135,8 +136,20 @@ class Group
         return $this->users;
     }
 
-    public function getAsRole()
+    /**
+     * @return string
+     */
+    public function getRole()
     {
         return 'ROLE_GROUP_' . strtoupper($this->getTitle());
+    }
+
+    /**
+     * @return string
+     * @deprecated use RoleInterface conformant getRole method; remove in FOM v3.3
+     */
+    public function getAsRole()
+    {
+        return $this->getRole();
     }
 }
