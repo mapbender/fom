@@ -2,7 +2,6 @@
 
 namespace FOM\UserBundle\Component;
 
-use FOM\UserBundle\Entity\AclEntry;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Security\Acl\Domain\Acl;
 use Symfony\Component\Security\Acl\Domain\Entry;
@@ -194,22 +193,6 @@ class AclManager
         return count($this->getObjectAclEntries($entity)) > 0;
     }
 
-
-    /**
-     * Consolidate object ACL entries to an <AclEntry> array.
-     *
-     * @param $entity
-     * @return AclEntry[]
-     * @deprecated remove in FOM v3.3; use the plain old framework aces provided by getObjectAclEntries
-     */
-    public function getObjectAclEntriesAsArray($entity)
-    {
-        $result = array();
-        foreach ($this->getObjectAclEntries($entity) as $aclEntry) {
-            $result[] = new AclEntry($aclEntry->getSecurityIdentity());
-        }
-        return $result;
-    }
 
     /**
      * @param object|string $entity
