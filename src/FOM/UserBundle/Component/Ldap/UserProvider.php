@@ -6,7 +6,7 @@ namespace FOM\UserBundle\Component\Ldap;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 
 /**
- * Service registered as fom.ldap_user_provider
+ * Service registered as fom.ldap_user_identities_provider
  * @since v3.1.7
  * @since v3.2.7
  */
@@ -44,7 +44,7 @@ class UserProvider
      * @param string $pattern
      * @return \stdClass[]
      */
-    public function getUsers($pattern = '*')
+    public function getIdentities($pattern = '*')
     {
         $filter = $this->getFilterString($pattern);
         $users = array();

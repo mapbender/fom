@@ -17,7 +17,7 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     /** @var ContainerInterface */
     protected $container;
     /** @var Ldap\UserProvider */
-    protected $ldapUserProvider;
+    protected $ldapUserIdentitiesProvider;
 
     /**
      * @param ContainerInterface $container
@@ -25,7 +25,7 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-        $this->ldapUserProvider = $container->get('fom.ldap_user_provider');
+        $this->ldapUserIdentitiesProvider = $container->get('fom.ldap_user_identities_provider');
     }
 
     /**
@@ -97,7 +97,7 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
 
     public function getLdapUsers()
     {
-        return $this->ldapUserProvider->getUsers('*');
+        return $this->ldapUserIdentitiesProvider->getIdentities('*');
     }
 
     /**
