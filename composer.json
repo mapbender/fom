@@ -6,7 +6,8 @@
     "license": "MIT",
     "require": {
         "php": ">=5.5",
-        "symfony/dependency-injection": "^2.4"
+        "symfony/dependency-injection": "~2.4|^3",
+        "symfony/form": "^2.4|^3"
     },
     "autoload": {
         "psr-4": {"FOM\\": "src/FOM"}
