@@ -3,6 +3,7 @@
 namespace FOM\ManagerBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class TagboxType extends AbstractType
 {
@@ -11,8 +12,13 @@ class TagboxType extends AbstractType
         return 'tagbox';
     }
 
+    public function getBlockPrefix()
+    {
+        return 'tagbox';
+    }
+
     public function getParent()
     {
-        return 'checkbox';
+        return CheckboxType::class;
     }
 }
