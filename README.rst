@@ -1,6 +1,4 @@
 Friends Of Mapbender
 ====================
 
-These are the FOM bundles. Included are the ManagerBundle,
-an general UserBundle and an HelpTextBundle.
-
+User and Group entities and management, ACL management and misc helpers for Mapbender.
