@@ -1,3 +1,14 @@
+## v3.3 WIP @ fbedf41
+- Removed:
+  - DoctrineHelper class. Never update your schema in a live session. Always use `app/console doctrine:schema:update`.
+  - UserHelper class. Use service `fom.user_helper.service`.
+  - ManagerBundle class. Extend `Mapbender\ManagerBundle\Component\ManagerBundle` directly instead.
+  - RolesService class, `fom_roles` registration. No invocations im Mapbender codebase. Update / cut any usages assuming calls to `getRoles` and `getAll` return empty arrays.
+  - Custom AclEntry entity class. Work with [Acl](https://github.com/symfony/security-acl/blob/2.8/Domain/Acl.php) and [Acl Entry](https://github.com/symfony/security-acl/blob/2.8/Domain/Entry.php) objects provided by Symfony directly.
+  - AclManager::getObjectAclEntriesAsArray (no invocations in Mapbender codebase; AclEntry removal collateral)
+  - FOMIdentitiesProvider::getUsers (no invocations in Mapbender codebase)
+  - FOMIdentitiesProvider::getRoles (no invocations in Mapbender codebase)
+
 ## v3.2.7
 - Added `ldap_user_filter` parameter and other configurability related to ACLs and LDAP (see [PR#54](https://github.com/mapbender/fom/pull/54))
 - Guard against empty tokens when initializing owner ACE
