@@ -1,3 +1,7 @@
+## v3.1.8
+- Remove assigned ACEs when removing user or group
+- Autofocus on filter input in user / group selection
+
 ## v3.1.7
 - Added `ldap_user_filter` parameter and other configurability related to ACLs and LDAP (see [PR#54](https://github.com/mapbender/fom/pull/54))
 - Guard against empty tokens when initializing owner ACE
