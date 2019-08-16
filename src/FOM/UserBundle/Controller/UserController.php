@@ -8,7 +8,9 @@ use FOM\UserBundle\Form\Type\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 
 /**
  * User management controller
@@ -212,16 +214,17 @@ class UserController extends UserControllerBase
         }
 
         $this->denyAccessUnlessGranted('DELETE', $user);
-
         $aclProvider = $this->getAclProvider();
-        $oid         = ObjectIdentity::fromDomainObject($user);
-        $aclProvider->deleteAcl($oid);
 
         $em = $this->getEntityManager();
         $em->beginTransaction();
 
         try {
-            $oid         = ObjectIdentity::fromDomainObject($user);
+            if ($aclProvider instanceof MutableAclProvider) {
+                $sid = UserSecurityIdentity::fromAccount($user);
+                $aclProvider->deleteSecurityIdentity($sid);
+            }
+            $oid = ObjectIdentity::fromDomainObject($user);
             $aclProvider->deleteAcl($oid);
 
             $em->remove($user);

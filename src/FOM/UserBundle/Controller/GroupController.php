@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOM\ManagerBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
+use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
@@ -152,26 +154,34 @@ class GroupController extends UserControllerBase
      */
     public function deleteAction($id)
     {
+        /** @var Group|null $group */
         $group = $this->getDoctrine()->getRepository('FOMUserBundle:Group')
             ->find($id);
 
         if($group === null) {
             throw new NotFoundHttpException('The group does not exist');
         }
+        // ACL access check
+        $this->denyAccessUnlessGranted('DELETE', $group);
+        $aclProvider = $this->getAclProvider();
+        $em = $this->getEntityManager();
+        $em->beginTransaction();
 
         try {
-            // ACL access check
-            $this->denyAccessUnlessGranted('DELETE', $group);
+            if ($aclProvider instanceof MutableAclProvider) {
+                $sid = new RoleSecurityIdentity($group->getRole());
+                $aclProvider->deleteSecurityIdentity($sid);
+            }
 
-            $em = $this->getEntityManager();
             $em->remove($group);
 
             $oid = ObjectIdentity::fromDomainObject($group);
-            $this->getAclProvider()->deleteAcl($oid);
+            $aclProvider->deleteAcl($oid);
 
             $em->flush();
-
+            $em->commit();
         } catch(\Exception $e) {
+            $em->rollback();
             $this->addFlash('error', "The group couldn't be deleted.");
         }
         return new Response();
