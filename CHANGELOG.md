@@ -9,6 +9,10 @@
   - FOMIdentitiesProvider::getUsers (no invocations in Mapbender codebase)
   - FOMIdentitiesProvider::getRoles (no invocations in Mapbender codebase)
 
+## v3.2.8
+- Remove assigned ACEs when removing user or group
+- Autofocus on filter input in user / group selection
+
 ## v3.2.7
 - Added `ldap_user_filter` parameter and other configurability related to ACLs and LDAP (see [PR#54](https://github.com/mapbender/fom/pull/54))
 - Guard against empty tokens when initializing owner ACE
@@ -44,6 +48,10 @@
 
 ## v3.2.0
 - Remove LoginController and related templates (migrated to Mapbender)
+
+## v3.1.8
+- Remove assigned ACEs when removing user or group
+- Autofocus on filter input in user / group selection
 
 ## v3.1.7
 - Added `ldap_user_filter` parameter and other configurability related to ACLs and LDAP (see [PR#54](https://github.com/mapbender/fom/pull/54))
