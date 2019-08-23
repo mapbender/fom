@@ -1,3 +1,7 @@
+## v3.2.9
+- Do not require ext-ldap methods unless ldap access is configured
+- Fix PHP5.3 incompatibility in LDAP UserProvider
+
 ## v3.2.8
 - Remove assigned ACEs when removing user or group
 - Autofocus on filter input in user / group selection
@@ -37,6 +41,10 @@
 
 ## v3.2.0
 - Remove LoginController and related templates (migrated to Mapbender)
+
+## v3.1.9
+- Do not require ext-ldap methods unless ldap access is configured
+- Fix PHP5.3 incompatibility in LDAP UserProvider
 
 ## v3.1.8
 - Remove assigned ACEs when removing user or group

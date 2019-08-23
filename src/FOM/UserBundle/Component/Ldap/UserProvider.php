@@ -65,10 +65,15 @@ class UserProvider
     public function userExists($name)
     {
         if ($this->preloadCountdown) {
-            --$this->preloadCountdown;
-            // NOTE: ldap_escape implementation is provided by symfony/polyfill-php56 even on older PHP versions
-            $pattern = \ldap_escape($name, null, LDAP_ESCAPE_FILTER);
-            return !empty($this->getIdentities($pattern));
+            // NOTE: ldap_escape implementation is provided by symfony/polyfill-php56 even on older PHP versions,
+            //       but only if PHP Ldap extension is installed and activated
+            if (function_exists('\ldap_escape')) {
+                $pattern = \ldap_escape($name, null, LDAP_ESCAPE_FILTER);
+                --$this->preloadCountdown;
+                return !!$this->getIdentities($pattern);
+            } else {
+                return false;
+            }
         } else {
             if ($this->preloadData === null) {
                 $this->initPreload();
