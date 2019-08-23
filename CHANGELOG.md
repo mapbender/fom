@@ -1,4 +1,4 @@
-## v3.3 WIP @ a2e91d2
+## v3.3 WIP @ 7e071b1
 - Removed:
   - DoctrineHelper class. Never update your schema in a live session. Always use `app/console doctrine:schema:update`.
   - UserHelper class. Use service `fom.user_helper.service`.
