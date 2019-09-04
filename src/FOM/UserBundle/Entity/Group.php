@@ -143,13 +143,4 @@ class Group implements RoleInterface
     {
         return 'ROLE_GROUP_' . strtoupper($this->getTitle());
     }
-
-    /**
-     * @return string
-     * @deprecated use RoleInterface conformant getRole method; remove in FOM v3.3
-     */
-    public function getAsRole()
-    {
-        return $this->getRole();
-    }
 }
