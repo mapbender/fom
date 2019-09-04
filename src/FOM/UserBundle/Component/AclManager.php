@@ -35,19 +35,6 @@ class AclManager
     }
 
     /**
-     * Update ACEs from a form of class FOM\UserBundle\Form\Type\ACLType
-     * (commonly 'acl')
-     * @param object $entity Entity to update ACL for
-     * @param object $form   ACLType form object
-     * @param mixed $ignored
-     * @deprecated for misleading naming and form type interaction magic, use setObjectACEs; remove in FOM v3.3
-     */
-    public function setObjectACLFromForm($entity, $form, $ignored = null)
-    {
-        $this->setObjectACEs($entity, $form->get('ace')->getData());
-    }
-
-    /**
      * Update ACEs for entity
      * @param object $entity Entity to update ACL for
      * @param array $aces   Array with ACEs (not Entry objects!)
@@ -85,19 +72,6 @@ class AclManager
         }
 
         $this->aclProvider->updateAcl($acl);
-    }
-
-    /**
-     * Update ACEs from a form of class FOM\UserBundle\Form\Type\ACLType
-     * (commonly 'acl')
-     *
-     * @param        $class
-     * @param object $form ACLType form object
-     * @deprecated for misleading naming and form type interaction magic, use setClassACEs; remove in FOM v3.3
-     */
-    public function setClassACLFromForm($class, $form)
-    {
-        $this->setClassACEs($class, $form->get('ace')->getData());
     }
 
     /**
