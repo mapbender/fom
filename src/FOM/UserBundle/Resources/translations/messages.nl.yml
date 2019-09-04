@@ -66,8 +66,6 @@ fom:
         no_such_tocken: 'Uw sleutel kan niet gevonden worden. Als u denkt dat dit een fout is dient u contact op te nemen met de administrator.'
         contact: 'Neem contact op met de administrator'
         back_to_login: 'Terug naar login'
-      errors:
-        bad-credentials: 'Ongeldige inloggegevens'
     user:
       index:
         title: Gebruikers
@@ -178,11 +176,3 @@ form:
       zipCode: 'Postcode'
       city: Plaats
       country: Land
-'User account is locked':
-  '': 'Gebruikers account is geblokkeerd.'
-'User account is disabled':
-  '': 'Gebruikers account is uitgeschakeld.'
-'User account has expired':
-  '': 'Gebruikers account is verlopen.'
-'User credentials have expired':
-  '': 'Login gegevens zijn verlopen.'

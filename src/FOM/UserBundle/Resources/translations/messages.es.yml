@@ -66,8 +66,6 @@ fom:
         registration_token_expired: 'Tu token de registro ha expirado. Desafortunadamente, tienes que solicitar un nuevo token.'
         request_new_token: 'Solicitar nuevo token'
         back_to_login: 'Regresar al login'
-      errors:
-        bad-credentials: 'Bad credentials'
     user:
       index:
         title: Usuarios
@@ -165,16 +163,3 @@ fom:
         super_admin: 'Puede administrar todo (super admin)'
         user_admin: 'Puede administrar usuarios y grupos'
 IS_AUTHENTICATED_ANONYMOUSLY: IS_AUTHENTICATED_ANONYMOUSLY
-form:
-  profile:
-    basic:
-      firstname: 'First name'
-      lastName: 'Last name'
-      notes: Notes
-      phone: Phone
-      organizationName: Organization
-      organizationRole: Role
-      street: Street
-      zipCode: 'Zip code'
-      city: City
-      country: Country

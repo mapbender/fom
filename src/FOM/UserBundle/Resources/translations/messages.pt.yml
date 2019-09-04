@@ -66,8 +66,6 @@ fom:
         no_such_tocken: 'Token não foi encontrado. Se detectar um erro, por favor entre em contato com o administrador do site.'
         contact: 'Contactar o Administrador'
         back_to_login: 'Voltar à página de login'
-      errors:
-        bad-credentials: 'Bad credentials'
     user:
       index:
         title: Usuários

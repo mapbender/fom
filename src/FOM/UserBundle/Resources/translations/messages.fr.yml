@@ -66,8 +66,6 @@ fom:
         no_such_tocken: 'Aucun ''token'' trouvé. Si vous pensez que c''est une erreur, contactez l''adminisatrateur.'
         contact: 'Contacter l''administrateur'
         back_to_login: 'Retour à la connexion'
-      errors:
-        bad-credentials: 'Le mot de passe ou le nom d''utilisateur est invalide'
     user:
       index:
         title: Utilisateurs
