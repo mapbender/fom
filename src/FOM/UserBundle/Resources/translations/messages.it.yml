@@ -66,8 +66,6 @@ fom:
         no_such_tocken: 'Non è possibile trovare alcun token di questo tipo. Se ritieni che si tratti di un errore, contatta l''amministratore del sito.'
         contact: 'Contatta l''amministratore'
         back_to_login: 'Torna alla login'
-      errors:
-        bad-credentials: 'Credentiali errate'
     user:
       index:
         title: Utente
@@ -178,11 +176,3 @@ form:
       zipCode: Cap
       city: Città
       country: Nazione
-'User account is locked':
-  '': 'L''account utente è bloccato'
-'User account is disabled':
-  '': 'L''account dell''utente è disabilitato.'
-'User account has expired':
-  '': 'L''account utente è scaduto.'
-'User credentials have expired':
-  '': 'Le credenziali dell''utente sono scadute.'

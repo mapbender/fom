@@ -66,8 +66,6 @@ fom:
         no_such_tocken: 'Token nicht gefunden. Wenn Sie denken, dass dies ein Fehler ist, bitte kontaktieren Sie Ihren Administrator.'
         contact: 'Kontakt Administrator'
         back_to_login: 'Zurück zur Anmeldung'
-      errors:
-        bad-credentials: 'Authentifizierung fehlgeschlagen'
     user:
       index:
         title: Benutzer
@@ -178,11 +176,3 @@ form:
       zipCode: PLZ
       city: Stadt
       country: Land
-'User account is locked':
-  '': 'Benutzerkonto ist gesperrt.'
-'User account is disabled':
-  '': 'Benutzerkonto ist deaktiviert.'
-'User account has expired':
-  '': 'Benutzerkonto ist abgelaufen.'
-'User credentials have expired':
-  '': 'Anmeldedaten sind abgelaufen.'

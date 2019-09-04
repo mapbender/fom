@@ -66,8 +66,6 @@ fom:
         no_such_tocken: 'No such token can be found. If you think this is an error, please contact the site administrator.'
         contact: 'Contact administrator'
         back_to_login: 'Back to login'
-      errors:
-        bad-credentials: 'Bad credentials'
     user:
       index:
         title: Users
@@ -178,11 +176,3 @@ form:
       zipCode: 'Zip code'
       city: City
       country: Country
-'User account is locked':
-  '': 'User account is locked.'
-'User account is disabled':
-  '': 'User account is disabled.'
-'User account has expired':
-  '': 'User account has expired.'
-'User credentials have expired':
-  '': 'User credentials have expired.'
