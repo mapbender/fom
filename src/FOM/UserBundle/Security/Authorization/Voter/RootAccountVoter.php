@@ -15,6 +15,9 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
  */
 class RootAccountVoter implements VoterInterface
 {
+    /** @var ContainerInterface */
+    protected $container;
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;

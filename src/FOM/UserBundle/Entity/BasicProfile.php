@@ -108,7 +108,7 @@ class BasicProfile
     /**
      * Set uid
      *
-     * @param \FOM\UserBundle\Entity\User $uid
+     * @param User $uid
      * @return $this
      */
     public function setUid(User $uid)
@@ -121,7 +121,7 @@ class BasicProfile
     /**
      * Get uid
      *
-     * @return \FOM\UserBundle\Entity\User
+     * @return User
      */
     public function getUid()
     {

@@ -68,7 +68,7 @@ class AclManager
      */
     public function setObjectACEs($entity, $aces)
     {
-        $acl = $this->getAcl($entity);
+        $acl = $this->getACL($entity);
         $oldAces = $acl->getObjectAces();
 
         // Delete old ACEs
@@ -108,7 +108,7 @@ class AclManager
      */
     public function setClassACEs($class, $aces)
     {
-        $acl     = $this->getAcl($class);
+        $acl = $this->getACL($class);
         $oldAces = $acl->getClassAces();
 
         // @TODO: This is a naive implementation, we should update where
@@ -177,6 +177,7 @@ class AclManager
      *
      * @param $entity
      * @return Entry[]
+     * @deprecated remove in FOM v3.3
      */
     public function getObjectAclEntries($entity)
     {
@@ -188,6 +189,7 @@ class AclManager
      *
      * @param $entity
      * @return bool
+     * @deprecated remove in FOM v3.3
      */
     public function hasObjectAclEntries($entity)
     {
@@ -213,8 +215,9 @@ class AclManager
 
     /**
      * @param object|string $entity
-     * @return \Symfony\Component\Security\Acl\Domain\ObjectIdentity
+     * @return ObjectIdentity
      * @throws \Symfony\Component\Security\Acl\Exception\InvalidDomainObjectException
+     * @deprecated remove in FOM v3.3
      */
     public function getEntityObjectId($entity)
     {

@@ -381,13 +381,13 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * Checks whether the user is an admin for the given type (or is superadmin
-     * if type is omitted)
+     * Checks if user is root. Only used to identify fallback owner identity in
+     * CLI operations.
      *
-     * @param string $type Type of admin to check
      * @return bool
+     * @internal
      */
-    public function isAdmin($type = null)
+    public function isAdmin()
     {
         if ($this->getId() === 1) {
             return true;
