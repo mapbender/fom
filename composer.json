@@ -13,7 +13,7 @@
         "psr-4": {"FOM\\": "src/FOM"}
     },
     "conflict": {
-        "mapbender/mapbender": "<3.0.8.2"
+        "mapbender/mapbender": "<=3.0.8.4"
     },
     "extra": {
         "branch-alias": {

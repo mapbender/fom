@@ -35,18 +35,6 @@ class AclManager
     }
 
     /**
-     * Update ACEs for entity
-     * @param object $entity Entity to update ACL for
-     * @param array $aces   Array with ACEs (not Entry objects!)
-     * @param mixed $ignored
-     * @deprecated for misleading naming, use setObjectACEs; remove in FOM v3.3
-     */
-    public function setObjectACL($entity, $aces, $ignored = null)
-    {
-        $this->setObjectACEs($entity, $aces);
-    }
-
-    /**
      * Replace entity ACEs
      * @param object $entity
      * @param array $aces
@@ -146,21 +134,5 @@ class AclManager
        } catch (\Symfony\Component\Security\Acl\Exception\Exception $e) {
             return new \SplObjectStorage();
         }
-    }
-
-    /**
-     * @param object|string $entity
-     * @return ObjectIdentity
-     * @throws \Symfony\Component\Security\Acl\Exception\InvalidDomainObjectException
-     * @deprecated remove in FOM v3.3
-     */
-    public function getEntityObjectId($entity)
-    {
-        if (is_string($entity) && class_exists($entity)) {
-            $oid = new ObjectIdentity('class', $entity);
-        } else {
-            $oid = ObjectIdentity::fromDomainObject($entity);
-        }
-        return $oid;
     }
 }
