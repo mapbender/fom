@@ -11,16 +11,22 @@ use FOM\UserBundle\Security\Authentication\Token\SspiUserToken;
 class SspiAuthenticationProvider implements AuthenticationProviderInterface
 {
 
+    /** @var UserCheckerInterface */
+    protected $checker;
+    /** @var UserProviderInterface */
+    protected $provider;
+
     public function __construct(UserProviderInterface $userProvider, UserCheckerInterface $userChecker)
     {
         $this->checker = $userChecker;
         $this->provider = $userProvider;
     }
 
-    public function authenticate(TokenInterface $token) {
+    public function authenticate(TokenInterface $token)
+    {
         $user = $this->provider->loadUserByUsername($token->getUsername());
 
-        if($user) {
+        if ($user) {
             $this->checker->checkPreAuth($user);
             $authToken = new SspiUserToken(true, $user->getRoles());
             $authToken->setUser($user);
@@ -30,7 +36,8 @@ class SspiAuthenticationProvider implements AuthenticationProviderInterface
         throw new AuthenticationException('No such user.');
     }
 
-    public function supports(TokenInterface $token) {
+    public function supports(TokenInterface $token)
+    {
         return $token instanceof SspiUserToken;
     }
 

@@ -18,7 +18,7 @@ class SspiFactory implements SecurityFactoryInterface
             ->replaceArgument(0, new Reference($userProvider));
 
         $listenerId = 'security.authentication.listener.sspi.'.$id;
-        $listener = $container->setDefinition($listenerId, new DefinitionDecorator('sspi.security.authentication.listener'));
+        $container->setDefinition($listenerId, new DefinitionDecorator('sspi.security.authentication.listener'));
 
         return array($providerId, $listenerId, $defaultEntryPoint);
     }
