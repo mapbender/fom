@@ -6,6 +6,8 @@
   - RolesService class, `fom_roles` registration. No invocations im Mapbender codebase. Update / cut any usages assuming calls to `getRoles` and `getAll` return empty arrays.
   - Custom AclEntry entity class. Work with [Acl](https://github.com/symfony/security-acl/blob/2.8/Domain/Acl.php) and [Acl Entry](https://github.com/symfony/security-acl/blob/2.8/Domain/Entry.php) objects provided by Symfony directly.
   - AclManager::getObjectAclEntriesAsArray (no invocations in Mapbender codebase; AclEntry removal collateral)
+  - AclManager::getObjectAclEntries (no invocations in Mapbender codebase)
+  - AclManager::hasObjectAclEntries (no invocations in Mapbender codebase)
   - FOMIdentitiesProvider::getUsers (no invocations in Mapbender codebase)
   - FOMIdentitiesProvider::getRoles (no invocations in Mapbender codebase)
 

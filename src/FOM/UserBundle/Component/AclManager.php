@@ -146,31 +146,6 @@ class AclManager
     }
 
     /**
-     * Get object ACL entries
-     *
-     * @param $entity
-     * @return Entry[]
-     * @deprecated remove in FOM v3.3
-     */
-    public function getObjectAclEntries($entity)
-    {
-        return $this->getACL($entity)->getObjectAces();
-    }
-
-    /**
-     * Get true if object has some ACL entries
-     *
-     * @param $entity
-     * @return bool
-     * @deprecated remove in FOM v3.3
-     */
-    public function hasObjectAclEntries($entity)
-    {
-        return count($this->getObjectAclEntries($entity)) > 0;
-    }
-
-
-    /**
      * @param object|string $entity
      * @return ObjectIdentity
      * @throws \Symfony\Component\Security\Acl\Exception\InvalidDomainObjectException
