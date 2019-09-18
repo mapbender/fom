@@ -2,9 +2,9 @@
 
 namespace FOM\UserBundle\Component;
 
+use Symfony\Component\Security\Acl\Model\AclInterface;
+use Symfony\Component\Security\Acl\Model\MutableAclInterface;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
-use Symfony\Component\Security\Acl\Domain\Acl;
-use Symfony\Component\Security\Acl\Domain\Entry;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
 use Symfony\Component\Security\Acl\Exception\NotAllAclsFoundException;
@@ -109,25 +109,28 @@ class AclManager
      *
      * @param object|string $entity or class name
      * @param bool $create
-     * @return Acl | null
+     * @return MutableAclInterface|AclInterface|null
      * @throws \Exception
      * @throws \Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException
      */
     public function getACL($entity, $create = true)
     {
-        $acl = null;
-        $oid = $this->getEntityObjectId($entity);
+        if (is_object($entity)) {
+            $oid = ObjectIdentity::fromDomainObject($entity);
+        } else {
+            $oid = new ObjectIdentity('class', $entity);
+        }
         try {
-            $acl = $this->aclProvider->findAcl($oid);
+            return $this->aclProvider->findAcl($oid);
         } catch (NotAllAclsFoundException $e) {
-            $acl = $e->getPartialResult();
+            return $e->getPartialResult();
         } catch (AclNotFoundException $e) {
-            if($create){
-                $acl = $this->aclProvider->createAcl($oid);
+            if ($create){
+                return $this->aclProvider->createAcl($oid);
+            } else {
+                return null;
             }
         }
-
-        return $acl;
     }
 
     /**
