@@ -3,7 +3,6 @@
 namespace FOM\CoreBundle\Form\Type;
 
 use FOM\CoreBundle\Form\DataTransformer\GroupIdTransformer;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\Options;
@@ -46,7 +45,7 @@ class FOMGroupsType extends AbstractType
      */
     public function getParent()
     {
-        return EntityType::class;
+        return 'Symfony\Bridge\Doctrine\Form\Type\EntityType';
     }
 
     public function configureOptions(OptionsResolver $resolver)

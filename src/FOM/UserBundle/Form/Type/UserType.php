@@ -3,12 +3,7 @@
 namespace FOM\UserBundle\Form\Type;
 
 use FOM\UserBundle\Form\EventListener\UserSubscriber;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,17 +19,17 @@ class UserType extends AbstractType
     {
         $builder->addEventSubscriber(new UserSubscriber($options['currentUser']));
         $builder
-            ->add('username', TextType::class, array(
+            ->add('username', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
                 'label' => 'fom.user.user.container.username',
                 'attr' => array(
                     'autofocus' => true,
                 ),
             ))
-            ->add('email', EmailType::class, array(
+            ->add('email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
                 'label' => 'E-Mail',
             ))
-            ->add('password', RepeatedType::class, array(
-                'type' => PasswordType::class,
+            ->add('password', 'Symfony\Component\Form\Extension\Core\Type\RepeatedType', array(
+                'type' => 'Symfony\Component\Form\Extension\Core\Type\PasswordType',
                 'invalid_message' => 'The password fields must match.',
                 'required' => $options['requirePassword'],
                 'mapped' => false,
@@ -51,7 +46,7 @@ class UserType extends AbstractType
 
         if (true === $options['group_permission']) {
             $builder
-                ->add('groups', EntityType::class, array(
+                ->add('groups', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                     'class' =>  'FOMUserBundle:Group',
                     'query_builder' => function (EntityRepository $er) {
                         $qb = $er->createQueryBuilder('r')
@@ -66,7 +61,7 @@ class UserType extends AbstractType
 
         if ($options['acl_permission']) {
             $builder
-                ->add('acl', ACLType::class, array(
+                ->add('acl', 'FOM\UserBundle\Form\Type\ACLType', array(
                     'mapped' => false,
                     'data' => $options['data'],
                     'permissions' => 'standard::object',
