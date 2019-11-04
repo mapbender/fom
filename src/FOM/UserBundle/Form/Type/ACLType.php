@@ -133,13 +133,13 @@ class ACLType extends AbstractType
         $permissions = is_string($options['permissions']) ? $this->getStandardPermissions($options['permissions']) : $options['permissions'];
 
         $aceOptions = array(
-            'type' => 'FOM\UserBundle\Form\Type\ACEType',
+            'entry_type' => 'FOM\UserBundle\Form\Type\ACEType',
             'label' => 'Permissions',
             'allow_add' => true,
             'allow_delete' => true,
             'auto_initialize' => false,
             'prototype' => true,
-            'options' => array(
+            'entry_options' => array(
                 'available_permissions' => $permissions,
             ),
             'mapped' => false,
