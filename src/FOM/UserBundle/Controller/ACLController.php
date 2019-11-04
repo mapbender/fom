@@ -85,7 +85,7 @@ class ACLController extends Controller
      */
     public function getClassACLForm($class)
     {
-        return $this->createForm('acl', array(), array(
+        return $this->createForm('FOM\UserBundle\Form\Type\ACLType', array(), array(
             'mapped' => false,
             'class' => $class,
             'permissions' => 'standard::class',

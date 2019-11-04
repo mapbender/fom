@@ -89,7 +89,7 @@ abstract class UserControllerBase extends Controller
      */
     protected function tokenExpired($user)
     {
-        $form = $this->createForm('form', null, array(
+        $form = $this->createForm('Symfony\Component\Form\Extension\Core\Type\FormType', null, array(
             'action' => $this->generateUrl('fom_user_password_tokenreset', array(
                 'token' => $user->getResetToken(),
             )),
