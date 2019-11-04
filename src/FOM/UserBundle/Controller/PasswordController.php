@@ -2,8 +2,6 @@
 namespace FOM\UserBundle\Controller;
 
 use FOM\UserBundle\Entity\User;
-use FOM\UserBundle\Form\Type\UserForgotPassType;
-use FOM\UserBundle\Form\Type\UserResetPassType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,7 +75,7 @@ class PasswordController extends UserControllerBase
      */
     public function formAction(Request $request)
     {
-        $form = $this->createForm(new UserForgotPassType());
+        $form = $this->createForm('FOM\UserBundle\Form\Type\UserForgotPassType');
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $searchValue = $form->get('search')->getData();
@@ -151,7 +149,7 @@ class PasswordController extends UserControllerBase
             return $this->tokenExpired($user);
         }
 
-        $form = $this->createForm(new UserResetPassType(), $user);
+        $form = $this->createForm('FOM\UserBundle\Form\Type\UserResetPassType', $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

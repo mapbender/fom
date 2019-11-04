@@ -4,7 +4,6 @@ namespace FOM\UserBundle\Controller;
 use FOM\ManagerBundle\Configuration\Route as ManagerRoute;
 use FOM\UserBundle\Component\UserHelperService;
 use FOM\UserBundle\Entity\User;
-use FOM\UserBundle\Form\Type\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -70,7 +69,7 @@ class UserController extends UserControllerBase
             $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
             || $this->isGranted('OWNER', $oid);
 
-        $form = $this->createForm(new UserType(), $user, array(
+        $form = $this->createForm('FOM\UserBundle\Form\Type\UserType', $user, array(
             'profile_formtype' => $this->getProfileFormType(),
             'group_permission' => $groupPermission,
             'acl_permission'   => $this->isGranted('OWNER', $user),
@@ -148,7 +147,7 @@ class UserController extends UserControllerBase
             $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
             || $this->isGranted('OWNER', $user);
 
-        $form    = $this->createForm(new UserType(), $user, array(
+        $form    = $this->createForm('FOM\UserBundle\Form\Type\UserType', $user, array(
             'requirePassword'  => false,
             'profile_formtype' => $this->getProfileFormType(),
             'group_permission' => $groupPermission,
