@@ -49,14 +49,6 @@ class ACLType extends AbstractType
         $this->aclProvider = $aclProvider;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getName()
-    {
-        return 'acl';
-    }
-
     public function getBlockPrefix()
     {
         return 'acl';

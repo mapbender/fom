@@ -7,11 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class GroupType extends AbstractType
 {
-    public function getName()
-    {
-        return 'group';
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

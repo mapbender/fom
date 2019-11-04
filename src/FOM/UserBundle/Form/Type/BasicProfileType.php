@@ -66,9 +66,4 @@ class BasicProfileType extends AbstractType
             'data_class' => 'FOM\UserBundle\Entity\BasicProfile',
         ));
     }
-
-    public function getName()
-    {
-        return 'profile';
-    }
 }

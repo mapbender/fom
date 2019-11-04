@@ -6,11 +6,6 @@ use Symfony\Component\Form\AbstractType;
 
 class TagboxType extends AbstractType
 {
-    public function getName()
-    {
-        return 'tagbox';
-    }
-
     public function getBlockPrefix()
     {
         return 'tagbox';

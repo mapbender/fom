@@ -7,11 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class UserForgotPassType extends AbstractType
 {
-    public function getName()
-    {
-        return 'passwordresetrequest';
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

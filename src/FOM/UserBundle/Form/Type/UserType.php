@@ -10,11 +10,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
 {
-    public function getName()
-    {
-        return 'user';
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addEventSubscriber(new UserSubscriber($options['currentUser']));
