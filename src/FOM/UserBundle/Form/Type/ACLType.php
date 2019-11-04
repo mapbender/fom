@@ -49,10 +49,7 @@ class ACLType extends AbstractType
         $this->aclProvider = $aclProvider;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'acl';
     }
@@ -128,7 +125,7 @@ class ACLType extends AbstractType
         $permissions = is_string($options['permissions']) ? $this->getStandardPermissions($options['permissions']) : $options['permissions'];
 
         $aceOptions = array(
-            'type' => 'ace',
+            'type' => 'FOM\UserBundle\Form\Type\ACEType',
             'label' => 'Permissions',
             'allow_add' => true,
             'allow_delete' => true,
@@ -141,7 +138,7 @@ class ACLType extends AbstractType
             'data' => $aces,
         );
 
-        $builder->add('ace', 'collection', $aceOptions);
+        $builder->add('ace', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', $aceOptions);
     }
 
     /**

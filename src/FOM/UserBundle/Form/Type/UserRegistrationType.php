@@ -1,5 +1,7 @@
 <?php
+
 namespace FOM\UserBundle\Form\Type;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -11,7 +13,7 @@ class UserRegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder,array $options)
     {
-        $builder->add("username", "text", array(
+        $builder->add("username", 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'required' => true,
             'label' => 'fom.user.registration.form.username',
             'attr' => array(
@@ -19,8 +21,8 @@ class UserRegistrationType extends AbstractType
             ),
         ));
 
-        $builder->add('password', 'repeated', array(
-            'type' => 'password',
+        $builder->add('password', 'Symfony\Component\Form\Extension\Core\Type\RepeatedType', array(
+            'type' => 'Symfony\Component\Form\Extension\Core\Type\PasswordType',
             'first_options' => array(
                 'label' => 'fom.user.registration.form.choose_password',
             ),
@@ -30,7 +32,7 @@ class UserRegistrationType extends AbstractType
             'invalid_message' => 'The password fields must match.',
         ));
 
-        $builder->add("email", "email", array(
+        $builder->add("email", 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
             'required' => true,
             'label' => 'fom.user.registration.form.email',
         ));

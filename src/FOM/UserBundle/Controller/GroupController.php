@@ -3,7 +3,6 @@
 namespace FOM\UserBundle\Controller;
 
 use FOM\UserBundle\Entity\Group;
-use FOM\UserBundle\Form\Type\GroupType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOM\ManagerBundle\Configuration\Route;
@@ -65,7 +64,7 @@ class GroupController extends UserControllerBase
 
         $this->denyAccessUnlessGranted('CREATE', $oid);
 
-        $form = $this->createForm(new GroupType(), $group);
+        $form = $this->createForm('FOM\UserBundle\Form\Type\GroupType', $group);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -119,7 +118,7 @@ class GroupController extends UserControllerBase
         }
         $this->denyAccessUnlessGranted('EDIT', $group);
 
-        $form = $this->createForm(new GroupType(), $group);
+        $form = $this->createForm('FOM\UserBundle\Form\Type\GroupType', $group);
 
         // see https://afilina.com/doctrine-not-saving-manytomany
         foreach ($group->getUsers() as $previousUser) {

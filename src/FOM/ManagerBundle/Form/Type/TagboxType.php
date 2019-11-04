@@ -6,13 +6,13 @@ use Symfony\Component\Form\AbstractType;
 
 class TagboxType extends AbstractType
 {
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'tagbox';
     }
 
     public function getParent()
     {
-        return 'checkbox';
+        return 'Symfony\Component\Form\Extension\Core\Type\CheckboxType';
     }
 }

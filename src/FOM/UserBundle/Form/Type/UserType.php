@@ -10,26 +10,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
 {
-    public function getName()
-    {
-        return 'user';
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addEventSubscriber(new UserSubscriber($options['currentUser']));
         $builder
-            ->add('username', 'text', array(
+            ->add('username', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
                 'label' => 'fom.user.user.container.username',
                 'attr' => array(
                     'autofocus' => true,
                 ),
             ))
-            ->add('email', 'email', array(
+            ->add('email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
                 'label' => 'E-Mail',
             ))
-            ->add('password', 'repeated', array(
-                'type' => 'password',
+            ->add('password', 'Symfony\Component\Form\Extension\Core\Type\RepeatedType', array(
+                'type' => 'Symfony\Component\Form\Extension\Core\Type\PasswordType',
                 'invalid_message' => 'The password fields must match.',
                 'required' => $options['requirePassword'],
                 'mapped' => false,
@@ -46,7 +41,7 @@ class UserType extends AbstractType
 
         if (true === $options['group_permission']) {
             $builder
-                ->add('groups', 'entity', array(
+                ->add('groups', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
                     'class' =>  'FOMUserBundle:Group',
                     'query_builder' => function (EntityRepository $er) {
                         $qb = $er->createQueryBuilder('r')
@@ -61,7 +56,7 @@ class UserType extends AbstractType
 
         if ($options['acl_permission']) {
             $builder
-                ->add('acl', 'acl', array(
+                ->add('acl', 'FOM\UserBundle\Form\Type\ACLType', array(
                     'mapped' => false,
                     'data' => $options['data'],
                     'permissions' => 'standard::object',
@@ -82,9 +77,7 @@ class UserType extends AbstractType
             'profile_formtype' => null,
             'group_permission' => false,
             'acl_permission' => false,
-            // @deprecated remove in FOM v3.3 (no longer valid in Symfony 3)
-            'cascade_validation' => true,
-            'currentUser' => null
+            'currentUser' => null,
         ));
     }
 }

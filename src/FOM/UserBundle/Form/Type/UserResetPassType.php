@@ -11,8 +11,8 @@ class UserResetPassType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('password', 'repeated', array(
-                'type' => 'password',
+            ->add('password', 'Symfony\Component\Form\Extension\Core\Type\RepeatedType', array(
+                'type' => 'Symfony\Component\Form\Extension\Core\Type\PasswordType',
                 'invalid_message' => 'The password fields must match.',
                 'first_options' => array(
                     'label' => 'fom.user.registration.form.choose_password',

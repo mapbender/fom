@@ -5,7 +5,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use FOM\ManagerBundle\Form\Type\TagboxType;
 
 class ACEType extends AbstractType
 {
@@ -20,7 +19,7 @@ class ACEType extends AbstractType
         $this->modelTransformer = $modelTransformer;
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'ace';
     }
@@ -29,7 +28,7 @@ class ACEType extends AbstractType
     {
         $builder->addModelTransformer($this->modelTransformer);
 
-        $builder->add('sid', 'text', array(
+        $builder->add('sid', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
             'required' => true,
             'label' => 'Role or user',
             'attr' => array(
@@ -42,7 +41,7 @@ class ACEType extends AbstractType
 
         foreach ($permissions as $bit => $perm){
             $name = strtolower($perm);
-            $builder->add('permission_' . $bit, new TagboxType(), array(
+            $builder->add('permission_' . $bit, 'FOM\ManagerBundle\Form\Type\TagboxType', array(
                 'property_path' => '[permissions][' . $bit . ']',
                 'attr' => array("class"=>$name)));
         }
