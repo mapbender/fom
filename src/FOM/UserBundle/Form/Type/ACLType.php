@@ -2,7 +2,6 @@
 namespace FOM\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
@@ -134,20 +133,20 @@ class ACLType extends AbstractType
         $permissions = is_string($options['permissions']) ? $this->getStandardPermissions($options['permissions']) : $options['permissions'];
 
         $aceOptions = array(
-            'type' => ACEType::class,
+            'entry_type' => 'FOM\UserBundle\Form\Type\ACEType',
             'label' => 'Permissions',
             'allow_add' => true,
             'allow_delete' => true,
             'auto_initialize' => false,
             'prototype' => true,
-            'options' => array(
+            'entry_options' => array(
                 'available_permissions' => $permissions,
             ),
             'mapped' => false,
             'data' => $aces,
         );
 
-        $builder->add('ace', CollectionType::class, $aceOptions);
+        $builder->add('ace', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', $aceOptions);
     }
 
     /**
