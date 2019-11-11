@@ -2,9 +2,9 @@
   <ul class="tabs">
     <li id="tabBaseData" class="tab active">{{"fom.user.user.container.base_data" | trans }}</li>
     {% if form.profile is defined %}
-      <li id="tabProfile" class="tab">{{"fom.user.user.container.profile" | trans }}</li>
+      <li id="tabProfile" class="tab">{{ form.profile.vars.label | trans }}</li>
     {% endif %}
-    <li id="tabGroups" class="tab">{{"fom.user.user.container.groups" | trans }}</li>
+    <li id="tabGroups" class="tab">{{ form.groups.vars.label | trans }}</li>
     <li id="tabSecurity" class="tab">{{"fom.user.user.container.security" | trans }}</li>
   </ul>
 
