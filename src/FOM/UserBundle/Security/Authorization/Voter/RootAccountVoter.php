@@ -2,7 +2,6 @@
 
 namespace FOM\UserBundle\Security\Authorization\Voter;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
@@ -15,14 +14,6 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
  */
 class RootAccountVoter implements VoterInterface
 {
-    /** @var ContainerInterface */
-    protected $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
-
     public function supportsAttribute($attribute)
     {
         return true;
