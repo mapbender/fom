@@ -51,7 +51,13 @@ class UserType extends AbstractType
                     'expanded' => true,
                     'multiple' => true,
                     'choice_label' => 'title',
-                    'label' => 'Groups'));
+                    // collection field rendering bypasses form theme; suppress
+                    // the spurious label if collection is empty
+                    'label_attr' => array(
+                        'class' => 'hidden',
+                    ),
+                    'label' => 'fom.user.user.container.groups',
+                ));
         }
 
         if ($options['acl_permission']) {
@@ -66,7 +72,9 @@ class UserType extends AbstractType
         }
 
         if ($options['profile_formtype']) {
-            $builder->add('profile', $options['profile_formtype']);
+            $builder->add('profile', $options['profile_formtype'], array(
+                'label' => 'fom.user.user.container.profile',
+            ));
         }
     }
 
