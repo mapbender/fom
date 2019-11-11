@@ -21,7 +21,7 @@ class GroupType extends AbstractType
                 'class' =>  'FOMUserBundle:User',
                 'expanded' => true,
                 'multiple' => true,
-                'property' => 'username',
+                'choice_label' => 'username',
                 'label' => 'Users',
             ));
     }
