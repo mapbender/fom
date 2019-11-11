@@ -56,6 +56,7 @@ class UserType extends AbstractType
                     'label_attr' => array(
                         'class' => 'hidden',
                     ),
+                    'label' => 'fom.user.user.container.groups',
                 ));
         }
 
@@ -71,7 +72,9 @@ class UserType extends AbstractType
         }
 
         if ($options['profile_formtype']) {
-            $builder->add('profile', $options['profile_formtype']);
+            $builder->add('profile', $options['profile_formtype'], array(
+                'label' => 'fom.user.user.container.profile',
+            ));
         }
     }
 
