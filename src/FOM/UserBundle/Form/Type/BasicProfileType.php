@@ -53,7 +53,8 @@ class BasicProfileType extends AbstractType
             ->add('organizationRole', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array(
                 'choices' => array_flip($roles),
                 'choices_as_values' => true,
-                'empty_value' => 'Choose an option...',
+                // @todo: provide placeholder translations
+                'placeholder' => 'Choose an option',
                 'required' => false,
                 'label' => 'form.profile.basic.organizationRole',
             ))
