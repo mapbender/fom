@@ -51,7 +51,12 @@ class UserType extends AbstractType
                     'expanded' => true,
                     'multiple' => true,
                     'choice_label' => 'title',
-                    'label' => 'Groups'));
+                    // collection field rendering bypasses form theme; suppress
+                    // the spurious label if collection is empty
+                    'label_attr' => array(
+                        'class' => 'hidden',
+                    ),
+                ));
         }
 
         if ($options['acl_permission']) {
