@@ -31,9 +31,12 @@ class RegistrationController extends UserControllerBase
     public function setContainer(ContainerInterface $container = NULL)
     {
         parent::setContainer($container);
-
-        if(false && !$this->container->getParameter('fom_user.selfregister'))
-            throw new AccessDeniedHttpException();
+        if (!$this->getEmailFromAdress()) {
+            $this->debug404("Sender mail not configured. See UserBundle/CONFIGURATION.md");
+        }
+        if (!$this->container->getParameter('fom_user.selfregister')) {
+            $this->debug404("Registration disabled by configuration");
+        }
     }
 
     /**

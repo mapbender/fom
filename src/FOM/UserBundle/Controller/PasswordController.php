@@ -49,8 +49,11 @@ class PasswordController extends UserControllerBase
     {
         parent::setContainer($container);
 
+        if (!$this->getEmailFromAdress()) {
+            $this->debug404("Sender mail not configured. See UserBundle/CONFIGURATION.md");
+        }
         if (!$this->container->getParameter('fom_user.reset_password')) {
-            throw new AccessDeniedHttpException();
+            $this->debug404("Password reset disabled by configuration");
         }
     }
 
