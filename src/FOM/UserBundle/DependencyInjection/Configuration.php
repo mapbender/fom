@@ -19,6 +19,8 @@ class Configuration implements ConfigurationInterface {
 
         $rootNode
             ->children()
+                // not used, value irrelevant; kept to avoid errors with older
+                // starter config.yml
                 ->scalarNode('auto_create_log_table')
                     ->defaultTrue()
                 ->end()
@@ -73,6 +75,7 @@ class Configuration implements ConfigurationInterface {
                 ->end()
                 ->arrayNode('self_registration_groups')
                     ->prototype('scalar')->end()
+                    ->treatNullLike(array())
                     ->defaultValue(array())
                 ->end()
                 ->arrayNode('user_own_permissions')
