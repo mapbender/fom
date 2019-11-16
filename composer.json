@@ -7,6 +7,7 @@
     "require": {
         "php": ">=5.3",
         "symfony/security-acl": "^2.3 || ^3",
+        "symfony/console": "^2.5",
         "symfony/dependency-injection": "^2.4"
     },
     "autoload": {
