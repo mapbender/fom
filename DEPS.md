@@ -1,0 +1,5 @@
+- symfony/http-foundation >=2.4 for [`request_stack` service](https://github.com/symfony/http-foundation/blob/master/CHANGELOG.md#240)  
+  Implicitly provided by symfony/symfony >=2.4.  
+
+- symfony/security-acl ^2.4 || ^3 for `security.acl.provider` et al.  
+  Implicitly provided by symfony/symfony ^2.4, but no longer implicitly provided by symfony/symfony >= 3.

@@ -44,6 +44,10 @@
   - Removed legacy component `GeoConverter` (serivce id `geo.converter`)
   - Remove Controller, Components, views and JavaScript assets now absorbed into Mapbender ([PR#52](https://github.com/mapbender/fom/pull/52))
 
+## v3.0.6.5
+- Make `fom:user:resetroot` command work without (undeclared dependency) sensio/generator-bundle, or with sensio/generator-bundle >= 2.5
+- Remove unusable `FakeGeometryType` class (`SELECT 1` never was a valid column type clause)
+
 ## v3.0.6.4
   - [Regression] fix broken user privilege editing
 
