@@ -1,3 +1,12 @@
+## dev-release/3.1 @ 3aa5021
+- Fix form type incompatibilities with Symfony 3
+- Suppress dangling "Groups" label in user editing if no groups found in database
+- Added [UserBundle/CONFIGURATION.md](https://github.com/mapbender/fom/blob/release/3.1/src/FOM/UserBundle/CONFIGURATION.md)
+- In debug mode, show more helpful exception messages when requesting disabled registration / password reset urls
+- Remove unreachable FOMGroupsType (unused since v3.0.5.4)
+- Remove unusable `FakeGeometryType` class (`SELECT 1` never was a valid column type clause)
+- Remove misc deprecated HTML attributes (table `cellspacing` etc)
+
 ## v3.1.9
 - Do not require ext-ldap methods unless ldap access is configured
 - Fix PHP5.3 incompatibility in LDAP UserProvider
