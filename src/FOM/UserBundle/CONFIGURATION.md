@@ -42,3 +42,30 @@ be activated and the associated controller routes will emit `HTTP 404 - Not Foun
 Groups referenced by `self_registration_groups` will _not_ be added to the system automatically.
 Nonexisting groups will be skipped, producing only a log message. If you want the assignments to work,
 you will need to add the groups to the system backend first.
+
+# LDAP parameters
+Certain access privileges can be assigned not only to users maintained in the local database,
+but also to LDAP users.
+
+`ldap_host` (string or null; default empty) sets the host name or ip of the LDAP server.
+If this value is empty, none of the following parameters take any effect.
+
+`ldap_port` (integer or null; default empty) sets a non-default LDAP server port number.
+If empty, the protocol standard port 389 will be used.
+
+`ldap_version` (integer; default 3) sets the protocol version.
+
+`ldap_bind_dn` (string or null; default null) is the dn of the LDAP user with
+sufficient privileges to load other users' information. You can only leave
+this empty if your LDAP server allows an anonymous user to query arbitrary user objects.
+
+`ldap_bind_pwd` (string or null; default null) is the password complementing `ldap_bind_dn`.
+
+`ldap_user_base_dn` (string or null; default null) is the root [dn](https://ldap.com/ldap-dns-and-rdns/) of the user directory.
+
+`ldap_user_filter` (string or null; default null) is an optional [LDAP filter expression](https://ldap.com/ldap-filters/)
+to apply to the user query. This lets you, among other things, restrict the
+objectclass, e.g. by using `(|(objectclass=user)(objectclass=person))`.
+
+`ldap_user_name_attribute` (string; default "cn") lets you specify the primary identifying
+attribute of the retrieved LDAP user objects.
