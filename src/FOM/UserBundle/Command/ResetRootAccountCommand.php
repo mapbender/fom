@@ -4,12 +4,12 @@ namespace FOM\UserBundle\Command;
 
 use FOM\UserBundle\Entity\User;
 use FOM\UserBundle\Security\UserHelper;
+use Symfony\Component\Console\Helper\DialogHelper;
+use Symfony\Component\Console\Helper\FormatterHelper;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\Output;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
 
 /**
  * Reset root account.
@@ -52,7 +52,7 @@ EOT
 
         $action = ($root ? 'reset' : 'creation');
         if($input->isInteractive() && !$input->getOption('silent')) {
-            if(!$dialog->askConfirmation($output, $dialog->getQuestion(
+            if(!$dialog->askConfirmation($output, $this->formatQuestion(
                 'Do you confirm ' . $action, 'yes', '?'), true)) {
                 return 1;
             }
@@ -95,7 +95,7 @@ EOT
         $root = $this->getRoot();
         $silent = $input->getOption('silent');
 
-        $dialog->writeSection($output, 'Welcome to the Mapbender3 root account management command');
+        $this->writeSection($output, 'Welcome to the Mapbender3 root account management command');
 
 
         if(!$silent || $input->getOption('username') === null) {
@@ -106,7 +106,7 @@ EOT
 
             // @TODO: Validate (askAndValidate())
             $username = ($root ? $root->getUsername() : $input->getOption('username'));
-            $username = $dialog->ask($output, $dialog->getQuestion('Username', $username), $username);
+            $username = $dialog->ask($output, $this->formatQuestion('Username', $username), $username);
             $input->setOption('username', $username);
         }
 
@@ -119,7 +119,7 @@ EOT
 
             // @TODO: Validate (askAndValidate())
             $email = ($root ? $root->getEmail() : '');
-            $email = $dialog->ask($output, $dialog->getQuestion('E-Mail', $email), $email);
+            $email = $dialog->ask($output, $this->formatQuestion('E-Mail', $email), $email);
             $input->setOption('email', $email);
         }
 
@@ -131,7 +131,7 @@ EOT
                 ''));
 
             // @TODO: Validate (askAndValidate())
-            $password = $dialog->ask($output, $dialog->getQuestion('Password', ''), '');
+            $password = $dialog->ask($output, $this->formatQuestion('Password', ''), '');
             $input->setOption('password', $password);
         }
     }
@@ -145,13 +145,27 @@ EOT
         return $root;
     }
 
+    /**
+     * @return DialogHelper
+     */
     protected function getDialogHelper()
     {
-        $dialog = $this->getHelperSet()->get('dialog');
-        if(!$dialog || get_class($dialog) !== 'Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper') {
-            $this->getHelperSet()->set($dialog = new DialogHelper());
-        }
+        return $this->getHelperSet()->get('dialog');
+    }
 
-        return $dialog;
+    protected function writeSection(OutputInterface $output, $text)
+    {
+        /** @var FormatterHelper */
+        $formatter = $this->getHelperSet()->get('formatter');
+        $output->writeln(array(
+            '',
+            $formatter->formatBlock($text, 'bg=blue;fg=white', true),
+            '',
+        ));
+    }
+
+    protected function formatQuestion($question, $default, $separator=':')
+    {
+        return "<info>$question</info> [<comment>$default</comment>]$separator";
     }
 }
