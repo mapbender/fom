@@ -1,5 +1,5 @@
-## dev-release/3.1 @ 3aa5021
-- Fix form type incompatibilities with Symfony 3
+## v3.1.10
+- Fix form type incompatibilities with Symfony 3, allow installation with Symfony 3
 - Suppress dangling "Groups" label in user editing if no groups found in database
 - Added [UserBundle/CONFIGURATION.md](https://github.com/mapbender/fom/blob/release/3.1/src/FOM/UserBundle/CONFIGURATION.md)
 - In debug mode, show more helpful exception messages when requesting disabled registration / password reset urls
