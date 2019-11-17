@@ -36,6 +36,11 @@ class UserType extends AbstractType
                 ),
             ))
         ;
+        /**
+         * @todo: password field can be permanently set to mapped = false once a DataTransforrmer ensuers
+         *         non-empty model data. Mapping is currently required for creating new users (empty password property
+         *         on User entity)
+         */
         $builder->get('password')->setMapped($options['requirePassword']);
         $builder->get('username')->setDisabled(!$options['group_permission']);
 

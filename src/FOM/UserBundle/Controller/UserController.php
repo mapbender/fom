@@ -2,8 +2,8 @@
 namespace FOM\UserBundle\Controller;
 
 use FOM\ManagerBundle\Configuration\Route as ManagerRoute;
-use FOM\UserBundle\Component\UserHelperService;
 use FOM\UserBundle\Entity\User;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -79,10 +79,7 @@ class UserController extends UserControllerBase
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Set encrypted password and create new salt
-            // The unencrypted password is already set on the user!
-            $helperService = $this->getUserHelper();
-            $helperService->setPassword($user, $user->getPassword());
+            $this->updatePassword($user, $form->get('password'));
 
             $user->setRegistrationTime(new \DateTime());
 
@@ -106,7 +103,7 @@ class UserController extends UserControllerBase
                 $em->flush();
 
                 // Make sure, the new user has VIEW & EDIT permissions
-                $helperService->giveOwnRights($user);
+                $this->getUserHelper()->giveOwnRights($user);
 
                 $em->commit();
             } catch (\Exception $e) {
@@ -158,14 +155,7 @@ class UserController extends UserControllerBase
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // extract submitted password (not mapped)
-            $password = $form->get('password')->get('first')->getViewData();
-            if ($password) {
-                // Set encrypted password and create new salt
-                /** @var UserHelperService $helperService */
-                $helperService = $this->get('fom.user_helper.service');
-                $helperService->setPassword($user, $password);
-            }
+            $this->updatePassword($user, $form->get('password'));
 
             $em = $this->getEntityManager();
 
@@ -239,6 +229,33 @@ class UserController extends UserControllerBase
         }
 
         return new Response();
+    }
+
+    /**
+     * Transfers updated password from form field to User entity.
+     *
+     * @todo: this should be a DataTransformer on the form. The transformation currently requires
+     *        several service injections. Changing the UserType constructor signature to make
+     *        this work will break Mapbender <=3.0.8.4.
+     *
+     * @param User $user
+     * @param FormInterface $passwordField
+     * @deprecated
+     */
+    protected function updatePassword(User $user, FormInterface $passwordField)
+    {
+        // NOTE: required fields with empty data are never valid
+        if ($passwordField->isValid()) {
+            if (is_a($passwordField->getConfig()->getType()->getInnerType(), 'Symfony\Component\Form\Extension\Core\Type\RepeatedType', true)) {
+                $newPassword = $passwordField->get('first')->getViewData();
+            } else {
+                $newPassword = $passwordField->getViewData();
+            }
+            // may be empty if not required
+            if ($newPassword) {
+                $this->getUserHelper()->setPassword($user, $newPassword);
+            }
+        }
     }
 
     /**
