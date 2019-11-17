@@ -1,6 +1,7 @@
 <?php
 namespace FOM\UserBundle\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use FOM\ManagerBundle\Configuration\Route as ManagerRoute;
 use FOM\UserBundle\Entity\User;
 use Symfony\Component\Form\FormInterface;
@@ -87,13 +88,7 @@ class UserController extends UserControllerBase
             $em->beginTransaction();
 
             try {
-                // Nuke profile to generate user id, then set profile again :\
-                // @todo: invert bad relation direction user => profile (currently the profile owns the user)
-                $profile = $user->getProfile();
-                $user->setProfile(null);
-                $em->persist($user);
-                $em->flush();
-                $user->setProfile($profile);
+                $this->persistUser($em, $user);
 
                 if ($form->has('acl')) {
                     $aces = $form->get('acl')->get('ace')->getData();
@@ -158,6 +153,7 @@ class UserController extends UserControllerBase
             $this->updatePassword($user, $form->get('password'));
 
             $em = $this->getEntityManager();
+            $this->persistUser($em, $user);
 
             // This is the same check as abote in createForm for acl_permission
             if ($this->isGranted('OWNER', $user)) {
@@ -165,7 +161,6 @@ class UserController extends UserControllerBase
                 $this->getAclManager()->setObjectACEs($user, $aces);
             }
 
-            $user->getProfile()->setUid($user);
             $em->flush();
             $this->addFlash('success', 'The user has been updated.');
 
@@ -282,4 +277,22 @@ class UserController extends UserControllerBase
         return $this->getParameter('fom_user.profile_assets');
     }
 
+    /**
+     * @param EntityManagerInterface $em
+     * @param User $user
+     * @internal
+     */
+    protected function persistUser(EntityManagerInterface $em, User $user)
+    {
+        if (($profile = $user->getProfile()) && !$user->getId()) {
+            // flush user without profile to generate user pk first, then restore profile
+            // @todo: invert bad relation direction user => profile (currently the profile owns the user)
+            $user->setProfile(null);
+            $em->persist($user);
+            $em->flush();
+            $user->setProfile($profile);
+            $em->persist($profile);
+        }
+        $em->persist($user);
+    }
 }
