@@ -33,6 +33,12 @@
             <argument type="service" id="security.encoder_factory" />
             <argument>%fom_user.user_own_permissions%</argument>
         </service>
+
+        <service id="fom.form_type.user" class="FOM\UserBundle\Form\Type\UserType">
+            <tag name="form.type" />
+            <argument type="service" id="security.token_storage" />
+            <argument>%fom_user.profile_formtype%</argument>
+        </service>
         <service id="form.fom.acl" class="FOM\UserBundle\Form\Type\ACLType">
             <argument type="service" id="security.token_storage" />
             <argument type="service" id="security.acl.provider" />

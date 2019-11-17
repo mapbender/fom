@@ -7,25 +7,28 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
 use FOM\UserBundle\Entity\User;
+use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
+ * Dynamically adds the 'activated' checkbox if the currently editING user is != the editED user,
+ * to prevent account self-destruction.
  *
+ * If a user is saved as activated, also clears the registration token. This allows administrators
+ * to manually finish / fix the registration process for a pending user who may have missed the
+ * token validity window.
  */
 class UserSubscriber implements EventSubscriberInterface
 {
+    /** @var TokenStorageInterface */
+    protected $tokenStorage;
 
     /**
-     *
-     * @var User
+     * @param TokenStorageInterface $tokenStorage
      */
-    private $currentUser;
-
-    /**
-     * @inheritdoc
-     */
-    public function __construct(User $currentUser = null)
+    public function __construct(TokenStorageInterface $tokenStorage)
     {
-        $this->currentUser = $currentUser;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -39,7 +42,6 @@ class UserSubscriber implements EventSubscriberInterface
         );
     }
 
-
     /**
      * @param FormEvent $event
      */
@@ -49,7 +51,8 @@ class UserSubscriber implements EventSubscriberInterface
         if (null === $user) {
             return;
         }
-        if ($this->currentUser !== null && $this->currentUser !== $user && $event->getForm()->has('activated')) {
+        $currentUser = $this->tokenStorage->getToken()->getUser();
+        if ($currentUser !== $user && $event->getForm()->has('activated')) {
             $activated = $event->getForm()->get('activated')->getData();
             if ($activated && $user->getRegistrationToken()) {
                 $user->setRegistrationToken(null);
@@ -68,14 +71,30 @@ class UserSubscriber implements EventSubscriberInterface
         if (null === $user) {
             return;
         }
-        if ($user->getId() && $this->currentUser !== null && $this->currentUser !== $user) {
+        $currentUser = $this->getCurrentUser();
+        if ($user->getId() && $currentUser !== $user) {
             $event->getForm()->add('activated', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(
                 'data' => $user->getRegistrationToken() ? false : true,
-                'auto_initialize' => false,
                 'label' => 'fom.user.user.container.activated',
                 'required' => false,
                 'mapped' => false,
             ));
         }
+    }
+
+    /**
+     * Retrieves current user ONLY IF its a manageable FOM\UserBundle\Enity\User instance, otherwise null.
+     * @return User|null
+     */
+    protected function getCurrentUser()
+    {
+        $token = $this->tokenStorage->getToken();
+        if (!($token instanceof AnonymousToken)) {
+            $user = $token->getUser();
+            if (is_object($user) && ($user instanceof User)) {
+                return $user;
+            }
+        }
+        return null;
     }
 }

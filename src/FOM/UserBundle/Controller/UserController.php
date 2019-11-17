@@ -149,10 +149,8 @@ class UserController extends UserControllerBase
 
         $form    = $this->createForm('FOM\UserBundle\Form\Type\UserType', $user, array(
             'requirePassword'  => false,
-            'profile_formtype' => $this->getProfileFormType(),
             'group_permission' => $groupPermission,
             'acl_permission'   => $this->isGranted('OWNER', $user),
-            'currentUser' => $this->getUser(),
         ));
 
         $form->handleRequest($request);
@@ -239,14 +237,6 @@ class UserController extends UserControllerBase
         }
 
         return new Response();
-    }
-
-    /**
-     * @return string
-     */
-    protected function getProfileFormType()
-    {
-        return $this->getParameter('fom_user.profile_formtype');
     }
 
     /**

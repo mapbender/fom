@@ -7,12 +7,29 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class UserType extends AbstractType
 {
+    /** @var string|null */
+    protected $profileType;
+
+    /** @var TokenStorageInterface */
+    protected $tokenStorage;
+
+    /**
+     * @param TokenStorageInterface $tokenStorage
+     * @param string|null $profileType
+     */
+    public function __construct(TokenStorageInterface $tokenStorage, $profileType)
+    {
+        $this->tokenStorage = $tokenStorage;
+        $this->profileType = $profileType;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventSubscriber(new UserSubscriber($options['currentUser']));
+        $builder->addEventSubscriber(new UserSubscriber($this->tokenStorage));
         $builder
             ->add('username', 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
                 'label' => 'fom.user.user.container.username',
@@ -70,9 +87,8 @@ class UserType extends AbstractType
                 ))
             ;
         }
-
-        if ($options['profile_formtype']) {
-            $builder->add('profile', $options['profile_formtype'], array(
+        if ($this->profileType) {
+            $builder->add('profile', $this->profileType, array(
                 'label' => 'fom.user.user.container.profile',
             ));
         }
@@ -82,10 +98,8 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults(array(
             'requirePassword' => true,
-            'profile_formtype' => null,
             'group_permission' => false,
             'acl_permission' => false,
-            'currentUser' => null,
         ));
     }
 }
