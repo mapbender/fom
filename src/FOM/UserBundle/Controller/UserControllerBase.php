@@ -10,6 +10,7 @@ use FOM\UserBundle\Component\UserHelperService;
 use FOM\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -31,6 +32,22 @@ abstract class UserControllerBase extends Controller
     protected function getEmailFromAdress()
     {
         return $this->container->getParameter('fom_user.mail_from_address');
+    }
+
+    /**
+     * Throws a 404, displaying the given $message only in debug mode
+     *
+     * @param string|null $message
+     * @throws NotFoundHttpException
+     */
+    protected function debug404($message)
+    {
+        if ($this->container->getParameter('kernel.debug') && $message) {
+            $message = $message . ' (this message is only display in debug mode)';
+            throw new NotFoundHttpException($message);
+        } else {
+            throw new NotFoundHttpException();
+        }
     }
 
     /**
