@@ -70,7 +70,6 @@ class UserSubscriber implements EventSubscriberInterface
         if ($user->getId() && $this->currentUser !== null && $this->currentUser !== $user) {
             $event->getForm()->add('activated', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(
                 'data' => $user->getRegistrationToken() ? false : true,
-                'auto_initialize' => false,
                 'label' => 'fom.user.user.container.activated',
                 'required' => false,
                 'mapped' => false,
