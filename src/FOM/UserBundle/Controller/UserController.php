@@ -1,9 +1,10 @@
 <?php
 namespace FOM\UserBundle\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use FOM\ManagerBundle\Configuration\Route as ManagerRoute;
-use FOM\UserBundle\Component\UserHelperService;
 use FOM\UserBundle\Entity\User;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -79,10 +80,7 @@ class UserController extends UserControllerBase
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Set encrypted password and create new salt
-            // The unencrypted password is already set on the user!
-            $helperService = $this->getUserHelper();
-            $helperService->setPassword($user, $user->getPassword());
+            $this->updatePassword($user, $form->get('password'));
 
             $user->setRegistrationTime(new \DateTime());
 
@@ -90,13 +88,7 @@ class UserController extends UserControllerBase
             $em->beginTransaction();
 
             try {
-                // Nuke profile to generate user id, then set profile again :\
-                // @todo: invert bad relation direction user => profile (currently the profile owns the user)
-                $profile = $user->getProfile();
-                $user->setProfile(null);
-                $em->persist($user);
-                $em->flush();
-                $user->setProfile($profile);
+                $this->persistUser($em, $user);
 
                 if ($form->has('acl')) {
                     $aces = $form->get('acl')->get('ace')->getData();
@@ -106,7 +98,7 @@ class UserController extends UserControllerBase
                 $em->flush();
 
                 // Make sure, the new user has VIEW & EDIT permissions
-                $helperService->giveOwnRights($user);
+                $this->getUserHelper()->giveOwnRights($user);
 
                 $em->commit();
             } catch (\Exception $e) {
@@ -156,24 +148,16 @@ class UserController extends UserControllerBase
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // extract submitted password (not mapped)
-            $password = $form->get('password')->get('first')->getViewData();
-            if ($password) {
-                // Set encrypted password and create new salt
-                /** @var UserHelperService $helperService */
-                $helperService = $this->get('fom.user_helper.service');
-                $helperService->setPassword($user, $password);
-            }
+            $this->updatePassword($user, $form->get('password'));
 
             $em = $this->getEntityManager();
+            $this->persistUser($em, $user);
 
-            // This is the same check as abote in createForm for acl_permission
-            if ($this->isGranted('OWNER', $user)) {
+            if ($form->has('acl')) {
                 $aces = $form->get('acl')->get('ace')->getData();
                 $this->getAclManager()->setObjectACEs($user, $aces);
             }
 
-            $user->getProfile()->setUid($user);
             $em->flush();
             $this->addFlash('success', 'The user has been updated.');
 
@@ -240,6 +224,33 @@ class UserController extends UserControllerBase
     }
 
     /**
+     * Transfers updated password from form field to User entity.
+     *
+     * @todo: this should be a DataTransformer on the form. The transformation currently requires
+     *        several service injections. Changing the UserType constructor signature to make
+     *        this work will break Mapbender <=3.0.8.4.
+     *
+     * @param User $user
+     * @param FormInterface $passwordField
+     * @deprecated
+     */
+    protected function updatePassword(User $user, FormInterface $passwordField)
+    {
+        // NOTE: required fields with empty data are never valid
+        if ($passwordField->isValid()) {
+            if (is_a($passwordField->getConfig()->getType()->getInnerType(), 'Symfony\Component\Form\Extension\Core\Type\RepeatedType', true)) {
+                $newPassword = $passwordField->get('first')->getViewData();
+            } else {
+                $newPassword = $passwordField->getViewData();
+            }
+            // may be empty if not required
+            if ($newPassword) {
+                $this->getUserHelper()->setPassword($user, $newPassword);
+            }
+        }
+    }
+
+    /**
      * @return string
      */
     protected function getProfileTemplate()
@@ -255,4 +266,22 @@ class UserController extends UserControllerBase
         return $this->getParameter('fom_user.profile_assets');
     }
 
+    /**
+     * @param EntityManagerInterface $em
+     * @param User $user
+     * @internal
+     */
+    protected function persistUser(EntityManagerInterface $em, User $user)
+    {
+        if (($profile = $user->getProfile()) && !$user->getId()) {
+            // flush user without profile to generate user pk first, then restore profile
+            // @todo: invert bad relation direction user => profile (currently the profile owns the user)
+            $user->setProfile(null);
+            $em->persist($user);
+            $em->flush();
+            $user->setProfile($profile);
+            $em->persist($profile);
+        }
+        $em->persist($user);
+    }
 }

@@ -11,6 +11,18 @@
   - FOMIdentitiesProvider::getUsers (no invocations in Mapbender codebase)
   - FOMIdentitiesProvider::getRoles (no invocations in Mapbender codebase)
 
+## v3.2.10
+- Fix form type incompatibilities with Symfony 3, allow installation with Symfony 3
+- Suppress dangling "Groups" label in user editing if no groups found in database
+- Make `fom_core` extension configuration values `mail_from_address` and `mail_from_name` optional; dummy values are
+  no longer required. Empty `mail_from_address` will disable mailer-dependent functionality.
+- Make user registration and password reset also dependent on non-empty `mail_from_address`
+- In debug mode, show more helpful exception messages when requesting disabled registration / password reset urls
+- Added [UserBundle/CONFIGURATION.md](https://github.com/mapbender/fom/blob/master/src/FOM/UserBundle/CONFIGURATION.md)
+- Remove unreachable FOMGroupsType (unused since v3.0.5.4)
+- Remove unusable `FakeGeometryType` class (`SELECT 1` never was a valid column type clause)
+- Remove misc deprecated HTML attributes (table `cellspacing` etc)
+
 ## v3.2.9
 - Do not require ext-ldap methods unless ldap access is configured
 - Fix PHP5.3 incompatibility in LDAP UserProvider
