@@ -155,8 +155,7 @@ class UserController extends UserControllerBase
             $em = $this->getEntityManager();
             $this->persistUser($em, $user);
 
-            // This is the same check as abote in createForm for acl_permission
-            if ($this->isGranted('OWNER', $user)) {
+            if ($form->has('acl')) {
                 $aces = $form->get('acl')->get('ace')->getData();
                 $this->getAclManager()->setObjectACEs($user, $aces);
             }
