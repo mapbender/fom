@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Validator\Constraints;
 
 class UserType extends AbstractType
 {
@@ -50,6 +51,11 @@ class UserType extends AbstractType
                 ),
                 'second_options' => array(
                     'label' => 'fom.user.user.container.confirm_password',
+                ),
+                'constraints' => array(
+                    new Constraints\Length(array(
+                        'min' => 8,
+                    )),
                 ),
             ))
         ;
