@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints;
 
 class UserType extends AbstractType
 {
@@ -33,6 +34,11 @@ class UserType extends AbstractType
                 ),
                 'second_options' => array(
                     'label' => 'fom.user.user.container.confirm_password',
+                ),
+                'constraints' => array(
+                    new Constraints\Length(array(
+                        'min' => 8,
+                    )),
                 ),
             ))
         ;
