@@ -7,21 +7,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
 use FOM\UserBundle\Entity\User;
 
-/**
- *
- */
 class UserSubscriber implements EventSubscriberInterface
 {
-
     /**
-     *
-     * @var User
+     * @var User|null
      */
     private $currentUser;
 
-    /**
-     * @inheritdoc
-     */
     public function __construct(User $currentUser = null)
     {
         $this->currentUser = $currentUser;
@@ -44,6 +36,7 @@ class UserSubscriber implements EventSubscriberInterface
      */
     public function submit(FormEvent $event)
     {
+        /** @var User|null $user */
         $user = $event->getData();
         if (null === $user) {
             return;
@@ -63,6 +56,7 @@ class UserSubscriber implements EventSubscriberInterface
      */
     public function preSetData(FormEvent $event)
     {
+        /** @var User|null $user */
         $user = $event->getData();
         if (null === $user) {
             return;

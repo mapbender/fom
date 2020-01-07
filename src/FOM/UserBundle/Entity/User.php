@@ -451,6 +451,6 @@ class User implements AdvancedUserInterface
     
     public function __toString()
     {
-        return $this->getUsername();
+        return $this->getUsername() ?: '';
     }
 }
