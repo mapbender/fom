@@ -71,6 +71,7 @@ class UserController extends UserControllerBase
             || $this->isGranted('OWNER', $oid);
 
         $form = $this->createForm('FOM\UserBundle\Form\Type\UserType', $user, array(
+            'requirePassword' => true,
             'profile_formtype' => $this->getProfileFormType(),
             'group_permission' => $groupPermission,
             'acl_permission'   => $this->isGranted('OWNER', $user),

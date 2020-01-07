@@ -1,0 +1,91 @@
+<?php
+
+
+namespace FOM\UserBundle\Form\Type;
+
+
+use FOM\UserBundle\Entity\User;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints;
+
+class UserPasswordMixinType extends AbstractType
+{
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'FOM\UserBundle\Entity\User',
+            'requirePassword' => null,
+        ));
+        $resolver->setAllowedTypes('requirePassword', array(
+            'boolean',
+            'null',
+        ));
+    }
+
+    /**
+     * @param FormInterface|FormBuilderInterface $form
+     * @param array $options
+     */
+    public function addPasswordField($form, array $options)
+    {
+        $form
+            ->add('password', 'Symfony\Component\Form\Extension\Core\Type\RepeatedType', array(
+                'type' => 'Symfony\Component\Form\Extension\Core\Type\PasswordType',
+                // do not, ever, synchronize with password hash attribute 'password'
+                'mapped' => false,
+                // require password input for new users
+                // password editing for existing users is optional
+                'required' => $options['requirePassword'],
+                'invalid_message' => 'The password fields must match.',
+                'first_options' => array(
+                    'label' => 'fom.user.registration.form.choose_password',
+                ),
+                'second_options' => array(
+                    'label' => 'fom.user.registration.form.confirm_password',
+                ),
+                'constraints' => $this->getPasswordConstraints(),
+            ))
+        ;
+    }
+
+    /**
+     * @return Constraint[]
+     */
+    protected function getPasswordConstraints()
+    {
+        return array(
+            new Constraints\Length(array(
+                'min' => 8,
+            )),
+        );
+    }
+
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        // NOTE: PHP < 7.1 disallows use ($this) in lambdas
+        $type = $this;
+        if ($options['requirePassword'] !== null) {
+            $this->addPasswordField($builder, $options);
+        } else {
+            $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($type) {
+                return $type->preSetData($event);
+            });
+        }
+    }
+
+    public function preSetData(FormEvent $event)
+    {
+        /** @var User|null $user */
+        $user = $event->getData();
+        $options = array(
+            'requirePassword' => (!$user || !$user->getId()),
+        );
+        $this->addPasswordField($event->getForm(), $options);
+    }
+}
