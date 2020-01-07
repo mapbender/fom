@@ -8,28 +8,18 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
 use FOM\UserBundle\Entity\User;
 
-/**
- *
- */
 class UserSubscriber implements EventSubscriberInterface
 {
-
     /**
-     * A FormFactoryInterface 's Factory
-     *
-     * @var \Symfony\Component\Form\FormFactoryInterface
+     * @var FormFactoryInterface
      */
     private $factory;
 
     /**
-     *
-     * @var FOM\UserBundle\Entity\User
+     * @var User|null
      */
     private $currentUser;
 
-    /**
-     * @inheritdoc
-     */
     public function __construct(FormFactoryInterface $factory, User $currentUser = null)
     {
         $this->factory = $factory;
@@ -55,6 +45,7 @@ class UserSubscriber implements EventSubscriberInterface
      */
     public function submit(FormEvent $event)
     {
+        /** @var User|null $user */
         $user = $event->getData();
         if (null === $user) {
             return;
@@ -76,6 +67,7 @@ class UserSubscriber implements EventSubscriberInterface
      */
     public function preSetData(FormEvent $event)
     {
+        /** @var User|null $user */
         $user = $event->getData();
         if (null === $user) {
             return;
