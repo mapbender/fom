@@ -4,6 +4,7 @@
 namespace FOM\UserBundle\Form\Type;
 
 
+use FOM\UserBundle\Component\UserHelperService;
 use FOM\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,6 +17,17 @@ use Symfony\Component\Validator\Constraints;
 
 class UserPasswordMixinType extends AbstractType
 {
+    /** @var UserHelperService */
+    protected $userHelperService;
+
+    /**
+     * @param UserHelperService $userHelperService
+     */
+    public function __construct(UserHelperService $userHelperService)
+    {
+        $this->userHelperService = $userHelperService;
+    }
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
@@ -76,6 +88,22 @@ class UserPasswordMixinType extends AbstractType
             $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($type) {
                 return $type->preSetData($event);
             });
+        }
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) use ($type) {
+            return $type->postSubmit($event);
+        });
+    }
+
+    public function postSubmit(FormEvent $event)
+    {
+        $form = $event->getForm();
+        /** @var User $user */
+        $user = $form->getData();
+        $passwordField = $form->get('password');
+        $passwordPlain = $passwordField->getNormData();
+        // NOTE: required fields with empty data are never valid
+        if ($passwordField->isValid() && $passwordPlain) {
+            $this->userHelperService->setPassword($user, $passwordPlain);
         }
     }
 

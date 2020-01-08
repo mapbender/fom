@@ -158,9 +158,7 @@ class PasswordController extends UserControllerBase
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getEntityManager();
             $user->setResetToken(null);
-            $helperService = $this->getUserHelper();
-            $helperService->setPassword($user, $user->getPassword());
-
+            $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('fom_user_password_done');

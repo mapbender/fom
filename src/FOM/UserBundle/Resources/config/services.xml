@@ -49,6 +49,10 @@
             <argument type="service" id="fom.ldap_user_identities_provider" />
             <argument>%fom.ldap_user_identities_provider.user_class%</argument>
         </service>
+        <service id="form.user_password" class="FOM\UserBundle\Form\Type\UserPasswordMixinType">
+            <argument type="service" id="fom.user_helper.service" />
+            <tag name="form.type" />
+        </service>
 
         <service id="fom.acl.manager" class="FOM\UserBundle\Component\AclManager">
             <argument type="service" id="security.acl.provider" />
