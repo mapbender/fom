@@ -99,7 +99,6 @@ fom:
         users_of_selected: 'groups of %users_count% selected'
         no_goups_defined:
           '': 'No groups defined.'
-        manage_not_allowed: 'You are not allowed to manage groups.'
         add_users_groups: 'Add users and groups'
         manage_not_allowed_security: 'You are not allowed to manage security.'
         username: Username

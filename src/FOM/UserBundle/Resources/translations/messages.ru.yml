@@ -99,7 +99,6 @@ fom:
         users_of_selected: 'groups of %users_count% selected'
         no_goups_defined:
           '': 'Нет групп.'
-        manage_not_allowed: 'Вы не можете управлять группами.'
         add_users_groups: 'Добавление пользователей и группы'
         manage_not_allowed_security: 'Вы не можете управлять безопасностью.'
         username: 'Имя пользователя'

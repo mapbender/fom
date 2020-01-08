@@ -4,7 +4,9 @@
     {% if form.profile is defined %}
       <li id="tabProfile" class="tab">{{ form.profile.vars.label | trans }}</li>
     {% endif %}
-    <li id="tabGroups" class="tab">{{ form.groups.vars.label | trans }}</li>
+    {% if form.groups is defined %}
+      <li id="tabGroups" class="tab">{{ "form.groups.vars.label" | trans }}</li>
+    {% endif %}
     <li id="tabSecurity" class="tab">{{"fom.user.user.container.security" | trans }}</li>
   </ul>
 
@@ -56,13 +58,10 @@
           {% endfor %}
         </tbody>
       </table>
-
     {% else %}
       <p class="description left">{{"fom.user.user.container.no_goups_defined."|trans}}</p>
       <div class="clearContainer"></div>
     {% endif %}
-  {% else %}
-    <p>{{ 'fom.user.user.container.manage_not_allowed' | trans }}</p>
   {% endif %}
   </div>
 

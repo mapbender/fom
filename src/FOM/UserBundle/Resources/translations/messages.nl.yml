@@ -99,7 +99,6 @@ fom:
         users_of_selected: 'Gebruikers van %users_count% geselecteerd'
         no_goups_defined:
           '': 'Geen groepen gedefinieerd.'
-        manage_not_allowed: 'U bent niet gemachtigd om groepen aan te passen of aan te maken.'
         add_users_groups: 'Voeg gebruikers en groepen toe'
         manage_not_allowed_security: 'U bent niet gemachtigd om de beveiliging aan te passen.'
         username: Gebruikersnaam
