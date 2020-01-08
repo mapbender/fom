@@ -7,7 +7,9 @@
     {% if form.groups is defined %}
       <li id="tabGroups" class="tab">{{ form.groups.vars.label | trans }}</li>
     {% endif %}
+    {% if form.acl is defined %}
     <li id="tabSecurity" class="tab">{{"fom.user.user.container.security" | trans }}</li>
+    {% endif %}
   </ul>
 
   <div id="containerBaseData" class="container active containerBaseData">
@@ -30,8 +32,8 @@
   </div>
   {% endif %}
 
-  <div id="containerGroups" class="container containerGroups">
   {% if form.groups is defined %}
+  <div id="containerGroups" class="container containerGroups">
     {% if form.groups|length > 0 %}
 
       <label for="inputFilterUsers" class="labelInput left">{{"fom.user.user.container.filter"|trans}}</label>
@@ -62,18 +64,16 @@
       <p class="description left">{{"fom.user.user.container.no_goups_defined."|trans}}</p>
       <div class="clearContainer"></div>
     {% endif %}
-  {% endif %}
   </div>
+  {% endif %}
 
+  {% if form.acl is defined %}
   <div id="containerSecurity" class="container containerSecurity">
-    {% if form.acl is defined %}
     <a id="addPermission" href="{{path('fom_user_acl_overview')}}" class="iconAdd iconBig right" title="{{'fom.user.user.container.add_users_groups'|trans}}"></a>
     <div class="clearContainer"></div>
     {{ form_widget(form.acl) }}
-    {% else %}
-    <p>{{ 'fom.user.user.container.manage_not_allowed_security'|trans }}</p>
-    {% endif %}
   </div>
+  {% endif %}
 </div>
 
 <div class="clearContainer"></div>

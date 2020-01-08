@@ -100,7 +100,6 @@ fom:
         no_goups_defined:
           '': 'Geen groepen gedefinieerd.'
         add_users_groups: 'Voeg gebruikers en groepen toe'
-        manage_not_allowed_security: 'U bent niet gemachtigd om de beveiliging aan te passen.'
         username: Gebruikersnaam
         description: Beschrijving
         activated: geactiveerd

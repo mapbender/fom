@@ -100,7 +100,6 @@ fom:
         no_goups_defined:
           '': 'Não definia grupos.'
         add_users_groups: 'Adicionar usuários e grupos'
-        manage_not_allowed_security: 'Você não tem autorização para gerenciar segurança.'
         username: Username
         description: Description
         activated: activated

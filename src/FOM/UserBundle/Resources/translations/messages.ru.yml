@@ -100,7 +100,6 @@ fom:
         no_goups_defined:
           '': 'Нет групп.'
         add_users_groups: 'Добавление пользователей и группы'
-        manage_not_allowed_security: 'Вы не можете управлять безопасностью.'
         username: 'Имя пользователя'
         description: Описание
         activated: активирован
