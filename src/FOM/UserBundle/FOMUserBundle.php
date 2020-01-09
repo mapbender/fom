@@ -48,10 +48,7 @@ class FOMUserBundle extends ManagerBundle
         ;
         $aclItem = MenuItem::create('fom.user.userbundle.acls', 'fom_user_acl_index')
             ->setWeight(120)
-            ->requireEntityGrant('Symfony\Component\Security\Acl\Domain\Acl', array(
-                'CREATE',
-                'EDIT',
-            ))
+            ->requireEntityGrant('Symfony\Component\Security\Acl\Domain\Acl', 'EDIT')
         ;
         $container->addCompilerPass(new RegisterMenuRoutesPass($userItem));
         $container->addCompilerPass(new RegisterMenuRoutesPass($groupItem));
@@ -113,7 +110,7 @@ class FOMUserBundle extends ManagerBundle
                 'enabled' => function($securityContext) {
                     /** @var AuthorizationCheckerInterface $securityContext */
                     $oid = new ObjectIdentity('class', 'Symfony\Component\Security\Acl\Domain\Acl');
-                    return $securityContext->isGranted('CREATE', $oid) || $securityContext->isGranted('EDIT', $oid);
+                    return $securityContext->isGranted('EDIT', $oid);
                 },
             ),
         );
