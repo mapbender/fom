@@ -12,8 +12,6 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints;
 
 class UserPasswordMixinType extends AbstractType
 {
@@ -61,21 +59,9 @@ class UserPasswordMixinType extends AbstractType
                 'second_options' => array(
                     'label' => 'fom.user.registration.form.confirm_password',
                 ),
-                'constraints' => $this->getPasswordConstraints(),
+                'constraints' => $this->userHelperService->getPasswordConstraints(),
             ))
         ;
-    }
-
-    /**
-     * @return Constraint[]
-     */
-    protected function getPasswordConstraints()
-    {
-        return array(
-            new Constraints\Length(array(
-                'min' => 8,
-            )),
-        );
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

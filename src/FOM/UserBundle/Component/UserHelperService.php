@@ -12,6 +12,8 @@ use Symfony\Component\Security\Acl\Model\MutableAclProviderInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints;
 
 class UserHelperService
 {
@@ -55,6 +57,18 @@ class UserHelperService
             ->setPassword($encryptedPassword)
             ->setSalt($salt)
         ;
+    }
+
+    /**
+     * @return Constraint[]
+     */
+    public function getPasswordConstraints()
+    {
+        return array(
+            new Constraints\Length(array(
+                'min' => 8,
+            )),
+        );
     }
 
     /**
