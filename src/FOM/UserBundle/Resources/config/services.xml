@@ -28,8 +28,7 @@
         <parameter key="fom.ldap_user_identities_provider.user_class">Mapbender\LdapIntegrationBundle\Entity\LdapUser</parameter>
     </parameters>
     <services>
-        <service id="fom_roles" class="FOM\UserBundle\Component\RolesService">
-        </service>
+        <service id="fom_roles" class="FOM\UserBundle\Component\RolesService" /><!-- legacy artifact; remove in v3.3 -->
         <service id="fom.user_helper.service" class="%fom.user_helper.service.class%">
             <argument type="service" id="security.acl.provider" />
             <argument type="service" id="security.encoder_factory" />
@@ -48,6 +47,10 @@
         <service id="form.ace.model_transformer" class="%form.ace.model_transformer.class%">
             <argument type="service" id="fom.ldap_user_identities_provider" />
             <argument>%fom.ldap_user_identities_provider.user_class%</argument>
+        </service>
+        <service id="form.user_password" class="FOM\UserBundle\Form\Type\UserPasswordMixinType">
+            <argument type="service" id="fom.user_helper.service" />
+            <tag name="form.type" />
         </service>
 
         <service id="fom.acl.manager" class="FOM\UserBundle\Component\AclManager">

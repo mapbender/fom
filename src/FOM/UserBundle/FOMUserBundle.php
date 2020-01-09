@@ -31,28 +31,28 @@ class FOMUserBundle extends ManagerBundle
 
     protected function addMenu(ContainerBuilder $container)
     {
-        $userItem = MenuItem::create('fom.user.userbundle.user_control', 'fom_user_user_index')
+        $userItem = MenuItem::create('fom.user.userbundle.users', 'fom_user_user_index')
             ->setWeight(100)
             ->addChildren(array(
-                MenuItem::create('fom.user.userbundle.users', 'fom_user_user_index')
-                    ->addChildren(array(
-                        MenuItem::create('fom.user.userbundle.new_user', 'fom_user_user_create')
-                            ->requireEntityGrant('FOM\UserBundle\Entity\User', 'CREATE'),
-                    )),
-                MenuItem::create('fom.user.userbundle.groups', 'fom_user_group_index')
-                    ->requireEntityGrant('FOM\UserBundle\Entity\Group', 'CREATE')
-                    ->addChildren(array(
-                        MenuItem::create('fom.user.userbundle.new_group', 'fom_user_group_create')
-                            ->requireEntityGrant('FOM\UserBundle\Entity\Group', 'CREATE'),
-                    )),
-                MenuItem::create('fom.user.userbundle.acls', 'fom_user_acl_index')
-                    ->requireEntityGrant('Symfony\Component\Security\Acl\Domain\Acl', array(
-                        'CREATE',
-                        'EDIT',
-                    )),
+                MenuItem::create('fom.user.userbundle.new_user', 'fom_user_user_create')
+                    ->requireEntityGrant('FOM\UserBundle\Entity\User', 'CREATE'),
             ))
         ;
+        $groupItem = MenuItem::create('fom.user.userbundle.groups', 'fom_user_group_index')
+            ->setWeight(110)
+            ->requireEntityGrant('FOM\UserBundle\Entity\Group', 'VIEW')
+            ->addChildren(array(
+                MenuItem::create('fom.user.userbundle.new_group', 'fom_user_group_create')
+                    ->requireEntityGrant('FOM\UserBundle\Entity\Group', 'CREATE'),
+            ))
+        ;
+        $aclItem = MenuItem::create('fom.user.userbundle.acls', 'fom_user_acl_index')
+            ->setWeight(120)
+            ->requireEntityGrant('Symfony\Component\Security\Acl\Domain\Acl', 'EDIT')
+        ;
         $container->addCompilerPass(new RegisterMenuRoutesPass($userItem));
+        $container->addCompilerPass(new RegisterMenuRoutesPass($groupItem));
+        $container->addCompilerPass(new RegisterMenuRoutesPass($aclItem));
     }
 
     /**
@@ -67,50 +67,51 @@ class FOMUserBundle extends ManagerBundle
         }
         return array(
             array(
-                'title' => "fom.user.userbundle.user_control",
+                'title' => "fom.user.userbundle.users",
+                'route'=>'fom_user_user_index',
                 'weight' => 100,
-                'route' => 'fom_user_user_index',
                 'subroutes' => array(
-                    array(
-                        'title' => "fom.user.userbundle.users",
-                        'route'=>'fom_user_user_index',
-                        'subroutes' => array(
-                           array(
-                                'title' => "fom.user.userbundle.new_user",
-                                'route'=>'fom_user_user_create',
-                                'enabled' => function($securityContext) {
-                                    /** @var AuthorizationCheckerInterface $securityContext */
-                                    $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
-                                    return $securityContext->isGranted('CREATE', $oid);
-                                },
-                            )
-                        ),
-                    ),
-                    array(
-                        'title' => "fom.user.userbundle.groups",
-                        'route'=>'fom_user_group_index',
-                        'subroutes' => array(
-                            array(
-                                'title' => "fom.user.userbundle.new_group",
-                                'route'=>'fom_user_group_create',
-                                'enabled' => function($securityContext) {
-                                    /** @var AuthorizationCheckerInterface $securityContext */
-                                    $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
-                                    return $securityContext->isGranted('CREATE', $oid);
-                                },
-                            ),
-                        ),
-                    ),
-                    array(
-                        'title' => "fom.user.userbundle.acls",
-                        'route'=>'fom_user_acl_index',
+                   array(
+                        'title' => "fom.user.userbundle.new_user",
+                        'route'=>'fom_user_user_create',
                         'enabled' => function($securityContext) {
                             /** @var AuthorizationCheckerInterface $securityContext */
-                            $oid = new ObjectIdentity('class', 'Symfony\Component\Security\Acl\Domain\Acl');
-                            return $securityContext->isGranted('CREATE', $oid) || $securityContext->isGranted('EDIT', $oid);
+                            $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
+                            return $securityContext->isGranted('CREATE', $oid);
+                        },
+                    )
+                ),
+            ),
+            array(
+                'title' => "fom.user.userbundle.groups",
+                'route'=>'fom_user_group_index',
+                'weight' => 110,
+                'enabled' => function($securityContext) {
+                    /** @var AuthorizationCheckerInterface $securityContext */
+                    $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
+                    return $securityContext->isGranted('VIEW', $oid);
+                },
+                'subroutes' => array(
+                    array(
+                        'title' => "fom.user.userbundle.new_group",
+                        'route'=>'fom_user_group_create',
+                        'enabled' => function($securityContext) {
+                            /** @var AuthorizationCheckerInterface $securityContext */
+                            $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
+                            return $securityContext->isGranted('CREATE', $oid);
                         },
                     ),
                 ),
+            ),
+            array(
+                'title' => "fom.user.userbundle.acls",
+                'route'=>'fom_user_acl_index',
+                'weight' => 120,
+                'enabled' => function($securityContext) {
+                    /** @var AuthorizationCheckerInterface $securityContext */
+                    $oid = new ObjectIdentity('class', 'Symfony\Component\Security\Acl\Domain\Acl');
+                    return $securityContext->isGranted('EDIT', $oid);
+                },
             ),
         );
     }
