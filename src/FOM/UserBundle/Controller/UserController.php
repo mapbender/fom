@@ -71,10 +71,8 @@ class UserController extends UserControllerBase
 
         $form = $this->createForm('FOM\UserBundle\Form\Type\UserType', $user, array(
             'requirePassword' => true,
-            'profile_formtype' => $this->getProfileFormType(),
             'group_permission' => $groupPermission,
             'acl_permission'   => $this->isGranted('OWNER', $user),
-            'currentUser' => $this->getUser(),
         ));
 
         $form->handleRequest($request);
