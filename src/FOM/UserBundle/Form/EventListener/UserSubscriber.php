@@ -41,11 +41,11 @@ class UserSubscriber implements EventSubscriberInterface
         if (null === $user) {
             return;
         }
-        if ($this->currentUser !== null && $this->currentUser !== $user && $event->getForm()->has('activated')) {
+        if (!$event->getForm()->get('activated')->isDisabled()) {
             $activated = $event->getForm()->get('activated')->getData();
-            if ($activated && $user->getRegistrationToken()) {
+            if ($activated) {
                 $user->setRegistrationToken(null);
-            } elseif (!$activated && !$user->getRegistrationToken()) {
+            } elseif (!$user->getRegistrationToken()) {
                 $user->setRegistrationToken(hash("sha1",rand()));
             }
         }
@@ -61,13 +61,12 @@ class UserSubscriber implements EventSubscriberInterface
         if (null === $user) {
             return;
         }
-        if ($user->getId() && $this->currentUser !== null && $this->currentUser !== $user) {
-            $event->getForm()->add('activated', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(
-                'data' => $user->getRegistrationToken() ? false : true,
-                'label' => 'fom.user.user.container.activated',
-                'required' => false,
-                'mapped' => false,
-            ));
-        }
+        $event->getForm()->add('activated', 'Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(
+            'data' => $user->getRegistrationToken() ? false : true,
+            'label' => 'fom.user.user.container.activated',
+            'required' => false,
+            'mapped' => false,
+            'disabled' => ($this->currentUser && $this->currentUser === $user),
+        ));
     }
 }
