@@ -29,17 +29,11 @@ class GroupController extends UserControllerBase
     public function indexAction()
     {
         $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
-        $groups = $this->getEntityManager()->getRepository('FOMUserBundle:Group')->findAll();
-        $allowed_groups = array();
-        // ACL access check
-        foreach($groups as $index => $group) {
-            if ($this->isGranted('VIEW', $group)) {
-                $allowed_groups[] = $group;
-            }
-        }
+        $this->denyAccessUnlessGranted('VIEW', $oid);
+        $repository = $this->getEntityManager()->getRepository('FOM\UserBundle\Entity\Group');
 
         return $this->render('@FOMUser/Group/index.html.twig', array(
-            'groups' => $allowed_groups,
+            'groups' => $repository->findAll(),
             'create_permission' => $this->isGranted('CREATE', $oid),
             'title' => $this->translate('fom.user.group.index.groups'),
         ));

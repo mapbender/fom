@@ -40,7 +40,7 @@ class FOMUserBundle extends ManagerBundle
         ;
         $groupItem = MenuItem::create('fom.user.userbundle.groups', 'fom_user_group_index')
             ->setWeight(110)
-            ->requireEntityGrant('FOM\UserBundle\Entity\Group', 'CREATE')
+            ->requireEntityGrant('FOM\UserBundle\Entity\Group', 'VIEW')
             ->addChildren(array(
                 MenuItem::create('fom.user.userbundle.new_group', 'fom_user_group_create')
                     ->requireEntityGrant('FOM\UserBundle\Entity\Group', 'CREATE'),
@@ -89,6 +89,11 @@ class FOMUserBundle extends ManagerBundle
                 'title' => "fom.user.userbundle.groups",
                 'route'=>'fom_user_group_index',
                 'weight' => 110,
+                'enabled' => function($securityContext) {
+                    /** @var AuthorizationCheckerInterface $securityContext */
+                    $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
+                    return $securityContext->isGranted('VIEW', $oid);
+                },
                 'subroutes' => array(
                     array(
                         'title' => "fom.user.userbundle.new_group",
