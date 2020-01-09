@@ -28,8 +28,7 @@
         <parameter key="fom.ldap_user_identities_provider.user_class">Mapbender\LdapIntegrationBundle\Entity\LdapUser</parameter>
     </parameters>
     <services>
-        <service id="fom_roles" class="FOM\UserBundle\Component\RolesService">
-        </service>
+        <service id="fom_roles" class="FOM\UserBundle\Component\RolesService" /><!-- legacy artifact; remove in v3.3 -->
         <service id="fom.user_helper.service" class="%fom.user_helper.service.class%">
             <argument type="service" id="security.acl.provider" />
             <argument type="service" id="security.encoder_factory" />

@@ -15,17 +15,21 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 
+/**
+ * Default implementation for service with id fom.user_helper.service
+ * Provides password hashing and encoding, password constraints, and some
+ * default privileges for new users.
+ */
 class UserHelperService
 {
     /** @var MutableAclProviderInterface */
     protected $aclProvider;
     /** @var EncoderFactoryInterface */
     protected $encoderFactory;
-    /** @var mixed[] */
+    /** @var mixed[]; from collection parameter fom_user.user_own_permissions */
     protected $permissionsOnSelf;
 
     /**
-     * UserHelperService constructor.
      * @param MutableAclProviderInterface $aclProvider
      * @param EncoderFactoryInterface $encoderFactory
      * @param mixed[] $permissionsOnSelf
