@@ -70,7 +70,6 @@ class UserController extends UserControllerBase
             || $this->isGranted('OWNER', $oid);
 
         $form = $this->createForm('FOM\UserBundle\Form\Type\UserType', $user, array(
-            'requirePassword' => true,
             'group_permission' => $groupPermission,
             'acl_permission'   => $this->isGranted('OWNER', $user),
         ));
@@ -135,8 +134,7 @@ class UserController extends UserControllerBase
             $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
             || $this->isGranted('OWNER', $user);
 
-        $form    = $this->createForm('FOM\UserBundle\Form\Type\UserType', $user, array(
-            'requirePassword'  => false,
+        $form = $this->createForm('FOM\UserBundle\Form\Type\UserType', $user, array(
             'group_permission' => $groupPermission,
             'acl_permission'   => $this->isGranted('OWNER', $user),
         ));
