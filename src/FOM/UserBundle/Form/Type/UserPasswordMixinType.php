@@ -54,7 +54,7 @@ class UserPasswordMixinType extends AbstractType
                 // require password input for new users
                 // password editing for existing users is optional
                 'required' => $options['requirePassword'],
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'fom.user.password.repeat_mismatch',
                 'first_options' => array(
                     'label' => 'fom.user.registration.form.choose_password',
                 ),
