@@ -4,7 +4,6 @@ namespace FOM\UserBundle\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use FOM\ManagerBundle\Configuration\Route as ManagerRoute;
 use FOM\UserBundle\Entity\User;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -71,6 +70,7 @@ class UserController extends UserControllerBase
             || $this->isGranted('OWNER', $oid);
 
         $form = $this->createForm('FOM\UserBundle\Form\Type\UserType', $user, array(
+            'requirePassword' => true,
             'profile_formtype' => $this->getProfileFormType(),
             'group_permission' => $groupPermission,
             'acl_permission'   => $this->isGranted('OWNER', $user),
@@ -80,8 +80,6 @@ class UserController extends UserControllerBase
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->updatePassword($user, $form->get('password'));
-
             $user->setRegistrationTime(new \DateTime());
 
             $em = $this->getEntityManager();
@@ -148,8 +146,6 @@ class UserController extends UserControllerBase
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->updatePassword($user, $form->get('password'));
-
             $em = $this->getEntityManager();
             $this->persistUser($em, $user);
 
@@ -221,33 +217,6 @@ class UserController extends UserControllerBase
         }
 
         return new Response();
-    }
-
-    /**
-     * Transfers updated password from form field to User entity.
-     *
-     * @todo: this should be a DataTransformer on the form. The transformation currently requires
-     *        several service injections. Changing the UserType constructor signature to make
-     *        this work will break Mapbender <=3.0.8.4.
-     *
-     * @param User $user
-     * @param FormInterface $passwordField
-     * @deprecated
-     */
-    protected function updatePassword(User $user, FormInterface $passwordField)
-    {
-        // NOTE: required fields with empty data are never valid
-        if ($passwordField->isValid()) {
-            if (is_a($passwordField->getConfig()->getType()->getInnerType(), 'Symfony\Component\Form\Extension\Core\Type\RepeatedType', true)) {
-                $newPassword = $passwordField->get('first')->getViewData();
-            } else {
-                $newPassword = $passwordField->getViewData();
-            }
-            // may be empty if not required
-            if ($newPassword) {
-                $this->getUserHelper()->setPassword($user, $newPassword);
-            }
-        }
     }
 
     /**

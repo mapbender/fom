@@ -11,6 +11,12 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class UserRegistrationType extends AbstractType
 {
+
+    public function getParent()
+    {
+        return 'FOM\UserBundle\Form\Type\UserPasswordMixinType';
+    }
+
     public function buildForm(FormBuilderInterface $builder,array $options)
     {
         $builder->add("username", 'Symfony\Component\Form\Extension\Core\Type\TextType', array(
@@ -19,17 +25,6 @@ class UserRegistrationType extends AbstractType
             'attr' => array(
                 'autofocus' => 'on',
             ),
-        ));
-
-        $builder->add('password', 'Symfony\Component\Form\Extension\Core\Type\RepeatedType', array(
-            'type' => 'Symfony\Component\Form\Extension\Core\Type\PasswordType',
-            'first_options' => array(
-                'label' => 'fom.user.registration.form.choose_password',
-            ),
-            'second_options' => array(
-                'label' => 'fom.user.registration.form.confirm_password',
-            ),
-            'invalid_message' => 'The password fields must match.',
         ));
 
         $builder->add("email", 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(

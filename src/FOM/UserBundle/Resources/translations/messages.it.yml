@@ -97,9 +97,7 @@ fom:
         users_of_selected: 'gruppi di %users_count% selected'
         no_goups_defined:
           '': 'Nessun gruppo definito.'
-        manage_not_allowed: 'Non sei autorizzato a gestire gruppi.'
         add_users_groups: 'Aggiungi utenti e gruppi'
-        manage_not_allowed_security: 'Non sei autorizzato a gestire la sicurezza.'
         username: Nome utente
         description: Descrizione
         activated: attivato

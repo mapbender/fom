@@ -3,24 +3,18 @@
 namespace FOM\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
 class UserResetPassType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function getParent()
     {
-        $builder
-            ->add('password', 'Symfony\Component\Form\Extension\Core\Type\RepeatedType', array(
-                'type' => 'Symfony\Component\Form\Extension\Core\Type\PasswordType',
-                'invalid_message' => 'The password fields must match.',
-                'first_options' => array(
-                    'label' => 'fom.user.registration.form.choose_password',
-                ),
-                'second_options' => array(
-                    'label' => 'fom.user.registration.form.confirm_password',
-                ),
-            ))
-        ;
+        return 'FOM\UserBundle\Form\Type\UserPasswordMixinType';
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefault('requirePassword', true);
     }
 }

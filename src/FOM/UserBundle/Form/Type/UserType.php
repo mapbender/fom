@@ -8,7 +8,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Validator\Constraints;
 
 class UserType extends AbstractType
 {
@@ -28,6 +27,11 @@ class UserType extends AbstractType
         $this->profileType = $profileType;
     }
 
+    public function getParent()
+    {
+        return 'FOM\UserBundle\Form\Type\UserPasswordMixinType';
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addEventSubscriber(new UserSubscriber($this->tokenStorage));
@@ -41,30 +45,7 @@ class UserType extends AbstractType
             ->add('email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
                 'label' => 'E-Mail',
             ))
-            ->add('password', 'Symfony\Component\Form\Extension\Core\Type\RepeatedType', array(
-                'type' => 'Symfony\Component\Form\Extension\Core\Type\PasswordType',
-                'invalid_message' => 'The password fields must match.',
-                'required' => $options['requirePassword'],
-                'mapped' => false,
-                'first_options' => array(
-                    'label' => 'fom.user.user.container.choose_password',
-                ),
-                'second_options' => array(
-                    'label' => 'fom.user.user.container.confirm_password',
-                ),
-                'constraints' => array(
-                    new Constraints\Length(array(
-                        'min' => 8,
-                    )),
-                ),
-            ))
         ;
-        /**
-         * @todo: password field can be permanently set to mapped = false once a DataTransforrmer ensuers
-         *         non-empty model data. Mapping is currently required for creating new users (empty password property
-         *         on User entity)
-         */
-        $builder->get('password')->setMapped($options['requirePassword']);
         $builder->get('username')->setDisabled(!$options['group_permission']);
 
         if (true === $options['group_permission']) {
@@ -108,7 +89,6 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'requirePassword' => true,
             'group_permission' => false,
             'acl_permission' => false,
         ));

@@ -26,28 +26,28 @@ class FOMUserBundle extends ManagerBundle
 
     protected function addMenu(ContainerBuilder $container)
     {
-        $userItem = MenuItem::create('fom.user.userbundle.user_control', 'fom_user_user_index')
+        $userItem = MenuItem::create('fom.user.userbundle.users', 'fom_user_user_index')
             ->setWeight(100)
             ->addChildren(array(
-                MenuItem::create('fom.user.userbundle.users', 'fom_user_user_index')
-                    ->addChildren(array(
-                        MenuItem::create('fom.user.userbundle.new_user', 'fom_user_user_create')
-                            ->requireEntityGrant('FOM\UserBundle\Entity\User', 'CREATE'),
-                    )),
-                MenuItem::create('fom.user.userbundle.groups', 'fom_user_group_index')
-                    ->requireEntityGrant('FOM\UserBundle\Entity\Group', 'CREATE')
-                    ->addChildren(array(
-                        MenuItem::create('fom.user.userbundle.new_group', 'fom_user_group_create')
-                            ->requireEntityGrant('FOM\UserBundle\Entity\Group', 'CREATE'),
-                    )),
-                MenuItem::create('fom.user.userbundle.acls', 'fom_user_acl_index')
-                    ->requireEntityGrant('Symfony\Component\Security\Acl\Domain\Acl', array(
-                        'CREATE',
-                        'EDIT',
-                    )),
+                MenuItem::create('fom.user.userbundle.new_user', 'fom_user_user_create')
+                    ->requireEntityGrant('FOM\UserBundle\Entity\User', 'CREATE'),
             ))
         ;
+        $groupItem = MenuItem::create('fom.user.userbundle.groups', 'fom_user_group_index')
+            ->setWeight(110)
+            ->requireEntityGrant('FOM\UserBundle\Entity\Group', 'VIEW')
+            ->addChildren(array(
+                MenuItem::create('fom.user.userbundle.new_group', 'fom_user_group_create')
+                    ->requireEntityGrant('FOM\UserBundle\Entity\Group', 'CREATE'),
+            ))
+        ;
+        $aclItem = MenuItem::create('fom.user.userbundle.acls', 'fom_user_acl_index')
+            ->setWeight(120)
+            ->requireEntityGrant('Symfony\Component\Security\Acl\Domain\Acl', 'EDIT')
+        ;
         $container->addCompilerPass(new RegisterMenuRoutesPass($userItem));
+        $container->addCompilerPass(new RegisterMenuRoutesPass($groupItem));
+        $container->addCompilerPass(new RegisterMenuRoutesPass($aclItem));
     }
 
     public function getACLClasses()

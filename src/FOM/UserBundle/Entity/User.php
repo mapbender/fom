@@ -53,9 +53,10 @@ class User implements AdvancedUserInterface
     protected $email;
 
     /**
+     * Password HASH, not verbatim password
+     * @var string|null
+     *
      * @ORM\Column
-     * @Assert\NotBlank()
-     * @Assert\Length(min=8)
      */
     protected $password;
 
@@ -451,6 +452,6 @@ class User implements AdvancedUserInterface
     
     public function __toString()
     {
-        return $this->getUsername();
+        return $this->getUsername() ?: '';
     }
 }

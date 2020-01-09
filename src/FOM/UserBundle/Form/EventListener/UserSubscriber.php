@@ -47,6 +47,7 @@ class UserSubscriber implements EventSubscriberInterface
      */
     public function submit(FormEvent $event)
     {
+        /** @var User|null $user */
         $user = $event->getData();
         if (null === $user) {
             return;
@@ -67,6 +68,7 @@ class UserSubscriber implements EventSubscriberInterface
      */
     public function preSetData(FormEvent $event)
     {
+        /** @var User|null $user */
         $user = $event->getData();
         if (null === $user) {
             return;
