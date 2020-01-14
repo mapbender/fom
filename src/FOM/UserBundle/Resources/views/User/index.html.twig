@@ -25,9 +25,9 @@
         <tr id="app-{{ user.id }}" class="filterItem">
           <td class="smallText">
             {% if is_granted('EDIT', user) %}
-            <a href="{{ path('fom_user_user_edit', {'id': user.id}) }}" title="{{ 'fom.user.user.index.edit_user' | trans }}">{{ user.username }}</a>
+            <a class="labelText" href="{{ path('fom_user_user_edit', {'id': user.id}) }}" title="{{ 'fom.user.user.index.edit_user' | trans }}">{{ user.username }}</a>
             {% else %}
-            {{ user.username }}
+            <span class="labelText">{{ user.username }}</span>
             {% endif %}
           </td>
           <td class="smallText"><a href="mailto:{{ user.email }}" title="{{ 'fom.user.user.index.contact_user' | trans }}">{{ user.email }}</a></td>
