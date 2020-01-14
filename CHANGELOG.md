@@ -1,3 +1,13 @@
+## v3.2.11
+- [regression] Fix error for user without group editing privileges when editing self or other user
+- Fix bad grants check for group index menu item: require VIEW, not CREATE
+- Fix bad grants check for ACL menu item: require EDIT, ignore CREATE
+- Eliminate same-route menu item duplicate "User control" vs "Users"
+- Consistently enforce password constraint (default: 8 character minimum length) in all areas
+  where passwords can be set: registration, password reset, user creation, user (self-)editing
+- Extract user password constraints into user helper service to support DI customization
+- Support translation of password repeat mismatch validation error message; supply German and English messages
+
 ## v3.2.10
 - Fix form type incompatibilities with Symfony 3, allow installation with Symfony 3
 - Suppress dangling "Groups" label in user editing if no groups found in database
