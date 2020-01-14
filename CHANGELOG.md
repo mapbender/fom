@@ -1,4 +1,4 @@
-## dev-release/3.1@e572c2c
+## v3.1.11
 - [regression] Fix error for user without group editing privileges when editing self or other user
 - Fix bad grants check for group index menu item: require VIEW, not CREATE
 - Fix bad grants check for ACL menu item: require EDIT, ignore CREATE
