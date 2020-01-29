@@ -105,12 +105,19 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
      */
     public function getDatabaseUsers()
     {
-        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:User');
-        return $repo->findAll();
+        return $this->getUserRepository()->findAll();
     }
 
     public function getAllUsers()
     {
         return array_merge($this->getLdapUsers(), $this->getDatabaseUsers());
+    }
+
+    /**
+     * @return ObjectRepository
+     */
+    public function getUserRepository()
+    {
+        return $this->getDoctrine()->getRepository('FOMUserBundle:User');
     }
 }
