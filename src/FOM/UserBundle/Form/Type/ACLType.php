@@ -66,11 +66,16 @@ class ACLType extends AbstractType
     {
         $resolver->setDefaults(array(
             'permissions' => array(),
+            // Can never be mapped. Retrieval and storage goes through MutableAclProvider.
+            // Default added post 3.1.11 / 3.2.11. For BC with older FOM, external users should
+            // pass in mapped = false redundantly.
+            'mapped' => false,
             'class' => null,
             'create_standard_permissions' => true,
             'standard_anon_access' => null,
             'aces' => null,
         ));
+        $resolver->setAllowedValues('mapped', array(false));
     }
 
     protected function loadAces($options)

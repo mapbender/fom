@@ -45,7 +45,11 @@ class ACLController extends Controller
             throw $this->createNotFoundException('No manageable class given.');
         }
 
-        $form = $this->getClassACLForm($class);
+        $form = $this->createForm('FOM\UserBundle\Form\Type\ACLType', array(), array(
+            'class' => $class,
+            'permissions' => 'standard::class',
+            'create_standard_permissions' => false
+        ));
 
         $form->handleRequest($request);
 
@@ -79,20 +83,6 @@ class ACLController extends Controller
         return $this->render('@FOMUser/ACL/groups-and-users.html.twig', array(
             'groups' => $groups,
             'users' => $users,
-        ));
-    }
-
-    /**
-     * @param string $class
-     * @return \Symfony\Component\Form\Form
-     */
-    public function getClassACLForm($class)
-    {
-        return $this->createForm('FOM\UserBundle\Form\Type\ACLType', array(), array(
-            'mapped' => false,
-            'class' => $class,
-            'permissions' => 'standard::class',
-            'create_standard_permissions' => false
         ));
     }
 

@@ -56,7 +56,6 @@ class UserType extends AbstractType
         if ($options['acl_permission']) {
             $builder
                 ->add('acl', 'FOM\UserBundle\Form\Type\ACLType', array(
-                    'mapped' => false,
                     'data' => $options['data'],
                     'permissions' => 'standard::object',
                     'standard_anon_access' => false,
