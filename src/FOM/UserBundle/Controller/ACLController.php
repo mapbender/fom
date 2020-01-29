@@ -45,10 +45,8 @@ class ACLController extends Controller
             throw $this->createNotFoundException('No manageable class given.');
         }
 
-        $form = $this->createForm('FOM\UserBundle\Form\Type\ACLType', array(), array(
+        $form = $this->createForm('FOM\ManagerBundle\Form\Type\ClassAclType', array(), array(
             'class' => $class,
-            'permissions' => 'standard::class',
-            'create_standard_permissions' => false
         ));
 
         $form->handleRequest($request);

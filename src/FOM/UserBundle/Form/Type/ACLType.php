@@ -1,29 +1,25 @@
 <?php
 namespace FOM\UserBundle\Form\Type;
 
+use FOM\UserBundle\Form\DataTransformer\ACEDataTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
+use Symfony\Component\Security\Acl\Model\EntryInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 
 /**
- * ACL form type
+ * Form type for editing / assigning object ACLs.
  *
- * This type embeds a ACL configuration form which can be used to manage object
- * and class ACEs.
- *
- * Two sets of standard permissions are available to show for each ACE:
- * - "standard::object": Standard permissions for objects
- * - "standard::class": Standard permissions for classes
- * These can be provided using the 'permissions' parameter which can
- * alternatively also provided an array of permissions where keys are 1-30
- * (bitmask position) and the values the labels to show in the form.
+ * Available permission sets can be passed in either as an explicit array
+ * of mask bit position => label, or with the magic legacy string value
+ *'standard::object'.
  *
  * @author Christian Wygoda
  */
@@ -70,7 +66,6 @@ class ACLType extends AbstractType
             // Default added post 3.1.11 / 3.2.11. For BC with older FOM, external users should
             // pass in mapped = false redundantly.
             'mapped' => false,
-            'class' => null,
             'create_standard_permissions' => true,
             'standard_anon_access' => null,
             'aces' => null,
@@ -80,17 +75,17 @@ class ACLType extends AbstractType
 
     protected function loadAces($options)
     {
-        if ($options['class'] && class_exists($options['class'])) {
-            $oid = new ObjectIdentity('class', $options['class']);
-            $acl = $this->aclProvider->findAcl($oid);
-            return $acl->getClassAces();
-        } else {
-            $oid = ObjectIdentity::fromDomainObject($options['data']);
-            $acl = $this->aclProvider->findAcl($oid);
-            return $acl->getObjectAces();
-        }
+        $oid = ObjectIdentity::fromDomainObject($options['data']);
+        $acl = $this->aclProvider->findAcl($oid);
+        return $acl->getObjectAces();
     }
 
+    /**
+     * Creates some default ACEs for a newly created ACL.
+     *
+     * @param $options
+     * @return array[]
+     */
     protected function buildAces($options)
     {
         $aces = array();
@@ -121,22 +116,29 @@ class ACLType extends AbstractType
     }
 
     /**
+     * @param array $options
+     * @return EntryInterface[]|array[] for array type, each entry has keys 'mask' (integer bit mask) and 'sid' (SecurityIdentityInterface)
+     * @todo: fix inconsistent value types. These are currently fixed at the ACE level
+     * @see ACEDataTransformer
+     */
+    protected function getAces(array $options)
+    {
+        if (is_array($options['aces'])) {
+            return $options['aces'];
+        } else {
+            try {
+                return $this->loadAces($options);
+            } catch (\Symfony\Component\Security\Acl\Exception\Exception $e) {
+                return $this->buildAces($options);
+            }
+        }
+    }
+
+    /**
      * @inheritdoc
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if (is_array($options['aces'])) {
-            $aces = $options['aces'];
-        } else {
-            try {
-                $aces = $this->loadAces($options);
-            } catch (\Symfony\Component\Security\Acl\Exception\Exception $e) {
-                $aces = $this->buildAces($options);
-            }
-        }
-
-        $permissions = is_string($options['permissions']) ? $this->getStandardPermissions($options['permissions']) : $options['permissions'];
-
         $aceOptions = array(
             'entry_type' => 'FOM\UserBundle\Form\Type\ACEType',
             'label' => 'Permissions',
@@ -144,46 +146,35 @@ class ACLType extends AbstractType
             'allow_delete' => true,
             'prototype' => true,
             'entry_options' => array(
-                'available_permissions' => $permissions,
+                'available_permissions' => $this->getPermissions($options),
             ),
             'mapped' => false,
-            'data' => $aces,
+            'data' => $this->getAces($options),
         );
 
         $builder->add('ace', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', $aceOptions);
     }
 
     /**
-     * Get standard permission sets for provided string identifier.
-     *
-     * @param string $type
-     * @return string[]
+     * @param array $options
+     * @return string[] with labels mapped to ACE mask bit positions
+     * @see MaskBuilder constants
      */
-    protected function getStandardPermissions($type)
+    protected function getPermissions(array $options)
     {
-        switch ($type) {
-            case 'standard::object':
-            case 'standard::class':
-                $permissions = array(
-                    /**
-                     * Keys are bit positions
-                     * @see MaskBuilder
-                     */
-                    1 => 'View',
-                    2 => 'Create',
-                    3 => 'Edit',
-                    4 => 'Delete',
-                    6 => 'Operator',
-                    7 => 'Master',
-                    8 => 'Owner',
-                );
-                if ($type !== 'standard::class') {
-                    // suppress redundant create permission on concrete objects
-                    unset($permissions[2]);
-                }
-                return $permissions;
-            default:
-                throw new \RuntimeException(var_export($type, true) . ' is not a valid standard permission set identifier');
+        if ($options['permissions'] === 'standard::object') {
+            return array(
+                1 => 'View',
+                3 => 'Edit',
+                4 => 'Delete',
+                6 => 'Operator',
+                7 => 'Master',
+                8 => 'Owner',
+            );
+        } elseif (is_array($options['permissions'])) {
+            return $options['permissions'];
+        } else {
+            throw new \InvalidArgumentException("Unsupported 'permissions' option " . print_r($options['permissions'], true));
         }
     }
 }
