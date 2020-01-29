@@ -105,6 +105,13 @@ class ACLType extends AbstractType
                 $aces[] = $ownerAccess;
             }
         }
+
+        // only used in Mapbender ApplicationType: grant view to anonymous users.
+        // @todo: This is redundant because a) Applications have an entire dedicated database column 'published' to
+        //        control anonymous view and b) edit / delete / owner etc should never be conceivably be granted
+        //        to an anonymous user on any concrete object or oid.
+        //        Remove this entire clause after resolving yaml-vs-db inconsistencies of application grants setups
+        //        in Mapbender.
         if ($options['standard_anon_access'] || ($options['standard_anon_access'] === null && $options['create_standard_permissions'])) {
             $anon = new RoleSecurityIdentity('IS_AUTHENTICATED_ANONYMOUSLY');
             $aces[] = array(
