@@ -55,6 +55,10 @@
             <argument type="service" id="fom.user_helper.service" />
             <tag name="form.type" />
         </service>
+        <service id="form.fom_group" class="FOM\UserBundle\Form\Type\GroupType">
+            <tag name="form.type" />
+            <argument>%fom.user_entity%</argument>
+        </service>
 
         <service id="fom.acl.manager" class="FOM\UserBundle\Component\AclManager">
             <argument type="service" id="security.acl.provider" />

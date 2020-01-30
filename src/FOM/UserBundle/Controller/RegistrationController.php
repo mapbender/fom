@@ -59,7 +59,9 @@ class RegistrationController extends UserControllerBase
      */
     public function formAction(Request $request)
     {
-        $user = new User();
+        $userClass = $this->getUserEntityClass();
+        /** @var User $user */
+        $user = new $userClass();
         $form = $this->createForm('FOM\UserBundle\Form\Type\UserRegistrationType', $user);
 
         $form->handleRequest($request);
@@ -208,7 +210,7 @@ class RegistrationController extends UserControllerBase
         $token = $request->get('token');
         if ($token) {
             /** @var User|null $user */
-            $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
+            $user = $this->getUserRepository()->findOneBy(array(
                 'registrationToken' => $token,
             ));
             return $user;

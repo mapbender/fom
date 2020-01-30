@@ -24,10 +24,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("username")
  * @UniqueEntity("email")
  * @ORM\Table(name="fom_user")
- *
- * TODO: Validation
- * TODO: Basic user data
- * TODO: User profiles
+ * @ORM\MappedSuperclass()
  */
 class User implements AdvancedUserInterface
 {

@@ -7,6 +7,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class GroupType extends AbstractType
 {
+    /** @var string */
+    protected $userEntityClass;
+
+    public function __construct($userEntityClass)
+    {
+        $this->userEntityClass = $userEntityClass;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -18,7 +26,7 @@ class GroupType extends AbstractType
                 'label' => 'fom.user.user.container.description',
             ))
             ->add('users', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
-                'class' =>  'FOMUserBundle:User',
+                'class' =>  $this->userEntityClass,
                 'expanded' => true,
                 'multiple' => true,
                 'choice_label' => 'username',

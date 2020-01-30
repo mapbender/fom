@@ -2,7 +2,9 @@
 
 namespace FOM\UserBundle\Command;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use FOM\UserBundle\Component\UserHelperService;
 use FOM\UserBundle\Entity\User;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -22,6 +24,12 @@ class ResetRootAccountCommand extends ContainerAwareCommand
 {
     /** @var UserHelperService */
     protected $userHelper;
+    /** @var EntityManagerInterface */
+    protected $entityManager;
+    /** @var EntityRepository */
+    protected $userRepository;
+    /** @var string */
+    protected $userEntityClass;
 
     protected function configure()
     {
@@ -45,6 +53,12 @@ EOT
     {
         parent::initialize($input, $output);
         $this->userHelper = $this->getContainer()->get('fom.user_helper.service');
+        /** @var Registry $doctrine */
+        $doctrine = $this->getContainer()->get('doctrine');
+        $this->userEntityClass = $this->getContainer()->getParameter('fom.user_entity');
+        $this->userRepository = $doctrine->getRepository($this->userEntityClass);
+        $this->entityManager = $doctrine->getManagerForClass($this->userEntityClass);
+
         if ($input->getOption('silent')) {
             $input->setInteractive(false);
         }
@@ -55,7 +69,9 @@ EOT
         $root = $this->getRoot();
 
         if (!$root) {
-            $root = new User();
+            $userClass = $this->userEntityClass;
+            /** @var User $root */
+            $root = new $userClass();
             $root->setId(1);
             $mode = 'created';
             foreach (array('username', 'email', 'password') as $option) {
@@ -77,10 +93,8 @@ EOT
             $this->userHelper->setPassword($root, $input->getOption('password'));
         }
 
-        /** @var EntityManagerInterface $em */
-        $em = $this->getContainer()->get('doctrine')->getManager();
-        $em->persist($root);
-        $em->flush();
+        $this->entityManager->persist($root);
+        $this->entityManager->flush();
 
         $output->writeln("User {$root->getUsername()} {$mode}.");
         return null;
@@ -113,10 +127,8 @@ EOT
      */
     protected function getRoot()
     {
-        $root = $this->getContainer()->get('doctrine')
-            ->getRepository('FOMUserBundle:User')
-            ->find(1);
-
+        /** @var User|null $root */
+        $root = $this->userRepository->find(1);
         return $root;
     }
 }

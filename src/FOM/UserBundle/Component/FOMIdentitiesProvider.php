@@ -2,7 +2,6 @@
 
 namespace FOM\UserBundle\Component;
 
-use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityRepository;
 use FOM\UserBundle\Component\Ldap;
 use FOM\UserBundle\Entity\Group;
@@ -21,6 +20,8 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     protected $container;
     /** @var Ldap\UserProvider */
     protected $ldapUserIdentitiesProvider;
+    /** @var string */
+    protected $userEntityClass;
 
     /**
      * @param ContainerInterface $container
@@ -29,6 +30,7 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     {
         $this->container = $container;
         $this->ldapUserIdentitiesProvider = $container->get('fom.ldap_user_identities_provider');
+        $this->userEntityClass = $container->getParameter('fom.user_entity');
     }
 
     /**
@@ -57,8 +59,7 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
      */
     public function getUsers($search)
     {
-        $repo = $this->getRepository('FOMUserBundle:User');
-        $qb = $repo->createQueryBuilder('u');
+        $qb = $this->getUserRepository()->createQueryBuilder('u');
 
         $query = $qb->where($qb->expr()->like('LOWER(u.username)', ':search'))
             ->setParameter(':search', '%' . strtolower($search) . '%')
@@ -128,10 +129,10 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     }
 
     /**
-     * @return ObjectRepository
+     * @return EntityRepository
      */
     public function getUserRepository()
     {
-        return $this->getDoctrine()->getRepository('FOMUserBundle:User');
+        return $this->getDoctrine()->getRepository($this->userEntityClass);
     }
 }

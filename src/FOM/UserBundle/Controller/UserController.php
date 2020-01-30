@@ -26,7 +26,7 @@ class UserController extends UserControllerBase
      */
     public function indexAction()
     {
-        $users = $this->getEntityManager()->getRepository('FOMUserBundle:User')->findAll();
+        $users = $this->getUserRepository()->findAll();
         $allowed_users = array();
 
         // Bulk-prefetch ACLs for all User entities into AclProvider's internal cache
@@ -59,7 +59,9 @@ class UserController extends UserControllerBase
      */
     public function createAction(Request $request)
     {
-        $user = new User();
+        $userClass = $this->getUserEntityClass();
+        /** @var User $user */
+        $user = new $userClass();
 
         // ACL access check
         $oid = new ObjectIdentity('class', get_class($user));
@@ -125,7 +127,7 @@ class UserController extends UserControllerBase
     public function editAction(Request $request, $id)
     {
         /** @var User|null $user */
-        $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->find($id);
+        $user = $this->getUserRepository()->find($id);
         if ($user === null) {
             throw new NotFoundHttpException('The user does not exist');
         }
@@ -180,7 +182,7 @@ class UserController extends UserControllerBase
      */
     public function deleteAction($id)
     {
-        $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->find($id);
+        $user = $this->getUserRepository()->find($id);
 
         if ($user === null) {
             throw new NotFoundHttpException('The user does not exist');
