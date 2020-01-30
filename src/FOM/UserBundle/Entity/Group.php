@@ -14,6 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity()
  * @UniqueEntity("title")
  * @ORM\Table(name="fom_group")
+ * @ORM\MappedSuperclass()
  */
 class Group implements RoleInterface
 {
