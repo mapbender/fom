@@ -170,7 +170,7 @@ form:
       notes: Notes
       phone: Phone
       organizationName: Organization
-      organizationRole: Role
+      organizationRole: Position
       street: Street
       zipCode: 'Zip code'
       city: City
