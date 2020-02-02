@@ -97,8 +97,7 @@ fom:
         filter: Filter
         name: Naam
         users_of_selected: 'Gebruikers van %users_count% geselecteerd'
-        no_goups_defined:
-          '': 'Geen groepen gedefinieerd.'
+        no_groups_defined: Geen groepen gedefinieerd
         add_users_groups: 'Voeg gebruikers en groepen toe'
         username: Gebruikersnaam
         description: Beschrijving
@@ -176,11 +175,7 @@ form:
       zipCode: 'Postcode'
       city: Plaats
       country: Land
-'User account is locked':
-  '': 'Gebruikers account is geblokkeerd.'
-'User account is disabled':
-  '': 'Gebruikers account is uitgeschakeld.'
-'User account has expired':
-  '': 'Gebruikers account is verlopen.'
-'User credentials have expired':
-  '': 'Login gegevens zijn verlopen.'
+'User account is locked.': Gebruikers account is geblokkeerd.
+'User account is disabled.': Gebruikers account is uitgeschakeld.
+'User account has expired.': Gebruikers account is verlopen.
+'User credentials have expired.': Login gegevens zijn verlopen.

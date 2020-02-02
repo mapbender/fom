@@ -97,8 +97,7 @@ fom:
         filter: Фильтр
         name: Имя
         users_of_selected: 'groups of %users_count% selected'
-        no_goups_defined:
-          '': 'Нет групп.'
+        no_groups_defined: Нет групп
         add_users_groups: 'Добавление пользователей и группы'
         username: 'Имя пользователя'
         description: Описание
@@ -171,16 +170,12 @@ form:
       notes: Заметка
       phone: Телефон
       organizationName: Организация
-      organizationRole: Роль
+      organizationRole: должность
       street: Улица
       zipCode: 'Почтовый индекс'
       city: Город
       country: Страна
-'User account is locked':
-  '': 'Учетная запись заблокирована.'
-'User account is disabled':
-  '': 'Учетная запись деактивирована.'
-'User account has expired':
-  '': 'Срок действия учетной записи истёк.'
-'User credentials have expired':
-  '': 'Срок действия пароля истёк.'
+'User account is locked.': Учетная запись заблокирована.
+'User account is disabled.': Учетная запись деактивирована.
+'User account has expired.': Срок действия учетной записи истёк.
+'User credentials have expired.': Срок действия пароля истёк.

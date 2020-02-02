@@ -97,8 +97,7 @@ fom:
         filter: Filter
         name: Name
         users_of_selected: 'groups of %users_count% selected'
-        no_goups_defined:
-          '': 'No groups defined.'
+        no_groups_defined: No groups defined
         add_users_groups: 'Add users and groups'
         username: Username
         description: Description
@@ -176,11 +175,7 @@ form:
       zipCode: 'Zip code'
       city: City
       country: Country
-'User account is locked':
-  '': 'User account is locked.'
-'User account is disabled':
-  '': 'User account is disabled.'
-'User account has expired':
-  '': 'User account has expired.'
-'User credentials have expired':
-  '': 'User credentials have expired.'
+'User account is locked.': 'User account is locked.'
+'User account is disabled.': 'User account is disabled.'
+'User account has expired.': 'User account has expired.'
+'User credentials have expired.': 'User credentials have expired.'
