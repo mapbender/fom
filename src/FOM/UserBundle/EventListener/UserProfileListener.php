@@ -21,6 +21,10 @@ class UserProfileListener implements EventSubscriber
     /** @var string */
     protected $userEntityName;
 
+    protected $patchProgress = array();
+    const PATCH_STARTED = 1;
+    const PATCH_PERFORMED = 2;
+
     /**
      * @param string $userEntityClass
      * @param string $profileEntityClass
@@ -42,11 +46,24 @@ class UserProfileListener implements EventSubscriber
     {
         $metadata = $args->getClassMetadata();
         $metadataClass = $metadata->getName();
-        if ($this->isUserEntity($metadataClass)) {
-            $this->patchUserEntity($metadata);
-        } elseif ($this->isProfileEntity($metadataClass)) {
-            $platform = $args->getEntityManager()->getConnection()->getDatabasePlatform();
-            $this->patchProfileEntity($metadata, $platform);
+        if (empty($this->patchProgress[$metadataClass]) || $this->patchProgress[$metadataClass] !== self::PATCH_PERFORMED) {
+            if ($this->isUserEntity($metadataClass)) {
+                $this->patchProgress[$metadataClass] = self::PATCH_STARTED;
+                if (!$metadata->hasAssociation('profile')) {
+                    // trigger patching of Profile entity first
+                    $em = $args->getEntityManager();
+                    /** @noinspection PhpUnusedLocalVariableInspection */
+                    $unusedResult = $em->getClassMetadata($this->profileEntityName);
+                }
+                $this->patchUserEntity($metadata);
+                $this->patchProgress[$metadataClass] = self::PATCH_PERFORMED;
+            } elseif ($this->isProfileEntity($metadataClass)) {
+                $this->patchProgress[$metadataClass] = self::PATCH_STARTED;
+                $em = $args->getEntityManager();
+                $platform = $em->getConnection()->getDatabasePlatform();
+                $this->patchProfileEntity($metadata, $platform);
+                $this->patchProgress[$metadataClass] = self::PATCH_PERFORMED;
+            }
         }
     }
 
