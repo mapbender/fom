@@ -115,6 +115,7 @@ class UserController extends UserControllerBase
         $form = $this->createForm('FOM\UserBundle\Form\Type\UserType', $user, array(
             'profile_formtype' => $profileType,
             'group_permission' => $groupPermission,
+            // @todo: disallow user without global grants from editing other users' privileges
             'acl_permission'   => $this->isGranted('OWNER', $user),
             'currentUser' => $this->getUser(),
         ));
