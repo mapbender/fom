@@ -36,15 +36,9 @@ class UserProfileListener implements EventSubscriber
 
     public function getSubscribedEvents()
     {
-        if ($this->profileEntityName) {
-            return array(
-                'loadClassMetadata',
-            );
-        } else {
-            // No profile entity to patch into User entity
-            // => do nothing, act on nothing
-            return array();
-        }
+        return array(
+            'loadClassMetadata',
+        );
     }
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $args)
@@ -52,7 +46,13 @@ class UserProfileListener implements EventSubscriber
         $metadata = $args->getClassMetadata();
         $metadataClass = $metadata->getName();
         if (empty($this->patchProgress[$metadataClass]) || $this->patchProgress[$metadataClass] !== self::PATCH_PERFORMED) {
-            if ($this->isUserEntity($metadataClass)) {
+            if (!$this->profileEntityName) {
+                if (\is_a($metadataClass, 'FOM\\UserBundle\\Entity\\AbstractProfile', true)) {
+                   // Profile is not active but may need an ID mapping for schema validity
+                    $this->patchProfilePk($metadata);
+                }
+                $this->patchProgress[$metadataClass] = self::PATCH_PERFORMED;
+            } elseif ($this->isUserEntity($metadataClass)) {
                 $this->patchProgress[$metadataClass] = self::PATCH_STARTED;
                 if (!$metadata->hasAssociation('profile')) {
                     // trigger patching of Profile entity first
@@ -110,6 +110,20 @@ class UserProfileListener implements EventSubscriber
                         'unique' => true,
                     ),
                 ),
+            ));
+        }
+    }
+
+    protected function patchProfilePk(ClassMetadata $metadata)
+    {
+        $metadata->setIdGenerator(new AssignedGenerator());
+        if (!$metadata->getIdentifierFieldNames()) {
+            $metadata->setIdentifier(array('uid'));
+        }
+        if (!$metadata->hasField('uid')) {
+            $metadata->mapField(array(
+                'fieldName' => 'uid',
+                'type' => 'integer',
             ));
         }
     }
