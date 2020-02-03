@@ -119,16 +119,6 @@ class BasicProfile
     }
 
     /**
-     * Get uid
-     *
-     * @return User
-     */
-    public function getUid()
-    {
-        return $this->uid;
-    }
-
-    /**
      * Set organizationRole
      *
      * @param string $organizationRole
