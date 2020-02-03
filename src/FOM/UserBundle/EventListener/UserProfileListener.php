@@ -69,12 +69,14 @@ class UserProfileListener implements EventSubscriber
 
     protected function patchUserEntity(ClassMetadata $metadata)
     {
-        $metadata->mapOneToOne(array(
-            'fieldName' => 'profile',
-            'targetEntity' => $this->profileEntityName,
-            'mappedBy' => 'uid',
-            'cascade' => array('persist'),
-        ));
+        if (!$metadata->hasAssociation('profile')) {
+            $metadata->mapOneToOne(array(
+                'fieldName' => 'profile',
+                'targetEntity' => $this->profileEntityName,
+                'mappedBy' => 'uid',
+                'cascade' => array('persist'),
+            ));
+        }
     }
 
     protected function patchProfileEntity(ClassMetadata $metadata, AbstractPlatform $platform)
@@ -85,20 +87,25 @@ class UserProfileListener implements EventSubscriber
             // why..?
             $uidColname = strtoupper($uidColname);
         }
-        $metadata->setIdentifier(array('uid'));
+
         $metadata->setIdGenerator(new AssignedGenerator());
-        $metadata->mapOneToOne(array(
-            'fieldName' => 'uid',
-            'targetEntity' => $this->userEntityName,
-            'inversedBy' => 'profile',
-            'id' => true,
-            'joinColumns' => array(
-                array(
-                    'name' => $uidColname,
-                    'referencedColumnName' => 'id',
+        if (!$metadata->getIdentifierFieldNames()) {
+            $metadata->setIdentifier(array('uid'));
+        }
+        if (!$metadata->hasAssociation('uid')) {
+            $metadata->mapOneToOne(array(
+                'fieldName' => 'uid',
+                'targetEntity' => $this->userEntityName,
+                'inversedBy' => 'profile',
+                'id' => true,
+                'joinColumns' => array(
+                    array(
+                        'name' => $uidColname,
+                        'referencedColumnName' => 'id',
+                    ),
                 ),
-            ),
-        ));
+            ));
+        }
     }
 
     /**
