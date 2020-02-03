@@ -19,20 +19,19 @@ class UserProfileListener implements EventSubscriber
     /** @var string */
     protected $profileEntityName;
     /** @var string */
-    protected $userEntityName;
+    protected $defaultUserEntityName;
 
     protected $patchProgress = array();
     const PATCH_STARTED = 1;
     const PATCH_PERFORMED = 2;
 
     /**
-     * @param string $userEntityClass
      * @param string $profileEntityClass
      */
-    public function __construct($userEntityClass, $profileEntityClass)
+    public function __construct($profileEntityClass)
     {
-        $this->userEntityName = $userEntityClass;
         $this->profileEntityName = $profileEntityClass;
+        $this->defaultUserEntityName = 'FOM\UserBundle\Entity\User';
     }
 
     public function getSubscribedEvents()
@@ -95,7 +94,7 @@ class UserProfileListener implements EventSubscriber
         if (!$metadata->hasAssociation('uid')) {
             $metadata->mapOneToOne(array(
                 'fieldName' => 'uid',
-                'targetEntity' => $this->userEntityName,
+                'targetEntity' => $this->defaultUserEntityName,
                 'inversedBy' => 'profile',
                 'id' => true,
                 'joinColumns' => array(
@@ -114,15 +113,8 @@ class UserProfileListener implements EventSubscriber
      */
     protected function isUserEntity($className)
     {
-        // this is checked for ALL entity types, so do as few instance checks as possible
-        $defaultClass = 'FOM\UserBundle\Entity\User';
-        if (\is_a($className, $defaultClass, true)) {
-            return true;
-        } elseif ($this->userEntityName !== $defaultClass) {
-            return \is_a($className, $this->userEntityName);
-        } else {
-            return false;
-        }
+        // ONLY detect the default class
+        return ltrim($className, '\\') === $this->defaultUserEntityName;
     }
 
     /**

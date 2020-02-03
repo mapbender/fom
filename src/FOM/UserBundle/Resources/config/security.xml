@@ -34,7 +34,6 @@
         </service>
 
         <service id="fom.user_profile_listener" class="%fom_user.user_profile_listener.class%">
-            <argument>%fom.user_entity%</argument>
             <argument>%fom_user.profile_entity%</argument>
             <tag name="doctrine.event_subscriber" connection="default" />
         </service>
