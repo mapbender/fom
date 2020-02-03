@@ -60,70 +60,13 @@ class UserController extends UserControllerBase
     public function createAction(Request $request)
     {
         $userClass = $this->getUserEntityClass();
-        /** @var User $user */
-        $user = new $userClass();
-        $profileClass = $this->getProfileEntityClass();
-        if ($profileClass) {
-            $profile = new $profileClass();
-            $user->setProfile($profile);
-            $profileType = $this->getProfileFormType();
-        } else {
-            $profileType = null;
-        }
-
-        // ACL access check
-        $oid = new ObjectIdentity('class', get_class($user));
+        $oid = new ObjectIdentity('class', $userClass);
         $this->denyAccessUnlessGranted('CREATE', $oid);
 
-        $groupPermission =
-            $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
-            || $this->isGranted('OWNER', $oid);
+        /** @var User $user */
+        $user = new $userClass();
+        return $this->userActionCommon($request, $user);
 
-        $form = $this->createForm('FOM\UserBundle\Form\Type\UserType', $user, array(
-            'profile_formtype' => $profileType,
-            'group_permission' => $groupPermission,
-            'acl_permission'   => $this->isGranted('OWNER', $user),
-            'currentUser' => $this->getUser(),
-        ));
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRegistrationTime(new \DateTime());
-
-            $em = $this->getEntityManager();
-            $em->beginTransaction();
-
-            try {
-                $this->persistUser($em, $user);
-
-                if ($form->has('acl')) {
-                    $aces = $form->get('acl')->get('ace')->getData();
-                    $this->getAclManager()->setObjectACEs($user, $aces);
-                }
-
-                $em->flush();
-
-                // Make sure, the new user has VIEW & EDIT permissions
-                $this->getUserHelper()->giveOwnRights($user);
-
-                $em->commit();
-            } catch (\Exception $e) {
-                $em->rollback();
-                throw $e;
-            }
-            $this->addFlash('success', 'The user has been saved.');
-
-            return $this->redirectToRoute('fom_user_user_index');
-        }
-        return $this->render('@FOMUser/User/form.html.twig', array(
-            'user'             => $user,
-            'form'             => $form->createView(),
-            'edit'             => false,
-            'profile_template' => $this->getProfileTemplate(),
-            'profile_assets'   => $this->getProfileAssets(),
-            'title' => $this->translate('fom.user.user.form.new_user'),
-        ));
     }
 
     /**
@@ -141,43 +84,90 @@ class UserController extends UserControllerBase
         }
 
         $this->denyAccessUnlessGranted('EDIT', $user);
+        return $this->userActionCommon($request, $user);
+    }
 
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return Response
+     * @throws \Exception
+     */
+    protected function userActionCommon(Request $request, User $user)
+    {
+        $isNew = !$user->getId();
+        $profileClass = $this->getProfileEntityClass();
+        if ($profileClass) {
+            if ($isNew) {
+                $profile = new $profileClass();
+                $user->setProfile($profile);
+            }
+            $profileType = $this->getProfileFormType();
+        } else {
+            $profileType = null;
+        }
+
+        $oid = new ObjectIdentity('class', get_class($user));
         $groupPermission =
             $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
-            || $this->isGranted('OWNER', $user);
+            || $this->isGranted('OWNER', $isNew ? $oid : $user);
 
         $form = $this->createForm('FOM\UserBundle\Form\Type\UserType', $user, array(
-            'profile_formtype' => $this->getProfileFormType(),
+            'profile_formtype' => $profileType,
             'group_permission' => $groupPermission,
             'acl_permission'   => $this->isGranted('OWNER', $user),
             'currentUser' => $this->getUser(),
         ));
+        if (!$isNew && !$groupPermission) {
+            $form->get('username')->setDisabled(true);
+        }
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getEntityManager();
-            $this->persistUser($em, $user);
-
-            if ($form->has('acl')) {
-                $aces = $form->get('acl')->get('ace')->getData();
-                $this->getAclManager()->setObjectACEs($user, $aces);
+            if ($isNew) {
+                $user->setRegistrationTime(new \DateTime());
             }
+            $em = $this->getEntityManager();
+            $em->beginTransaction();
 
-            $em->flush();
-            $this->addFlash('success', 'The user has been updated.');
+            try {
+                $this->persistUser($em, $user);
+
+                if ($form->has('acl')) {
+                    if (!$user->getId()) {
+                        // Flush to assign PK
+                        // This is necessary for users with no profile entity
+                        // (persistUser already flushed once in this case)
+                        $em->flush();
+                    }
+                    $aces = $form->get('acl')->get('ace')->getData();
+                    $this->getAclManager()->setObjectACEs($user, $aces);
+                }
+
+                $em->flush();
+
+                if ($isNew) {
+                    // Make sure, the new user has VIEW & EDIT permissions
+                    $this->getUserHelper()->giveOwnRights($user);
+                }
+
+                $em->commit();
+            } catch (\Exception $e) {
+                $em->rollback();
+                throw $e;
+            }
+            $this->addFlash('success', 'The user has been saved.');
 
             return $this->redirectToRoute('fom_user_user_index');
-
         }
-
         return $this->render('@FOMUser/User/form.html.twig', array(
             'user'             => $user,
             'form'             => $form->createView(),
-            'edit'             => true,
+            'edit' => !$isNew,
             'profile_template' => $this->getProfileTemplate(),
             'profile_assets'   => $this->getProfileAssets(),
-            'title' => $this->translate('fom.user.user.form.edit_user'),
+            'title' => $this->translate($isNew ? 'fom.user.user.form.new_user' : 'fom.user.user.form.edit_user'),
         ));
     }
 

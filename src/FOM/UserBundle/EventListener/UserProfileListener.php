@@ -36,9 +36,15 @@ class UserProfileListener implements EventSubscriber
 
     public function getSubscribedEvents()
     {
-        return array(
-            'loadClassMetadata',
-        );
+        if ($this->profileEntityName) {
+            return array(
+                'loadClassMetadata',
+            );
+        } else {
+            // No profile entity to patch into User entity
+            // => do nothing, act on nothing
+            return array();
+        }
     }
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $args)
