@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\Table(name="fom_profile_basic")
  */
-class BasicProfile
+class BasicProfile extends AbstractProfile
 {
     const ORG_ROLE_AUTHOR =                'author';
     const ORG_ROLE_CUSTODIAN =             'custodian';
@@ -24,13 +24,6 @@ class BasicProfile
     const ORG_ROLE_PUBLISHER =             'publisher';
     const ORG_ROLE_RESOURCEPROVIDER =      'resourceProvider';
     const ORG_ROLE_USER =                  'user';
-
-    /**
-     * No annotations here, the Doctrine metadata is added dynamically in the
-     * loadClassMetadata event in
-     * @see \FOM\UserBundle\EventListener\UserProfileListener::loadClassMetadata()
-     */
-    protected $uid;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -103,19 +96,6 @@ class BasicProfile
     public function getOrganizationName()
     {
         return $this->organizationName;
-    }
-
-    /**
-     * Set uid
-     *
-     * @param User $uid
-     * @return $this
-     */
-    public function setUid(User $uid)
-    {
-        $this->uid = $uid;
-
-        return $this;
     }
 
     /**
