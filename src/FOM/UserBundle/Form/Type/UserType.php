@@ -30,7 +30,6 @@ class UserType extends AbstractType
                 'label' => 'E-Mail',
             ))
         ;
-        $builder->get('username')->setDisabled(!$options['group_permission']);
 
         if (true === $options['group_permission']) {
             $builder
