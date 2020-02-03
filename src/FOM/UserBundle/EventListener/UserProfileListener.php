@@ -101,6 +101,7 @@ class UserProfileListener implements EventSubscriber
                     array(
                         'name' => $uidColname,
                         'referencedColumnName' => 'id',
+                        'unique' => true,
                     ),
                 ),
             ));
