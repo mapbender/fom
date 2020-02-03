@@ -62,6 +62,14 @@ class UserController extends UserControllerBase
         $userClass = $this->getUserEntityClass();
         /** @var User $user */
         $user = new $userClass();
+        $profileClass = $this->getProfileEntityClass();
+        if ($profileClass) {
+            $profile = new $profileClass();
+            $user->setProfile($profile);
+            $profileType = $this->getProfileFormType();
+        } else {
+            $profileType = null;
+        }
 
         // ACL access check
         $oid = new ObjectIdentity('class', get_class($user));
@@ -72,7 +80,7 @@ class UserController extends UserControllerBase
             || $this->isGranted('OWNER', $oid);
 
         $form = $this->createForm('FOM\UserBundle\Form\Type\UserType', $user, array(
-            'profile_formtype' => $this->getProfileFormType(),
+            'profile_formtype' => $profileType,
             'group_permission' => $groupPermission,
             'acl_permission'   => $this->isGranted('OWNER', $user),
             'currentUser' => $this->getUser(),
@@ -227,6 +235,14 @@ class UserController extends UserControllerBase
     protected function getProfileFormType()
     {
         return $this->getParameter('fom_user.profile_formtype');
+    }
+
+    /**
+     * @return string|null
+     */
+    protected function getProfileEntityClass()
+    {
+        return $this->getParameter('fom_user.profile_entity');
     }
 
     /**
