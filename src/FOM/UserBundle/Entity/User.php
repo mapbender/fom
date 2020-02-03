@@ -53,12 +53,12 @@ class User implements AdvancedUserInterface
      * Password HASH, not verbatim password
      * @var string|null
      *
-     * @ORM\Column
+     * @ORM\Column(type="string", nullable=false)
      */
     protected $password;
 
     /**
-     * @ORM\Column
+     * @ORM\Column(type="string", nullable=false)
      */
     protected $salt;
 
