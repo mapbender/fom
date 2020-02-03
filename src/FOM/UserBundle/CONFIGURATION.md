@@ -19,11 +19,12 @@ fom_user:
     self_registration_groups: []
 
     # User metadata customization
-    ## PHP class name of user profile entity
+    ## PHP class name of user profile entity; use false for no profile
     profile_entity: FOM\UserBundle\Entity\BasicProfile
     ## PHP class name of user profile form type
     profile_formtype: FOM\UserBundle\Form\Type\BasicProfileType
-    ## Twig resource path to user profile template
+    ## Twig resource path to user profile template; obsolete. Any form
+    ## type will render properly with just the default template.
     profile_template: FOMUserBundle:User:basic_profile.html.twig
 
     # Artificial login delay after repeated failed attempts
