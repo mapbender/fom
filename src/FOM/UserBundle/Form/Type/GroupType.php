@@ -31,6 +31,11 @@ class GroupType extends AbstractType
                 'multiple' => true,
                 'choice_label' => 'username',
                 'label' => 'Users',
+                // collection field rendering bypasses form theme; suppress
+                // the spurious label if collection is empty
+                'label_attr' => array(
+                    'class' => 'hidden',
+                ),
             ));
     }
 }
