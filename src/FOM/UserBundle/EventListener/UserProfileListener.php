@@ -124,14 +124,9 @@ class UserProfileListener implements EventSubscriber
      */
     protected function isProfileEntity($className)
     {
-        // this is checked for ALL entity types, so do as few instance checks as possible
-        $defaultClass = 'FOM\UserBundle\Entity\BasicProfile';
-        if (\is_a($className, $defaultClass, true)) {
-            return true;
-        } elseif ($this->profileEntityName !== $defaultClass) {
-            return \is_a($className, $this->profileEntityName);
-        } else {
-            return false;
-        }
+        // ONLY detect the configured class
+        // Relation from one User entity class to multiple different profile entity classes
+        // cannot be established, so we won't try
+        return ltrim($className, '\\') === $this->profileEntityName;
     }
 }
