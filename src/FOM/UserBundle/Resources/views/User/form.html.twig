@@ -3,9 +3,6 @@
 {% block js %}
   {{parent()}}
   <script type="application/javascript" src="{{ asset('bundles/mapbendermanager/js/user-control.js') }}"></script>
-  {% for url in profile_assets.js %}
-    <script type="application/javascript" src="{{ asset(url) }}"></script>
-  {% endfor %}
 {% endblock %}
 
 {% block manager_content %}

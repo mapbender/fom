@@ -161,7 +161,6 @@ class UserController extends UserControllerBase
             'form'             => $form->createView(),
             'edit' => !$isNew,
             'profile_template' => $this->getProfileTemplate(),
-            'profile_assets'   => $this->getProfileAssets(),
             'title' => $this->translate($isNew ? 'fom.user.user.form.new_user' : 'fom.user.user.form.edit_user'),
         ));
     }
@@ -228,14 +227,6 @@ class UserController extends UserControllerBase
     protected function getProfileTemplate()
     {
         return $this->getParameter('fom_user.profile_template');
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function getProfileAssets()
-    {
-        return $this->getParameter('fom_user.profile_assets');
     }
 
     /**

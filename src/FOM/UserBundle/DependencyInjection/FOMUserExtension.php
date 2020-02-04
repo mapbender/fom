@@ -26,7 +26,6 @@ class FOMUserExtension extends Extension {
         $container->setParameter("fom_user.profile_entity", $config["profile_entity"]);
         $container->setParameter("fom_user.profile_formtype", $config["profile_formtype"]);
         $container->setParameter("fom_user.profile_template", $config["profile_template"]);
-        $container->setParameter("fom_user.profile_assets", $config["profile_assets"]);
 
         $container->setParameter("fom_user.self_registration_groups", $config["self_registration_groups"]);
         $container->setParameter("fom_user.user_own_permissions", $config["user_own_permissions"]);
