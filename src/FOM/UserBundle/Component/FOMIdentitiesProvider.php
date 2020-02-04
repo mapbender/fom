@@ -7,6 +7,7 @@ use FOM\UserBundle\Component\Ldap;
 use FOM\UserBundle\Entity\Group;
 use FOM\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 
 /**
  * Provides user and group identities available for ACL assignments
@@ -18,6 +19,8 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     protected $container;
     /** @var Ldap\UserProvider */
     protected $ldapUserIdentitiesProvider;
+    /** @var string */
+    protected $userEntityClass;
 
     /**
      * @param ContainerInterface $container
@@ -26,6 +29,7 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     {
         $this->container = $container;
         $this->ldapUserIdentitiesProvider = $container->get('fom.ldap_user_identities_provider');
+        $this->userEntityClass = $container->getParameter('fom.user_entity');
     }
 
     /**
@@ -54,8 +58,7 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
      */
     public function getUsers($search)
     {
-        $repo = $this->getRepository('FOMUserBundle:User');
-        $qb = $repo->createQueryBuilder('u');
+        $qb = $this->getUserRepository()->createQueryBuilder('u');
 
         $query = $qb->where($qb->expr()->like('LOWER(u.username)', ':search'))
             ->setParameter(':search', '%' . strtolower($search) . '%')
@@ -95,9 +98,24 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
         return $repo->findAll();
     }
 
+    /**
+     * @return UserSecurityIdentity[]
+     */
     public function getLdapUsers()
     {
         return $this->ldapUserIdentitiesProvider->getIdentities('*');
+    }
+
+    /**
+     * @return UserSecurityIdentity[]
+     */
+    public function getDataBaseUserIdentities()
+    {
+        $identities = array();
+        foreach ($this->getDatabaseUsers() as $user) {
+            $identities[] = UserSecurityIdentity::fromAccount($user);
+        }
+        return $identities;
     }
 
     /**
@@ -105,12 +123,22 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
      */
     public function getDatabaseUsers()
     {
-        $repo = $this->getDoctrine()->getRepository('FOMUserBundle:User');
-        return $repo->findAll();
+        return $this->getUserRepository()->findAll();
     }
 
+    /**
+     * @return UserSecurityIdentity[]
+     */
     public function getAllUsers()
     {
-        return array_merge($this->getLdapUsers(), $this->getDatabaseUsers());
+        return array_merge($this->getLdapUsers(), $this->getDataBaseUserIdentities());
+    }
+
+    /**
+     * @return EntityRepository
+     */
+    public function getUserRepository()
+    {
+        return $this->getDoctrine()->getRepository($this->userEntityClass);
     }
 }

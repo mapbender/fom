@@ -95,8 +95,7 @@ fom:
         filter: Фильтр
         name: Имя
         users_of_selected: 'groups of %users_count% selected'
-        no_goups_defined:
-          '': 'Нет групп.'
+        no_groups_defined: Нет групп
         add_users_groups: 'Добавление пользователей и группы'
         username: 'Имя пользователя'
         description: Описание
@@ -169,7 +168,7 @@ form:
       notes: Заметка
       phone: Телефон
       organizationName: Организация
-      organizationRole: Роль
+      organizationRole: должность
       street: Улица
       zipCode: 'Почтовый индекс'
       city: Город

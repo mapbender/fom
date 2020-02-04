@@ -95,8 +95,7 @@ fom:
         filter: Filtro
         name: Nome
         users_of_selected: 'grupos de %users_count% selecionados'
-        no_goups_defined:
-          '': 'Não definia grupos.'
+        no_groups_defined: Não definia grupos
         add_users_groups: 'Adicionar usuários e grupos'
         username: Username
         description: Description
@@ -164,13 +163,14 @@ IS_AUTHENTICATED_ANONYMOUSLY: IS_AUTHENTICATED_ANONYMOUSLY
 form:
   profile:
     basic:
-      firstname: 'First name'
-      lastName: 'Last name'
-      notes: Notes
-      phone: Phone
-      organizationName: Organization
-      organizationRole: Role
-      street: Street
-      zipCode: 'Zip code'
-      city: City
-      country: Country
+      # @todo: all sub-entries
+      firstname: ~
+      lastName: ~
+      notes: ~
+      phone: ~
+      organizationName: ~
+      organizationRole: ~
+      street: ~
+      zipCode: ~
+      city: ~
+      country: ~

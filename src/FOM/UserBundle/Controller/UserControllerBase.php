@@ -17,13 +17,30 @@ use Symfony\Component\Translation\TranslatorInterface;
 abstract class UserControllerBase extends Controller
 {
     /**
+     * @return string
+     */
+    protected function getUserEntityClass()
+    {
+        return $this->getParameter('fom.user_entity');
+    }
+
+    /**
      * @return EntityManagerInterface
      */
     protected function getEntityManager()
     {
         /** @var EntityManagerInterface $em */
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManagerForClass($this->getUserEntityClass());
         return $em;
+    }
+
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectRepository
+     */
+    protected function getUserRepository()
+    {
+        $userEntity = $this->getUserEntityClass();
+        return $this->getDoctrine()->getManagerForClass($userEntity)->getRepository($userEntity);
     }
 
     /**

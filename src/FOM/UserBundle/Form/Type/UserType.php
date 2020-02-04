@@ -30,7 +30,6 @@ class UserType extends AbstractType
                 'label' => 'E-Mail',
             ))
         ;
-        $builder->get('username')->setDisabled(!$options['group_permission']);
 
         if (true === $options['group_permission']) {
             $builder
@@ -56,7 +55,6 @@ class UserType extends AbstractType
         if ($options['acl_permission']) {
             $builder
                 ->add('acl', 'FOM\UserBundle\Form\Type\ACLType', array(
-                    'mapped' => false,
                     'data' => $options['data'],
                     'permissions' => 'standard::object',
                     'standard_anon_access' => false,

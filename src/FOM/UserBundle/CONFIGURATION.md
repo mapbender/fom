@@ -19,11 +19,12 @@ fom_user:
     self_registration_groups: []
 
     # User metadata customization
-    ## PHP class name of user profile entity
+    ## PHP class name of user profile entity; use false for no profile
     profile_entity: FOM\UserBundle\Entity\BasicProfile
     ## PHP class name of user profile form type
     profile_formtype: FOM\UserBundle\Form\Type\BasicProfileType
-    ## Twig resource path to user profile template
+    ## Twig resource path to user profile template; obsolete. Any form
+    ## type will render properly with just the default template.
     profile_template: FOMUserBundle:User:basic_profile.html.twig
 
     # Artificial login delay after repeated failed attempts
@@ -42,6 +43,31 @@ be activated and the associated controller routes will emit `HTTP 404 - Not Foun
 Groups referenced by `self_registration_groups` will _not_ be added to the system automatically.
 Nonexisting groups will be skipped, producing only a log message. If you want the assignments to work,
 you will need to add the groups to the system backend first.
+
+# Privilege assignments
+Access privileges can be assigned to concrete objects or globally to an entire class of objects.
+There are a number of parameters to control _who_ these privileges can be assigned _to_:
+
+`fom.acl_assignment.show_users` (boolean; default true), if true, offers individual user accounts
+when assigning privileges.
+
+`fom.acl_assignment.show_groups` (boolean; default true), if true, offers user groups
+when assigning privileges.
+
+`fom.acl_assignment.show_authenticated` (boolean; default true), if true, offers the
+pseudo-group of all logged-in users when assigning privileges (NOTE that this is independent
+of the `show_groups`)
+
+`fom.acl_assignment.show_anonymous` (boolean; default false), if true, offers the
+pseudo-group of effectively everyone, including guest visitors with no account,
+when assigning privileges (NOTE that this is independent of the `show_groups`).
+This is a legacy option. Assigning privileges to effectively everyone should never sensibly
+be required.
+
+## Preexisting assignments
+Note that all of the above options only control who is offered for new assingments of privileges. Existing,
+stored privilege assignments are not affected in any way, and will still be shown, still take effect, and can
+of course still be modified or deleted.
 
 # LDAP parameters
 Certain access privileges can be assigned not only to users maintained in the local database,
