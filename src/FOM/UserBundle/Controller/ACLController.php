@@ -3,7 +3,7 @@
 namespace FOM\UserBundle\Controller;
 
 use FOM\UserBundle\Component\AclManager;
-use FOM\UserBundle\Component\IdentitiesProviderInterface;
+use FOM\UserBundle\Component\AssignableSecurityIdentityFilter;
 use Mapbender\ManagerBundle\Component\ManagerBundle;
 use FOM\ManagerBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -74,10 +74,11 @@ class ACLController extends Controller
      */
     public function overviewAction()
     {
-        /** @var IdentitiesProviderInterface $idProvider */
-        $idProvider = $this->get('fom.identities.provider');
-        $groups = $idProvider->getAllGroups();
-        $users  = $idProvider->getAllUsers();
+        /** @var AssignableSecurityIdentityFilter $filter */
+        $filter = $this->get('fom.acl_assignment_filter');
+        $users = $filter->getAssignableUsers();
+        $groups = $filter->getAssignableGroups();
+
         return $this->render('@FOMUser/ACL/groups-and-users.html.twig', array(
             'groups' => $groups,
             'users' => $users,

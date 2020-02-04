@@ -84,5 +84,8 @@
         <service id="fom.user.subscriber" class="FOM\UserBundle\EventListener\UserSubscriber">
             <tag name="doctrine.event_subscriber" connection="default" />
         </service>
+        <service id="fom.acl_assignment_filter" class="FOM\UserBundle\Component\AssignableSecurityIdentityFilter">
+            <argument type="service" id="fom.identities.provider" />
+        </service>
     </services>
 </container>
