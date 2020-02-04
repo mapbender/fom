@@ -11,6 +11,7 @@ use Symfony\Component\Security\Acl\Model\SecurityIdentityInterface;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Controls which security identities will be listed when picking security identities to add to an Acl.
@@ -27,7 +28,7 @@ class AssignableSecurityIdentityFilter
     // @todo: inject configuration parameters
     protected $allowUsers = true;
     protected $allowGroups = true;
-    protected $allowAuthenticated = false;  // @todo: this is the major new feature, enable it
+    protected $allowAuthenticated = true;
     protected $allowAnonymous = false;  // @todo: remove special snowflaking from template groups-and-users.html.twig
 
     protected $warningMessages = array();
@@ -37,12 +38,15 @@ class AssignableSecurityIdentityFilter
     /** @var DummyGroup */
     protected $authenticatedGroup;
 
-    public function __construct(IdentitiesProviderInterface $provider)
+    /**
+     * @param IdentitiesProviderInterface $provider
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(IdentitiesProviderInterface $provider, TranslatorInterface $translator)
     {
         $this->provider = $provider;
-        // @todo: translate default group titles (here, once)
-        $this->anonGroup = new DummyGroup('IS_AUTHENTICATED_ANONYMOUSLY', 'IS_AUTHENTICATED_ANONYMOUSLY');
-        $this->authenticatedGroup = new DummyGroup('ROLE_USER', 'ROLE_USER');
+        $this->anonGroup = new DummyGroup('IS_AUTHENTICATED_ANONYMOUSLY', $translator->trans('fom.acl.group_label.anonymous'));
+        $this->authenticatedGroup = new DummyGroup('ROLE_USER', $translator->trans('fom.acl.group_label.authenticated'));
     }
 
     /**
@@ -55,6 +59,9 @@ class AssignableSecurityIdentityFilter
             'IS_AUTHENTICATED_ANONYMOUSLY',
         );
         $groups = array();
+        if ($this->allowAuthenticated) {
+            $groups[] = $this->authenticatedGroup;
+        }
         if ($this->allowGroups) {
             foreach ($this->provider->getAllGroups() as $providerGroup) {
                 $groupIdent = $this->normalizeGroup($providerGroup);
@@ -62,9 +69,6 @@ class AssignableSecurityIdentityFilter
                     $groups[] = $groupIdent;
                 }
             }
-        }
-        if ($this->allowAuthenticated) {
-            $groups[] = $this->authenticatedGroup;
         }
         if ($this->allowAnonymous) {
             $groups[] = $this->anonGroup;

@@ -1,4 +1,8 @@
 fom:
+  acl:
+    group_label:
+      anonymous: Anonymous users
+      authenticated: All authenticated users
   user:
     registration:
       email_body_html: '<p>Hello %user_username%,</p><p>You have just recently registered to the Mapbender3 instance. To conclude your registration, please, click please <a href="%url%">here</a>.</p>'

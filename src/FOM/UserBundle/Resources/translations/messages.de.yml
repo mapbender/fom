@@ -1,4 +1,8 @@
 fom:
+  acl:
+    group_label:
+      anonymous: Anonyme Nutzer
+      authenticated: Alle angemeldeten Nutzer
   user:
     registration:
       email_body_html: '<p>Hallo %user_username%,</p><p>Sie haben sich kürzlich registriert. Um die Registrierung abzuschließen, klicken Sie bitte <a href="%url%">hier</a>.</p>'
