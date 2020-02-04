@@ -3,7 +3,7 @@
 namespace FOM\UserBundle\Controller;
 
 use FOM\UserBundle\Component\AclManager;
-use FOM\UserBundle\Component\IdentitiesProviderInterface;
+use FOM\UserBundle\Component\AssignableSecurityIdentityFilter;
 use Mapbender\ManagerBundle\Component\ManagerBundle;
 use FOM\ManagerBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -45,7 +45,9 @@ class ACLController extends Controller
             throw $this->createNotFoundException('No manageable class given.');
         }
 
-        $form = $this->getClassACLForm($class);
+        $form = $this->createForm('FOM\ManagerBundle\Form\Type\ClassAclType', array(), array(
+            'class' => $class,
+        ));
 
         $form->handleRequest($request);
 
@@ -72,27 +74,14 @@ class ACLController extends Controller
      */
     public function overviewAction()
     {
-        /** @var IdentitiesProviderInterface $idProvider */
-        $idProvider = $this->get('fom.identities.provider');
-        $groups = $idProvider->getAllGroups();
-        $users  = $idProvider->getAllUsers();
+        /** @var AssignableSecurityIdentityFilter $filter */
+        $filter = $this->get('fom.acl_assignment_filter');
+        $users = $filter->getAssignableUsers();
+        $groups = $filter->getAssignableGroups();
+
         return $this->render('@FOMUser/ACL/groups-and-users.html.twig', array(
             'groups' => $groups,
             'users' => $users,
-        ));
-    }
-
-    /**
-     * @param string $class
-     * @return \Symfony\Component\Form\Form
-     */
-    public function getClassACLForm($class)
-    {
-        return $this->createForm('FOM\UserBundle\Form\Type\ACLType', array(), array(
-            'mapped' => false,
-            'class' => $class,
-            'permissions' => 'standard::class',
-            'create_standard_permissions' => false
         ));
     }
 

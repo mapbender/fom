@@ -2,6 +2,7 @@
 
 namespace FOM\UserBundle;
 
+use FOM\UserBundle\DependencyInjection\Compiler\ForwardUserEntityClassPass;
 use Mapbender\ManagerBundle\Component\Menu\MenuItem;
 use Mapbender\ManagerBundle\Component\Menu\RegisterMenuRoutesPass;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\SecurityExtension;
@@ -22,6 +23,7 @@ class FOMUserBundle extends ManagerBundle
         $extension = $container->getExtension('security');
         $extension->addSecurityListenerFactory(new SspiFactory());
         $this->addMenu($container);
+        $container->addCompilerPass(new ForwardUserEntityClassPass('fom.user_entity', 'FOM\UserBundle\Entity\User'));
     }
 
     protected function addMenu(ContainerBuilder $container)

@@ -82,7 +82,7 @@ class PasswordController extends UserControllerBase
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $searchValue = $form->get('search')->getData();
-            $userRepository = $this->getDoctrine()->getRepository('FOMUserBundle:User');
+            $userRepository = $this->getUserRepository();
             /** @var User|null $user */
             $user = $userRepository->findOneBy(array(
                 'username' => $searchValue,
@@ -232,7 +232,7 @@ class PasswordController extends UserControllerBase
         $token = $request->get('token');
         if ($token) {
             /** @var User|null $user */
-            $user = $this->getDoctrine()->getRepository("FOMUserBundle:User")->findOneBy(array(
+            $user = $this->getUserRepository()->findOneBy(array(
                 'resetToken' => $token,
             ));
             return $user;

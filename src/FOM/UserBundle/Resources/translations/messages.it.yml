@@ -95,8 +95,7 @@ fom:
         filter: Filtra
         name: Nome
         users_of_selected: 'gruppi di %users_count% selected'
-        no_goups_defined:
-          '': 'Nessun gruppo definito.'
+        no_groups_defined: Nessun gruppo definito
         add_users_groups: 'Aggiungi utenti e gruppi'
         username: Nome utente
         description: Descrizione

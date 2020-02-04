@@ -95,8 +95,7 @@ fom:
         filter: Filter
         name: Naam
         users_of_selected: 'Gebruikers van %users_count% geselecteerd'
-        no_goups_defined:
-          '': 'Geen groepen gedefinieerd.'
+        no_groups_defined: Geen groepen gedefinieerd
         add_users_groups: 'Voeg gebruikers en groepen toe'
         username: Gebruikersnaam
         description: Beschrijving

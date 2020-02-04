@@ -11,6 +11,27 @@
   - FOMIdentitiesProvider::getUsers (no invocations in Mapbender codebase)
   - FOMIdentitiesProvider::getRoles (no invocations in Mapbender codebase)
 
+## v3.2.12
+- Fix user creation for non-root / users without global `OWNER` grant on user
+- Fix support for configurations with empty user profile entity setting
+- Offer privilege assignment to all logged-in users (`ROLE_USER`)
+- Add [configuration parameters](./src/FOM/UserBundle/CONFIGURATION.md) for suppressing / exposing users, groups, logged-in users and anonymous users when making new privilege assignments.
+- Anonymous users now default to not available for assigning privileges; if you require this (unadvisable), set parameter `fom.acl_assignment.show_anonymous` to `true`
+- User index: do not link to group editing if current user lacks editing privileges
+- User index: suppress group listing if current user lacks viewing privileges
+- Relabel profile entry "role" to "position" to disambiguate from grants context
+- Improve support for customized user profile entity classes
+
+## v3.2.11
+- [regression] Fix error for user without group editing privileges when editing self or other user
+- Fix bad grants check for group index menu item: require VIEW, not CREATE
+- Fix bad grants check for ACL menu item: require EDIT, ignore CREATE
+- Eliminate same-route menu item duplicate "User control" vs "Users"
+- Consistently enforce password constraint (default: 8 character minimum length) in all areas
+  where passwords can be set: registration, password reset, user creation, user (self-)editing
+- Extract user password constraints into user helper service to support DI customization
+- Support translation of password repeat mismatch validation error message; supply German and English messages
+
 ## v3.2.10
 - Fix form type incompatibilities with Symfony 3, allow installation with Symfony 3
 - Suppress dangling "Groups" label in user editing if no groups found in database
@@ -67,7 +88,18 @@
 ## v3.2.0
 - Remove LoginController and related templates (migrated to Mapbender)
 
-## dev-release/3.1@e572c2c
+## v3.1.12
+- Fix user creation for non-root / users without global `OWNER` grant on user
+- Fix support for configurations with empty user profile entity setting
+- Offer privilege assignment to all logged-in users (`ROLE_USER`)
+- Add [configuration parameters](./src/FOM/UserBundle/CONFIGURATION.md) for suppressing / exposing users, groups, logged-in users and anonymous users when making new privilege assignments.
+- Anonymous users now default to not available for assigning privileges; if you require this (unadvisable), set parameter `fom.acl_assignment.show_anonymous` to `true`
+- User index: do not link to group editing if current user lacks editing privileges
+- User index: suppress group listing if current user lacks viewing privileges
+- Relabel profile entry "role" to "position" to disambiguate from grants context
+- Improve support for customized user profile entity classes
+
+## v3.1.11
 - [regression] Fix error for user without group editing privileges when editing self or other user
 - Fix bad grants check for group index menu item: require VIEW, not CREATE
 - Fix bad grants check for ACL menu item: require EDIT, ignore CREATE

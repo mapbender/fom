@@ -2,11 +2,12 @@
 
 {% block manager_content %}
 
-{% if create_permission %}
+{% if is_granted('CREATE', oid) %}
 <a class="iconAdd iconBig right" href="{{path('fom_user_user_create')}}" title="{{"fom.user.user.index.add_new_user"|trans}}"></a>
 {% endif %}
 
 {% if users|length > 0 %}
+  {% set _group_view_grant = is_granted('VIEW', group_oid) %}
   <label for="inputFilterUsers" class="labelInput left">{{"fom.user.user.index.filter"|trans}}</label>
   <input id="inputFilterUsers" type="text" class="input left listFilterInput"/>
 
@@ -16,7 +17,9 @@
       <tr class="doNotFilter">
         <th>{{ "fom.user.user.index.name" | trans }}</th>
         <th>{{ "fom.user.user.index.email" | trans }}</th>
+        {% if _group_view_grant %}
         <th>{{ "fom.user.user.index.groups" | trans }}</th>
+        {% endif %}
         <th></th>
       </tr>
     </thead>
@@ -25,19 +28,26 @@
         <tr id="app-{{ user.id }}" class="filterItem">
           <td class="smallText">
             {% if is_granted('EDIT', user) %}
-            <a href="{{ path('fom_user_user_edit', {'id': user.id}) }}" title="{{ 'fom.user.user.index.edit_user' | trans }}">{{ user.username }}</a>
+            <a class="labelText" href="{{ path('fom_user_user_edit', {'id': user.id}) }}" title="{{ 'fom.user.user.index.edit_user' | trans }}">{{ user.username }}</a>
             {% else %}
-            {{ user.username }}
+            <span class="labelText">{{ user.username }}</span>
             {% endif %}
           </td>
           <td class="smallText"><a href="mailto:{{ user.email }}" title="{{ 'fom.user.user.index.contact_user' | trans }}">{{ user.email }}</a></td>
+          {% if _group_view_grant %}
           <td class="smallText">
             <ul class="list-unstyled">
               {% for group in user.groups %}
-              <li class='doNotFilter'><a href="{{ path('fom_user_group_edit', { 'id': group.id }) }}" title="{{ 'fom.user.user.index.edit_group' | trans }}">{{ group.title }}</a></li>
+              <li class='doNotFilter'>
+                {% if is_granted('EDIT', group) %}
+                  <a href="{{ path('fom_user_group_edit', { 'id': group.id }) }}" title="{{ 'fom.user.user.index.edit_group' | trans }}">{{ group.title }}</a></li>
+                {% else %}
+                  <span>{{ group.title }}</span>
+                {% endif %}
               {% endfor %}
             </ul>
           </td>
+          {% endif %}
           <td class="iconColumn">
             {% if is_granted('EDIT', user) %}
               <a class="iconEdit iconSmall" href="{{ path('fom_user_user_edit',  {'id': user.id }) }}" title="{{ 'fom.user.user.index.edit_user' | trans }}"></a>

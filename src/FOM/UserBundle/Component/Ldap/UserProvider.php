@@ -4,6 +4,7 @@
 namespace FOM\UserBundle\Component\Ldap;
 
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Model\SecurityIdentityInterface;
 
 /**
  * Service registered as fom.ldap_user_identities_provider
@@ -46,7 +47,7 @@ class UserProvider
 
     /**
      * @param string $pattern
-     * @return \stdClass[]
+     * @return SecurityIdentityInterface[]
      */
     public function getIdentities($pattern = '*')
     {
@@ -84,7 +85,7 @@ class UserProvider
 
     /**
      * @param array[] $record
-     * @return object
+     * @return SecurityIdentityInterface
      */
     protected function transformUserRecord($record)
     {

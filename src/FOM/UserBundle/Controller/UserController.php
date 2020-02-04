@@ -26,7 +26,7 @@ class UserController extends UserControllerBase
      */
     public function indexAction()
     {
-        $users = $this->getEntityManager()->getRepository('FOMUserBundle:User')->findAll();
+        $users = $this->getUserRepository()->findAll();
         $allowed_users = array();
 
         // Bulk-prefetch ACLs for all User entities into AclProvider's internal cache
@@ -46,6 +46,9 @@ class UserController extends UserControllerBase
 
         return $this->render('@FOMUser/User/index.html.twig', array(
             'users'             => $allowed_users,
+            'oid' => $oid,
+            // @todo: remove create_permission template variable
+            'group_oid' => new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'),
             'create_permission' => $this->isGranted('CREATE', $oid),
             'title' => $this->translate('fom.user.user.index.title'),
         ));
@@ -59,26 +62,73 @@ class UserController extends UserControllerBase
      */
     public function createAction(Request $request)
     {
-        $user = new User();
-
-        // ACL access check
-        $oid = new ObjectIdentity('class', get_class($user));
+        $userClass = $this->getUserEntityClass();
+        $oid = new ObjectIdentity('class', $userClass);
         $this->denyAccessUnlessGranted('CREATE', $oid);
 
+        /** @var User $user */
+        $user = new $userClass();
+        return $this->userActionCommon($request, $user);
+    }
+
+    /**
+     * @ManagerRoute("/user/{id}/edit", methods={"GET", "POST"})
+     * @param Request $request
+     * @param string $id
+     * @return Response
+     */
+    public function editAction(Request $request, $id)
+    {
+        /** @var User|null $user */
+        $user = $this->getUserRepository()->find($id);
+        if ($user === null) {
+            throw new NotFoundHttpException('The user does not exist');
+        }
+
+        $this->denyAccessUnlessGranted('EDIT', $user);
+        return $this->userActionCommon($request, $user);
+    }
+
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return Response
+     * @throws \Exception
+     */
+    protected function userActionCommon(Request $request, User $user)
+    {
+        $isNew = !$user->getId();
+        $profileClass = $this->getProfileEntityClass();
+        if ($profileClass) {
+            if ($isNew) {
+                $profile = new $profileClass();
+                $user->setProfile($profile);
+            }
+            $profileType = $this->getProfileFormType();
+        } else {
+            $profileType = null;
+        }
+
+        $oid = new ObjectIdentity('class', get_class($user));
         $groupPermission =
             $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
-            || $this->isGranted('OWNER', $oid);
+            || $this->isGranted('OWNER', $isNew ? $oid : $user);
 
         $form = $this->createForm('FOM\UserBundle\Form\Type\UserType', $user, array(
             'group_permission' => $groupPermission,
+            // @todo: disallow user without global grants from editing other users' privileges
             'acl_permission'   => $this->isGranted('OWNER', $user),
         ));
+        if (!$isNew && !$groupPermission) {
+            $form->get('username')->setDisabled(true);
+        }
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRegistrationTime(new \DateTime());
-
+            if ($isNew) {
+                $user->setRegistrationTime(new \DateTime());
+            }
             $em = $this->getEntityManager();
             $em->beginTransaction();
 
@@ -86,14 +136,22 @@ class UserController extends UserControllerBase
                 $this->persistUser($em, $user);
 
                 if ($form->has('acl')) {
+                    if (!$user->getId()) {
+                        // Flush to assign PK
+                        // This is necessary for users with no profile entity
+                        // (persistUser already flushed once in this case)
+                        $em->flush();
+                    }
                     $aces = $form->get('acl')->get('ace')->getData();
                     $this->getAclManager()->setObjectACEs($user, $aces);
                 }
 
                 $em->flush();
 
-                // Make sure, the new user has VIEW & EDIT permissions
-                $this->getUserHelper()->giveOwnRights($user);
+                if ($isNew) {
+                    // Make sure, the new user has VIEW & EDIT permissions
+                    $this->getUserHelper()->giveOwnRights($user);
+                }
 
                 $em->commit();
             } catch (\Exception $e) {
@@ -107,63 +165,10 @@ class UserController extends UserControllerBase
         return $this->render('@FOMUser/User/form.html.twig', array(
             'user'             => $user,
             'form'             => $form->createView(),
-            'edit'             => false,
+            'edit' => !$isNew,
             'profile_template' => $this->getProfileTemplate(),
             'profile_assets'   => $this->getProfileAssets(),
-            'title' => $this->translate('fom.user.user.form.new_user'),
-        ));
-    }
-
-    /**
-     * @ManagerRoute("/user/{id}/edit", methods={"GET", "POST"})
-     * @param Request $request
-     * @param string $id
-     * @return Response
-     */
-    public function editAction(Request $request, $id)
-    {
-        /** @var User|null $user */
-        $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->find($id);
-        if ($user === null) {
-            throw new NotFoundHttpException('The user does not exist');
-        }
-
-        $this->denyAccessUnlessGranted('EDIT', $user);
-
-        $groupPermission =
-            $this->isGranted('EDIT', new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'))
-            || $this->isGranted('OWNER', $user);
-
-        $form = $this->createForm('FOM\UserBundle\Form\Type\UserType', $user, array(
-            'group_permission' => $groupPermission,
-            'acl_permission'   => $this->isGranted('OWNER', $user),
-        ));
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getEntityManager();
-            $this->persistUser($em, $user);
-
-            if ($form->has('acl')) {
-                $aces = $form->get('acl')->get('ace')->getData();
-                $this->getAclManager()->setObjectACEs($user, $aces);
-            }
-
-            $em->flush();
-            $this->addFlash('success', 'The user has been updated.');
-
-            return $this->redirectToRoute('fom_user_user_index');
-
-        }
-
-        return $this->render('@FOMUser/User/form.html.twig', array(
-            'user'             => $user,
-            'form'             => $form->createView(),
-            'edit'             => true,
-            'profile_template' => $this->getProfileTemplate(),
-            'profile_assets'   => $this->getProfileAssets(),
-            'title' => $this->translate('fom.user.user.form.edit_user'),
+            'title' => $this->translate($isNew ? 'fom.user.user.form.new_user' : 'fom.user.user.form.edit_user'),
         ));
     }
 
@@ -176,7 +181,7 @@ class UserController extends UserControllerBase
      */
     public function deleteAction($id)
     {
-        $user = $this->getDoctrine()->getRepository('FOMUserBundle:User')->find($id);
+        $user = $this->getUserRepository()->find($id);
 
         if ($user === null) {
             throw new NotFoundHttpException('The user does not exist');
@@ -213,6 +218,22 @@ class UserController extends UserControllerBase
         }
 
         return new Response();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getProfileFormType()
+    {
+        return $this->getParameter('fom_user.profile_formtype');
+    }
+
+    /**
+     * @return string|null
+     */
+    protected function getProfileEntityClass()
+    {
+        return $this->getParameter('fom_user.profile_entity');
     }
 
     /**

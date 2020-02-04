@@ -95,8 +95,7 @@ fom:
         filter: Filtro
         name: Nombre
         users_of_selected: 'grupos de %users_count% seleccionados'
-        no_goups_defined:
-          '': 'No hay grupos definidos.'
+        no_groups_defined: No hay grupos definidos
         add_users_groups: 'Añadir usuarios y grupos'
         username: Username
         description: Description
@@ -161,3 +160,17 @@ fom:
         super_admin: 'Puede administrar todo (super admin)'
         user_admin: 'Puede administrar usuarios y grupos'
 IS_AUTHENTICATED_ANONYMOUSLY: IS_AUTHENTICATED_ANONYMOUSLY
+form:
+  profile:
+    basic:
+      # @todo: all sub-entries
+      firstname: ~
+      lastName: ~
+      notes: ~
+      phone: ~
+      organizationName: ~
+      organizationRole: ~
+      street: ~
+      zipCode: ~
+      city: ~
+      country: ~
