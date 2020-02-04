@@ -1,4 +1,4 @@
-## dev-release/3.1 @ 57c0351
+## v3.1.12
 - Fix user creation for non-root / users without global `OWNER` grant on user
 - Fix support for configurations with empty user profile entity setting
 - Offer privilege assignment to all logged-in users (`ROLE_USER`)
