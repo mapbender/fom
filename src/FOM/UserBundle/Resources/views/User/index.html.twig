@@ -34,7 +34,12 @@
           <td class="smallText">
             <ul class="list-unstyled">
               {% for group in user.groups %}
-              <li class='doNotFilter'><a href="{{ path('fom_user_group_edit', { 'id': group.id }) }}" title="{{ 'fom.user.user.index.edit_group' | trans }}">{{ group.title }}</a></li>
+              <li class='doNotFilter'>
+                {% if is_granted('EDIT', group) %}
+                  <a href="{{ path('fom_user_group_edit', { 'id': group.id }) }}" title="{{ 'fom.user.user.index.edit_group' | trans }}">{{ group.title }}</a></li>
+                {% else %}
+                  <span>{{ group.title }}</span>
+                {% endif %}
               {% endfor %}
             </ul>
           </td>
