@@ -104,9 +104,6 @@ class UserController extends UserControllerBase
                 $profile = new $profileClass();
                 $user->setProfile($profile);
             }
-            $profileType = $this->getProfileFormType();
-        } else {
-            $profileType = null;
         }
 
         $oid = new ObjectIdentity('class', get_class($user));
@@ -215,14 +212,6 @@ class UserController extends UserControllerBase
         }
 
         return new Response();
-    }
-
-    /**
-     * @return string
-     */
-    protected function getProfileFormType()
-    {
-        return $this->getParameter('fom_user.profile_formtype');
     }
 
     /**

@@ -11,6 +11,10 @@ class FOMUserExtension extends Extension {
     public function load(array $configs, ContainerBuilder $container) {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+        if (!$config['profile_entity']) {
+            $config['profile_formtype'] = null;
+            $config['profile_template'] = null;
+        }
 
         $container->setParameter("fom_user.selfregister", $config["selfregister"]);
         $container->setParameter("fom_user.reset_password", $config["reset_password"]);
