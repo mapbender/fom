@@ -1,6 +1,9 @@
-## dev-release/3.1 @ ec22fff
+## dev-release/3.1 @ 57c0351
 - Fix user creation for non-root / users without global `OWNER` grant on user
 - Fix support for configurations with empty user profile entity setting
+- Offer privilege assignment to all logged-in users (`ROLE_USER`)
+- Add [configuration parameters](./src/FOM/UserBundle/CONFIGURATION.md) for suppressing / exposing users, groups, logged-in users and anonymous users when making new privilege assignments.
+- Anonymous users now default to not available for assigning privileges; if you require this (unadvisable), set parameter `fom.acl_assignment.show_anonymous` to `true`
 - User index: do not link to group editing if current user lacks editing privileges
 - User index: suppress group listing if current user lacks viewing privileges
 - Relabel profile entry "role" to "position" to disambiguate from grants context
