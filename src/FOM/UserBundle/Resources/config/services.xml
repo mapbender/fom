@@ -10,7 +10,7 @@
         <parameter key="fom.acl_assignment.show_users">true</parameter>
         <parameter key="fom.acl_assignment.show_groups">true</parameter>
         <parameter key="fom.acl_assignment.show_authenticated">true</parameter>
-        <parameter key="fom.acl_assignment.show_anonymous">true</parameter>
+        <parameter key="fom.acl_assignment.show_anonymous">false</parameter>
         <parameter key="form.ace.model_transformer.class">FOM\UserBundle\Form\DataTransformer\ACEDataTransformer</parameter>
         <!-- LDAP parameters used in fom.ldap_client, and (indirectly) fom.identities_provider and ACE transformation -->
         <!-- any emptyish value for ldap_host will effectively disable ldap integration -->
