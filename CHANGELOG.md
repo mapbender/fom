@@ -1,4 +1,4 @@
-## v3.3 WIP @ 8d13252
+## v3.3 WIP @ e0091f3
 - Removed:
   - DoctrineHelper class. Never update your schema in a live session. Always use `app/console doctrine:schema:update`.
   - UserHelper class. Use service `fom.user_helper.service`.
@@ -10,6 +10,7 @@
   - AclManager::hasObjectAclEntries (no invocations in Mapbender codebase)
   - FOMIdentitiesProvider::getUsers (no invocations in Mapbender codebase)
   - FOMIdentitiesProvider::getRoles (no invocations in Mapbender codebase)
+  - Extension configuration `profile_assets`. If really required, load assets from twig template.
 
 ## v3.2.12
 - Fix user creation for non-root / users without global `OWNER` grant on user
