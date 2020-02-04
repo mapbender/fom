@@ -122,9 +122,6 @@ class UserController extends UserControllerBase
             'acl_permission'   => $this->isGranted('OWNER', $user),
             'currentUser' => $this->getUser(),
         ));
-        if (!$isNew && !$groupPermission) {
-            $form->get('username')->setDisabled(true);
-        }
 
         $form->handleRequest($request);
 
