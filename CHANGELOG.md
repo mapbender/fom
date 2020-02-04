@@ -1,7 +1,8 @@
-## dev-release/3.1 @ ce220f7
+## dev-release/3.1 @ ec22fff
 - Fix user creation for non-root / users without global `OWNER` grant on user
 - Fix support for configurations with empty user profile entity setting
-- User index: do not link to group editing if current user lacks privileges
+- User index: do not link to group editing if current user lacks editing privileges
+- User index: suppress group listing if current user lacks viewing privileges
 - Relabel profile entry "role" to "position" to disambiguate from grants context
 - Improve support for customized user profile entity classes
 
