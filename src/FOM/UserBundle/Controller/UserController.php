@@ -119,9 +119,6 @@ class UserController extends UserControllerBase
             // @todo: disallow user without global grants from editing other users' privileges
             'acl_permission'   => $this->isGranted('OWNER', $user),
         ));
-        if (!$isNew && !$groupPermission) {
-            $form->get('username')->setDisabled(true);
-        }
 
         $form->handleRequest($request);
 
