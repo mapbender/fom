@@ -24,12 +24,14 @@ class AssignableSecurityIdentityFilter
 {
     /** @var IdentitiesProviderInterface */
     protected $provider;
-
-    // @todo: inject configuration parameters
-    protected $allowUsers = true;
-    protected $allowGroups = true;
-    protected $allowAuthenticated = true;
-    protected $allowAnonymous = true;
+    /** @var bool */
+    protected $allowUsers;
+    /** @var bool */
+    protected $allowGroups;
+    /** @var bool */
+    protected $allowAuthenticated;
+    /** @var bool */
+    protected $allowAnonymous;
 
     protected $warningMessages = array();
 
@@ -41,10 +43,19 @@ class AssignableSecurityIdentityFilter
     /**
      * @param IdentitiesProviderInterface $provider
      * @param TranslatorInterface $translator
+     * @param bool $showUsers
+     * @param bool $showGroups
+     * @param bool $showAuthenticated
+     * @param bool $showAnonymous
      */
-    public function __construct(IdentitiesProviderInterface $provider, TranslatorInterface $translator)
+    public function __construct(IdentitiesProviderInterface $provider, TranslatorInterface $translator,
+                                $showUsers, $showGroups, $showAuthenticated, $showAnonymous)
     {
         $this->provider = $provider;
+        $this->allowUsers = $showUsers;
+        $this->allowGroups = $showGroups;
+        $this->allowAuthenticated = $showAuthenticated;
+        $this->allowAnonymous = $showAnonymous;
         $this->anonGroup = new DummyGroup('IS_AUTHENTICATED_ANONYMOUSLY', $translator->trans('fom.acl.group_label.anonymous'));
         $this->authenticatedGroup = new DummyGroup('ROLE_USER', $translator->trans('fom.acl.group_label.authenticated'));
     }

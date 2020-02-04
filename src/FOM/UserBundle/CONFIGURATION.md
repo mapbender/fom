@@ -44,6 +44,24 @@ Groups referenced by `self_registration_groups` will _not_ be added to the syste
 Nonexisting groups will be skipped, producing only a log message. If you want the assignments to work,
 you will need to add the groups to the system backend first.
 
+# Privilege assignments
+Access privileges can be assigned to concrete objects or globally to an entire class of objects.
+There are a number of parameters to control _who_ these privileges can be assigned _to_:
+
+`fom.acl_assignment.show_users` (boolean; default true), if true, offers individual user accounts
+when assigning privileges.
+
+`fom.acl_assignment.show_groups` (boolean; default true), if true, offers user groups
+when assigning privileges.
+
+`fom.acl_assignment.show_authenticated` (boolean; default true), if true, offers the
+pseudo-group of all logged-in users when assigning privileges (NOTE that this is independent
+of the `show_groups`)
+
+`fom.acl_assignment.show_anonymous` (boolean; default true), if true, offers the
+pseudo-group of effectively everyone, including guest visitors with no account,
+ when assigning privileges (NOTE that this is independent of the `show_groups`).
+
 # LDAP parameters
 Certain access privileges can be assigned not only to users maintained in the local database,
 but also to LDAP users.
