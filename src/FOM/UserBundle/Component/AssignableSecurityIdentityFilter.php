@@ -29,7 +29,7 @@ class AssignableSecurityIdentityFilter
     protected $allowUsers = true;
     protected $allowGroups = true;
     protected $allowAuthenticated = true;
-    protected $allowAnonymous = false;  // @todo: remove special snowflaking from template groups-and-users.html.twig
+    protected $allowAnonymous = true;
 
     protected $warningMessages = array();
 
