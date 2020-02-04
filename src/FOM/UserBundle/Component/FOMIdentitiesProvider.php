@@ -8,7 +8,6 @@ use FOM\UserBundle\Entity\Group;
 use FOM\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Provides user and group identities available for ACL assignments
@@ -101,14 +100,22 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
 
     /**
      * @return UserSecurityIdentity[]
-     * @todo: return UserInterface instances
-     * This currently only works because the only use of these values (through getAllUsers) is rendering
-     * in groups-and-users.html.twig, where the only invocation on the objects is .getUserName().
-     * UserSecurityIdentity just so happens to implement this method, but it does not implement UserInterface!
      */
     public function getLdapUsers()
     {
         return $this->ldapUserIdentitiesProvider->getIdentities('*');
+    }
+
+    /**
+     * @return UserSecurityIdentity[]
+     */
+    public function getDataBaseUserIdentities()
+    {
+        $identities = array();
+        foreach ($this->getDatabaseUsers() as $user) {
+            $identities[] = UserSecurityIdentity::fromAccount($user);
+        }
+        return $identities;
     }
 
     /**
@@ -120,12 +127,11 @@ class FOMIdentitiesProvider implements IdentitiesProviderInterface
     }
 
     /**
-     * @return UserInterface[]|UserSecurityIdentity[]
-     * @todo: fix LDAP return type value
+     * @return UserSecurityIdentity[]
      */
     public function getAllUsers()
     {
-        return array_merge($this->getLdapUsers(), $this->getDatabaseUsers());
+        return array_merge($this->getLdapUsers(), $this->getDataBaseUserIdentities());
     }
 
     /**

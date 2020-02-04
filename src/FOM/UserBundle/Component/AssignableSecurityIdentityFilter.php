@@ -19,6 +19,9 @@ use Symfony\Component\Translation\TranslatorInterface;
  * This is a post-filter because FOMIdentitiesProvider implementations have a long, bad history of
  * customization, with lots of different value types returned, and no angle to inject new configured
  * behaviours.
+ *
+ * @since v3.1.12
+ * @since v3.2.12
  */
 class AssignableSecurityIdentityFilter
 {
