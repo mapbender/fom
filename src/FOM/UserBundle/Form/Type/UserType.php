@@ -6,6 +6,8 @@ use FOM\UserBundle\Form\EventListener\UserSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
@@ -67,6 +69,13 @@ class UserType extends AbstractType
                 'label' => 'fom.user.user.container.profile',
             ));
         }
+    }
+
+    public function finishView(FormView $view, FormInterface $form, array $options)
+    {
+        $user = $form->getData();
+        $usernameEnabled = $options['group_permission'] || !$user->getId();
+        $view['username']->vars['disabled'] = !$usernameEnabled;
     }
 
     public function configureOptions(OptionsResolver $resolver)
