@@ -46,6 +46,9 @@ class UserController extends UserControllerBase
 
         return $this->render('@FOMUser/User/index.html.twig', array(
             'users'             => $allowed_users,
+            'oid' => $oid,
+            // @todo: remove create_permission template variable
+            'group_oid' => new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group'),
             'create_permission' => $this->isGranted('CREATE', $oid),
             'title' => $this->translate('fom.user.user.index.title'),
         ));
