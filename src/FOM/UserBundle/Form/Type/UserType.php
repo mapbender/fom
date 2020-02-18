@@ -6,8 +6,7 @@ use FOM\UserBundle\Form\EventListener\UserSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -43,6 +42,8 @@ class UserType extends AbstractType
                 'attr' => array(
                     'autofocus' => true,
                 ),
+                'disabled' => !$options['allow_name_editing'],
+                'required' => $options['allow_name_editing'],
             ))
             ->add('email', 'Symfony\Component\Form\Extension\Core\Type\EmailType', array(
                 'label' => 'E-Mail',
@@ -86,18 +87,18 @@ class UserType extends AbstractType
         }
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
-    {
-        $user = $form->getData();
-        $usernameEnabled = $options['group_permission'] || !$user->getId();
-        $view['username']->vars['disabled'] = !$usernameEnabled;
-    }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'group_permission' => false,
             'acl_permission' => false,
+            'allow_name_editing' => function (Options $options) {
+                if ($options['group_permission']) {
+                    return true;
+                }
+                $user = isset($options['data']) ? $options['data'] : null;
+                return !($user && $user->getId());
+            }
         ));
     }
 }
