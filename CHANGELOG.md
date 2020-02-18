@@ -1,3 +1,6 @@
+## v3.2.13
+- Fix user password self-editing for low-privilege users
+
 ## v3.2.12
 - Fix user creation for non-root / users without global `OWNER` grant on user
 - Fix support for configurations with empty user profile entity setting
