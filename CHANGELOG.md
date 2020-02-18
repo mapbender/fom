@@ -12,6 +12,9 @@
   - FOMIdentitiesProvider::getRoles (no invocations in Mapbender codebase)
   - Extension configuration `profile_assets`. If really required, load assets from twig template.
 
+## v3.2.13
+- Fix user password self-editing for low-privilege users
+
 ## v3.2.12
 - Fix user creation for non-root / users without global `OWNER` grant on user
 - Fix support for configurations with empty user profile entity setting
