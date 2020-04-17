@@ -20,6 +20,7 @@
 - [regression] Fix error for user without group editing privileges when editing self or other user
 - Fix bad grants check for group index menu item: require VIEW, not CREATE
 - Fix bad grants check for ACL menu item: require EDIT, ignore CREATE
+- Fix invalid potential null return from User::__toString
 - Eliminate same-route menu item duplicate "User control" vs "Users"
 - Consistently enforce password constraint (default: 8 character minimum length) in all areas
   where passwords can be set: registration, password reset, user creation, user (self-)editing
