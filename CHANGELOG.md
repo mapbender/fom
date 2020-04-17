@@ -1,3 +1,7 @@
+## v3.2.14
+- Fix incompatibility with swiftmailer/swiftmailer 6 (registration / password reset)
+- Properly declare symfony/swiftmailer-bundle dependency
+
 ## v3.2.13
 - Fix user password self-editing for low-privilege users
 
