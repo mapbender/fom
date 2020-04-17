@@ -211,12 +211,14 @@ class PasswordController extends UserControllerBase
 
         $text = $this->renderView('@FOMUser/Password/email-body.text.twig', array("user" => $user));
         $html = $this->renderView('@FOMUser/Password/email-body.html.twig', array("user" => $user));
-        $message = \Swift_Message::newInstance()
+        $message = new \Swift_Message();
+        $message
             ->setSubject($this->renderView('@FOMUser/Password/email-subject.text.twig'))
             ->setFrom($mailFrom)
             ->setTo($user->getEmail())
             ->setBody($text)
-            ->addPart($html, 'text/html');
+            ->addPart($html, 'text/html')
+        ;
         $mailer->send($message);
 
         $em = $this->getEntityManager();

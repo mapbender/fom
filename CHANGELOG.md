@@ -12,6 +12,10 @@
   - FOMIdentitiesProvider::getRoles (no invocations in Mapbender codebase)
   - Extension configuration `profile_assets`. If really required, load assets from twig template.
 
+## v3.2.14
+- Fix incompatibility with swiftmailer/swiftmailer 6 (registration / password reset)
+- Properly declare symfony/swiftmailer-bundle dependency
+
 ## v3.2.13
 - Fix user password self-editing for low-privilege users
 
@@ -30,6 +34,7 @@
 - [regression] Fix error for user without group editing privileges when editing self or other user
 - Fix bad grants check for group index menu item: require VIEW, not CREATE
 - Fix bad grants check for ACL menu item: require EDIT, ignore CREATE
+- Fix invalid potential null return from User::__toString
 - Eliminate same-route menu item duplicate "User control" vs "Users"
 - Consistently enforce password constraint (default: 8 character minimum length) in all areas
   where passwords can be set: registration, password reset, user creation, user (self-)editing
@@ -92,6 +97,11 @@
 ## v3.2.0
 - Remove LoginController and related templates (migrated to Mapbender)
 
+## v3.1.13
+- Fix user password self-editing for low privilege users
+- Fix incompatibility with swiftmailer/swiftmailer 6 (registration / password reset)
+- Properly declare symfony/swiftmailer-bundle dependency
+
 ## v3.1.12
 - Fix user creation for non-root / users without global `OWNER` grant on user
 - Fix support for configurations with empty user profile entity setting
@@ -107,6 +117,7 @@
 - [regression] Fix error for user without group editing privileges when editing self or other user
 - Fix bad grants check for group index menu item: require VIEW, not CREATE
 - Fix bad grants check for ACL menu item: require EDIT, ignore CREATE
+- Fix invalid potential null return from User::__toString
 - Eliminate same-route menu item duplicate "User control" vs "Users"
 - Consistently enforce password constraint (default: 8 character minimum length) in all areas
   where passwords can be set: registration, password reset, user creation, user (self-)editing
@@ -170,6 +181,11 @@
   - Removed legacy component `PathHelper` (service id `fom.pathhelper`)
   - Removed legacy component `GeoConverter` (serivce id `geo.converter`)
   - Remove Controller, Components, views and JavaScript assets now absorbed into Mapbender ([PR#52](https://github.com/mapbender/fom/pull/52))
+
+## v3.0.6.6
+* Fix invalid potential null return from User::__toString
+* Fix incompatibility with swiftmailer/swiftmailer 6 (registration / password reset)
+* Properly declare symfony/swiftmailer-bundle dependency
 
 ## v3.0.6.5
 - Make `fom:user:resetroot` command work without (undeclared dependency) sensio/generator-bundle, or with sensio/generator-bundle >= 2.5
