@@ -1,3 +1,9 @@
+## v3.1.13
+- Fix user password self-editing for low privilege users
+- Fix invalid potential null return from User::__toString
+- Fix incompatibility with swiftmailer/swiftmailer 6 (registration / password reset)
+- Properly declare symfony/swiftmailer-bundle dependency
+
 ## v3.1.12
 - Fix user creation for non-root / users without global `OWNER` grant on user
 - Fix support for configurations with empty user profile entity setting
