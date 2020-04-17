@@ -257,6 +257,10 @@ class PasswordController extends Controller
         }
     }
 
+    /**
+     * @param User $user
+     * @throws \Exception
+     */
     protected function setResetToken($user)
     {
         $user->setResetToken(hash("sha1", rand()));
@@ -266,16 +270,19 @@ class PasswordController extends Controller
         $fromName = $this->container->getParameter("fom_user.mail_from_name");
         $fromEmail = $this->container->getParameter("fom_user.mail_from_address");
         $mailFrom = array($fromEmail => $fromName);
+        /** @var \Swift_Mailer $mailer */
         $mailer = $this->get('mailer');
 
         $text = $this->get("templating")->render('FOMUserBundle:Password:email-body.text.twig', array("user" => $user));
         $html = $this->get("templating")->render('FOMUserBundle:Password:email-body.html.twig', array("user" => $user));
-        $message = \Swift_Message::newInstance()
+        $message = new \Swift_Message();
+        $message
             ->setSubject($this->get("templating")->render('FOMUserBundle:Password:email-subject.text.twig'))
             ->setFrom($mailFrom)
             ->setTo($user->getEmail())
             ->setBody($text)
-            ->addPart($html, 'text/html');
+            ->addPart($html, 'text/html')
+        ;
         $mailer->send($message);
 
         $em = $this->getDoctrine()->getManager();
