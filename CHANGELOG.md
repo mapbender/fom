@@ -78,6 +78,12 @@
 ## v3.2.0
 - Remove LoginController and related templates (migrated to Mapbender)
 
+## v3.1.13
+- Fix user password self-editing for low privilege users
+- Fix invalid potential null return from User::__toString
+- Fix incompatibility with swiftmailer/swiftmailer 6 (registration / password reset)
+- Properly declare symfony/swiftmailer-bundle dependency
+
 ## v3.1.12
 - Fix user creation for non-root / users without global `OWNER` grant on user
 - Fix support for configurations with empty user profile entity setting
@@ -156,6 +162,11 @@
   - Removed legacy component `PathHelper` (service id `fom.pathhelper`)
   - Removed legacy component `GeoConverter` (serivce id `geo.converter`)
   - Remove Controller, Components, views and JavaScript assets now absorbed into Mapbender ([PR#52](https://github.com/mapbender/fom/pull/52))
+
+## v3.0.6.6
+* Fix invalid potential null return from User::__toString
+* Fix incompatibility with swiftmailer/swiftmailer 6 (registration / password reset)
+* Properly declare symfony/swiftmailer-bundle dependency
 
 ## v3.0.6.5
 - Make `fom:user:resetroot` command work without (undeclared dependency) sensio/generator-bundle, or with sensio/generator-bundle >= 2.5
