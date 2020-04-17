@@ -77,6 +77,11 @@
   - Removed legacy component `GeoConverter` (serivce id `geo.converter`)
   - Remove Controller, Components, views and JavaScript assets now absorbed into Mapbender ([PR#52](https://github.com/mapbender/fom/pull/52))
 
+## v3.0.6.6
+* Fix invalid potential null return from User::__toString
+* Fix incompatibility with swiftmailer/swiftmailer 6 (registration / password reset)
+* Properly declare symfony/swiftmailer-bundle dependency
+
 ## v3.0.6.5
 - Make `fom:user:resetroot` command work without (undeclared dependency) sensio/generator-bundle, or with sensio/generator-bundle >= 2.5
 - Remove unusable `FakeGeometryType` class (`SELECT 1` never was a valid column type clause)

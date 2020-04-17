@@ -191,12 +191,14 @@ class RegistrationController extends UserControllerBase
        $mailer = $this->get('mailer');
        $text = $this->renderView('FOMUserBundle:Registration:email-body.text.twig', array("user" => $user));
        $html = $this->renderView('FOMUserBundle:Registration:email-body.html.twig', array("user" => $user));
-       $message = \Swift_Message::newInstance()
+       $message = new \Swift_Message();
+       $message
            ->setSubject($this->renderView('FOMUserBundle:Registration:email-subject.text.twig'))
            ->setFrom($mailFrom)
            ->setTo($user->getEmail())
            ->setBody($text)
-           ->addPart($html, 'text/html');
+           ->addPart($html, 'text/html')
+       ;
 
        $mailer->send($message);
     }
