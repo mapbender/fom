@@ -1,3 +1,6 @@
+## v3.2.15
+- Fix error creating user without entering anyhting in the password fields
+
 ## v3.2.14
 - Fix incompatibility with swiftmailer/swiftmailer 6 (registration / password reset)
 - Properly declare symfony/swiftmailer-bundle dependency
